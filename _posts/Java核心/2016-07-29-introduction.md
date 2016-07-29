@@ -2,8 +2,8 @@
 layout: post
 title: Java简介
 category: Java核心
-tags: Git
-keywords: 
+tags: Java Core
+keywords: 蓝桥 lanqiao java Java
 description: 
 ---
 
