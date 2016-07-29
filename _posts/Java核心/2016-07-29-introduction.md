@@ -1,3 +1,12 @@
+---
+layout: post
+title: Java简介
+category: Java核心
+tags: Git
+keywords: 
+description: 
+---
+
 ##Java 简介
   
 Java是由Sun Microsystems公司于1995年5月推出的Java面向对象程序设计语言和Java平台的总称。由James Gosling和同事们共同研发，并在1995年正式推出。
