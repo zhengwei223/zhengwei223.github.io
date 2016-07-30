@@ -19,8 +19,8 @@ url: http://lanqiao.org
 rss_url: /pages/atom.xml
 
 # gavatar头像及Favicon
-gavatar: /public/img/deer3.png
-favicon: /public/img/deer3.png
+gavatar: /public/img/蓝桥-图形@2x_24.png
+favicon: /public/img/蓝桥-图形@2x_24.png
 
 # google analytics 设置
 ga:
@@ -32,7 +32,7 @@ disqus:
   shortname: lanqiao
 
 # 主题设置，自动激活某个标签
-active: 技术
+active: Java核心
 
 # 首页除了最新文章外显示分类
 cates: 
