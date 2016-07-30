@@ -3,31 +3,31 @@ function nav_click(is_show) {
   if (is_show) {
     /* 显示左侧aside */
     $('.aside')
-      .addClass('visible-md visible-lg')
-      .removeClass('hidden-md hidden-lg')
+      .addClass('visible-md visible-lg visible-sm visible-xs')  
+      .removeClass('hidden-md hidden-lg hidden-sm hidden-xs')  
     /* 调整右侧内容 */
     $('.aside3')
-      .removeClass('col-md-13 col-lg-13')
-      .addClass('col-md-6 col-lg-6');
-    /* 调整文字内容格式 
+      .removeClass('col-md-13 col-lg-13')  
+      .addClass('col-md-6 col-lg-6');   //调整为半屏，如果在手机上因为aside会满屏，所以实际上右侧内容被隐藏了
+    /* 调整文字内容格式 */
     $('.aside3-content')
       .removeClass('col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2')
-      .addClass('col-md-13');
-	  */
+      .addClass('col-md-13');  //在显示菜单的情况下填满整行
+	  
   } else {
     /* 隐藏左侧aside */
     $('.aside')
-      .removeClass('visible-md visible-lg')
-      .addClass('hidden-md hidden-lg');
+      .removeClass('visible-md visible-lg visible-sm visible-xs')
+      .addClass('hidden-md hidden-lg hidden-sm hidden-xs');//隐藏左侧
     /* 右侧内容最大化 */
     $('.aside3')
       .removeClass('col-md-6 col-lg-6')
-      .addClass('col-md-13 col-lg-13');
-    /* 修改文字排版 
+      .addClass('col-md-13 col-lg-13');//右侧最大化
+    /* 修改文字排版 */
     $('.aside3-content')
       .removeClass('col-md-13')
       .addClass('col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2'); 
-	*/
+	
   }  /*col-md-offset-1 col-lg-offset-2*/
 }
 /* 控制文章章节列表按钮 */
@@ -45,10 +45,8 @@ $(document).ready(function() {
   /* 控制左侧 aside 的动作 */
   $("#nav_btn").on('click', function() {
     isClicked = $(this).data('clicked');
-	if(isClicked=='undefined'){
-		isClicked=true;  
-	}
-    nav_click(isClicked);
+
+    nav_click(!isClicked);
 
     $(this).data('clicked', !isClicked);
   });
@@ -80,6 +78,18 @@ $(document).ready(function() {
     });
   });
   contentEffects();
+
+  //文章目录超链接上的监听：隐藏该目录
+  $("#content_table div #nav div a").click(function(){
+    $("#content_btn").click();
+  });
+
+  //菜单文章超链接上的监听：隐藏菜单
+  $(".aside2 .list-group a,.list-group-item-lay ").click(function(){
+    $(".side1").removeClass("visible-xs visible-sm visible-md visible-lg");
+    $(".side1").addClass("hidden-xs hidden-sm hidden-md hidden-lg");
+  });
+  
 });
 function contentEffects(){
   //remove the asidebar

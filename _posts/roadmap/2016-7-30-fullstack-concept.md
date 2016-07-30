@@ -46,9 +46,11 @@ Web server只负责基本的消息的收发，不负责具体业务的处理，�
 
 因此，有时候我们也称web server为web容器(web container)——容纳handler(具体指JSP Servlet)的容器。
 
----
+------
+
 Java世界里面的web server主要有免费的tomcat和商业的weblogic、websphere等。[Tomcat](http://tomcat.apache.org/)是业界主流。
----
+
+-----
 
 既然web server已经有人实现了，现在的重点就是编程人员要实现也有处理程序，实现好了，“安装”到server即可。
 
@@ -79,7 +81,7 @@ Model就是上图中的DTO，俗称数据传输对象，它贯穿于多个层。
 
 不用框架也可以实现mvc，最典型的MVC就是JSP + servlet + javabean的模式。但有了框架更好。框架帮我们解决了很多问题，如数据绑定（含类型转换）、层次分割、标签、国际化支持等。
 
-#### [Struts](http://struts.apache.org/)
+#### Struts
 Struts的第一代产品曾统领java世界的mvc框架，升级到第二代后仍是主流，但有没落的趋势。
 
 ![](/public/img/roadmap/fullstack5.png)
@@ -191,7 +193,7 @@ SpringMVC3.0 Restful的风格终于回归了MVC框架的简单本质，对比之
 
 - 支持Restful风格。
 
-###视图模板
+### 视图模板
 Web网页视图要动态起来，都采用“模板”这种概念，即静态模板部分+动态数据填空部分。JSP就是典型的模板语言，俗称在HTML（模板）中写Java代码（动态），但是为了让JSP好维护、易阅读，通常不在JSP里面写Java代码，而是用el表达式、标签等形式来做动态数据填空。
 
 类似的有freemarker、velocity，作用是类似的，当下比较流行freemarker：FreeMarker是一个用Java语言编写的模板引擎，它基于模板来生成文本输出。FreeMarker与Web容器无关，即在Web运行时，它并不知道Servlet或HTTP。它不仅可以用作表现层的实现技术，而且还可以用于生成HTML，XML，JSP等文本。SpringMVC中可以无缝集成Freemarker。其优点：
@@ -208,7 +210,7 @@ Web网页视图要动态起来，都采用“模板”这种概念，即静态�
 
 - 使用表达式语言。
 
-#### 必知必会
+#### 注意
 
 要注意任何模板其背后都有一个引擎负责将其转换为html或别的文本，JSP虽然像HTML，但是浏览器并不会解析它（特别是其el及自定义标签部分），因为JSP不符合HTML标准。
 
