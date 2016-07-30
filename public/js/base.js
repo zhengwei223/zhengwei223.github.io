@@ -80,9 +80,9 @@ $(document).ready(function() {
   contentEffects();
 
   //文章目录超链接上的监听：隐藏该目录
-  $("#content_table div #nav div a").click(function(){
-    $("#content_btn").click();
-  });
+  // $("#content_table div #nav div a").click(function(){
+  //   $("#content_btn").click();
+  // });
 
   //菜单文章超链接上的监听：隐藏菜单
   $(".aside2 .list-group a,.list-group-item-lay ").click(function(){
@@ -96,7 +96,8 @@ function contentEffects(){
   //remove the asidebar
   $('.row-offcanvas').removeClass('active');
   if($("#nav").length > 0){
-    $("#content > h2").each(function(i) {
+    //只显式2级标题及以上
+    $("#content > h1,#content > h2").each(function(i) {
         var current = $(this);
         current.attr("id", "title" + i);
         tag = current.prop('tagName').substr(-1);
