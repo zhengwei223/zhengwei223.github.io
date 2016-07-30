@@ -11,7 +11,7 @@ importance: 1
 
 本文档旨在向读者介绍JavaEE全栈技术的概貌，分别介绍以下内容：
 
-![典型技全栈术模型](/public/roadmap/fullstack1.png)
+![典型技全栈术模型](/public/img/roadmap/fullstack1.png)
 
 ## 客户层
 客户层负责展现ui，用户交互，向web层发起请求（携带请求参数），Web层负责向客户层输出数据（整个html或者html片段，或者json，或者xml）。客户端主要有浏览器、**手机应用、其他移动设备、其他系统**。
