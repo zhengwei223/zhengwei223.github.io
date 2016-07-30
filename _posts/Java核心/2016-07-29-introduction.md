@@ -7,7 +7,7 @@ keywords: 蓝桥 lanqiao java Java
 description: 
 ---
 
-##Java 简介
+## Java 简介
   
 Java是由Sun Microsystems公司于1995年5月推出的Java面向对象程序设计语言和Java平台的总称。由James Gosling和同事们共同研发，并在1995年正式推出。
 
@@ -21,7 +21,8 @@ Java分为三个体系：
 
 
 2005年6月，JavaOne大会召开，SUN公司公开Java SE 6。此时，Java的各种版本已经更名以取消其中的数字"2"：J2EE更名为Java EE, J2SE更名为Java SE，J2ME更名为Java ME。
-##主要特性
+
+## 主要特性
 
 - Java语言是简单的：
 
@@ -57,7 +58,7 @@ Java分为三个体系：
 - Java语言是动态的：
 	Java语言的设计目标之一是适应于动态变化的环境。Java程序需要的类能够动态地被载入到运行环境，也可以通过网络来载入所需要的类。这也有利于软件的升级。另外，Java中的类有一个运行时刻的表示，能进行运行时刻的类型检查。
 
-##Java开发工具
+## Java开发工具
 Java语言尽量保证系统内存在1G以上，其他工具如下所示：
 
 - Linux 系统或者Windows 95/98/2000/XP，WIN 7/8系统

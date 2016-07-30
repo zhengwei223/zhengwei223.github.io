@@ -86,7 +86,9 @@ $(document).ready(function() {
 
   //菜单文章超链接上的监听：隐藏菜单
   $(".aside2 .list-group a,.list-group-item-lay ").click(function(){
-    $("#nav_btn").click();
+    /* 隐藏左侧aside */
+    nav_click(false);
+    
   });
   
 });
@@ -94,7 +96,7 @@ function contentEffects(){
   //remove the asidebar
   $('.row-offcanvas').removeClass('active');
   if($("#nav").length > 0){
-    $("#content > h2,#content > h3,#content > h4,#content > h5,#content > h6").each(function(i) {
+    $("#content > h2").each(function(i) {
         var current = $(this);
         current.attr("id", "title" + i);
         tag = current.prop('tagName').substr(-1);
