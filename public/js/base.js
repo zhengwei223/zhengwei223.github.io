@@ -88,7 +88,7 @@ $(document).ready(function() {
   $(".aside2 .list-group a,.list-group-item-lay ").click(function(){
     /* 隐藏左侧aside */
     nav_click(false);
-    
+    $("#nav_btn").data('clicked', false);
   });
   
 });

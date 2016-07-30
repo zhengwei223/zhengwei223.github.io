@@ -45,3 +45,28 @@ locals:
   about: 关于
   newest: 最新文章
   archive: 归档
+
+category_s:
+  - roadmap
+  - Java核心
+  - Java项目实践1
+  - 数据库
+  - 数据库项目实践
+  - web前端
+  - jQuery
+  - angularJs
+  - web前端项目实践   
+  - JavaWeb
+  - MyBatis
+  - Spring
+  - SpringMvc
+  - shiro  
+  - JavaEE项目实践1
+  - 工具
+
+
+
+
+
+
+
