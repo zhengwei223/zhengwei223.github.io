@@ -3,8 +3,10 @@ layout: post
 title: Shiro及安全基本概念
 category: shiro
 tags: shiro
-keywords: lanqiao shiro 蓝桥
+author: 郑未
+keywords: lanqiao 蓝桥 全栈 shiro 教程
 description: 
+importance: 1
 ---
 
 shiro是一个强大灵活的开源安全框架，可以干净利落的处理认证、授权、企业会话管理和加密。
