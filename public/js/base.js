@@ -10,9 +10,9 @@ function nav_click(is_show) {
       .removeClass('col-md-13 col-lg-13')  
       .addClass('col-md-6 col-lg-6');   //调整为半屏，如果在手机上因为aside会满屏，所以实际上右侧内容被隐藏了
     /* 调整文字内容格式 */
-    $('.aside3-content')
-      .removeClass('col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2')
-      .addClass('col-md-13');  //在显示菜单的情况下填满整行
+    // $('.aside3-content')
+    //   .removeClass('col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2')
+    //   .addClass('col-md-13');  //在显示菜单的情况下填满整行
 	  
   } else {
     /* 隐藏左侧aside */
@@ -24,11 +24,12 @@ function nav_click(is_show) {
       .removeClass('col-md-6 col-lg-6')
       .addClass('col-md-13 col-lg-13');//右侧最大化
     /* 修改文字排版 */
-    $('.aside3-content')
-      .removeClass('col-md-13')
-      .addClass('col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2'); 
+    // $('.aside3-content')
+    //   .removeClass('col-md-13')
+    //   .addClass('col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2'); 
 	
   }  /*col-md-offset-1 col-lg-offset-2*/
+  $("#nav_btn").data('clicked',is_show);
 }
 /* 控制文章章节列表按钮 */
 function content_click(is_show){
@@ -55,9 +56,6 @@ $(document).ready(function() {
     isClicked = $(this).data('clicked');
 
     content_click(!isClicked);
-
-    $(this).data('clicked',!isClicked);
-
   });
 
   $(document).pjax('.pjaxlink', '#pjax', { fragment: "#pjax", timeout: 10000 });
@@ -88,7 +86,6 @@ $(document).ready(function() {
   $(".aside2 .list-group a,.list-group-item-lay ").click(function(){
     /* 隐藏左侧aside */
     nav_click(false);
-    $("#nav_btn").data('clicked', false);
   });
   
 });
