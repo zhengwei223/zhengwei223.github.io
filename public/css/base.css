@@ -26,6 +26,7 @@ body, html {
   padding-right: 0px;
   text-align: center;
   /*box-shadow: inset -15px 0 20px -15px #77AEF4;*/
+  overflow-y:scroll;
 }
 .aside1 > .nav > li > a {
   padding-left: 0px;
@@ -82,7 +83,7 @@ body, html {
   overflow-y: auto;
   background-color: #fff;
   overflow-x: hidden;
-
+  overflow-y:scroll;
   /*background-image: url(/public/img/bg_lines1.jpg);*/
 }
 .aside3-title {
