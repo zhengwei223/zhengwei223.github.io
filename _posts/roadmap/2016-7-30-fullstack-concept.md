@@ -33,7 +33,9 @@ H5程序：有一套自己的ui及交互方式
 不确定是否有ui，不确定其技术。Web层只负责提供API，典型地返回json或者xml，对客户层的具体表现不知道。
 
 ## Web层
+
 ### JavaEE
+
 受[JavaEE规范](https://jcp.org/aboutJava/communityprocess/final/jsr316/index.html)约束。编程要使用[JavaEE-API](https://docs.oracle.com/javaee/7/api/)。
 
 ![](/public/img/fullstack/fullstack2.png)
@@ -65,17 +67,23 @@ Servlet中还有很多可以操作的对象，此处不赘述，参考[JavaEE-AP
 ### Web-MVC
 
 Mvc并不是JavaEE的标准，是一种编程思想，旨在划清视图逻辑和业务逻辑。在Servlet中可以直接生成html视图，但是这样就违背了mvc原则。按照mvc原则，Servlet不应该考虑视图怎么展现，它只提供数据即可。
+
 ![](/public/img/fullstack/fullstack3.png)
 
+
 #### Model是什么
+
 ![](/public/img/fullstack/fullstack4.png)
+
 Model就是上图中的DTO，俗称数据传输对象，它贯穿于多个层。
 
 不用框架也可以实现mvc，最典型的MVC就是JSP + servlet + javabean的模式。但有了框架更好。框架帮我们解决了很多问题，如数据绑定（含类型转换）、层次分割、标签、国际化支持等。
 
 #### [Struts](http://struts.apache.org/)
 Struts的第一代产品曾统领java世界的mvc框架，升级到第二代后仍是主流，但有没落的趋势。
+
 ![](/public/img/fullstack/fullstack5.png)
+
 一个请求在Struts2框架中的处理大概分为以下几个步骤:
 
 1. 客户端初始化一个指向Servlet容器（例如Tomcat）的请求
@@ -102,7 +110,9 @@ Struts的第一代产品曾统领java世界的mvc框架，升级到第二代后�
 依赖注入、AOP面向切面编程、Spring Mvc web应用程序和RESTful web service框架、对持久层的支持等等。
 
 这里我们先了解SpringMvc——Spring web mvc框架围绕**DispatcherServlet** 来工作，完成依据映射配置将请求分发到处理器（handler），解析视图、国际化与本地化、文件上传等工作。
+
 ![](/public/img/fullstack/fullstack6.png)
+
 
 **Spring工作流程描述**
 1. 用户向服务器发送请求，请求被Spring 前端控制Servelt DispatcherServlet捕获；
@@ -276,6 +286,7 @@ Web资源的安全必须考虑，通常保护资源的手段为认证（authenti
 业务层由于和业务相关，是属于项目核心部分，没有什么框架，但要注意两个问题①依赖②事务。
 
 ### 用spring完成di（dependency injection ）
+
 ![](/public/img/fullstack/fullstack7.png)
 
 典型地，handler依赖service完成业务，service依赖dao完成数据持久化操作，用di来解除耦合是有必要的，这已经成为一种事实上的标准。
@@ -319,6 +330,7 @@ iBatis最大的特点是，sql得编程人员自己写，框架帮你做连接�
 ### MyBatis and MyBatis-Spring
 
 ![](/public/img/fullstack/fullstack10.png)
+
 
 ![](/public/img/fullstack/fullstack11.png)
 

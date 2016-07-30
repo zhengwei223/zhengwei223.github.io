@@ -6,7 +6,7 @@ markdown: kramdown
 author: 
   name: Zheng Wei
   email: zhengwei@lanqiao.org
-  link: http://lanqiao.org
+  link: http://lanqiao2016.github.io
   weibo: 
   github: http://github.com/lanqiao2016
   music: http://site.douban.com/linanya
@@ -15,7 +15,7 @@ author:
 # 站点信息
 title: 蓝桥软件学院
 description: My personal blog
-url: http://lanqiao.org
+url: http://lanqiao2016.github.io
 rss_url: /pages/atom.xml
 
 # gavatar头像及Favicon
@@ -25,7 +25,7 @@ favicon: /public/img/蓝桥-图形@2x_24.png
 # google analytics 设置
 ga:
   id: UA-54262064-1 
-  url: lanqiao.org
+  url: lanqiao2016.github.io
 
 # disqus 设置
 disqus:
@@ -36,8 +36,8 @@ active: Java核心
 
 # 首页除了最新文章外显示分类
 cates: 
-  - Optimization
-  - LaTeX
+#  - Optimization
+#  - LaTeX
 
 # 中文本地化
 locals:
