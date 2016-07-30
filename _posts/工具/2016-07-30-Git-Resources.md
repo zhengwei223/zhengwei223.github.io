@@ -3,7 +3,7 @@ layout: post
 title: Git常用命令速查表
 category: 工具
 tags: Git
-author:郑未
+author: 郑未
 keywords: lanqiao 蓝桥 git 教程
 description: 
 ---
