@@ -1,9 +1,9 @@
 ---
 layout: post
 title: Git常用命令速查表
-category: 技术
+category: 工具
 tags: Git
-keywords: 
+keywords: lanqiao 蓝桥 git 教程
 description: 
 ---
 
