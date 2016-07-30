@@ -8,7 +8,7 @@ function nav_click(is_show) {
     /* 调整右侧内容 */
     $('.aside3')
       .removeClass('col-md-13 col-lg-13')
-      .addClass('col-md-13 col-lg-13');
+      .addClass('col-md-6 col-lg-6');
     /* 调整文字内容格式 */
     $('.aside3-content')
       .removeClass('col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2')
@@ -20,7 +20,7 @@ function nav_click(is_show) {
       .addClass('hidden-md hidden-lg');
     /* 右侧内容最大化 */
     $('.aside3')
-      .removeClass('col-md-13 col-lg-13')
+      .removeClass('col-md-6 col-lg-6')
       .addClass('col-md-13 col-lg-13');
     /* 修改文字排版 */
     $('.aside3-content')
@@ -32,6 +32,7 @@ function nav_click(is_show) {
 function content_click(is_show){
   if (is_show) {
     $('#content_table').show();
+	$('#content_table').css("overflow-y":"scroll");
     $('#content_btn i').removeClass('fa-plus').addClass('fa-minus');
   } else {
     $('#content_table').hide();
