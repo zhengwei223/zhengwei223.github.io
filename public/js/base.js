@@ -9,10 +9,11 @@ function nav_click(is_show) {
     $('.aside3')
       .removeClass('col-md-13 col-lg-13')
       .addClass('col-md-6 col-lg-6');
-    /* 调整文字内容格式 */
+    /* 调整文字内容格式 
     $('.aside3-content')
       .removeClass('col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2')
       .addClass('col-md-13');
+	  */
   } else {
     /* 隐藏左侧aside */
     $('.aside')
@@ -22,17 +23,17 @@ function nav_click(is_show) {
     $('.aside3')
       .removeClass('col-md-6 col-lg-6')
       .addClass('col-md-13 col-lg-13');
-    /* 修改文字排版 */
+    /* 修改文字排版 
     $('.aside3-content')
       .removeClass('col-md-13')
       .addClass('col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2'); 
+	*/
   }  /*col-md-offset-1 col-lg-offset-2*/
 }
 /* 控制文章章节列表按钮 */
 function content_click(is_show){
   if (is_show) {
     $('#content_table').show();
-	$('#content_table').css("overflow-y","scroll");
     $('#content_btn i').removeClass('fa-plus').addClass('fa-minus');
   } else {
     $('#content_table').hide();
@@ -44,7 +45,9 @@ $(document).ready(function() {
   /* 控制左侧 aside 的动作 */
   $("#nav_btn").on('click', function() {
     isClicked = $(this).data('clicked');
-
+	if(isClicked=='undefined'){
+		isClicked=true;  
+	}
     nav_click(isClicked);
 
     $(this).data('clicked', !isClicked);
