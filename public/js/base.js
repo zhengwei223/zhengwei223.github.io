@@ -86,8 +86,7 @@ $(document).ready(function() {
 
   //菜单文章超链接上的监听：隐藏菜单
   $(".aside2 .list-group a,.list-group-item-lay ").click(function(){
-    $(".side1").removeClass("visible-xs visible-sm visible-md visible-lg");
-    $(".side1").addClass("hidden-xs hidden-sm hidden-md hidden-lg");
+    $("#nav_btn").click();
   });
   
 });
