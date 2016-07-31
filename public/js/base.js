@@ -49,7 +49,7 @@ $(document).ready(function() {
 
     nav_click(!isClicked);
 
-    $(this).data('clicked', !isClicked);
+    // $(this).data('clicked', !isClicked);
   });
 
   $("#content_btn").on('click', function(){
@@ -83,10 +83,14 @@ $(document).ready(function() {
   // });
 
   //菜单文章超链接上的监听：隐藏菜单
-  $(".aside2 .list-group a,.list-group-item-lay ").click(function(){
-    /* 隐藏左侧aside */
-    nav_click(false);
-  });
+  // $(".aside2 .list-group a,.list-group-item-lay ").click(function(){
+  //   /* 隐藏左侧aside */
+  //   if(window.matchMedia("@media screen and (min-width: 992px)").matches){
+  //     nav_click(false); 
+  //   }else{
+  //      alert("sm 和 xs");
+  //   }  
+  // });
   
 });
 function contentEffects(){
