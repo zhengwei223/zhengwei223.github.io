@@ -50,7 +50,8 @@ locals:
   advanced: 进阶
   project: 项目
   frontiers: 前沿
-
+  interview: 面试
+  
 cates_basic:
     - Java8编程语言
     - JDBC入门教程

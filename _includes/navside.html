@@ -18,6 +18,8 @@
         <li><a href="#project" data-toggle="tab">{{ site.locals.project }}</a></li>
         <!-- 前言 -->
         <li><a href="#frontiers" data-toggle="tab">{{ site.locals.frontiers }}</a></li>
+        <!-- interview -->
+        <li><a href="#interview" data-toggle="tab">{{ site.locals.interview }}</a></li>
 
         <!-- 标签 -->
         <li><a href="#tags" data-toggle="tab">{{ site.locals.tags }}</a></li>  
@@ -140,7 +142,14 @@
             </div>
           </div>
           <!-- frontiers end -->
-
+          <!-- 面试  -->
+          <div class="tab-pane" id="interview">
+            <div class="list-group">
+              {% for post in site.categories.interview %}
+                <a href="{{ post.url }}" class="list-group-item-lay pjaxlink">{{post.title}}</a>
+              {% endfor %}
+            </div>
+          </div> 
           <!-- tags begin  -->
           <div class="tab-pane" id="tags">
             <div class="panel-group" id="accordion_tags">
