@@ -72,6 +72,7 @@ cates_advanced:
     - 设计模式
     - clean code
     - guava解析
+    - 缓存
     - apache-commons包解析
     - 数据库性能调优
     - 存储过程
@@ -79,14 +80,17 @@ cates_advanced:
     - 系统安全与Shiro框架教程
     - 框架源码解读系列
 cates_project:
-    - JavaSe实现五子棋
+    - JavaSe实现五子棋游戏
     - JavaSe实现植物大战僵尸
     - JavaSe实现记事本
     - BootStrap+Jekyll搭建个人博客系统
+    - H5游戏实战项目
     - Servlet实现综合类购物网站及后台管理系统
     - Servlet实现OA系统
     - SSM+Shiro实现基于角色的权限管理通用模块  
+    - JavaEE全栈式项目化工程实践
     - SSM框架实现蓝桥教学教务管理系统
+
 cates_frontiers:
     - 大数据
     - 物联网
