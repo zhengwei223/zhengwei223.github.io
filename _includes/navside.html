@@ -46,7 +46,7 @@
           <div class="tab-pane" id="roadmap">
             <div class="list-group">
               {% for post in site.categories.roadmap %}
-                <a href="{{ post.url }}" class="list-group-item-lay pjaxlink">{{post.title}}</a>
+                <a href="{{ post.url }}" class="list-group-item-lay pjaxlink tab_href">{{post.title}}</a>
               {% endfor %}
             </div>
           </div> 
@@ -63,7 +63,7 @@
                   </div>
                   <div id="{{ cate2 }}" class="panel-collapse collapse">
                     {% for post in site.categories[cate2] reversed%}
-                      <a  href='{{ post.url }}' class="list-group-item pjaxlink">
+                      <a  href='{{ post.url }}' class="list-group-item pjaxlink box_href">
                         {{post.title}}
                       </a>
                     {% endfor %}
@@ -86,7 +86,7 @@
                   </div>
                   <div id="{{ cate2 }}" class="panel-collapse collapse">
                     {% for post in site.categories[cate2] reversed %}
-                      <a  href='{{ post.url }}' class="list-group-item pjaxlink">
+                      <a  href='{{ post.url }}' class="list-group-item pjaxlink box_href">
                         {{post.title}}
                       </a>
                     {% endfor %}
@@ -109,7 +109,7 @@
                   </div>
                   <div id="{{ cate2 }}" class="panel-collapse collapse">
                     {% for post in site.categories[cate2] %}
-                      <a  href='{{ post.url }}' class="list-group-item pjaxlink">
+                      <a  href='{{ post.url }}' class="list-group-item pjaxlink box_href">
                         {{post.title}}
                       </a>
                     {% endfor %}
@@ -132,7 +132,7 @@
                   </div>
                   <div id="{{ cate2 }}" class="panel-collapse collapse">
                     {% for post in site.categories[cate2] %}
-                      <a  href='{{ post.url }}' class="list-group-item pjaxlink">
+                      <a  href='{{ post.url }}' class="list-group-item pjaxlink box_href">
                         {{post.title}}
                       </a>
                     {% endfor %}
@@ -146,7 +146,7 @@
           <div class="tab-pane" id="interview">
             <div class="list-group">
               {% for post in site.categories.interview %}
-                <a href="{{ post.url }}" class="list-group-item-lay pjaxlink">{{post.title}}</a>
+                <a href="{{ post.url }}" class="list-group-item-lay pjaxlink tab_href">{{post.title}}</a>
               {% endfor %}
             </div>
           </div> 
@@ -163,7 +163,7 @@
                   </div>
                   <div id="{{ tag[0] }}" class="panel-collapse collapse">
                     {% for post in tag[1] %}
-                      <a  href='{{ post.url }}' class="list-group-item pjaxlink">
+                      <a  href='{{ post.url }}' class="list-group-item pjaxlink box_href">
                         {{post.title}}
                       </a>
                     {% endfor %}

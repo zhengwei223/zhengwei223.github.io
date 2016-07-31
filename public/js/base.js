@@ -86,13 +86,15 @@ $(document).ready(function() {
   // $("#content_table div #nav div a").click(function(){
   //   $("#content_btn").click();
   // });
-
+  $(".aside1 .pjaxlink ").click(function(){
+    $('#nav_btn').click();
+  });
   //菜单文章超链接上的监听：隐藏菜单
-  $(".aside2 .list-group a,.list-group-item-lay ").click(function(){
+  $(".aside2 .tab_href ").click(function(){
     $('#nav_btn').click();
   });
   //文章超链接
-  $(".aside2 .collapse a,.list-group-item,.pjaxlink ").click(function(){
+  $(".aside2 .box_href ").click(function(){
     $('#nav_btn').click();
   });
   
