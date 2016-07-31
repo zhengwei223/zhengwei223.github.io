@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Java简介
+title: 认识Java
 category: Java8编程语言
 tags: Java 入门
 keywords: 蓝桥 lanqiao 教程 java Java8
@@ -9,71 +9,69 @@ author: 付天有
 importance: 4
 ---
 
-## Java 简介
-  
-Java是由Sun Microsystems公司于1995年5月推出的Java面向对象程序设计语言和Java平台的总称。由James Gosling和同事们共同研发，并在1995年正式推出。
+# 认识Java
+本文将介绍 Java 体系和 Java 的核心概念：JVM、JDK、JRE。同时我们会学到如何在 windows 系统中搭建 Java 开发环境，以及如何利用第三方工具进行 Java 程序的开发。并且在这一章里我们会先接触 Java 的第一个程序 Hello World！让我们一起进入 Java 语言的神奇世界吧！
 
-Java分为三个体系：
+## Java 简介 [了解]
+Java 是一种面向对象的语言。于1995年，由 Sun 公司出品。虽然 Java 仅仅只产生了短短20年，但是它的发展是非常迅速的。在2009年4月20号，ORACLE 收购了 Sun 公司，也就是说 Java 这门语言现在归属于 ORACLE 这家公司门下。
+
+在 Java 这门语言体系当中，最基础的部分就是 Java SE 部分，Java 的标准版本。它包括Java最基础的一些结构，包括面向对象的一些特性等等，同时它也是 Java 技术基础和核心。在 Java SE 的基础之上，又分为了 Java EE（Java 的企业版），应用于大型企业级应用的开发。Java ME 主要用于嵌入式开发。
+
+Java的三个体系：
 
 - JavaSE（J2SE）（Java2 Platform Standard Edition，java平台标准版）
 
 - JavaEE(J2EE)(Java 2 Platform,Enterprise Edition，java平台企业版)
 
-- JavaME(J2ME)(Java 2 Platform Micro Edition，java平台微型版)。
+- JavaME(J2ME)(Java 2 Platform Micro Edition，java平台微型版)
 
+![](/public/img/Java8/1.1.jpeg)
 
-2005年6月，JavaOne大会召开，SUN公司公开Java SE 6。此时，Java的各种版本已经更名以取消其中的数字"2"：J2EE更名为Java EE, J2SE更名为Java SE，J2ME更名为Java ME。
+## Java语言的特点[了解]
+- 简洁有效
+- 可移植性
+- 面向对象
+- 解释型
+- 适合分布式计算
+- 拥有较好的性能
+- 健壮、防患于未然
+- 具有多线程处理能力
+- 具有较高的安全性
+- 是一种动态语言
+- 是一种中性结构
 
-## 主要特性
+不详细解释，这些特性最好是学完java之后再回过头来深入探索和总结。
 
-- Java语言是简单的：
+## 基本工作原理【掌握】
+在Java编程语言中，所有源码最初都用普通文本书写，并保存在后缀为.java的文本文件中。
 
-	Java语言的语法与C语言和C++语言很接近，使得大多数程序员很容易学习和使用。另一方面，Java丢弃了C++中很少使用的、很难理解的、令人迷惑的那些特性，如操作符重载、多继承、自动的强制类型转换。特别地，Java语言不使用指针，而是引用。并提供了自动的废料收集，使得程序员不必为内存管理而担忧。
+进一步，源码文件被编译为.class文件——使用“编译器（Java Compiler）”。
 
-- Java语言是面向对象的：
-	Java语言提供类、接口和继承等原语，为了简单起见，只支持类之间的单继承，但支持接口之间的多继承，并支持类与接口之间的实现机制（关键字为implements）。Java语言全面支持动态绑定，而C++语言只对虚函数使用动态绑定。总之，Java语言是一个纯的面向对象程序设计语言。
+.class文件并不能被处理器（CPU）直接处理——它是java虚拟机（JVM）的机器语言。
 
-- Java语言是分布式的：
-	Java语言支持Internet应用的开发，在基本的Java应用编程接口中有一个网络应用编程接口（java net），它提供了用于网络应用编程的类库，包括URL、URLConnection、Socket、ServerSocket等。Java的RMI（远程方法激活）机制也是开发分布式应用的重要手段。
+Java需要启动一个JVM实例来装载和运行.class文件中的字节码。
 
-- Java语言是健壮的：
-	Java的强类型机制、异常处理、垃圾的自动收集等是Java程序健壮性的重要保证。对指针的丢弃是Java的明智选择。Java的安全检查机制使得Java更具健壮性。
+![](/public/img/Java8/1.2.gif)
 
-- Java语言是安全的：
-	Java通常被用在网络环境中，为此，Java提供了一个安全机制以防恶意代码的攻击。除了Java语言具有的许多安全特性以外，Java对通过网络下载的类具有一个安全防范机制（类ClassLoader），如分配不同的名字空间以防替代本地的同名类、字节代码检查，并提供安全管理机制（类SecurityManager）让Java应用设置安全哨兵。
+因为虚拟机在不同操作系统上有不同的版本，所以.class文件可以在不同操作系统平台上被解释执行，换句话说，通过虚拟机同一个应用程序可以在不同的操作系统平台上运行，如下图所示：
 
-- Java语言是体系结构中立的：
-	Java程序（后缀为java的文件）在Java平台上被编译为体系结构中立的字节码格式（后缀为class的文件），然后可以在实现这个Java平台的任何系统中运行。这种途径适合于异构的网络环境和软件的分发。
+![](/public/img/Java8/1.3.gif)
 
-- Java语言是可移植的：
-	这种可移植性来源于体系结构中立性，另外，Java还严格规定了各个基本数据类型的长度。Java系统本身也具有很强的可移植性，Java编译器是用Java实现的，Java的运行环境是用ANSI C实现的。
+## Java平台（Java Platform）
+Java平台是只有软件的平台，它运行在硬件平台之上。包含两部分内容：
 
-- Java语言是解释型的：
-	如前所述，Java程序在Java平台上被编译为字节码格式，然后可以在实现这个Java平台的任何系统中运行。在运行时，Java平台中的Java解释器对这些字节码进行解释执行，执行过程中需要的类在联接阶段被载入到运行环境中。
+- Java虚拟机
+- Java API（application Programming Interface）
 
-- Java是高性能的：
-	与那些解释型的高级脚本语言相比，Java的确是高性能的。事实上，Java的运行速度随着JIT(Just-In-Time）编译器技术的发展越来越接近于C++。
+虚拟机的作用，前面有简单介绍；
+API是一组庞大的构建好的组件的集合，它提供基础的、非常有用的功能，可以被应用程序直接使用。在Java中，这些组件是一个个的类（.class），他们按相关性被划分到不同的包（package）中。
 
-- Java语言是多线程的：
-	在Java语言中，线程是一种特殊的对象，它必须由Thread类或其子（孙）类来创建。通常有两种方法来创建线程：其一，使用型构为Thread(Runnable)的构造子将一个实现了Runnable接口的对象包装成一个线程，其二，从Thread类派生出子类并重写run方法，使用该子类创建的对象即为线程。值得注意的是Thread类已经实现了Runnable接口，因此，任何一个线程均有它的run方法，而run方法中包含了线程所要运行的代码。线程的活动由一组方法来控制。Java语言支持多个线程的同时执行，并提供多线程之间的同步机制（关键字为synchronized）。
+![](/public/img/Java8/1.4.gif)
 
-- Java语言是动态的：
-	Java语言的设计目标之一是适应于动态变化的环境。Java程序需要的类能够动态地被载入到运行环境，也可以通过网络来载入所需要的类。这也有利于软件的升级。另外，Java中的类有一个运行时刻的表示，能进行运行时刻的类型检查。
+## JDK、JRE与JVM
+**JDK** 叫 Java 开发工具包，基本功能是编译Java源码，对应命令为javac
+**JRE** 叫 Java 运行环境，基本功能是启动虚拟机，对应命令为java
+**JVM** 叫 Java 虚拟机，是运行java程序的程序
 
-## Java开发工具
-Java语言尽量保证系统内存在1G以上，其他工具如下所示：
+以上三部分都可以通过安装JDK一次性获得。
 
-- Linux 系统或者Windows 95/98/2000/XP，WIN 7/8系统
-Java JDK 7
-
-- Notepad编辑器或者其他编辑器。
-
-- IDE：Eclipse
-
-安装好以上的工具后，我们就可以输出Java的第一个程序"Hello World！"
-
-    public class HelloWorld {
-    	public static void main(String[] args) {
-       		System.out.println("Hello World");
-      	}
-    }
