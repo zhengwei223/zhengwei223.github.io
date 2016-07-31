@@ -7,6 +7,7 @@ keywords: 蓝桥 lanqiao 教程 java Java8
 description: 
 author: 付天有
 importance: 4
+order: 1
 ---
 
 # 认识Java

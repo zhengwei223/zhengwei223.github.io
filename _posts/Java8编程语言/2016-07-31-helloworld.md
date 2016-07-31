@@ -7,6 +7,7 @@ keywords: 蓝桥 lanqiao 教程 java Java8 开发环境
 description: 
 author: 付天有
 importance: 4
+order: 3
 ---
 
 # 第一个Java应用程序：HelloWorld

@@ -60,7 +60,7 @@
                     </h4>
                   </div>
                   <div id="{{ cate2 }}" class="panel-collapse collapse">
-                    {% for post in site.categories[cate2] %}
+                    {% for post in site.categories[cate2] reversed%}
                       <a  href='{{ post.url }}' class="list-group-item pjaxlink">
                         {{post.title}}
                       </a>
@@ -83,7 +83,7 @@
                     </h4>
                   </div>
                   <div id="{{ cate2 }}" class="panel-collapse collapse">
-                    {% for post in site.categories[cate2] %}
+                    {% for post in site.categories[cate2] reversed %}
                       <a  href='{{ post.url }}' class="list-group-item pjaxlink">
                         {{post.title}}
                       </a>

@@ -7,6 +7,7 @@ keywords: 蓝桥 lanqiao 教程 java Java8 开发环境
 description: 
 author: 付天有
 importance: 4
+order: 2
 ---
 
 # windows上搭建Java开发环境
