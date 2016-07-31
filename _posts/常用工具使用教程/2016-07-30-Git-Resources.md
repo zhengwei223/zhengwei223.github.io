@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Git常用命令速查表
-category: 工具
+category: 常用工具使用教程
 tags: Git
 author: 郑未
-keywords: lanqiao 蓝桥 全栈 git 教程
+keywords: lanqiao 蓝桥 全栈  教程 git
 description: 
 importance: 2
 ---

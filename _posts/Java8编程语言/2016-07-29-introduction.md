@@ -1,10 +1,12 @@
 ---
 layout: post
 title: Java简介
-category: Java核心
-tags: Java Core
-keywords: 蓝桥 lanqiao java Java
+category: Java8编程语言
+tags: Java 入门
+keywords: 蓝桥 lanqiao 教程 java Java8
 description: 
+author: 付天有
+importance: 4
 ---
 
 ## Java 简介

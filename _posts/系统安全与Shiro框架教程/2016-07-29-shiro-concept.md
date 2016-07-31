@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Shiro及安全基本概念
-category: shiro
-tags: shiro
+category: 系统安全与Shiro框架教程
+tags: shiro 安全
 author: 郑未
-keywords: lanqiao 蓝桥 全栈 shiro 教程
+keywords: lanqiao 蓝桥 全栈 教程 shiro 
 description: 
 importance: 1
 ---
