@@ -43,7 +43,7 @@ function content_click(is_show){
 }
 
 $(document).ready(function() {
-  /* 控制左侧 aside 的动作 */
+  /* 导航菜单按钮监听事件，控制左侧 aside 的动作 */
   $("#nav_btn").on('click', function() {
     isClicked = $(this).data('clicked');
 
@@ -51,7 +51,7 @@ $(document).ready(function() {
 
     // $(this).data('clicked', !isClicked);
   });
-
+  //toc监听事件，toggle content_table及改变按钮样式
   $("#content_btn").on('click', function(){
     isClicked = $(this).data('clicked');
     content_click(!isClicked);
@@ -86,25 +86,25 @@ $(document).ready(function() {
   // $("#content_table div #nav div a").click(function(){
   //   $("#content_btn").click();
   // });
+  //侧边栏的直接链接，隐藏菜单
   $(".aside1 .pjaxlink ").click(function(){
     $('#nav_btn').click();
   });
-  //菜单文章超链接上的监听：隐藏菜单
+  //文章超链接上的监听：隐藏菜单
   $(".aside2 .tab_href ").click(function(){
     $('#nav_btn').click();
   });
-  //文章超链接
+  //文章超链接，隐藏左侧菜单
   $(".aside2 .box_href ").click(function(){
     $('#nav_btn').click();
   });
   
-
-    /* For zebra striping */
-    $("table tr:nth-child(odd)").addClass("odd-row");
-    /* For cell text alignment */
-    $("table td:first-child, table th:first-child").addClass("first");
-    /* For removing the last border */
-    $("table td:last-child, table th:last-child").addClass("last");
+  /* For zebra striping */
+  $("table tr:nth-child(odd)").addClass("odd-row");
+  /* For cell text alignment */
+  $("table td:first-child, table th:first-child").addClass("first");
+  /* For removing the last border */
+  $("table td:last-child, table th:last-child").addClass("last");
 });
 
 //生成table of content
@@ -128,3 +128,4 @@ function contentEffects(){
     $('#content_btn').hide();
   }
 }
+//生成table of content  end
