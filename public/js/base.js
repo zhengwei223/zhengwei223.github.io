@@ -111,9 +111,10 @@ $(document).ready(function() {
 function contentEffects(){
   //remove the asidebar
   $('.row-offcanvas').removeClass('active');
-  if($("#nav").length > 0){
+  var titles = $("#content > h1,#content > h2");
+  if($("#nav").length > 0 && titles.length>0){
     //只显式2级标题及以上
-    $("#content > h1,#content > h2").each(function(i) {
+    titles.each(function(i) {
         var current = $(this);
         current.attr("id", "title" + i);
         tag = current.prop('tagName').substr(-1);
