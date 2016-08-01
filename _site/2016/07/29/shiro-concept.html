@@ -1,0 +1,1245 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+<title>Shiro及安全基本概念 | 蓝桥软件学院</title>
+<meta name="author" content="郑未">
+
+  <meta name="keywords" content="lanqiao 蓝桥 全栈 教程 shiro">
+
+
+<link rel="shortcut icon" href="/public/img/蓝桥-图形@2x_24.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/public/css/bootstrap.css">
+<link rel="stylesheet" href="/public/css/font-awesome.css">
+<link rel="stylesheet" href="/public/js/prettify/prettify.css">
+<link rel="stylesheet" href="/public/css/base.css">
+
+<link href="/pages/atom.xml" rel="alternate" title="蓝桥软件学院" type="application/atom+xml">
+<script type="text/javascript" src="/public/js/jquery.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <!-- 在pc上默认不显示导航菜单 -->
+<div class="col-md-4 col-lg-4 col-sm-13 col-xs-13 aside hidden-md hidden-lg hidden-sm hidden-xs">
+  <div class="row">
+    <!-- 总分类 -->
+    <div class="col-md-2 col-xs-2 aside1">
+      <br>
+      <a class="pjaxlink" href="/"><img src="/public/img/蓝桥-图形@2x_24.png" class="img-ronuded avatar" style="border-width:0px; border-color:#000"></a>
+      <br><br>
+      <!-- 关联aside2面板 -->
+      <ul class="nav nav-pills nav-stacked">
+        <!-- roadmap 路线图 -->
+        <li><a href="#roadmap" data-toggle="tab">路线</a></li>
+        <!-- 基础课 -->
+        <li><a href="#basic" data-toggle="tab">基础</a></li>
+        <!-- 进阶课 -->
+        <li><a href="#advanced" data-toggle="tab">进阶</a></li>
+        <!-- 项目课 -->
+        <li><a href="#project" data-toggle="tab">项目</a></li>
+        <!-- 前言 -->
+        <li><a href="#frontiers" data-toggle="tab">前沿</a></li>
+        <!-- interview -->
+        <li><a href="#interview" data-toggle="tab">面试</a></li>
+
+        <!-- 标签 -->
+        <li><a href="#tags" data-toggle="tab">标签</a></li>  
+        <!-- 归档 -->
+        <li><a class="pjaxlink" href="/pages/archive.html">归档</a></li>
+        <!-- 关于 -->
+        <li><a class="pjaxlink" href="/pages/about.html">关于</a></li>  
+      </ul>
+    </div>  
+
+    <div class="col-md-10 col-xs-10 aside2">
+      <div class="row">
+        <div class="tab-content"> 
+          <!-- roadmap  -->
+          <div class="tab-pane" id="roadmap">
+            <div class="list-group">
+              
+                <a href="/2016/07/30/fullstack-concept.html" class="list-group-item-lay pjaxlink tab_href">JavaEE全栈技术概念手册</a>
+              
+            </div>
+          </div> 
+          <!-- basic begin  -->
+          <div class="tab-pane" id="basic">
+            <div class="panel-group" id="accordion_basic">
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#Java8编程语言">Java8编程语言</a>
+                      <span class="badge pull-right">4</span>
+                    </h4>
+                  </div>
+                  <div id="Java8编程语言" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/29/introduction.html' class="list-group-item pjaxlink box_href">
+                        认识Java
+                      </a>
+                    
+                      <a  href='/2016/07/30/windows-install.html' class="list-group-item pjaxlink box_href">
+                        windows上搭建Java开发环境
+                      </a>
+                    
+                      <a  href='/2016/07/31/helloworld.html' class="list-group-item pjaxlink box_href">
+                        第一个Java应用程序
+                      </a>
+                    
+                      <a  href='/2016/08/01/grammar.html' class="list-group-item pjaxlink box_href">
+                        第一个Java应用程序
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#JDBC入门教程">JDBC入门教程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="JDBC入门教程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#JDK核心API">JDK核心API</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="JDK核心API" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#HTML入门教程">HTML入门教程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="HTML入门教程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#jQuery基础教程">jQuery基础教程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="jQuery基础教程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#jQuery-easyui基础教程">jQuery-easyui基础教程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="jQuery-easyui基础教程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#H5入门教程">H5入门教程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="H5入门教程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#数据库入门教程">数据库入门教程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="数据库入门教程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#JSP、Servlet编程">JSP、Servlet编程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="JSP、Servlet编程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#Spring框架教程">Spring框架教程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="Spring框架教程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#SpringMVC框架教程">SpringMVC框架教程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="SpringMVC框架教程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#MyBatis框架教程">MyBatis框架教程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="MyBatis框架教程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#安卓入门教程">安卓入门教程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="安卓入门教程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#常用工具使用教程">常用工具使用教程</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="常用工具使用教程" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/30/Git-Resources.html' class="list-group-item pjaxlink box_href">
+                        Git常用命令速查表
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+          <!-- basic end -->
+          <!-- advanced begin  -->
+          <div class="tab-pane" id="advanced">
+            <div class="panel-group" id="accordion_advanced">
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#数据结构与算法">数据结构与算法</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="数据结构与算法" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#设计模式">设计模式</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="设计模式" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#clean code">clean code</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="clean code" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#guava解析">guava解析</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="guava解析" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#缓存">缓存</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="缓存" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#apache-commons包解析">apache-commons包解析</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="apache-commons包解析" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#数据库性能调优">数据库性能调优</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="数据库性能调优" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#存储过程">存储过程</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="存储过程" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#JVM性能调优">JVM性能调优</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="JVM性能调优" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#系统安全与Shiro框架教程">系统安全与Shiro框架教程</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="系统安全与Shiro框架教程" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/29/shiro-concept.html' class="list-group-item pjaxlink box_href">
+                        Shiro及安全基本概念
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#框架源码解读系列">框架源码解读系列</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="框架源码解读系列" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+          <!-- advanced end -->
+          <!-- project begin  -->
+          <div class="tab-pane" id="project">
+            <div class="panel-group" id="accordion_project">
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#JavaSe实现五子棋游戏">JavaSe实现五子棋游戏</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="JavaSe实现五子棋游戏" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#JavaSe实现植物大战僵尸">JavaSe实现植物大战僵尸</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="JavaSe实现植物大战僵尸" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#JavaSe实现记事本">JavaSe实现记事本</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="JavaSe实现记事本" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#BootStrap+Jekyll搭建个人博客系统">BootStrap+Jekyll搭建个人博客系统</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="BootStrap+Jekyll搭建个人博客系统" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#H5游戏实战项目">H5游戏实战项目</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="H5游戏实战项目" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#Servlet实现综合类购物网站及后台管理系统">Servlet实现综合类购物网站及后台管理系统</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="Servlet实现综合类购物网站及后台管理系统" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#Servlet实现OA系统">Servlet实现OA系统</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="Servlet实现OA系统" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#SSM+Shiro实现基于角色的权限管理通用模块">SSM+Shiro实现基于角色的权限管理通用模块</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="SSM+Shiro实现基于角色的权限管理通用模块" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#JavaEE全栈式项目化工程实践概述">JavaEE全栈式项目化工程实践概述</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="JavaEE全栈式项目化工程实践概述" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/introduction.html' class="list-group-item pjaxlink box_href">
+                        课程简介
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#SSM框架实现蓝桥教学教务管理系统">SSM框架实现蓝桥教学教务管理系统</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="SSM框架实现蓝桥教学教务管理系统" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+          <!-- project end -->
+          <!-- frontiers begin  -->
+          <div class="tab-pane" id="frontiers">
+            <div class="panel-group" id="accordion_frontiers">
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_frontiers" href="#大数据">大数据</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="大数据" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_frontiers" href="#物联网">物联网</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="物联网" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_frontiers" href="#云计算">云计算</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="云计算" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_frontiers" href="#人工智能">人工智能</a>
+                      <span class="badge pull-right"></span>
+                    </h4>
+                  </div>
+                  <div id="人工智能" class="panel-collapse collapse">
+                    
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+          <!-- frontiers end -->
+          <!-- 面试  begin-->
+          <div class="tab-pane" id="interview">
+            <div class="panel-group" id="accordion_interview">
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_interview" href="#JavaEE面试">JavaEE面试</a>
+                      <span class="badge pull-right">9</span>
+                    </h4>
+                  </div>
+                  <div id="JavaEE面试" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/31/interview1-java.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Java基础
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview2-webfront.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Web前端
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview3-jQuery.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之jQuery
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview4-Servlet.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Servlet&JSP
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview5-db.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之数据库
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview6-tools.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之工具
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview7-spring.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Spring
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview8-SpringMVC.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之SpringMVC
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview9-persist.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之持久层
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+          </div> 
+          <!-- 面试  end-->
+          <!-- tags begin  -->
+          <div class="tab-pane" id="tags">
+            <div class="panel-group" id="accordion_tags">
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#Java">Java</a>
+                      <span class="badge pull-right">6</span>
+                    </h4>
+                  </div>
+                  <div id="Java" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/29/introduction.html' class="list-group-item pjaxlink box_href">
+                        认识Java
+                      </a>
+                    
+                      <a  href='/2016/07/30/windows-install.html' class="list-group-item pjaxlink box_href">
+                        windows上搭建Java开发环境
+                      </a>
+                    
+                      <a  href='/2016/07/31/helloworld.html' class="list-group-item pjaxlink box_href">
+                        第一个Java应用程序
+                      </a>
+                    
+                      <a  href='/2016/07/31/interview1-java.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Java基础
+                      </a>
+                    
+                      <a  href='/2016/08/01/grammar.html' class="list-group-item pjaxlink box_href">
+                        第一个Java应用程序
+                      </a>
+                    
+                      <a  href='/2016/08/01/introduction.html' class="list-group-item pjaxlink box_href">
+                        课程简介
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#入门">入门</a>
+                      <span class="badge pull-right">4</span>
+                    </h4>
+                  </div>
+                  <div id="入门" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/29/introduction.html' class="list-group-item pjaxlink box_href">
+                        认识Java
+                      </a>
+                    
+                      <a  href='/2016/07/30/windows-install.html' class="list-group-item pjaxlink box_href">
+                        windows上搭建Java开发环境
+                      </a>
+                    
+                      <a  href='/2016/07/31/helloworld.html' class="list-group-item pjaxlink box_href">
+                        第一个Java应用程序
+                      </a>
+                    
+                      <a  href='/2016/08/01/grammar.html' class="list-group-item pjaxlink box_href">
+                        第一个Java应用程序
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#shiro">shiro</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="shiro" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/29/shiro-concept.html' class="list-group-item pjaxlink box_href">
+                        Shiro及安全基本概念
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#安全">安全</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="安全" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/29/shiro-concept.html' class="list-group-item pjaxlink box_href">
+                        Shiro及安全基本概念
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#概念">概念</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="概念" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/30/fullstack-concept.html' class="list-group-item pjaxlink box_href">
+                        JavaEE全栈技术概念手册
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#路线图">路线图</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="路线图" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/30/fullstack-concept.html' class="list-group-item pjaxlink box_href">
+                        JavaEE全栈技术概念手册
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#roadmap">roadmap</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="roadmap" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/30/fullstack-concept.html' class="list-group-item pjaxlink box_href">
+                        JavaEE全栈技术概念手册
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#Git">Git</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="Git" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/30/Git-Resources.html' class="list-group-item pjaxlink box_href">
+                        Git常用命令速查表
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#面试">面试</a>
+                      <span class="badge pull-right">9</span>
+                    </h4>
+                  </div>
+                  <div id="面试" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/07/31/interview1-java.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Java基础
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview2-webfront.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Web前端
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview3-jQuery.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之jQuery
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview4-Servlet.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Servlet&JSP
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview5-db.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之数据库
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview6-tools.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之工具
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview7-spring.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Spring
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview8-SpringMVC.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之SpringMVC
+                      </a>
+                    
+                      <a  href='/2016/08/01/interview9-persist.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之持久层
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#全栈式">全栈式</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="全栈式" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/introduction.html' class="list-group-item pjaxlink box_href">
+                        课程简介
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#项目">项目</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="项目" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/introduction.html' class="list-group-item pjaxlink box_href">
+                        课程简介
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#工程">工程</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="工程" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/introduction.html' class="list-group-item pjaxlink box_href">
+                        课程简介
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#web前端">web前端</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="web前端" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/interview2-webfront.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Web前端
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#jQuery">jQuery</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="jQuery" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/interview3-jQuery.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之jQuery
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#Servlet">Servlet</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="Servlet" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/interview4-Servlet.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Servlet&JSP
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#JSP">JSP</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="JSP" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/interview4-Servlet.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Servlet&JSP
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#数据库">数据库</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="数据库" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/interview5-db.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之数据库
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#工具">工具</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="工具" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/interview6-tools.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之工具
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#Spring">Spring</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="Spring" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/interview7-spring.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之Spring
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#SpringMVC">SpringMVC</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="SpringMVC" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/interview8-SpringMVC.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之SpringMVC
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#持久层">持久层</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="持久层" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/interview9-persist.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之持久层
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#MyBatis">MyBatis</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="MyBatis" class="panel-collapse collapse">
+                    
+                      <a  href='/2016/08/01/interview9-persist.html' class="list-group-item pjaxlink box_href">
+                        面试题精华之持久层
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+          <!-- tags end -->
+        </div>
+      </div>
+    </div>
+    <!-- aside2 end -->
+  </div>
+</div>
+<!-- aside end -->
+      <div class="col-md-13 col-lg-13 col-sm-13 col-xs-13 aside3">
+        <div id="container">
+          <div id="pjax">
+            <div class="row">
+  <div class="col-md-13 aside3-title">
+    <br>
+    <h2 id="#identifier">Shiro及安全基本概念</h2>
+    2016年07月29日 &nbsp;&nbsp;&nbsp;&nbsp;郑未
+  </div>
+  <div class="col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2 col-sm-12 col-xs-12 aside3-content">
+       <!-- <p>阅读这篇文章预计花费1 分钟</p> -->
+    <hr>
+    <div id="content">
+      <p>shiro是一个强大灵活的开源安全框架，可以干净利落的处理认证、授权、企业会话管理和加密。</p>
+
+<p>shiro的首要目标是简单和易于理解。安全有时候是非常复杂令人头疼的问题，shiro隐藏了复杂
+的细节，暴露了简介直观的API来简化开发者使他们的应用程序更安全的努力。</p>
+
+<p>shiro可以做一下事情：</p>
+
+<ul>
+  <li>
+    <p>进行用户认证</p>
+  </li>
+  <li>
+    <p>执行访问控制</p>
+  </li>
+  <li>
+    <p>单点登录</p>
+  </li>
+  <li>
+    <p>Remember Me服务</p>
+  </li>
+</ul>
+
+<p>安全的一些概念：身份认证、授权、会话管理、加密被认为是构成应用安全的基础要素。</p>
+
+<ul>
+  <li>
+    <p>身份认证，就是验证用户身份，典型的“登录”过程就是身份认证的过程。</p>
+  </li>
+  <li>
+    <p>授权：也就是访问控制（ac），也即某用户可以可以使用应用的哪些功能？</p>
+  </li>
+  <li>
+    <p>会话管理：管理用户特定的会话，即使在非Web或EJB应用。</p>
+  </li>
+  <li>
+    <p>加密：保持数据的安全使用的加密算法，同时仍然易于使用。</p>
+  </li>
+</ul>
+
+<p>对于Session，在WEB应用中它基于HttpSession，而一般应用中默认使用企业会话管理。shiro的Session用起来和HttpSession差不多，并且使用它不需要Http环境。</p>
+
+<p>在最高的层次上讲，shiro主要有三个主要的概念，它们分别是Subject、SecurityManager和Realms。</p>
+
+<p>shiro使用Subject这一概念来描述当前用户，‘User’这个词通常隐含的指一个人，但是Subject可以是一个人也可以代表第三方服务，守护账户，定时作业，或者其他类似的与软件交互的事物。</p>
+
+<p>所有Subject实例都与一个SecurityManager绑定，当你和一个Subject交互时，所有交互都会通过SecurityManager转换为特定Subject的交互。</p>
+
+<p>SecurityManager是shiro架构的核心，它扮演‘保护伞’对象的角色，与其他内部安全组件一起构成对象图的核心。</p>
+
+<p>SecurityManager及其内贸部对象图一旦被应用配置，它基本上就被放在一边不再被程序员使用了，开发人员基本上总是在与Subject的相关API打交道。它在幕后支持Subject的安全操作。</p>
+
+<p>Realms在shiro与你的应用程序的安全数据之间充当着桥梁或者说是连接器的作用。从这种意义上讲，Reaml就是一个特定的安全DAO，它为shiro提供所需的数据。在配置shiro时，你必须为认证、授权指定至少一个可用的Realm。</p>
+
+<p>shiro提供了现成的Realm连接到LDAP、关系数据库（JDBC）、ini和properties文件等。用户可以使用自己的Realm。</p>
+
+    </div>
+    <hr>
+    <!-- 
+<div id="duoshuo_thread">
+  <button type="button" name="lanqiao2016" class="btn btn-default show-commend">	
+  	<i class="fa fa-comment-o fa-lg" style="color: #16a095;"></i>    
+  </button>
+</div>
+ -->
+<!-- 多说 Share start -->
+<div class="ds-share"
+    style="text-align: right"
+    data-thread-key="/2016/07/29/shiro-concept"
+    data-title="Shiro及安全基本概念"
+    data-url="https://lanqiao2016.github.io/2016/07/29/shiro-concept.html"
+    data-content="shiro是一个强大灵活的开源安全框架，可以干净利落的处理认证、授权、企业会话管理和加密。
+
+shiro的首要目标是简单和易于理解。安全有时候是非常复杂令... | 蓝桥软件学院 " >
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+<hr>
+</div> 
+<!-- 多说 Share end-->
+
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2016/07/29/shiro-concept" data-title="Shiro及安全基本概念" data-url="https://lanqiao2016.github.io/2016/07/29/shiro-concept.html"></div>
+<!-- 多说评论框 end -->
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"lanqiao2016"};
+// 	(function() {
+// 		var ds = document.createElement('script');
+// 		ds.type = 'text/javascript';
+// 		ds.async = true;
+// 		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+// 		ds.charset = 'UTF-8';
+// 		(document.getElementById('pjax')).appendChild(ds);
+// 	})();
+$.ajax({
+      type:'GET',
+      url:(document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js',
+      dataType:'script',
+      cache:true
+    });
+	</script>
+<!-- 多说公共JS代码 end -->
+  </div>
+  <!-- 文章的目录 -->
+  <div id="content_table" style="position:fixed;right:20px;top:120px;display:none;">
+    <div class="panel panel-success">
+      <div class="panel-body" id="nav"></div>
+    </div>
+  </div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 展示文章目录的按钮 -->
+<div style="position:fixed;right:15px;top:62px;">
+  <button id="content_btn" class="btn btn-primary" style="width:43px; height:34px;">
+    <i class="fa fa-lg fa-plus"></i>
+  </button>
+</div>
+<!-- 展示菜单的按钮 -->
+<div style="position:fixed;right:15px;top:20px;">
+  <button id="nav_btn" class="btn btn-primary">
+    <i class="fa fa-lg fa-navicon"></i>
+  </button>
+</div>
+
+
+<script type="text/javascript" src="/public/js/bootstrap.js"></script>
+<script src="/public/js/jquery.pjax.js"></script>
+<script src="/public/js/prettify/prettify.js"></script>
+<script src="/public/js/base.js"></script>
+<!--
+<script src="/public/js/jquery.scrollUp.js"></script>
+-->
+<script>
+    $('a[href="#basic"]').tab('show');
+</script>
+
+
+<!--button是右上方导航和显示目录的按钮-->
+
+
+  <!-- include googleanalytics.html  -->
+</body>
+</html>
