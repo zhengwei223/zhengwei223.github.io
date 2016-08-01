@@ -22,3 +22,33 @@ order: 3
 
 - **运行**应用程序（使用java命令），在控制台我们可以看到程序运行出的结果。
 
+
+看看打印单词 Hello World 的简单代码。
+
+    public class MyFirstJavaProgram {
+    
+    	/* This is my first java program.  
+    	 * This will print 'Hello World' as the output
+    	 */
+    	public static void main(String []args) {
+    		System.out.println("Hello World"); // prints Hello World
+    	}
+    } 
+看下面是如何保存文件，编译并运行该程序。请按照以下步骤进行：
+
+
+- 打开记事本，并添加如上面的代码。
+
+- 将文件另存为：MyFirstJavaProgram.java。
+
+- 打开命令提示符窗口，然后去进入保存类的目录。假设它是C：。
+
+- 输入'javac MyFirstJavaProgram.java“，然后按回车来编译代码。如果代码中没有错误，在命令提示符下将到下一行（假设：路径变量设置）。
+
+- 现在，输入“java MyFirstJavaProgram'来运行程序。
+
+- 将可以看到 ' Hello World ' 印在窗口上。
+
+	    C : > javac MyFirstJavaProgram.java
+	    C : > java MyFirstJavaProgram 
+	    Hello World
