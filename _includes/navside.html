@@ -145,7 +145,7 @@
           <!-- 面试  -->
           <div class="tab-pane" id="interview">
             <div class="list-group">
-              {% for post in site.categories.interview %}
+              {% for post in site.categories.interview reversed %}
                 <a href="{{ post.url }}" class="list-group-item-lay pjaxlink tab_href">{{post.title}}</a>
               {% endfor %}
             </div>

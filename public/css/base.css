@@ -135,9 +135,9 @@ blockquote p {
     background:#fefefe;
   }
   
-  th, td {padding:5px 10px 5px; text-align:center; border-top:1px solid #e0e0e0; border-right:1px solid #e0e0e0;}
+  th, td {padding:5px 10px 5px;  border-top:1px solid #e0e0e0; border-right:1px solid #e0e0e0;}
 
-  th {background:rgb(240,37,110);color:white;}
+  th {background:rgb(240,37,110);color:white;text-align:center;}
   
   tr.odd-row td {background:#f6f6f6;}
   
