@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 面试题精华之持久层
-category: interview
+category: JavaEE面试
 tags: 面试 持久层 MyBatis
 keywords: 蓝桥 lanqiao 教程 面试 持久层 MyBatis
 description: 

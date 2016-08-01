@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 面试题精华之Java基础
-category: interview
+category: JavaEE面试
 tags: 面试 Java 
 keywords: 蓝桥 lanqiao 教程 面试 java 
 description: 

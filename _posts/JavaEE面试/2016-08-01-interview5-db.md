@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 面试题精华之数据库
-category: interview
+category: JavaEE面试
 tags: 面试 数据库
 keywords: 蓝桥 lanqiao 教程 面试 数据库 
 description: 

@@ -108,7 +108,7 @@
                     </h4>
                   </div>
                   <div id="{{ cate2 }}" class="panel-collapse collapse">
-                    {% for post in site.categories[cate2] %}
+                    {% for post in site.categories[cate2] reversed %}
                       <a  href='{{ post.url }}' class="list-group-item pjaxlink box_href">
                         {{post.title}}
                       </a>
@@ -131,7 +131,7 @@
                     </h4>
                   </div>
                   <div id="{{ cate2 }}" class="panel-collapse collapse">
-                    {% for post in site.categories[cate2] %}
+                    {% for post in site.categories[cate2] reversed%}
                       <a  href='{{ post.url }}' class="list-group-item pjaxlink box_href">
                         {{post.title}}
                       </a>
@@ -142,14 +142,29 @@
             </div>
           </div>
           <!-- frontiers end -->
-          <!-- 面试  -->
+          <!-- 面试  begin-->
           <div class="tab-pane" id="interview">
-            <div class="list-group">
-              {% for post in site.categories.interview reversed %}
-                <a href="{{ post.url }}" class="list-group-item-lay pjaxlink tab_href">{{post.title}}</a>
+            <div class="panel-group" id="accordion_interview">
+              {% for cate2 in site.cates_interview %} 
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_interview" href="#{{ cate2 }}">{{ cate2 }}</a>
+                      <span class="badge pull-right">{{ site.categories[cate2].size }}</span>
+                    </h4>
+                  </div>
+                  <div id="{{ cate2 }}" class="panel-collapse collapse">
+                    {% for post in site.categories[cate2] reversed%}
+                      <a  href='{{ post.url }}' class="list-group-item pjaxlink box_href">
+                        {{post.title}}
+                      </a>
+                    {% endfor %}
+                  </div>
+                </div>
               {% endfor %}
             </div>
           </div> 
+          <!-- 面试  end-->
           <!-- tags begin  -->
           <div class="tab-pane" id="tags">
             <div class="panel-group" id="accordion_tags">
@@ -162,7 +177,7 @@
                     </h4>
                   </div>
                   <div id="{{ tag[0] }}" class="panel-collapse collapse">
-                    {% for post in tag[1] %}
+                    {% for post in tag[1] reversed%}
                       <a  href='{{ post.url }}' class="list-group-item pjaxlink box_href">
                         {{post.title}}
                       </a>
