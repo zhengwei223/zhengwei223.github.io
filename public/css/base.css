@@ -142,3 +142,5 @@ blockquote p {
   tr.odd-row td {background:#f6f6f6;}
   
   td.first, th.first {text-align:left}
+
+.ds-sync{display:none !important;}
