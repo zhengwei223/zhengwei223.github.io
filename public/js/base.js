@@ -1,3 +1,4 @@
+var duoshuoQuery = {short_name:"lanqiao2016"};
 /* 控制导航按钮动作 */
 function nav_click(is_show) {
   if (is_show) {
@@ -69,16 +70,23 @@ $(document).ready(function() {
     contentEffects();
   });
 
-  // $('body').on('click', '.show-commend', function(){
-  //   var ds_loaded = false;
-  //   window.disqus_shortname = $('.show-commend').attr('name');
-  //   $.ajax({
-  //     type: "GET",
-  //     url: "http://" + disqus_shortname + ".disqus.com/embed.js",
-  //     dataType: "script",
-  //     cache: true
-  //   });
-  // });
+  //迫使多说生效
+  $(document).on("pjax:complete", function() {
+    if ( $('.ds-thread').length > 0 ) { 
+      if (typeof DUOSHUO !== 'undefined') {
+        DUOSHUO.EmbedThread('.ds-thread');
+      }else{
+        $.getScript("//static.duoshuo.com/embed.js");
+      } 
+    }
+    if ( $('.ds-share').length > 0 ) { 
+      if (typeof DUOSHUO !== 'undefined') {
+        DUOSHUO.initSelector('.ds-share',{type:'ShareWidget'});
+      }else{
+        $.getScript("//static.duoshuo.com/embed.js");
+      } 
+    }
+  });
 
   contentEffects();
 
