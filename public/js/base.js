@@ -57,9 +57,9 @@ $(document).ready(function() {
     content_click(!isClicked);
     $(this).data('clicked',!isClicked);
   });
-
+// 这句话是绑定本页面所有.pjaxlink标签，链接点击之后，替换#pjax容器的内容为新内容#pjax，ajax超时时间为10秒；
   $(document).pjax('.pjaxlink', '#pjax', { fragment: "#pjax", timeout: 10000 });
-  
+// pjax.end 在phax ajax结束时调用 
   $(document).on("pjax:end", function() {
     //?
     // if($("body").find('.container').width() < 992)
@@ -69,16 +69,16 @@ $(document).ready(function() {
     contentEffects();
   });
 
-  $('body').on('click', '.show-commend', function(){
-    var ds_loaded = false;
-    window.disqus_shortname = $('.show-commend').attr('name');
-    $.ajax({
-      type: "GET",
-      url: "http://" + disqus_shortname + ".disqus.com/embed.js",
-      dataType: "script",
-      cache: true
-    });
-  });
+  // $('body').on('click', '.show-commend', function(){
+  //   var ds_loaded = false;
+  //   window.disqus_shortname = $('.show-commend').attr('name');
+  //   $.ajax({
+  //     type: "GET",
+  //     url: "http://" + disqus_shortname + ".disqus.com/embed.js",
+  //     dataType: "script",
+  //     cache: true
+  //   });
+  // });
 
   contentEffects();
 
@@ -86,15 +86,15 @@ $(document).ready(function() {
   // $("#content_table div #nav div a").click(function(){
   //   $("#content_btn").click();
   // });
-  //侧边栏的直接链接，隐藏菜单
+  //侧边栏的一级目录链接，隐藏菜单
   $(".aside1 .pjaxlink ").click(function(){
     $('#nav_btn').click();
   });
-  //文章超链接上的监听：隐藏菜单
+  //文章超链接(一级目录下)上的监听：隐藏菜单
   $(".aside2 .tab_href ").click(function(){
     $('#nav_btn').click();
   });
-  //文章超链接，隐藏左侧菜单
+  //文章超链接（二级目录下），隐藏左侧菜单
   $(".aside2 .box_href ").click(function(){
     $('#nav_btn').click();
   });
