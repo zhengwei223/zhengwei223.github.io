@@ -71,13 +71,13 @@ function contentEffects(){
         tag = current.prop('tagName').substr(-1);
         $("#nav").append("<div style='margin-left:"+15*(tag-1)+"px'><a id='link" + i + "' href='#title" +i + "'>" + current.html() + "</a></div>");
     }); 
-    $("pre").addClass("prettyprint");
-    prettyPrint(); 
-    $('#content img').addClass('img-thumbnail').parent('p').addClass('center');
     $('#content_btn').show();
   }else{
     $('#content_btn').hide();
   }
+  $('#content img').addClass('img-thumbnail').parent('p').addClass('center');
+  $("pre").addClass("prettyprint");
+  prettyPrint(); 
 }
 //生成table of content  end
 
@@ -100,10 +100,6 @@ $(document).ready(function() {
   $(document).pjax('.pjaxlink', '#pjax', { fragment: "#pjax", timeout: 10000 });
 // pjax.end 在phax ajax结束时调用 
   $(document).on("pjax:end", function() {
-    //?
-    // if($("body").find('.container').width() < 992)
-    //   $('#nav_btn').click();
-
     $('.aside3').scrollTop(0);
     contentEffects();
   });

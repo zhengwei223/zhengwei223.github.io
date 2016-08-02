@@ -12,7 +12,7 @@ order: 1
 
 整理了一下几个算法的java实现，希望大家能够喜欢：
 
-``` 
+```
 public class ArraySort
 {
 /**
