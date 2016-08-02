@@ -1,4 +1,20 @@
 var duoshuoQuery = {short_name:"lanqiao2016"};
+function exeDuoshuo(){
+  if ( $('.ds-thread').length > 0 ) { 
+    if (typeof DUOSHUO !== 'undefined') {
+      DUOSHUO.EmbedThread('.ds-thread');
+    }else{
+      $.getScript("//static.duoshuo.com/embed.js");
+    } 
+  }
+  if ( $('.ds-share').length > 0 ) { 
+    if (typeof DUOSHUO !== 'undefined') {
+      DUOSHUO.initSelector('.ds-share',{type:'ShareWidget'});
+    }else{
+      $.getScript("//static.duoshuo.com/embed.js");
+    } 
+  }
+}
 /* 控制导航按钮动作 */
 function nav_click(is_show) {
   if (is_show) {
@@ -94,20 +110,7 @@ $(document).ready(function() {
 
   //迫使多说生效
   $(document).on("pjax:complete", function() {
-    if ( $('.ds-thread').length > 0 ) { 
-      if (typeof DUOSHUO !== 'undefined') {
-        DUOSHUO.EmbedThread('.ds-thread');
-      }else{
-        $.getScript("//static.duoshuo.com/embed.js");
-      } 
-    }
-    if ( $('.ds-share').length > 0 ) { 
-      if (typeof DUOSHUO !== 'undefined') {
-        DUOSHUO.initSelector('.ds-share',{type:'ShareWidget'});
-      }else{
-        $.getScript("//static.duoshuo.com/embed.js");
-      } 
-    }
+    exeDuoshuo();
   });
 
   //文章目录超链接上的监听：隐藏该目录
@@ -123,7 +126,6 @@ $(document).ready(function() {
     $('#nav_btn').click();
   });
   
-  $('a[href="#{{ site.active }}"]').tab('show');
   contentEffects();
   /* For zebra striping */
   $("table tr:nth-child(odd)").addClass("odd-row");
@@ -131,5 +133,7 @@ $(document).ready(function() {
   $("table td:first-child, table th:first-child").addClass("first");
   /* For removing the last border */
   $("table td:last-child, table th:last-child").addClass("last");
+  exeDuoshuo();
 });
+
 

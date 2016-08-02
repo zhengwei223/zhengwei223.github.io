@@ -29,23 +29,3 @@
 <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="{{ page.id }}" data-title="{{ page.title }}" data-url="{{site.url}}{{site.baseurl}}{{page.url}}"></div>
 <!-- 多说评论框 end -->
-
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"lanqiao2016"};
-// 	(function() {
-// 		var ds = document.createElement('script');
-// 		ds.type = 'text/javascript';
-// 		ds.async = true;
-// 		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-// 		ds.charset = 'UTF-8';
-// 		(document.getElementById('pjax')).appendChild(ds);
-// 	})();
-$.ajax({
-      type:'GET',
-      url:(document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js',
-      dataType:'script',
-      cache:true
-    });
-	</script>
-<!-- 多说公共JS代码 end -->
