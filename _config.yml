@@ -7,15 +7,15 @@ markdown: kramdown
 author: 
   name: Zheng Wei
   email: zhengwei@lanqiao.org
-  link: http://lanqiao.coding.me/
+  link: http://lanqiao.org/
   weibo: 
-  github: 
+  github: https://github.com/lanqiao2016
   music: http://site.douban.com/linanya
   linkedin: 
 
 # 站点信息
 title: 蓝桥软件学院
-description: My personal blog
+description: 蓝桥软件学院知识仓库
 url: http://lanqiao.coding.me/
 rss_url: /pages/atom.xml
 SEOTitle: 蓝桥软件学院
@@ -39,11 +39,6 @@ duoshuo:
 
 # 主题设置，自动激活某个标签
 active: basic
-
-# 首页除了最新文章外显示分类
-cates: 
-#  - Optimization
-#  - LaTeX
 
 # 中文本地化
 locals:

@@ -42,6 +42,28 @@ function content_click(is_show){
     $('#content_btn i').removeClass('fa-minus').addClass('fa-plus');
   }
 }
+//生成table of content
+function contentEffects(){
+  //remove the asidebar
+  //$('.row-offcanvas').removeClass('active');
+  var titles = $("#content > h1,#content > h2");
+  if($("#nav").length > 0 && titles.length>0){
+    //只显式2级标题及以上
+    titles.each(function(i) {
+        var current = $(this);
+        current.attr("id", "title" + i);
+        tag = current.prop('tagName').substr(-1);
+        $("#nav").append("<div style='margin-left:"+15*(tag-1)+"px'><a id='link" + i + "' href='#title" +i + "'>" + current.html() + "</a></div>");
+    }); 
+    $("pre").addClass("prettyprint");
+    prettyPrint(); 
+    $('#content img').addClass('img-thumbnail').parent('p').addClass('center');
+    $('#content_btn').show();
+  }else{
+    $('#content_btn').hide();
+  }
+}
+//生成table of content  end
 
 $(document).ready(function() {
   /* 导航菜单按钮监听事件，控制左侧 aside 的动作 */
@@ -88,25 +110,21 @@ $(document).ready(function() {
     }
   });
 
-  contentEffects();
-
   //文章目录超链接上的监听：隐藏该目录
   // $("#content_table div #nav div a").click(function(){
   //   $("#content_btn").click();
   // });
-  //侧边栏的一级目录链接，隐藏菜单
+  //侧边栏的直接链接：隐藏菜单
   $(".aside1 .pjaxlink ").click(function(){
     $('#nav_btn').click();
   });
-  //文章超链接(一级目录下)上的监听：隐藏菜单
-  $(".aside2 .tab_href ").click(function(){
-    $('#nav_btn').click();
-  });
-  //文章超链接（二级目录下），隐藏左侧菜单
-  $(".aside2 .box_href ").click(function(){
+  //文章超链接上的监听：隐藏菜单
+  $(".aside2 .pjaxlink ").click(function(){
     $('#nav_btn').click();
   });
   
+  $('a[href="#{{ site.active }}"]').tab('show');
+  contentEffects();
   /* For zebra striping */
   $("table tr:nth-child(odd)").addClass("odd-row");
   /* For cell text alignment */
@@ -115,25 +133,3 @@ $(document).ready(function() {
   $("table td:last-child, table th:last-child").addClass("last");
 });
 
-//生成table of content
-function contentEffects(){
-  //remove the asidebar
-  $('.row-offcanvas').removeClass('active');
-  var titles = $("#content > h1,#content > h2");
-  if($("#nav").length > 0 && titles.length>0){
-    //只显式2级标题及以上
-    titles.each(function(i) {
-        var current = $(this);
-        current.attr("id", "title" + i);
-        tag = current.prop('tagName').substr(-1);
-        $("#nav").append("<div style='margin-left:"+15*(tag-1)+"px'><a id='link" + i + "' href='#title" +i + "'>" + current.html() + "</a></div>");
-    }); 
-    $("pre").addClass("prettyprint");
-    prettyPrint(); 
-    $('#content img').addClass('img-thumbnail').parent('p').addClass('center');
-    $('#content_btn').show();
-  }else{
-    $('#content_btn').hide();
-  }
-}
-//生成table of content  end
