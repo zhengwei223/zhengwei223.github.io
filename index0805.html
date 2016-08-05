@@ -2,11 +2,14 @@
 layout: page_title
 title: <a class="pjaxlink" href="/"><img src="/public/img/蓝桥-图形@2x_24.png" class="img-ronuded avatar" style="border-width:0px; border-color:#000"></a>
 titlename: 首页
-comments: false
 ---
+<!--<br>--> 
 <center><h3><font color="#000080">己</font><font color="#FFA500">欲</font><font color="#2E8B57">立</font><font color="#F08080">而</font><font color="#00CED1">立</font><font color="red">人, </font><font color="#601986">己</font><font color="#556fb5">欲</font><font color="#fa1089">达</font><font color="#638c0b">而</font><font color="#0a1089">达</font><font color="#f0c089">人</font></h3></center>
-
-{% for post in site.posts  %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">{{ site.locals.newest }}</div>
+      {% for post in site.posts  %}
     {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
     {% capture this_month %}{{ post.date | date: "%m" }}{% endcapture %}
     {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
@@ -36,3 +39,7 @@ comments: false
       {% endif %}
     {% endif %}
 {% endfor %}
+    </div>
+  </div>
+</div>
+ 
