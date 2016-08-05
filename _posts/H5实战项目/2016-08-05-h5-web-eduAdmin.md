@@ -1,6 +1,6 @@
 ---
 layout: post
-title: H5-Web项目<br>教务管理系统
+title: H5-Web项目-教务管理系统
 category: H5实战项目
 tags: Git H5 项目 实战
 author: 郑未
@@ -20,4 +20,4 @@ importance: 2
 HBuilder
 
 # 课程
-[lesson1：使用bootstrap和h5bp搭建项目基本结构](h5-web-eduAdmin/h5-web-eduAdmin-lession1)
+[lesson1：使用bootstrap和h5bp搭建项目基本结构](/h5-web-eduAdmin/h5-web-eduAdmin-lession1)

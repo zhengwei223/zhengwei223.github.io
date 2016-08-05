@@ -96,6 +96,7 @@ $(document).ready(function() {
     content_click(!isClicked);
     $(this).data('clicked',!isClicked);
   });
+  $('#content a').attr('target','_blank');
 // 这句话是绑定本页面所有.pjaxlink标签，链接点击之后，替换#pjax容器的内容为新内容#pjax，ajax超时时间为10秒；
   $(document).pjax('.pjaxlink', '#pjax', { fragment: "#pjax", timeout: 10000 });
 // pjax.end 在phax ajax结束时调用 
