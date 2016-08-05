@@ -4,14 +4,14 @@ paginate: 10
 markdown: kramdown
 
 # 作者信息
-author: 
+author:
   name: Zheng Wei
   email: zhengwei@lanqiao.org
   link: http://lanqiao.org/
-  weibo: 
+  weibo:
   github: https://github.com/lanqiao2016
   music: http://site.douban.com/linanya
-  linkedin: 
+  linkedin:
 
 # 站点信息
 title: 蓝桥软件学院
@@ -26,7 +26,7 @@ favicon: /public/img/蓝桥-图形@2x_24.png
 
 # google analytics 设置
 baidu:
-  id: 
+  id:
   url: http://lanqiao.coding.me/
 
 # disqus 设置
@@ -52,7 +52,7 @@ locals:
   project: 项目
   frontiers: 前沿
   interview: 面试
-  
+
 cates_basic:
     - Java8编程语言
     - JDBC入门教程
@@ -85,10 +85,10 @@ cates_project:
     - JavaSe实现植物大战僵尸
     - JavaSe实现记事本
     - BootStrap+Jekyll搭建个人博客系统
-    - H5游戏实战项目
+    - H5实战项目
     - Servlet实现综合类购物网站及后台管理系统
     - Servlet实现OA系统
-    - SSM+Shiro实现基于角色的权限管理通用模块  
+    - SSM+Shiro实现基于角色的权限管理通用模块
     - JavaEE全栈式项目化工程实践概述
     - SSM框架实现蓝桥教学教务管理系统
 
