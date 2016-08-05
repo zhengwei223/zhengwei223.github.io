@@ -316,3 +316,7 @@ git reset 是撤销某次提交，但是此次之后的修改都会被退回到�
 
 [Git常用命令速查表](./Git-lesson901-cmd.html)
 
+[mac下git中文乱码](./Git-lesson900-cmd.html)
+
+[Windows下Git Bash中文乱码](./Git-lesson902-cmd.html)
+
