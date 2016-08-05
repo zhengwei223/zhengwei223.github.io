@@ -5,10 +5,12 @@ category: jQuery基础教程
 tags: jQuery 入门
 keywords: 蓝桥 lanqiao 教程 jQuery jQuery
 description: 
-author: 索宁 http://www.cnblogs.com/suoning/p/5683047.html
+author: 郑未
 importance: 4
 order: 1
 ---
+
+from：索宁 http://www.cnblogs.com/suoning/p/5683047.html
 
 # 一、简介
 
