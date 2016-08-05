@@ -28,7 +28,9 @@ importance: 2
     $ git config --global user.name "Robin Hu"
 
     $ git config --global user.email "hudashi@gmail.com"
+
 执行了上面的命令后,会在你的主目录(home directory)建立一个叫~/.gitconfig 的文件. 内容一般像下面这样:
+
     [user]
     name = Robin Hu
     email = hudashi@gmail.com
@@ -39,9 +41,10 @@ importance: 2
 如果你想使项目里的某个值与前面的全局设置有区别(例如把私人邮箱地址改为工作邮箱);你可以在项目中使用 `git  config `命令不带--global 选项来设置. 这会在你项目目录下的.git/config 文件增加一节[user]内容(如上所示).
 
 git默认的编辑器是GNU nano这样的编辑器，我可以通过如下的命令把它设置为vim编辑器
-git config --global core.editor vim
 
-关于Git配置的更多内容请参考《git config基本篇》和《git config高级篇》
+
+    git config --global core.editor vim
+
 
 # 四、初始化一个新的项目仓库（git init） #
 
@@ -92,9 +95,11 @@ Git会输出:
 有些仓库可以通过不只一种协议来访问，例如，Git本身的源代码你既可以用 git:// 协议来访问：
 
     git clone git://git.kernel.org/pub/scm/git/git.git
+
 也可以通过http 协议来访问:
 
     git clone http://www.kernel.org/pub/scm/git/git.git
+
 git://协议较为快速和有效,但是有时必须使用http协议,比如你公司的防火墙阻止了你的非http访问请求.如果你执行了上面两行命令中的任意一个,你会看到一个新目录: 'git',它包含有所的Git源代码和历史记录.
 
 在默认情况下，Git会把"Git URL"里最后一级目录名的'.git'的后辍去掉,做为新克隆(clone)项目的目录名: (例如. `git clone http://git.kernel.org/linux/kernel/git/torvalds/linux-2.6.git` 会建立一个目录叫'linux-2.6')
@@ -265,5 +270,5 @@ git reset 是撤销某次提交，但是此次之后的修改都会被退回到�
 
 # 继续阅读
 
-[./Git常用命令速查表.html](./Git常用命令速查表.html "Git常用命令速查表")
+[Git常用命令速查表](./Git-cmd.html)
 
