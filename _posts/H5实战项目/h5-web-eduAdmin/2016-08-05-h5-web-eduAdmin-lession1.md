@@ -35,6 +35,8 @@ Bootstrap is the most popular HTML, CSS, and JS framework for developing respons
 > Running documentation locally
 > If necessary, install Jekyll ………………
 
+[参考文档](/references/bootstrap-doc)
+
 太麻烦，你也可以在网上找找bootstrap的离线文档。
 
 - fonts是字体文件，dist里面也有一份
@@ -187,6 +189,10 @@ favicon.ico
   ```
 - 删除31行至36行的代码（谷歌的网站分析代码）
 
-至此，整合bootstrap和h5bp的工作基本完成，下一章我们将对首页做初步的设计并且编译less让页面呈现bootstrap风格。
+至此，整合bootstrap和h5bp的工作基本完成,下一章我们将对首页做初步的设计并且编译less让页面呈现bootstrap风格。
+
+需要本章产出物的，可以clone这个仓库
+
+`git clone https://git.coding.net/lanqiao/bb_template.git`
 
 
