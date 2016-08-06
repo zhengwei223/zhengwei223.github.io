@@ -57,6 +57,12 @@ clone好之后，能看到这样的目录结构：
 
 dist下就是我们所需要的东西。
 
+- 理解.htaccess文件：
+
+  这个文件的做用哪个是保证站点性能最优。
+- vendor下的modernizr
+  可以让IE8支持HTML5的分区元素，还可以让我们方便滴检测特定浏览器的能力。
+
 # 新建项目模板
 第一步：
 新建文件夹bb_template，将h5bp>dist目录下的内容全部拷入；
@@ -68,6 +74,8 @@ dist下就是我们所需要的东西。
 - CHANGELOG.md
 - CONTRIBUTING.md
 - doc 文件夹以及其中的内容
+
+
 
 第三步：
 修改部分文件
@@ -88,24 +96,97 @@ favicon.ico
 - plugin.js 文件用于放置插件。打开 bootstrap/dist/js/bootstrap.min.js ，全选所有代码复制粘贴到 plugins.js 末尾。
 - 最后是样式文件，复制整个 bootstrap/less 文件夹到bb_template中
 
-至此，整合告一段落，如图
+  至此，整合告一段落，如图
 
 ![image](/public/img/h5/bb-files.png)
 
-fonts来自bootstrap
+  fonts来自bootstrap
 
-img下是空的
+  img下是空的
 
-js下的plugin.js的主体部分是bootstrap.min.js
+  js下的plugin.js的主体部分是bootstrap.min.js
 
-less全部来自bootstrap，用于编译产生css
+  less全部来自bootstrap，用于编译产生css
 
-# 修改首页
+# 构造HTML模板
 
+在bb_template目录下编辑index.html（用编辑器打开）。
 
+## 了解index内容：
 
+- h5文档类型声明
+  
+  `<!doctype html>`
+  
+- html标签包含一个no-js类，如果浏览器的JavaScript可用，Modernizr脚本会把这个类删- 除，并将其换成js类。如果这个类没有被删除，则表明JavaScript不可用。
 
+- 接下来是几个meta标签。
 
+  - 用于指定字符集的
+  `<meta charset="utf-8">`
+  
+  - 告诉IE使用最新版的渲染引擎`<meta http-equiv="x-ua-compatible" content="ie=edge">`
 
+  - 预留的页面标题和站点描述
+  
+  ```
+  <title></title>
+  <meta name="description" content="">
+  ```
+  - 针对移动浏览器的视口标签：
+  
+  ```
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  ```
+  - 接下来是一行注释，用于指定站点图标和触摸屏图标，注释掉意味着我们默认使用站点根目录下的favicon.ico文件
+  
+  - 接下来是两个样式表的链接，分别指向nomalize.css和main.css:
+  
+  ```
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+  ```
+  - 再下面是加载Modernizr脚本的script标签：
+  
+  `<script src="js/vendor/modernizr-2.8.3.min.js"></script>`
+
+- 进入body
+  - 首先是IE条件注释，包含推荐用户把旧版IE升级到新版本的消息：
+  
+  ```
+  <!--[if lt IE 8]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a 
+      href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  ```
+  - 紧接着是一段p文本，这部分是以后要替换的网页主体部分
+  
+  - 再下来，是引入jQuery脚本、plugins.js(已经包含bootstrap.min.js)、main.js;其中main.js是以后我们自定义的脚本
+  
+  ```
+  <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.2.min.js"><\/script>')</script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+  ```
+  - 最后一段脚本是谷歌的网站分析脚本
+  
+## 初步改造index
+
+- 设定站点标题
+
+  `<title>教务管理系统 | 蓝桥软件学院</title>`  
+
+- 调整升级浏览器的信息
+  
+  在第20行，将代码修改为：
+  
+  ```
+  <p class="browserupgrade">您正在使用<strong>过时的</strong> 浏览器。 
+  请 <a href="http://browsehappy.com/">升级</a> 以提升你的体验。</p>
+  ```
+- 删除31行至36行的代码（谷歌的网站分析代码）
+
+至此，整合bootstrap和h5bp的工作基本完成，下一章我们将对首页做初步的设计并且编译less让页面呈现bootstrap风格。
 
 

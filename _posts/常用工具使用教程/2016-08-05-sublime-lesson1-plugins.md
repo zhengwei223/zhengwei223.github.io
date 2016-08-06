@@ -38,7 +38,7 @@ import urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_pac
 
 GBK Encoding Support —— 打开gbk编码的文件不会出现乱码
 
-Zen Coding —— Zen Coding: 一种快速编写HTML/CSS代码的方法
+Emmet —— 一种快速编写HTML/CSS代码的方法，这个非常好用
 
 jQuery Package for sublime Text
 
