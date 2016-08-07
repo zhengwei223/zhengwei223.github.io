@@ -58,15 +58,14 @@ cates_basic:
     - Java8编程语言
     - JDBC入门教程
     - JDK核心API
-    - HTML入门教程
+    - Web前端入门教程
     - jQuery基础教程
     - jQuery-easyui基础教程
-    - H5入门教程
     - 数据库入门教程
     - JSP、Servlet编程
-    - Spring框架教程
-    - SpringMVC框架教程
-    - MyBatis框架教程
+    - Spring框架
+    - SpringMVC框架
+    - MyBatis框架
     - 安卓入门教程
     - 常用工具使用教程
 cates_advanced:
@@ -85,7 +84,6 @@ cates_project:
     - JavaSe实现五子棋游戏
     - JavaSe实现植物大战僵尸
     - JavaSe实现记事本
-    - BootStrap+Jekyll搭建个人博客系统
     - H5实战项目
     - Servlet实现综合类购物网站及后台管理系统
     - Servlet实现OA系统

@@ -6,7 +6,7 @@ tags: Git H5 项目 实战
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 H5 项目 实战
 description:
-importance: 2
+
 ---
 
 # 课程目标

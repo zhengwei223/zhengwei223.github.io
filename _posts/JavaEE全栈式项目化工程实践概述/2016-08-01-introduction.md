@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 课程简介
+title: 工程实践-lesson1
 category: JavaEE全栈式项目化工程实践概述
 tags: Java 全栈式 项目 工程
 keywords: 蓝桥 lanqiao 教程 javaee 全栈

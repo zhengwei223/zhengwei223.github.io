@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 课程简介
-category: JavaEE全栈式项目化工程实践概述
+title: JavaSe实现植物大战僵尸-lesson1
+category: JavaSe实现植物大战僵尸
 tags: Java 全栈式 项目 工程
 keywords: 蓝桥 lanqiao 教程 javaee 全栈
 description: 
