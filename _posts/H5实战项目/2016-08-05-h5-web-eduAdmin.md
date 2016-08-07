@@ -21,3 +21,5 @@ HBuilder
 
 # 课程
 [lesson1：使用bootstrap和h5bp搭建项目基本结构](/h5-web-eduAdmin/h5-web-eduAdmin-lession1)
+
+[lesson2：完成首页页头区](/h5-web-eduAdmin/h5-web-eduAdmin-lesson2)

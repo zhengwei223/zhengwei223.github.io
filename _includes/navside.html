@@ -47,8 +47,9 @@
               {% for cate2 in site.cates_basic %} 
                 <div class="panel panel-info">
                   <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_basic" href="#{{ cate2 }}">{{ cate2 }}</a>
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion_basic" data-target="#{{ cate2 }}">
+                      <a href="javascript:void(0);">{{cate2}}</a>
+                      <!-- <a data-toggle="collapse" data-parent="#accordion_basic" href="#{{ cate2 }}">{{ cate2 }}</a> -->
                       <span class="badge pull-right">{{ site.categories[cate2].size }}</span>
                     </h4>
                   </div>
@@ -70,8 +71,8 @@
               {% for cate2 in site.cates_advanced %} 
                 <div class="panel panel-info">
                   <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_advanced" href="#{{ cate2 }}">{{ cate2 }}</a>
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion_advanced" data-target="#{{ cate2 }}">
+                      <a href="javascript:void(0);"> {{ cate2 }} </a>
                       <span class="badge pull-right">{{ site.categories[cate2].size }}</span>
                     </h4>
                   </div>
@@ -93,8 +94,8 @@
               {% for cate2 in site.cates_project %} 
                 <div class="panel panel-info">
                   <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_project" href="#{{ cate2 }}">{{ cate2 }}</a>
+                   <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion_project" data-target="#{{ cate2 }}">
+                      <a href="javascript:void(0);">{{cate2}}</a>
                       <span class="badge pull-right">{{ site.categories[cate2].size }}</span>
                     </h4>
                   </div>
@@ -116,8 +117,8 @@
               {% for cate2 in site.cates_frontiers %} 
                 <div class="panel panel-info">
                   <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_frontiers" href="#{{ cate2 }}">{{ cate2 }}</a>
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion_frontiers" data-target="#{{ cate2 }}">
+                      <a href="javascript:void(0);">{{cate2}}</a>
                       <span class="badge pull-right">{{ site.categories[cate2].size }}</span>
                     </h4>
                   </div>
@@ -139,8 +140,8 @@
               {% for cate2 in site.cates_interview %} 
                 <div class="panel panel-info">
                   <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_interview" href="#{{ cate2 }}">{{ cate2 }}</a>
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion_interview" data-target="#{{ cate2 }}">
+                      <a href="javascript:void(0);">{{cate2}}</a>
                       <span class="badge pull-right">{{ site.categories[cate2].size }}</span>
                     </h4>
                   </div>
@@ -162,8 +163,8 @@
               {% for tag in site.tags %} 
                 <div class="panel panel-info">
                   <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion_tags" href="#{{ tag[0] }}">{{ tag[0] }}</a>
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion_tags" data-target="#{{ tag[0] }}">
+                      <a href="javascript:void(0);">{{ tag[0] }}</a>
                       <span class="badge pull-right">{{ tag[1].size }}</span>
                     </h4>
                   </div>
