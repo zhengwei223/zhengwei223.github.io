@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Git入门
-category: 常用工具使用教程
+category: git
 tags: Git 工具
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 git
@@ -314,9 +314,9 @@ git reset 是撤销某次提交，但是此次之后的修改都会被退回到�
 
 # 十、继续阅读
 
-[Git常用命令速查表](./Git-lesson901-cmd.html)
+[Git常用命令速查表](/git/Git-lesson901-cmd.html)
 
-[mac下git中文乱码](./Git-lesson900.html)
+[mac下git中文乱码](/git/Git-lesson900.html)
 
-[Windows下Git Bash中文乱码](./Git-lesson902.html)
+[Windows下Git Bash中文乱码](/git/Git-lesson902.html)
 

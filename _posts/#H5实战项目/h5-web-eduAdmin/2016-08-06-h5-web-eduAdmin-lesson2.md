@@ -287,37 +287,11 @@ data-toggle说明按钮的**预期行为**为下拉抽屉式菜单。
 
 要支持IE8，需要一段js代码让浏览器能够响应媒体查询，步骤如下。
 
-1）打开[https://github.com/scottjehl/Respond](https://github.com/scottjehl/Respond)
+（1）打开[https://github.com/scottjehl/Respond](https://github.com/scottjehl/Respond)
 
-2）下载ZIP
+(2)下载ZIP
 
-3）解压缩，找到名为response.min.js文件，或者直接在网页上找到该文件，拷贝其内容
-
-4）复制到项目文件夹中的js/vendor目录下，与jQuery和Modenizr放到一块
-
-5）在index.html中加载Modernizr的代码下面，添加这几行：
-
-```
-<!--[if (lt IE 9) & (!IEMobile)]>
- <script src="js/vendor/respond.min.js"></script>
-<![endif]-->
-```
-
-6）这样IE8就可以支持媒体查询响应视口大小变化了。
-
-# 小结
-
-我们已经有了一个完善的HTML5标签结构，内置了很多最佳实践；
-
-一个标准的Bootstrap样式表文件，并已链接；
-
-能够正常工作的js插件；
-
-一个响应式导航条；
-
-随时可以派上用场的less编译器。
-
-
+（3）解压缩，招到名为response.min.js文件
 
 
 

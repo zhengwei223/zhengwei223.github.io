@@ -1,7 +1,7 @@
 ---
 layout: post
 title: jQuery核心
-category: jQuery基础教程
+category: jQuery
 tags: jQuery 入门
 keywords: 蓝桥 lanqiao 教程 jQuery jQuery
 description: 
