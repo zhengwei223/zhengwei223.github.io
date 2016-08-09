@@ -62,9 +62,9 @@ function content_click(is_show){
 function contentEffects(){
   //remove the asidebar
   //$('.row-offcanvas').removeClass('active');
-  var titles = $("#content > h1");
+  var titles = $("#content > h1,#content > h2");
   if($("#nav").length > 0 && titles.length>0){
-    //只显式1级标题
+    //只显式1,2级标题
     titles.each(function(i) {
         var current = $(this);
         current.attr("id", "title" + i);

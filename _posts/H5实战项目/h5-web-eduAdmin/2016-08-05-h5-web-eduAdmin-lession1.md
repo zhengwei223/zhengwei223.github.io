@@ -37,13 +37,14 @@ Bootstrap is the most popular HTML, CSS, and JS framework for developing respons
 
 [参考文档](/references/bootstrap-doc)
 
-太麻烦，你也可以在网上找找bootstrap的离线文档。
+你也可以在网上找找bootstrap的离线文档，英文不好的可以访问[Bootstrap中文网](http://v3.bootcss.com/)。
 
 - fonts是字体文件，dist里面也有一份
 - grunt用于构建前端项目，可以压缩、合并等
 - js目录下是现在bootstrap支持的12个插件，可以分别引入，也可以直接引入dist目录下js目录下的整合好的js文件
-- less目录下是编译前的样式定义，编译后的css在dist目录下的css目录中，bootstrap.min.css
+- less目录下是编译前的样式定义，编译后的css在dist目录下的css目录中——bootstrap.min.css
 
+想了解less？看[这里](/Web前端入门教程/css-whatislesscss)。
 
 # 下载 HTML5 Boilerplate
 
