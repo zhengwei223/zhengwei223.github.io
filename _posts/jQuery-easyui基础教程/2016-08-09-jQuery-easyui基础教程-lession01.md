@@ -18,9 +18,10 @@ description:
 #jQuery EasyUI简介
 
 jQuery EasyUI 是一个基于 jQuery 的框架，集成了各种用户界面插件。  
-![image](/public/img/easyui/easyUI.png) 
 
-![image](/public/img/easyui/easyUI01.png) 
+![image](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/easyUI.png) 
+
+![image](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/easyui/easyUI01.png) 
 
 easyUI是一种基于jQuery的用户界面插件集合。
 
@@ -40,13 +41,13 @@ easyUI框架提供了创建网页所需的一切，帮助您轻松建立站点�
 #下载jQuery EasyUI
 
 访问easyUI官网下载最新的easyUI源文件：http://www.jeasyui.com/  
-![image](/public/img/easyui/official_website.png)  
+![image](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/easyui/official_website.png)  
 
 也可以参考easyUI的中文网：http://www.jeasyui.net/  
-![image](/public/img/easyui/official_website_china.png) 
+![image](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/easyui/official_website_china.png) 
 
 解压后能看到这些文件夹和文件：  
-![image](/public/img/easyui/construction.png)
+![image](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/easyui/construction.png)
 
 - demo是easyUI官方提供的案例
 - local是各种支持的语言包
@@ -59,7 +60,7 @@ easyUI框架提供了创建网页所需的一切，帮助您轻松建立站点�
 jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在流行的 jQuery 核心和 HTML5 上建立程序页面。这些功能使您的应用适合今天的网络。有两个方法声明来创建 UI 组件:
 
 ##### 第一步： 新建一个web应用，并引入easyUI的所有包，目录结构如图所示：  
-![image](/public/img/easyui/construction01.png)
+![image](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/easyui/construction01.png)
 
 ##### 第二步： page目录下新建一个first.html页面，并引入需要的css样式和js包:
 
@@ -88,7 +89,7 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 
 
 效果如图：  
-![image](/public/img/easyui/dialog01.png)
+![image](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/easyui/dialog01.png)
 
 另一种形式：   
 ```
