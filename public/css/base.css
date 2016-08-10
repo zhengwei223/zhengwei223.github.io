@@ -1,17 +1,18 @@
 /* 页面配置 */
-.container {
+/*.container {
   width: 100%;
   height: 100%;
-}
-body, html {
+}*/
+/*body, html {
   margin: 0px;
   height: 100%;
   overflow: hidden; 
   background-color: #303030;
-}
-.row {
+}*/
+/*.row {
   height: 100%;
-}
+}*/
+
 /* 导航栏 + 目录栏 */
 .aside {
   height: 100%;
@@ -81,13 +82,13 @@ body, html {
 .aside3 {
   height: 100%;
   overflow-y: auto;
-  background-color: #fff;
+  /*background-color: #fff;*/
   overflow-x: hidden;
   overflow-y:scroll;
   /*background-image: url(/public/img/bg_lines1.jpg);*/
 }
 .aside3-title {
-  background-color: #f5f5f5;
+  /*background-color: #f9f9f9;*/
   /*background-image: url(/public/img/bg_grid.jpg);*/
   border-bottom: 1px solid #f5f5f5;
   padding-left: 30px;
@@ -98,8 +99,8 @@ body, html {
 .aside3-content {
 /*  padding-left: 40px;
   padding-right: 40px;
-*/  
   padding: 0 5% 0 5%;
+*/  
   color: #656565;
   line-height: 1.42857143;
 }
@@ -130,7 +131,7 @@ blockquote p {
   Pretty Table Styling
   */
   
-  table {
+/*  table {
     border:1px solid #d3d3d3;
     background:#fefefe;
   }
@@ -143,4 +144,4 @@ blockquote p {
   
   td.first, th.first {text-align:left}
 
-.ds-sync{display:none !important;}
+.ds-sync{display:none !important;}*/
