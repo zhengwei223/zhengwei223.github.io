@@ -1,16 +1,28 @@
 <meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+{% if page.titlename %}
+ <title>{{ page.titlename }} | {{ site.title }}</title>
+ {% else %}
 <title>{{ page.title }} | {{ site.title }}</title>
-<meta name="author" content="{{ page.author }}">
-{% if page.keywords %}
-  <meta name="keywords" content="{{ page.keywords }}">
 {% endif %}
+
+<meta name="author" content="{{ page.author }}">
 {% if page.description  %}
   <meta name="description " content="{{ page.description  }}">
 {% endif %}
-<link rel="shortcut icon" href="{{ site.favicon }}" />
+{% if page.keywords %}
+  <meta name="keywords" content="{{ page.keywords }}">
+{% endif %}
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="{{ site.favicon }}">
+<link rel="shortcut icon" href="{{ site.favicon }}" />
+
 <link rel="stylesheet" href="/public/css/bootstrap.css">
-<link rel="stylesheet" href="/public/css/font-awesome.css">
-<link rel="stylesheet" href="/public/js/prettify/prettify.css">
+<link rel="stylesheet" href="/public/js/vendor/prettify/prettify.css">
 <link rel="stylesheet" href="/public/css/base.css">
-<link href="/pages/atom.xml" rel="alternate" title="{{site.title}}" type="application/atom+xml">
+<script src="/public/js/vendor/modernizr-2.8.3.min.js"></script>
+<!--[if (lt IE 9) & (!IEMobile)]>
+<script src="/public/js/vendor/respond.min.js"></script>
+<![endif]-->

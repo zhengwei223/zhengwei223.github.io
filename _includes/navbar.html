@@ -1,0 +1,45 @@
+	<header role="bannner">
+		<!-- Static navbar -->
+	    <nav class="navbar navbar-default navbar-fixed-top">
+	      <div class="container">
+	      	<!-- Brand and toggle get grouped for better mobile display -->
+	        <div class="navbar-header">
+	          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <a class="navbar-brand pjaxlink" href="/">
+	          	<img src="{{ site.brand }}" alt="蓝桥" width="120"/></a>
+	        </div>
+	        <div id="navbar" class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav">
+	            <li class="dropdown">
+					<a href="#" data-toggle="dropdown" class="dropdown-toggle">基础课程<strong class="caret"></strong></a>
+					<ul class="dropdown-menu">
+						{% for cate in site.cates_basic %} 
+						<li>
+							<a href="/pages/courses/{{ cate }}.html">{{ cate }}
+								<span class="badge pull-right">{{ site.categories[cate].size }}</span>
+							</a>
+						</li>
+						{% endfor %}
+						
+					</ul>
+				</li>
+	            <li><a class="pjaxlink" href="#">高级课程</a></li>
+	            <li><a class="pjaxlink" href="#">项目实践</a></li>
+	            <li><a class="pjaxlink" href="#">技术前沿</a></li>
+	            <li><a class="pjaxlink" href="#">面试宝典</a></li>
+	            <li><a class="pjaxlink" href="/pages/about.html">关于蓝桥</a></li>
+	            <li><a class="pjaxlink" href="#contact"><span class="icon fa fa-envelope"></span>联系我们</a></li>
+	          </ul>
+	          <ul class="nav navbar-nav navbar-right">
+	            <li><a href="#">登录</a></li>
+	            <li><a href="#">注册</a></li>
+	          </ul>
+	        </div><!--/.nav-collapse -->
+	      </div>
+	    </nav>
+	</header>

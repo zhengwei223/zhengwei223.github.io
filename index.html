@@ -1,46 +1,119 @@
 ---
-layout: page_title
+layout: page
 title: <a class="pjaxlink" href="/"><img src="/public/img/蓝桥-图形@2x_24.png"
   class="img-ronuded avatar" style="border-width:0px; border-color:#000"></a>
-titlename: 首页
-comments: false
----
-
-<center><h3><font color="#000080">己</font><font color="#FFA500">欲</font>
+  <font color="#000080">己</font><font color="#FFA500">欲</font>
   <font color="#2E8B57">立</font><font color="#F08080">而</font><font color="#00CED1">立</font>
   <font color="red">人, </font><font color="#601986">己</font><font color="#556fb5">欲</font>
   <font color="#fa1089">达</font><font color="#638c0b">而</font><font color="#0a1089">达</font>
-  <font color="#f0c089">人</font></h3></center>
-
-{% for post in site.posts  %}
-    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
-    {% capture this_month %}{{ post.date | date: "%m" }}{% endcapture %}
-    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
-    {% capture next_month %}{{ post.previous.date | date: "%m" }}{% endcapture %}
-
-    {% if forloop.first %}
-      <legend id="{{this_year}}-{{this_month}}">{{this_year}}年-{{this_month}}月</legend>
-      <ul>
-    {% endif %}
-    <li><span>{{ post.date | date: "%Y年-%m月-%d日" }}</span> &raquo;
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
-      <span class="pull-right">{{ post.author }}</span>
-    </li>
-
-    {% if forloop.last %}
-      </ul>
-    {% else %}
-      {% if this_year != next_year %}
-        </ul>
-        <legend id="{{next_year}}-{{next_month}}">{{next_year}}年-{{next_month}}月</legend>
-        <ul>
-      {% else %}
-        {% if this_month != next_month %}
-        </ul>
-        <legend id="{{next_year}}-{{next_month}}">{{next_year}}年-{{next_month}}月</legend>
-        <ul>
-        {% endif %}
-      {% endif %}
-    {% endif %}
-{% endfor %}
-
+  <font color="#f0c089">人</font>
+titlename: 首页
+comments: false
+---
+<!-- 传送带 begin -->
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+      <div class="carousel slide" id="carousel-227666">
+        <ol class="carousel-indicators">
+          <li class="active" data-slide-to="0" data-target="#carousel-227666">
+          </li>
+          <li data-slide-to="1" data-target="#carousel-227666">
+          </li>
+          <li data-slide-to="2" data-target="#carousel-227666">
+          </li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="item active">
+            <img alt="" src="/public/img/courses/Java8.jpg" class="img-responsive"/>
+            <div class="carousel-caption">
+              <h4>
+                加油
+              </h4>
+              <p>
+                天赋、勤奋、兴趣。
+              </p>
+            </div>
+          </div>
+          <div class="item">
+            <img alt="" src="/public/img/courses/Java8.jpg" class="img-responsive"/>
+            <div class="carousel-caption">
+              <h4>
+                加油
+              </h4>
+              <p>
+                天赋、勤奋、兴趣。
+              </p>
+            </div>
+          </div>
+          <div class="item">
+            <img alt="" src="/public/img/courses/Java8.jpg" class="img-responsive"/>
+            <div class="carousel-caption">
+              <h4>
+                加油
+              </h4>
+              <p>
+                天赋、勤奋、兴趣。
+              </p>
+            </div>
+          </div>
+        </div> 
+        <a data-slide="prev" href="#carousel-227666" class="left carousel-control">
+          <span class="icon fa fa-chevron-left"></span>
+        </a> 
+        <a data-slide="next" href="#carousel-227666" class="right carousel-control">
+          <span class="icon fa fa-chevron-right"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 传送带 end -->
+<!-- 缩略图 begin -->
+<div class="container indexContent">
+  <div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="/public/img/courses/java8.jpg" alt="..." class="img-responsive">
+      <div class="caption">
+        <h3>Java8编程语言</h3>
+        <p>...</p>
+        <p>
+          <a href="/pages/courses/Java8.html" class="btn btn-primary pull-right pjaxlink" role="button">
+          课程详情<span class="icon fa fa-arrow-circle-right"></span>
+          </a>  
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="/public/img/courses/h5.jpeg" alt="..." class="img-responsive">
+      <div class="caption">
+        <h3>Web前端入门教程</h3>
+        <p>...</p>
+        <p>
+          <a href="#" class="btn btn-primary pull-right pjaxlink" role="button">
+          课程详情<span class="icon fa fa-arrow-circle-right"></span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="/public/img/courses/tools.jpeg" alt="..." class="img-responsive">
+      <div class="caption">
+        <h3>常用工具使用教程</h3>
+        <p>...</p>
+        <p>
+          <a href="#" class="btn btn-primary pull-right pjaxlink" role="button">
+          课程详情<span class="icon fa fa-arrow-circle-right"></span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<!-- 缩略图 end -->

@@ -24,6 +24,7 @@ SEOTitle: 蓝桥软件学院
 # gavatar头像及Favicon
 gavatar: /public/img/蓝桥-图形@2x_24.png
 favicon: /public/img/蓝桥-图形@2x_24.png
+brand: /public/img/蓝桥软件学院@2x_76.png
 
 # google analytics 设置
 baidu:
