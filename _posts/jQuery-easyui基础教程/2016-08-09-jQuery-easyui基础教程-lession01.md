@@ -6,7 +6,7 @@ tags: Git jQuery EasyUI 项目 实战
 author: 李彩琴  
 keywords: lanqiao 蓝桥 培训 教程 jQuery EasyUI 项目 实战  
 description:
-  主要适用于掌握了jQuery基础语法的
+  
 
 ---
 # 课程目标
