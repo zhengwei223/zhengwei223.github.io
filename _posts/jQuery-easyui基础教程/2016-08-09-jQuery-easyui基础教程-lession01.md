@@ -78,17 +78,22 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 
 ##### 第三步： 编写代码，弹出对话框  
 
+```
+
     <body>     
 		<div id="test" class="easyui-dialog" style="width:400px;height:200px">   
 	        This is my first dialog!    
 		</div>    
 	</body>   
+```
 
 
 效果如图：  
 ![image](http://i.imgur.com/3IBcY9c.png)
 
 另一种形式：   
+
+```
 
     <!DOCTYPE html>  
 	<html>  
@@ -110,12 +115,13 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 		</div>  
 	  </body>  
 	</html> 
-
+```
 
 ###### 如果使用easyloader则应该这样写：
 
-   
-	<!DOCTYPE html> 
+```
+
+    <!DOCTYPE html> 
 	<html> 
 	  <head>  
 	    <title>demo01.html</title> 
@@ -137,5 +143,5 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 		</div>  
 	  </body>  
 	</html> 
-
+```
 
