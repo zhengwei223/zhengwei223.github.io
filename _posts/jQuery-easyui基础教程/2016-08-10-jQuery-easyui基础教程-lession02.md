@@ -21,7 +21,7 @@ description:
 
 对话框是一种特殊类型的窗口，在现在的系统中使用越来越多。如，添加，修改，删除的提示等功能，使用对话框更加贴近用户的要求，开发人员开发程序也更加简单。它在顶部有一个工具栏，在底部有一个按钮栏。对话框窗口右上角只有一个关闭按钮，用户可以配置对话框的行为来显示其他工具，如collapsible,minimizable,maximizable工具等。  
 
-![image](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/easyui/dialog01.png)  
+![image](http://i.imgur.com/XmddMrE.png)
 
 ### 开发Dialog程序
 
@@ -215,7 +215,7 @@ buttons|array,selector|定义对话框窗口底部按钮|null
 
 效果如下：  
 
-![image](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/easyui/dialog04.png)  
+![image](http://i.imgur.com/XB52TZF.png)
 
 
 以上内容便是Dialog的普通用法。
