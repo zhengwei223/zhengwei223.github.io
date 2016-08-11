@@ -1,29 +1,6 @@
-<!-- 展示文章目录的按钮 -->
-<!-- <div style="position:fixed;right:15px;top:162px;">
-  <button id="content_btn" class="btn btn-primary" style="width:43px; height:34px;">
-    <i class="fa fa-lg fa-plus"></i>
-  </button>
-</div> -->
-<!-- 展示菜单的按钮 -->
-<!-- <div style="position:fixed;right:15px;top:120px;">
-  <button id="nav_btn" class="btn btn-primary">
-    <i class="fa fa-lg fa-navicon"></i>
-  </button>
-</div> -->
-
 <script type="text/javascript" src="/public/js/vendor/jquery.js"></script>
 <script type="text/javascript" src="/public/js/vendor/holder.min.js"></script>
 <script type="text/javascript" src="/public/js/bootstrap.js"></script>
 <script src="/public/js/vendor/jquery.pjax.js"></script>
 <script src="/public/js/vendor/prettify/prettify.js"></script>
 <script src="/public/js/base.js"></script>
-
-<script>
-{% if page.categories %}
-  $('#{{ page.category }}').parents('.tab-pane').toggleClass('active');
-  {% else %}
-    $('a[href="#{{ site.active }}"]').tab('show');
-{% endif %}
-</script>
-<!--button是右上方导航和显示目录的按钮-->
-
