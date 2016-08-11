@@ -117,31 +117,80 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 
 ### Dialog常用属性
 
-属性名        |属性值类型       |描述                                   |默认值  
--------------|----------------|---------------------------------------|----------
-title        |string          |对话框窗口标题文本                       |New Dialog
-closable|boolean|定义是否显示关闭按钮|true 
-draggable|boolean|定义是否能够拖拽窗口|true 
-shadow|boolean|true表示在窗体显示的时候显示阴影|true 
-iconCls|string|设置图标显示在面板左上角|null 
-width|number|设置面板宽度|auto 
-height|number|设置面板高度|auto 
-left|number|设置面板距离左边的位置|null 
-top|number|设置面板距离顶部的位置|null 
-fit|boolean|面板大小是否自适应父容器|false 
-border|boolean|定义是否显示面板边框|true 
-href|string|从URL读取远程数据并且显示到面板|null 
-cache|boolean|如果为true，在超链接载入时缓存面板内容|true 
-loadingMessage|string|在加载远程数据的时候在面板内显示一条消息|Loading… 
-method|string|使用HTTP的哪一种方法读取内容页。可用值：'get','post'|get 
-queryParams|object|在加载内容页的时候添加的请求参数|{} 
-loader|function|定义了如何从远程服务器加载内容页|null
-collapsible|boolean|定义是否显示可折叠按钮|false 
-minimizable|boolean|定义是否显示最小化按钮|false 
-maximizable|boolean|定义是否显示最大化按钮|false 
-resizable|boolean|定义是否可以改变对话框窗口大小|false 
-toolbar|array,selector|定义工具栏|null
-buttons|array,selector|定义对话框窗口底部按钮|null
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th>属性名</th><th>属性值类型</th><th>描述</th><th>默认值</th>
+   </tr>
+   <tr>
+      <td>title</td><td>string</td><td>对话框窗口标题文本</td><td>New Dialog</td>
+   </tr>
+   <tr>
+      <td>closable</td> <td>boolean</td> <td>定义是否显示关闭按钮</td><td>true </td>
+   </tr>
+   <tr>
+      <td>draggable</td> <td>boolean</td> <td>定义是否能够拖拽窗口</td> <td>true </td>
+   </tr>
+   <tr>
+      <td>shadow</td> <td>boolean</td> <td>true表示在窗体显示的时候显示阴影</td> <td>true </td>
+   </tr>
+   <tr>
+      <td>iconCls</td> <td>string</td> <td>设置图标显示在面板左上角</td> <td>null </td>
+   </tr>
+   <tr>
+      <td>width</td> <td>number</td> <td>设置面板宽度</td> <td>auto </td>
+   </tr>
+   <tr>
+      <td>height</td> <td>number</td> <td>设置面板高度</td> <td>auto </td>
+   </tr>
+   <tr>
+      <td>left</td> <td>number</td> <td>设置面板距离左边的位置</td> <td>null </td>
+   </tr>
+   <tr>
+      <td>top</td> <td>number</td> <td>设置面板距离顶部的位置</td> <td>null </td>
+   </tr>
+   <tr>
+      <td>fit</td> <td>boolean</td> <td>面板大小是否自适应父容器</td> <td>false </td>
+   </tr>
+   <tr>
+      <td>border</td> <td>boolean</td> <td>定义是否显示面板边框 </td><td>true </td>
+   </tr>
+   <tr>
+      <td>href</td> <td>string</td> <td>从URL读取远程数据并且显示到面板</td> <td>null </td>
+   </tr>
+   <tr>
+      <td>cache</td> <td>boolean</td> <td>如果为true，在超链接载入时缓存面板内容</td> <td>true </td>
+   </tr>
+   <tr>
+      <td>loadingMessage</td> <td>string</td> <td>在加载远程数据的时候在面板内显示一条消息 </td><td>Loading… </td>
+   </tr>
+   <tr>
+      <td>method</td> <td>string</td> <td>使用HTTP的哪一种方法读取内容页。可用值：'get','post'</td> <td>get </td>
+   </tr>
+   <tr>
+      <td>queryParams</td> <td>object</td> <td>在加载内容页的时候添加的请求参数</td> <td>{} </td>
+   </tr>
+   <tr>
+      <td>loader</td> <td>function</td> <td>定义了如何从远程服务器加载内容页</td> <td>null</td>
+   </tr>
+   <tr>
+      <td>collapsible</td> <td>boolean</td> <td>定义是否显示可折叠按钮</td> <td>false </td>
+   </tr>
+   <tr>
+      <td>minimizable</td> <td>boolean</td> <td>定义是否显示最小化按钮</td> <td>false </td>
+   </tr>
+   <tr>
+      <td>maximizable</td> <td>boolean</td> <td>定义是否显示最大化按钮</td> <td>false </td>
+   </tr>
+   <tr>
+      <td>resizable</td> <td>boolean</td> <td>定义是否可以改变对话框窗口大小</td> <td>false </td>
+   </tr>
+   <tr>
+      <td>toolbar</td> <td>array,selector</td> <td>定义工具栏</td> <td>null</td>
+   </tr>
+   <tr>
+      <td>buttons</td> <td>array,selector</td> <td>定义对话框窗口底部按钮</td> <td>null</td>
+   </tr>
+</table>
 
 参考jQuery EasyUI的API。
 
