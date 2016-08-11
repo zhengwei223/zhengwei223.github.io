@@ -269,24 +269,54 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 
 ### Dialog常用方法
 
-方法名     |方法参数 |描述   
-----------|--------|-------
-setTitle|title|设置面板头的标题文本
-open|forceOpen|在'forceOpen'参数设置为true的时候，打开面板时将跳过'onBeforeOpen'回调函数
-close|forceClose|在'forceClose'参数设置为true的时候，关闭面板时将跳过'onBeforeClose'回调函数
-refresh|href|刷新面板来装载远程数据。如果'href'属性有了新配置，它将重写旧的'href'属性。 
-
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th width="300px">方法名</th> <th width="300px">方法参数</th> <th width="600px">描述   </th>
+   </tr>
+   <tr>
+      <td>setTitle</td> <td>title <td>设置面板头的标题文本</td>
+   </tr>
+   <tr>
+      <td>open</td> <td>forceOpen</td> <td>在'forceOpen'参数设置为true的时候，打开面板时将跳过'onBeforeOpen'回调函数</td>
+   </tr>
+   <tr>
+      <td>close</td> <td>forceClose</td> <td>在'forceClose'参数设置为true的时候，关闭面板时将跳过'onBeforeClose'回调函数</td>
+   </tr>
+   <tr>
+      <td>refresh</td> <td>href</td> <td>刷新面板来装载远程数据。如果'href'属性有了新配置，它将重写旧的'href'属性。 </td>
+   </tr>
+   <tr>
+      <td></td>
+   </tr>
+</table>
 ### Dialog常用事件
 
-事件名     |事件参数 |描述   
-----------|--------|-------
-onBeforeLoad|none|在加载内容页之前触发，返回false将忽略该动作。
-onLoad|none|在加载远程数据时触发。 
-onLoadError|none|在加载内容页发生错误时触发。 
-onBeforeOpen|none|在打开面板之前触发，返回false可以取消打开操作。 
-onOpen|none|在打开面板之后触发。 
-onBeforeClose|none|在关闭面板之前触发，返回false可以取消关闭操作。下列的面板将不能关闭。
-onClose|none|在面板关闭之后触发。 
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th width="300px">事件名</th><th width="300px">事件参数</th><th width="600px">描述</th>
+   </tr>
+   <tr>
+      <td>onBeforeLoad</td><td>none</td><td>在加载内容页之前触发，返回false将忽略该动作。</td>
+   </tr>
+   <tr>
+      <td>onLoad</td><td>none</td><td>在加载远程数据时触发。 </td>
+   </tr>
+   <tr>
+      <td>onLoadError</td><td>none</td><td>在加载内容页发生错误时触发。 </td>
+   </tr>
+   <tr>
+      <td>onBeforeOpen</td><td>none</td><td>在打开面板之前触发，返回false可以取消打开操作。 </td>
+   </tr>
+   <tr>
+      <td>onOpen</td><td>none</td><td>在打开面板之后触发。 </td>
+   </tr>
+   <tr>
+      <td>onBeforeClose</td><td>none</td><td>在关闭面板之前触发，返回false可以取消关闭操作。下列的面板将不能关闭。</td>
+   </tr>
+   <tr>
+      <td>onClose</td><td>none</td><td>在面板关闭之后触发。</td>
+   </tr>
+</table> 
 
 
 ##### 使用案例1：
