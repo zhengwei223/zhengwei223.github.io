@@ -40,13 +40,16 @@ easyUI框架提供了创建网页所需的一切，帮助您轻松建立站点�
 
 # 下载jQuery EasyUI
 
-访问easyUI官网下载最新的easyUI源文件：http://www.jeasyui.com/  
+访问easyUI官网下载最新的easyUI源文件：http://www.jeasyui.com/ 
+ 
 ![image](http://i.imgur.com/oFHGavp.png) 
 
 也可以参考easyUI的中文网：http://www.jeasyui.net/  
+
 ![image](http://i.imgur.com/WMB3LAN.png)
 
 解压后能看到这些目录和文件：  
+
 ![image](http://i.imgur.com/OKUnaaP.png)
 
 - demo是easyUI官方提供的案例
