@@ -45,6 +45,7 @@ Bootstrap 是由 Twitter 的 Mark Otto 和 Jacob Thornton 开发的。Bootstrap 
 **下载源码**，以后要用到less。
 
 ![image](/public/img/h5/boot-download.png)
+图1.1
 
 解压后能看到这些文件夹和文件：
 
@@ -56,7 +57,7 @@ Bootstrap 是由 Twitter 的 Mark Otto 和 Jacob Thornton 开发的。Bootstrap 
 > Running documentation locally
 > If necessary, install Jekyll ………………
 
-请参考[如何离线运行Bootstrap的文档](/references/bootstrap-doc)。
+请参考[如何离线运行Bootstrap的文档](/web-front-references/bootstrap-doc)。
 
 你也可以在网上找找bootstrap的离线文档，英文不好的可以访问[Bootstrap中文网](http://v3.bootcss.com/)。
 
@@ -73,7 +74,7 @@ Bootstrap 是由 Twitter 的 Mark Otto 和 Jacob Thornton 开发的。Bootstrap 
 git clone https://github.com/h5bp/html5-boilerplate.git
 ```
 
-不会使git的看[这里](/常用工具使用教程/Git-lesson1-introduction)
+不会使git的看[这里](/常用工具使用教程/Git)
 
 clone好之后，能看到这样的目录结构：
 
