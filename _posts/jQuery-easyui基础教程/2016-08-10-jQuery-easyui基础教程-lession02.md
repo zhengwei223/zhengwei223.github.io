@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: Dialog   
-category: jQuery-easyui基础教程
+category: jQuery-easyui基础教程  
 tags: Git jQuery EasyUI 项目 实战  
 author: 李彩琴  
 keywords: lanqiao 蓝桥 培训 教程 jQuery EasyUI 项目 实战  
