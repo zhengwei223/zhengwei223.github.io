@@ -1,5 +1,5 @@
 var duoshuoQuery = {short_name:"lanqiao2016"};
-function exeDuoshuo(){
+function addDuoshuo(){
   if ( $('.ds-thread').length > 0 ) { 
     if (typeof DUOSHUO !== 'undefined') {
       DUOSHUO.EmbedThread('.ds-thread');
@@ -69,7 +69,12 @@ function contentEffects(){
         var current = $(this);
         current.attr("id", "title" + i);
         tag = current.prop('tagName').substr(-1);
-        $("#nav").append("<div style='margin-left:"+15*(tag-1)+"px'><a id='link" + i + "' href='#title" +i + "'>" + current.html() + "</a></div>");
+        $("#nav").append("<div style='margin-left:"+15*(tag-1)+"px'><a id='link" + i + "' href='javascript:void(0);'>" + current.html() + "</a></div>");
+        $('#link'+i).click(function(){
+          // console.log('toc link clicked---'+current.offset().top);
+          // current.scrollTop(0);
+          $('body').animate({scrollTop:current.offset().top-64}, 1000);
+        });
     }); 
     $('#content_btn').show();
   }else{
@@ -77,60 +82,61 @@ function contentEffects(){
   }
   $('#content img').addClass('img-thumbnail').parent('p').addClass('center');
   $("pre").addClass("prettyprint");
+  $("code").addClass("prettyprint");
   prettyPrint(); 
 }
 //生成table of content  end
 
 $(document).ready(function() {
   /* 导航菜单按钮监听事件，控制左侧 aside 的动作 */
-  $("#nav_btn").on('click', function() {
-    isClicked = $(this).data('clicked');
+  // $("#nav_btn").on('click', function() {
+  //   isClicked = $(this).data('clicked');
 
-    nav_click(!isClicked);
+  //   nav_click(!isClicked);
 
-    // $(this).data('clicked', !isClicked);
+  //   // $(this).data('clicked', !isClicked);
+  // });
+
+
+
+// 这句话是绑定本页面所有.pjaxlink标签，链接点击之后，替换#pjax容器的内容为新内容#pjax，ajax超时时间为10秒；
+  $(document).pjax('.pjaxlink', '#pjax', { fragment: "#pjax", timeout: 10000 });
+  
+  // pjax.end 在pjax ajax结束时调用 
+  // pjax.complete 在装载完成后调用 
+  //迫使多说生效
+  $(document).on("pjax:complete", function() {
+    $('#content a').attr('target','_blank');
+    $('.aside3').scrollTop(0);
+    addListener();
+    addDuoshuo();
+    contentEffects();
   });
-  //toc监听事件，toggle content_table及改变按钮样式
+
+  $('#content a').attr('target','_blank');
+  addListener();
+  contentEffects();
+  addDuoshuo();
+  /* For zebra striping */
+  // $("table tr:nth-child(odd)").addClass("odd-row");
+  /* For cell text alignment */
+  // $("table td:first-child, table th:first-child").addClass("first");
+  /* For removing the last border */
+  // $("table td:last-child, table th:last-child").addClass("last");
+});
+
+function addListener(){
+  //展示本文目录
   $("#content_btn").on('click', function(){
     isClicked = $(this).data('clicked');
     content_click(!isClicked);
     $(this).data('clicked',!isClicked);
   });
-  $('#content a').attr('target','_blank');
-// 这句话是绑定本页面所有.pjaxlink标签，链接点击之后，替换#pjax容器的内容为新内容#pjax，ajax超时时间为10秒；
-  $(document).pjax('.pjaxlink', '#pjax', { fragment: "#pjax", timeout: 10000 });
-// pjax.end 在phax ajax结束时调用 
-  $(document).on("pjax:end", function() {
-    $('.aside3').scrollTop(0);
-    contentEffects();
+  //回到顶部
+  $('#scrolltop_btn').on("click", function() {
+    // $('.aside3').scrollTop(0);
+    $('body').animate({scrollTop:$('.aside3-title').offset().top-64}, 500);
   });
 
-  //迫使多说生效
-  $(document).on("pjax:complete", function() {
-    exeDuoshuo();
-  });
-
-  //文章目录超链接上的监听：隐藏该目录
-  // $("#content_table div #nav div a").click(function(){
-  //   $("#content_btn").click();
-  // });
-  //侧边栏的直接链接：隐藏菜单
-  $(".aside1 .pjaxlink ").click(function(){
-    $('#nav_btn').click();
-  });
-  //文章超链接上的监听：隐藏菜单
-  $(".aside2 .pjaxlink ").click(function(){
-    $('#nav_btn').click();
-  });
-  
-  contentEffects();
-  /* For zebra striping */
-  $("table tr:nth-child(odd)").addClass("odd-row");
-  /* For cell text alignment */
-  $("table td:first-child, table th:first-child").addClass("first");
-  /* For removing the last border */
-  $("table td:last-child, table th:last-child").addClass("last");
-  exeDuoshuo();
-});
-
+}
 
