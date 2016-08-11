@@ -58,7 +58,6 @@ locals:
 cates_basic:
     - Java8编程语言
     - JDBC入门教程
-    - JDK核心API
     - Web前端入门教程
     - jQuery-easyui基础教程
     - 数据库入门教程
