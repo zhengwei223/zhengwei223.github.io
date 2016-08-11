@@ -285,10 +285,8 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
    <tr>
       <td>refresh</td> <td>href</td> <td>刷新面板来装载远程数据。如果'href'属性有了新配置，它将重写旧的'href'属性。 </td>
    </tr>
-   <tr>
-      <td></td>
-   </tr>
-</table>
+</table>  
+
 ### Dialog常用事件
 
 <table class="table table-bordered table-striped table-condensed">
@@ -320,6 +318,7 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 
 
 ##### 使用案例1：
+
 JS代码  
 
 ```
