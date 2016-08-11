@@ -9,12 +9,12 @@ description:
 
 ---
 
-# 课程目标
+# 2.1 课程目标
 在这一章中，我们将讲解 Bootstrap 底层结构的关键部分，包括我们让 web 开发变得更好、更快、更强壮的最佳实践。
 
 **阅读本章，可以对上一章的某些代码有更进一步的认识**
 
-# HTML 5 文档类型（Doctype）
+# 2.2 HTML 5 文档类型（Doctype）
 Bootstrap 使用了一些 HTML5 元素和 CSS 属性。为了让这些正常工作，您需要使用 HTML5 文档类型（Doctype）。 因此，请在使用 Bootstrap 项目的开头包含下面的代码段。
 
 ```
@@ -24,7 +24,7 @@ Bootstrap 使用了一些 HTML5 元素和 CSS 属性。为了让这些正常工�
 </html>
 ```
 
-# 移动设备优先
+# 2.3 移动设备优先
 
 移动设备优先是 Bootstrap 3 的最显著的变化。
 
@@ -57,7 +57,7 @@ initial-scale=1.0 确保网页加载时，以 1:1 的比例呈现，不会有任
                                      user-scalable=no">
 ```
 
-#  响应式图像
+#  2.4 响应式图像
 
 ```
 <img src="..." class="img-responsive" alt="响应式图像">
@@ -83,12 +83,13 @@ initial-scale=1.0 确保网页加载时，以 1:1 的比例呈现，不会有任
 
 设置 max-width 为 100% 会重写任何通过 width 属性指定的宽度。这让图片对响应式布局的支持更友好。
 
-# 全局显示、排版和链接
+# 2.5 全局显示、排版和链接
 
-## 基本的全局显示
-Bootstrap 3 使用 body {margin: 0;} 来移除 body 的边距。
+## 2.5.1 基本的全局显示
 
-请看下面有关 body 的设置：
+Bootstrap为所有html标记都设置了基本样式，对于body，使用 body {margin: 0;} 来移除 body 的边距。
+
+body的其他设置：
 
 ```
 body {
@@ -106,11 +107,16 @@ body {
 - 第四条规则设置默认的文本颜色为 #333333。
 - 最后一条规则设置默认的背景颜色为白色。
 
-## 排版
+像这样的代码还有很多，后续课程再详细解释。
 
-使用 @font-family-base、 @font-size-base 和 @line-height-base 变量作为排版的基本参数
 
-## 链接样式
+## 2.5.2 排版
+
+bootstrap采用less变量定义的方式统一字体、文字大小和行高—— @font-family-base、 @font-size-base 和 @line-height-base 。通过修改这些参数就会改变所有的网页文字效果。
+
+我们在解析bootstrap的less文件时，会详细分析这些变量的含义及作用。
+
+## 2.5.3 链接样式
 
 为所有链接设置了基本颜色 @link-color ，并且当链接处于 :hover 状态时才添加下划线。
 对于链接的默认样式，如下设置：
@@ -135,13 +141,15 @@ a:focus {
 
 以上所有这些样式都可以在 scaffolding.less 中找到。
 
-# 避免跨浏览器的不一致
+# 2.6 避免跨浏览器的不一致
 
 Bootstrap 使用 Normalize 来建立跨浏览器的一致性。
 
 Normalize.css 是一个很小的 CSS 文件，在 HTML 元素的默认样式中提供了更好的跨浏览器一致性。
 
-# 容器（Container）
+**bootstrap.css中已经包含了Normalize.css的内容，所以我们没有必要重复引入。**
+
+# 2.7 容器（Container）
 
 ```
 <div class="container">
@@ -149,7 +157,7 @@ Normalize.css 是一个很小的 CSS 文件，在 HTML 元素的默认样式中�
 </div>
 ```
 
-Bootstrap 需要为页面内容和栅格系统包裹一个 .container 容器。
+Bootstrap 需要为页面内容和栅格系统包裹一个 .container 容器，换句话说**container下才是行和列，列中是我们要摆放的内容**。
 
 让我们一起来看看 
 bootstrap.css 文件中的这个 .container class。
@@ -163,7 +171,7 @@ bootstrap.css 文件中的这个 .container class。
 }
 ```
 
-通过上面的代码，把 container 的左右外边距（margin-right、margin-left）交由浏览器决定。
+通过上面的代码，把 container 的内补设置为左右15px，而外边距（margin-right、margin-left）交由浏览器决定。
 
 Bootstrap 3 CSS 有一个申请响应的媒体查询，在不同的媒体查询阈值范围内都为 container 设置了max-width，用以匹配网格系统。
 
@@ -173,3 +181,8 @@ Bootstrap 3 CSS 有一个申请响应的媒体查询，在不同的媒体查询�
       width: 750px;
 }
 ```
+
+这段代码说明，设备宽度大于等于768像素时，container的宽度为750px。
+
+还有别的代码，针对别的宽度断点设置container的宽度。
+
