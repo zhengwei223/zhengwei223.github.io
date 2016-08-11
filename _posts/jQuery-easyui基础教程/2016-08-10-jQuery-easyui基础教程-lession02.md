@@ -264,17 +264,17 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 
 效果如下：  
 
-![image](http://i.imgur.com/XB52TZF.png)
+![image](http://i.imgur.com/XB52TZF.png)  
 
 
-### Dialog常用方法
+### Dialog常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
-      <th width="300px">方法名</th> <th width="300px">方法参数</th> <th width="600px">描述   </th>
+      <th width="300px">方法名</th> <th width="300px">方法参数</th> <th width="600px">描述</th>
    </tr>
    <tr>
-      <td>setTitle</td> <td>title <td>设置面板头的标题文本</td>
+      <td>setTitle</td> <td>title</td> <td>设置面板头的标题文本</td>
    </tr>
    <tr>
       <td>open</td> <td>forceOpen</td> <td>在'forceOpen'参数设置为true的时候，打开面板时将跳过'onBeforeOpen'回调函数</td>
