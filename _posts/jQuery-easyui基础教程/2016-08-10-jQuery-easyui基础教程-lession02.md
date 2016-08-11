@@ -46,7 +46,7 @@ description:
 	 </html>  
 ```
 
-Tip: Dialog所需的属性可以类似于以上代码放到data-options中，此外也可以像HTML属性一样直接跟在开始标签内。
+Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中，此外也可以像HTML属性一样直接跟在开始标签内。 **强烈建议放到data-options属性中。**
 
 ##### 方式二：使用JS代码设置
 
@@ -82,7 +82,7 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options中，此
 	 </html> 
 ```
 
-此外，也可以不引入easyloader.js文件，具体引入dialog.js文件。代码如下：
+此外，也可以不引入easyloader.js文件，引入具体所需的js文件。代码如下：
 
 ```
 
