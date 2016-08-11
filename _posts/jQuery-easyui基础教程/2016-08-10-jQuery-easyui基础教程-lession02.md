@@ -119,7 +119,7 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
-      <th width="150px">属性名</th><th width="70px">属性值类型</th><th width="250px">描述</th><th>默认值</th>
+      <th width="200px">属性名</th><th width="120px">属性值类型</th><th width="450px">描述</th><th>默认值</th>
    </tr>
    <tr>
       <td>title</td><td>string</td><td>对话框窗口标题文本</td><td>New Dialog</td>
