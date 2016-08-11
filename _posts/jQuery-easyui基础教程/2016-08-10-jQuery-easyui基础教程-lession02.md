@@ -191,7 +191,7 @@ buttons|array,selector|定义对话框窗口底部按钮|null
 		 					alert('help');  
 		 				}  
 		 			} ],//定义工具栏 
-		 			//toolbar : '#toolbar', //定义工具栏  
+		 			//toolbar : '#toolbar', //定义工具栏的另外一种方式，将id为toolbar的元素当作工具栏  
 		 			buttons : '#bb'//定义对话框窗口底部按钮  
 		 		});  
 		 	});  
@@ -218,4 +218,76 @@ buttons|array,selector|定义对话框窗口底部按钮|null
 ![image](http://i.imgur.com/XB52TZF.png)
 
 
+### Dialog常用方法
+
+方法名     |方法参数 |描述   
+----------|--------|-------
+setTitle|title|设置面板头的标题文本
+open|forceOpen|在'forceOpen'参数设置为true的时候，打开面板时将跳过'onBeforeOpen'回调函数
+close|forceClose|在'forceClose'参数设置为true的时候，关闭面板时将跳过'onBeforeClose'回调函数
+refresh|href|刷新面板来装载远程数据。如果'href'属性有了新配置，它将重写旧的'href'属性。 
+
+### Dialog常用事件
+
+事件名     |事件参数 |描述   
+----------|--------|-------
+onBeforeLoad|none|在加载内容页之前触发，返回false将忽略该动作。
+onLoad|none|在加载远程数据时触发。 
+onLoadError|none|在加载内容页发生错误时触发。 
+onBeforeOpen|none|在打开面板之前触发，返回false可以取消打开操作。 
+onOpen|none|在打开面板之后触发。 
+onBeforeClose|none|在关闭面板之前触发，返回false可以取消关闭操作。下列的面板将不能关闭。
+onClose|none|在面板关闭之后触发。 
+
+
+##### 使用案例1：
+JS代码  
+
+```
+
+    <script type="text/javascript">
+	$(function() {
+		$("#dd").dialog({
+			title : 'First Dialog',
+			width : 400,    
+		 	height : 200,  
+			iconCls : 'icon-ok',
+			loadingMessage : "正在加载，请稍后...",
+			toolbar : '#toolbar',
+			buttons : '#bb',
+			onBeforeClose:function(){//在关闭面板之前触发，返回false可以取消关闭操作。下列的面板将不能关闭。
+				if (!confirm("关闭窗口?"))  {  
+					return false;
+				} 
+			}
+		});
+	});
+	function closeDialog(){
+		$('#dd').dialog('close');
+	}
+	function skip(){
+		$('#dd').panel('refresh','a.html');
+	}
+   </script>
+```
+
+HTML代码
+
+```
+
+    <div id="dd">Dialog Content.</div>
+	<div id="toolbar">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">New User</a> 
+		<a href="#"	class="easyui-linkbutton" iconCls="icon-edit" plain="true">Edit User</a> 
+		<a href="#"	class="easyui-linkbutton" iconCls="icon-remove" plain="true">Remove User</a>
+	</div>
+	<div id="bb">
+		<a href="#" class="easyui-linkbutton" onclick="skip();">跳转</a> <a href="#"
+			class="easyui-linkbutton" onclick="closeDialog();">关闭</a>
+	</div>  
+```
+
+Tip: 当点击关闭按钮时会弹出确认框。当点击跳转按钮时对话框中将显示a.html页面中的内容。 
+
+ 
 以上内容便是Dialog的普通用法。
