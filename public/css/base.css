@@ -111,15 +111,6 @@
   line-height: 2;
 }
 
-#content-table{
-  position:fixed;
-  right:60px;
-  top:90px;
-  display:none;
-  height:auto;
-  
-}
-
 blockquote p {
   font-size: 20px;
 }
@@ -138,20 +129,43 @@ blockquote p {
 }
 
 /*
-  Pretty Table Styling
-  */
-  
-/*  table {
-    border:1px solid #d3d3d3;
-    background:#fefefe;
+ * ZeroClipboard styles
+ */
+.zero-clipboard {
+  position: relative;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .zero-clipboard {
+    display: block;
   }
-  
-  th, td {padding:5px 10px 5px;  border-top:1px solid #e0e0e0; border-right:1px solid #e0e0e0;}
-
-  th {background:rgb(240,37,110);color:white;text-align:center;}
-  
-  tr.odd-row td {background:#f6f6f6;}
-  
-  td.first, th.first {text-align:left}
-
-.ds-sync{display:none !important;}*/
+  .zero-clipboard .clip_button {
+    /*top: -16px;*/
+    border-top-right-radius: 0;
+  }
+}
+.clip_button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+  display: block;
+  padding: 5px 8px;
+  font-size: 12px;
+  color: #767676;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #e1e1e8;
+  border-radius: 0 4px 0 4px;
+}
+.clip_button.zeroclipboard-is-hover { 
+  color: #fff;
+  background-color: #563d7c;
+  border-color: #563d7c;
+}
+.clip_button.zeroclipboard-is-active {
+  color: #fff;
+  background-color: #563d7c;
+  border-color: #563d7c;
+}
