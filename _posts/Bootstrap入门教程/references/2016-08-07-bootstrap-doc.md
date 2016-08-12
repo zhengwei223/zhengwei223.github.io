@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 下载Bootstrap后如何查看其文档
-category: web-front-references
+category: boots-references
 tags: Bootstrap
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Bootstrap
