@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Bootstrap起步及h5bp模板整合
-category: bootstrap
+category: Bootstrap入门教程
 tags: Web前端 Bootstrap 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap
@@ -57,7 +57,7 @@ Bootstrap 是由 Twitter 的 Mark Otto 和 Jacob Thornton 开发的。Bootstrap 
 > Running documentation locally
 > If necessary, install Jekyll ………………
 
-请参考[如何离线运行Bootstrap的文档](/web-front-references/bootstrap-doc)。
+请参考[如何离线运行Bootstrap的文档](/boots-references/bootstrap-doc)。
 
 你也可以在网上找找bootstrap的离线文档，英文不好的可以访问[Bootstrap中文网](http://v3.bootcss.com/)。
 

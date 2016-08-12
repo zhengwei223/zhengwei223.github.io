@@ -80,10 +80,14 @@ function contentEffects(){
   }else{
     $('#content_btn').hide();
   }
+  // 图片居中
   $('#content img').addClass('img-thumbnail').parent('p').addClass('center');
-  $("pre").addClass("prettyprint");
+  
+  // 代码高亮 b
+  $("pre").addClass("prettyprint linenums");
   $("code").addClass("prettyprint");
-  prettyPrint(); 
+  prettyPrint();
+  // 代码高亮 e 
 }
 //生成table of content  end
 
@@ -107,18 +111,17 @@ $(document).ready(function() {
   //迫使多说生效
   $(document).on("pjax:complete", function() {
     $('#content a').attr('target','_blank');
-    $('.aside3').scrollTop(0);
-    addListener();
-    addDuoshuo();
-    contentEffects();
+    $('.aside3').scrollTop(0);//回到顶部
+    addListener();//给回到顶部和toc按钮加监听
+    addDuoshuo();//添加多说评论和分享框
+    contentEffects();//生成toc
   });
 
   $('#content a').attr('target','_blank');
   addListener();
   contentEffects();
   addDuoshuo();
-  /* For zebra striping */
-  // $("table tr:nth-child(odd)").addClass("odd-row");
+  $("#content table").addClass("table table-condensed table-bordered table-striped table-hover");
   /* For cell text alignment */
   // $("table td:first-child, table th:first-child").addClass("first");
   /* For removing the last border */
