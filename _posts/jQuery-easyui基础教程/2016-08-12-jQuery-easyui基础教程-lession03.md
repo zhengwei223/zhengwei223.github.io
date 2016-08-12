@@ -225,7 +225,5 @@ $('#image3').draggable({
 ![image](http://i.imgur.com/RNVtU51.png)
 
 
-# Droppable
-
 
 
