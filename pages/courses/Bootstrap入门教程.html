@@ -1,0 +1,63 @@
+---
+layout: page
+title: <img src="/public/img/courses/boots.jpg"></i>
+titlename: Bootstrap
+---
+
+
+<h1>课程简介</h1>
+<p>Bootstrap，来自 Twitter，是目前最受欢迎的前端框架。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。</p>
+
+
+<p>本教程将向您讲解 Bootstrap 框架的基础，通过学习这些内容，您将可以轻松地创建 Web 项目。</p>
+
+<p>教程被分为 Bootstrap 基本结构、Bootstrap CSS、Bootstrap 布局组件、 Bootstrap 插件和自定义几个部分。每个部分都包含了与该主题相关的简单有用的实例。</p>
+
+<h1>谁适合阅读本教程？</h1>
+<p>
+只要您具备 HTML 和 CSS 的基础知识，您就可以阅读本教程，进而开发出自己的网站。在您学习完本教程后，您即可达到使用 Bootstrap 开发 Web 项目的中等水平。
+</p>
+
+<h1>阅读本教程前，您需要了解的知识：</h1>
+<p>
+在您开始阅读本教程之前，您必须具备 HTML 、 CSS 和 JavaScript 的基础知识。如果您还不了解这些概念，那么建议您先阅读我们的这些教程:
+</p>
+<ul class="listunstyled">
+	<li>HTML 教程</li>
+	<li>CSS 教程</li>
+	<li>JavaScript 教程</li>
+</ul>
+
+<h1>Bootstrap 有用的资源</h1>
+<p>
+	<a href="http://getbootstrap.com/"><span>Twitter Bootstrap</span></a>
+	- Bootstrap 的官方网站，可以在该站点上找到所有可用的文档和下载。
+</p>
+<p>
+	<a href="http://v3.bootcss.com/"><span>Bootstrap中文网</span></a>
+	——有中文文档
+</p>
+<p>
+	<a href="/css/css-whatislesscss"><span>less快速入门</span></a>
+	——介绍了less的基本情况及语法
+</p>
+
+<h1>课程列表</h1>
+下面我们就赶紧开始来学习这门课程吧
+
+<div class="lessons">
+  <ul class="list-unstyled">
+{% for post in site.categories["Bootstrap入门教程"]  reversed%}
+    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+    {% capture this_month %}{{ post.date | date: "%m" }}{% endcapture %}
+    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+    {% capture next_month %}{{ post.previous.date | date: "%m" }}{% endcapture %}
+  
+    <li>
+      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  
+{% endfor %}
+  </ul>
+</div>
+
