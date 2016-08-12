@@ -30,9 +30,7 @@ EasyUI的Draggable控件可以帮助我们快速的开发可以拖拽的页面�
 
 
 ```
-
-    
-<img id="image1" alt="这是一幅图片" class="easyui-draggable" src="/ui/images/shirt1.gif"/>
+<img id="image1" alt="这是一幅图片" class="easyui-draggable" src="/ui/images/shirt1.gif"/
 
 ```  
 
