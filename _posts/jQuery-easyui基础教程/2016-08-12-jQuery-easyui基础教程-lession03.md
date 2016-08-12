@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: Draggable和Droppable   
+title: Draggable    
 category: jQuery-easyui基础教程  
 tags: Git jQuery EasyUI 项目 实战  
 author: 李彩琴  
