@@ -17,15 +17,12 @@ description:
 
 HTML 中的所有标题标签，`<h1>` 到 `<h6>` 均可使用。另外，还提供了 `.h1` 到 `.h6` 类，为的是给内联（inline）属性的文本赋予标题的样式。
 
-实例
-<h1>h1. Bootstrap heading</h1>
-<h2>h2. Bootstrap heading</h2>
-<h3>h3. Bootstrap heading</h3>
-<h4>h4. Bootstrap heading</h4>
-<h5>h5. Bootstrap heading</h5>
-<h6>h6. Bootstrap heading</h6>
+效果：
 
-```
+ ![lesson4-1](/public/img/boots/lesson4-1.png)
+
+
+```html
 <h1>h1. Bootstrap heading</h1>
 <h2>h2. Bootstrap heading</h2>
 <h3>h3. Bootstrap heading</h3>
@@ -36,14 +33,11 @@ HTML 中的所有标题标签，`<h1>` 到 `<h6>` 均可使用。另外，还提
 
 在标题内还可以包含` <small>` 标签或赋予 `.small` 类的元素，可以用来标记副标题。
 
-<h1>h1. Bootstrap heading <small>Secondary text</small></h1>
-<h2>h2. Bootstrap heading <small>Secondary text</small></h2>
-<h3>h3. Bootstrap heading <small>Secondary text</small></h3>
-<h4>h4. Bootstrap heading <small>Secondary text</small></h4>
-<h5>h5. Bootstrap heading <small>Secondary text</small></h5>
-<h6>h6. Bootstrap heading <small>Secondary text</small></h6>
+效果：
 
-```
+ ![lesson4-2](/public/img/boots/lesson4-2.png)
+
+```html
 <h1>h1. Bootstrap heading <small>Secondary text</small></h1>
 <h2>h2. Bootstrap heading <small>Secondary text</small></h2>
 <h3>h3. Bootstrap heading <small>Secondary text</small></h3>
@@ -54,7 +48,7 @@ HTML 中的所有标题标签，`<h1>` 到 `<h6>` 均可使用。另外，还提
 
 ## 页面主体
 
-Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428。这些属性直接赋予 `<body>` 元素和所有段落元素。另外，`<p>` （段落）元素还被设置了等于 1/2 行高（即 10px）的底部外边距（margin）。
+Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428。这些属性直接赋予 `<body>` 元素和所有段落元素。另外，`<p>` （段落）元素还被设置了等于 1/2 行高（即 10px）的底部外边距（`margin`）。
 
 ## 内联文本元素
 
@@ -62,25 +56,37 @@ Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428�
 
 `<mark>`标记可以高亮一段文字
 
+效果：
+
+<p class="border">You can use the mark tag to <mark>高亮的哦^_^</mark> text.</p>
+
 `You can use the mark tag to <mark>highlight</mark> text.`
 
 ### 被删除的文本
 对于被删除的文本使用 `<del> `标签。
+
+<p class="border"><del>我是被删除的文本.</del></p>
 
 `<del>This line of text is meant to be treated as deleted text.</del>`
 
 ### 无用文本
 对于没用的文本使用 `<s>` 标签。
 
+<p class="border"><s>我是没用的文本.</s></p>
+
 `<s>This line of text is meant to be treated as no longer accurate.</s>`
 
 ### 插入文本
 额外插入的文本使用 `<ins>` 标签。
 
+<p class="border"><ins>我是多余的文本.</ins></p>
+
 `<ins>This line of text is meant to be treated as an addition to the document.</ins>`
 
 ### 带下划线的文本
 为文本添加下划线，使用 `<u>` 标签。
+
+<p class="border"><u>我带下划线吗？</u></p>
 
 `<u>This line of text will render as underlined</u>`
 
@@ -89,21 +95,37 @@ Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428�
 
 你还可以为行内元素赋予 `.small `类以代替任何 `<small>` 元素。
 
+<p class="border"><small>小号文本.</small>正常文本</p>
+
 `<small>This line of text is meant to be treated as fine print.</small>`
 
 ### 着重
 通过增加 font-weight 值强调一段文本。
+
+<p class="border"><strong>想要强调的内容，</strong>正常内容。</p>
 
 `<strong>rendered as bold text</strong>`
 
 ### 斜体
 用斜体强调一段文本。
 
+<p class="border"><em>斜了，，，斜了</em></p>
+
 `<em>rendered as italicized text</em>`
 
 ## 对齐
 
 通过文本对齐类，可以简单方便的将文字重新对齐。
+
+<div class="border">
+
+<p class="text-left">左对齐.</p>
+<p class="text-center">居中</p>
+<p class="text-right">右对齐.</p>
+<p class="text-justify">Justified text.</p>
+<p class="text-nowrap">No wrap text.</p>
+
+</div>
 
 ```
 <p class="text-left">Left aligned text.</p>
@@ -117,6 +139,14 @@ Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428�
 
 通过这几个类可以改变文本的大小写。
 
+<div class="border">
+
+<p class="text-lowercase">小写了 text.</p>
+<p class="text-uppercase">大写了 text.</p>
+<p class="text-capitalize">Capitalized text.首字母</p>
+
+</div>
+
 ```
 <p class="text-lowercase">Lowercased text.</p>
 <p class="text-uppercase">Uppercased text.</p>
@@ -129,6 +159,8 @@ Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428�
 
 ### 基本缩略语
 
+<p class="border">什么是缩略语？<abbr title="attribute">attr</abbr>看他</p>
+
 `<abbr title="attribute">attr</abbr>`
 
 ### 首字母缩略语
@@ -138,6 +170,24 @@ Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428�
 
 ## 地址
 让联系信息以最接近日常使用的格式呈现。在每行结尾添加` <br> `可以保留需要的样式。
+
+<div class="border">
+
+<address>
+  <strong>Twitter, Inc.</strong><br>
+  795 Folsom Ave, Suite 600<br>
+  San Francisco, CA 94107<br>
+  <abbr title="Phone">P:</abbr> (123) 456-7890
+</address>
+
+<address>
+  <strong>Full Name</strong><br>
+  <a href="mailto:#">first.last@example.com</a>
+</address>
+
+</div>
+
+
 
 ```
 <address>
@@ -158,6 +208,14 @@ Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428�
 
 ### 默认样式的引用
 将任何 HTML 元素包裹在 `<blockquote>` 中即可表现为引用样式。对于直接引用，我们建议用 `<p>` 标签。
+
+<div  class="border">
+
+<blockquote>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+</blockquote>
+
+</div>
 
 ```
 <blockquote>
@@ -225,6 +283,15 @@ Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428�
 
 通过设置 `display: inline-block;` 并添加少量的内补（padding），将所有元素放置于同一行。
 
+<ul class="list-inline border">
+<li>内联列表1</li>
+<li>内联列表2</li>
+<li>内联列表3</li>
+<li>内联列表4</li>
+</ul>
+
+
+
 ```
 <ul class="list-inline">
   <li>...</li>
@@ -263,8 +330,7 @@ Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428�
 
 For example, `<section>` should be wrapped as inline.
 
-`For example, <code>&lt;section&gt;</code> should be wrapped as inline.
-`
+`For example, <code>&lt;被包裹的是代码&gt;</code> should be wrapped as inline.`
 ## 用户输入
 通过 `<kbd>` 标签标记用户通过键盘输入的内容。
 
@@ -298,6 +364,13 @@ To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
 ## 基本实例
 为任意 `<table>` 标签添加 `.table` 类可以为其赋予基本的样式 — 少量的内补（`padding`）和水平方向的分隔线。这种方式看起来很多余！？但是我们觉得，表格元素使用的很广泛，如果我们为其赋予默认样式可能会影响例如日历和日期选择之类的插件，所以我们选择将此样式独立出来。
 
+| 列1   | 列2   | 列3   |
+| ---- | ---- | ---- |
+| cell | cell | cell |
+| cell | cell | cell |
+
+
+
 
 ```
 <table class="table">
@@ -309,7 +382,10 @@ To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
 通过` .table-striped` 类可以给 `<tbody>` 之内的每一行增加斑马条纹样式。
 
 ### 跨浏览器兼容性
-条纹状表格是依赖 :nth-child CSS 选择器实现的，而这一功能不被 Internet Explorer 8 支持。
+条纹状表格是依赖 `:nth-child` CSS 选择器实现的，而这一功能不被 Internet Explorer 8 支持。
+
+
+
 ```
 <table class="table table-striped">
   ...
@@ -318,6 +394,9 @@ To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
 
 ## 带边框的表格
 添加 `.table-bordered` 类为表格和其中的每个单元格增加边框。
+
+
+
 ```
 <table class="table table-bordered">
   ...
@@ -326,6 +405,9 @@ To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
 
 ## 鼠标悬停
 通过添加 `.table-hover` 类可以让 `<tbody>` 中的每一行对鼠标悬停状态作出响应。
+
+
+
 ```
 <table class="table table-hover">
   ...
@@ -334,6 +416,8 @@ To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
 
 ## 紧缩表格
 通过添加 `.table-condensed` 类可以让表格更加紧凑，单元格中的内补（`padding`）均会减半。
+
+
 
 ```
 <table class="table table-condensed">
@@ -344,13 +428,13 @@ To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
 ## 状态类
 通过这些状态类可以为行或单元格设置颜色。
 
-Class |	描述
---- | ---
-.active | 	鼠标悬停在行或单元格上时所设置的颜色
-.success | 	标识成功或积极的动作
-.info | 	标识普通的提示信息或动作
-.warning | 	标识警告或需要用户注意
-.danger | 	标识危险或潜在的带来负面影响的动作
+| Class    | 描述                 |
+| -------- | ------------------ |
+| .active  | 鼠标悬停在行或单元格上时所设置的颜色 |
+| .success | 标识成功或积极的动作         |
+| .info    | 标识普通的提示信息或动作       |
+| .warning | 标识警告或需要用户注意        |
+| .danger  | 标识危险或潜在的带来负面影响的动作  |
 
 ```
 <!-- On rows -->
@@ -360,6 +444,73 @@ Class |	描述
 <tr class="danger">...</tr>
 <tr class="info">...</tr>
 ```
+
+<table class="table">
+<thead>
+<tr>
+<th>#</th>
+<th>Column heading</th>
+<th>Column heading</th>
+<th>Column heading</th>
+</tr>
+</thead>
+<tbody>
+<tr class="active">
+<th scope="row">1</th>
+<td>Column content</td>
+<td>Column content</td>
+<td>Column content</td>
+</tr>
+<tr>
+<th scope="row">2</th>
+<td>Column content</td>
+<td>Column content</td>
+<td>Column content</td>
+</tr>
+<tr class="success">
+<th scope="row">3</th>
+<td>Column content</td>
+<td>Column content</td>
+<td>Column content</td>
+</tr>
+<tr>
+<th scope="row">4</th>
+<td>Column content</td>
+<td>Column content</td>
+<td>Column content</td>
+</tr>
+<tr class="info">
+<th scope="row">5</th>
+<td>Column content</td>
+<td>Column content</td>
+<td>Column content</td>
+</tr>
+<tr>
+<th scope="row">6</th>
+<td>Column content</td>
+<td>Column content</td>
+<td>Column content</td>
+</tr>
+<tr class="warning">
+<th scope="row">7</th>
+<td>Column content</td>
+<td>Column content</td>
+<td>Column content</td>
+</tr>
+<tr>
+<th scope="row">8</th>
+<td>Column content</td>
+<td>Column content</td>
+<td>Column content</td>
+</tr>
+<tr class="danger">
+<th scope="row">9</th>
+<td>Column content</td>
+<td>Column content</td>
+<td>Column content</td>
+</tr>
+</tbody>
+</table>
 
 ```
 <!-- On cells (`td` or `th`) -->
@@ -405,7 +556,7 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 单独的表单控件会被自动赋予一些全局样式。所有设置了 `.form-control` 类的 `<input>`、`<textarea>` 和 `<select>` 元素都将被默认设置宽度属性为 `width: 100%;`。 将 `label` 元素和前面提到的控件包裹在 `.form-group` 中可以获得最好的排列。
 
 
-<form>
+<form class="border">
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -426,6 +577,12 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
+
+
+
+代码：
+
+
 
 ```
 <form>
@@ -458,40 +615,49 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 ## 内联表单
 为 `<form>` 元素添加` .form-inline `类可使其内容左对齐并且表现为 `inline-block` 级别的控件。只适用于视口（`viewport`）至少在 768px 宽度时（视口宽度再小的话就会使表单折叠）。
 
+
+
+<form class="form-inline border">
+  <div class="form-group">
+    <label for="exampleInputName2">Name</label>
+    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail2">Email</label>
+    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+  </div>
+  <button type="submit" class="btn btn-default">Send invitation</button>
+</form>
+
+代码：
+
+```
+<form class="form-inline">
+  <div class="form-group">
+    <label for="exampleInputName2">Name</label>
+    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail2">Email</label>
+    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+  </div>
+  <button type="submit" class="btn btn-default">Send invitation</button>
+</form>
+```
+
+
+
 #### 可能需要手动设置宽度
+
 在 Bootstrap 中，输入框和单选/多选框控件默认被设置为` width: 100%;` 宽度。在内联表单，我们将这些元素的宽度设置为 `width: auto;`，因此，多个控件可以排列在同一行。根据你的布局需求，可能需要一些额外的定制化组件。
 
 #### 一定要添加 label 标签
+
 如果你没有为每个输入控件设置 `label` 标签，屏幕阅读器将无法正确识别。对于这些内联表单，你可以通过为 `label` 设置 `.sr-only` 类将其隐藏。还有一些辅助技术提供`label`标签的替代方案，比如 `aria-label、aria-labelledby `或 `title` 属性。如果这些都不存在，屏幕阅读器可能会采取使用 `placeholder` 属性，如果存在的话，使用占位符来替代其他的标记，但要注意，这种方法是不妥当的。
 
-<form class="form-inline">
+<form class="form-inline border">
   <div class="form-group">
-    <label for="exampleInputName2">Name</label>
-    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail2">Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-  </div>
-  <button type="submit" class="btn btn-default">Send invitation</button>
-</form>
 
-```
-<form class="form-inline">
-  <div class="form-group">
-    <label for="exampleInputName2">Name</label>
-    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail2">Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-  </div>
-  <button type="submit" class="btn btn-default">Send invitation</button>
-</form>
-```
-
-<form class="form-inline">
-  <div class="form-group">
     <label class="sr-only" for="exampleInputEmail3">Email address</label>
     <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
   </div>
@@ -506,6 +672,8 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
   </div>
   <button type="submit" class="btn btn-default">Sign in</button>
 </form>
+
+代码：
 
 ```
 <form class="form-inline">
@@ -557,7 +725,7 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 通过为表单添加 `.form-horizontal` 类，并联合使用 Bootstrap 预置的栅格类，可以将 `label` 标签和控件组水平并排布局。这样做将改变 `.form-group` 的行为，使其表现为栅格系统中的行（`row`），因此就无需再额外添加` .row `了。
 
 
-<form class="form-horizontal">
+<form class="form-horizontal border">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
@@ -585,6 +753,12 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
     </div>
   </div>
 </form>
+
+
+
+代码：
+
+
 
 ```
 
@@ -628,7 +802,7 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 只有正确设置了 `type `属性的输入控件才能被赋予正确的样式。
 
 
-<input type="text" class="form-control" placeholder="Text input">
+<input type="text" class="form-control" placeholder="我是文本框">
 
 ```
 <input type="text" class="form-control" placeholder="Text input">
@@ -640,7 +814,7 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 支持多行文本的表单控件。可根据需要改变 `rows` 属性。
 
 
-<textarea class="form-control" rows="3"></textarea>
+<textarea class="form-control" rows="3">文本域</textarea>
 
 `<textarea class="form-control" rows="3"></textarea>`
 
@@ -651,38 +825,47 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 
 ### 默认外观（堆叠在一起）
 
+<div class="border">
 
 <div class="checkbox">
   <label>
-    <input type="checkbox" value="">
-    Option one is this and that&mdash;be sure to include why it's great
-  </label>
+
+<input type="checkbox" value="">选项一
+
+</label>
+
 </div>
 <div class="checkbox disabled">
   <label>
-    <input type="checkbox" value="" disabled>
-    Option two is disabled
-  </label>
+
+<input type="checkbox" value="">选项二
+
+</label>
+
 </div>
 
 <div class="radio">
   <label>
     <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-    Option one is this and that&mdash;be sure to include why it's great
+    选项一
   </label>
 </div>
 <div class="radio">
   <label>
     <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-    Option two can be something else and selecting it will deselect option one
+    选项二
   </label>
 </div>
 <div class="radio disabled">
   <label>
     <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
-    Option three is disabled
+    选项三
   </label>
 </div>
+
+</div>
+
+代码
 
 ```
 <div class="checkbox">
@@ -721,6 +904,8 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 
 通过将 `.checkbox-inline` 或 `.radio-inline` 类应用到一系列的多选框（`checkbox`）或单选框（`radio`）控件上，可以使这些控件排列在一行。
 
+<div class="border">
+
 
 <label class="checkbox-inline">
   <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
@@ -741,6 +926,10 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 <label class="radio-inline">
   <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
 </label>
+
+</div>
+
+代码：
 
 
 ```
@@ -810,6 +999,8 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
   <option>4</option>
   <option>5</option>
 </select>
+
+
 
 ```
 
@@ -924,7 +1115,7 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 ### 被禁用的 fieldset
 为`<fieldset>` 设置 `disabled` 属性,可以禁用 `<fieldset>` 中包含的所有控件。
 
-#### <a> 标签的链接功能不受影响
+#### `<a>` 标签的链接功能不受影响
 默认情况下，浏览器会将` <fieldset disabled> `内所有的原生的表单控件（`<input>`、`<select>` 和` <button>` 元素）设置为禁用状态，防止键盘和鼠标与他们交互。然而，如果如果表单中还包含` <a ... class="btn btn-*">` 元素，这些元素将只被赋予 `pointer-events: none `属性。
 
 #### 跨浏览器兼容性
@@ -932,7 +1123,7 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 
 实例
 
-<form>
+<form class="border">
   <fieldset disabled>
     <div class="form-group">
       <label for="disabledTextInput">Disabled input</label>
@@ -952,6 +1143,10 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
     <button type="submit" class="btn btn-primary">Submit</button>
   </fieldset>
 </form>
+
+
+
+代码：
 
 ```
 <form>
@@ -1388,10 +1583,13 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 
 ### 与表单控件相关联的帮助文本
 与表单控件相关联的帮助文本 `aria-describedby` 属性的表单控件关联，这将确保使用辅助技术- 如屏幕阅读器 - 的用户获取控件焦点或进入控制时显示这个帮助文本。
+
+
 <label class="sr-only" for="inputHelpBlock">Input with help text</label>
 <input type="text" id="inputHelpBlock" class="form-control" aria-describedby="helpBlock">
-...
 <span id="helpBlock" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+
+
 
 
 ```
@@ -1407,6 +1605,8 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 为 `<a>`、`<button>` 或 `<input>` 元素添加按钮类（`button` class）即可使用 Bootstrap 提供的样式。
 
 
+
+
 <a class="btn btn-default" href="#" role="button">Link</a>
 <button class="btn btn-default" type="submit">Button</button>
 <input class="btn btn-default" type="button" value="Input">
@@ -1417,7 +1617,6 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 <button class="btn btn-default" type="submit">Button</button>
 <input class="btn btn-default" type="button" value="Input">
 <input class="btn btn-default" type="submit" value="Submit">
-
 ```
 
 ### 针对组件的注意事项
@@ -1429,7 +1628,7 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 ### 跨浏览器展现
 我们总结的最佳实践是：强烈建议尽可能使用 `<button>` 元素来获得在各个浏览器上获得相匹配的绘制效果。
 
-另外，我们还发现了 Firefox <30 版本的浏览器上出现的一个 bug，其表现是：阻止我们为基于` <input>` 元素所创建的按钮设置 `line-height` 属性，这就导致在 Firefox 浏览器上不能完全和其他按钮保持一致的高度。
+另外，我们还发现了 Firefox 小于30 版本的浏览器上出现的一个 bug，其表现是：阻止我们为基于` <input>` 元素所创建的按钮设置 `line-height` 属性，这就导致在 Firefox 浏览器上不能完全和其他按钮保持一致的高度。
 
 
 ## 预定义样式
@@ -1440,7 +1639,7 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 <button type="button" class="btn btn-default">（默认样式）Default</button>
 
 <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-<button type="button" class="btn btn-primary">（首选项）Primary</button>
+<button type="button" class="btn btn-primary">（主品牌色）Primary</button>
 
 <!-- Indicates a successful or positive action -->
 <button type="button" class="btn btn-success">（成功）Success</button>
@@ -1458,7 +1657,6 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 <button type="button" class="btn btn-link">（链接）Link</button>
 
 ```
-
 <!-- Standard button -->
 <button type="button" class="btn btn-default">（默认样式）Default</button>
 
@@ -1479,7 +1677,6 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 
 <!-- Deemphasize a button by making it look like a link while maintaining button behavior -->
 <button type="button" class="btn btn-link">（链接）Link</button>
-
 ```
 
 ### Conveying meaning to assistive technologies
@@ -1534,7 +1731,6 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 ```
 <button type="button" class="btn btn-primary btn-lg btn-block">（块级元素）Block level button</button>
 <button type="button" class="btn btn-default btn-lg btn-block">（块级元素）Block level button</button>
-
 ```
 
 ## 激活状态
@@ -1550,7 +1746,6 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 ```
 <button type="button" class="btn btn-primary btn-lg active">Primary button</button>
 <button type="button" class="btn btn-default btn-lg active">Button</button>
-
 ```
 
 ### 链接（`<a>`）元素
@@ -1570,7 +1765,7 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 通过为按钮的背景设置 `opacity` 属性就可以呈现出无法点击的效果。
 
 ### button 元素
-为 <button> 元素添加 disabled 属性，使其表现出禁用状态。
+为 `<button>` 元素添加 `disabled` 属性，使其表现出禁用状态。
 
 例如：
 
@@ -1581,14 +1776,13 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 ```
 <button type="button" class="btn btn-lg btn-primary" disabled="disabled">Primary button</button>
 <button type="button" class="btn btn-default btn-lg" disabled="disabled">Button</button>
-
 ```
 
 #### 跨浏览器兼容性
 如果为` <button>` 元素添加 `disabled` 属性，Internet Explorer 9 及更低版本的浏览器将会把按钮中的文本绘制为灰色，并带有恶心的阴影，目前我们还没有解决办法。
 
 ### 链接（`<a>`）元素
- 
+
 为基于` <a> `元素创建的按钮添加` .disabled `类。
 
 <a href="#" class="btn btn-primary btn-lg disabled" role="button">Primary link</a>
@@ -1597,7 +1791,6 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 ```
 <a href="#" class="btn btn-primary btn-lg disabled" role="button">Primary link</a>
 <a href="#" class="btn btn-default btn-lg disabled" role="button">Link</a>
-
 ```
 
 我们把` .disabled `作为工具类使用，就像` .active `类一样，因此不需要增加前缀。
@@ -1618,7 +1811,7 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 #### SVG 图像和 IE 8-10
 在 Internet Explorer 8-10 中，设置为 `.img-responsive` 的 SVG 图像显示出的尺寸不匀称。为了解决这个问题，在出问题的地方添加 `width: 100% \9; `即可。Bootstrap 并没有自动为所有图像元素设置这一属性，因为这会导致其他图像格式出现错乱。
 
-<img src="..." class="img-responsive" alt="Responsive image">
+<img data-src="holder.js/200x100" class="img-responsive" alt="Responsive image" />
 
 ```
 <img src="..." class="img-responsive" alt="Responsive image">
@@ -1631,9 +1824,9 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 
 请时刻牢记：Internet Explorer 8 不支持 CSS3 中的圆角属性。
 
-<img src="..." alt="..." class="img-rounded">
-<img src="..." alt="..." class="img-circle">
-<img src="..." alt="..." class="img-thumbnail">
+<img data-src="holder.js/100x100" alt="..." class="img-rounded">
+<img data-src="holder.js/100x100" alt="..." class="img-circle">
+<img data-src="holder.js/100x100" class="img-thumbnail">
 
 
 ```
@@ -1652,12 +1845,12 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 
 例如：
 
-<p class="text-muted">...</p>
-<p class="text-primary">...</p>
-<p class="text-success">...</p>
-<p class="text-info">...</p>
-<p class="text-warning">...</p>
-<p class="text-danger">...</p>
+<p class="text-muted">...情境文本颜色</p>
+<p class="text-primary">...情境文本颜色</p>
+<p class="text-success">...情境文本颜色</p>
+<p class="text-info">...情境文本颜色</p>
+<p class="text-warning">...情境文本颜色</p>
+<p class="text-danger">...情境文本颜色</p>
 
 ```
 <p class="text-muted">...</p>
@@ -1703,7 +1896,15 @@ Using color to add meaning only provides a visual indication, which will not be 
 
 例如：
 
-<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+
+<button type="button" class="close" aria-label="Close">
+
+<span aria-hidden="true">×</span>
+
+</button>
+
+
 
 `<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>`
 
@@ -1722,9 +1923,32 @@ Using color to add meaning only provides a visual indication, which will not be 
 
 通过添加一个类，可以将任意元素向左或向右浮动。`!important` 被用来明确 CSS 样式的优先级。这些类还可以作为 mixin（参见 less 文档） 使用。
 
+<div class="pull-left">
+
+<img data-src="holder.js/100x100?text=左浮动" alt="..." >
+
+</div>
+<div class="pull-right">
+
+<img data-src="holder.js/100x100?text=右浮动" alt="..." >
+
+</div>
+
+<div class="clearfix"></div>
+
 ```
-<div class="pull-left">...</div>
-<div class="pull-right">...</div>
+<div class="pull-left">
+
+<img data-src="holder.js/100x100" alt="..." >
+
+</div>
+
+<div class="pull-right">
+
+<img data-src="holder.js/100x100" alt="..." >
+
+</div>
+
 ```
 
 #### 不能用于导航条组件中
@@ -1732,6 +1956,14 @@ Using color to add meaning only provides a visual indication, which will not be 
 
 ## 让内容块居中
 为任意元素设置 `display: block `属性并通过 `margin` 属性让其中的内容居中。
+
+<div class="center-block">
+
+<img data-src="holder.js/100x100" alt="..."  class="center-block">
+
+</div>
+
+<div class="clearfix"></div>
 
 ```
 <div class="center-block">...</div>
@@ -1897,7 +2129,7 @@ Using color to add meaning only provides a visual indication, which will not be 
       </tbody>
     </table>
   </div>
-  
+
   
 
 
@@ -1935,13 +2167,9 @@ Using color to add meaning only provides a visual indication, which will not be 
       </tbody>
     </table>
   </div>
-  
+
   
 
 `.visible-print `类也是存在的，但是从 v3.2.0 版本开始不建议使用。它与 `.visible-print-block` 类大致相同，除了 `<table> `相关元素的特殊情况外。
-
-## 测试用例
-
-调整你的浏览器大小，或者用其他设备打开页面，都可以测试这些响应式工具类。
 
 
