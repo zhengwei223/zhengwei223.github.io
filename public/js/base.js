@@ -87,6 +87,30 @@ function contentEffects(){
   $("pre").addClass("prettyprint linenums");
   $("code").addClass("prettyprint");
   prettyPrint();
+
+  // Config ZeroClipboard
+  $('pre.prettyprint').each(function () {
+      var btnHtml = '<div class="zero-clipboard"><span class="clip_button">复制</span></div>';
+      $(this).before(btnHtml)
+  });
+  var client = new ZeroClipboard( $('.clip_button') );
+  // Handlers for ZeroClipboard
+  client.on( 'ready', function(event) {
+        // console.log( 'movie is loaded' );
+
+        client.on( 'copy', function(event) {
+          event.clipboardData.setData('text/plain', $(event.target).parent().nextAll('.prettyprint').first().text());
+        } );
+
+        client.on( 'aftercopy', function(event) {
+          // console.log('Copied text to clipboard: ' + event.data['text/plain']);
+        } );
+  } );
+
+  client.on( 'error', function(event) {
+        // console.log( 'ZeroClipboard error of type "' + event.name + '": ' + event.message );
+        ZeroClipboard.destroy();
+  } );
   // 代码高亮 e 
 }
 //生成table of content  end
