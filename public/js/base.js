@@ -115,6 +115,7 @@ $(document).ready(function() {
     addListener();//给回到顶部和toc按钮加监听
     addDuoshuo();//添加多说评论和分享框
     contentEffects();//生成toc
+    $("#content table").addClass("table table-condensed table-bordered table-striped table-hover");
   });
 
   $('#content a').attr('target','_blank');
