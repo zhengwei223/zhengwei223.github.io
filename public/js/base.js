@@ -115,14 +115,14 @@ $(document).ready(function() {
     addListener();//给回到顶部和toc按钮加监听
     addDuoshuo();//添加多说评论和分享框
     contentEffects();//生成toc
-    $("#content table").addClass("table table-condensed table-bordered table-striped table-hover");
+    addTableStyle();  
   });
 
   $('#content a').attr('target','_blank');
   addListener();
   contentEffects();
   addDuoshuo();
-  $("#content table").addClass("table table-condensed table-bordered table-striped table-hover");
+  addTableStyle();
   /* For cell text alignment */
   // $("table td:first-child, table th:first-child").addClass("first");
   /* For removing the last border */
@@ -142,5 +142,13 @@ function addListener(){
     $('body').animate({scrollTop:$('.aside3-title').offset().top-64}, 500);
   });
 
+}
+
+function addTableStyle(){
+  // 响应式表格
+  if($("#content table").parents('.table-responsive').size()==0){
+    $("#content table").wrap('<div class="table-responsive" ></div>');
+  }
+  $("#content table").addClass("table table-condensed table-bordered table-striped table-hover");
 }
 
