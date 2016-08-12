@@ -110,6 +110,16 @@
 #content h2, h3 {
   line-height: 2;
 }
+
+#content-table{
+  position:fixed;
+  right:60px;
+  top:90px;
+  display:none;
+  height:auto;
+  
+}
+
 blockquote p {
   font-size: 20px;
 }
