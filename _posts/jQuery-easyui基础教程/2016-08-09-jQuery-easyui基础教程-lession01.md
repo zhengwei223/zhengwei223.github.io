@@ -84,11 +84,11 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 
 ```
 
-    <body>     
-		<div id="test" class="easyui-dialog" style="width:400px;height:200px">   
-	        This is my first dialog!    
-		</div>    
-	</body>   
+<body>     
+	<div id="test" class="easyui-dialog" style="width:400px;height:200px">   
+		This is my first dialog!    
+	</div>    
+</body>   
 ```
 
 
@@ -100,35 +100,35 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 
 ```
 
-    <!DOCTYPE html>  
-	<html>  
-	  <head>  
-	    <title>demo01.html</title>  
-	    <link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css">  
+<!DOCTYPE html>  
+<html>  
+	<head>  
+		<title>demo01.html</title>  
+    	<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css">  
 		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/icon.css">  
-	   <script type="text/javascript" src="/easyUI/js/jquery-1.11.2.js"></script>  
+		<script type="text/javascript" src="/easyUI/js/jquery-1.11.2.js"></script>  
 		<script type="text/javascript" src="/easyUI/js/easyui/jquery.easyui.min.js"></script>  
 		<script  type="text/javascript">    
 			$(function(){  
 				$("#test").dialog(); 
 			});  
 		</script>  
-	  </head>  
-	  <body>  
+  	</head>  
+ 	 <body>  
 		<div id="test" style="width:400px;height:200px">    
-	        This is my first dialog!  
+   	    	This is my first dialog!  
 		</div>  
-	  </body>  
-	</html> 
+  	</body>  
+</html> 
 ```
 
 ###### 如果使用easyloader则应该这样写：
 
 ```
 
-    <!DOCTYPE html> 
-	<html> 
-	  <head>  
+<!DOCTYPE html> 
+<html> 
+	<head>  
 	    <title>demo01.html</title> 
 	    <link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css">  
 		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/icon.css"> 
@@ -141,12 +141,12 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 				});  
 			});  
 		</script>  
-	  </head>  
-	  <body>  
+	</head>  
+	<body>  
 		<div id="test" style="width:400px;height:200px">  
 	        This is my first dialog!  
 		</div>  
-	  </body>  
-	</html> 
+	</body>  
+</html> 
 ```
 
