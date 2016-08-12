@@ -15,7 +15,7 @@ description:
 - 下载EasyUI，并创建简单的应用
 
 
-#jQuery EasyUI简介
+# jQuery EasyUI简介
 
 jQuery EasyUI 是一个基于 jQuery 的框架，集成了各种用户界面插件。  
 
@@ -38,15 +38,18 @@ easyUI很简单但功能很强大。
 easyUI框架提供了创建网页所需的一切，帮助您轻松建立站点。本教程将告诉您如何使用easyUI框架创建应用。
 
 
-#下载jQuery EasyUI
+# 下载jQuery EasyUI  
 
-访问easyUI官网下载最新的easyUI源文件：http://www.jeasyui.com/  
+访问easyUI官网下载最新的easyUI源文件：http://www.jeasyui.com/   
+ 
 ![image](http://i.imgur.com/oFHGavp.png) 
 
-也可以参考easyUI的中文网：http://www.jeasyui.net/  
+也可以参考easyUI的中文网：http://www.jeasyui.net/   
+
 ![image](http://i.imgur.com/WMB3LAN.png)
 
-解压后能看到这些文件夹和文件：  
+解压后能看到这些目录和文件：  
+
 ![image](http://i.imgur.com/OKUnaaP.png)
 
 - demo是easyUI官方提供的案例
@@ -55,11 +58,12 @@ easyUI框架提供了创建网页所需的一切，帮助您轻松建立站点�
 - themes是easyUI提供的各种主题  
 
 
-#jQuery EasyUI入门案例
+# jQuery EasyUI入门案例
 
 jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在流行的 jQuery 核心和 HTML5 上建立程序页面。这些功能使您的应用适合今天的网络。有两个方法声明来创建 UI 组件:
 
 ##### 第一步： 新建一个web应用，并引入easyUI的所有包，目录结构如图所示： 
+
 ![image](http://i.imgur.com/k9TXxof.png) 
 
 ##### 第二步： page目录下新建一个first.html页面，并引入需要的css样式和js包:
@@ -79,51 +83,49 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 ##### 第三步： 编写代码，弹出对话框  
 
 ```
-
-    <body>     
-		<div id="test" class="easyui-dialog" style="width:400px;height:200px">   
-	        This is my first dialog!    
-		</div>    
-	</body>   
+<body>     
+	<div id="test" class="easyui-dialog" style="width:400px;height:200px">   
+		This is my first dialog!    
+	</div>    
+</body>   
 ```
 
 
 效果如图：  
+
 ![image](http://i.imgur.com/3IBcY9c.png)
 
 另一种形式：   
 
 ```
-
-    <!DOCTYPE html>  
-	<html>  
-	  <head>  
-	    <title>demo01.html</title>  
-	    <link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css">  
+<!DOCTYPE html>  
+<html>  
+	<head>  
+		<title>demo01.html</title>  
+    	<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css">  
 		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/icon.css">  
-	   <script type="text/javascript" src="/easyUI/js/jquery-1.11.2.js"></script>  
+		<script type="text/javascript" src="/easyUI/js/jquery-1.11.2.js"></script>  
 		<script type="text/javascript" src="/easyUI/js/easyui/jquery.easyui.min.js"></script>  
 		<script  type="text/javascript">    
 			$(function(){  
 				$("#test").dialog(); 
 			});  
 		</script>  
-	  </head>  
-	  <body>  
+  	</head>  
+ 	 <body>  
 		<div id="test" style="width:400px;height:200px">    
-	        This is my first dialog!  
+   	    	This is my first dialog!  
 		</div>  
-	  </body>  
-	</html> 
+  	</body>  
+</html> 
 ```
 
 ###### 如果使用easyloader则应该这样写：
 
 ```
-
-    <!DOCTYPE html> 
-	<html> 
-	  <head>  
+<!DOCTYPE html> 
+<html> 
+	<head>  
 	    <title>demo01.html</title> 
 	    <link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css">  
 		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/icon.css"> 
@@ -136,12 +138,12 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 				});  
 			});  
 		</script>  
-	  </head>  
-	  <body>  
+	</head>  
+	<body>  
 		<div id="test" style="width:400px;height:200px">  
 	        This is my first dialog!  
 		</div>  
-	  </body>  
-	</html> 
+	</body>  
+</html> 
 ```
 

@@ -105,7 +105,7 @@
   line-height: 1.42857143;
 }
 #content {
-  font-size: 18px;
+  /*font-size: 18px;*/
 }
 #content h2, h3 {
   line-height: 2;

@@ -11,17 +11,30 @@ desc: 单篇文章的布局模板
   <div class="col-md-12 aside3-content">
        <!-- <p>阅读这篇文章预计花费{{ content | reading_time | pluralize: "minute" }} 分钟</p> -->
     <hr>
-    <div id="content">
+    <div id="content" class="table-responsive">
       {{ content }}
     </div>
     <hr>
     {% include duoshuo.html %}
   </div>
-  <!-- 文章的目录 -->
-  <div id="content_table" style="position:fixed;right:20px;top:120px;display:none;">
-    <div class="panel panel-success">
-      <div class="panel-body" id="nav"></div>
-    </div>
-  </div>
 </div>
 
+<!-- 文章的目录 -->
+<div id="content_table" style="position:fixed;right:60px;top:90px;display:none;">
+  <div class="panel panel-success">
+    <div class="panel-body" id="nav"></div>
+  </div>
+</div>
+<!-- 展示文章目录的按钮 -->
+<div style="position:fixed;right:15px;top:70px;">
+  <button id="content_btn" class="btn btn-primary" style="width:43px; height:34px;">
+    <i class="icon fa fa-lg fa-plus"></i>
+  </button>
+</div>
+
+<!-- 回到顶部的按钮 -->
+<div style="position:fixed;right:15px;top:110px;">
+  <button id="scrolltop_btn" class="btn btn-primary" style="width:43px; height:34px;">
+    <i class="icon fa fa-lg fa-angle-double-up"></i>
+  </button>
+</div>

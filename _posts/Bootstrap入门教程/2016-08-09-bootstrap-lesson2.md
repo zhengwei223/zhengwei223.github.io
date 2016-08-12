@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Bootstrap CSS 概览
-category: bootstrap
+category: Bootstrap入门教程
 tags: Web前端 Bootstrap 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap CSS概览
