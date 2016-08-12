@@ -83,7 +83,6 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 ##### 第三步： 编写代码，弹出对话框  
 
 ```
-
 <body>     
 	<div id="test" class="easyui-dialog" style="width:400px;height:200px">   
 		This is my first dialog!    
@@ -99,7 +98,6 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 另一种形式：   
 
 ```
-
 <!DOCTYPE html>  
 <html>  
 	<head>  
