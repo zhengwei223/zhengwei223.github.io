@@ -125,7 +125,6 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 ###### 如果使用easyloader则应该这样写：
 
 ```
-
 <!DOCTYPE html> 
 <html> 
 	<head>  
