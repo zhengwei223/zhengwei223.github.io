@@ -87,6 +87,30 @@ function contentEffects(){
   $("pre").addClass("prettyprint linenums");
   $("code").addClass("prettyprint");
   prettyPrint();
+
+  // Config ZeroClipboard
+  $('pre.prettyprint').each(function () {
+      var btnHtml = '<div class="zero-clipboard"><span class="clip_button">复制</span></div>';
+      $(this).before(btnHtml)
+  });
+  var client = new ZeroClipboard( $('.clip_button') );
+  // Handlers for ZeroClipboard
+  client.on( 'ready', function(event) {
+        // console.log( 'movie is loaded' );
+
+        client.on( 'copy', function(event) {
+          event.clipboardData.setData('text/plain', $(event.target).parent().nextAll('.prettyprint').first().text());
+        } );
+
+        client.on( 'aftercopy', function(event) {
+          // console.log('Copied text to clipboard: ' + event.data['text/plain']);
+        } );
+  } );
+
+  client.on( 'error', function(event) {
+        // console.log( 'ZeroClipboard error of type "' + event.name + '": ' + event.message );
+        ZeroClipboard.destroy();
+  } );
   // 代码高亮 e 
 }
 //生成table of content  end
@@ -115,14 +139,14 @@ $(document).ready(function() {
     addListener();//给回到顶部和toc按钮加监听
     addDuoshuo();//添加多说评论和分享框
     contentEffects();//生成toc
-    $("#content table").addClass("table table-condensed table-bordered table-striped table-hover");
+    addTableStyle();  
   });
 
   $('#content a').attr('target','_blank');
   addListener();
   contentEffects();
   addDuoshuo();
-  $("#content table").addClass("table table-condensed table-bordered table-striped table-hover");
+  addTableStyle();
   /* For cell text alignment */
   // $("table td:first-child, table th:first-child").addClass("first");
   /* For removing the last border */
@@ -142,5 +166,13 @@ function addListener(){
     $('body').animate({scrollTop:$('.aside3-title').offset().top-64}, 500);
   });
 
+}
+
+function addTableStyle(){
+  // 响应式表格
+  if($("#content table").parents('.table-responsive').size()==0){
+    $("#content table").wrap('<div class="table-responsive" ></div>');
+  }
+  $("#content table").addClass("table table-condensed table-bordered table-striped table-hover");
 }
 

@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: Draggable和Droppable   
+title: Draggable    
 category: jQuery-easyui基础教程  
 tags: Git jQuery EasyUI 项目 实战  
 author: 李彩琴  
@@ -67,7 +67,7 @@ $('#image2').draggable({
 
 效果如下：
 
-![image](http://i.imgur.com/Oyt0JGJ.png)
+![image](http://i.imgur.com/kzk0xVR.png)
 
 
 ##### 方式三：拖动图片时显示自定义内容。
@@ -87,7 +87,7 @@ $('#image3').draggable({
 
 效果如下：
 
-![img](http://i.imgur.com/txguDEY.png)
+![image](http://i.imgur.com/XaWH1y9.png)
 
 ### Drappable常用属性
 
@@ -108,70 +108,122 @@ $('#image3').draggable({
       <td>cursor</td> <td>string</td> <td>拖动时的CSS指针样式。</td> <td>move</td>
    </tr>
    <tr>
-      <td>deltaX</td> <td>number</td> <td>被拖动的元素对应于当前光标位置x。</td> <td>null</td>
-   </tr>
-   <tr>
-      <td>deltaY</td> <td>number</td> <td>被拖动的元素对应于当前光标位置y。</td> <td>null </td>
-   </tr>
-   <tr>
-      <td>handle</td> <td>selector</td> <td>开始拖动的句柄。</td> <td>null</td>
-   </tr>
-   <tr>
       <td>disabled</td> <td>boolean</td> <td>如果设置为true，则停止拖动。</td> <td>false</td>
-   </tr>
-   <tr>
-      <td>edge</td> <td>number</td> <td>可以在其中拖动的容器的宽度。</td> <td>0</td>
    </tr>
    <tr>
       <td>axis</td> <td>string</td> <td>定义元素移动的轴向，可用值有：'v'或'h'，当没有设置或设置为null时可同时在水平和垂直方向上拖动。</td> <td>null </td>
    </tr>
+   <tr>
+      <td>containment</td> <td>string</td> <td>定义元素可以在哪个空间内移动，可以是id值，可以是'parent',代表父元素。</td> <td>null </td>
+   </tr>
+	<tr>
+      <td>distance</td> <td>number</td> <td>定义我拖拽了多少像素后，拖拽才开始</td> <td>0</td>
+   </tr>
+   <tr>
+      <td>delay</td> <td>number</td> <td>定义必须拖拽并等待指定ms后拖拽才开始</td> <td>0</td>
+   </tr>
+   <tr>
+      <td>grid</td> <td>array</td> <td>对齐到80 x 80的网格</td> <td>null </td>
+   </tr>
 </table>
-
 
 参考jQuery EasyUI的API。
 
-### Draggable常用方法  
+代码如下：
 
-<table class="table table-bordered table-striped table-condensed">
-   <tr>
-      <th width="300px">方法名</th> <th width="300px">方法参数</th> <th width="600px">描述</th>
-   </tr>
-   <tr>
-      <td>options</td> <td>none</td> <td>返回属性对象</td>
-   </tr>
-   <tr>
-      <td>proxy</td> <td>none</td> <td>如果代理属性被设置则返回该拖动代理元素。</td>
-   </tr>
-   <tr>
-      <td>enable</td> <td>none</td> <td>允许拖动</td>
-   </tr>
-   <tr>
-      <td>disable</td> <td>none</td> <td>禁止拖动</td>
-   </tr>
-</table>  
+```
+$('#image3').draggable({
+	revert : true,
+	cursor: 'help',
+	disabled : false,
+	proxy:function(source){
+		var p = $('<div class="cloneDiv"></div>');
+		p.html($(source).attr("alt")).appendTo('body');
+		return p;
+	}
+});
+```
 
-### Dialog常用事件
+```  
+<script>
+	$(function() {
+		$("#draggable").draggable({
+			axis : "y",
+			cursorAt : {
+				top : -5,
+				left : -5
+			}
+		});
+		$("#draggable2").draggable({
+			axis : "x"
+		});
 
-<table class="table table-bordered table-striped table-condensed">
-   <tr>
-      <th width="300px">事件名</th><th width="300px">事件参数</th><th width="600px">描述</th>
-   </tr>
-   <tr>
-      <td>onBeforeDrag</td><td>e</td><td>在拖动之前触发，返回false将取消拖动。</td>
-   </tr>
-   <tr>
-      <td>onStartDrag</td><td>e</td><td>在目标对象开始被拖动时触发。 </td>
-   </tr>
-   <tr>
-      <td>onDrag</td><td>e</td><td>在拖动过程中触发，当不能再拖动时返回false。</td>
-   </tr>
-   <tr>
-      <td>onStopDrag</td><td>e</td><td>在拖动停止时触发。</td>
-   </tr>
-</table> 
+		$("#draggable3").draggable({
+			containment : "#containment-wrapper",
+			scroll : false
+		});
+		$("#draggable5").draggable({
+			containment : "parent"
+		});
+		$("#draggable6").draggable({
+			cursor : "crosshair",
+			cursorAt : {
+				top : -5,
+				left : -5
+			}
+		});
+		$("#draggable7").draggable({
+			cursorAt : {
+				bottom : 0
+			}
+		});
+		$("#draggable8").draggable({
+			distance : 20
+		});
+		$("#draggable9").draggable({
+			delay : 1000
+		});
+		$("#draggable10").draggable({
+			grid: [ 80, 80 ]
+		});
+	});
+</script>
+<h3>沿着轴约束运动：</h3>
+<div id="draggable" class="draggable ui-widget-content">
+	<p>只能垂直拖拽</p>
+</div>
+<div id="draggable2" class="draggable ui-widget-content">
+	<p>只能水平拖拽</p>
+</div>
+<h3>或者在另一个 DOM 元素中约束运动：</h3>
+<div id="containment-wrapper">
+	<div id="draggable3" class="draggable ui-widget-content">
+		<p>我被约束在盒子里</p>
+	</div>
+	<div class="draggable ui-widget-content">
+		<p id="draggable5" class="ui-widget-header">我被约束在父元素内</p>
+	</div>
+</div>
+<div id="draggable6" class="ui-widget-content">
+	<p>我的光标是在 left -5 和 top -5</p>
+</div>
+<div id="draggable7" class="ui-widget-content">
+	<p>我的光标位置只控制了 'bottom' 值</p>
+</div>
+<div id="draggable8" class="ui-widget-content">
+	<p>只有把我拖拽了 20 像素后，拖拽才开始</p>
+</div>
+<div id="draggable9" class="ui-widget-content">
+	<p>不管 distance 是多少，您都必须拖拽并等待 1000ms 后拖拽才开始</p>
+</div>
+<div id="draggable10" class="draggable ui-widget-content">
+	<p>我对齐到一个 80 x 80 网格</p>
+</div>
+```
+效果如下：
 
+![image](http://i.imgur.com/RNVtU51.png)
 
-# Droppable
 
 
 

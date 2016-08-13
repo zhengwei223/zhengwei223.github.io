@@ -9,9 +9,8 @@ desc: 单篇文章的布局模板
     {{ page.date | date:"%Y年%m月%d日" }} &nbsp;&nbsp;&nbsp;&nbsp;{{ page.author }}
   </div>
   <div class="col-md-12 aside3-content">
-       <!-- <p>阅读这篇文章预计花费{{ content | reading_time | pluralize: "minute" }} 分钟</p> -->
     <hr>
-    <div id="content" class="table-responsive">
+    <div id="content" >
       {{ content }}
     </div>
     <hr>
@@ -20,7 +19,7 @@ desc: 单篇文章的布局模板
 </div>
 
 <!-- 文章的目录 -->
-<div id="content_table" style="position:fixed;right:60px;top:90px;display:none;">
+<div id="content_table" style="position:fixed;right:60px;top:90px;display:none;height:400px;overflow-y:overlay ">
   <div class="panel panel-success">
     <div class="panel-body" id="nav"></div>
   </div>
