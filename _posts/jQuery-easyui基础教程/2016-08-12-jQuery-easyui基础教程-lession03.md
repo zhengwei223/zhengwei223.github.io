@@ -114,16 +114,7 @@ $('#image3').draggable({
       <td>axis</td> <td>string</td> <td>定义元素移动的轴向，可用值有：'v'或'h'，当没有设置或设置为null时可同时在水平和垂直方向上拖动。</td> <td>null </td>
    </tr>
    <tr>
-      <td>containment</td> <td>string</td> <td>定义元素可以在哪个空间内移动，可以是id值，可以是'parent',代表父元素。</td> <td>null </td>
-   </tr>
-	<tr>
-      <td>distance</td> <td>number</td> <td>定义我拖拽了多少像素后，拖拽才开始</td> <td>0</td>
-   </tr>
-   <tr>
       <td>delay</td> <td>number</td> <td>定义必须拖拽并等待指定ms后拖拽才开始</td> <td>0</td>
-   </tr>
-   <tr>
-      <td>grid</td> <td>array</td> <td>对齐到80 x 80的网格</td> <td>null </td>
    </tr>
 </table>
 
@@ -148,46 +139,18 @@ $('#image3').draggable({
 <script>
 	$(function() {
 		$("#draggable").draggable({
-			axis : "y",
-			cursorAt : {
-				top : -5,
-				left : -5
-			}
+			axis : "v",
 		});
 		$("#draggable2").draggable({
-			axis : "x"
+			axis : "h"
 		});
 
 		$("#draggable3").draggable({
-			containment : "#containment-wrapper",
-			scroll : false
-		});
-		$("#draggable5").draggable({
-			containment : "parent"
-		});
-		$("#draggable6").draggable({
-			cursor : "crosshair",
-			cursorAt : {
-				top : -5,
-				left : -5
-			}
-		});
-		$("#draggable7").draggable({
-			cursorAt : {
-				bottom : 0
-			}
-		});
-		$("#draggable8").draggable({
-			distance : 20
-		});
-		$("#draggable9").draggable({
 			delay : 1000
-		});
-		$("#draggable10").draggable({
-			grid: [ 80, 80 ]
 		});
 	});
 </script>
+
 <h3>沿着轴约束运动：</h3>
 <div id="draggable" class="draggable ui-widget-content">
 	<p>只能垂直拖拽</p>
@@ -195,34 +158,14 @@ $('#image3').draggable({
 <div id="draggable2" class="draggable ui-widget-content">
 	<p>只能水平拖拽</p>
 </div>
-<h3>或者在另一个 DOM 元素中约束运动：</h3>
-<div id="containment-wrapper">
-	<div id="draggable3" class="draggable ui-widget-content">
-		<p>我被约束在盒子里</p>
-	</div>
-	<div class="draggable ui-widget-content">
-		<p id="draggable5" class="ui-widget-header">我被约束在父元素内</p>
-	</div>
-</div>
-<div id="draggable6" class="ui-widget-content">
-	<p>我的光标是在 left -5 和 top -5</p>
-</div>
-<div id="draggable7" class="ui-widget-content">
-	<p>我的光标位置只控制了 'bottom' 值</p>
-</div>
-<div id="draggable8" class="ui-widget-content">
-	<p>只有把我拖拽了 20 像素后，拖拽才开始</p>
-</div>
-<div id="draggable9" class="ui-widget-content">
+<h3 style="clear:both;">沿着轴约束运动：</h3>
+<div id="draggable3" class="draggable ui-widget-content">
 	<p>不管 distance 是多少，您都必须拖拽并等待 1000ms 后拖拽才开始</p>
-</div>
-<div id="draggable10" class="draggable ui-widget-content">
-	<p>我对齐到一个 80 x 80 网格</p>
 </div>
 ```
 效果如下：
 
-![image](http://i.imgur.com/RNVtU51.png)
+![image](http://i.imgur.com/LKrMOGZ.png)
 
 
 
