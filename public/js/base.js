@@ -25,7 +25,8 @@ function nav_click(is_show) {
     /* 调整右侧内容 */
     $('.aside3')
       .removeClass('col-md-13 col-lg-13')  
-      .addClass('col-md-8 col-lg-8');   //调整为半屏，如果在手机上因为aside会满屏，所以实际上右侧内容被隐藏了
+      //调整为半屏，如果在手机上因为aside会满屏，所以实际上右侧内容被隐藏了
+      .addClass('col-md-8 col-lg-8');   
     /* 调整文字内容格式 */
     $('.aside3-content')
       .removeClass('col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2')
@@ -69,7 +70,9 @@ function contentEffects(){
         var current = $(this);
         current.attr("id", "title" + i);
         tag = current.prop('tagName').substr(-1);
-        $("#nav").append("<div style='margin-left:"+15*(tag-1)+"px'><a id='link" + i + "' href='javascript:void(0);'>" + current.html() + "</a></div>");
+        $("#nav").append("<div style='margin-left:"+15*(tag-1)+"px'><a id='link" 
+            + i + "' href='javascript:void(0);'>" 
+            + current.html() + "</a></div>");
         $('#link'+i).click(function(){
           // console.log('toc link clicked---'+current.offset().top);
           // current.scrollTop(0);
@@ -90,7 +93,8 @@ function contentEffects(){
 
   // Config ZeroClipboard
   $('pre.prettyprint').each(function () {
-      var btnHtml = '<div class="zero-clipboard"><span class="clip_button">复制</span></div>';
+      var btnHtml = '<div class="zero-clipboard">'
+        +'<span class="clip_button">复制</span></div>';
       $(this).before(btnHtml)
   });
   var client = new ZeroClipboard( $('.clip_button') );
@@ -99,7 +103,9 @@ function contentEffects(){
         // console.log( 'movie is loaded' );
 
         client.on( 'copy', function(event) {
-          event.clipboardData.setData('text/plain', $(event.target).parent().nextAll('.prettyprint').first().text());
+          event.clipboardData
+            .setData('text/plain', 
+              $(event.target).parent().nextAll('.prettyprint').first().text());
         } );
 
         client.on( 'aftercopy', function(event) {
@@ -108,7 +114,8 @@ function contentEffects(){
   } );
 
   client.on( 'error', function(event) {
-        // console.log( 'ZeroClipboard error of type "' + event.name + '": ' + event.message );
+        // console.log( 'ZeroClipboard error of type "' + event.name + '": ' 
+          // + event.message );
         ZeroClipboard.destroy();
   } );
   // 代码高亮 e 
@@ -127,7 +134,8 @@ $(document).ready(function() {
 
 
 
-// 这句话是绑定本页面所有.pjaxlink标签，链接点击之后，替换#pjax容器的内容为新内容#pjax，ajax超时时间为10秒；
+// 这句话是绑定本页面所有.pjaxlink标签，链接点击之后，
+// 替换#pjax容器的内容为新内容#pjax，ajax超时时间为10秒；
   $(document).pjax('.pjaxlink', '#pjax', { fragment: "#pjax", timeout: 10000 });
   
   // pjax.end 在pjax ajax结束时调用 
@@ -173,6 +181,7 @@ function addTableStyle(){
   if($("#content table").parents('.table-responsive').size()==0){
     $("#content table").wrap('<div class="table-responsive" ></div>');
   }
-  $("#content table").addClass("table table-condensed table-bordered table-striped table-hover");
+  $("#content table")
+    .addClass("table table-condensed table-bordered table-striped table-hover");
 }
 
