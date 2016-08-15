@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 数据类型转换
-category: 数据类型转换
+category: Java8编程语言
 tags: Java 入门
 keywords: 蓝桥 lanqiao 教程 java Java8 数据类型转换
 description: 

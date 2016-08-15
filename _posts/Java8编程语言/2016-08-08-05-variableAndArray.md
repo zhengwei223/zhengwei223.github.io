@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 变量与常量
-category: 变量与常量
+category: Java8编程语言
 tags: Java 入门
 keywords: 蓝桥 lanqiao 教程 java Java8 变量
 description: 
