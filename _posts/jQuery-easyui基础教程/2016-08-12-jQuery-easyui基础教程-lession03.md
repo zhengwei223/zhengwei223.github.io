@@ -30,7 +30,7 @@ EasyUI的Draggable控件可以帮助我们快速的开发可以拖拽的页面�
 
 
 ```
-<img id="image1" alt="这是一幅图片" class="easyui-draggable" src="/ui/images/shirt1.gif"/
+<img id="image1" alt="这是一幅图片" class="easyui-draggable" src="/ui/images/shirt1.gif"/>
 ```  
 
 只需要简单的给HTML标签添加一个指定的class样式即可创建一个可拖拽的控件。效果如下图：
