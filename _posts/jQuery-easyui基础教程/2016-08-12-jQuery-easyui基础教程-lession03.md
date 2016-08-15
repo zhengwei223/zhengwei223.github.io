@@ -165,6 +165,47 @@ $('#image3').draggable({
 
 ![image](http://i.imgur.com/LKrMOGZ.png)
 
+### Draggable常用方法  
+
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th width="300px">方法名</th> <th width="300px">方法参数</th> <th width="600px">描述</th>
+   </tr>
+   <tr>
+      <td>options</td> <td>none</td> <td>返回属性对象。</td>
+   </tr>
+   <tr>
+      <td>proxy</td> <td>none</td> <td>如果代理属性被设置则返回该拖动代理元素。</td>
+   </tr>
+   <tr>
+      <td>enable</td> <td>none</td> <td>允许拖动。</td>
+   </tr>
+   <tr>
+      <td>disable</td> <td>none</td> <td>禁止拖动。</td>
+   </tr>
+</table>  
+
+
+### Draggable常用事件
+
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th width="300px">事件名</th><th width="300px">事件参数</th><th width="600px">描述</th>
+   </tr>
+   <tr>
+      <td>onBeforeDrag</td><td>e</td><td>在拖动之前触发，返回false将取消拖动。</td>
+   </tr>
+   <tr>
+      <td>onStartDrag</td><td>e</td><td>在目标对象开始被拖动时触发。</td>
+   </tr>
+   <tr>
+      <td>onDrag</td><td>e</td><td>在拖动过程中触发，当不能再拖动时返回false。</td>
+   </tr>
+	<tr>
+      <td>onStopDrag</td><td>e</td><td>在拖动停止时触发。</td>
+   </tr>
+</table> 
+
 
 # Droppable
 
