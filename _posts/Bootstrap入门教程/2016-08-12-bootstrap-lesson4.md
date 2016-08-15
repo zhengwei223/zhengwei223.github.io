@@ -13,6 +13,7 @@ description:
 学习本章，应把全部案例拷贝试用一遍，以获得直观感受，但没必要记住全部细节，能达到**需要时知道在哪里拷贝代码**的水平即可，另外需要知道如何**根据自己的需要来进行修改**。
 
 # 排版
+
 ## 标题
 
 HTML 中的所有标题标签，`<h1>` 到 `<h6>` 均可使用。另外，还提供了 `.h1` 到 `.h6` 类，为的是给内联（inline）属性的文本赋予标题的样式。
@@ -326,12 +327,15 @@ Bootstrap 将全局 `font-size` 设置为 14px，`line-height` 设置为 1.428�
 # 代码
 
 ## 内联代码
+
 通过 `<code>` 标签包裹内联样式的代码片段。
 
 For example, `<section>` should be wrapped as inline.
 
 `For example, <code>&lt;被包裹的是代码&gt;</code> should be wrapped as inline.`
+
 ## 用户输入
+
 通过 `<kbd>` 标签标记用户通过键盘输入的内容。
 
 ```
@@ -340,6 +344,7 @@ To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
 ```
 
 ### 代码块
+
 多行代码可以使用 `<pre>` 标签。为了正确的展示代码，注意将尖括号做转义处理。
 
 `<pre>&lt;p&gt;Sample text here...&lt;/p&gt;</pre>`
@@ -808,9 +813,11 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
 <input type="text" class="form-control" placeholder="Text input">
 ```
 #### 输入控件组
+
 如需在文本输入域 `<input>` 前面或后面添加文本内容或按钮控件，请参考输入控件组。
 
 ### 文本域
+
 支持多行文本的表单控件。可根据需要改变 `rows` 属性。
 
 
@@ -900,6 +907,7 @@ Firefox 浏览器对 fieldset 元素设置了一些影响 width 属性的样式�
   </label>
 </div>
 ```
+
 ### 内联单选和多选框
 
 通过将 `.checkbox-inline` 或 `.radio-inline` 类应用到一系列的多选框（`checkbox`）或单选框（`radio`）控件上，可以使这些控件排列在一行。
@@ -1816,6 +1824,7 @@ Bootstrap 对表单控件的校验状态，如 `error`、`warning` 和 `success`
 ```
 <img src="..." class="img-responsive" alt="Responsive image">
 ```
+
 ## 图片形状
 
 通过为 `<img>` 元素添加以下相应的类，可以让图片呈现不同的形状。
