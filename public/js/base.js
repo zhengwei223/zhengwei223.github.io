@@ -84,7 +84,9 @@ function contentEffects(){
     $('#content_btn').hide();
   }
   // 图片居中
-  $('#content img').addClass('img-thumbnail').parent('p').addClass('center');
+  var $imgParent = $('#content img').addClass('img-thumbnail').parent('p');
+  $imgParent.addClass('text-center');
+  $imgParent.next('p').has('em').addClass('text-center');
   
   // 代码高亮 b
   $("pre").addClass("prettyprint linenums");
