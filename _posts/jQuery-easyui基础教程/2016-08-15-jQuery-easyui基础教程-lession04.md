@@ -13,9 +13,9 @@ description:
 ##### HTML代码：
 
 ```
-<div id="cc" class="easyui-layout" style="margin:-10px;width:1368px;height:636px;">   
-	<div id="east" data-options="region:'east',hideCollapsedContent:false,iconCls:'icon-sum',title:'购物车'" style="width:422px;height: 40px;">
-		<div  title="购物车" class="cart" data-options="iconCls:'icon-save'" style="padding:10px;">
+<div id="cc" class="easyui-layout" style="margin:-10px;width:1368px;height:636px;">
+	<div id="east" data-options="region:'east',hideCollapsedContent:false,iconCls:'icon-sum',title:'购物车'" style="width:422px;">
+		<div title="购物车" class="cart" data-options="iconCls:'icon-save'" style="padding:10px;">
 			<h1>Shopping Cart</h1>
 			<table id="cartcontent">
 				<thead>
@@ -30,57 +30,69 @@ description:
 				</tbody>
 			</table>
 			<p class="total">
-				Total: $<label id="total">0</label>
+				Total: ￥<label id="total">0</label>
 			</p>
 			<h2>Drop here to add to cart</h2>
 		</div>
-    </div>  
-    <div data-options="region:'center'" style="padding:5px;background:#eee;">
-	    <ul class="products">
-			<li><a id="a" href="#" class="item"> <img
-					src="../images/shirt1.png" />
+	</div>
+	<div data-options="region:'center'" style="padding:5px;background:#eee;">
+		<ul class="products">
+			<li>
+				<a id="a" href="#" class="item"> 
+					<img src="../images/shirt1.png" />
 					<div>
 						<p>Balloon</p>
-						<p>Price:$250</p>
-					</div> </a>
+						<p>Price:￥250</p>
+					</div> 
+				</a>
 			</li>
-			<li><a id="b" href="#" class="item"> <img
-					src="../images/shirt2.png" />
+			<li>
+				<a id="b" href="#" class="item"> 
+					<img src="../images/shirt2.png" />
 					<div>
 						<p>EPTISON</p>
-						<p>Price:$150</p>
-					</div> </a>
+						<p>Price:￥150</p>
+					</div> 
+				</a>
 			</li>
-			<li><a id="c" href="#" class="item"> <img
-					src="../images/shirt3.png" />
+			<li>
+				<a id="c" href="#" class="item"> 
+					<img src="../images/shirt3.png" />
 					<div>
 						<p>Feeling</p>
-						<p>Price:$5600</p>
-					</div> </a>
+						<p>Price:￥5600</p>
+					</div> 
+				</a>
 			</li>
-			<li style="clear: both;"><a id="d" href="#" class="item"> <img
-					src="../images/shirt4.png" />
+			<li style="clear: both;">
+				<a id="d" href="#" class="item"> 
+					<img src="../images/shirt4.png" />
 					<div>
 						<p>ENJEOLON</p>
-						<p>Price:$320</p>
-					</div> </a>
+						<p>Price:￥320</p>
+					</div> 
+				</a>
 			</li>
-			<li><a id="e" href="#" class="item"> <img
-					src="../images/shirt5.png" />
+			<li>
+				<a id="e" href="#" class="item"> 
+					<img src="../images/shirt5.png" />
 					<div>
 						<p>JP</p>
-						<p>Price:$255</p>
-					</div> </a>
+						<p>Price:￥255</p>
+					</div> 
+				</a>
 			</li>
-			<li><a id="f" href="#" class="item"> <img
-					src="../images/shirt6.png" />
+			<li>
+				<a id="f" href="#" class="item"> 
+					<img src="../images/shirt6.png" />
 					<div>
 						<p>WOOG2016</p>
-						<p>Price:$13000</p>
-					</div> </a>
+						<p>Price:￥13000</p>
+					</div> 
+				</a>
 			</li>
 		</ul>
-    </div> 
+	</div>
 </div>  
 ```  
 
@@ -90,23 +102,24 @@ description:
 ```
 $(function() {
 	/**
-	  * 设置每个商品都可以拖动
-	  */
+	 * 设置每个商品都可以拖动
+	 */
 	$('.item').draggable({
 		revert : true,
 		cursor : "move",
 		proxy : 'clone'
+
 	});
 	/**
-	  * 设置购物车接受到商品后将商品添加到购物车中
-	  */
+	 * 设置购物车接受到商品后将商品添加到购物车中
+	 */
 	$('.cart').droppable(
 			{
 				onDrop : function(e, source) {
 					//得到商品的名称和价格
 					var name = $(source).find('p:eq(0)').html();
 					var price = parseFloat(($(source).find('p:eq(1)')
-							.html()).split('$')[1]);
+							.html()).split('￥')[1]);
 					//在购物车中显示商品信息		
 					addToCart(name, price);
 				}
@@ -114,8 +127,8 @@ $(function() {
 
 });
 /**
-  * 在购物车中显示商品信息
-  */	
+ * 在购物车中显示商品信息
+ */
 function addToCart(name, price) {
 	var $tbody = $(".cart #cartcontent tbody");
 	var $trs = $tbody.children("tr");
@@ -145,13 +158,13 @@ function addToCart(name, price) {
 	setTotal();
 }
 /**
-  * 修改购物车的总价
-  */
+ * 修改购物车的总价
+ */
 function setTotal() {
 	var total = 0;
 	var $trs = $(".cart #cartcontent tbody tr");
 	//得到每一行的总价相加，得到总金额
-	for (var index = 0; index < $trs.size(); index++) {
+	for ( var index = 0; index < $trs.size(); index++) {
 		$tr = $($trs.get(index));
 		$totalPriceTd = $($tr.children("td")[3]);
 		total += parseFloat($totalPriceTd.html());
@@ -162,12 +175,12 @@ function setTotal() {
 ```
 
 效果如下：
+ 
+![image](http://i.imgur.com/UQMPBrs.png)
 
-![image](http://i.imgur.com/MhtZo9n.png)
+![image](http://i.imgur.com/1OYyl82.png)
 
-![image](http://i.imgur.com/kxRxEYB.png)
-
-![image03](http://i.imgur.com/yj8J5EW.png)
+![image](http://i.imgur.com/ZjevSBg.png)
 
 综上所述，便是可拖放购物车的实现。
 
