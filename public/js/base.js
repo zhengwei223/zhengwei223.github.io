@@ -84,7 +84,7 @@ function contentEffects(){
     $('#content_btn').hide();
   }
   // 图片居中
-  var $imgParent = $('#content img').addClass('img-thumbnail').parent('p');
+  var $imgParent = $('#content img').addClass('img-thumbnail content-img').parent('p');
   $imgParent.addClass('text-center');
   $imgParent.next('p').has('em').addClass('text-center');
   
