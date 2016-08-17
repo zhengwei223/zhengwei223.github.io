@@ -68,28 +68,38 @@ function contentEffects(){
   //生成侧边栏目录 b
   if($(".doc-sidebar").length > 0 && lenOfH1>0){
     for(var i = 0; i < lenOfH1; i++){
-      var $current = $($h1List[i]);
-      var id = "section" + i;
+      let $current = $($h1List[i]);
+      let id = "section" + i;
       $current.attr("id", id);
-      var $li = $('<li><a href="#'+id+'">'+$current.html()+'</a></li>');
+      let $li = $('<li><a href="#'+id+'">'+$current.html()+'</a></li>');
       if (i==0) {
         $li.addClass('active');
       };
+      //定义侧边导航链接点击行为，做适当偏移
+      $li.find('a').click(function(){
+        $('body').animate({scrollTop:$current.offset().top-60}, 1000);
+      });
       $nav.append($li);
 
       // 处理h2
-      var $h2List;
+      let $h2List;
       if(i==lenOfH1-1){
         $h2List = $current.nextAll('h2');
       } else{
         $h2List = $current.nextUntil('h1','h2');
       }
-      if($h2List){
-        var $subUl = $('<ul class="nav"></ul>');
+      if($h2List.length>0){
+        let $subUl = $('<ul class="nav"></ul>');
         $h2List.each(function(j,v){
           let id = 'section'+i+'-'+j;
-          $(this).attr('id', id);
-          $subUl.append('<li><a href="#'+id+'">'+$(this).html()+'</a></li>')
+          let $currentH2 = $(this);
+          $currentH2.attr('id', id);
+          let $subLi = $('<li><a href="#'+id+'">'+$(this).html()+'</a></li>');
+          //定义侧边导航链接点击行为，做适当偏移
+          $subLi.click(function(){
+            $('body').animate({scrollTop:$currentH2.offset().top-60}, 1000);
+          });
+          $subUl.append($subLi);
         });
         $li.append($subUl);
       }
@@ -123,12 +133,16 @@ function contentEffects(){
   $('pre.prettyprint').each(function () {
       var btnHtml = '<div class="zero-clipboard">'
         +'<span class="clip_button">复制</span></div>';
+
       $(this).before(btnHtml)
   });
   var client = new ZeroClipboard( $('.clip_button') );
   // Handlers for ZeroClipboard
   client.on( 'ready', function(event) {
-        // console.log( 'movie is loaded' );
+        $('.clip_button')
+            .data('placement', 'left')
+            .attr('title', '复制到剪贴板!')
+            .tooltip();
 
         client.on( 'copy', function(event) {
           event.clipboardData
@@ -137,7 +151,13 @@ function contentEffects(){
         } );
 
         client.on( 'aftercopy', function(event) {
-          // console.log('Copied text to clipboard: ' + event.data['text/plain']);
+          $(event.target)
+            //.data('placement', 'left')
+            .attr('title', '复制成功!')
+            .tooltip('fixTitle')
+            .tooltip('show')
+            .attr('title', '复制到剪贴板')
+            .tooltip('fixTitle');
         } );
   } );
 
@@ -196,6 +216,7 @@ function addListener(){
   });
   //回到顶部
   $('.scrolltop-btn').on("click", function() {
+    //65=h1的上外边距（25）+导航条的高度（40）
     $('body').animate({scrollTop:$('.doc-title').offset().top-65}, 500);
   });
 
