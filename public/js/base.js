@@ -61,28 +61,54 @@ function content_click(is_show){
 }
 //生成table of content
 function contentEffects(){
-  //remove the asidebar
-  //$('.row-offcanvas').removeClass('active');
-  var titles = $("#content > h1,#content > h2");
-  if($("#nav").length > 0 && titles.length>0){
-    //只显式1,2级标题
-    titles.each(function(i) {
-        var current = $(this);
-        current.attr("id", "title" + i);
-        tag = current.prop('tagName').substr(-1);
-        $("#nav").append("<div style='margin-left:"+15*(tag-1)+"px'><a id='link" 
-            + i + "' href='javascript:void(0);'>" 
-            + current.html() + "</a></div>");
-        $('#link'+i).click(function(){
-          // console.log('toc link clicked---'+current.offset().top);
-          // current.scrollTop(0);
-          $('body').animate({scrollTop:current.offset().top-64}, 1000);
+  var $h1List = $("#content > h1");
+  var lenOfH1 = $h1List.length;
+  var $nav = $('.doc-sidebar > .nav');
+  // 判断有侧边栏&&有一级标题
+  //生成侧边栏目录 b
+  if($(".doc-sidebar").length > 0 && lenOfH1>0){
+    for(var i = 0; i < lenOfH1; i++){
+      var $current = $($h1List[i]);
+      var id = "section" + i;
+      $current.attr("id", id);
+      var $li = $('<li><a href="#'+id+'">'+$current.html()+'</a></li>');
+      if (i==0) {
+        $li.addClass('active');
+      };
+      $nav.append($li);
+
+      // 处理h2
+      var $h2List;
+      if(i==lenOfH1-1){
+        $h2List = $current.nextAll('h2');
+      } else{
+        $h2List = $current.nextUntil('h1','h2');
+      }
+      if($h2List){
+        var $subUl = $('<ul class="nav"></ul>');
+        $h2List.each(function(j,v){
+          let id = 'section'+i+'-'+j;
+          $(this).attr('id', id);
+          $subUl.append('<li><a href="#'+id+'">'+$(this).html()+'</a></li>')
         });
-    }); 
-    $('#content_btn').show();
-  }else{
-    $('#content_btn').hide();
+        $li.append($subUl);
+      }
+    }
+    // titles.each(function(i) {
+    //     var current = $(this);
+    //     tag = current.prop('tagName').substr(-1);
+    //     $("#nav").append("<div style='margin-left:"+15*(tag-1)+"px'><a id='link" 
+    //         + i + "' href='javascript:void(0);'>" 
+    //         + current.html() + "</a></div>");
+    //     $('#link'+i).click(function(){
+    //       // console.log('toc link clicked---'+current.offset().top);
+    //       // current.scrollTop(0);
+    //       $('body').animate({scrollTop:current.offset().top-64}, 1000);
+    //     });
+    // }); 
   }
+  //生成侧边栏目录 e
+
   // 图片居中
   var $imgParent = $('#content img').addClass('img-thumbnail content-img').parent('p');
   $imgParent.addClass('text-center');
@@ -147,9 +173,10 @@ $(document).ready(function() {
     $('#content a').attr('target','_blank');
     $('.aside3').scrollTop(0);//回到顶部
     addListener();//给回到顶部和toc按钮加监听
-    addDuoshuo();//添加多说评论和分享框
     contentEffects();//生成toc
+    addDuoshuo();//添加多说评论和分享框
     addTableStyle();  
+    addScrollspyAndAffix();
   });
 
   $('#content a').attr('target','_blank');
@@ -157,10 +184,7 @@ $(document).ready(function() {
   contentEffects();
   addDuoshuo();
   addTableStyle();
-  /* For cell text alignment */
-  // $("table td:first-child, table th:first-child").addClass("first");
-  /* For removing the last border */
-  // $("table td:last-child, table th:last-child").addClass("last");
+  addScrollspyAndAffix();
 });
 
 function addListener(){
@@ -171,9 +195,8 @@ function addListener(){
     $(this).data('clicked',!isClicked);
   });
   //回到顶部
-  $('#scrolltop_btn').on("click", function() {
-    // $('.aside3').scrollTop(0);
-    $('body').animate({scrollTop:$('.aside3-title').offset().top-64}, 500);
+  $('.scrolltop-btn').on("click", function() {
+    $('body').animate({scrollTop:$('.doc-title').offset().top-65}, 500);
   });
 
 }
@@ -185,5 +208,38 @@ function addTableStyle(){
   }
   $("#content table")
     .addClass("table table-condensed table-bordered table-striped table-hover");
+}
+
+function addScrollspyAndAffix(){
+  // Scrollspy
+  var $window = $(window);
+  var $body   = $(document.body);
+  var $sideBar = $('.doc-sidebar');
+  var off = $('.navbar').height()-1+25;
+  $body.scrollspy({
+    target: '.doc-side-container',
+    offset: off
+  });
+  
+  $body.scrollspy('refresh')
+
+// 指定开关阈值，滚动到top时，将元素固定在顶部，滚动到bottom时，停止固定
+  $sideBar.affix({
+    offset:{
+      top : function () {
+        var offsetTop      = $sideBar.offset().top
+        var sideBarMargin  = parseInt($sideBar.children(0).css('margin-top'), 10)
+        var navOuterHeight = $('.navbar').height()
+        var topValue = offsetTop - navOuterHeight - sideBarMargin;
+
+        return (this.top = topValue);
+      }
+      ,
+      bottom: function () {
+        var heightOfFooter = $('footer').outerHeight(true);
+        return (this.bottom = heightOfFooter);
+      }
+    }
+  });
 }
 
