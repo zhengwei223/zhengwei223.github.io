@@ -1,128 +1,129 @@
-/* 页面配置 */
-/*.container {
-  width: 100%;
-  height: 100%;
-}*/
-/*body, html {
-  margin: 0px;
-  height: 100%;
-  overflow: hidden; 
-  background-color: #303030;
-}*/
-/*.row {
-  height: 100%;
-}*/
+doc/*
+ * Side navigation
+ *
+ * Scrollspy and affixed enhanced navigation to highlight sections and secondary
+ * sections of docs content.
+ */
 
-/* 导航栏 + 目录栏 */
-.aside {
-  height: 100%;
+/* By default it's not affixed in mobile views, so undo that */
+.doc-sidebar.affix {
+  position: static;
 }
-/* 左侧导航栏 */
-.aside1 {
-  /*background-color: #1f2c39;*/
-  background-color: #1abc9c;
-  /*background-image: url(/public/img/bg_grid.jpg);*/
-  height: 100%;
-  padding-left: 0px;
-  padding-right: 0px;
-  text-align: center;
-  /*box-shadow: inset -15px 0 20px -15px #77AEF4;*/
-  overflow-y:hidden;
-}
-.aside1 > .nav > li > a {
-  padding-left: 0px;
-  padding-right: 0px;
-  border-radius: 0px;
-  color: #fff;
-  font-size: 15px;
-  padding: 10px 10px;
-
+@media (min-width: 768px) {
+  .doc-sidebar {
+    padding-left: 20px;
+  }
 }
 
-.aside1> .nav > li > a:hover {
-  color:#fff;
-  background-color: #16a085;
+/* First level of nav */
+.doc-sidenav {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.aside1 > .nav-pills>li.active>a ,.nav-pills>li.active>a:hover,.nav-pills>li.active>a:focus {
-  color: #fff;
-  /*background-color: #fafaf6;*/
-  /*background-image: url(/public/img/body_bg.jpg);*/
-  background-color: #303030;
+/* All levels of nav */
+.doc-sidebar .nav > li > a {
+  display: block;
+  padding: 4px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #767676;
+}
+.doc-sidebar .nav > li > a:hover,
+.doc-sidebar .nav > li > a:focus {
+  padding-left: 19px;
+  color: #563d7c;
+  text-decoration: none;
+  background-color: transparent;
+  border-left: 1px solid #563d7c;
+}
+.doc-sidebar .nav > .active > a,
+.doc-sidebar .nav > .active:hover > a,
+.doc-sidebar .nav > .active:focus > a {
+  padding-left: 18px;
+  font-weight: bold;
+  color: #563d7c;
+  background-color: transparent;
+  border-left: 2px solid #563d7c;
 }
 
-.avatar {
-  width: 56px;
-  /*height: 90px;*/
-  border: 0px solid #fff;
+/* Nav: second level (shown on .active) */
+.doc-sidebar .nav .nav {
+  display: none; /* Hide by default, but at >768px, show it */
+  padding-bottom: 10px;
 }
-.aside1_bottom {
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-}
-.aside1_bottom > .table {
-  margin-bottom: 0px;
-}
-/* 中部目录栏 */
-.aside2 {
-  /*background-color: #fafaf6;*/
-  /*background-image: url(/public/img/body_bg.jpg);*/
-
-  background-color: #303030;
-  height: 100%;
-  border-right: 2px solid #303030;
-  overflow-y: auto;
-  font-color: #fff;
-  margin-top: 10px;
-}
-
-/* 右侧内容栏 */
-.aside3 {
-  height: 100%;
-  overflow-y: auto;
-  /*background-color: #fff;*/
-  overflow-x: hidden;
-  /*overflow-y:scroll;*/
-  /*background-image: url(/public/img/bg_lines1.jpg);*/
-}
-.aside3-title {
-  /*background-color: #f9f9f9;*/
-  /*background-image: url(/public/img/bg_grid.jpg);*/
-  border-bottom: 1px solid #f5f5f5;
+.doc-sidebar .nav .nav > li > a {
+  padding-top: 1px;
+  padding-bottom: 1px;
   padding-left: 30px;
-  padding-right: 30px;
-  text-align: center;
-  color: #303030;
+  font-size: 12px;
+  font-weight: normal;
 }
-.aside3-content {
-/*  padding-left: 40px;
-  padding-right: 40px;
-  padding: 0 5% 0 5%;
-*/  
-  /*color: #656565;*/
-  /*line-height: 1.42857143;*/
+.doc-sidebar .nav .nav > li > a:hover,
+.doc-sidebar .nav .nav > li > a:focus {
+  padding-left: 29px;
 }
-#content {
-  /*font-size: 18px;*/
-}
-#content h2, h3 {
-  line-height: 2;
+.doc-sidebar .nav .nav > .active > a,
+.doc-sidebar .nav .nav > .active:hover > a,
+.doc-sidebar .nav .nav > .active:focus > a {
+  padding-left: 28px;
+  font-weight: 500;
 }
 
-blockquote p {
-  font-size: 20px;
+/* Back to top (hidden on mobile) */
+.back-to-top,
+.doc-theme-toggle {
+  display: none;
+  padding: 4px 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #999;
 }
-/* 其他配置 */
+.back-to-top:hover,
+.doc-theme-toggle:hover {
+  color: #563d7c;
+  text-decoration: none;
+}
+.doc-theme-toggle {
+  margin-top: 0;
+}
 
-.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
-  color: #fff;
-  background-color: #303030;
-}
-/* 显示评论按钮 */
-.show-commend {
-  width: 100%;
-  margin-bottom: 40px;
+@media (min-width: 768px) {
+  .back-to-top,
+  .doc-theme-toggle {
+    display: block;
+  }
 }
 
+/* Show and affix the side nav when space allows it */
+@media (min-width: 992px) {
+  .doc-sidebar .nav > .active > ul {
+    display: block;
+  }
+  /* Widen the fixed sidebar */
+  .doc-sidebar.affix,
+  .doc-sidebar.affix-bottom {
+    width: 213px;
+  }
+  .doc-sidebar.affix {
+    position: fixed; /* Undo the static from mobile first approach */
+    top: 20px;
+  }
+  .doc-sidebar.affix-bottom {
+    position: absolute; /* Undo the static from mobile first approach */
+  }
+  .doc-sidebar.affix-bottom .doc-sidenav,
+  .doc-sidebar.affix .doc-sidenav {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 1200px) {
+  /* Widen the fixed sidebar again */
+  .doc-sidebar.affix-bottom,
+  .doc-sidebar.affix {
+    width: 263px;
+  }
+}

@@ -2,38 +2,72 @@
 layout: base
 desc: 单篇文章的布局模板
 ---
-<div class="row">
-  <div class="col-md-12 aside3-title">
-    <br>
-    <h2 id="#identifier">{{ page.title }}</h2>
-    {{ page.date | date:"%Y年%m月%d日" }} &nbsp;&nbsp;&nbsp;&nbsp;{{ page.author }}
-  </div>
-  <div class="col-md-12 aside3-content">
-    <hr>
-    <div id="content" >
-      {{ content }}
+<div class="doc-title">
+  <h1 class="identifier">{{ page.title }}</h1>
+  {{ page.date | date:"%Y年%m月%d日" }} &nbsp;&nbsp;&nbsp;&nbsp;{{ page.author }}
+</div>
+
+<hr>
+<div class="container doc-container">
+  <div class="row">
+    <div class="col-md-9 doc-content">
+      <div id="content" >
+        {{ content }}
+      </div>
+      <hr>
+      {% include duoshuo.html %}
     </div>
-    <hr>
-    {% include duoshuo.html %}
+    <!-- 右侧文章目录 和相关按钮-->
+    <div class="col-md-3 doc-side-container">
+      <nav class="doc-sidebar hidden-print hidden-sm hidden-xs affix-top">
+        <ul class="nav nav-pills nav-stacked">
+              
+          <!-- <li class="active">
+            <a href="#section">学习建议</a>
+          </li>
+          <li class="">
+            <a href="#section-1">排版</a>
+            <ul class="nav">
+              <li><a href="section-2">section-2</a></li>
+              <li><a href="section-3">section-3</a></li>
+              <li><a href="section-4">section-4</a></li>
+              <li><a href="section-5">section-5</a></li>
+              <li><a href="section-6">section-6</a></li>
+              <li><a href="section-7">section-7</a></li>
+              <li><a href="section-8">section-8</a></li>
+              <li><a href="section-9">section-9</a></li>
+              <li><a href="section-10">section-10</a></li>
+            </ul>
+          </li> -->
+
+        </ul>
+        <div>
+          <button class="btn btn-primary scrolltop-btn">
+            <i class="icon fa fa-angle-double-up"></i>
+          </button>
+        </div>
+      </nav>
+    </div>
   </div>
 </div>
 
 <!-- 文章的目录 -->
-<div id="content_table" style="position:fixed;right:60px;top:90px;display:none;height:400px;overflow-y:overlay;z-index:10 ">
+<!-- <div id="content_table" style="position:fixed;right:60px;top:90px;display:none;height:400px;overflow-y:overlay;z-index:10 ">
   <div class="panel panel-success">
     <div class="panel-body" id="nav"></div>
   </div>
-</div>
-<!-- 展示文章目录的按钮 -->
-<div style="position:fixed;right:15px;top:70px;z-index:10">
-  <button id="content_btn" class="btn btn-primary" style="width:43px; height:34px;">
-    <i class="icon fa fa-lg fa-plus"></i>
-  </button>
-</div>
+</div> -->
 
-<!-- 回到顶部的按钮 -->
-<div style="position:fixed;right:15px;top:110px;z-index:10">
-  <button id="scrolltop_btn" class="btn btn-primary" style="width:43px; height:34px;">
-    <i class="icon fa fa-lg fa-angle-double-up"></i>
-  </button>
-</div>
+      <!-- 小屏幕上展示文章目录的按钮 -->
+      <!-- <div class="content-btn-container">
+        <button class="btn btn-primary content_btn">
+          <i class="icon fa fa-lg fa-plus"></i>
+        </button>
+      </div> -->
+      
+      <!-- 回到顶部按钮 -->
+      <div class="scrolltop-btn-container hidden-md hidden-lg">
+        <button class="btn btn-primary scrolltop-btn">
+          <i class="icon fa fa-angle-double-up"></i>
+        </button>
+      </div>
