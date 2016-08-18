@@ -155,7 +155,7 @@ able-striped table-condensed">
 ```
 效果如下图：
 
-![image](http://i.imgur.com/27MnkgS.png)
+![image](http://i.imgur.com/Mxk2oGy.png)
 
 **JS代码这样编写：**
 
@@ -171,7 +171,7 @@ $southPanel.panel({
 
 效果如下图：
 
-![image](http://i.imgur.com/nJ8kogE.png)
+![image](http://i.imgur.com/zqqi7Bn.png)
 
 
 ### Layout常用方法  
