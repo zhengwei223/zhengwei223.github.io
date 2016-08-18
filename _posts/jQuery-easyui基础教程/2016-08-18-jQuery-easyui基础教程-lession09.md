@@ -155,7 +155,7 @@ able-striped table-condensed">
 ```
 效果如下图：
 
-![image](http://i.imgur.com/Mxk2oGy.png)
+![image](http://i.imgur.com/X1k5360.png)
 
 **JS代码这样编写：**
 
