@@ -34,7 +34,7 @@ EasyUI的Draggable控件可以帮助我们快速的开发可以调整大小的�
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
-      <th width="200px">属性名</th><th width="180px">属性值类型</th><th width="650px">描述</th><th>默认值</th>
+      <th width="200px">属性名</th><th width="180px">属性值类型</th><th width="500px">描述</th><th>默认值</th>
    </tr>
    <tr>
       <td>disabled</td>
