@@ -56,7 +56,7 @@ description:
       <th width="200px">属性名</th>
       <th width="180px">属性值类型</th>
       <th width="600px">描述</th>
-      <th>默认值</th>
+      <th width="100px">默认值</th>
    </tr>
    <tr>
       <td>fit</td>
@@ -75,7 +75,7 @@ able-striped table-condensed">
       <th width="200px">属性名</th>
       <th width="180px">属性值类型</th>
       <th width="600px">描述</th>
-      <th>默认值</th>
+      <th width="100px">默认值</th>
    </tr>
    <tr>
       <td>title</td>
