@@ -12,7 +12,7 @@ function addDuoshuo(){
       DUOSHUO.initSelector('.ds-share',{type:'ShareWidget'});
     }else{
       $.getScript("//static.duoshuo.com/embed.js");
-    } 
+    } ;
   }
 }
 /* 控制导航按钮动作 */
@@ -77,7 +77,7 @@ function contentEffects(){
       };
       //定义侧边导航链接点击行为，做适当偏移
       $li.find('a').click(function(){
-        $('body').animate({scrollTop:$current.offset().top-60}, 1000);
+        $('body,html').animate({scrollTop:$current.offset().top-60}, 1000);
       });
       $nav.append($li);
 
@@ -97,7 +97,7 @@ function contentEffects(){
           let $subLi = $('<li><a href="#'+id+'">'+$(this).html()+'</a></li>');
           //定义侧边导航链接点击行为，做适当偏移
           $subLi.click(function(){
-            $('body').animate({scrollTop:$currentH2.offset().top-60}, 1000);
+            $('body,html').animate({scrollTop:$currentH2.offset().top-60}, 1000);
           });
           $subUl.append($subLi);
         });
@@ -217,7 +217,7 @@ function addListener(){
   //回到顶部
   $('.scrolltop-btn').on("click", function() {
     //65=h1的上外边距（25）+导航条的高度（40）
-    $('body').animate({scrollTop:$('.doc-title').offset().top-65}, 500);
+    $('body,html').animate({scrollTop:$('.doc-title').offset().top-65}, 500);
   });
 
 }

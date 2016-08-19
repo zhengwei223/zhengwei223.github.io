@@ -3,7 +3,7 @@ layout: page
 title: <img src="/public/img/courses/tools.jpeg"></i>
 titlename: 工具
 ---
-<div class="col-md-12 col-md-offset-4 lessons">
+<div class="lessons">
   <ul class="list-unstyled">
 {% for post in site.categories["常用工具使用教程"]  reversed%}
     {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
