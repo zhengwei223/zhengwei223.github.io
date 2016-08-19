@@ -9,7 +9,7 @@ description:
 importance: 2
 ---
 
-# 安装Sublime Text 2插件的方法：
+# Sublime Text 2安装插件的方法：
 
 - 直接安装
 
