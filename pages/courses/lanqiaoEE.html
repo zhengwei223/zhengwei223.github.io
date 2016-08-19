@@ -1,0 +1,63 @@
+---
+layout: page
+title: 
+titlename: JAVA企业级项目开发全过程实录
+---
+
+<h1>关于此课程</h1>
+
+<h2>课程描述</h2>
+<p>区别于之前的纯技术课程，这门课是关于企业开发过程的，它涉及到了项目规划、项目管理、分工协作、质量把控的方方面面，描述了产品、开发、测试等多个岗位的职责及工作模式，描述了典型的JavaEE技术架构和开发模型，贡献了若干最佳实践原则和开发规范。——是蓝桥软件学院研发团队的心血之作！</p>
+
+<h2>课程概要</h2>
+<ol>
+	<li>开发流程的定义和开发过程的管理</li>
+	<li>服务端技术架构的设计、开发规范和Demo</li>
+	<li>前端、移动端技术架构的设计、开发规范和Demo</li>
+	<li>蓝桥教学教务系统的实践过程</li>
+</ol>
+<h2>实际产出物</h2>
+<ol>
+	<li>蓝桥软件学院项目管理手册</li>
+	<li>项目管理工具：禅道使用手册</li>
+	<li>测试团队工作规范</li>
+	<li>开发团队工作规范</li>
+	<li>蓝桥教学教务系统项目规划（开发计划、测试计划）</li>
+	<li>蓝桥教学教务系统产品说明文档</li>
+	<li>蓝桥教学教务系统测试用例文档</li>
+	<li>蓝桥教学教务系统架构设计文档（技术选型）</li>
+	<li>蓝桥教学教务系统数据库设计文档</li>
+	<li>蓝桥教学教务系统接口设计文档</li>
+	<li>蓝桥教学教务系统示例模块的源码</li>
+</ol>
+
+<h2>谁适合阅读本教程？</h2>
+<p>
+本教程的受众为学习完JAVAEE基础知识，进入最后一阶段项目实践环节的蓝桥软件学院学员。
+</p>
+
+<h2>开始之前</h2>
+<p>
+开发人员必须具备JAVA、数据库、HTML+CSS+JavaScript、JSP、Servlet、Spring、SpringMVC和MyBatis等基础知识。
+测试人员必须具备操作系统、数据库、软件测试等基础知识。
+</p>
+
+
+<h1>课程列表</h1>
+
+<div class="lessons">
+  <ul class="list-unstyled">
+{% for post in site.categories["lanqiaoEE"]  reversed%}
+    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+    {% capture this_month %}{{ post.date | date: "%m" }}{% endcapture %}
+    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+    {% capture next_month %}{{ post.previous.date | date: "%m" }}{% endcapture %}
+  
+    <li>
+      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  
+{% endfor %}
+  </ul>
+</div>
+

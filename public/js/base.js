@@ -61,7 +61,13 @@ function content_click(is_show){
 }
 //生成table of content
 function contentEffects(){
-  var $h1List = $("#content > h1");
+  var $h1List ;
+  if ($("#content").length) {
+    $h1List = $("#content > h1");
+  }else{
+    $h1List = $("#page-content > h1");
+  }
+
   var lenOfH1 = $h1List.length;
   var $nav = $('.doc-sidebar > .nav');
   // 判断有侧边栏&&有一级标题
@@ -119,8 +125,12 @@ function contentEffects(){
   }
   //生成侧边栏目录 e
 
+  $('#content a').attr('target','_blank');
+  
   // 图片居中
-  var $imgParent = $('#content img').addClass('img-thumbnail content-img').parent('p');
+  var $imgParent = $('#content img')
+    .addClass('img-thumbnail content-img')
+    .parent('p');
   $imgParent.addClass('text-center');
   $imgParent.next('p').has('em').addClass('text-center');
   
@@ -190,8 +200,6 @@ $(document).ready(function() {
   // pjax.complete 在装载完成后调用 
   //迫使多说生效
   $(document).on("pjax:complete", function() {
-    $('#content a').attr('target','_blank');
-    $('.aside3').scrollTop(0);//回到顶部
     addListener();//给回到顶部和toc按钮加监听
     contentEffects();//生成toc
     addDuoshuo();//添加多说评论和分享框
@@ -199,7 +207,6 @@ $(document).ready(function() {
     addScrollspyAndAffix();
   });
 
-  $('#content a').attr('target','_blank');
   addListener();
   contentEffects();
   addDuoshuo();
