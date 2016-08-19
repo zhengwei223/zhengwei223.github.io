@@ -1,13 +1,11 @@
 ---
 layout: post
-title: 工程实践-lesson1
-category: JavaEE全栈式项目化工程实践概述
-tags: Java 全栈式 项目 工程
-keywords: 蓝桥 lanqiao 教程 javaee 全栈
+title: 企业级项目操作手册（教员版）
+category: lanqiaoEE
+tags: 企业级项目 
+keywords: 蓝桥 lanqiao 教程 javaee 企业级 项目 实战
 description: 
-author: 邹炳泉
-importance: 4
-order: 1
+author: 董皊
 ---
 
 # 认识Java
