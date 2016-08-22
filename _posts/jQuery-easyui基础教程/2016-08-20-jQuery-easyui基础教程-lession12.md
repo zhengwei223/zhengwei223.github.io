@@ -280,7 +280,7 @@ $('#tt').tabs({
 
 模拟蓝桥邮箱系统,当点击‘已发送’时，如果选项卡中已经存在‘已发送’，则显示该选项卡中的内容，否则新建‘已发送’选项卡，并显示对应的内容。实现如下效果：
 
-![image](http://i.imgur.com/FyWyA7i.png)
+![image](http://i.imgur.com/16es7rv.png)
 
 HTML代码：
 
