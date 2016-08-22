@@ -27,7 +27,7 @@ description:
 
 ![image](http://i.imgur.com/6FBzFcs.png)
 
-本教程中我们想要修改panel的外观效果，即需要打开jquery.panel.js文件查看，通过查看该js文件，我们发现，panel的样式由.panel-header、.panel-body和.panel-footer组成。此时显而易见，想改变panel的外观效果，修改.panel-header、.panel-body和.panel-footer的样式即可。
+本教程中我们想要修改panel的外观效果，即需要打开jquery.panel.js文件查看，通过查看该js文件，我们发现，panel的样式由.panel-header、.panel-body和.panel-footer等组成。此时显而易见，想改变panel的外观效果，修改.panel-header、.panel-body和.panel-footer等的样式即可。
 
 ![image](http://i.imgur.com/wvtSscF.png)
 
@@ -35,7 +35,7 @@ panel的样式定义在jquery-easyui-1.5\themes\default\panel.css文件中。
 
 **可以直接修改panel.css文件中的样式，这样所有涉及到的panel样式都会改变，不推荐使用该方式。**
 
-在自定义的页面中重新定义.panel-header、.panel-body和.panel-footer的样式即可。这样，其他的页面不受影响。
+在自定义的页面中重新定义.panel-header、.panel-body和.panel-footer等的样式即可。这样，其他的页面不受影响。
 
 ### 开发程序
 
