@@ -8,11 +8,12 @@ keywords: lanqiao 蓝桥 培训 教程 前端 AngularJS ReactJS
 description:
 ---
 
-# 别责怪框架：我使用 AngularJS 和 ReactJS 的经验
-
 > 本文转载自：[众成翻译](http://www.zcfy.cc)
+> 
 > 译者：[十年踪迹](http://www.zcfy.cc/@akira)
+> 
 > 链接：[http://www.zcfy.cc/article/327](http://www.zcfy.cc/article/327)
+> 
 > 原文：[https://www.ckl.io/blog/dont-blame-the-framework-angularjs-and-reactjs/](https://www.ckl.io/blog/dont-blame-the-framework-angularjs-and-reactjs/)
 
 在过去的几年里，网站进化成了复杂的网页应用。曾经的互联网只涉及到简单的商业信息展现，而如今，看看 Facebook、Slack、Spotify 以及 Netflix，互联网正在改变你的社交和生活方式。随着互联网的发展，前端开发这个行业达到了全新的高度，并得到了前所未有的重视。
@@ -90,4 +91,4 @@ React 使用原生 JavaScript 函数让开发者可以创建一个有固定生�
 ![At the end, Angular was not as bad as I expected.](https://p5.ssl.qhimg.com/d/inn/01a348f8/At-the-end-Angular-was-not-as-bad-as-I-expected..gif)
 
 > 版权声明
-> 本译文仅用于学习、研究和交流目的，欢迎非商业转载。转载请注明出处、译者和众成翻译的完整链接。要获取包含以上信息的本文Markdown源文本，请点击这里。
+> 本译文仅用于学习、研究和交流目的，欢迎非商业转载。转载请注明出处、译者和众成翻译的完整链接。要获取包含以上信息的本文Markdown源文本，请点击[这里](http://www.zcfy.cc/api/getarticlemarkdown?id=327)。

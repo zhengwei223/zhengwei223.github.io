@@ -1,0 +1,34 @@
+---
+layout: base_new
+desc: 单篇文章的布局模板
+---
+<div class="doc-title">
+  <h1 class="identifier">{{ page.title }}</h1>
+  {{ page.date | date:"%Y年%m月%d日" }} &nbsp;&nbsp;&nbsp;&nbsp;{{ page.author }}
+</div>
+
+<hr>
+<div class="container doc-container">
+  <div class="row">
+    <div class="col-md-9 doc-content">
+      <div id="content" >
+        {{ content }}
+      </div>
+      <hr>
+      {% include duoshuo.html %}
+    </div>
+    <!-- 右侧文章目录 和相关按钮-->
+    <div id="doc-side-container" class="col-md-3 doc-side-container">
+      
+    </div>
+  </div>
+</div>
+
+     
+      <!-- 回到顶部按钮 
+      <div class="scrolltop-btn-container hidden-md hidden-lg">
+        <button class="btn btn-primary scrolltop-btn">
+          <i class="icon fa fa-angle-double-up"></i>
+        </button>
+      </div>
+    -->

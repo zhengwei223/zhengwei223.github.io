@@ -1,3 +1,11 @@
+---
+layout: post_new
+title: less变量详解
+category: Bootstrap入门教程
+tags: Web前端 Bootstrap 
+author: 郑未
+keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap 变量
+---
 
 Bootstrap源码中的LESS变量详解
 
