@@ -67,23 +67,6 @@ description:
    </tr>
 </table>
 
-参考jQuery EasyUI的API。
-
-代码如下：
-
-```
-var value = $('#p').progressbar('getValue'); 
-if (value < 100){ 
-	value += Math.floor(Math.random() * 10); 
-	$('#p').progressbar('setValue', value); 
-} 
-
-```
-
-```
-<div id="p" class="easyui-progressbar" data-options="value:60,text:'正在加载数据...'" style="width:400px;"></div> 
-```
-
 
 ### Progressbar常用方法  
 
@@ -155,7 +138,29 @@ if (value < 100){
    </tr>
 </table> 
 
+参考jQuery EasyUI的API。
 
+代码如下：
+
+```
+$(function(){
+	intervalId = setInterval('changeValue()',1000);
+});
+function changeValue(){
+		var value = $('#p').progressbar('getValue'); 
+		if (value < 100){ 
+			value += Math.floor(Math.random() * 10); 
+			$('#p').progressbar('setValue', value); 
+		}else{
+			clearInterval(intervalId);
+			alert('加载完毕！');
+		} 
+}
+```
+
+```
+<div id="p" class="easyui-progressbar" data-options="value:0,text:'正在加载数据...'" style="width:400px;"></div> 
+```
 
 
 以上便是Progressbar的基本用法。

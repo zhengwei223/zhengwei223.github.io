@@ -53,7 +53,7 @@ description:
    </tr>
    <tr>
       <td>width</td>
-	  <td>string</td>
+	  <td>number</td>
 	  <td>设置分类容器的宽度。</td>
 	  <td>auto</td>
    </tr>
