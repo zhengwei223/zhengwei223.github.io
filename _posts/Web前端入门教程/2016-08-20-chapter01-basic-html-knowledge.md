@@ -1,3 +1,13 @@
+---
+layout: post
+title: HTML基础知识
+category: Web前端入门教程
+tags: Web前端
+author: 曹小虎
+keywords: lanqiao 蓝桥 全栈 教程 Web前端
+description: 
+---
+
 # 引言  
  
  ![为什么学习HTML](public/img/html/how-to-learn-html-css-and-javascript-how-to-learn-html5-how-to-learn-html-quickly-learn-html-codes-how-to-learn-html-and-css-learn-basic-html-how-to-learn-html-pdf-ho.jpg) 
