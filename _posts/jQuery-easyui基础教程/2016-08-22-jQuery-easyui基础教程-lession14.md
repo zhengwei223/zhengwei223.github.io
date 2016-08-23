@@ -21,13 +21,16 @@ description:
   
 通常情况下，在 Windows XP 的资源管理器文件夹中，左侧的面板（panel）包含一些常见任务。 本教程向您展示如何通过 easyui 的面板（panel）插件来创建 XP 左侧面板。效果如图：
 
-![image](http://i.imgur.com/StIfAqp.png)
+![image](http://i.imgur.com/BORx6Mq.png)
 
 之前介绍过的panel、progressbar、dialog、tooltip等控件的效果均来自jQuery EasyUI包下的plugins子包中，如图：
 
 ![image](http://i.imgur.com/6FBzFcs.png)
 
 本教程中我们想要修改panel的外观效果，即需要打开jquery.panel.js文件查看，通过查看该js文件，我们发现，panel的样式由.panel-header、.panel-body和.panel-footer等组成。此时显而易见，想改变panel的外观效果，修改.panel-header、.panel-body和.panel-footer等的样式即可。
+
+
+**Tip:结合Firefox的查看器查看，可以更加清楚的了解每个样式。**
 
 ![image](http://i.imgur.com/wvtSscF.png)
 
@@ -41,21 +44,21 @@ panel的样式定义在jquery-easyui-1.5\themes\default\panel.css文件中。
 
 ```
 <style>
-	.panel-body {
-		background: #f0f0f0;
-	}
-	
-	.panel-header {
-		background: #fff url('images/panel_header_bg.gif') no-repeat top right;
-	}
-	
-	.panel-tool-collapse {
-		background: url('images/arrow_up.gif') no-repeat 0px -3px;
-	}
-	
-	.panel-tool-expand {
-		background: url('images/arrow_down.gif') no-repeat 0px -3px;
-	}
+.panel-body {
+	background: #f0f0f0;
+}
+
+.panel-header {
+	background: #fff url('../images/panel_header_bg.gif') no-repeat top right;
+}
+
+.panel-tool-collapse {
+	background: url('../images/arrow_up.gif') no-repeat 0px -3px;
+}
+
+.panel-tool-expand {
+	background: url('../images/arrow_down.gif') no-repeat 0px -3px;
+}
 </style>
 
 <div style="width:200px;height:auto;background:#7190E0;padding:5px;">
