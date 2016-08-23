@@ -62,7 +62,7 @@ panel的样式定义在jquery-easyui-1.5\themes\default\panel.css文件中。
 </style>
 
 <div style="width:200px;height:auto;background:#7190E0;padding:5px;">
-	<div class="easyui-panel" title="Picture Tasks" collapsible="true"	style="width:200px;height:auto;padding:10px;">
+	<div class="easyui-panel" title="Picture Tasks"	collapsible="true" style="width:200px;height:auto;padding:10px;">
 		View as a slide show <br /> 
 		Order prints online <br /> 
 		Print pictures
