@@ -1,13 +1,11 @@
-﻿---
+---
 layout: post
-title: 大家都来学HTML
+title: HTML
 category: Web前端入门教程
-tags: Java 入门
-keywords: 蓝桥 lanqiao 前端 Web html css javascript 发展历史
+tags: Web前端
+author: 曹小虎
+keywords: lanqiao 蓝桥 全栈 教程 Web前端
 description: 
-author: 曹小虎 
-importance: 4
-order: 1
 ---
 
 # 引言  
