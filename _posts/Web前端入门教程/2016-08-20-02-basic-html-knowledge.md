@@ -1,3 +1,15 @@
+﻿---
+layout: post
+title: 大家都来学HTML
+category: Web前端入门教程
+tags: Java 入门
+keywords: 蓝桥 lanqiao 前端 Web html css javascript 发展历史
+description: 
+author: 曹小虎 
+importance: 4
+order: 1
+---
+
 # 引言  
  
  ![为什么学习HTML](public/img/html/how-to-learn-html-css-and-javascript-how-to-learn-html5-how-to-learn-html-quickly-learn-html-codes-how-to-learn-html-and-css-learn-basic-html-how-to-learn-html-pdf-ho.jpg) 
@@ -16,7 +28,7 @@
 
  如果你需要经常对自己的个人或者企业网站进行微小改动，那么你真的应该立即开始学习HTML。因为你只需要学习一些简单的HTML网页技术支持，就可以省去雇佣一个专职网页设计师的昂贵费用。无论你是正在经营一个个人小微企业，还是作为基层雇员身在大型跨国公司，类似修改一个Word文档网页这样的小事，都只需要一点基本的的HTML知识就可以轻松搞定！
 
-3. 可视化的网页编辑工具会仅仅是你的工具
+3. 可视化网页编辑工具的本质仍然是工具
 
  市面上有很多可视化的网页设计工具，比如Dreamweaver，它们都提供了强大的功能封装和适合初学者学习网页设计的傻瓜教程。这些工具都会按照各自开发团队设计的规则模板生成最终HTML源代码。很难一概而论的讲，这些工具内置的代码生成规则究竟是使问题更简单，还是让问题更复杂，过度依赖工具将会导致你忘记你正在进行的工作的本质内容；选择绕过工具直接编写HTML代码，你才会真正直奔主题地掌控你的网页内容，而且你还会发现这个过程比你想象的更愉悦、更轻松。
 
