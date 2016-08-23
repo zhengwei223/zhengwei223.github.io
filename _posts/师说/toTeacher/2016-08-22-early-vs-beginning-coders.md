@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 初学者与初级程序员
+title: 初学者与初期程序员
 category: toTeacher
 tags: 教学理念 
 author: 颜群【翻译】
