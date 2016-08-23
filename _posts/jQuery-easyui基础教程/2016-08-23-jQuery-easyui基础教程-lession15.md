@@ -111,8 +111,8 @@ $(function(){
    <tr>
       <th width="200px">属性名</th>
       <th width="180px">属性值类型</th>
-      <th width="650px">描述</th>
-      <th>默认值</th>
+      <th width="600px">描述</th>
+      <th width="100px">默认值</th>
    </tr>
    <tr>
       <td>left</td>
@@ -147,8 +147,8 @@ $(function(){
    <tr>
       <th width="200px">属性名</th>
       <th width="180px">属性值类型</th>
-      <th width="650px">描述</th>
-      <th>默认值</th>
+      <th width="600px">描述</th>
+      <th width="100px">默认值</th>
    </tr>
    <tr>
       <td>id</td>
