@@ -80,7 +80,6 @@ cates_advanced:
     - JVM性能调优
     - web应用系统安全入门教程
     - 框架源码解读系列
-    - 前端那些事儿
 cates_project:
     - JavaSe实现五子棋游戏
     - JavaSe实现植物大战僵尸
@@ -97,6 +96,7 @@ cates_frontiers:
     - 物联网
     - 云计算
     - 人工智能
+    - 前端那些事儿
 
 cates_cep:
     - JavaEE面试
