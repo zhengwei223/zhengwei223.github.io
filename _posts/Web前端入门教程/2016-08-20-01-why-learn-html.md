@@ -10,7 +10,7 @@ description:
 
 # 引言  
  
- ![为什么学习HTML](/public/img/html/how-to-learn-html-css-and-javascript-how-to-learn-html5-how-to-learn-html-quickly-learn-html-codes-how-to-learn-html-and-css-learn-basic-html-how-to-learn-html-pdf-ho.jpg) 
+ ![为什么学习HTML](/public/img/html/learn-html-logo.jpg) 
  
 > 内容提要
 
@@ -46,4 +46,4 @@ description:
  总之，学习HTML一定会让你的生活因互联网而如鱼得水。你会成为亲朋好友眼中的能手和达人，你将因此得到大家的羡慕、赞赏并且赢得更多扬名立万的机会。 
 
  
- ![HTML Lover](/public/img/html/i_love_html_cap-r90663eff878f4dd1af18182cde498f1e_v9wf1_8byvr_324.jpg) 
+ ![HTML Lover](/public/img/html/i_love_html.jpg) 
