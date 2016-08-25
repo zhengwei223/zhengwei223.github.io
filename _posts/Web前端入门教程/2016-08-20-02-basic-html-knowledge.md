@@ -25,11 +25,15 @@ description:
 
 ![html-xhtml-relation](/public/img/html/html-xhtml-history.png)
 
->名词解释
+>名词解释  
 
 - 标准通用标记语言(SGML，ISO 8879:1986)
 
 &emsp;&emsp;诞生于1986年，是一种可以定义标记语言的元语言，同时也是一个ISO标准。
+
+- [国际W3C理事会（The World Wide Web Consortium）](https://zh.wikipedia.org/wiki/%E4%B8%87%E7%BB%B4%E7%BD%91%E8%81%94%E7%9B%9F){:target="_blank"}
+
+&emsp;&emsp;1994年10月在麻省理工学院计算机科学实验室成立。建立者是互聯網的发明者蒂姆·伯纳斯-李,该组织制订和发布了一系列促进万维网（www,The World Wide Web）发展的技术规范，其中就包括XML和CSS等的众多影响深远的标准规范。
 
 - 超文本标记语言（HTML）
 
@@ -51,7 +55,10 @@ description:
 
 ![html-xhtml-relation](/public/img/html/xhtml-way.gif)  
 
-&emsp;&emsp;W3C组织于1997年12月18日发布HTML4.0推荐标准，于1999年12月24日发布HTML 4.01推荐标准，其中后者作为HTML4规范中的最新版本沿用至今。
+&emsp;&emsp;W3C组织于1997年12月18日发布HTML4.0推荐标准，于1999年12月24日发布HTML 4.01推荐标准，其中后者作为HTML4规范中的最新版本沿用至今。  
+&emsp;&emsp;根据W3C组织的描述，XHTML 1.0规范继承了HTML4的规范内容，同时基于XML1.0进行重新修订，新的XHTML1.0完全符合XML1.0规范，因而人们可以像使用XML一样方便地传输内容、展示网页，实现了良好的兼容性和交互性。后来经过一次不十分明显的修订，XHTML最终定稿在1.01版本并沿用至今，即是大家都最经常用到的XHTML1.1。
+
+### 1.2.1 
 
 
 
