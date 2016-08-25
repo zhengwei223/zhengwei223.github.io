@@ -699,6 +699,35 @@ JS代码：
 
 ![image](http://i.imgur.com/A1krHJD.png)
 
+
+### 树形菜单拖放控制
+
+当在一个应用中使用树（Tree）插件，拖拽（drag）和放置（drop）功能要求允许用户改变节点位置。启用拖拽（drag）和放置（drop）操作，所有您需要做的就是把树（Tree）插件的 'dnd' 属性设置为 true。
+
+```
+$("#tt").tree({
+	dnd: true,
+	url:'/easyUI/getRootCategory'
+});
+```
+
+当在一个树节点上发生放置操作，'onDrop' 事件将被触发，您应该做一些或更多的操作，例如保存节点状态到远程服务器端，等等。
+
+```
+onDrop: function(targetNode, source, point){
+	var parentId = $("#tt").tree('getNode', targetNode).id;
+	$.ajax({
+    	url: '/easyUI/updateCategory',
+    	type: 'post',
+    	dataType: 'json',
+    	data: {
+    	    id: source.id,
+    	    parentId: parentId
+    	}
+	});
+ } 
+```
+
 以上便是Tree的基本用法。
 
 
