@@ -216,7 +216,7 @@ description:
 
 ![image](http://i.imgur.com/pRwqTro.png)
 
-以上便是Layout的基本用法。
+以上便是Widow的基本用法。
 
 
 
