@@ -172,6 +172,7 @@ public String getRootCategory(HttpServletResponse response) throws IOException{
 
 下面是从服务器端返回的数据。
 
+```
 [{
 	"books":[],
 	"children":[{
@@ -198,6 +199,7 @@ public String getRootCategory(HttpServletResponse response) throws IOException{
 	 "parent":null,
 	 "text":"Channels"
 }]
+```
 
 效果如下图：
   
