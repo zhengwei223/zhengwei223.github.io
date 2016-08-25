@@ -16,14 +16,14 @@ description:
 
 # Tabs
 
-### Tabs简介
+## Tabs简介
 
   
 选项卡显示一批面板。但在同一个时间只会显示一个面板。每个选项卡面板都有头标题和一些小的按钮工具菜单，包括关闭按钮和其他自定义按钮。效果如图：
 
 ![image](http://i.imgur.com/0jaIL77.png)
 
-### 开发Tabs程序
+## 开发Tabs程序
 
 ```
 <div id="tt" class="easyui-tabs"  style="width:500px;height:250px;">
@@ -42,7 +42,7 @@ description:
 ![image](http://i.imgur.com/L7A7WvS.png)
 
 
-### Tabs常用属性
+## Tabs常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -144,7 +144,7 @@ description:
 </table>
 
 
-### Tabs常用方法  
+## Tabs常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -220,7 +220,7 @@ description:
 </table>  
 
 
-### Tabs常用事件
+## Tabs常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>

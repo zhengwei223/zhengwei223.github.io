@@ -18,14 +18,14 @@ description:
 
 # Draggable
 
-### Draggable简介
+## Draggable简介
 
   
 EasyUI的Draggable控件可以帮助我们快速的开发可以拖拽的页面，用户使用起来会更加的方便快捷。效果如图：
 
 ![image](http://i.imgur.com/6pW99ob.png)  
 
-### 开发Draggable程序
+## 开发Draggable程序
 
 ##### 方式一：
 
@@ -87,7 +87,7 @@ $('#image3').draggable({
 
 ![image](http://i.imgur.com/XaWH1y9.png)
 
-### Drappable常用属性
+## Drappable常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -165,7 +165,7 @@ $('#image3').draggable({
 
 ![image](http://i.imgur.com/LKrMOGZ.png)
 
-### Draggable常用方法  
+## Draggable常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -186,7 +186,7 @@ $('#image3').draggable({
 </table>  
 
 
-### Draggable常用事件
+## Draggable常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -209,12 +209,12 @@ $('#image3').draggable({
 
 # Droppable
 
-### Droppable简介
+## Droppable简介
 
 EasyUI的Droppable控件用于定义可以接受哪些拖动的控件。
 
 
-### 开发Dropable程序
+## 开发Dropable程序
 
 ```
 <script>
@@ -246,7 +246,7 @@ EasyUI的Droppable控件用于定义可以接受哪些拖动的控件。
 Tip：只有当d1,d3拖动到dd中时才会触发onDrop事件，即dd中文字的颜色才会变成红色。
 
 
-### Drappable常用属性
+## Drappable常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -264,7 +264,7 @@ Tip：只有当d1,d3拖动到dd中时才会触发onDrop事件，即dd中文字�
 </table>
 
 
-### Droppable常用方法  
+## Droppable常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -285,7 +285,7 @@ Tip：只有当d1,d3拖动到dd中时才会触发onDrop事件，即dd中文字�
 </table>  
 
 
-### Droppable常用事件
+## Droppable常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
