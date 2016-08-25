@@ -17,13 +17,13 @@ description:
 
 # Dialog
 
-### Dialog简介
+## Dialog简介
 
 对话框是一种特殊类型的窗口，在现在的系统中使用越来越多。如，添加，修改，删除的提示等功能，使用对话框更加贴近用户的要求，开发人员开发程序也更加简单。它在顶部有一个工具栏，在底部有一个按钮栏。对话框窗口右上角只有一个关闭按钮，用户可以配置对话框的行为来显示其他工具，如collapsible,minimizable,maximizable工具等。  
 
 ![image](http://i.imgur.com/XmddMrE.png)
 
-### 开发Dialog程序
+## 开发Dialog程序
 
 ##### 方式一：使用纯HTML代码
 
@@ -111,7 +111,7 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 </html> 
 ```
 
-### Dialog常用属性
+## Dialog常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -252,7 +252,7 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 ![image](http://i.imgur.com/XB52TZF.png)  
 
 
-### Dialog常用方法  
+## Dialog常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -272,7 +272,7 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
    </tr>
 </table>  
 
-### Dialog常用事件
+## Dialog常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>

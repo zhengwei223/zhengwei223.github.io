@@ -16,14 +16,14 @@ description:
 
 # Tree
 
-### Tree简介
+## Tree简介
 
   
 树控件在web页面中一个将分层数据以树形结构进行显示。它提供用户展开、折叠、拖拽、编辑和异步加载等功能。这种控件在web应用中会经常使用到，如菜单，部门的组织结构等。效果如图：
 
 ![image](http://i.imgur.com/MVPBRgK.png)
 
-### 开发Tree程序
+## 开发Tree程序
 
 一个树形菜单（Tree）可以从标记创建。easyui 树形菜单（Tree）也可以定义在 \<ul\> 元素中。无序列表的 \<ul\> 元素提供一个基础的树（Tree）结构。每一个 \<li\> 元素将产生一个树节点，子 \<ul\> 元素将产生一个子树节点。
 
@@ -112,7 +112,7 @@ json文件内容：
 ![image](http://i.imgur.com/9eGwQTn.png)
 
 
-###  树控件数据格式化
+##  树控件数据格式化
 
 每个节点都具备以下属性：  
 
@@ -125,7 +125,7 @@ json文件内容：
 -  iconCls:节点前显示的图标。
 
 
-###  创建异步树形菜单
+##  创建异步树形菜单
 
 树控件内建异步加载模式的支持，用户先创建一个空的树，然后指定一个服务器端，执行检索后动态返回JSON数据来填充树并完成异步请求。  
 
@@ -208,7 +208,7 @@ public String getRootCategory(HttpServletResponse response) throws IOException{
 **tree需要的json格式的字符串必须使用双引号。如果换成单引号是不能正常显示的。**
 
 
-### Tree常用属性
+## Tree常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -286,7 +286,7 @@ public String getRootCategory(HttpServletResponse response) throws IOException{
 </table>
 
 
-### Tree常用方法  
+## Tree常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -462,7 +462,7 @@ public String getRootCategory(HttpServletResponse response) throws IOException{
 </table>  
 
 
-### Tree常用事件  
+## Tree常用事件  
 
 很多事件的回调函数都包含'node'参数，其具备如下属性：
 
@@ -700,7 +700,7 @@ JS代码：
 ![image](http://i.imgur.com/A1krHJD.png)
 
 
-### 树形菜单拖放控制
+## 树形菜单拖放控制
 
 当在一个应用中使用树（Tree）插件，拖拽（drag）和放置（drop）功能要求允许用户改变节点位置。启用拖拽（drag）和放置（drop）操作，所有您需要做的就是把树（Tree）插件的 'dnd' 属性设置为 true。
 

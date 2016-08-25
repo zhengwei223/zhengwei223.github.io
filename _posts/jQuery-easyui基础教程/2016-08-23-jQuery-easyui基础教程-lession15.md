@@ -16,14 +16,14 @@ description:
 
 # Menu
 
-### Menu简介
+## Menu简介
 
   
 菜单组件通常用于快捷菜单,可以大大简化人们的操作，是我们日常使用中比较多的控件之一。此外，它也是构建其他菜单组件的必备基础组件。比如：menubutton和splitbutton。它还可以用于导航和执行命令。效果如图：
 
 ![image](http://i.imgur.com/nROZGRV.png)
 
-### Menu程序
+## Menu程序
 
 实现如下效果：
 
@@ -105,7 +105,7 @@ $(function(){
 ```  
 
 
-### Menu常用属性
+## Menu常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -141,7 +141,7 @@ $(function(){
 </table>
 
 
-### MenuItem（菜单项）常用属性
+## MenuItem（菜单项）常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -188,7 +188,7 @@ $(function(){
    </tr>
 </table>
 
-### Menu常用方法  
+## Menu常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -262,7 +262,7 @@ $(function(){
 </table>  
 
 
-### Menu常用事件
+## Menu常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
