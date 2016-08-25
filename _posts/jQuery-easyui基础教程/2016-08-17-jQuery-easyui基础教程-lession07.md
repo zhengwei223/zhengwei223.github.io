@@ -16,14 +16,14 @@ description:
 
 # Progressbar
 
-### Progressbar简介
+## Progressbar简介
 
   
 进度条用来反馈一个长时间运行的操作进展。可以更新的进展条，让用户知道当前正在执行操作。效果如图：
 
 ![image](http://i.imgur.com/8y3nRho.png) 
 
-### 开发Progressbar程序
+## 开发Progressbar程序
 
 ```
 <div id="p" class="easyui-progressbar" data-options="value:60" style="width:400px;"></div> 
@@ -33,7 +33,7 @@ description:
 
 ![image](http://i.imgur.com/Vd8fctY.png)
 
-### Progressbar常用属性
+## Progressbar常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -68,7 +68,7 @@ description:
 </table>
 
 
-### Progressbar常用方法  
+## Progressbar常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -102,7 +102,7 @@ description:
 </table>  
 
 
-### Progressbar常用事件
+## Progressbar常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
