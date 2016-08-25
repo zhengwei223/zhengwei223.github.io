@@ -1,3 +1,4 @@
+
 var duoshuoQuery = {short_name:"lanqiao2016"};
 function addDuoshuo(){
   if ( $('.ds-thread').length > 0 ) { 
@@ -72,6 +73,7 @@ function contentEffects(){
   var $nav = $('.doc-sidebar > .nav');
   // 判断有侧边栏&&有一级标题
   //生成侧边栏目录 b
+  
   if($(".doc-sidebar").length > 0 && lenOfH1>0){
     for(var i = 0; i < lenOfH1; i++){
       let $current = $($h1List[i]);
@@ -270,4 +272,6 @@ function addScrollspyAndAffix(){
     }
   });
 }
+
+
 
