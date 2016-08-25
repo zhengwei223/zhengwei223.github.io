@@ -21,20 +21,23 @@ desc: 单页的布局模板，适用于列表型的页面，如归档
 	      <nav class="doc-sidebar hidden-print hidden-sm hidden-xs affix-top">
 	        <ul class="nav nav-pills nav-stacked">
 	        </ul>
+	        {% if page.scrolltop %}
 	        <div class="text-center">
 	          <button class="btn btn-primary scrolltop-btn">
 	            <i class="icon fa fa-angle-double-up"></i>
 	          </button>
 	        </div>
+	        {% endif %}
 	      </nav>
 	    </div>
 
 	</div>
 </div>
-
+{% if page.scrolltop %}
 <!-- 回到顶部按钮 -->
 <div class="scrolltop-btn-container hidden-md hidden-lg">
 	<button class="btn btn-primary scrolltop-btn">
 	  <i class="icon fa fa-angle-double-up"></i>
 	</button>
 </div>
+{% endif %}

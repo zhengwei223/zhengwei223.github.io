@@ -16,14 +16,14 @@ description:
 
 # Accordion
 
-### Accordion简介
+## Accordion简介
 
   
 分类空间允许用户使用多面板，但在同一时间只会显示一个。每个面板都内建支持展开和折叠功能。点击一个面板的标题将会展开或折叠面板主体。面板内容可以通过指定的'href'属性使用ajax方式读取面板内容。用户可以定义一个被默认选中的面板，如果未指定，那么第一个面板就是默认的。效果如图：
 
 ![image](http://i.imgur.com/cJZEgtY.png) 
 
-### 开发Accordion程序
+## 开发Accordion程序
 
 ```
 <div id="aa" class="easyui-accordion" style="width:300px;height:200px;">
@@ -42,7 +42,7 @@ description:
 效果如上图所示。
 
 
-### Accordion常用属性
+## Accordion常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -96,7 +96,7 @@ description:
 </table>
 
 
-### 面板属性
+## 面板属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -120,7 +120,7 @@ description:
 </table>
 
 
-### Accordion常用方法  
+## Accordion常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -189,7 +189,7 @@ description:
 </table>  
 
 
-### Accordion常用事件
+## Accordion常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
