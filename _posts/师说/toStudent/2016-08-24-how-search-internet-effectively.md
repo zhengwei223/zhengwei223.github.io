@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 如何高效地利用搜索引擎
+title: 如何有效地利用搜索引擎
 category: toStudent
 tags: 搜索技巧
 author: 郑未【翻译】
@@ -34,7 +34,7 @@ description:
 
 >Most users submit 1.5 keywords per search, which is not enough for an effective query - the recommended maximum is 6 to 8 carefully chosen words, preferably nouns and objects. (Search engines consider articles and pronouns clutter.) Avoid verbs, and use modifiers only when they help to define your object more precisely - as in “feta cheese” rather than just “cheese.”
 
-很多用户每次搜索只用“1个半”关键词，对于高效搜索来说，这是不够的——请使用6到8个精心挑选的词语，而且尽量用名词和具体对象（搜索引擎认为冠词和代名词是模糊的）。不要使用动词，谨慎使用修饰语，除非它可以将你的目标定义得更精确——例如"飞达奶酪"就要比“奶酪”好些。
+很多用户每次搜索只用“1个半”关键词，对于有效搜索来说，这是不够的——请使用6到8个精心挑选的词语，而且尽量用名词和具体对象（搜索引擎认为冠词和代名词是模糊的）。不要使用动词，谨慎使用修饰语，除非它可以将你的目标定义得更精确——例如"飞达奶酪"就要比“奶酪”好些。
 
 >Now you have your keywords. How do you enter them into the search engine?
 
@@ -100,7 +100,7 @@ Check the “Help” function of the particular search engine you’re using, si
 
 >A successful Internet search can take several tries. But remember: it’s estimated that there are between 200 and 800 million documents online - with no master system for organizing this information! No wonder effective searches take knowhow, patience and ingenuity.
 
-成功搜索需要多次尝试。请记住，网络上大概有2-8亿个文档——它们并没有一个有效的系统来组织和管理。因此，高效搜索也需要技巧、耐心和才智。
+成功搜索需要多次尝试。请记住，网络上大概有2-8亿个文档——它们并没有一个有效的系统来组织和管理。因此，有效搜索也需要技巧、耐心和才智。
 
 >To find out about more about search engines, check out Search Engine Watch. This site has the latest information about the best search engines available, searching tips, and much more.
 
