@@ -16,7 +16,7 @@ description:
 
 # 自定义面板的外观效果
 
-### panel的组成分析
+## panel的组成分析
 
   
 通常情况下，在 Windows XP 的资源管理器文件夹中，左侧的面板（panel）包含一些常见任务。 本教程向您展示如何通过 easyui 的面板（panel）插件来创建 XP 左侧面板。效果如图：
@@ -40,7 +40,7 @@ panel的样式定义在jquery-easyui-1.5\themes\default\panel.css文件中。
 
 在自定义的页面中重新定义.panel-header、.panel-body和.panel-footer等的样式即可。这样，其他的页面不受影响。
 
-### 开发程序
+## 开发程序
 
 ```
 <style>

@@ -16,14 +16,14 @@ description:
 
 # LinkButton
 
-### LinkButton简介
+## LinkButton简介
 
   
 按钮组件使用超链接按钮创建。它使用一个普通的\<a\>标签进行展示。它可以同时显示一个图标和文本,或只有图标或文字。按钮的宽度可以动态和折叠/展开以适应它的文本标签。效果如图：
 
 ![image](http://i.imgur.com/Sdd0Tr4.png)
 
-### LinkButton程序
+## LinkButton程序
 
 
 ```
@@ -41,7 +41,7 @@ $(function(){
 ![image](http://i.imgur.com/6HzhNFR.png)
 
 
-### LinkButton常用属性
+## LinkButton常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -119,7 +119,7 @@ $(function(){
 </table>
 
 
-### LinkButton常用方法  
+## LinkButton常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -155,7 +155,7 @@ $(function(){
 </table>  
 
 
-### LinkButton常用事件
+## LinkButton常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -196,14 +196,14 @@ function myBtn(){
 
 # MenuButton
 
-### MenuButton简介
+## MenuButton简介
 
   
 菜单按钮是下拉菜单的一部分。它伴随着linkbutton和menu组件。在用户点击linkbutton之前菜单是隐藏的，当用户用鼠标点击或移动到linkbutton上面的时候菜单才会显示。 效果如图：
 
 ![image](http://i.imgur.com/QJbJvWO.png)
 
-### MenuButton程序
+## MenuButton程序
 
 
 ```
@@ -231,7 +231,7 @@ function myBtn(){
 效果如上图。
 
 
-### MenuButton常用属性
+## MenuButton常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -267,7 +267,7 @@ function myBtn(){
 </table>
 
 
-### MenuButton常用方法  
+## MenuButton常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -302,14 +302,14 @@ function myBtn(){
 
 # SplitButton
 
-### SplitButton简介
+## SplitButton简介
 
   
 类似菜单按钮，分割按钮也与linkbutton和菜单有关系。menubutton和splitbutton之间的区别是,splitbutton分为两部分。它只会在鼠标移动到splitbutton按钮右边的时候才会显示出“分割线”。效果如图：
 
 ![image](http://i.imgur.com/Y91qCju.png)
 
-### SplitButton程序
+## SplitButton程序
 
 
 ```
@@ -341,7 +341,7 @@ function myBtn(){
 效果如上图
 
 
-### SplitButton常用属性
+## SplitButton常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -371,7 +371,7 @@ function myBtn(){
 </table>
 
 
-### SplitButton常用方法  
+## SplitButton常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>

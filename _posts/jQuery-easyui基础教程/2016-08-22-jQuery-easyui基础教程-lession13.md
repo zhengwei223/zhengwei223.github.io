@@ -16,7 +16,7 @@ description:
 
 # Panel
 
-### Panel简介
+## Panel简介
 
 
 面板作为承载其它内容的容器。这是构建其他组件的基础（比如：layout,tabs,accordion等）。它还提供了折叠、关闭、最大化、最小化和自定义行为。面板可以很容易地嵌入到web页面的任何位置。效果如图：
@@ -24,7 +24,7 @@ description:
 ![image](http://i.imgur.com/RAlN8eS.png)
 
 
-### 开发Panel程序
+## 开发Panel程序
 
 ```
 <div id="p" class="easyui-panel" title="My Panel"     
@@ -36,7 +36,7 @@ description:
 ```  
 
 
-### Panel常用属性
+## Panel常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -204,7 +204,7 @@ description:
 </table>
 
 
-### Panel常用方法  
+## Panel常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -295,7 +295,7 @@ description:
 </table>  
 
 
-### Panel常用事件
+## Panel常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -397,7 +397,7 @@ description:
 
 参考jQuery EasyUI的API。
 
-#####  案例：
+代码如下：
 
 ```
 $('#p').panel({    

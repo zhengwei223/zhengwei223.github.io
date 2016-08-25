@@ -15,12 +15,12 @@ description:
 
 # Resizable
 
-### Resizable简介
+## Resizable简介
 
   
 EasyUI的Draggable控件可以帮助我们快速的开发可以调整大小的控件，程序员开发起来会更加方便快捷。
 
-### 开发Resizable程序
+## 开发Resizable程序
 
 
 ```
@@ -30,7 +30,7 @@ EasyUI的Draggable控件可以帮助我们快速的开发可以调整大小的�
 运行程序会发现，定义的div可以通过鼠标调整大小。
 
 
-### Resizable常用属性
+## Resizable常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -60,7 +60,7 @@ EasyUI的Draggable控件可以帮助我们快速的开发可以调整大小的�
 </table>
 
 
-### Resizable常用方法  
+## Resizable常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -78,7 +78,7 @@ EasyUI的Draggable控件可以帮助我们快速的开发可以调整大小的�
 </table>  
 
 
-### Resizable常用事件
+## Resizable常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>

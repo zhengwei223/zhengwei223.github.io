@@ -16,14 +16,14 @@ description:
 
 # Layout
 
-### Layout简介
+## Layout简介
 
   
 使用Layout控件可以简单、快速的为后台管理系统的页面布局。布局容器有5个区域：北、南、东、西和中间。中间区域面板是必须的，边缘的面板都是可选的。每个边缘区域面板都可以通过拖拽其边框改变大小，也可以点击折叠按钮将面板折叠起来。布局可以进行嵌套，用户可以通过组合布局构建复杂的布局结构。效果如图：
 
 ![image](http://i.imgur.com/u1z2j0y.png) 
 
-### 开发Layout程序
+## 开发Layout程序
 
 ```
 <div id="cc" class="easyui-layout" style="width:600px;height:400px;">   
@@ -49,7 +49,7 @@ description:
 ```  
 
 
-### Layout常用属性
+## Layout常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -67,7 +67,7 @@ description:
 </table>
 
 
-### 区域面板常用属性
+## 区域面板常用属性
 
 <table class="table table-bordered t
 able-striped table-condensed">
@@ -174,7 +174,7 @@ $southPanel.panel({
 ![image](http://i.imgur.com/zqqi7Bn.png)
 
 
-### Layout常用方法  
+## Layout常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
