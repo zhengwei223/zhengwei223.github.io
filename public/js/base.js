@@ -1,3 +1,4 @@
+
 var duoshuoQuery = {short_name:"lanqiao2016"};
 function addDuoshuo(){
   if ( $('.ds-thread').length > 0 ) { 
@@ -72,39 +73,45 @@ function contentEffects(){
   var $nav = $('.doc-sidebar > .nav');
   // 判断有侧边栏&&有一级标题
   //生成侧边栏目录 b
+  
   if($(".doc-sidebar").length > 0 && lenOfH1>0){
     for(var i = 0; i < lenOfH1; i++){
-      let $current = $($h1List[i]);
-      let id = "section" + i;
+      var $current = $($h1List[i]);
+      var id = "section" + i;
       $current.attr("id", id);
-      let $li = $('<li><a href="#'+id+'">'+$current.html()+'</a></li>');
+      var $li = $('<li><a href="#'+id+'">'+$current.html()+'</a></li>');
       if (i==0) {
         $li.addClass('active');
       };
       //定义侧边导航链接点击行为，做适当偏移
-      $li.find('a').click(function(){
-        $('body,html').animate({scrollTop:$current.offset().top-60}, 1000);
-      });
+      //匿名闭包函数，以持有i
+      (function(id){
+        $li.find('a').click(function(){
+          $('body,html').animate({scrollTop:$('#'+id).offset().top-60}, 1000);
+        });
+      })(id);
       $nav.append($li);
 
       // 处理h2
-      let $h2List;
+      var $h2List;
       if(i==lenOfH1-1){
         $h2List = $current.nextAll('h2');
       } else{
         $h2List = $current.nextUntil('h1','h2');
       }
       if($h2List.length>0){
-        let $subUl = $('<ul class="nav"></ul>');
+        var $subUl = $('<ul class="nav"></ul>');
         $h2List.each(function(j,v){
-          let id = 'section'+i+'-'+j;
-          let $currentH2 = $(this);
-          $currentH2.attr('id', id);
-          let $subLi = $('<li><a href="#'+id+'">'+$(this).html()+'</a></li>');
+          var h2id = 'section'+i+'-'+j;
+          var $currentH2 = $(this);
+          $currentH2.attr('id', h2id);
+          var $subLi = $('<li><a href="#'+h2id+'">'+$(this).html()+'</a></li>');
           //定义侧边导航链接点击行为，做适当偏移
-          $subLi.click(function(){
-            $('body,html').animate({scrollTop:$currentH2.offset().top-60}, 1000);
-          });
+          (function(id){
+            $subLi.click(function(){
+              $('body,html').animate({scrollTop:$('#'+h2id).offset().top-60}, 1000);
+            });
+          })(h2id);
           $subUl.append($subLi);
         });
         $li.append($subUl);
@@ -270,4 +277,6 @@ function addScrollspyAndAffix(){
     }
   });
 }
+
+
 

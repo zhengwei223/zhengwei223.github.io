@@ -16,14 +16,14 @@ description:
 
 # Tooltip
 
-### Tooltip简介
+## Tooltip简介
 
   
 当用户将鼠标移动到元素上的时候，将会显示一个消息提示框。提示框的内容可以是页面中任何一个HTML元素或者通过Ajax发送后台请求以获取提示框内容。效果如图：
 
 ![image](http://i.imgur.com/XaCmQCt.png) 
 
-### 开发Tooltip程序
+## 开发Tooltip程序
 
 ```
 <a href="#" title="This is the tooltip message." class="easyui-tooltip">Hover me</a>
@@ -33,7 +33,7 @@ description:
 
 ![image](http://i.imgur.com/9bQaUM9.png)
 
-### Tooltip常用属性
+## Tooltip常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -126,7 +126,7 @@ $('#dd').tooltip({
 ![image](http://i.imgur.com/vzJ4ywm.png)
 
 
-### Tooltip常用方法  
+## Tooltip常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -177,7 +177,7 @@ $('#dd').tooltip({
 </table>  
 
 
-### Tooltip常用事件
+## Tooltip常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
