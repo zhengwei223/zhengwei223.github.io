@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 初学者与初期程序员
+title: 初学者与初期码农
 category: toTeacher
 tags: 教学理念 
 author: 孔颖【翻译】
