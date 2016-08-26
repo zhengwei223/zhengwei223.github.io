@@ -1,5 +1,5 @@
 ---
-layout: post_new
+layout: post
 title: less变量详解
 category: Bootstrap入门教程
 tags: Web前端 Bootstrap 

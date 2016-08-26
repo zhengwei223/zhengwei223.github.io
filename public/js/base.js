@@ -79,7 +79,7 @@ function contentEffects(){
       var $current = $($h1List[i]);
       var id = "section" + i;
       $current.attr("id", id);
-      var $li = $('<li><a href="#'+id+'">'+$current.html()+'</a></li>');
+      var $li = $('<li><a href="javascript:void(0);">'+$current.html()+'</a></li>');
       if (i==0) {
         $li.addClass('active');
       };
@@ -105,7 +105,7 @@ function contentEffects(){
           var h2id = 'section'+i+'-'+j;
           var $currentH2 = $(this);
           $currentH2.attr('id', h2id);
-          var $subLi = $('<li><a href="#'+h2id+'">'+$(this).html()+'</a></li>');
+          var $subLi = $('<li><a href="javascript:void(0);">'+$(this).html()+'</a></li>');
           //定义侧边导航链接点击行为，做适当偏移
           (function(id){
             $subLi.click(function(){
@@ -276,6 +276,14 @@ function addScrollspyAndAffix(){
       }
     }
   });
+}
+
+function iFrameHeight(obj){
+  var subWeb = document.frames ? document.frames[0].document : obj.contentDocument;   
+  if(obj != null && subWeb != null) {
+    obj.height = subWeb.body.scrollHeight;
+    obj.width = subWeb.body.scrollWidth;
+  }   
 }
 
 
