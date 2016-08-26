@@ -728,6 +728,76 @@ onDrop: function(targetNode, source, point){
  } 
 ```
 
+
+## 综合应用
+
+Layout常用于布局，Tree常用于菜单，Tabs常用于具体内容的放置。如下图：
+
+![image](http://i.imgur.com/suXgjaZ.png)
+
+代码如下：
+
+```
+<div class="easyui-layout" data-options="fit:true">
+	<div data-options="region:'west',split:true"  style="width:200px;padding:5px;background: #fafafa;">
+		<ul id="tree" class="easyui-tree">
+			<li>
+				<span>Library</span>
+				<ul>
+					<li data-options="url:'tree01.html'">Tree</li>
+					<li data-options="url:'progressbar.html'">Progressbar</li>
+					<li data-options="url:'accordion01.html'">Accordion</li>
+					<li data-options="url:'layout01.html'">Layout</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div data-options="region:'center',border:false">
+		<div id="tabs" class="easyui-tabs" data-options="fit:true">
+			<div title="Home" style="padding:10px;">
+				jQuery easyui framework help you build your web page easily.
+			</div>
+			<div title="Contacts">
+				No contact data.
+			</div>
+		</div>
+	</div>
+	<div data-options="region:'south',border:false" style="text-align:right;height:30px;line-height:30px;">
+		<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)">Ok</a>
+		<a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)">Cancel</a>
+	</div>
+</div>
+```
+
+JS代码：
+
+```
+$(function(){
+	$("#tree").tree({
+		onClick: function(node){
+			if($("#tree").tree("isLeaf",node.target)){
+				//得到点击的节点的文字
+				var tabsTitle = node.text;  // 在用户点击的时候提示
+				var tabsUrl = node.url;
+				//判断该选项卡是否存在
+				if($("#tabs").tabs("exists",tabsTitle)){
+					$("#tabs").tabs("select",tabsTitle);
+				}else{
+					$("#tabs").tabs('add',{
+						// 添加一个未选中状态的选项卡面板
+						title: tabsTitle,
+						href:tabsUrl, 
+						selected: true,
+						closable:true
+						//...
+					});
+				}
+			}
+		}
+	});
+});
+```
+
 以上便是Tree的基本用法。
 
 
