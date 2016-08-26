@@ -236,13 +236,13 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 	<div id="dd">Dialog Content.</div>  
 	<!-- <div id="toolbar"> 
 	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">New User</a>   
-	<a href="#"	class="easyui-linkbutton" iconCls="icon-edit" plain="true">Edit User</a>  
-	<a href="#"	class="easyui-linkbutton" iconCls="icon-remove" plain="true">Remove User</a>  
+	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">Edit User</a>  
+	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">Remove User</a>  
 	</div>  
 	-->  
 	<div id="bb">  
 	<a href="#" class="easyui-linkbutton">保存</a> 
-	<a href="#"	class="easyui-linkbutton">关闭</a> 
+	<a href="#" class="easyui-linkbutton">关闭</a> 
 	</div>  
 </body>   
 ```
