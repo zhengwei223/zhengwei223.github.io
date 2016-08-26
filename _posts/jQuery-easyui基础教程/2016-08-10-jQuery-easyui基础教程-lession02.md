@@ -19,7 +19,7 @@ description:
 
 ## Dialog简介
 
-对话框是一种特殊类型的窗口，在现在的系统中使用越来越多。如，添加，修改，删除的提示等功能，使用对话框更加贴近用户的要求，开发人员开发程序也更加简单。它在顶部有一个工具栏，在底部有一个按钮栏。对话框窗口右上角只有一个关闭按钮，用户可以配置对话框的行为来显示其他工具，如collapsible,minimizable,maximizable工具等。  
+对话框是一种特殊类型的窗口，在现在的系统中使用越来越多。如，添加，修改，删除的提示等功能，使用对话框更加贴近用户的要求，开发人员开发程序也更加简单。它在顶部有一个工具栏，在底部有一个按钮栏。对话框窗口右上角只有一个关闭按钮，用户可以配置对话框的行为来显示其他工具，如collapsible,minimizable,maximizable工具等。默认情况下，对话框（Dialog）不能改变大小，但是用户可以设置 resizable 属性为 true，使其可以改变大小。 效果如下图：
 
 ![image](http://i.imgur.com/XmddMrE.png)
 
@@ -339,12 +339,12 @@ HTML代码
 <div id="dd">Dialog Content.</div>
 <div id="toolbar">
 	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">New User</a> 
-	<a href="#"	class="easyui-linkbutton" iconCls="icon-edit" plain="true">Edit User</a> 
-	<a href="#"	class="easyui-linkbutton" iconCls="icon-remove" plain="true">Remove User</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">Edit User</a> 
+	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">Remove User</a>
 </div>
 <div id="bb">
 	<a href="#" class="easyui-linkbutton" onclick="skip();">跳转</a> 
-	<a href="#"	class="easyui-linkbutton" onclick="closeDialog();">关闭</a>
+	<a href="#" class="easyui-linkbutton" onclick="closeDialog();">关闭</a>
 </div>  
 ```
 
