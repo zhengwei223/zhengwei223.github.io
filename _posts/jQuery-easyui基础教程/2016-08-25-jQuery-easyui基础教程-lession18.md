@@ -150,8 +150,39 @@ description:
    </tr>
 </table>  
 
+案例一：  
 
-创建一个登录窗口和注册窗口，并可以互相切换。代码如下：
+```
+<script type="text/javascript">
+	$(function(){
+		$('#win').window({
+			collapsible:false,
+			minimizable:false,
+			maximizable:false,
+			tools:[{
+				iconCls:'icon-add',
+				handler:function(){
+					alert('add');
+				}
+			},{
+				iconCls:'icon-remove',
+				handler:function(){
+					alert('remove');
+				}
+			}]
+		});
+	});
+</script>
+```
+
+效果如下图：
+
+![image](http://i.imgur.com/ZqkNuG3.png)
+
+
+案例二：  
+
+创建一个登录窗口和注册窗口，并可以互相切换。代码如下：  
 
 ```
 <div id="loginWindow" class="easyui-window" title="Login" style="width:300px;height:200px;">
@@ -198,7 +229,11 @@ description:
 		</table>
 	</form>
 </div> 
+```
 
+JS代码：
+
+```
 <script type="text/javascript">
 	function showRegistWindow(){
 		$("#loginWindow").window("close");
@@ -215,6 +250,50 @@ description:
 效果如下图：
 
 ![image](http://i.imgur.com/pRwqTro.png)
+
+
+案例三：  
+
+Tree的最后一个案例结合window,实现如下效果：  
+
+![image](http://i.imgur.com/PGXFgQD.png)
+
+代码如下：
+
+```
+<div class="easyui-window" title="Layout Window" data-options="iconCls:'icon-help'" style="width:500px;height:250px;padding:5px;background: #fafafa;">
+	<div class="easyui-layout" data-options="fit:true">
+		<div data-options="region:'west',split:true" style="width:120px;">
+			<ul id="tree" class="easyui-tree">
+				<li>
+					<span>Library</span>
+					<ul>
+						<li data-options="url:'tree01.html'">Tree</li>
+						<li data-options="url:'progressbar.html'">Progressbar</li>
+						<li data-options="url:'accordion01.html'">Accordion</li>
+						<li data-options="url:'layout01.html'">Layout</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div data-options="region:'center',border:false">
+			<div id="tabs" class="easyui-tabs" data-options="fit:true">
+				<div title="Home" style="padding:10px;">
+					jQuery easyui framework help you build your web page easily.
+				</div>
+				<div title="Contacts">
+					No contact data.
+				</div>
+			</div>
+		</div>
+		<div data-options="region:'south',border:false" style="text-align:right;height:30px;line-height:30px;">
+			<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)">Ok</a>
+			<a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)">Cancel</a>
+		</div>
+	</div>
+</div>
+```
+
 
 以上便是Widow的基本用法。
 
