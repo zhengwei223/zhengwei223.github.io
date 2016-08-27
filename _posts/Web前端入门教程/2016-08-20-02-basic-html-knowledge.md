@@ -40,15 +40,12 @@ description:
 
 &emsp;&emsp;接下来我们介绍几个最常用的HTML预定义标签以及他们的是用方法：
 
-### \<h1\>到\<h6\>标签
+### 标题
 
  &emsp;&emsp;&emsp;&emsp;\<h1\></h1\>到\<h6></h6\>标签被用于标记文章标题，前者用于标记最大字号（通常也是最重要的）标题，后者用于标记最小的字号（通常是不那么重要）的标题：
 
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     <HTML>
-    <HEAD>
-    <TITLE>A simple HTML Document </TITLE>
-    </HEAD>
     <BODY>
     <h1>This is heading 1</h1>
     <h2>This is heading 2</h2>
@@ -61,7 +58,7 @@ description:
 
   [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
 
-### p标签
+### 段落
 
  &emsp;&emsp;&emsp;&emsp;\<p\>标签在标记了一个文章段落在html中开始的位置，\</p\>标签标记了段落结束的位置，这两个标签必须成对出现，两者之间的就是这个段落的内容。  
 
@@ -69,9 +66,6 @@ description:
 
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     <HTML>
-    <HEAD>
-    <TITLE>A simple HTML Document </TITLE>
-    </HEAD>
     <BODY>
     <p>
     这个段落
@@ -98,46 +92,46 @@ description:
 
  [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
 
-### \<strong\>加粗字体标签  
+### 加粗段落中的文本  
 
- &emsp;&emsp;&emsp;&emsp;使用\<strong\>标签可以加粗段落中某个文本的字体，同学们可以尝试在TIY编辑器（Try it yourself Editor）里面把strong标签应用到其他文本上查看效果：
+ &emsp;&emsp;&emsp;&emsp;使用\<strong\>标签可以加粗段落中某个文本的字体。
 
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <HTML>
+    <BODY>
     <P><strong>《量子力学的数学基础》</strong>首次以数理分析清晰地提出了波函数的两类演化过程。</P>
-
-
+    <p>请尝试加粗“波函数”这几个字。</p>
+    </BODY>
+    </HTML>
 
  [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)
 
-### \<ol></ol\>有序列表  
+### 有序列表  
  
  &emsp;&emsp;&emsp;&emsp;下面是一个有序列表的代码片段。
 
  &emsp;&emsp;&emsp;&emsp;\<ol\>（ordered list）标记了列表开始的位置，\</ol\>标记了列表结束的位置。
 
- &emsp;&emsp;&emsp;&emsp;\<li>\(list item)标记了列表元素开始的位置，\</li\>标记列表元素结束的位置。
-
- &emsp;&emsp;&emsp;&emsp;同学们可以尝试在起始标签\<ol\>改写为\<ol type=\"1"\>，并依次使用**1**、**a**、**A**、**i**、**I**个属性值，看一看页面内容会有什么变化：
+ &emsp;&emsp;&emsp;&emsp;\<li>\(list item)标记了列表元素开始的位置，\</li\>标记列表元素结束的位置。  
 
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     <HTML>
-    <HEAD>
-    <TITLE>A simple HTML Document </TITLE>
-    </HEAD>
     <BODY>
     An Ordered List
-    <ol>
+    <ol type="a">
       <li>First item</li>
       <li>Second item</li>
       <li>Third item</li>
       <li>Foorth item</li>
     </ol>
+    <p>请尝试修改type属性，并依次使用1、a、A、i、I几个值。你也可以最后删掉这个属性。</p>
     </BODY>
     </HTML>
 
 [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
 
 
-### \<ul></ul\>无序列表  
+### 无序列表  
 
  &emsp;&emsp;&emsp;&emsp;无序列表标签\<ul\>标记了一个无序列表（unordered list）开始的位置，\</ul\>标记了无序列表结束的位置。
 
@@ -145,9 +139,6 @@ description:
 
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     <HTML>
-    <HEAD>
-    <TITLE>A simple HTML Document </TITLE>
-    </HEAD>
     <BODY>
     An UnOrdered List
     <ul>
@@ -161,14 +152,16 @@ description:
 
 [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
 
-### \<table\>标签
- &emsp;&emsp;&emsp;&emsp;一个HTML表格由\<table\>标签定义，表格里面的一行由\<tr\>定义，\<td\>定义了行里面的一个单元格，\<th\>标签用于定义表格的表头。同理，起始标签（比如\<table\>,\<tr\>,\<td\>，\</th\>）都需要和对应的结束标签(\</table\>,\</tr\>,\</td\>,\</th\>)成对出现，两个标签之间是对应表格、行、单元格、表头的内容。  
+### 表格
+ &emsp;&emsp;&emsp;&emsp;一个HTML表格由\<table\>标签定义。
+
+ &emsp;&emsp;&emsp;&emsp;表格里面的一行由\<tr\>定义，\<td\>定义了行里面的一个单元格，\<th\>标签用于定义表格的表头。
+
+ &emsp;&emsp;&emsp;&emsp;同理，起始标签（比如\<table\>,\<tr\>,\<td\>，\<th\>）都需要和对应的结束标签(\</table\>,\</tr\>,\</td\>,\</th\>)成对出现，两个标签之间是对应表格、行、单元格、表头的内容。  
 
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     <HTML>
-    <HEAD>
-    <TITLE>A simple table in HTML Document </TITLE>
-    </HEAD>
+    <BODY>
     <table style="width:100%">
       <tr>
         <th>Firstname</th>
@@ -186,20 +179,199 @@ description:
         <td>94</td>
       </tr>
     </table>
+     <p>&emsp;&emsp;&emsp;&emsp;请尝试修改width="100%"中的百分比。</p>
     </BODY>
+    </HTML>
+
+[点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+### 表格单元格（cell）之间的边框  
+
+ &emsp;&emsp;&emsp;&emsp;\<table\>里面的**border="1"**属性表示表格中的单元格（cell）之间显示边框。
+
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <HTML>
+    <BODY>
+    <table border="1">
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th> 
+        <th>Age</th>
+      </tr>
+      <tr>
+        <td>Jill</td>
+        <td>Smith</td> 
+        <td>50</td>
+     </tr>
+      <tr>
+        <td>Eve</td>
+        <td>Jackson</td> 
+        <td>94</td>
+      </tr>
+    </table>
+    <p>请尝试把<strong>border="1"</strong>修改为<strong>border="0"</strong>。</p>
+    </BODY>
+    </HTML>
+
+[点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+### 占据多列（column）的表格单元格（cell）  
+
+ &emsp;&emsp;&emsp;&emsp;表格中的单元格（Cell）可以横跨多列（column），只需要修改colspan属性的值就可以了。
+
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <HTML>
+    <BODY>
+    <table border="1" style="width:100%">
+      <tr>
+        <th>Name</th>
+        <th colspan="1">Telephone</th>
+      </tr>
+      <tr>
+        <td>Bill Gates</td>
+        <td>55577854</td>
+        <td>55577855</td>
+       </tr>
+    </table>
+     <p>请尝试把<strong>colspan</strong>的数字修改为2。</p>
+    </BODY>
+    </HTML>
+
+[点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+### 占据多行（row）的表格单元格（cell）  
+
+ &emsp;&emsp;&emsp;&emsp;表格中的单元格（Cell）可以横跨多列（column），只需要修改colspan属性的值就可以了。
+
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <HTML>
+    <BODY>
+    <table border="1" style="width:100%">
+      <tr>
+        <th>Name:</th>
+        <td>Bill Gates</td>
+      </tr>
+      <tr>
+        <th rowspan="1">Telephone:</th>
+        <td>55577854</td>
+      </tr>
+      <tr>
+        <td>55577855</td>
+      </tr>
+        </table>
+         <p>请尝试把<strong>rowspan</strong>的数字修改为2。</p>
+        </BODY>
+    </HTML>
+
+[点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+### 表格的标题  
+
+ &emsp;&emsp;&emsp;&emsp;表格的标题可以用\<caption\>标签定义。
+
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <HTML>
+    <BODY>
+    <table border="1" style="width:100%">
+    <caption>Monthly savings</caption>
+      <tr>
+        <th>Month</th>
+        <th>Savings</th>
+      </tr>
+      <tr>
+        <td>January</td>
+        <td>$100</td>
+      </tr>
+      <tr>
+        <td>February</td>
+        <td>$50</td>
+      </tr>
+      </table>
+      <p>请尝试把两个<strong>caption</strong>标签之间的文本修改为中文。</p>
+      </BODY>
     </HTML>
 
 [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
 
 ### \<img\>图片标签
 
+ &emsp;&emsp;&emsp;&emsp;Web网页使用\<IMG\>标签显示图片。浏览器根据\<IMG\>标签的**SRC**属性值到某个地址读取并显示图片。下面的例子，\<IMG\>标签的**SRC**属性使用了**http://**开头的网络地址，网页显示了一个来自网络的图片。
+
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <HTML>
+    <BODY>
+    <p>你可以为标签增加<strong>width="300" height="250"</strong>>属性，调整图片大小。</p>
+    <IMG src="http://img.weixinyidu.com/160107/0b2bd0cc.jpg"/>
+    </BODY>
+    </HTML>
+
+[点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
 ### \<a\>超级链接
 
-## 1.2 XHTML1.0基本语法
+ &emsp;&emsp;&emsp;&emsp;我们在网上随处可见的超级链接（hyper link）由\<a\>标签生成，该链接允许人们从当前页面跳转到目标页面。
+
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <HTML>
+    <BODY>
+    <a href="http://www.w3schools.com/">W3C School</a>
+    </BODY>
+    </HTML>
+
+[点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+### 把图片做成超级链接
+
+ &emsp;&emsp;&emsp;&emsp;我们还可以用一张图片，来实现超级链接。这次，我们为图标增加了一个标题。
+
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <HTML>
+    <BODY>
+    <p>你可以尝试把图片的标题修改成你想要内容。</p>
+    <a href="http://www.w3schools.com/">
+    <IMG 
+    src="http://img.weixinyidu.com/160107/0b2bd0cc.jpg" 
+    width="500" height="400"
+    title="就差一个码农了"/>
+    </a>
+    </BODY>
+    </HTML>
+
+[点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+## 1.2 XHTML1.0基本语法  
+
+> XHTML是遵照XML规范写成的HTML。具体地说：  
+
+ - XHTML的意思是**EXtensible HyperText Markup Language**，可扩展的超文本标记语言  
+
+ - XHTML几乎和HTML一样  
+
+ - XHTML的遵循更严格的语法规则  
+
+ - XHTML是按照XML语法规范定义的HTML  
+
+### 为什么要使用XHTML
+
+ &emsp;&emsp;&emsp;&emsp;因为历史方面的原因，现在互联网上充斥着各种各样**坏的HTML**。这些HTML代码，甚至在不遵循HTML规范的情况下仍然能在大多数浏览器里面正常工作。  
+
+    <html>
+     <head>
+      <title>This is bad HTML</title>
+     <body>
+      <h1>Bad HTML
+      <p>This is a paragraph
+    </body>
+
+[点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+ &emsp;&emsp;&emsp;&emsp;当今的互联网市场上有很多不同的浏览器技术。其中的一部分浏览器在PC台式机运行，另外一些浏览器只能在手机、平板等移动设备商运行。在计算能力更弱的移动设备上，浏览器通常缺少足够的资源来解释运行那些**坏的HTML**。
+
+ &emsp;&emsp;&emsp;&emsp;XML正好是一种语法更严格、结构更清晰、内容组织更有条理的标记语言。面对语法松散的HTML，就有人考虑，是不是可以把XML的优点融合到HTML语言里面来，于是XHTML诞生了。
+
+ &emsp;&emsp;&emsp;&emsp;XHTML是遵循XML语法规范的HTML。
 
 ## 1.3 HTML和XHTML的关系
-
-&emsp;&emsp;标记语言，是一种将文本以及文本相关的其他信息结合起来，展现出关于文档结构和数据处理细节的电脑文字编码。HTML和XHTML都是标记语言。  
 
 # 2. XHTML之路
 
