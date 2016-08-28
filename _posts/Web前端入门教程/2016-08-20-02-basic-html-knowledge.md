@@ -369,7 +369,155 @@ description:
 
  &emsp;&emsp;&emsp;&emsp;XML正好是一种语法更严格、结构更清晰、内容组织更有条理的标记语言。面对语法松散的HTML，就有人考虑，是不是可以把XML的优点融合到HTML语言里面来，于是XHTML诞生了。
 
- &emsp;&emsp;&emsp;&emsp;XHTML是遵循XML语法规范的HTML。
+ &emsp;&emsp;&emsp;&emsp;XHTML是遵循XML语法规范写成的HTML。  
+
+### XHTML与HTML相比最大的不同  
+
+> 文档结构
+
+ - XHTML文档的文件名必须以***.xhtml**为结尾
+ - XHTML中DOCTYPE是必须元素，而HTML中这个可以不写
+ - XHTML文档中\<html\>根元素里面必须声明**xmlns="http://www.w3.org/1999/xhtml"**
+ - \<html\>, \<head\>, \<title\>, 和\<body\>的文档结构缺一不可
+
+&emsp;&emsp;&emsp;&emsp;下面的代码展示了一个最简单的XHTML:
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+       <title>Title of document</title>
+    </head>
+    <body>
+       some content 
+    </body>
+    </html>
+
+---
+
+> XHTML元素
+
+ - XHTML元素必须遵守严格的嵌套格式
+ - XHTML元素必须被关闭
+ - XHTML元素标签必须被写成小写字母
+ - XHTML文档必须又一个根元素
+
+
+---
+
+#### 规范嵌套
+
+&emsp;&emsp;&emsp;&emsp;在HTML中，很多元素的嵌套格式不规范，不影响浏览器解析元素、显示内容。比如,html文档允许出现这样的写法：
+
+    <b><i>This text is bold and italic</b></i>
+
+&emsp;&emsp;&emsp;&emsp;在XHTML中，就必须写成下面的样子：
+
+    <b><i>This text is bold and italic</i></b>
+
+
+---
+
+#### 起始标签必须对应一个关闭标签
+
+&emsp;&emsp;&emsp;&emsp;下面的写法在XHTML中是错误的：
+
+      <p>This is a paragraph
+      <p>This is another paragraph
+
+&emsp;&emsp;&emsp;&emsp;正确的写法应该是这样的：
+
+    <p>This is a paragraph</p>
+    <p>This is another paragraph</p>
+
+---
+
+#### 空元素必须被关闭
+
+&emsp;&emsp;&emsp;&emsp;下面的写法在XHTML中是错误的：
+
+    换行: <br>
+    水平线: <hr>
+    图片: <img src="http://img.weixinyidu.com/160107/0b2bd0cc.jpg" alt="Happy face">
+
+&emsp;&emsp;&emsp;&emsp;在XHTML中应该是这样写的：
+
+    换行: <br />
+    水平线: <hr />
+    图片: <img src="http://img.weixinyidu.com/160107/0b2bd0cc.jpg" alt="Happy face" />
+
+---
+
+#### XHTML元素标签必须写成小写
+
+&emsp;&emsp;&emsp;&emsp;下面的写法在XHTML中是错误的：
+
+    <BODY>
+    <P>This is a paragraph</P>
+    </BODY>
+
+&emsp;&emsp;&emsp;&emsp;在XHTML中应该是这样写的：
+
+    <body>
+    <p>This is a paragraph</p>
+    </body>
+
+
+---
+
+> XHTML属性
+
+ - 属性名必须写成小写字母
+ - 属性值必须被双引号包裹
+ - 属性不能被简写
+
+---
+
+#### XHTML元素的属性必须写成小写
+
+&emsp;&emsp;&emsp;&emsp;下面的写法在XHTML中是错误的：
+
+    <table WIDTH="100%">
+
+&emsp;&emsp;&emsp;&emsp;在XHTML中应该是这样写的：
+
+    <table width="100%">
+
+---
+
+#### XHTML属性值必须使用双引号包裹
+
+&emsp;&emsp;&emsp;&emsp;下面的写法在XHTML中是错误的：
+
+    <table width=100%>
+
+&emsp;&emsp;&emsp;&emsp;在XHTML中应该是这样写的：
+
+    <table width="100%">
+
+---
+
+
+### XHTML属性不能简写
+
+&emsp;&emsp;&emsp;&emsp;下面的写法在XHTML中是错误的：
+
+    <input type="checkbox" name="vehicle" value="car" checked />
+
+&emsp;&emsp;&emsp;&emsp;在XHTML中应该是这样写的：
+
+    <input type="checkbox" name="vehicle" value="car" checked="checked" />
+
+&emsp;&emsp;&emsp;&emsp;下面的写法在XHTML中是错误的：
+
+    <input type="text" name="lastname" disabled />
+
+&emsp;&emsp;&emsp;&emsp;在XHTML中应该是这样写的：
+
+    <input type="text" name="lastname" disabled="disabled" />
+
+
+
 
 ## 1.3 HTML和XHTML的关系
 
