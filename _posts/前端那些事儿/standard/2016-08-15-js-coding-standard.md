@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 最好用的javascript编码规范中文版（转自airbnb js编码规范项目）
-category: 前端那些事儿
+category: front-standard
 tags: 前端 js 编码规范
 author: 
 keywords: lanqiao 蓝桥 培训 教程 前端 编码规范
