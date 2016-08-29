@@ -1,7 +1,7 @@
 ---
 layout: post
 title: JavaScript Module Loader
-category: 前端那些事儿
+category: front-modularity
 tags: 前端 模块化 
 author: Hux Blog
 keywords: lanqiao 蓝桥 培训 教程 前端 模块化

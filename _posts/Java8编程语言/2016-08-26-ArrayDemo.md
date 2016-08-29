@@ -1,4 +1,14 @@
-
+---
+layout: post
+title: 运算符
+category: Java8编程语言
+tags: Java 入门
+keywords: 蓝桥 lanqiao 教程 java Java8 运算符
+description: 
+author: 付天有
+importance: 4
+order: 7
+---
 
 # Java数组(基础篇)
 数组无论在哪种编程语言中都算是最重要的数据结构之一，同时不同语言的实现及处理也不尽相同。但凡写过一些程序的人都知道数组的价值及理解数组的重要性，与链表一道，数组成为了基本的数据结构。

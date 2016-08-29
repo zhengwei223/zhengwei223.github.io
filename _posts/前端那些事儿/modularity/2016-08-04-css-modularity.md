@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 较完善的CSS样式表管理模式
-category: css
+category: front-modularity
 tags: css
 author: 郑未
 keywords: lanqiao 蓝桥 全栈  教程 css

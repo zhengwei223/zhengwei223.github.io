@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 别责怪框架：我使用 AngularJS 和 ReactJS 的经验
-category: 前端那些事儿
+category: react
 tags: AngularJS ReactJS
 author: 
 keywords: lanqiao 蓝桥 培训 教程 前端 AngularJS ReactJS
