@@ -79,14 +79,15 @@ function contentEffects(){
       var $current = $($h1List[i]);
       var id = "section" + i;
       $current.attr("id", id);
-      var $li = $('<li><a href="javascript:void(0);">'+$current.html()+'</a></li>');
+      var $li = $('<li><a href="#'+id+'">'+$current.html()+'</a></li>');
       if (i==0) {
         $li.addClass('active');
       };
       //定义侧边导航链接点击行为，做适当偏移
       //匿名闭包函数，以持有i
       (function(id){
-        $li.find('a').click(function(){
+        $li.find('a').click(function(event){
+          event.preventDefault();
           $('body,html').animate({scrollTop:$('#'+id).offset().top-60}, 1000);
         });
       })(id);
@@ -105,10 +106,11 @@ function contentEffects(){
           var h2id = 'section'+i+'-'+j;
           var $currentH2 = $(this);
           $currentH2.attr('id', h2id);
-          var $subLi = $('<li><a href="javascript:void(0);">'+$(this).html()+'</a></li>');
+          var $subLi = $('<li><a href="#'+h2id+'">'+$(this).html()+'</a></li>');
           //定义侧边导航链接点击行为，做适当偏移
           (function(id){
-            $subLi.click(function(){
+            $subLi.click(function(event){
+              event.preventDefault();
               $('body,html').animate({scrollTop:$('#'+h2id).offset().top-60}, 1000);
             });
           })(h2id);
@@ -256,7 +258,7 @@ function addScrollspyAndAffix(){
     offset: off
   });
   
-  $body.scrollspy('refresh')
+  $body.scrollspy('refresh');
 
 // 指定开关阈值，滚动到top时，将元素固定在顶部，滚动到bottom时，停止固定
   $sideBar.affix({
