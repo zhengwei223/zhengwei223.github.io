@@ -33,6 +33,8 @@ description:
 
  [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
 
+&emsp;&emsp;，除了我们的在线编辑器，你也可以在自己的电脑上创建一个**demo.html**文档，把上面的代码复制进去，右键使用浏览器打开，差看到同样的效果。
+
 &emsp;&emsp;文档由浏览器加载完成后，会生成一个文档对象（document object）。文档对象以树形结构的形式存在，其中html标签被解释为根节点，html以下的全部标签都成为一个上级父节点的子节点。具体如图：  
 
 ![html-xhtml-relation](/public/img/html/html-dom-structure.gif)  
@@ -574,7 +576,23 @@ description:
 
 &emsp;&emsp;HTML是学习创建网页过程中你需要了解的第一们技术，接下来你还会学习到Javascript和CSS技术，在网页应用和使用者互动、让网页按照你想要的样子显示出来。这三种技术结合起来，你就可以创建一个漂亮的网站。但是请记住，这样的网站，网页内容将会保持不变，我们也称之为静态网站。
 
-&emsp;&emsp;学习HTML编程的最好方法不是去买一本枕头书，挨个章节地学习语法、做练习。事实上，互联网上有很多现成的学习HTML编程的材料、教程，你完全可以非常轻松的边做边学，一边操作实例、查看效果，一边掌握知识，并且立即吧你的只是应用到子集创建网站的过程中。
+![html-xhtml-relation](/public/img/html/html-css-js.png)  
 
-&emsp;&emsp;这些学习资源中，最权威、最完整的莫过于[W3C School](http://www.w3school.com.cn/)提供的各类入门教程。你可以在里面轻松的查找到**HTML**和**XHTML**的入门教程。
+&emsp;&emsp;学习HTML编程的最好方法不是去买一本枕头书，挨个章节地学习语法、做练习。事实上，互联网上有很多现成的学习HTML编程的材料、教程，你完全可以非常轻松的边做边学，一边操作实例、查看效果，一边掌握知识，并且立即把你的刚刚了解到的知识应用到实战过程中，这样你就真正完整了**从知识到技能**的快速转换。记住，这对于每一位想要学习创建网站的新人都非常重要。
 
+&emsp;&emsp;这些学习资源中，最权威、最完整的莫过于[W3School](http://www.w3school.com.cn/)提供的入门教程。
+
+## 3.1 在W3School学习HTML
+
+&emsp;&emsp;打开[W3School的HTML首页](http://www.w3school.com.cn/html/index.asp)，你会看到页面的左侧是一个HTML基础教程的列表，右侧则是一个完整的基础教程的入口：
+
+![html-xhtml-relation](/public/img/html/w3c-html-index.PNG)  
+
+&emsp;&emsp;点击**现在开始学习 HTML**,页面会跳转到一个新的页面，从这里你将会开始一个轻松愉快的学习旅程。W3School编排的课程内容非常是适合初学者。
+
+![html-xhtml-relation](/public/img/html/w3school-html-intro.PNG)  
+
+## 3.1 下载W3School离线版
+
+&emsp;&emsp;如果你不想每次都跑到互联网上去，或者你的网速没有那么好，你也可以使用W3school的离线文件包。有很多好事的程序员已经准备好了这个令人心动的学习资料了！这里提供一个CSDN的[W3Scholl离线包](http://download.csdn.net/detail/twh_klr/9433659)的地址,同学们可以尝试下载。
+ 
