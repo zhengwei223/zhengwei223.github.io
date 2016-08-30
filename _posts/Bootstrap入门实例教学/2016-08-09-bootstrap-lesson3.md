@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 栅格布局系统
-category: Bootstrap入门教程
+category: Bootstrap入门实例教学
 tags: Web前端 Bootstrap 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap 栅格布局系统
