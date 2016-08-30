@@ -157,6 +157,7 @@ HBuilder下载安装比较简单，此处不表。
   - `data-toggle`是h5允许的扩展指令，设置控件被触发时的动作类型，这里的动作类型是*展开*
   - 至于展开什么，由`data-target`设定，这里的写法是id选择器，意味着按钮被点击时将展开id为`navbar`的控件。
   - `aria-*` 是HTML5 新加的属性。主要用于支持读屏设备，给无法直接阅读屏幕的人群（如盲人）使用，此处不表。
+  - `button`的内容是`.sr-only`（全称是 screen reader only，意为：仅供屏幕阅读器）修饰的文本和三条横杠
   
 - 导航所在`div`：`<div id="navbar" class="collapse navbar-collapse">`，它的id用来和button的`data-target`关联，上面说过了。`.collapse`默认设定`display: none;`，但按钮触发后这个样式将被删除因此得以显示，`.navbar-collapse`最大宽度340px，其下的`li`也取消了浮动变为了纵向排列。
 
@@ -168,11 +169,21 @@ HBuilder下载安装比较简单，此处不表。
 
 **boots是移动优先的设计理念，因此它的很多组件都考虑了在移动设备上的呈现效果。**
 
+# 6.课后练习
+
+大家应该做一些紧扣本章主题的扩展练习以便加深对知识点的理解：
+
+- 如果只想用导航，而不是用导航条的话，只要给`ul`附加`.nav`类，这个类还有不少的扩展类，标签样式的`.nav-tabs`，胶囊式标签页`.nav-pills`,【试一试】你可以通过[boots中文网](http://v3.bootcss.com/components/#nav)来做一些尝试
+- `data-toggle`和`data-target`指令的用法，需要注意，因为它们是通用的，你可以【单独试验】一下它们的用法
+- 【尝试】取消样式`navbar-inverse navbar-fixed-top`
+- 【了解】几个`meta`标签的作用
+- 【了解】`html5shiv.min.js`和`respond.min.js` 的作用
+- 了解`<!--[if lt IE 9]>`的作用
 （完）
 
 # 接下来
 
-我们会探索一些更为复杂，也更有意思的案例
+我们会探索一些更为复杂，也更有意思的案例，如多级导航菜单、按钮、传送带等常用组件
 
 
 
