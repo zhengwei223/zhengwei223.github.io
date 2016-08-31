@@ -12,7 +12,7 @@ description:
 
 >官网有案例，我们最好遵循官网的案例先轮一遍。只是初学者千头万绪不知学习的顺序，才有了本教程的解读。
 
-# 0.查看案例效果并获得源码
+# 0.查看整体效果并获得源码
 
 访问[boots中文网](http://v3.bootcss.com/examples/theme/)可以看到boots的一个兵器展览，这里面应有尽有。
 
@@ -148,3 +148,40 @@ description:
 ## 2.3小结
 
 表格也是这么地简单，甚至比按钮还简单，只需为`table`标记设置样式类就可以了，它们都需要`.table`类，而其他的条纹、边框、紧缩、悬停可根据自己的设计来灵活选择。
+
+# 3.缩略图
+
+## 3.1 获得缩略图示例及效果
+
+重复1.1的动作，不过这次我们把262-265行的代码拷贝到新的一个模板文件中，得到[03/index.html](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/03/index.html)，运行效果如图：
+
+![2.3](/public/img/boots/2.4.png)
+
+这个运行效果是有问题的，我们并未看到任何图，需要看看源码。
+
+## 3.2代码解读
+
+对于缩略图来说，非常简单，只需给`img`标记加上`img-thumbnail`样式类就可以了。
+
+但是我们所看到的`img`并无`src`属性，取而代之的是`data-src`，而且指向了一个js路径`data-src="holder.js/200x200"`。这里我们使用到了一个叫做holder的js工具，用于生成占位图，后半段`200x200`指的是图片的宽高，需要注意的是200和200之间是一个英文字母`x`而不是一个乘号。
+
+那这里为什么没得到效果呢？是因为我们还需引入`holder.js`，注意img的`data-src`并不需要指向`holder.js`的真实路径，它是一种固定写法，所谓引入`holder.js`是用`script`标签来引入：
+
+- 在boots-home/docs/assets/js/vendor/目录下，将文件`holder.min.js`拷贝到我们的工程路径下
+
+![2.5](/public/img/boots/2.5.png)
+
+- 在[03/index.html](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/03/index.html)中导入
+
+```
+<script src="../dist/js/vendor/holder.min.js" type="text/javascript" charset="utf-8"></script>
+```
+
+刷新页面将会得到效果
+
+![2.6](/public/img/boots/2.6.png)
+
+## 3.3小结
+
+本来讲缩略图，但是使用太简单（`class="img-thumbnail"`），反而变成讲解`holder.js`，这个工具对于前端设计人员是很有用的，可以快速生成你想要的占位图，它其实还有很丰富的用法，可参考其[官方文档](https://github.com/imsky/holder)
+
