@@ -1,6 +1,6 @@
 ---
 layout: post
-title: HTML基本结构
+title: HTML基础知识
 category: Web前端入门教程
 tags: Web前端
 author: 曹小虎
@@ -10,11 +10,18 @@ description:
 
 > 本章目标
 
-- HTML和XHTML的概念和历史沿革
 - HTML4.0和XHTML1.0语法规则
+- HTML和XHTML的概念和历史沿革
 - W3School使用手册
 
 # 1. HTML4.0和XHTML1.0语法规则 
+
+&emsp;&emsp;HTML是一种用来创建网站的标记语言，但是你已经知道这个事情了。HTML由一系列成对出现的标签组成，每一个标签都被包裹在"<"和">"符号之间。成对出现的标签中，前面的一个叫做**起始标签**（the opening tag）,后面的叫做**关闭标签**（the closing tag）。下面的例子就是HTML文档里面标记了网页标题的标签：
+
+    <title>The title of my document</title>
+
+&emsp;&emsp;我们看到，起始标签\<title\>出现在标题内容的前面，关闭标签\</title\>出现在网页标题的结尾，计算机看到这样的写法，就会按照规则（HTML规范）把**两个标签之间的内容显示为网页标题**。
+
 
 ## 1.1 HTML4.0基本语法
 
