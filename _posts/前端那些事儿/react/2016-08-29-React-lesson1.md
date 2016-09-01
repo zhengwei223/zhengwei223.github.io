@@ -6,6 +6,7 @@ tags: React 入门实例教程
 author: 郑未【编】
 keywords: lanqiao 蓝桥 培训 教程  React 入门实例教程
 description:
+p_cate: 前端那些事儿
 ---
 
 >原文作者： 阮一峰  ,原文链接：[http://www.ruanyifeng.com/blog/2015/03/react.html](http://www.ruanyifeng.com/blog/2015/03/react.html)。本站做了一些改动。
