@@ -4,18 +4,46 @@
   {% include header.html %}
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-      {% include navside.html %}
-      <div class="col-md-13 col-lg-13 col-sm-13 col-xs-13 aside3">
-        <div id="container">
-          <div id="pjax">
-            {{ content }}
-          </div>
+<!--[if lt IE 8]>
+  <p class="browserupgrade">您正在使用<strong>过时的</strong> 浏览器。 请 <a href="http://browsehappy.com/">升级</a> 以提升你的体验。</p>
+<![endif]-->
+
+  <header role="bannner">
+  {% include navbar.html %}
+  </header>
+  <main role="main">
+    <!--
+    <div class="container">
+       <div class="row">
+        <div class="col-md-12 aside3">
+          <div id="container"> -->
+            <div id="pjax">
+              {{ content }}
+            </div>
+          <!-- </div>
         </div>
-      </div>
+      </div> 
     </div>
-  </div>
+  -->
+  </main>
+
+  <footer role="contentinfo">
+    <hr>
+    <p class="text-center"><small>版权所有&copy;蓝桥软件学院</small></p>
+    <ul class="social list-unstyled" >
+      <li>
+        <a href="mailto:{{ site.author.email }}">
+          <span class="icon fa fa-envelope"></span>
+        </a>
+      </li>
+      <li>
+        <a href="https://coding.net/u/lanqiao" target="_blank">
+          <span class="icon fa fa-github-alt"></span>
+        </a>
+      </li>
+    </ul>
+  </footer>  
+  
   {% include footer.html %}
   {% include baidu.html %}
 </body>

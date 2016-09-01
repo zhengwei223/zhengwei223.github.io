@@ -1,0 +1,16 @@
+---
+layout: page
+title: <img src="/public/img/courses/react.png"></i>
+titlename: react系列教程
+---
+<div class="lessons">
+  <ul class="list-unstyled">
+{% for post in site.categories["react"]  reversed%}
+  
+    <li>
+      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  
+{% endfor %}
+  </ul>
+</div>
