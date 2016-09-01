@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: 创建连接按钮、菜单按钮、分割按钮  
+title: 创建简单菜单    
 category: jQuery-easyui基础教程  
 tags: Git jQuery EasyUI 项目 实战  
 author: 李彩琴  
@@ -11,37 +11,137 @@ description:
 ---
 # 课程目标
 
-- 掌握各种按钮的使用方法
+- 掌握Menu的使用方法
 
 
-# LinkButton
+# Menu
 
-## LinkButton简介
+## Menu简介
 
   
-按钮组件使用超链接按钮创建。它使用一个普通的\<a\>标签进行展示。它可以同时显示一个图标和文本,或只有图标或文字。按钮的宽度可以动态和折叠/展开以适应它的文本标签。效果如图：
+菜单组件通常用于快捷菜单,可以大大简化人们的操作，是我们日常使用中比较多的控件之一。此外，它也是构建其他菜单组件的必备基础组件。比如：menubutton和splitbutton。它还可以用于导航和执行命令。效果如图：
 
-![image](http://i.imgur.com/Sdd0Tr4.png)
+![image](http://i.imgur.com/nROZGRV.png)
 
-## LinkButton程序
+## Menu程序
 
+实现如下效果：
+
+![image](http://i.imgur.com/ftEM7Sb.png)
+
+当点击body标签的时候显示上图所示的右键菜单。实现该效果需要具备一下知识：
+
+* 如何触发鼠标右键事件：  
 
 ```
+//为body标签添加自定义的右键菜单
+$("body").mouseup(function(event){
+	//判断点击的是否是右键
+	if(event.button == 2){
+		//鼠标点击的是右键
+	}  
+});
+```	
+
+* 当触发鼠标右键的时候，或默认弹出浏览器的右键菜单。如何禁用浏览器本身的右键菜单呢？
+
+```
+//禁用body标签内浏览器本身自带的右键菜单
+$("body").contextmenu(function (){
+    return false;
+});
+```	
+ 
+* 显示自定义的右键菜单：  
+
+```
+//显示自定义的右键菜单
+$('#mm').menu('show', {    
+  left: event.pageX,    
+  top: event.pageY    
+});
+```	
+
+综上所述，HTML代码为： 
+ 
+```
+<body style="height: 610px;">
+	<div id="mm" class="easyui-menu" style="width:120px;">   
+	    <div>New</div>   
+	    <div>   
+	        <span>Open</span>   
+	        <div style="width:150px;">   
+	            <div><b>Word</b></div>   
+	            <div>Excel</div>   
+	            <div>PowerPoint</div>   
+	        </div>   
+	    </div>   
+	    <div data-options="iconCls:'icon-save'">Save</div>   
+	    <div class="menu-sep"></div>   
+	    <div>Exit</div>   
+	</div>  
+</body>
+```  
+
+JS代码为： 
+ 
+```
 $(function(){
-	$("a").click(function(event){
-		alert($(event.target).text());
+	//禁用body标签内浏览器本身自带的右键菜单
+	$("body").contextmenu(function (){
+	    return false;
+	});
+	//为body标签添加自定义的右键菜单
+	$("body").mouseup(function(event){
+		//判断点击的是否是右键
+		if(event.button == 2){
+			$('#mm').menu('show', {    
+			  left: event.pageX,    
+			  top: event.pageY    
+			});
+		}  
 	});
 });
-<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查找</a> 
-<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
-<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>  
-```	
-效果如下图：
-
-![image](http://i.imgur.com/6HzhNFR.png)
+```  
 
 
-## LinkButton常用属性
+## Menu常用属性
+
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th width="200px">属性名</th>
+      <th width="180px">属性值类型</th>
+      <th width="600px">描述</th>
+      <th width="100px">默认值</th>
+   </tr>
+   <tr>
+      <td>left</td>
+	  <td>string</td>
+	  <td>菜单的左边距位置。</td>
+	  <td>0</td>
+   </tr>
+   <tr>
+      <td>top</td> 
+	  <td>number</td> 
+	  <td>菜单的上边距位置。</td>
+	  <td>0</td>
+   </tr>
+   <tr>
+      <td>minWidth</td> 
+      <td>number</td> 
+      <td>菜单的最小宽度。</td> 
+      <td>120</td>
+   </tr>
+   <tr>
+      <td>hideOnUnhover</td> 
+      <td>boolean</td> 
+      <td>当设置为true时，在鼠标离开菜单的时候将自动隐藏菜单。</td> 
+      <td>true</td>
+   </tr>
+</table>
+
+
+## MenuItem（菜单项）常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -53,73 +153,42 @@ $(function(){
    <tr>
       <td>id</td>
 	  <td>string</td>
-	  <td>组件的ID属性。</td>
-	  <td>null</td>
-   </tr>
-   <tr>
-      <td>disabled</td> 
-	  <td>boolean</td> 
-	  <td>为true时禁用按钮。</td>
-	  <td>false</td>
-   </tr>
-   <tr>
-      <td>toggle</td> 
-      <td>boolean</td> 
-      <td>为true时允许用户切换其状态是被选中还是未选择，可实现checkbox复选效果。</td> 
-      <td>false</td>
-   </tr>
-   <tr>
-      <td>selected</td> 
-      <td>boolean</td> 
-      <td>定义按钮初始的选择状态，true为被选中，false为未选中。</td> 
-      <td>false</td>
-   </tr>
-   <tr>
-      <td>group</td> 
-      <td>string</td> 
-      <td>指定相同组名称的按钮同属于一个组，可实现radio单选效果。</td> 
-      <td>null</td>
-   </tr>
-   <tr>
-      <td>plain</td> 
-      <td>boolean</td> 
-      <td>为true时显示简洁效果。</td> 
-      <td>false</td>
+	  <td>菜单项ID属性。</td>
+	  <td></td>
    </tr>
    <tr>
       <td>text</td> 
-      <td>string</td> 
-      <td>按钮文字。</td> 
-      <td>''</td>
+	  <td>string</td> 
+	  <td>菜单项文本。</td>
+	  <td></td>
    </tr>
    <tr>
       <td>iconCls</td> 
       <td>string</td> 
-      <td>显示在按钮文字左侧的图标(16x16)的CSS类ID。</td> 
-      <td>null</td>
+      <td>显示在菜单项左侧的16x16像素图标的CSS类ID。</td> 
+      <td></td>
    </tr>
    <tr>
-      <td>iconAlign</td> 
+      <td>href</td> 
       <td>string</td> 
-      <td>按钮图标位置。</td> 
-      <td>left</td>
+      <td>设置点击菜单项时候的页面位置。</td> 
+      <td></td>
    </tr>
    <tr>
-      <td>size</td> 
-      <td>string</td> 
-      <td>按钮大小。可用值有：'small','large'。</td> 
-      <td>small</td>
-   </tr>
-   <tr>
-      <td>selected</td> 
+      <td>disabled</td> 
       <td>boolean</td> 
-      <td>定义按钮初始的选择状态，true为被选中，false为未选中。</td> 
+      <td>定义是否显示菜单项。</td> 
       <td>false</td>
+   </tr>
+   <tr>
+      <td>onclick</td> 
+      <td>function</td> 
+      <td>在点击菜单项的时候调用的函数。</td> 
+      <td></td>
    </tr>
 </table>
 
-
-## LinkButton常用方法  
+## Menu常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -133,29 +202,67 @@ $(function(){
       <td>返回属性对象。</td>
    </tr>
    <tr>
-      <td>disable</td> 
-      <td>none</td> 
-      <td>禁用按钮。</td>
+      <td>show</td> 
+      <td>pos</td> 
+      <td>显示菜单到指定的位置。'pos'参数有2个属性：<br/>
+		left：新的左边距位置。<br/>
+		top：新的上边距位置。<br/>
+	  </td>
    </tr>
    <tr>
-      <td>enable</td> 
+      <td>hide</td> 
       <td>none</td> 
-      <td>启用按钮。</td>
+      <td>隐藏菜单。</td>
    </tr>
    <tr>
-      <td>select</td> 
+      <td>destroy</td> 
       <td>none</td> 
-      <td>选择按钮。</td>
+      <td>销毁菜单。</td>
    </tr>
    <tr>
-      <td>unselect</td> 
-      <td>none</td> 
-      <td>取消选择按钮。</td>
+      <td>getItem</td> 
+      <td>itemEl</td> 
+      <td>获取指定的菜单项。</td>
+   </tr>
+   <tr>
+      <td>setText</td> 
+      <td>param</td> 
+      <td>设置指定菜单项的文本。</td>
+   </tr>
+   <tr>
+      <td>setIcon</td> 
+      <td>param</td> 
+      <td>设置指定菜单项图标。</td>
+   </tr>   
+   <tr>
+      <td>findItem</td> 
+      <td>text</td> 
+      <td>查找的指定菜单项，返回的对象和getItem方法是一样的。</td>
+   </tr>   
+   <tr>
+      <td>appendItem</td> 
+      <td>options</td> 
+      <td>追加新的菜单项，'options'参数代表新菜单项属性。</td>
+   </tr>
+   <tr>
+      <td>removeItem</td> 
+      <td>itemEl</td> 
+      <td>移除指定的菜单项。</td>
+   </tr>
+   <tr>
+      <td>enableItem</td> 
+      <td>itemEl</td> 
+      <td>启用菜单项。</td>
+   </tr>
+   <tr>
+      <td>disableItem</td> 
+      <td>itemEl</td> 
+      <td>禁用菜单项。</td>
    </tr>
 </table>  
 
 
-## LinkButton常用事件
+## Menu常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -164,9 +271,19 @@ $(function(){
 	  <th width="600px">描述</th>
    </tr>
    <tr>
-      <td>onClick</td>
+      <td>onShow</td>
 	  <td>none</td>
-	  <td>在点击按钮的时候触发。</td>
+	  <td>在菜单显示之后触发。</td>
+   </tr>
+   <tr>
+      <td>onHide</td>
+	  <td>none</td>
+	  <td>在菜单隐藏之后触发。</td>
+   </tr>
+   <tr>
+      <td>onClick</td>
+	  <td>item</td>
+	  <td>在菜单项被点击的时候触发。</td>
    </tr>
 </table> 
 
@@ -177,249 +294,80 @@ $(function(){
 HTML代码：
 
 ```
-<input type="button" value="禁用按钮" onclick="myBtn();"/><br/>
+<body style="height: 610px;">
+	<div id="mm" class="easyui-menu" style="width:120px;">   
+	    <div data-options="id:1,name:'new',iconCls:'icon-add'">新建</div>
+		<div data-options="id:2,name:'save',iconCls:'icon-save'">保存</div>
+		<div data-options="id:3,name:'print',iconCls:'icon-print'">打印</div>
+		<div class="menu-sep"></div>
+		<div data-options="id:4,name:'exit',iconCls:'icon-cancel'">退出</div>
+	</div>  
+	<input type="button" value="新建-->修改" onclick="myUpdate();"/><br/>
+	<input type="button" value="添加重置菜单项" onclick="myAdd();"/><br/>
+	<input type="button" value="移除打印菜单项" onclick="myRemove();"/><br/>
+	<input type="button" value="禁用保存菜单项" onclick="myDisable();"/><br/>
+	<input type="button" value="启用保存菜单项" onclick="myEnable();"/><br/>
+</body>
 ```
 
 JS代码：
 
 ```
-function myBtn(){
-	if($("input").attr("value") === '禁用按钮'){
-		$("a").linkbutton("disable");
-		$("input").attr("value","启用按钮");
-	}else{
-		$("a").linkbutton("enable");
-		$("input").attr("value","禁用按钮");
-	}
+//新建-->修改
+function myUpdate(){
+	// 查找“打开”项并禁用它
+	var item = $('#mm').menu('findItem', '新建');
+	//$('#mm').menu('disableItem', item.target);
+	$('#mm').menu('setText', {
+		target: item.target,
+		text: '修改'
+	});
+	$('#mm').menu('setIcon', {
+		target: item.target,
+		iconCls: 'icon-edit'
+	});
+}
+//添加重置菜单项
+function myAdd(){
+	// 追加一个顶部菜单
+	$('#mm').menu('appendItem', {
+		text: '重置',
+		id:10,
+		name:'reset',
+		iconCls: 'icon-undo',
+	});
+	
+	// 追加一个子菜单项到保存菜单
+	var item = $('#mm').menu('findItem', '保存');  // 查找“保存”项
+	$('#mm').menu('appendItem', {
+		parent: item.target,  // 设置父菜单元素
+		text: '保存到Excel文档',
+		id:11,
+		name:'excel'
+	});
+}
+//移除打印菜单项
+function myRemove(){
+	// 查找“打印”项并移除它
+	var item = $('#mm').menu('findItem', '打印');
+	$('#mm').menu('removeItem', item.target);
+}
+//禁用保存菜单项
+function myDisable(){
+	// 查找“保存”项并禁用它
+	var item = $('#mm').menu('findItem', '保存');
+	$('#mm').menu('disableItem', item.target);
+}
+//启用保存菜单项
+function myEnable(){
+	// 查找“保存”项并启用它
+	var item = $('#mm').menu('findItem', '保存');
+	$('#mm').menu('enableItem', item.target);
 }
 ```
 
-# MenuButton
 
-## MenuButton简介
-
-  
-菜单按钮是下拉菜单的一部分。它伴随着linkbutton和menu组件。在用户点击linkbutton之前菜单是隐藏的，当用户用鼠标点击或移动到linkbutton上面的时候菜单才会显示。 效果如图：
-
-![image](http://i.imgur.com/QJbJvWO.png)
-
-## MenuButton程序
-
-
-```
-<div style="background:#fafafa;padding:5px;width:200px;border:1px solid #ccc">
-	<a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">Edit</a>
-	<a href="#" class="easyui-menubutton" menu="#mm2" iconCls="icon-help">Help</a>
-</div>
-<div id="mm1" style="width:150px;">
-	<div iconCls="icon-undo">Undo</div>
-	<div iconCls="icon-redo">Redo</div>
-	<div class="menu-sep"></div>
-	<div>Cut</div>
-	<div>Copy</div>
-	<div>Paste</div>
-	<div class="menu-sep"></div>
-	<div iconCls="icon-remove">Delete</div>
-	<div>Select All</div>
-</div>
-<div id="mm2" style="width:100px;">
-	<div>Help</div>
-	<div>Update</div>
-	<div>About</div>
-</div>
-```	
-效果如上图。
-
-
-## MenuButton常用属性
-
-<table class="table table-bordered table-striped table-condensed">
-   <tr>
-      <th width="200px">属性名</th>
-      <th width="180px">属性值类型</th>
-      <th width="600px">描述</th>
-      <th width="100px">默认值</th>
-   </tr>
-   <tr>
-      <td>plain</td>
-	  <td>boolean</td>
-	  <td>为true时显示简易效果。</td>
-	  <td>true</td>
-   </tr>
-   <tr>
-      <td>menu</td> 
-	  <td>string</td> 
-	  <td>用来创建一个对应菜单的选择器。</td>
-	  <td>null</td>
-   </tr>
-   <tr>
-      <td>menuAlign</td> 
-      <td>string</td> 
-      <td>允许用户设置顶级菜单对齐方式。可用值有：'left','right'。</td> 
-      <td>null</td>
-   </tr>
-   <tr>
-      <td>duration</td> 
-      <td>number</td> 
-      <td>定义鼠标划过按钮时显示菜单所持续的时间，单位为毫秒。</td> 
-      <td>100</td>
-   </tr>
-</table>
-
-
-## MenuButton常用方法  
-
-<table class="table table-bordered table-striped table-condensed">
-   <tr>
-      <th width="300px">方法名</th> 
-      <th width="300px">方法参数</th> 
-      <th width="600px">描述</th>
-   </tr>
-   <tr>
-      <td>options</td> 
-      <td>none</td> 
-      <td>返回属性对象。</td>
-   </tr>
-   <tr>
-      <td>disable</td> 
-      <td>none</td> 
-      <td>禁用按钮。</td>
-   </tr>
-   <tr>
-      <td>enable</td> 
-      <td>none</td> 
-      <td>启用按钮。</td>
-   </tr>
-   <tr>
-      <td>destroy</td> 
-      <td>none</td> 
-      <td>销毁菜单按钮。</td>
-   </tr>
-</table>  
-
-参考jQuery EasyUI的API。
-
-
-# SplitButton
-
-## SplitButton简介
-
-  
-类似菜单按钮，分割按钮也与linkbutton和菜单有关系。menubutton和splitbutton之间的区别是,splitbutton分为两部分。它只会在鼠标移动到splitbutton按钮右边的时候才会显示出“分割线”。效果如图：
-
-![image](http://i.imgur.com/Y91qCju.png)
-
-## SplitButton程序
-
-
-```
-<div style="border:1px solid #ccc;background:#fafafa;padding:5px;width:120px;">
-	<a href="#" class="easyui-splitbutton" menu="#mm" iconCls="icon-edit">Edit</a>
-	<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-help"></a>
-</div>
-<div id="mm" style="width:150px;">
-	<div iconCls="icon-undo">Undo</div>
-	<div iconCls="icon-redo">Redo</div>
-	<div class="menu-sep"></div>
-	<div>Cut</div>
-	<div>Copy</div>
-	<div>Paste</div>
-	<div class="menu-sep"></div>
-	<div>
-		<span>Open</span>
-		<div style="width:150px;">
-			<div>Firefox</div>
-			<div>Internet Explorer</div>
-			<div class="menu-sep"></div>
-			<div>Select Program...</div>
-		</div>
-	</div>
-	<div iconCls="icon-remove">Delete</div>
-	<div>Select All</div>
-</div>  
-```	
-效果如上图
-
-
-## SplitButton常用属性
-
-<table class="table table-bordered table-striped table-condensed">
-   <tr>
-      <th width="200px">属性名</th>
-      <th width="180px">属性值类型</th>
-      <th width="600px">描述</th>
-      <th width="100px">默认值</th>
-   </tr>
-   <tr>
-      <td>plain</td>
-	  <td>boolean</td>
-	  <td>设置为true将显示简洁效果。</td>
-	  <td>true</td>
-   </tr>
-   <tr>
-      <td>menu</td> 
-	  <td>string</td> 
-	  <td>用来创建一个对应菜单的选择器。</td>
-	  <td>null</td>
-   </tr>
-   <tr>
-      <td>duration</td> 
-      <td>number</td> 
-      <td>定义鼠标划过按钮时显示菜单所持续的时间，单位为毫秒。</td> 
-      <td>100</td>
-   </tr>
-</table>
-
-
-## SplitButton常用方法  
-
-<table class="table table-bordered table-striped table-condensed">
-   <tr>
-      <th width="300px">方法名</th> 
-      <th width="300px">方法参数</th> 
-      <th width="600px">描述</th>
-   </tr>
-   <tr>
-      <td>options</td> 
-      <td>none</td> 
-      <td>返回属性对象。</td>
-   </tr>
-   <tr>
-      <td>disable</td> 
-      <td>none</td> 
-      <td>禁用分割按钮。</td>
-   </tr>
-   <tr>
-      <td>enable</td> 
-      <td>none</td> 
-      <td>启用分割按钮。</td>
-   </tr>
-   <tr>
-      <td>destroy</td> 
-      <td>none</td> 
-      <td>销毁分割按钮。</td>
-   </tr>
-</table>  
-
-参考jQuery EasyUI的API。
-
-**MenuButton与SplitButton的区别：**当没有子菜单项的时候，MenuButton不再显示下三角形，SplitButton依然显示下三角形。  
-
-参考代码：
-
-```
-<div style="border:1px solid #ccc;background:#fafafa;padding:5px;width:120px;">
-	<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-help"></a>
-	<a href="#" class="easyui-splitbutton" plain="true" iconCls="icon-help"></a>
-</div>
-```  
-
-效果如下图：
-
-![image](http://i.imgur.com/llYO9TA.png)
-
-
-以上便是各种按钮的基本用法。
+以上便是Menu的基本用法。
 
 
 
