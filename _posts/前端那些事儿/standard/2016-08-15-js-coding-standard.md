@@ -6,6 +6,7 @@ tags: 前端 js 编码规范
 author: 
 keywords: lanqiao 蓝桥 培训 教程 前端 编码规范
 description:
+p_cate: 前端那些事儿
 ---
 
 *用更合理的方式写 JavaScript*
