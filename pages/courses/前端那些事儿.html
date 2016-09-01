@@ -1,0 +1,41 @@
+---
+layout: page
+title: 前端那些事儿
+scrolltop: true
+---
+
+  <h1>模块化开发解决方案</h1>
+  <ul class="list-unstyled">
+{% for post in site.categories["front-modularity"]  reversed%}
+    <li>
+      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+{% endfor %}
+  </ul>
+
+  <h1>构建、调试、代理、打包部署等一系列工程化</h1>
+  <ul class="list-unstyled">
+{% for post in site.categories["front-build"]  reversed%}
+    <li>
+      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+{% endfor %}
+  </ul>
+
+  <h1>编程规范</h1>
+  <ul class="list-unstyled">
+{% for post in site.categories["front-standard"]  reversed%}
+    <li>
+      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+{% endfor %}
+  </ul>  
+
+  <h1>react系列教程</h1>
+  <ul class="list-unstyled">
+{% for post in site.categories["react"]  reversed%}
+    <li>
+      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+{% endfor %}
+  </ul> 

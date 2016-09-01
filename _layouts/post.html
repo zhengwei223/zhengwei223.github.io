@@ -1,26 +1,102 @@
 ---
 layout: base
+desc: 单篇文章的布局模板
 ---
-<div class="row">
-  <div class="col-md-13 aside3-title">
-    <br>
-    <h2 id="#identifier">{{ page.title }}</h2>
-    {{ page.date | date:"%Y年%m月%d日" }} &nbsp;&nbsp;&nbsp;&nbsp;{{ page.author }}
-  </div>
-  <div class="col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2 col-sm-12 col-xs-12 aside3-content">
-       <!-- <p>阅读这篇文章预计花费{{ content | reading_time | pluralize: "minute" }} 分钟</p> -->
-    <hr>
-    <div id="content">
-      {{ content }}
+
+<script>
+  {% capture cate %}{{ page.categories |escape }}{% endcapture%}
+  {% capture coursePage %}"/pages/courses/{{cate}}.html"{% endcapture%}
+  {% for post in site.categories[cate]  reversed%}
+    {% if post.title == page.title %}
+      {% assign index = forloop.index0 %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  {% assign index_pre = index |minus:1 %}
+  {% assign index_next = index |plus:1 %}
+  {% for post in site.categories[cate]  reversed%}
+    {% if forloop.index0 == index_pre %}
+      {% assign preUrl = post.url %}
+      {% assign preTitle = post.title %}
+    {% endif %}
+    {% if forloop.index0 == index_next %}
+      {% assign nextUrl = post.url %}
+      {% assign nextTitle = post.title %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  console.log('{{index}}','{{cate}}','{{coursePage}}','{{preUrl}}','{{nextUrl}}');
+</script>
+
+
+<div class="doc-title">
+  <h1 class="identifier">{{ page.title }}</h1>
+  {{ page.date | date:"%Y年%m月%d日" }} &nbsp;&nbsp;&nbsp;&nbsp;{{ page.author }}
+</div>
+
+<hr>
+<div class="container doc-container">
+  <div class="row">
+    <div class="col-md-9 doc-content">
+      <div id="content" >
+        {{ content }}
+      </div>
+      <hr>
+      {% include duoshuo.html %}
     </div>
-    <hr>
-    {% include duoshuo.html %}
-  </div>
-  <!-- 文章的目录 -->
-  <div id="content_table" style="position:fixed;right:20px;top:120px;display:none;">
-    <div class="panel panel-success">
-      <div class="panel-body" id="nav"></div>
+    <!-- 右侧文章目录 和相关按钮-->
+    <div class="col-md-3 doc-side-container">
+      <nav class="doc-sidebar hidden-print hidden-sm hidden-xs affix-top">
+        <ul class="nav nav-pills nav-stacked">
+        </ul>
+        <div class="btn-group btn-group-sidebar">
+          
+          <a class="btn btn-default btn-pre pjaxlink " href="{{preUrl}}"
+          {% if preUrl==null  %}disabled
+          {% else %}
+          data-toggle="tooltip" data-placement="left" title="{{preTitle}}"
+          {% endif %}>
+            <span aria-hidden="true">&larr;</span> 
+          </a>
+
+          <button class="btn btn-default scrolltop-btn">
+            <i class="icon fa fa-angle-double-up"></i>
+          </button>
+          <a class="btn btn-default btn-course pjaxlink" href={{coursePage}}>
+            <i class="icon fa fa-book"></i>
+          </a>
+
+          <a class="btn btn-default btn-next pjaxlink " href="{{nextUrl}}"
+          {% if nextUrl==null %}disabled
+          {% else %}
+          data-toggle="tooltip" data-placement="right" title="{{nextTitle}}"
+          {% endif %}>
+            <span aria-hidden="true">&rarr;</span> 
+          </a>
+        </div>
+      </nav>
     </div>
   </div>
 </div>
 
+<!-- 文章的目录 -->
+<!-- <div id="content_table" style="position:fixed;right:60px;top:90px;display:none;height:400px;overflow-y:overlay;z-index:10 ">
+  <div class="panel panel-success">
+    <div class="panel-body" id="nav"></div>
+  </div>
+</div> -->
+
+      <!-- 小屏幕上展示文章目录的按钮 -->
+      <!-- <div class="content-btn-container">
+        <button class="btn btn-primary content_btn">
+          <i class="icon fa fa-lg fa-plus"></i>
+        </button>
+      </div> -->
+      
+      <!-- 回到顶部按钮 -->
+      <div class="scrolltop-btn-container hidden-md hidden-lg">
+        <button class="btn btn-primary scrolltop-btn">
+          <i class="icon fa fa-angle-double-up"></i>
+        </button>
+      </div>

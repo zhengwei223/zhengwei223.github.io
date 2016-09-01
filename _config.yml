@@ -24,6 +24,7 @@ SEOTitle: 蓝桥软件学院
 # gavatar头像及Favicon
 gavatar: /public/img/蓝桥-图形@2x_24.png
 favicon: /public/img/蓝桥-图形@2x_24.png
+brand: /public/img/蓝桥软件学院@2x_76.png
 
 # google analytics 设置
 baidu:
@@ -57,8 +58,8 @@ locals:
 cates_basic:
     - Java8编程语言
     - JDBC入门教程
-    - JDK核心API
     - Web前端入门教程
+    - Bootstrap入门实例教学
     - jQuery-easyui基础教程
     - 数据库入门教程
     - JSP、Servlet编程
@@ -77,8 +78,9 @@ cates_advanced:
     - 数据库性能调优
     - 存储过程
     - JVM性能调优
-    - 系统安全与Shiro框架教程
+    - web应用系统安全入门教程
     - 框架源码解读系列
+    - 前端那些事儿
 cates_project:
     - JavaSe实现五子棋游戏
     - JavaSe实现植物大战僵尸
@@ -87,7 +89,7 @@ cates_project:
     - Servlet实现综合类购物网站及后台管理系统
     - Servlet实现OA系统
     - SSM+Shiro实现基于角色的权限管理通用模块
-    - JavaEE全栈式项目化工程实践概述
+    - lanqiaoEE
     - SSM框架实现蓝桥教学教务管理系统
 
 cates_frontiers:
@@ -96,5 +98,9 @@ cates_frontiers:
     - 云计算
     - 人工智能
 
-cates_interview:
+cates_cep:
     - JavaEE面试
+
+cates_master:
+    - toStudent
+    - toTeacher

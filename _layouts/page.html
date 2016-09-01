@@ -1,16 +1,43 @@
 ---
 layout: base
+desc: 单页的布局模板，适用于列表型的页面，如归档
 ---
-<div class="row">
-  <div class="col-md-13 aside3-title">
-    <br>
-    <h2 id="#identifier">{{ page.title }}</h2>
-  </div>
-  <div class="col-md-13 aside3-content">
-    <div id="page-content">
-      {{ content }}
-    </div>
-    <hr>
-    {% include duoshuo.html %}
-  </div>
+
+<!-- 标题 -->
+<div class="doc-title">
+<h2 class="identifier">{{ page.title }}</h2>
 </div>
+
+<div class="container doc-container">
+	<div class="row">
+		<div class="col-md-9 doc-content">
+	      <div id="page-content" >
+	        {{ content }}
+	      </div>
+	      <hr>
+	    </div>
+		<!-- 右侧文章目录 和相关按钮-->
+	    <div class="col-md-3 doc-side-container">
+	      <nav class="doc-sidebar hidden-print hidden-sm hidden-xs affix-top">
+	        <ul class="nav nav-pills nav-stacked">
+	        </ul>
+	        {% if page.scrolltop %}
+	        <div class="text-center">
+	          <button class="btn btn-primary scrolltop-btn">
+	            <i class="icon fa fa-angle-double-up"></i>
+	          </button>
+	        </div>
+	        {% endif %}
+	      </nav>
+	    </div>
+
+	</div>
+</div>
+{% if page.scrolltop %}
+<!-- 回到顶部按钮 -->
+<div class="scrolltop-btn-container hidden-md hidden-lg">
+	<button class="btn btn-primary scrolltop-btn">
+	  <i class="icon fa fa-angle-double-up"></i>
+	</button>
+</div>
+{% endif %}
