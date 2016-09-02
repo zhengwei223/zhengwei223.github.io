@@ -52,10 +52,14 @@ easyUI框架提供了创建网页所需的一切，帮助您轻松建立站点�
 
 ![image](http://i.imgur.com/OKUnaaP.png)
 
-- demo是easyUI官方提供的案例
-- local是各种支持的语言包
-- plugins是涉及到的js包
-- themes是easyUI提供的各种主题  
+- demo:easyui演示页面代码库（可以从中参考很多组件的用法，是个非常好用的demo库。）
+- locale:easyui国际化资源文件库（需要用到国际化的时候就需要在页面中引用该包路径下的文件。）
+- plugins:easyui核心功能组件分解后的独立插件库（需要配合easyloader.js一起使用。）
+- src：easyui部分非核心组件的源代码库（核心大组件的源代码并未公布，比如datagrid、combo和tree等。）
+- themes：easyui的皮肤库（皮肤库中会收录所有网上能找得到的皮肤，所以大家不用再去自己乱搜了。）
+- easyloader.js：easyui组件加载器（easyui提供了2种组件加载方式，这就是其中一种，当使用该方式的时候可以不必引入jquery.easyui.min.js文件，具体用法请参看api文档。）
+- jquery.easyui.min.js：easyui的完整组件包文件（当使用了该文件的时候就可以不必引入easyloader.js文件，具体用法请参考官方demo或api文档。）
+- jquery.min.js：jQuery框架库文件，该版本的jQuery库提供的是最新的1.11.1版，能够支持IE6、7、8。
 
 
 # jQuery EasyUI入门案例
