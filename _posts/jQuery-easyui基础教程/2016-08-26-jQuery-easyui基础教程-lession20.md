@@ -64,8 +64,39 @@ HTML中非常重要的一个标签是Form标签，登录、注册、查找等很
 	  <td>提交表单动作的URL地址。</td>
 	  <td>null</td>
    </tr>
+   <tr>
+      <td>novalidate</td>
+	  <td>boolean</td>
+	  <td>提交表单时是否校验格式</td>
+	  <td>false</td>
+   </tr>
+   <tr>
+      <td>ajax</td>
+	  <td>boolean</td>
+	  <td>定义是否使用ajax提交表单，true:使用,false:不使用。</td>
+	  <td>true</td>
+   </tr>
+   <tr>
+      <td>queryParams</td>
+	  <td>object</td>
+	  <td>当表单被提交到服务器的时候增加的额外参数列表。</td>
+	  <td>{}</td>
+   </tr>
 </table>
 
+案例一：  
+
+代码如下：  
+
+```
+$('#ff').form({    
+    url:'/easyUI/test', 
+    novalidate:true, //不进行格式校验 
+    success:function(data){    
+        alert(data);    
+    }    
+}); 
+```
 
 ## Form常用方法  
 
