@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: Progressbar进度条    
+title: 可调整大小的控件    
 category: jQuery-easyui基础教程  
 tags: Git jQuery EasyUI 项目 实战  
 author: 李彩琴  
@@ -11,159 +11,92 @@ description:
 ---
 # 课程目标
 
-- 掌握Progressbar的使用方法
+- 掌握Resizable
 
+# Resizable
 
-# Progressbar
-
-## Progressbar简介
+## Resizable简介
 
   
-进度条用来反馈一个长时间运行的操作进展。可以更新的进展条，让用户知道当前正在执行操作。效果如图：
+EasyUI的Draggable控件可以帮助我们快速的开发可以调整大小的控件，程序员开发起来会更加方便快捷。
 
-![image](http://i.imgur.com/8y3nRho.png) 
+## 开发Resizable程序
 
-## 开发Progressbar程序
 
 ```
-<div id="p" class="easyui-progressbar" data-options="value:60" style="width:400px;"></div> 
+<div id="rr" class="easyui-resizable" data-options="maxWidth:800,maxHeight:600" style="width:100px;height:100px;border:1px solid #ccc;"></div> 
 ```  
 
-只需要简单的给DIV标签添加一个指定的class样式即可创建一个进度条。效果如下图：
+运行程序会发现，定义的div可以通过鼠标调整大小。
 
-![image](http://i.imgur.com/Vd8fctY.png)
 
-## Progressbar常用属性
+## Resizable常用属性
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
-      <th width="200px">属性名</th>
-      <th width="180px">属性值类型</th>
-      <th width="650px">描述</th>
-      <th>默认值</th>
+      <th width="200px">属性名</th><th width="180px">属性值类型</th><th width="500px">描述</th><th width="200px">默认值</th>
    </tr>
    <tr>
-      <td>width</td>
-	  <td>string</td>
-	  <td>设置进度条宽度。</td>
-	  <td>auto</td>
+      <td>disabled</td>
+	  <td>boolean</td>
+	  <td>如果为true，则禁用大小调整。</td>
+	  <td>false</td>
    </tr>
    <tr>
-      <td>height</td> 
-	  <td>number</td> 
-	  <td>设置进度条高度。</td><td>22</td>
+      <td>handles</td> <td>string</td> <td>声明调整方位,'n'=北,'e'=东,'s'=南等。</td><td>n, e, s, w, ne, se, sw, nw, all</td>
    </tr>
    <tr>
-      <td>value</td> 
-      <td>number</td> 
-      <td>百分比值。</td> 
-      <td>0</td>
+      <td>minWidth</td> <td>number</td> <td>当调整大小时候的最小宽度。</td> <td>10</td>
    </tr>
    <tr>
-      <td>text</td> 
-      <td>string</td> 
-      <td>显示在组件上的文本模板。</td> 
-      <td>{value}%</td>
+      <td>minHeight</td> <td>number</td> <td>当调整大小时候的最小高度。</td> <td>10</td>
+   </tr>
+   <tr>
+      <td>maxWidth</td> <td>number</td> <td>当调整大小时候的最大宽度。</td> <td>10000</td>
+   </tr>
+   <tr>
+      <td>maxHeight</td> <td>number</td> <td>当调整大小时候的最大高度。</td> <td>10000</td>
    </tr>
 </table>
 
 
-## Progressbar常用方法  
+## Resizable常用方法  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
-      <th width="300px">方法名</th> 
-      <th width="300px">方法参数</th> 
-      <th width="600px">描述</th>
+      <th width="300px">方法名</th> <th width="300px">方法参数</th> <th width="600px">描述</th>
    </tr>
    <tr>
-      <td>options</td> 
-      <td>none</td> 
-      <td>返回属性对象。</td>
+      <td>options</td> <td>none</td> <td>返回属性对象。</td>
    </tr>
    <tr>
-      <td>resize</td> 
-      <td>width</td> 
-      <td>组件大小。代码示例：<br/>
-		$('#p').progressbar('resize');           // 更改进度条到原始宽度<br/>
-		$('#p').progressbar('resize', 350);   // 更改进度条到新的宽度
-	  </td>
+      <td>enable</td> <td>none</td> <td>启用调整大小功能。</td>
    </tr>
    <tr>
-      <td>getValue</td> 
-      <td>none</td> 
-      <td>返回当前进度值。</td>
-   </tr>
-   <tr>
-      <td>setValue</td> 
-      <td>value</td> 
-      <td>设置一个新的进度值。</td>
+      <td>disable</td> <td>none</td> <td>禁用调整大小功能。</td>
    </tr>
 </table>  
 
 
-## Progressbar常用事件
+## Resizable常用事件
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
-      <th width="300px">事件名</th>
-	  <th width="300px">事件参数</th>
-	  <th width="600px">描述</th>
+      <th width="300px">事件名</th><th width="300px">事件参数</th><th width="600px">描述</th>
    </tr>
    <tr>
-      <td>onChange</td>
-	  <td>newValue,oldValue</td>
-	  <td>在值更改的时候触发。代码示例：<br/>
-		$('#p').progressbar({<br/>
-			onChange: function(value){<br/>
-				alert(value)<br/>
-			}<br/>
-		});
-	  </td>
+      <td>onStartResize</td><td>e</td><td>在开始改变大小的时候触发。</td>
    </tr>
    <tr>
-      <td>onStartDrag</td>
-	  <td>e</td>
-	  <td>在目标对象开始被拖动时触发。</td>
+      <td>onResize</td><td>e</td><td>在调整大小期间触发。当返回false的时候，不会实际改变DOM元素大小。</td>
    </tr>
    <tr>
-      <td>onDrag</td>
-	  <td>e</td>
-	  <td>在拖动过程中触发，当不能再拖动时返回false。</td>
-   </tr>
-	<tr>
-      <td>onStopDrag</td>
-	  <td>e</td>
-	  <td>在拖动停止时触发。</td>
+      <td>onStopResize</td><td>e</td><td>在停止改变大小的时候触发。</td>
    </tr>
 </table> 
 
-参考jQuery EasyUI的API。
 
-代码如下：
-
-```
-$(function(){
-	intervalId = setInterval('changeValue()',1000);
-});
-function changeValue(){
-		var value = $('#p').progressbar('getValue'); 
-		if (value < 100){ 
-			value += Math.floor(Math.random() * 10); 
-			$('#p').progressbar('setValue', value); 
-		}else{
-			clearInterval(intervalId);
-			alert('加载完毕！');
-		} 
-}
-```
-
-```
-<div id="p" class="easyui-progressbar" data-options="value:0,text:'正在加载数据...'" style="width:400px;"></div> 
-```
-
-
-以上便是Progressbar的基本用法。
+以上便是Resizable的基本用法。
 
 
 
