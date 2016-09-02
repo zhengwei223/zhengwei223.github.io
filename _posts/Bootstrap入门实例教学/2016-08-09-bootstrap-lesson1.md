@@ -88,6 +88,10 @@ HBuilder下载安装比较简单，此处不表。
 ```
 其余那些关联到cdn的静态资源，就这样保留吧。
 
+<div class="alert alert-warning" role="alert">
+注意，所有的js应该放到`body`的最后以加快文档的加载速度！
+</div>
+
 然后你就可以直接在hb（HBuilder简写）里面运行这个页面了，效果如下：
 
 ![Alt text](/public/img/boots/1.1.png)

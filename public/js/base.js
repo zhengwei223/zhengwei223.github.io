@@ -214,6 +214,7 @@ $(document).ready(function() {
     addDuoshuo();//添加多说评论和分享框
     addTableStyle();  
     addScrollspyAndAffix();
+    otherConfig();
   });
 
   addListener();
@@ -221,8 +222,11 @@ $(document).ready(function() {
   addDuoshuo();
   addTableStyle();
   addScrollspyAndAffix();
+  otherConfig();
 });
-
+function otherConfig(){
+  $('[data-toggle="tooltip"]').tooltip();
+}
 function addListener(){
   //展示本文目录
   $("#content_btn").on('click', function(){
