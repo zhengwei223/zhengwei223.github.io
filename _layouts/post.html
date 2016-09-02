@@ -5,7 +5,12 @@ desc: 单篇文章的布局模板
 
 <script>
   {% capture cate %}{{ page.categories |escape }}{% endcapture%}
-  {% capture coursePage %}"/pages/courses/{{cate}}.html"{% endcapture%}
+  {% if page.p_cate %}
+    {% capture coursePage %}"/pages/courses/{{page.p_cate}}.html"{% endcapture%}
+    {% else %}
+      {% capture coursePage %}"/pages/courses/{{cate}}.html"{% endcapture%}
+  {% endif %}
+      
   {% for post in site.categories[cate]  reversed%}
     {% if post.title == page.title %}
       {% assign index = forloop.index0 %}
