@@ -138,6 +138,12 @@ $(function(){
       <td>当设置为true时，在鼠标离开菜单的时候将自动隐藏菜单。</td> 
       <td>true</td>
    </tr>
+   <tr>
+      <td>duration</td> 
+      <td>number</td> 
+      <td>该属性允许用户自定义隐藏菜单动画的持续时间，以毫秒为单位。</td> 
+      <td>100</td>
+   </tr>
 </table>
 
 
@@ -258,6 +264,21 @@ $(function(){
       <td>disableItem</td> 
       <td>itemEl</td> 
       <td>禁用菜单项。</td>
+   </tr>
+   <tr>
+      <td>showItem</td> 
+      <td>itemEl</td> 
+      <td>显示菜单项。</td>
+   </tr>
+   <tr>
+      <td>hideItem</td> 
+      <td>itemEl</td> 
+      <td>隐藏菜单项。</td>
+   </tr>
+   <tr>
+      <td>resize</td> 
+      <td>itemEl</td> 
+      <td>重置指定的菜单项。</td>
    </tr>
 </table>  
 

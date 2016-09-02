@@ -317,6 +317,16 @@ description:
       <td>animate</td> 
       <td>展开面板主体。</td>
    </tr>
+   <tr>
+      <td>clear</td> 
+      <td>none</td> 
+      <td>清除面板内容</td>
+   </tr>
+   <tr>
+      <td>doLayout</td> 
+      <td>none</td> 
+      <td>设置面板内子组件的大小。</td>
+   </tr>
 </table>  
 
 
