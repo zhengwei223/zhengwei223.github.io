@@ -16,18 +16,25 @@ description:
 
 # 1.BOX模型概念
 
-&emsp;&emsp;所有的HTML元素都可以被看作盒子，CSS盒子又是一个包装HTML元素的盒子。
-
-&emsp;&emsp;**CSS盒子模型**的意义和作用在于帮助我们我们更好地理解并谈论网页的设计和布局。
+&emsp;&emsp;根据盒子模型的概念，网页上的所有元素都是一个长方形（rectangle）盒子，会有宽（width）,高（height）, 内边距（padding）, 边框（borders） 和 外边距（margins）这些属性。
 
  ![html-xhtml-relation](/public/img/html/w3c_css_box_model.gif)
 
-&emsp;&emsp;正如图片显示的，一个完整的的CSS盒子总共有四部分组成外边距、边框、内边距、HTML元素。
+&emsp;&emsp;下面是一个例子，形象直观地标示出了盒子的这些属性：
+
+![html-xhtml-relation](/public/img/html/css-box-model-demo.PNG)
+
+&emsp;&emsp;你可以在代码上，修改它们的像素数值，看看div元素的长方形盒子显示的样式有什么变化：
 
     <!DOCTYPE html>
     <html>
     <head>
     <style>
+     p {
+       background-color: red;
+       color : white;
+     }
+
     div {
         background-color: lightgrey;
         width: 300px;
@@ -37,46 +44,17 @@ description:
     }
     </style>
     </head>
-    <body>
-    
+    <body> 
     <h2>演示CSS盒子模型</h2>
-
-    <div>这一段文字是HTML元素的实际内容。 </div>
-    
+    <div><p>这一段文字是包裹在div里面的内容。</p></div>   
     </body>
     </html>
 
   [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
 
+&emsp;&emsp;浏览器在显示div元素的时候，根据下面的方法计算出它的实际宽度是：
 
-&emsp;&emsp;为了在所有浏览器里保持一个HTML元素的大小不变，我们需要充分了解CSS盒子模型如何工作。假如说我们需要设置一个DIV元素的宽度d是350px，实际代码应该这样写：
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <style>
-    div {
-        width: 320px;
-        padding: 10px;
-        border: 5px solid gray;
-        margin: 0; 
-        }
-    </style>
-    </head>
-    <body>
-    
-    <h2>演示CSS盒子模型</h2>
-
-    <div>这一段文字是HTML元素的实际内容。 </div>
-    
-    </body>
-    </html>
-
-  [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
-
-&emsp;&emsp;最终浏览器会按照下面的规则计算出DIV元素的宽度：
-
-> 内容宽度(320px) + 左内边距(10px) + 右内边距(10px) + 左边框(5px) + 右边框(5px) + 左外边距(0px) + 右外边距(0px)
+> 长方形盒子的宽度（450px）= div宽度(300px) + 左内边距(25px) + 右内边距(25px) + 左边框(25px) + 右边框(25px) + 左外边距(25px) + 右外边距(25px)
 
 # 2.用table标签布局页面
 
@@ -126,11 +104,9 @@ description:
 &emsp;&emsp;从上面的代码我们也可以看出，每一个\<td\>元素都代表了页面布局上的不同区域。每一块区域的\<td\>元素都需要写上不同的样式定义。我们很难通过CSS的标签选择器统一地控制外观样式。最后我们还发现：table布局使得网页的结构（内容）与外观样式耦合在一起，修改难、维护起来也比较棘手。
 
 
-# 2.DIV+CSS页面布局
+# 3.DIV+CSS页面布局
 
 &emsp;&emsp;DIV（division）标签的定义了HTML文档中的块或者部分。DIV标签配合CSS样式控制经常被用来做网页的布局。
 
 &emsp;&emsp;相比table做布局，由于HTML中div元素是逐个加载显示的，所以再页面结构复杂的时候不会出现加载页面的白屏问题。用Div布局就远为灵活，div里面嵌套div，语法更加清晰简单。
 
-
-# 3.HTML5页面布局
