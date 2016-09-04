@@ -365,6 +365,10 @@ description:
 
 &emsp;&emsp;DIV常常被用来标明内容块或者文档中的一组其他元素，DIV里面可以再嵌套DIV。下面是一个DIV页面布局的例子：
 
+ ![html-xhtml-relation](/public/img/html/html-div-layout.PNG)
+
+&emsp;&emsp;代码如下：
+
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     <html>
     <head>
