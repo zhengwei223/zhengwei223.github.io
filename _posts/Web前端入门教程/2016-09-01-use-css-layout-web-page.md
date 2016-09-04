@@ -20,7 +20,7 @@ description:
 
  ![html-xhtml-relation](/public/img/html/w3c_css_box_model.gif)
 
-# 1.1 DIV元素的盒子模型
+# 1.1 DIV元素盒子
 
 &emsp;&emsp;下面以一个DIV元素为例子，形象直观地标示出了盒子的这些属性：
 
@@ -58,7 +58,7 @@ description:
 
 > 长方形盒子的宽度（450px）= div宽度(300px) + 左内边距(25px) + 右内边距(25px) + 左边框(25px) + 右边框(25px) + 左外边距(25px) + 右外边距(25px)
 
-# 1.2 P标签的盒子模型
+# 1.2 P元素盒子
 
 &emsp;&emsp;每一个HTML元素都是长方形盒子，我们来看\<p\>标签。
 
@@ -105,6 +105,33 @@ description:
 
 &emsp;&emsp;作为一个习题，大家可以自己去看看实际效果是什么样的？
 
+# 1.3 所有HTML元素都是盒子
+
+&emsp;&emsp;我们用Chrome浏览器随意打开一个网站，比如说163首页，F12打开“developer tools”。
+
+## 1.3.1 body元素盒子
+
+&emsp;&emsp;可以看到，右下方的工具栏里面默认现实了body元素的盒子模型，外边距、内边距都是0(margin:0;padding:0;)。
+
+ ![html-xhtml-relation](/public/img/html/every-html-el-is-a-box.PNG)
+
+
+## 1.3.2 IMG元素盒子
+&emsp;&emsp;用开发者工具选中页面上的一个图片元素，可以看到它的盒子模型。
+
+&emsp;&emsp;默认状况下内边距、外边距、边框都是0（px）：
+
+ ![html-xhtml-relation](/public/img/html/img-box-model.PNG)
+
+&emsp;&emsp;我们对图片的盒子属性进行简单修改，就会看到这样的效果：
+
+ ![html-xhtml-relation](/public/img/html/img_el_box_test.png)
+
+## 1.3.3 其他元素
+
+&emsp;&emsp;重要的事情说三遍，**页面中一切HTML元素都是长方形盒子**。
+
+&emsp;&emsp;我们可以通过Chrome开发者工具选中任意元素,并且修改它们的盒子属性以改变其外观。
 
 # 2.用table标签布局页面
 
