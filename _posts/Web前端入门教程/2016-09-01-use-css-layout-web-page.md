@@ -20,7 +20,9 @@ description:
 
  ![html-xhtml-relation](/public/img/html/w3c_css_box_model.gif)
 
-&emsp;&emsp;下面是一个例子，形象直观地标示出了盒子的这些属性：
+# 1.1 DIV元素的盒子模型
+
+&emsp;&emsp;下面以一个DIV元素为例子，形象直观地标示出了盒子的这些属性：
 
 ![html-xhtml-relation](/public/img/html/css-box-model-demo.PNG)
 
@@ -55,6 +57,54 @@ description:
 &emsp;&emsp;浏览器在显示div元素的时候，根据下面的方法计算出它的实际宽度是：
 
 > 长方形盒子的宽度（450px）= div宽度(300px) + 左内边距(25px) + 右内边距(25px) + 左边框(25px) + 右边框(25px) + 左外边距(25px) + 右外边距(25px)
+
+# 1.2 P标签的盒子模型
+
+&emsp;&emsp;每一个HTML元素都是长方形盒子，我们来看\<p\>标签。
+
+### 1.2.1 增加蓝色边框
+
+&emsp;&emsp;在代码中为p标签设置的样式中增加表框属性：
+
+    border : 5px solid blue;
+
+&emsp;&emsp;最后发现效果是这样的：
+
+![html-xhtml-relation](/public/img/html/p_blue_border.PNG)
+
+---
+
+### 1.2.2 增加内边距
+
+&emsp;&emsp;在代码中为p标签设置的样式中增加内边距属性：
+
+       padding: 25px;
+
+&emsp;&emsp;可以看到，p标签的蓝色边框和段落文本的距离拉宽了：
+
+![html-xhtml-relation](/public/img/html/p_padding-demo.PNG)
+
+&emsp;&emsp;还有一个明显的变化是：p标签的显示尺寸变大了，原因就是内边距变大了。
+
+### 1.2.2 增加外边距
+
+&emsp;&emsp;在代码中为p标签设置的样式中增加外边距属性：
+
+     margin: 25px;
+
+&emsp;&emsp;可以看到，银灰色区域所对应的外边距区域增大了：
+
+![html-xhtml-relation](/public/img/html/p_margin_demo.PNG)
+
+### 1.2.2 修改段落的尺寸
+
+&emsp;&emsp;在代码中为p标签设置的样式中增加如下代码：
+
+       width :150px;
+       height :200px;
+
+&emsp;&emsp;作为一个习题，大家可以自己去看看实际效果是什么样的？
+
 
 # 2.用table标签布局页面
 
