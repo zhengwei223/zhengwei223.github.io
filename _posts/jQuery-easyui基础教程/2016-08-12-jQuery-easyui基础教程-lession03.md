@@ -30,12 +30,12 @@ EasyUI的Draggable控件可以帮助我们快速的开发可以拖拽的页面�
 ##### 方式一：
 
 ```
-<img id="image1" alt="这是一幅图片" class="easyui-draggable" src="/ui/images/shirt1.gif"/>
+<img id="image1" alt="这是一幅图片" class="easyui-draggable" src="../dist/image/shirt1.gif"/>
 ```  
 
 只需要简单的给HTML标签添加一个指定的class样式即可创建一个可拖拽的控件。效果如下图：
 
-![image](http://i.imgur.com/V4643Fe.png)
+![image](http://i.imgur.com/z9rBhuz.png)
 
 **这是一种最简单的实现方式，拖动图片时原位置则不再有图片 。**   
 
@@ -44,7 +44,7 @@ Tip：参照"初识jQuery-EasyUI"文章中的几种不同表示方法，大家�
 HTML代码：  
 
 ```
-<img id="image1" alt="这是一幅图片" src="/ui/images/shirt1.gif"/>
+<img id="image1" alt="这是一幅图片" src="../dist/image/shirt1.gif"/>
 ```  
 
 JS代码：  
@@ -52,6 +52,8 @@ JS代码：
 ```
 $('#image1').draggable();  
 ```  
+
+**参考代码:[03/draggable01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggable01.html)** 
 
 
 ##### 方式二：拖动图片时原位置仍然保持图片。
@@ -64,10 +66,11 @@ $('#image2').draggable({
 });  
 ```
 
+**参考代码:[03/draggable01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggable01.html)**
+
 效果如下：
 
-![image](http://i.imgur.com/kzk0xVR.png)
-
+![image](http://i.imgur.com/E9E82EE.png)
 
 ##### 方式三：拖动图片时显示自定义内容。
 
@@ -83,9 +86,11 @@ $('#image3').draggable({
 });  
 ```
 
+**参考代码:[03/draggable01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggable01.html)**
+
 效果如下：
 
-![image](http://i.imgur.com/XaWH1y9.png)
+![image](http://i.imgur.com/o7eBN5r.png)
 
 ## Drappable常用属性
 
@@ -139,6 +144,9 @@ $('#image3').draggable({
 });
 ```
 
+**参考代码:[03/draggable02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggable02.html)**
+
+
 ```  
 <script>
 	$(function() {
@@ -170,6 +178,9 @@ $('#image3').draggable({
 	<div id="title" style="padding:5px;background:#ccc;color:#fff">Title</div>
 </div>
 ```
+
+**参考代码:[03/draggable03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggable03.html)**
+
 效果如下：
 
 ![image](http://i.imgur.com/ZjfZekc.png)
@@ -243,9 +254,10 @@ EasyUI的Droppable控件用于定义可以接受哪些拖动的控件。
 	d2
 </div>
 <div id="dd" data-options="accept:'#d1,#d3'"  style="width:300px;height:300px;border:1px solid blue;">dd</div> 
-
 ``` 
- 
+
+**参考代码:[03/droppable01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/droppable01.html)**
+
 效果如下：
 
 ![image](http://i.imgur.com/nzwysgt.png)
@@ -330,6 +342,9 @@ $( "#dd" ).droppable({
       } 
 });
 ```
+
+**参考代码:[03/droppable02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/droppable02.html)**
+
 效果如下：
 
 ![image](http://i.imgur.com/RnaKXnM.png)
@@ -379,6 +394,8 @@ $( "#dd" ).droppable({
 	<li class="drag-item">Drag 6</li>
 </ul>
 ```
+
+**参考代码:[03/droppable03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/droppable03.html)**
 
 效果如下：
 

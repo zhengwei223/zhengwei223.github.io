@@ -40,11 +40,11 @@ easyUI框架提供了创建网页所需的一切，帮助您轻松建立站点�
 
 # 下载jQuery EasyUI  
 
-访问easyUI官网下载最新的easyUI源文件：http://www.jeasyui.com/   
+访问[EasyUI官网](http://www.jeasyui.com/)下载最新的easyUI源文件   
  
 ![image](http://i.imgur.com/oFHGavp.png) 
 
-也可以参考easyUI的中文网：http://www.jeasyui.net/   
+也可以参考[EasyUI中文网](http://www.jeasyui.net/)  
 
 ![image](http://i.imgur.com/WMB3LAN.png)
 
@@ -64,13 +64,13 @@ easyUI框架提供了创建网页所需的一切，帮助您轻松建立站点�
 
 # jQuery EasyUI入门案例
 
-jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在流行的 jQuery 核心和 HTML5 上建立程序页面。这些功能使您的应用适合今天的网络。有两个方法声明来创建 UI 组件:
+jQuery EasyUI提供易于使用的组件它使Web开发人员快速地在流行的jQuery核心和HTML5上建立程序页面。这些功能使您的应用适合今天的网络。有两个方法声明来创建UI组件:
 
 ##### 第一步： 新建一个web应用，并引入easyUI的所有包，目录结构如图所示： 
 
-![image](http://i.imgur.com/k9TXxof.png) 
+![image](http://i.imgur.com/ypgJVTg.png)
 
-##### 第二步： page目录下新建一个first.html页面，并引入需要的css样式和js包:
+##### 第二步： 新建一个01目录，并在该目录下新建一个construction01.html页面，并引入需要的css样式和js包:
 
 - themes/icon.css 定义了各个图片的样式
 - themes/default/easyui.css 如果需要更换主题，则引入其他主题下的easyui.css文件即可
@@ -93,61 +93,58 @@ jQuery EasyUI 提供易于使用的组件，它使 Web 开发人员快速地在�
 	</div>    
 </body>   
 ```
-
+**参考代码:[01/construction01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/01/construction01.html)**
 
 效果如图：  
 
 ![image](http://i.imgur.com/3IBcY9c.png)
 
-另一种形式：   
+
+
+###### 另一种形式：   
 
 ```
-<!DOCTYPE html>  
-<html>  
-	<head>  
-		<title>demo01.html</title>  
-    	<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css">  
-		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/icon.css">  
-		<script type="text/javascript" src="/easyUI/js/jquery-1.11.2.js"></script>  
-		<script type="text/javascript" src="/easyUI/js/easyui/jquery.easyui.min.js"></script>  
-		<script  type="text/javascript">    
-			$(function(){  
-				$("#test").dialog(); 
-			});  
-		</script>  
-  	</head>  
- 	 <body>  
-		<div id="test" style="width:400px;height:200px">    
-   	    	This is my first dialog!  
-		</div>  
-  	</body>  
-</html> 
+<!--head中代码-->  
+<link rel="stylesheet" type="text/css" href="../dist/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../dist/js/easyui/themes/icon.css">
+<script type="text/javascript" src="../dist/js/jquery-1.11.2.js"></script>
+<script type="text/javascript"	src="../dist/js/easyui/jquery.easyui.min.js"></script>
+<script  type="text/javascript">    
+	$(function(){  
+		$("#test").dialog(); 
+	});  
+</script>  
+  
+<!--body中代码-->
+<div id="test" style="width:400px;height:200px">    
+    This is my first dialog!  
+</div>  	
 ```
+
+**参考代码:[01/construction02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/01/construction02.html)**
 
 ###### 如果使用easyloader则应该这样写：
 
 ```
-<!DOCTYPE html> 
-<html> 
-	<head>  
-	    <title>demo01.html</title> 
-	    <link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css">  
-		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/icon.css"> 
-	    <script type="text/javascript" src="/easyUI/js/jquery-1.11.2.js"></script>  
-		<script type="text/javascript" src="/easyUI/js/easyui/easyloader.js"></script>  
-		<script  type="text/javascript">  
-			$(function(){  
-				easyloader.load('dialog',function(){  
-					$("#test").dialog();  
-				});  
-			});  
-		</script>  
-	</head>  
-	<body>  
-		<div id="test" style="width:400px;height:200px">  
-	        This is my first dialog!  
-		</div>  
-	</body>  
-</html> 
+<!--head中代码--> 
+<link rel="stylesheet" type="text/css" href="../dist/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../dist/js/easyui/themes/icon.css">
+<script type="text/javascript" src="../dist/js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="../dist/js/easyui/easyloader.js"></script> 
+<script  type="text/javascript">  
+	$(function(){  
+		easyloader.load('dialog',function(){  
+			$("#test").dialog();  
+		});  
+	});  
+</script>  
+	    
+<!--body中代码-->
+<div id="test" style="width:400px;height:200px">  
+    This is my first dialog!  
+</div>  
 ```
 
+**参考代码:[01/construction03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/01/construction03.html)**
+
+以上便是jQuery EasyUI使用的三种不同方式。
