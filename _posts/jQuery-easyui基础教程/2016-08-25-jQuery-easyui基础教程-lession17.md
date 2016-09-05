@@ -25,7 +25,7 @@ description:
 
 ## 开发Tree程序
 
-一个树形菜单（Tree）可以从标记创建。easyui 树形菜单（Tree）也可以定义在 \<ul\> 元素中。无序列表的 \<ul\> 元素提供一个基础的树（Tree）结构。每一个 \<li\> 元素将产生一个树节点，子 \<ul\> 元素将产生一个子树节点。
+一个树形菜单（Tree）可以从标记创建。easyui 树形菜单（Tree）也可以定义在 ```<ul>``` 元素中。无序列表的 ```<ul>``` 元素提供一个基础的树（Tree）结构。每一个 ```<li>``` 元素将产生一个树节点，子 ```<ul>``` 元素将产生一个子树节点。
 
 ```
 <ul id="tt" class="easyui-tree">
@@ -53,7 +53,7 @@ description:
 ![image](http://i.imgur.com/rxscZhv.png)
 
 
-**树控件也可以定义在一个空\<ul\>元素中并使用Javascript加载数据。**
+**树控件也可以定义在一个空```<ul>```元素中并使用Javascript加载数据。**
 
 ``` 
 <ul id="tt"></ul>

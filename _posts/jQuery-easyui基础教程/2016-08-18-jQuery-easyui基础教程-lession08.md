@@ -29,7 +29,7 @@ description:
 <a href="#" title="This is the tooltip message." class="easyui-tooltip">Hover me</a>
 ```  
 
-只需要简单的给a标签添加一个指定的class样式即有提示框的效果。效果如下图：
+只需要简单的给```<a>```标签添加一个指定的class样式即有提示框的效果。效果如下图：
 
 ![image](http://i.imgur.com/9bQaUM9.png)
 
