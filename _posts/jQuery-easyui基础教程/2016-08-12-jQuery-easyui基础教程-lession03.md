@@ -53,7 +53,7 @@ JS代码：
 $('#image1').draggable();  
 ```  
 
-**参考代码:[03/draggabale01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale01.html)** 
+**参考代码:[03/draggable01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggable01.html)** 
 
 
 ##### 方式二：拖动图片时原位置仍然保持图片。
@@ -66,7 +66,7 @@ $('#image2').draggable({
 });  
 ```
 
-**参考代码:[03/draggabale01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale01.html)**
+**参考代码:[03/draggable01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggable01.html)**
 
 效果如下：
 
@@ -86,7 +86,7 @@ $('#image3').draggable({
 });  
 ```
 
-**参考代码:[03/draggabale01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale01.html)**
+**参考代码:[03/draggable01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggable01.html)**
 
 效果如下：
 
@@ -144,7 +144,7 @@ $('#image3').draggable({
 });
 ```
 
-**参考代码:[03/draggabale02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale02.html)**
+**参考代码:[03/draggable02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggable02.html)**
 
 
 ```  
@@ -179,7 +179,7 @@ $('#image3').draggable({
 </div>
 ```
 
-**参考代码:[03/draggabale03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale03.html)**
+**参考代码:[03/draggable03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggable03.html)**
 
 效果如下：
 
