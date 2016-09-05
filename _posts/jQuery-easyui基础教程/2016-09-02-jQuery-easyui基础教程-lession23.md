@@ -239,31 +239,6 @@ $('#cc').combo({
       <td>none</td> 
       <td>销毁该组件。</td>
    </tr>
-   <tr>
-      <td>resize</td> 
-      <td>width</td> 
-      <td>调整组件宽度。</td>
-   </tr>
-   <tr>
-      <td>showPanel</td> 
-      <td>none</td> 
-      <td>显示下拉面板。</td>
-   </tr>
-   <tr>
-      <td>hidePanel</td> 
-      <td>none</td> 
-      <td>隐藏下拉面板。/td>
-   </tr>
-   <tr>
-      <td>disable</td> 
-      <td>none</td> 
-      <td>禁用组件。</td>
-   </tr>
-   <tr>
-      <td>enable</td> 
-      <td>none</td> 
-      <td>启用组件。</td>
-   </tr>
 </table>  
 
 
