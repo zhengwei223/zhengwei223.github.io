@@ -19,97 +19,86 @@ description:
 
 ## Dialog简介
 
-对话框是一种特殊类型的窗口，在现在的系统中使用越来越多。如，添加，修改，删除的提示等功能，使用对话框更加贴近用户的要求，开发人员开发程序也更加简单。它在顶部有一个工具栏，在底部有一个按钮栏。对话框窗口右上角只有一个关闭按钮，用户可以配置对话框的行为来显示其他工具，如collapsible,minimizable,maximizable工具等。默认情况下，对话框（Dialog）不能改变大小，但是用户可以设置 resizable 属性为 true，使其可以改变大小。 效果如下图：
+对话框是一种特殊类型的窗口，在现在的系统中使用越来越多。如，添加，修改，删除的提示等功能，使用对话框更加贴近用户的要求，开发人员开发程序也更加简单。它在顶部有一个工具栏，在底部有一个按钮栏。对话框窗口右上角只有一个关闭按钮，用户可以配置对话框的行为来显示其他工具，如collapsible,minimizable,maximizable工具等。默认情况下，对话框（Dialog）不能改变大小，但是用户可以设置resizable属性为true，使其可以改变大小。 效果如下图：
 
 ![image](http://i.imgur.com/XmddMrE.png)
 
 ## 开发Dialog程序
 
+
 ##### 方式一：使用纯HTML代码
 
 ```
-<!DOCTYPE html>   
-<html>  
-	<head>  
-		<title>dialog01.html</title>   
-		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css">  
-		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/icon.css">   
-		<script type="text/javascript" src="/easyUI/js/jquery-1.11.2.js"></script>   
-		<script type="text/javascript" src="/easyUI/js/easyui/easyloader.js"></script>   
-	</head>   
-	<body>  
-		<div id="dd" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;" data-options="iconCls:'icon-save',resizable:true,modal:true">   
-			Dialog Content.   
-		</div>  
-	</body>  
-</html>  
+<link rel="stylesheet" type="text/css" href="../dist/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../dist/js/easyui/themes/icon.css">
+<script type="text/javascript" src="../dist/js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="../dist/js/easyui/easyloader.js"></script>  
+
+<div id="dd" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;" data-options="iconCls:'icon-save',resizable:true,modal:true">   
+	Dialog Content.   
+</div>  
 ```
 
+**参考代码:[02/dialog01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog01.html)**  
+
 Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中，此外也可以像HTML属性一样直接跟在开始标签内。 **强烈建议放到data-options属性中。**
+
 
 ##### 方式二：使用JS代码设置
 
 ```
-<!DOCTYPE html>
-<html>  
-	<head> 
-		<title>dialog02.html</title>  
-		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css"> 
-		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/icon.css">  
-		<script type="text/javascript" src="/easyUI/js/jquery-1.11.2.js"></script> 
-		<script type="text/javascript" src="/easyUI/js/easyui/easyloader.js"></script> 
-		<script type="text/javascript">  
-			$(function(){ 
-				easyloader.load("dialog",function(){ 
-					$("#dd").dialog({  
-						title: 'My Dialog',     
-						width: 400,   
-						height: 200,    
-						closed: false,    
-						modal: true 
-					});  
-				});  
+<link rel="stylesheet" type="text/css" href="../dist/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../dist/js/easyui/themes/icon.css">
+<script type="text/javascript" src="../dist/js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="../dist/js/easyui/easyloader.js"></script>
+<script type="text/javascript">  
+	$(function(){ 
+		easyloader.load("dialog",function(){ 
+			$("#dd").dialog({  
+				title: 'My Dialog',     
+				width: 400,   
+				height: 200,    
+				closed: false,    
+				modal: true 
 			});  
-		</script> 
-	</head>  
-	<body>  
-	<div id="dd">  
+		});  
+	});  
+</script> 
+
+<div id="dd">  
 	Dialog Content.  
-	</div>  
-	</body>  
-</html> 
+</div>  
 ```
 
-此外，也可以不引入easyloader.js文件，引入具体所需的js文件。代码如下：
+**参考代码:[02/dialog02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog02.html)**    
+
+此外，也可以不引入easyloader.js文件，引入jquery.easyui.min.js文件。代码如下：
 
 ```
-<!DOCTYPE html>  
-<html>  
-	<head>  
-		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/default/easyui.css">  
-		<link rel="stylesheet" type="text/css" href="/easyUI/js/easyui/themes/icon.css">  
-		<script type="text/javascript" src="/easyUI/js/jquery-1.11.2.js"></script>  
-		<script type="text/javascript" src="/easyUI/js/easyui/jquery.easyui.min.js"></script> 
-		<script type="text/javascript"> 
-			$(function(){  
-				$("#dd").dialog({ 
-					title: 'My Dialog',   
-					iconCls:'icon-save',  
-					width: 400,   
-					height: 200,   
-					closed: false,
-					modal: true 
-				}); 
-			});  
-		</script>  
-	</head>  
-	<body>  
-		<div id="dd"> 
-			Dialog Content. 
-		</div>  
-	</body> 
-</html> 
+<link rel="stylesheet" type="text/css" href="../dist/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../dist/js/easyui/themes/icon.css">
+<script type="text/javascript" src="../dist/js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="../dist/js/easyui/jquery.easyui.min.js"></script> 
+<script type="text/javascript"> 
+	$(function(){  
+		$("#dd").dialog({ 
+			title: 'My Dialog',   
+			iconCls:'icon-save',  
+			width: 400,   
+			height: 200,   
+			closed: false,
+			modal: true 
+		}); 
+	});  
+</script>  
+
+<div id="dd"> 
+	Dialog Content. 
+</div>  
 ```
+
+**参考代码:[02/dialog03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog03.html)**  
+
 
 ## Dialog常用属性
 
@@ -247,6 +236,8 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 </body>   
 ```
 
+**参考代码:[02/dialog04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog04.html)**  
+
 效果如下：  
 
 ![image](http://i.imgur.com/XB52TZF.png)  
@@ -327,8 +318,8 @@ JS代码
 	function closeDialog(){
 		$('#dd').dialog('close');
 	}
-	function skip(){
-		$('#dd').panel('refresh','a.html');
+	function skip() {
+		$('#dd').panel('refresh', '../index.jsp');
 	}
 </script>
 ```
@@ -348,7 +339,9 @@ HTML代码
 </div>  
 ```
 
-Tip: 当点击关闭按钮时会弹出确认框。当点击跳转按钮时对话框中将显示a.html页面中的内容。 
+**参考代码:[02/dialog05.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog05.html)**  
+
+Tip: 当点击关闭按钮时会弹出确认框。当点击跳转按钮时对话框中将显示index.jsp页面中的内容。 
 
  
 以上内容便是Dialog的普通用法。

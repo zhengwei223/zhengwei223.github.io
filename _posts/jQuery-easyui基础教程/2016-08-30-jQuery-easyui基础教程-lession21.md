@@ -223,6 +223,23 @@ $.extend($.fn.validatebox.defaults.rules, {
 **当刷新页面时text不会清空内容，password会清空内容，所以案例二不需要在页面加载完毕之后触发change事件。**
 
 
+##  EasyUI取消表单实时验证，提交时统一验证
+
+```
+<form id="ff" class="easyui-form" method="post" data-options="novalidate:true">
+</form>
+
+$('#ff').form('submit',{
+		url:'/easyUI/login',  
+        onSubmit:function(){
+            return $(this).form('enableValidation').form('validate');
+        },
+        success:function(data){    
+        alert(data);    
+    }
+});
+```
+
 以上便是ValidateBox的基本用法。
 
 
