@@ -65,7 +65,7 @@ description:
 **自定义下拉框使用Javascript创建一个\<select\>或\<input\>元素。注意：使用自定义下拉框不能通过标签的方式进行创建。** 
 
 
-## Combo常用属性
+## Combo常用属性  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -187,11 +187,11 @@ description:
 	  <td>在用户按下键的时候调用一个函数。</td>
 	  <td></td>
    </tr>
-</table>
+</table>  
 
 案例一：  
 
-代码如下：
+代码如下：  
 
 ```
 $('#cc').combo({
@@ -477,129 +477,6 @@ $('#cc').combobox({
 ![image](http://i.imgur.com/L7Du7Ff.png)	
 
 
-## Combobox常用方法  
-
-<table class="table table-bordered table-striped table-condensed">
-   <tr>
-      <th width="300px">方法名</th> 
-      <th width="300px">方法参数</th> 
-      <th width="600px">描述</th>
-   </tr>
-   <tr>
-      <td>options</td> 
-      <td>none</td> 
-      <td>返回属性对象。</td>
-   </tr>
-   <tr>
-      <td>getData</td> 
-      <td>none</td> 
-      <td>返回加载数据。</td>
-   </tr>
-   <tr>
-      <td>loadData</td> 
-      <td>data</td> 
-      <td>读取本地列表数据。</td>
-   </tr>
-   <tr>
-      <td>reload</td> 
-      <td>url</td> 
-      <td>请求远程列表数据。通过'url'参数重写原始URL值。 </td>
-   </tr>
-   <tr>
-      <td>setValues</td> 
-      <td>values</td> 
-      <td>设置下拉列表框值数组。 </td>
-   </tr>
-   <tr>
-      <td>setValue</td> 
-      <td>value</td> 
-      <td>设置下拉列表框的值。 </td>
-   </tr>
-   <tr>
-      <td>clear</td> 
-      <td>none</td> 
-      <td>清除下拉列表框的值。</td>
-   </tr>
-   <tr>
-      <td>select</td> 
-      <td>value</td> 
-      <td>选择指定项。</td>
-   </tr>
-   <tr>
-      <td>unselect</td> 
-      <td>value</td> 
-      <td>取消选择指定项。</td>
-   </tr>
-</table>  
-
-## Combobox常用事件  
-
-<table class="table table-bordered table-striped table-condensed">
-   <tr>
-      <th width="300px">事件名</th><th width="300px">事件参数</th><th width="600px">描述</th>
-   </tr>
-   <tr>
-      <td>onBeforeLoad</td><td>param</td><td>在请求加载数据之前触发，返回false取消该加载动作。</td>
-   </tr>
-   <tr>
-      <td>onLoadSuccess</td><td>none</td><td>在加载远程数据成功的时候触发。</td>
-   </tr>
-   <tr>
-      <td>onLoadError</td><td>none</td><td>在加载远程数据失败的时候触发。</td>
-   </tr>
-   <tr>
-      <td>onSelect</td><td>record</td><td>在用户选择列表项的时候触发。</td>
-   </tr>
-   <tr>
-      <td>onUnselect</td><td>record</td><td>在用户取消选择列表项的时候触发。</td>
-   </tr>
-</table> 
-
-
-##### 实现级联下拉列表  
-
-HTML代码：  
-
-```
-<input id="cc1"/>   
-<input id="cc2" class="easyui-combobox"/>  
-```
-
-JS代码：  
-
-```
-$('#cc1').combobox({    
-    url:'/easyUI/getOneLevelCategory',    
-    valueField:'id',    
-    textField:'text',
-    selectOnNavigation:true,
-    editable:false,
-    onSelect: function(rec){    
-        var url = '/easyUI/getTwoLevelCategory?pid='+rec.id;    
-        $('#cc2').combobox('reload', url);    
-    },
-    onLoadSuccess:function(){
-    	//$(this).combobox('getData')得到所有下拉项
-    	
-    	//得到第一个下拉项
-    	var rec = $(this).combobox('getData')[0];
-    	
-    	//设置下拉列表默认选中第一个下拉项
-    	$(this).combobox('select',rec.text); 
-    	
-    	//加载#cc2中的内容
-    	var url = '/easyUI/getTwoLevelCategory?pid='+rec.id;    
-        $('#cc2').combobox('reload', url);    
-    }
-}); 
-
-$('#cc2').combobox({
-	onLoadSuccess:function(){
-		//设置下拉列表默认选中第一个下拉项
-    	$(this).combobox('select',$(this).combobox('getData')[0].text); 
-    }
-}); 
-```
 
 效果如下图：
 
