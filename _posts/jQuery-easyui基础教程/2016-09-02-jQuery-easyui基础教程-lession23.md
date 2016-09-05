@@ -338,18 +338,17 @@ $('#cc').combo({
 </table> 
 
 
+# Combobox  
 
-# Combobox
 
-## Combobox简介
+## Combobox简介  
 
-  
 下拉列表框显示一个可编辑文本框和下拉式列表，用户可以选择一个值或多个值。用户可以直接输入文本到列表顶部或选择一个或多个当前列表中的值。效果如下图：
 
 ![image](http://i.imgur.com/6b0gEli.png)
 
 
-## 开发Combobox程序
+## 开发Combobox程序  
 
 ```
 <select class="easyui-combobox" name="state" style="width:200px;">
@@ -364,7 +363,7 @@ $('#cc').combo({
 效果如上图。
 
 
-## Combobox常用属性
+## Combobox常用属性  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -533,7 +532,7 @@ $('#cc').combobox({
    </tr>
 </table>  
 
-## Combobox常用事件
+## Combobox常用事件  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -557,7 +556,7 @@ $('#cc').combobox({
 </table> 
 
 
-##### 实现级联下拉列表
+##### 实现级联下拉列表  
 
 HTML代码：  
 
