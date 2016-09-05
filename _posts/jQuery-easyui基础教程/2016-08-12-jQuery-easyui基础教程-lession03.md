@@ -53,7 +53,7 @@ JS代码：
 $('#image1').draggable();  
 ```  
 
-**参考代码:  ```[03/draggabale01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale01.html)```** 
+**参考代码:[03/draggabale01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale01.html)** 
 
 
 ##### 方式二：拖动图片时原位置仍然保持图片。
@@ -66,7 +66,7 @@ $('#image2').draggable({
 });  
 ```
 
-**参考代码:```[03/draggabale01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale01.html)```**
+**参考代码:[03/draggabale01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale01.html)**
 
 效果如下：
 
@@ -86,7 +86,7 @@ $('#image3').draggable({
 });  
 ```
 
-**参考代码:```[03/draggabale01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale01.html)```**
+**参考代码:[03/draggabale01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale01.html)**
 
 效果如下：
 
@@ -144,7 +144,7 @@ $('#image3').draggable({
 });
 ```
 
-**参考代码:```[03/draggabale02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale02.html)```**
+**参考代码:[03/draggabale02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale02.html)**
 
 
 ```  
@@ -179,7 +179,7 @@ $('#image3').draggable({
 </div>
 ```
 
-**参考代码:```[03/draggabale03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale03.html)```**
+**参考代码:[03/draggabale03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/draggabale03.html)**
 
 效果如下：
 
@@ -256,7 +256,7 @@ EasyUI的Droppable控件用于定义可以接受哪些拖动的控件。
 <div id="dd" data-options="accept:'#d1,#d3'"  style="width:300px;height:300px;border:1px solid blue;">dd</div> 
 ``` 
 
-**参考代码:```[03/droppable01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/droppable01.html)```**
+**参考代码:[03/droppable01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/droppable01.html)**
 
 效果如下：
 
@@ -343,7 +343,7 @@ $( "#dd" ).droppable({
 });
 ```
 
-**参考代码:```[03/droppable02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/droppable02.html)```**
+**参考代码:[03/droppable02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/droppable02.html)**
 
 效果如下：
 
@@ -395,7 +395,7 @@ $( "#dd" ).droppable({
 </ul>
 ```
 
-**参考代码:```[03/droppable03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/droppable03.html)```**
+**参考代码:[03/droppable03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/03/droppable03.html)**
 
 效果如下：
 

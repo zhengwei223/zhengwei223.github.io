@@ -39,7 +39,7 @@ description:
 </div>  
 ```
 
-**参考代码:```[02/dialog01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog01.html)```**  
+**参考代码:[02/dialog01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog01.html)**  
 
 Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中，此外也可以像HTML属性一样直接跟在开始标签内。 **强烈建议放到data-options属性中。**
 
@@ -70,7 +70,7 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 </div>  
 ```
 
-**参考代码:```[02/dialog02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog02.html)```**    
+**参考代码:[02/dialog02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog02.html)**    
 
 此外，也可以不引入easyloader.js文件，引入jquery.easyui.min.js文件。代码如下：
 
@@ -97,7 +97,7 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 </div>  
 ```
 
-**参考代码:```[02/dialog03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog03.html)```**  
+**参考代码:[02/dialog03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog03.html)**  
 
 
 ## Dialog常用属性
@@ -236,7 +236,7 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 </body>   
 ```
 
-**参考代码:```[02/dialog04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog04.html)```**  
+**参考代码:[02/dialog04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog04.html)**  
 
 效果如下：  
 
@@ -339,7 +339,7 @@ HTML代码
 </div>  
 ```
 
-**参考代码:```[02/dialog05.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog05.html)```**  
+**参考代码:[02/dialog05.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/02/dialog05.html)**  
 
 Tip: 当点击关闭按钮时会弹出确认框。当点击跳转按钮时对话框中将显示index.jsp页面中的内容。 
 
