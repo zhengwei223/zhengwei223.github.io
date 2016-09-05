@@ -264,61 +264,6 @@ $('#cc').combo({
       <td>none</td> 
       <td>启用组件。</td>
    </tr>
-   <tr>
-      <td>readonly</td> 
-      <td>mode</td> 
-      <td>启用/禁用只读模式。</td>
-   </tr>
-   <tr>
-      <td>validate</td> 
-      <td>none</td> 
-      <td>验证输入的值。</td>
-   </tr>
-   <tr>
-      <td>isValid</td> 
-      <td>none</td> 
-      <td>返回验证结果。</td>
-   </tr>
-   <tr>
-      <td>clear</td> 
-      <td>none</td> 
-      <td>清除控件的值。</td>
-   </tr>
-   <tr>
-      <td>reset</td> 
-      <td>none</td> 
-      <td>重置控件的值。</td>
-   </tr>
-   <tr>
-      <td>getText</td> 
-      <td>none</td> 
-      <td>获取输入的文本。</td>
-   </tr> 
-   <tr>
-      <td>setText</td> 
-      <td>text</td> 
-      <td>设置输入的文本。</td>
-   </tr>
-   <tr>
-      <td>getValues</td> 
-      <td>none</td> 
-      <td>获取组件值的数组。</td>
-   </tr>
-   <tr>
-      <td>setValues</td> 
-      <td>values</td> 
-      <td>设置组件值的数组。</td>
-   </tr>
-   <tr>
-      <td>getValue</td> 
-      <td>none</td> 
-      <td>获取组件的值。</td>
-   </tr>
-   <tr>
-      <td>setValue</td> 
-      <td>none</td> 
-      <td>设置组件的值。</td>
-   </tr>
 </table>  
 
 
