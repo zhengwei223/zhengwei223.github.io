@@ -62,10 +62,10 @@ description:
  
 效果如上图。
 
-**自定义下拉框使用Javascript创建一个\<select\>或\<input\>元素。注意：使用自定义下拉框不能通过标签的方式进行创建。** 
+**自定义下拉框使用Javascript创建一个```<select>```或```<input>```元素。注意：使用自定义下拉框不能通过标签的方式进行创建。** 
 
 
-## Combo常用属性
+## Combo常用属性  
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
@@ -127,6 +127,7 @@ description:
 	  <td>string</td>
 	  <td>面板对齐方式。可用值有：'left','right'。</td>
 	  <td>200</td>
+   </tr>
    <tr>
       <td>multiple</td>
 	  <td>boolean</td>
@@ -187,11 +188,11 @@ description:
 	  <td>在用户按下键的时候调用一个函数。</td>
 	  <td></td>
    </tr>
-</table>
+</table>  
 
 案例一：  
 
-代码如下：
+代码如下：  
 
 ```
 $('#cc').combo({
@@ -251,7 +252,7 @@ $('#cc').combo({
    <tr>
       <td>hidePanel</td> 
       <td>none</td> 
-      <td>隐藏下拉面板。/td>
+      <td>隐藏下拉面板。</td>
    </tr>
    <tr>
       <td>disable</td> 
@@ -556,7 +557,7 @@ $('#cc').combobox({
 </table> 
 
 
-##### 实现级联下拉列表  
+## 实现级联下拉列表  
 
 HTML代码：  
 
