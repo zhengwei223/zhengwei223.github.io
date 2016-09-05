@@ -74,7 +74,7 @@ description:
       <th width="600px">描述</th>
       <th width="100px">默认值</th>
    </tr>
-    <tr>
+   <tr>
       <td>width</td>
 	  <td>number</td>
 	  <td>组件的宽度。</td>
@@ -103,59 +103,6 @@ description:
 	  <td>number</td>
 	  <td>下拉面板最小宽度。</td>
 	  <td>null</td>
-   </tr>
-   <tr>
-      <td>panelMaxWidth</td>
-	  <td>number</td>
-	  <td>下拉面板最大宽度。</td>
-	  <td>null</td>
-   </tr>
-   <tr>
-      <td>panelMinHeight</td>
-	  <td>number</td>
-	  <td>下拉面板最小高度。</td>
-	  <td>null</td>
-   </tr>
-   <tr>
-      <td>panelMaxHeight</td>
-	  <td>number</td>
-	  <td>下拉面板最大高度。</td>
-	  <td>null</td>
-   </tr>
-   <tr>
-      <td>panelAlign</td>
-	  <td>string</td>
-	  <td>面板对齐方式。可用值有：'left','right'。</td>
-	  <td>200</td>
-   <tr>
-      <td>multiple</td>
-	  <td>boolean</td>
-	  <td>定义是否支持多选。</td>
-	  <td>false</td>
-   </tr>
-   <tr>
-      <td>selectOnNavigation</td>
-	  <td>boolean</td>
-	  <td>定义是否允许使用键盘导航来选择项目。</td>
-	  <td>true</td>
-   </tr>
-   <tr>
-      <td>separator</td>
-	  <td>string</td>
-	  <td>在多选的时候使用何种分隔符进行分割。</td>
-	  <td>,</td>
-   </tr>
-   <tr>
-      <td>editable</td>
-	  <td>boolean</td>
-	  <td>定义用户是否可以直接输入文本到字段中。</td>
-	  <td>true</td>
-   </tr>
-   <tr>
-      <td>disabled</td>
-	  <td>boolean</td>
-	  <td>设置启用/禁用字段。</td>
-	  <td>false</td>
    </tr>
 </table>  
 
