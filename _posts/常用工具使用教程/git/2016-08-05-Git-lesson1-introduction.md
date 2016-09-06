@@ -27,7 +27,7 @@ p_cate: 常用工具使用教程
 
 各平台版本都可以从[这里](https://git-scm.com/downloads)下载，根据提示进行安装，windows下的安装非常简单。
 
-本教程只用命令行，假如你是 Mac 用户，我们希望你懂得如何使用终端（Terminal）；假如你是 Windows 用户，我们希望你懂得如何使用命令窗口（Command Prompt）或 PowerShell（[命令行速成教程](/cmd/powershell)）。 
+本教程只用命令行（mac终端上工作），假如你是 Mac 用户，我们希望你懂得如何使用终端（Terminal）；假如你是 Windows 用户，我们希望你懂得如何使用命令窗口（Command Prompt）或 PowerShell（[命令行速成教程](//常用工具使用教程/cmd-quickstarted)）。 
 
 # 2.初次运行Git前的配置
 
