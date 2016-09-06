@@ -51,8 +51,8 @@ desc: 单篇文章的布局模板
       {% include duoshuo.html %}
     </div>
     <!-- 右侧文章目录 和相关按钮-->
-    <div class="col-md-3 doc-side-container">
-      <nav class="doc-sidebar hidden-print hidden-sm hidden-xs affix-top">
+    <div class="col-md-3 doc-side-container collapse" id="sidebar">
+      <nav class="doc-sidebar hidden-print affix-top">
         <ul class="nav nav-pills nav-stacked">
         </ul>
         <div class="btn-group btn-group-sidebar">
@@ -99,9 +99,10 @@ desc: 单篇文章的布局模板
         </button>
       </div> -->
       
-      <!-- 回到顶部按钮 -->
-      <div class="scrolltop-btn-container hidden-md hidden-lg">
-        <button class="btn btn-primary scrolltop-btn">
-          <i class="icon fa fa-angle-double-up"></i>
+      <!-- 侧边栏toggle按钮 -->
+      <div class="sidebar-tg-container">
+        <button class="btn btn-primary sidebar-toggle collapsed"
+        data-toggle="collapse" data-target="#sidebar">
+          <i class="icon iconfont icon-shouqi"></i>
         </button>
       </div>
