@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Java初体验
-category: Java8编程语言
+category: 初学者的第一套Java教程
 tags: Java 入门
 keywords: 蓝桥 lanqiao 教程 java Java8 开发环境
 description: 
