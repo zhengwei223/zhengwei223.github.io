@@ -26,12 +26,14 @@ description:
 ## 开发Tooltip程序
 
 ```
-<a href="#" title="This is the tooltip message." class="easyui-tooltip">Hover me</a>
+<a href="#" title="This is the tooltip message." data-options="position: 'right'" class="easyui-tooltip">Hover me</a>
 ```  
 
-只需要简单的给a标签添加一个指定的class样式即有提示框的效果。效果如下图：
+**参考代码:[08/tooltip01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/08/tooltip01.html)**
 
-![image](http://i.imgur.com/9bQaUM9.png)
+只需要简单的给```<a>```标签添加一个指定的class样式即有提示框的效果。效果如下图：
+
+![image](http://i.imgur.com/R9lOTPe.png)
 
 ## Tooltip常用属性
 
@@ -97,33 +99,6 @@ description:
       <td>100</td>
    </tr>
 </table>
-
-参考jQuery EasyUI的API。
-
-代码如下：
-
-```
-$('#dd').tooltip({    
-	position: 'right',    
-	trackMouse:true,
-	content: '<span style="color:#000">This is the tooltip message.</span>',    
-	onShow: function(){        
-		$(this).tooltip('tip').css({     
-			backgroundColor: 'yellow',            
-			borderColor: '#666'        
-		});    
-	}
-});
-
-```
-
-```
-<div id="dd"></div>
-```
-
-效果如下图：
-
-![image](http://i.imgur.com/vzJ4ywm.png)
 
 
 ## Tooltip常用方法  
@@ -212,11 +187,13 @@ $('#dd').tooltip({
    </tr>
 </table> 
 
+参考jQuery EasyUI的API。
+
 代码如下：
 
 ```
 $('#dd').tooltip({    
-	position: 'right',    
+	position: 'bottom',    
 	trackMouse:true,
 	content: '<span style="color:#000">This is the tooltip message.</span>',    
 	onShow: function(){        
@@ -224,7 +201,11 @@ $('#dd').tooltip({
 			backgroundColor: 'yellow',            
 			borderColor: '#666'        
 		});    
-	}
+	},
+	onPosition: function(){
+			$(this).tooltip('tip').css('left', $(this).offset().left);
+			$(this).tooltip('arrow').css('left', 20);
+		}
 });
 
 ```
@@ -233,9 +214,11 @@ $('#dd').tooltip({
 <div id="dd"></div>
 ```
 
+**参考代码:[08/tooltip01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/08/tooltip01.html)**
+
 效果如下图：
 
-![image](http://i.imgur.com/vzJ4ywm.png)
+![image](http://i.imgur.com/SVhKKlP.png)
 
 
 以上便是Tooltip的基本用法。

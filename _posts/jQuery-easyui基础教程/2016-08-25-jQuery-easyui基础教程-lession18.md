@@ -31,6 +31,8 @@ description:
 </div>
 ```  
 
+**参考代码:[18/window01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/18/window01.html)**
+
 效果如下图：  
 
 ![image](http://i.imgur.com/vpZHh5o.png)
@@ -175,6 +177,8 @@ description:
 </script>
 ```
 
+**参考代码:[18/window02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/18/window02.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/ZqkNuG3.png)
@@ -247,6 +251,8 @@ JS代码：
 </script>
 ```
 
+**参考代码:[18/window03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/18/window03.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/pRwqTro.png)
@@ -294,6 +300,7 @@ Tree的最后一个案例结合window,实现如下效果：
 </div>
 ```
 
+**参考代码:[18/window04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/18/window04.html)**
 
 以上便是Widow的基本用法。
 

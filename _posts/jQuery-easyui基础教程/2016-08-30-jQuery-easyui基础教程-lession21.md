@@ -24,9 +24,11 @@ validatebox(验证框)的设计目的是为了验证输入的表单字段是否�
 ## 开发ValidateBox程序
 
 ```
-<input id="vv" class="easyui-validatebox" data-options="required:true,validType:'email'" />  
+Email:<input id="vv" class="easyui-validatebox" data-options="required:true,validType:'email'" />  
   
 ```
+
+**参考代码:[21/validatebox01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/21/validatebox01.html)**
   
 效果如下图：
 
@@ -176,8 +178,10 @@ $.extend($.fn.validatebox.defaults.rules, {
 现在你可以在输入框中限制最小长度为5的自定义最小长度验证了：
 
 ```
-<input style="margin-left:400px;" class="easyui-validatebox" data-options="deltaX:-20,tipPosition:'left',required:true,validType:'minLength[5]'">  
+用户名：<input style="margin-left:400px;" class="easyui-validatebox" data-options="deltaX:-20,tipPosition:'left',required:true,validType:'minLength[5]'">  
 ```
+
+**参考代码:[21/validatebox02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/21/validatebox02.html)**
 
 效果如下图：  
 
@@ -215,10 +219,16 @@ $.extend($.fn.validatebox.defaults.rules, {
 现在可以校验密码和确认密码是否相同了：
 
 ```
-<input id="pwd" name="pwd" type="password" class="easyui-validatebox" data-options="required:true" />   
-<input id="rpwd" name="rpwd" type="password" class="easyui-validatebox"     
+密码：<input id="pwd" name="pwd" type="password" class="easyui-validatebox" data-options="required:true" />   
+确认密码：<input id="rpwd" name="rpwd" type="password" class="easyui-validatebox"     
     required="required" validType="equals['#pwd']" />  
 ```
+
+**参考代码:[21/validatebox03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/21/validatebox03.html)**
+
+效果如下图：  
+
+![image](http://i.imgur.com/G3pAZ5f.png)
 
 **当刷新页面时text不会清空内容，password会清空内容，所以案例二不需要在页面加载完毕之后触发change事件。**
 
@@ -239,6 +249,8 @@ $('#ff').form('submit',{
     }
 });
 ```
+
+**参考代码:[21/validatebox04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/21/validatebox04.html)**
 
 以上便是ValidateBox的基本用法。
 
