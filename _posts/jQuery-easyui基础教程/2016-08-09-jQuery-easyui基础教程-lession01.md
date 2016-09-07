@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 layout: post  
 title: 初识jQuery-EasyUI   
