@@ -25,7 +25,7 @@ description:
 
 ## 开发Tree程序
 
-一个树形菜单（Tree）可以从标记创建。easyui 树形菜单（Tree）也可以定义在 \<ul\> 元素中。无序列表的 \<ul\> 元素提供一个基础的树（Tree）结构。每一个 \<li\> 元素将产生一个树节点，子 \<ul\> 元素将产生一个子树节点。
+一个树形菜单（Tree）可以从标记创建。easyui 树形菜单（Tree）也可以定义在 ```<ul>``` 元素中。无序列表的 ```<ul>``` 元素提供一个基础的树（Tree）结构。每一个 ```<li>``` 元素将产生一个树节点，子 ```<ul>``` 元素将产生一个子树节点。
 
 ```
 <ul id="tt" class="easyui-tree">
@@ -48,23 +48,55 @@ description:
 </ul>
 ```  
 
+**参考代码:[17/tree01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/17/tree01.html)**
+
 效果如下图：  
 
-![image](http://i.imgur.com/rxscZhv.png)
+![image](http://i.imgur.com/bWiZmrt.png)
 
 
-**树控件也可以定义在一个空\<ul\>元素中并使用Javascript加载数据。**
+**树控件也可以定义在一个空```<ul>```元素中并使用data属性加载数据。**
 
 ``` 
 <ul id="tt"></ul>
 <script>
 	$(function() {
 		$("#tt").tree({
-			url:'../data/tree_data.json',
+			data: [{
+				text: 'Item1',
+				state: 'closed',
+				children: [{
+					text: 'Item11'
+				},{
+					text: 'Item12'
+				}]
+			},{
+				text: 'Item2'
+			}],
 			onClick: function(node){
 				//编辑树节点名称
 				$(this).tree('beginEdit',node.target);
-			} 
+			}
+		});
+	});
+</script>
+``` 
+
+**参考代码:[17/tree02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/17/tree02.html)**
+
+效果如下图：  
+
+![image](http://i.imgur.com/EydlRIW.png)
+
+
+**树控件也可以定义在一个空```<ul>```元素中并使用Javascript加载数据。**
+
+``` 
+<ul id="tt"></ul>
+<script>
+	$(function() {
+		$("#tt").tree({
+			url:'../dist/data/tree_data.json'
 		});
 	});
 </script>
@@ -111,9 +143,11 @@ json文件内容：
 }]
 ``` 
 
+**参考代码:[17/tree03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/17/tree03.html)**
+
 效果如下图：  
 
-![image](http://i.imgur.com/9eGwQTn.png)
+![imag](http://i.imgur.com/z4k1OEx.png)
 
 
 ##  树控件数据格式化
@@ -145,69 +179,11 @@ HTML代码：
 <script>
 	$(function() {
 		$("#tt").tree({
-			url:'/easyUI/getRootCategory' 
+			url:'具体的地址' 
 		});
 	});
 </script>
 ```
-
-服务器端代码：  
-
-**采用的是Spring+SpringMVC+Mybatis技术，Oracle数据库**
-
-```
-/**
- * 因为tree要求的字符串比json多一个[],所以不能使用@ResponseBody将root对象直接返回去。
- */
-@RequestMapping(value = "/getRootCategory")
-public String getRootCategory(HttpServletResponse response) throws IOException{
-	Category root = categoryService.getRootCategory();
-	
-	//将root对象拼接成需要的字符串格式，然后通过response的流返回去
-	String message = "[" + JSONObject.fromObject(root).toString() +"]";
-	PrintWriter writer = response.getWriter();
-	writer.print(message);
-	writer.flush();
-	
-	return null;
-}
-```
-
-
-下面是从服务器端返回的数据。
-
-```
-[{
-	"books":[],
-	"children":[{
-		"books":[],
-		"children":[{
-			"books":[],
-			"children":[],
-			"iconCls":"icon-rss",
-			"id":6,
-			"parent":null,
-			"text":"BBC News"
-		},
-		...
-		],
-	  "iconCls":"icon-feed",
-	  "id":2,
-	  "parent":null,
-	  "text":"Business"
-	 },
-	 ...
-	 ],
-	 "iconCls":"icon-channels",
-	 "id":1,
-	 "parent":null,
-	 "text":"Channels"
-}]
-```
-
-效果如下图：
-  
-![image](http://i.imgur.com/d7sgw4A.png)
 
 **tree需要的json格式的字符串必须使用双引号。如果换成单引号是不能正常显示的。**
 
@@ -292,10 +268,16 @@ public String getRootCategory(HttpServletResponse response) throws IOException{
 案例：
 
 ```
-<ul id="tt" class="easyui-tree" data-options="onClick: function(node){$(this).tree('beginEdit',node.target);}">
+$("#tt").tree({
+	url:'../dist/data/tree_data.json' ,
+	onClick: function(node){
+		//编辑树节点名称
+		$(this).tree('beginEdit',node.target);
+	}
+});
 ```
 
-
+**参考代码:[17/tree03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/17/tree03.html)**
 
 ## Tree常用方法  
 
@@ -706,6 +688,9 @@ JS代码：
 	}
 </script>
 ```
+
+**参考代码:[17/tree05.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/17/tree05.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/A1krHJD.png)
@@ -718,7 +703,7 @@ JS代码：
 ```
 $("#tt").tree({
 	dnd: true,
-	url:'/easyUI/getRootCategory'
+	url:'具体url地址'
 });
 ```
 
@@ -728,7 +713,7 @@ $("#tt").tree({
 onDrop: function(targetNode, source, point){
 	var parentId = $("#tt").tree('getNode', targetNode).id;
 	$.ajax({
-    	url: '/easyUI/updateCategory',
+    	url: '具体url地址',
     	type: 'post',
     	dataType: 'json',
     	data: {
@@ -738,7 +723,6 @@ onDrop: function(targetNode, source, point){
 	});
  } 
 ```
-
 
 ## 综合应用
 
@@ -756,9 +740,9 @@ Layout常用于布局，Tree常用于菜单，Tabs常用于具体内容的放置
 				<span>Library</span>
 				<ul>
 					<li data-options="url:'tree01.html'">Tree</li>
-					<li data-options="url:'progressbar.html'">Progressbar</li>
-					<li data-options="url:'accordion01.html'">Accordion</li>
-					<li data-options="url:'layout01.html'">Layout</li>
+					<li data-options="url:'../07/progressbar02.html'">Progressbar</li>
+					<li data-options="url:'../11/accordion01.html'">Accordion</li>
+					<li data-options="url:'../09/layout01.html'">Layout</li>
 				</ul>
 			</li>
 		</ul>
@@ -808,6 +792,9 @@ $(function(){
 	});
 });
 ```
+
+**参考代码:[17/tree07.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/17/tree07.html)**
+
 
 以上便是Tree的基本用法。
 
