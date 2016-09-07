@@ -44,6 +44,8 @@ description:
 </body>  
 ```  
 
+**参考代码:[10/layout04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/10/layout04.html)**
+
 实现效果如下：
 
 ![image](http://i.imgur.com/hIPdYD0.png) 
@@ -70,7 +72,7 @@ CSS代码如下：
 .p-search input {
 	width: 300px;
 	border: 1px solid #ccc;
-	background: #fff url('images/search.png') no-repeat right bottom;
+	background: #fff url('../dist/image/search.png') no-repeat right bottom;
 }
 
 .p-right {
@@ -99,7 +101,7 @@ HTML代码如下：
 			<div region="center" border="false">
 				<div class="easyui-layout" fit="true">
 					<div region="east" border="false" class="p-right">
-						<img src="../images/msn.gif" />
+						<img src="../dist/image/msn.gif" />
 					</div>
 					<div region="center" border="false" style="border:1px solid #ccc;">
 						<div class="easyui-layout" fit="true">
@@ -116,6 +118,8 @@ HTML代码如下：
 	</div>
 </body>
 ```  
+
+**参考代码:[10/layout05.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/10/layout05.html)**
 
 相信通过以上两个综合案例，大家可以很好的掌握Layout的使用。
 

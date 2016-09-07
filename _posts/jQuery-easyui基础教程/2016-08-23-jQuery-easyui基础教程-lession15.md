@@ -104,6 +104,7 @@ $(function(){
 });
 ```  
 
+**参考代码:[15/menu01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/15/menu01.html)**
 
 ## Menu常用属性
 
@@ -387,6 +388,7 @@ function myEnable(){
 }
 ```
 
+**参考代码:[15/menu02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/15/menu02.html)**
 
 以上便是Menu的基本用法。
 
