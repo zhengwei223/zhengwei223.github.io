@@ -188,5 +188,7 @@ $(function() {
 
 ![image](http://i.imgur.com/e3gk1e9.png)
 
+**参考代码:[05/school_timetable.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/05/school_timetable.html)**
+
 综上所述，便是可拖放的学校课程表。
 

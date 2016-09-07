@@ -19,7 +19,7 @@ description:
 ## Accordion简介
 
   
-分类空间允许用户使用多面板，但在同一时间只会显示一个。每个面板都内建支持展开和折叠功能。点击一个面板的标题将会展开或折叠面板主体。面板内容可以通过指定的'href'属性使用ajax方式读取面板内容。用户可以定义一个被默认选中的面板，如果未指定，那么第一个面板就是默认的。效果如图：
+分类空间允许用户使用多面板，但在同一时间只会显示一个。每个面板都内建支持展开和折叠功能。点击一个面板的标题将会展开或折叠面板主体。面板内容可以通过指定的```href```属性使用ajax方式读取面板内容。用户可以定义一个被默认选中的面板，如果未指定，那么第一个面板就是默认的。效果如图：
 
 ![image](http://i.imgur.com/cJZEgtY.png) 
 
@@ -38,6 +38,8 @@ description:
 	<div title="Tree Menu">content3</div>
 </div>
 ```  
+
+**参考代码:[11/accordion01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/11/accordion01.html)**
 
 效果如上图所示。
 
@@ -240,6 +242,8 @@ function add(){
 }
 ```
 
+**参考代码:[11/accordion01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/11/accordion01.html)**
+
 效果如下图所示:
 
 ![image](http://i.imgur.com/kQpccQh.png)
@@ -253,6 +257,8 @@ if (p){
 	alert(index);
 }
 ```
+
+**参考代码:[11/accordion01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/11/accordion01.html)**
 
 以上便是Accordion的基本用法。
 
