@@ -27,16 +27,11 @@ description:
 
 ```
 $.messager.alert('警告','警告消息');    
-$.messager.confirm('确认','您确认想要删除记录吗？',function(r){    
-    if (r){    
-        alert('确认删除');    
-    }    
-});  
 ```  
 
-效果如图：
+**参考代码:[19/messager01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/19/messager01.html)**
 
-![image](http://i.imgur.com/DMqox3k.png)
+效果如图：
 
 ![image](http://i.imgur.com/85pXH3y.png)
 
@@ -123,6 +118,9 @@ $.messager.show({
 	}
 });
 ```
+
+**参考代码:[19/messager02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/19/messager02.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/Rp3UaUu.png)
@@ -144,6 +142,9 @@ timeout：如果定义为0，消息窗体将不会自动关闭，除非用户关
 ```
 $.messager.alert('我的消息','这是一个提示信息！','info');
 ```
+
+**参考代码:[19/messager03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/19/messager03.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/9PVl1ZZ.png)
@@ -159,15 +160,18 @@ fn: 在窗口关闭的时候触发该回调函数。
 代码如下：
 
 ```
-$.messager.confirm('确认对话框', '确定删除吗？', function(r){
-	if (r){
-	    // 退出操作;
-	}
+$.messager.confirm('确认','您确认想要删除记录吗？',function(r){    
+    if (r){    
+        alert('确认删除');    
+    }    
 });
 ```
+
+**参考代码:[19/messager04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/19/messager04.html)**
+
 效果如下图：
 
-![image](http://i.imgur.com/CX7ehBY.png)
+![image](http://i.imgur.com/DMqox3k.png)
 
 Tip:显示一个包含“确定”和“取消”按钮的确认消息窗口。参数：  
 title：在头部面板显示的标题文本。  
@@ -185,6 +189,9 @@ $.messager.prompt('提示信息', '请输入你的姓名：', function(r){
 	}
 });
 ```
+
+**参考代码:[19/messager05.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/19/messager05.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/UEn7Hoc.png)
@@ -201,6 +208,9 @@ fn(val): 在用户输入一个值参数的时候执行的回调函数。
 ```
 $.messager.progress(); 
 ```
+
+**参考代码:[19/messager06.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/19/messager06.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/YuyFP87.png)

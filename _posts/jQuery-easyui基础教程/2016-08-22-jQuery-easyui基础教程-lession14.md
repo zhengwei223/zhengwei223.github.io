@@ -90,6 +90,8 @@ panel的样式定义在jquery-easyui-1.5\themes\default\panel.css文件中。
 </div> 
 ```  
 
+**参考代码:[14/panel03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/14/panel03.html)**
+
 以上便是如何修改panel的样式，通过本章节内容，大家应该会修改jQuery EasyUI提供的样式了。
 
 

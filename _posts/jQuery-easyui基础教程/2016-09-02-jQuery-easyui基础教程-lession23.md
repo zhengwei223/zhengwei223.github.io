@@ -59,6 +59,8 @@ description:
 	});
 </script>
 ```
+
+**参考代码:[23/combo01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/23/combo01.html)**
  
 效果如上图。
 
@@ -205,6 +207,8 @@ $('#cc').combo({
 	hasDownArrow:false
 });
 ```
+
+**参考代码:[23/combo02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/23/combo02.html)**
 
 效果如下图：
 
@@ -360,6 +364,8 @@ $('#cc').combo({
 	<option value="CA">California</option>
 </select>
 ```
+
+**参考代码:[23/combobox01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/23/combo01.html)**
   
 效果如上图。
 
@@ -463,7 +469,7 @@ $('#cc').combo({
 
 ```
 $('#cc').combobox({    
-    url:'../data/combobox_data.json',    
+    url:'../dist/data/combobox_data.json',     
     valueField:'id',    
     textField:'text',
     multiple:true,
@@ -472,6 +478,8 @@ $('#cc').combobox({
     hasDownArrow:false//定义不显示向下箭头按钮。
 }); 
 ```
+
+**参考代码:[23/combobox02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/23/combo02.html)**
 
 效果如下图：
 
@@ -569,38 +577,42 @@ HTML代码：
 JS代码：  
 
 ```
-$('#cc1').combobox({    
-    url:'/easyUI/getOneLevelCategory',    
-    valueField:'id',    
-    textField:'text',
-    selectOnNavigation:true,
-    editable:false,
-    onSelect: function(rec){    
-        var url = '/easyUI/getTwoLevelCategory?pid='+rec.id;    
-        $('#cc2').combobox('reload', url);    
-    },
-    onLoadSuccess:function(){
-    	//$(this).combobox('getData')得到所有下拉项
-    	
-    	//得到第一个下拉项
-    	var rec = $(this).combobox('getData')[0];
-    	
-    	//设置下拉列表默认选中第一个下拉项
-    	$(this).combobox('select',rec.text); 
-    	
-    	//加载#cc2中的内容
-    	var url = '/easyUI/getTwoLevelCategory?pid='+rec.id;    
-        $('#cc2').combobox('reload', url);    
-    }
-}); 
-
-$('#cc2').combobox({
-	onLoadSuccess:function(){
-		//设置下拉列表默认选中第一个下拉项
-    	$(this).combobox('select',$(this).combobox('getData')[0].text); 
-    }
-}); 
+$(function(){
+	$('#cc1').combobox({    
+	    url:'../dist/data/oneLevelCategory.json',    
+	    valueField:'id',    
+	    textField:'text',
+	    selectOnNavigation:true,//可以使用键盘上的上下键来选中项
+	    editable:false,//用户不可以直接输入文本到字段中。
+	    onSelect: function(rec){    
+            var url = '../dist/data/twoLevelCategory_' + rec.id + '.json';    
+            $('#cc2').combobox('reload', url);    
+        },
+        onLoadSuccess:function(){
+        	//$(this).combobox('getData')得到所有下拉项
+        	
+        	//得到第一个下拉项
+        	var rec = $(this).combobox('getData')[0];
+        	
+        	//设置下拉列表默认选中第一个下拉项
+        	$(this).combobox('select',rec.text); 
+        	
+        	//加载#cc2中的内容
+        	var url = '../dist/data/twoLevelCategory_' + rec.id + '.json';
+            $('#cc2').combobox('reload', url);    
+        }
+	}); 
+	
+	$('#cc2').combobox({
+		onLoadSuccess:function(){
+			//设置下拉列表默认选中第一个下拉项
+        	$(this).combobox('select',$(this).combobox('getData')[0].text); 
+        }
+	});    
+});
 ```
+
+**参考代码:[23/combobox03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/23/combobox03.html)** 
 
 效果如下图：
 

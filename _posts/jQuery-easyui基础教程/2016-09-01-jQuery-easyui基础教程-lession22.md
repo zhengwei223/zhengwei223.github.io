@@ -30,6 +30,8 @@ TextBox(文本框)是一个增强的输入字段组件， 它允许用户非常�
 ```
 单行文本框：<input class="easyui-textbox" data-options="prompt:'Enter a email address...',validType:'email'" style="width:150px;height:32px">
 ```
+
+**参考代码:[22/textbox01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/22/textbox01.html)**
   
 效果如上图。
 
@@ -149,6 +151,8 @@ TextBox(文本框)是一个增强的输入字段组件， 它允许用户非常�
 多行文本框：<input class="easyui-textbox" data-options="multiline:true,prompt:'This TextBox will allow the user to enter multiple lines of text.'" style="width:300px;height:100px">
 ```
 
+**参考代码:[22/textbox01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/22/textbox01.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/D6S65kO.png)	
@@ -186,6 +190,8 @@ TextBox(文本框)是一个增强的输入字段组件， 它允许用户非常�
 		">
 ```
 
+**参考代码:[22/textbox02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/22/textbox02.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/R1YkXK7.png)	
@@ -215,6 +221,8 @@ TextBox(文本框)是一个增强的输入字段组件， 它允许用户非常�
 	</div>
 </div>
 ```
+
+**参考代码:[22/textbox03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/22/textbox03.html)**
 
 效果如下图：
 
@@ -355,6 +363,8 @@ $("input").textbox({
 }); 
 ```
 
+**参考代码:[22/textbox04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/22/textbox04.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/hVeA88g.png)
@@ -375,6 +385,8 @@ FileBox(文件框)组件在表单当中表示一个文件上传的字段。**它
 ```
 <input class="easyui-filebox" data-options="prompt:'Choose a file...'" style="width:300px">
 ```
+
+**参考代码:[22/filebox01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/22/filebox01.html)**
   
 效果如上图。
 
@@ -415,6 +427,8 @@ FileBox(文件框)组件在表单当中表示一个文件上传的字段。**它
 ```
 <input class="easyui-filebox" data-options="buttonAlign:'left',buttonIcon:'icon-add',buttonText:'上传文件',prompt:'请选择要上传的另一个文件'" style="width:300px">
 ```
+
+**参考代码:[22/filebox01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/22/filebox01.html)**
 
 效果如下图：
 
