@@ -64,7 +64,7 @@ author: 付天有
 
 变量名：CLASSPATH
 
-变量值：`.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;`//记得前面有个"."
+变量值：`.;%JAVA_HOME%\lib`
 
 变量名：Path  **一般已经存在，点击编辑**
 
