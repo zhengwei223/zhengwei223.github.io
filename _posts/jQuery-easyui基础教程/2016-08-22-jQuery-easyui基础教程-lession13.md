@@ -35,6 +35,7 @@ description:
 </div>  
 ```  
 
+**参考代码:[13/panel01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/13/panel01.html)**
 
 ## Panel常用属性
 
@@ -223,6 +224,8 @@ description:
     Footer Content.
 </div>
 ```
+
+**参考代码:[13/panel04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/13/panel04.html)**
 
 效果如图：
 
@@ -458,7 +461,9 @@ $('#p').panel({
 
 ```
 
-当选中某一个选项卡时，会弹出对应的标题。效果如图：
+**参考代码:[13/panel02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/13/panel02.html)**
+
+效果如图：
 
 ![image](http://i.imgur.com/4vtqina.png)
 

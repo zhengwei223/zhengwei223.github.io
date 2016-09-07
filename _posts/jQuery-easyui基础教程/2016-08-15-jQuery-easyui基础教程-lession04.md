@@ -9,7 +9,6 @@ description:
   
 ---
 
-
 ##### HTML代码：
 
 ```
@@ -181,6 +180,8 @@ function setTotal() {
 ![image](http://i.imgur.com/1OYyl82.png)
 
 ![image](http://i.imgur.com/ZjevSBg.png)
+
+**参考代码:[04/cart.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/04/cart.html)**
 
 综上所述，便是可拖放购物车的实现。
 

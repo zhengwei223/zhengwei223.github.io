@@ -35,6 +35,8 @@ description:
 </div>
 ```  
 
+**参考代码:[09/layout01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/09/layout01.html)**
+
 **对于后台管理系统，通常会将整个body标签当作layout来布局。**  
 代码如下：
 
@@ -48,6 +50,7 @@ description:
 </div>
 ```  
 
+**参考代码:[09/layout02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/09/layout02.html)**
 
 ## Layout常用属性
 
@@ -143,6 +146,34 @@ able-striped table-condensed">
 	  <td>最大面板高度。</td>
 	  <td>10000</td>
    </tr>
+   <tr>
+      <td>expandMode</td>
+	  <td>string</td>
+	  <td>在点击折叠面板时候的扩展模式。可用值有：“float”、“dock”和null<br/>
+			float：区域面板将展开并浮动在顶部，在鼠标焦点离开面板时会自动隐藏。<br/>
+			dock：区域面板将展开并钉在面板上，在鼠标焦点离开面板时不会自动隐藏。<br/>
+			null：什么也不会发生。<br/>
+	  </td>
+	  <td>float</td>
+   </tr>
+   <tr>
+      <td>collapsedSize</td>
+	  <td>number</td>
+	  <td>折叠后的面板大小。</td>
+	  <td>28</td>
+   </tr>
+   <tr>
+      <td>hideExpandTool</td>
+	  <td>boolean</td>
+	  <td>为true时隐藏折叠面板上的扩展面板工具。</td>
+	  <td>false</td>
+   </tr>
+   <tr>
+      <td>hideCollapsedContent</td>
+	  <td>boolean</td>
+	  <td>为true时隐藏折叠面板上的标题栏。</td>
+	  <td>true</td>
+   </tr>
 </table>
 
 参考jQuery EasyUI的API。
@@ -150,9 +181,11 @@ able-striped table-condensed">
 代码如下：
 
 ```
-<div data-options="region:'north',title:'North Title',split:false,border:false,iconCls:'icon-add',href:'top.html',collapsible:false" style="height:100px;"></div>   
-
+<div data-options="region:'north',title:'North Title',split:false,border:false,iconCls:'icon-add',href:'top.html',collapsible:false" style="height:100px;"></div>     
 ```
+
+**参考代码:[09/layout03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/09/layout03.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/X1k5360.png)
@@ -162,17 +195,20 @@ able-striped table-condensed">
 ```
 var $southPanel = $("body").layout("panel",'south');
 $southPanel.panel({
+	hideCollapsedContent:false,//该属性值设为false，当折叠面板后依然显示面板标题
 	split:false,
 	border:false,
 	iconCls:'icon-add'
-});  
-
+});
 ```
+
+**参考代码:[09/layout03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/09/layout03.html)**
 
 效果如下图：
 
-![image](http://i.imgur.com/zqqi7Bn.png)
+![image](http://i.imgur.com/GTSlSGg.png)
 
+![image](http://i.imgur.com/VgwkoQa.png)
 
 ## Layout常用方法  
 
@@ -220,6 +256,7 @@ $southPanel.panel({
 $('body').layout('add',{    
     region: 'west',    
     width: 180,    
+    expandMode:'dock',//面板折叠时，点击面板,区域面板将展开并钉在面板上，在鼠标焦点离开面板时不会自动隐藏。
     title: 'West Title',    
     split: true,    
     tools: [{    
@@ -230,8 +267,10 @@ $('body').layout('add',{
         handler:function(){alert('remove')}    
     }]    
 });  
-
 ```
+
+**参考代码:[09/layout03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/09/layout03.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/IJVG0JD.png)

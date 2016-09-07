@@ -28,8 +28,9 @@ description:
 ```
 <div id="p" class="easyui-progressbar" data-options="value:60" style="width:400px;"></div> 
 ```  
+**参考代码:[07/progressbar01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/07/progressbar01.html)**
 
-只需要简单的给DIV标签添加一个指定的class样式即可创建一个进度条。效果如下图：
+只需要简单的给```<div>```标签添加一个指定的class样式即可创建一个进度条。效果如下图：
 
 ![image](http://i.imgur.com/Vd8fctY.png)
 
@@ -162,6 +163,7 @@ function changeValue(){
 <div id="p" class="easyui-progressbar" data-options="value:0,text:'正在加载数据...'" style="width:400px;"></div> 
 ```
 
+**参考代码:[07/progressbar02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/07/progressbar02.html)**
 
 以上便是Progressbar的基本用法。
 

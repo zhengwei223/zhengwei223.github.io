@@ -93,8 +93,7 @@ jQuery EasyUI提供易于使用的组件它使Web开发人员快速地在流行�
 	</div>    
 </body>   
 ```
-
-**参考代码:```[01/construction01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/01/construction01.html)```**
+**参考代码:[01/construction01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/01/construction01.html)**
 
 效果如图：  
 
@@ -122,7 +121,7 @@ jQuery EasyUI提供易于使用的组件它使Web开发人员快速地在流行�
 </div>  	
 ```
 
-**参考代码:```[01/construction02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/01/construction02.html)```**
+**参考代码:[01/construction02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/01/construction02.html)**
 
 ###### 如果使用easyloader则应该这样写：
 
@@ -146,6 +145,6 @@ jQuery EasyUI提供易于使用的组件它使Web开发人员快速地在流行�
 </div>  
 ```
 
-**参考代码:```[01/construction03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/WebRoot/01/construction03.html)```**
+**参考代码:[01/construction03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/01/construction03.html)**
 
 以上便是jQuery EasyUI使用的三种不同方式。

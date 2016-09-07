@@ -27,6 +27,8 @@ EasyUI的Draggable控件可以帮助我们快速的开发可以调整大小的�
 <div id="rr" class="easyui-resizable" data-options="maxWidth:800,maxHeight:600" style="width:100px;height:100px;border:1px solid #ccc;"></div> 
 ```  
 
+**参考代码:[06/resizable.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/05/resizable.html)**
+
 运行程序会发现，定义的div可以通过鼠标调整大小。
 
 

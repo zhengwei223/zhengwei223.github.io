@@ -36,6 +36,9 @@ $(function(){
 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>  
 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',iconAlign:'bottom'">删除</a>  
 ```	
+
+**参考代码:[16/linkbutton01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/16/linkbutton01.html)**
+
 效果如下图：
 
 ![image](http://i.imgur.com/lHJQCaW.png)
@@ -194,6 +197,8 @@ function myBtn(){
 }
 ```
 
+**参考代码:[16/linkbutton01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/16/linkbutton01.html)**
+
 # MenuButton
 
 ## MenuButton简介
@@ -228,6 +233,9 @@ function myBtn(){
 	<div>About</div>
 </div>
 ```	
+
+**参考代码:[16/menubutton01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/16/menubutton01.html)**
+
 效果如上图。
 
 
@@ -313,9 +321,8 @@ function myBtn(){
 
 
 ```
-<div style="border:1px solid #ccc;background:#fafafa;padding:5px;width:120px;">
+<div style="border:1px solid #ccc;background:#fafafa;padding:5px;width:80px;">
 	<a href="#" class="easyui-splitbutton" menu="#mm" iconCls="icon-edit">Edit</a>
-	<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-help"></a>
 </div>
 <div id="mm" style="width:150px;">
 	<div iconCls="icon-undo">Undo</div>
@@ -338,6 +345,9 @@ function myBtn(){
 	<div>Select All</div>
 </div>  
 ```	
+
+**参考代码:[16/splitbutton01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/16/splitbutton01.html)**
+
 效果如上图
 
 
@@ -403,21 +413,43 @@ function myBtn(){
 
 参考jQuery EasyUI的API。
 
-**MenuButton与SplitButton的区别：**当没有子菜单项的时候，MenuButton不再显示下三角形，SplitButton依然显示下三角形。  
+**MenuButton与SplitButton的区别：**只有当鼠标移动到splitbutton控件的下三角时才会显示子菜单，而menubutton控件则是只要鼠标移动上去就显示子菜单。  
 
 参考代码：
 
 ```
-<div style="border:1px solid #ccc;background:#fafafa;padding:5px;width:120px;">
-	<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-help"></a>
-	<a href="#" class="easyui-splitbutton" plain="true" iconCls="icon-help"></a>
+<div style="border:1px solid #ccc;background:#fafafa;padding:5px;width:150px;">
+	<a href="#" class="easyui-splitbutton" data-options="menu:'#mm2',iconCls:'icon-ok'">Ok</a>  
+	<a href="#" class="easyui-menubutton" data-options="menu:'#mm3',iconCls:'icon-help'">Help</a> 
 </div>
+<div id="mm2" style="width:150px;">
+	<div iconCls="icon-undo">Undo</div>
+	
+</div>  
+<div id="mm3" style="width:150px;">
+	<div iconCls="icon-redo">Redo</div>
+</div> 
 ```  
+
+**参考代码:[16/splitbutton02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/16/splitbutton02.html)**
+
+
+**MenuButton和SplitButton控件即使没有子菜单也会显示下三角，想要不显示，则用linkbutton替换。**
+
+参考代码：
+
+```
+<div style="border:1px solid #ccc;background:#fafafa;padding:5px;width:150px;">
+	<a href="#" class="easyui-splitbutton" iconCls="icon-edit">Edit</a>
+	<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-help">Help</a>
+</div>
+```
+
+**参考代码:[16/splitbutton03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/16/splitbutton03.html)**
 
 效果如下图：
 
-![image](http://i.imgur.com/llYO9TA.png)
-
+![image](http://i.imgur.com/bRyvtZ3.png)
 
 以上便是各种按钮的基本用法。
 

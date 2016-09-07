@@ -37,6 +37,8 @@ description:
 </div>
 ```  
 
+**参考代码:[12/tabs01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/12/tabs01.html)**
+
 效果如下图所示：
 
 ![image](http://i.imgur.com/L7A7WvS.png)
@@ -271,6 +273,8 @@ $('#tt').tabs({
 
 ```
 
+**参考代码:[12/tabs01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/12/tabs01.html)**
+
 当选中某一个选项卡时，会弹出对应的标题。效果如图：
 
 ![image](http://i.imgur.com/f0Zjg61.png)
@@ -368,6 +372,8 @@ function add(title){
 	});  
 }
 ```
+
+**参考代码:[12/tabs02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/12/tabs02.html)**
 
 以上便是Tabs的基本用法。
 

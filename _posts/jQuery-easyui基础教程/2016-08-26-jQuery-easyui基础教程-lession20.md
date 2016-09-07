@@ -36,6 +36,8 @@ HTML中非常重要的一个标签是Form标签，登录、注册、查找等很
     </div>   
 </form>  
 ```
+
+**参考代码:[20/form01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/20/form01.html)**
   
 效果如下图：
 
@@ -91,12 +93,14 @@ HTML中非常重要的一个标签是Form标签，登录、注册、查找等很
 ```
 $('#ff').form({    
     url:'/easyUI/test', 
-    novalidate:true, //不进行格式校验 
+    //novalidate:true, //不进行格式校验 
     success:function(data){    
         alert(data);    
     }    
 }); 
 ```
+
+**参考代码:[20/form01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/20/form01.html)**
 
 ## Form常用方法  
 
@@ -187,7 +191,7 @@ function showLoginWindow(){
 
 $(function(){
 	$('#loginForm').form({    
-	    url:'/easyUI/login',    
+	    url:'具体的url地址',    
 	    onSubmit: function(){    
 	        return true; 
 	    },    
@@ -196,7 +200,7 @@ $(function(){
 	    }    
 	}); 
 	$('#registForm').form({    
-	    url:'/easyUI/regist',    
+	    url:'具体的url地址',    
 	    onSubmit: function(){    
 	        return true; 
 	    },    
@@ -214,6 +218,8 @@ function regist(){
 	$('#registForm').submit(); 
 } 
 ```
+
+**参考代码:[20/form02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/20/form02.html)**
 
 结合数据库和服务器端代码，实现注册和登录功能。效果如下图：
 

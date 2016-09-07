@@ -39,6 +39,8 @@ description:
 </div>
 ```  
 
+**参考代码:[11/accordion01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/11/accordion01.html)**
+
 效果如上图所示。
 
 
@@ -240,6 +242,8 @@ function add(){
 }
 ```
 
+**参考代码:[11/accordion01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/11/accordion01.html)**
+
 效果如下图所示:
 
 ![image](http://i.imgur.com/kQpccQh.png)
@@ -253,6 +257,8 @@ if (p){
 	alert(index);
 }
 ```
+
+**参考代码:[11/accordion01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/11/accordion01.html)**
 
 以上便是Accordion的基本用法。
 
