@@ -435,8 +435,113 @@ FileBox(文件框)组件在表单当中表示一个文件上传的字段。**它
 ![image](http://i.imgur.com/VNzWjYp.png)	
 
 
+# PasswordBox
 
-以上便是文本框和文件框的基本用法。
+## PasswordBox简介
+
+  
+FileBox(文件框)组件在表单当中表示一个文件上传的字段。**它扩展自 textbox (文本框)，大部分的属性、事件和方法都继承自文本框。但是由于浏览器的安全问题，其中的某些方法（如："setValue"）则不能用于 filebox 组件。**效果如下图：
+
+![image](http://i.imgur.com/IKFzeZl.png)
+
+
+## 开发PasswordBox程序
+
+```
+<input class="easyui-passwordbox" style="width:20%;height:34px;padding:10px"> 
+```
+
+**参考代码:[22/passwordbox01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/22/passwordbox01.html)**
+  
+效果如上图。
+
+
+## PasswordBox常用属性
+
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th width="200px">属性名</th>
+      <th width="180px">属性值类型</th>
+      <th width="600px">描述</th>
+      <th width="100px">默认值</th>
+   </tr>
+   <tr>
+      <td>passwordChar</td>
+	  <td>string</td>
+	  <td>在文本框中显示的密码字符。</td>
+	  <td>●</td>
+   </tr>
+   <tr>
+      <td>checkInterval</td>
+	  <td>number</td>
+	  <td>在间隔的时间后检查并转换输入的字符为密码字符。</td>
+	  <td>200</td>
+   </tr>
+   <tr>
+      <td>lastDelay</td>
+	  <td>number</td>
+	  <td>在延迟的时间后转换最后输入的字符为密码字符。</td>
+	  <td>500</td>
+   </tr>
+   <tr>
+      <td>revealed</td>
+	  <td>boolean</td>
+	  <td>定义是否默认显示真实密码。</td>
+	  <td>false</td>
+   </tr>
+   <tr>
+      <td>showEye</td>
+	  <td>boolean</td>
+	  <td>定义是否显示眼睛图标。</td>
+	  <td>true</td>
+   </tr>
+</table>
+
+
+## PasswordBox常用方法  
+
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th width="300px">方法名</th> 
+      <th width="300px">方法参数</th> 
+      <th width="600px">描述</th>
+   </tr>
+   <tr>
+      <td>options</td> 
+      <td>none</td> 
+      <td>返回属性对象。</td>
+   </tr>
+   <tr>
+      <td>showPassword</td> 
+      <td>none</td> 
+      <td>显示密码。</td>
+   </tr>
+   <tr>
+      <td>hidePassword</td> 
+      <td>none</td> 
+      <td>隐藏密码。</td>
+   </tr>
+</table> 
+
+案例一：  
+
+代码如下：
+
+```
+$("#input1").passwordbox({
+	 prompt:'Password',
+	 iconWidth:28,
+	 passwordChar:'*',
+	 lastDelay:1000,
+	 //revealed:true,
+	 showEye:false
+});
+```
+
+**参考代码:[22/passwordbox01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/22/passwordbox01.html)**	
+
+
+以上便是文本框、文件框及密码框的基本用法。
 
 
 
