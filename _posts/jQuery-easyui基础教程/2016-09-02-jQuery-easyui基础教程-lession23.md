@@ -619,8 +619,3 @@ $(function(){
 ![image](http://i.imgur.com/3avTQpJ.png)
 
 以上便是下拉框的基本操作。
-
-
-
-
-

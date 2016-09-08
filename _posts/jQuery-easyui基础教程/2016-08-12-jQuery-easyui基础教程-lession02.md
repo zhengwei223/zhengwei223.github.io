@@ -104,7 +104,7 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
-      <th width="200px">属性名</th><th width="180px">属性值类型</th><th width="650px">描述</th><th>默认值</th>
+      <th width="200px">属性名</th><th width="180px">属性值类型</th><th width="600px">描述</th><th width="100px">默认值</th>
    </tr>
    <tr>
       <td>title</td><td>string</td><td>对话框窗口标题文本</td><td>New Dialog</td>
@@ -343,5 +343,4 @@ HTML代码
 
 Tip: 当点击关闭按钮时会弹出确认框。当点击跳转按钮时对话框中将显示index.jsp页面中的内容。 
 
- 
 以上内容便是Dialog的普通用法。

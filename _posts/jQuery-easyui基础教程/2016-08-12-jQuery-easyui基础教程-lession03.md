@@ -96,7 +96,7 @@ $('#image3').draggable({
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
-      <th width="200px">属性名</th><th width="180px">属性值类型</th><th width="650px">描述</th><th>默认值</th>
+      <th width="200px">属性名</th><th width="180px">属性值类型</th><th width="500px">描述</th><th width="200px">默认值</th>
    </tr>
    <tr>
       <td>handle</td>
@@ -271,7 +271,7 @@ Tip：只有当d1,d3拖动到dd中时才会触发onDrop事件，即dd中文字�
 
 <table class="table table-bordered table-striped table-condensed">
    <tr>
-      <th width="200px">属性名</th><th width="180px">属性值类型</th><th width="650px">描述</th><th>默认值</th>
+      <th width="200px">属性名</th><th width="180px">属性值类型</th><th width="600px">描述</th><th width="100px">默认值</th>
    </tr>
    <tr>
       <td>accept</td>
@@ -402,8 +402,4 @@ $( "#dd" ).droppable({
 ![image](http://i.imgur.com/c2i4hWD.png)
 
 以上便是Draggable和Droppable的基本用法。
-
-
-
-
 
