@@ -221,7 +221,9 @@ description:
 
 &emsp;&emsp;你可以在代码上，修改它们的像素数值，看看div元素的长方形盒子显示的样式有什么变化：
 
-    <!DOCTYPE html>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
     <html>
     <head>
     <style>
@@ -252,7 +254,7 @@ description:
 > 长方形盒子的宽度（450px）= div宽度(300px) + 左内边距(25px) + 右内边距(25px) + 左边框(25px) + 右边框(25px) + 左外边距(25px) + 右外边距(25px)
 
 
-## 2.4 盒子里面套盒子
+## 2.4 嵌套盒子
 
 &emsp;&emsp;继续上一小节的代码示例。既然所有HTML元素都是长方形盒子，我们再来看放在div盒子里面的段落（\<p\>）元素的盒子属性。
 
@@ -315,6 +317,106 @@ description:
 
 ## 2.5 CSS属性简写
 
+&emsp;&emsp;每个长方形盒子（rectangle）都有四条边，我们把这四条边所在的方位依次命名为顶部（top）、底部（bottom）、左边（left）和右边（right）。
+
+---
+
+### 定义边框的四个方位
+
+&emsp;&emsp;以盒子边框为例，除了用**border**属性一次修改四个方位上的边框宽度，我们也可以单独修改其中任意一个边框属性：
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <html>
+    <head>
+    <style>
+    div {
+        background-color: lightgrey;
+        width: 300px;
+        border-top: 15px solid DarkMagenta; /**顶部边框：15像素宽实心紫色线条 */
+        border-bottom: 25px solid yellow; /**底部边框：25像素宽实心黄色线条 */
+        border-left: 35px solid green; /**左边框：35像素宽实心绿色线条 */
+        border-right: 45px solid red; /**左边框 ：45像素宽实心红色线条*/
+        padding: 25px;
+        margin: 25px;
+    }
+    </style>
+    </head>
+    <body> 
+    <h2>演示CSS盒子模型</h2>
+    <div></div>   
+    </body>
+    </html>
+
+  [打开编辑器并且复制、运行](/public/tiyEditor.html)  
+
+&emsp;&emsp;结果如我所愿，四个边框依照定义分别显示出不同色彩，并且有宽度不同：
+
+ ![html-xhtml-relation](/public/img/html/css-four-border-color.PNG)
+
+
+---
+
+### 使用CSS简写
+
+&emsp;&emsp;上一小节我们用border-top一个属性分别定义了顶部边框的宽度、样式和颜色。
+
+&emsp;&emsp;下面的例子里面，我们分开定义了边框宽度（border-width）、边框颜色（border-style）和边框颜色（border-color），同时采用了CSS属性简写语法进一步指定它们在顶部（top）、底部（bottom）、左边（left）和右边（right）的属性值。
+
+&emsp;&emsp;比如说，当我们写了四行代码来定义边框宽度的时候，
+
+        border-top: 15px; /**顶部边框：15像素宽 */
+        border-bottom: 25px; /**底部边框：25像素宽 */
+        border-left: 35px; /**左边框：35像素宽 */
+        border-right: 45px; /**左边框 ：45像素*/
+
+&emsp;&emsp;我们也可以用一行代码来实现同样效果。请看例子：
+
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <html>
+    <head>
+    <style>
+    div {
+        background-color: lightgrey;
+        width: 300px;
+        /**使用CSS简写定义边框的宽度：
+           有四个像素值表示宽度值会按照顺时针方向
+           ( 顶部、右边、底部和右边)依次应用到四个边框上*/
+        border-width :15px 25px 35px 45px;
+        /**使用CSS简写定义边框的显示样式:
+           只写一个值表示四个边框应用一样的样式*/
+        border-style: solid; 
+        /**使用CSS简写定义四个边框的颜色：
+           有三个两个颜色名称，
+           第一个颜色名称应在用顶部（top）边框上，
+           第二个颜色值应用在水平方向（left和right）的边框上，
+           第三个颜色值应用在底部（bottom）边框上
+         */     
+        border-color: yellow green red;  
+        padding: 25px;
+        margin: 25px;
+    }
+    </style>
+    </head>
+    <body> 
+    <h2>演示CSS盒子模型</h2>
+    <div></div>
+    </body>
+    </html>
+
+  [打开编辑器并且复制、运行](/public/tiyEditor.html)
+
+ ![html-xhtml-relation](/public/img/html/css-border-short-hand.PNG)
+
+### 试一试
+
+&emsp;&emsp;你可以试试看，如果在border-color里面只留下两个颜色名称，div边框的颜色会怎么显示？
+
+&emsp;&emsp;关于CSS简写更详细的介绍可以参考以下链接：[CSS Shorthand properties](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Shorthand_properties)，这个网页会让你了解更多关于CSS属性简写的规则。
 
 # 3.再下一城，完成页面主体
 
@@ -419,13 +521,99 @@ description:
 
 ### 块级(block-level)元素
 
-&emsp;&emsp;**display**默认值是**block**的元素都会另起一行开始显示，而且它的宽度会尽可能的占满一行。
+&emsp;&emsp;**display**默认值是**block**的元素是块级元素。
 
-&emsp;&emsp;div标签就是最常见的一个块级元素。
+&emsp;&emsp;常见的一个块级元素由div，p和form。下面以div为例说明块级元素的特性：
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <html>
+    <head>
+    <style>
+    div {
+        /**
+        注意：这里没有设置div的宽度属性        
+        */
+        height:35px;
+        /**
+        背景色：银灰色        
+        */
+        background-color: lightgrey;
+        /**
+        边框：两像素宽的红色实线        
+        */
+        border: 2px solid red;
+        /**
+        内边距：5px       
+        */
+        padding: 5px;
+        /**
+        外边距是5px 让两个div的边框显示出来       
+        */
+        margin:5px; 
+    }
+    </style>
+    </head>
+    <body> 
+    <h2>演示块级元素</h2>
+    <div></div>
+    <div></div>
+    </body>
+    </html>
+
+  [打开编辑器并且复制、运行](/public/tiyEditor.html)
+
+&emsp;&emsp;我们可以看到，不只是它的宽度充满了整个页面的宽度 ，而且第二个元素位置换行显示，这也是块级元素的就是主要特征。
+
+ ![html-xhtml-relation](/public/img/html/div-display-as-block-el.PNG)
+
+
+&emsp;&emsp;
+
+---
 
 ### 行级(inline)元素
 
-&emsp;&emsp;**display**默认值是**inline**的元素不会另起一行开始显示，也就是说它一般都会跟在同一行的其他元素后面。
+&emsp;&emsp;**display**默认值是**inline**的元素是行级元素。
+&emsp;&emsp;span和a标签都是标准的行级元素，来看一个综合性的例子：
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <html>
+    <head>
+    <style>
+     p {
+       /**这里定义段落元素的边框和外边距
+          可以帮你更方便地看出页面是怎么显示块元素的
+        */
+       border :3px solid black;
+       margin:5px;
+     }
+    </style>
+    </head>
+    <body> 
+    <h2>演示行级元素</h2>
+    <p id="para1">Hello World!</p>
+    <p>
+                        <!--这里定义了一个行级元素，元素里的文本字体被设置为红色-->
+     This paragraph is <span style="color:red;">not</span> affected by the style.
+     This paragraph is <span style="color:red;">not</span> affected by the style.
+     This paragraph is <span style="color:red;">not</span> affected by the style.
+     This paragraph is <span style="color:red;">not</span> affected by the style.
+    </p>
+    <p>
+      只要点击一个链接，你就可以轻松打开<a href="http://www.baidu.com" target="_blank">百度首页</a>
+    </p>
+    </body>
+    </html>
+
+  [打开编辑器并且复制、运行](/public/tiyEditor.html)
+
+&emsp;&emsp;行内元素没有打断段落里面在同一行上的显示的文字，换句话说就是没有像块元素一样直接换行显示：
+
+ ![html-xhtml-relation](/public/img/html/p-span-a-css-display.PNG)
 
 ## 4.2 浮动和清除浮动
 
