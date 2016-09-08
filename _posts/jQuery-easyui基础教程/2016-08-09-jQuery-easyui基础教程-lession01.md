@@ -53,6 +53,7 @@ easyUI框架提供了创建网页所需的一切，帮助您轻松建立站点�
 ![image](http://i.imgur.com/OKUnaaP.png)
 
 - demo:easyui演示页面代码库（可以从中参考很多组件的用法，是个非常好用的demo库。）
+- demo-mobile:该目录下存放的是EasyUI移动版各插件的示例示例
 - locale:easyui国际化资源文件库（需要用到国际化的时候就需要在页面中引用该包路径下的文件。）
 - plugins:easyui核心功能组件分解后的独立插件库（需要配合easyloader.js一起使用。）
 - src：easyui部分非核心组件的源代码库（核心大组件的源代码并未公布，比如datagrid、combo和tree等。）
@@ -77,7 +78,7 @@ jQuery EasyUI提供易于使用的组件它使Web开发人员快速地在流行�
 - jQuery基础包
 - jquery.easyui.min.js 该包是easyUI的基础包 
 
-以上包是easyUI必须引入的包，其他包按需引入。
+以上包是easyUI必须引入的包。
 
 ###### 引入所需js包的另外一种方式：
 
@@ -148,3 +149,4 @@ jQuery EasyUI提供易于使用的组件它使Web开发人员快速地在流行�
 **参考代码:[01/construction03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/01/construction03.html)**
 
 以上便是jQuery EasyUI使用的三种不同方式。
+
