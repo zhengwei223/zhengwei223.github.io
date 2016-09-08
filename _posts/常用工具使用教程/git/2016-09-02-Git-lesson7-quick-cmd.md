@@ -6,7 +6,7 @@ tags: Git 工具
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 git
 description: 
-importance: 2
+p_cate: 常用工具使用教程
 ---
 
 名词
@@ -18,7 +18,7 @@ importance: 2
 - Repository：仓库区（或本地仓库）
 - Remote：远程仓库
 
-## 一、新建代码库
+# 一、新建代码库
 
 
 ```
@@ -30,7 +30,7 @@ $ git init [project-name]
 $ git clone [url]
 ```
 
-## 二、配置
+# 二、配置
 Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
 
 ```
@@ -43,15 +43,13 @@ $ git config [--global] user.name "[name]"
 $ git config [--global] user.email "[email address]"
 ```
 
-## 三、增加/删除/修改文件
+# 三、增加/删除/修改文件
 
 
 ```
 #查看状态
 $ git status        
-#查看变更内容
-$ git diff          
-# 添加指定文件到暂存区
+  # 添加指定文件到暂存区
 $ git add [file1] [file2] ...
 # 添加指定目录到暂存区，包括子目录
 $ git add [dir]
@@ -60,7 +58,7 @@ $ git add .
 # 添加每个变化前，都会要求确认
 # 对于同一个文件的多处变化，可以实现分次提交
 $ git add -p
-# 删除工作区文件，并且将这次删除放入暂存区
+# 删除工作区文件，并且将这次删除放入暂存区以待提交生效
 $ git rm [file1] [file2] ...
 # 停止追踪指定文件，但该文件会保留在工作区
 $ git rm --cached [file]
@@ -68,7 +66,7 @@ $ git rm --cached [file]
 $ git mv [file-original] [file-renamed]
 ```
 
-## 四、代码提交
+# 四、代码提交至本地仓库
 
 ```
 # 提交暂存区到仓库区
@@ -82,7 +80,7 @@ $ git commit -v
 # 使用一次新的commit，替代上一次提交
 # 如果代码没有任何新变化，则用来改写上一次commit的提交信息
 $ git commit --amend -m [message]
-# 重做上一次commit，并包括指定文件的新变化
+# 重做上一次commit，指定文件
 $ git commit --amend [file1] [file2] ...
 ```
 
@@ -98,46 +96,49 @@ $ git branch -r
 $ git branch -a
 # 新建一个分支，但依然停留在当前分支
 $ git branch [branch-name]
-# 新建一个分支，与指定的远程分支建立追踪关系
-$ git branch --track [branch] [remote-branch]
-# 删除分支
-$ git branch -d [branch-name]
-# 删除远程分支
-$ git push origin --delete [branch-name]
-$ git branch -dr [remote/branch]
-
 # 新建一个分支，并切换到该分支
 $ git checkout -b [branch]
 # 切换到指定分支，并更新工作区
 $ git checkout [branch-name]
 # 切换到上一个分支
 $ git checkout -
-# 建立追踪关系，在现有分支与指定的远程分支之间
-$ git branch --set-upstream [branch] [remote-branch]
 # 合并指定分支到当前分支
 $ git merge [branch]
 #衍合指定分支到当前分支
 $ git rebase <branch>       
-# 选择一个commit，合并进当前分支
-$ git cherry-pick [commit]
+# 删除分支
+$ git branch -d branch-name
+
+#将所有的本地分支列出来并且包含更多的信息，如每一个分支正在跟踪哪个远程分支与本地分支是否是领先、落后或是都有
+$ git branch -vv
+# 推送本地新分支到远程仓库，同时建立跟踪关系
+git push --set-upstream origin branch-name
+# 已建立追踪关系，获取远程分支到本地
+$ git fetch
+# 获取所有远程分支
+$ git fetch remote
+# 显示合并某远程分支到当前分支
+$ git merge remote/branch
+# 已建立追踪关系，合并对应的远程分支到本地当前分支
+$ git merge
+# 删除远程分支
+$ git push origin --delete [branch-name]
+$ git branch -dr [remote/branch]
 ```
 
 ## 六、标签
 
 ```
 $ git tag                      #列出所有本地标签
-$ git tag <tagname>            #基于最新提交创建标签
+$ git tag [-a] <tagname>            #基于最新提交创建标签
 $ git tag -d <tagname>         #删除标签
-```
-
-```
-# 删除远程tag
-$ git push origin :refs/tags/[tagName]
+# 后期打标签，基于某个提交历史打标签
+git tag -a v1.2 commit_id
 # 查看tag信息
 $ git show [tag]
-# 提交指定tag
+# 推送指定tag
 $ git push [remote] [tag]
-# 提交所有tag
+# 推送所有tag
 $ git push [remote] --tags
 # 新建一个分支，指向某个tag
 $ git checkout -b [branch] [tag]
