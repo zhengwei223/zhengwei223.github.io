@@ -12,6 +12,7 @@ importance: 2
 命令：`git stash` 
 
 # 1.描述
+
 1.使用`git stash` 保存当前的工作现场（上次`commit`之后的变化）， 保存之后就可以切换到其他分支进行工作（如果不保存，这些东西在当前分支没有提交，会丢失，因为`checkout <branch>`会同时刷新工作区、索引区和本地仓库），或者在当前分支上完成其他紧急的工作，比如修订一个bug并提交（由于之前的工作已经保存起来，相当于暂时剥离出去了，所以提交别的代码是没有问题的）。 
 
 2.可以使用`git stash list`查看stash队列。 
@@ -59,5 +60,3 @@ git stach clear #清除所有stash
 ```
 
 多次stash也是可以的，但稍显麻烦，因为pop只会恢复上次commit或者stash后的变化部分，每个stash是独立的，并不是递进的关系。多次stash一个文件，势必要手工合并。
-
-参考原文地址：[http://blog.sina.com.cn/s/blog_682d2aaf01016d9d.html](http://blog.sina.com.cn/s/blog_682d2aaf01016d9d.html)
