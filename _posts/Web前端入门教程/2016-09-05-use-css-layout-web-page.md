@@ -111,8 +111,6 @@ description:
 
  ![html-xhtml-relation](/public/img/html/header_step_07.PNG)
 
-
-
 ---
 
 ### 第二步
@@ -122,6 +120,43 @@ description:
      .header img {margin-right:20px;}
 
  ![html-xhtml-relation](/public/img/html/header_step_08.PNG)
+
+## 代码实例
+
+&emsp;&emsp;到目前为止，代码是这样的：
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head><title>CSS+DIV Layout</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    
+    <style> 
+    .header {background-color:#441111;} 
+    .header  h1 {
+            color : white;
+            line-height:80px;
+            } 
+    .header img {
+                float:left; 
+                width:100px;
+                height:70px;
+                padding:5px; 
+                margin-right:20px;
+                }
+
+    </style>
+    </head>
+    <body> 
+    <div>  
+    <div class="header">  
+     <img src="/public/img/html/i_love_html.jpg" alt="i love html" />  
+     <h1>Website Name</h1> 
+     </div> 
+    </div>
+    </body>
+    </html> 
+
+ [打开编辑器并且复制、运行](/public/tiyEditor.html) 
 
 # 2 关于头部，你需要了解什么
 
@@ -483,7 +518,11 @@ description:
     .nav {background-color:#ffdd99;}
     .right {background-color:#bb9955;}
 
-## 3.3 把三块区域放在同一行
+&emsp;&emsp;设置背景颜色颜色之后的效果是这样的
+
+ ![html-xhtml-relation](/public/img/html/main-content-demo.PNG)
+
+## 3.3 三个div从左到右一字排开
 
 &emsp;&emsp;在文章头部加入如下样式代码：
 
@@ -491,37 +530,45 @@ description:
     .content {float:left;}
     .right {float:left;}
 
-## 3.4 去掉导航栏超级链接的下划线
+&emsp;&emsp;三个div在页面上就按照左中右的顺序显示出来了：
+
+ ![html-xhtml-relation](/public/img/html/main-content-float-left.PNG)
+
+## 3.4 去掉a元素的下划线
 
 &emsp;&emsp;在文章头部加入如下样式代码：
 
     a {text-decoration:none;}
 
-## 3.5 去掉无序列表元素前的实心圆点
+## 3.5 改变li元素显示样式
 
 &emsp;&emsp;在文章头部加入如下样式代码：
 
     .nav ul {list-style-type:none;}
 
-## 3.6 分别调整三个区域容器的宽高
+## 3.6 按百分比分配屏幕宽度
 
-&emsp;&emsp;在文章头部更新如下样式代码：
+&emsp;&emsp;在html头部更新如下样式代码，使得三个div从左到右按照设定的百分比分配屏幕宽度：
 
-     .content {width:60%;height:350px;}
-     .nav {width:20%;height:350px;height:auto;}
-     .right {width:20%;height:350px;height:auto;}
+     .content {width:60%;}
+     .nav {width:20%;}
+     .right {width:20%;}
 
-# 4. 关于页面主体，你需要了解什么
+ ![html-xhtml-relation](/public/img/html/div_three_col.PNG)
 
-## 4.1 页面元素的显示
+&emsp;&emsp;当你调整浏览器窗口宽度的时候，这三个div所占宽度会按照百分比动态调整。
 
-&emsp;&emsp;用来控制页面布局的最重要的一个CSS属性是**display**。
+# 4. 关于页面布局，你需要了解什么
 
-&emsp;&emsp;这个属性定义了页面元素将要以什么方式显示，所有类型的元素也都有一个默认的**display**属性值。
+&emsp;&emsp;这一次，我们把默认从上到下连续显示的三个div区域，改变为同一行里面左、中、右位置展示内容的三列区域。究竟为什么这样做可以，不这样做行不行，有没有别的方法能实现同样效果，这些是值得我们深入了解的问题。
 
-### 块级(block-level)元素
+## 4.1 页面元素的显示方式
 
-&emsp;&emsp;**display**默认值是**block**的元素是块级元素。
+&emsp;&emsp;用来控制页面布局的最重要的一个CSS属性是**display**，它定义了浏览器显示一个网页元素的方式显。
+
+&emsp;&emsp;所有类型的元素也都有一个默认的**display**属性值。根据W3C规范，大多数元素display属性的默认值是block和inline，前者被称为块（block-level）元素，后者被称为行（inline）元素。
+
+### 块(block-level)元素
 
 &emsp;&emsp;常见的一个块级元素由div，p和form。下面以div为例说明块级元素的特性：
 
@@ -564,19 +611,20 @@ description:
 
   [打开编辑器并且复制、运行](/public/tiyEditor.html)
 
-&emsp;&emsp;我们可以看到，不只是它的宽度充满了整个页面的宽度 ，而且第二个元素位置换行显示，这也是块级元素的就是主要特征。
+&emsp;&emsp;我们可以看到，不只是它的宽度充满了整个页面的宽度 ，而且第二个元素位置换行显示，这也是块元素的主要特征。
 
  ![html-xhtml-relation](/public/img/html/div-display-as-block-el.PNG)
 
 
-&emsp;&emsp;
+&emsp;&emsp;使用Chrome浏览器开发工具，查看div元素的属性：
+
+ ![html-xhtml-relation](/public/img/html/div-display-block-demo.PNG)
 
 ---
 
-### 行级(inline)元素
+### 行(inline)元素
 
-&emsp;&emsp;**display**默认值是**inline**的元素是行级元素。
-&emsp;&emsp;span和a标签都是标准的行级元素，来看一个综合性的例子：
+&emsp;&emsp;span和a标签都是标准的行元素，来看一个综合性的例子：
 
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -611,13 +659,258 @@ description:
 
   [打开编辑器并且复制、运行](/public/tiyEditor.html)
 
-&emsp;&emsp;行内元素没有打断段落里面在同一行上的显示的文字，换句话说就是没有像块元素一样直接换行显示：
+&emsp;&emsp;块元素像个容器，它里面的内容可以是其他块元素或者行元素。
 
  ![html-xhtml-relation](/public/img/html/p-span-a-css-display.PNG)
 
-## 4.2 浮动和清除浮动
+&emsp;&emsp;请注意，行元素没有让段落里原来同一行上的文字换行，这正是它们和块元素最大的不同：
 
-## 4.3 绝对定位和相对定位
+&emsp;&emsp;使用Chrome浏览器开发工具，查看a元素的属性：
+
+ ![html-xhtml-relation](/public/img/html/p-a-display-inline-demo.PNG)
+
+&emsp;&emsp;你也可以用开发者工具，选中行元素span,查看它的display属性。
+
+
+## 4.2 html默认文档流
+
+&emsp;&emsp;所谓的html默认文档流，就是在浏览器按照默认的CSS规范（每个元素都依照display属性的默认值）显示页面的时候，各个元素所表现出来的位置和顺序。
+
+&emsp;&emsp;我们用例子来说明什么是默认文档流：
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <html>
+    <head>
+    <style>
+    div {
+        /**
+        注意：这里没有设置div的宽度属性        
+        */
+        height:100px;
+        /**
+        背景色：银灰色        
+        */
+        background-color: lightgrey;
+        /**
+        边框：两像素宽的红色实线        
+        */
+        border: 2px solid red;
+        /**
+        内边距：5px       
+        */
+        padding: 5px;
+        /**
+        外边距是5px 让两个div的边框显示出来       
+        */
+        margin:50px; 
+    }
+    a {
+      margin:10px;
+      padding:10px;
+    }
+    </style>
+    </head>
+    <body> 
+    <h2>演示块级元素</h2>
+    <div><a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a></div>
+    <div></div>
+    <div></div>
+    </body>
+    </html>
+
+  [打开编辑器并且复制、运行](/public/tiyEditor.html)
+
+&emsp;&emsp;图片中的箭头走向标示出了这个网页内容的默认文档流的走向：
+
+ ![html-xhtml-relation](/public/img/html/default-doc-flow-demo.PNG)
+
+&emsp;&emsp;图中绿色箭头标示了**a**（inline）元素的默认文档流走向：它们会在同一行里头尾相连、挨个显示；倘若一行宽度不够用，新的元素会流动到下一行继续显示。
+
+&emsp;&emsp;图中的黑色箭头标示了div（block）元素的默认文档流走向：每个块元素占据一整行，从上单下按照它们出现的先后顺序显示。
+
+
+## 4.3 浮动
+
+&emsp;&emsp;清澈的水面上，正浮动着一只小木船。你与没有过坐在船上向水面下面看的经历呢？正如小船一样，在我们布局网站页面的过程中网页元素也可以浮动起来。究竟是怎么回事，我们一起来看！
+
+ ![html-xhtml-relation](/public/img/html/floating-boat.jpg)
+
+&emsp;&emsp;在步骤3.3，为了改变三个div从上到下各占一行、顺序放置的html默认布局，我们用到了下面的代码：
+
+    .nav {float:left;}
+    .content {float:left;}
+    .right {float:left;}
+
+&emsp;&emsp;这里设置了三个div的**浮动**属性为左浮动。
+
+&emsp;&emsp;我们看这三个div是怎么离开默认文档流实现左浮动的。
+
+---
+
+### 默认布局
+
+&emsp;&emsp;不设定div左浮动效果是这样的：
+
+ ![html-xhtml-relation](/public/img/html/div-in-default-layout.PNG)
+
+
+---
+
+### 导航栏左浮动
+
+&emsp;&emsp;设定导航栏左浮动：
+
+    .nav {float:left;}
+
+ ![html-xhtml-relation](/public/img/html/div-nav-float-left.PNG)
+
+&emsp;&emsp;在Chrome浏览器开发工具里面查看导航栏div
+
+ ![html-xhtml-relation](/public/img/html/nav-float-left-inspect.png)
+
+&emsp;&emsp;在导航栏div左浮动之后，原来在它下面的主内容div也发生了变化：
+
+ ![html-xhtml-relation](/public/img/html/div-content-on-doc-flow.png)
+
+---
+
+### 主内容左浮动
+
+&emsp;&emsp;设定主内容div左浮动：
+
+    .content {float:left;}
+
+ ![html-xhtml-relation](/public/img/html/div-content-float-left.png)
+
+&emsp;&emsp;目前为止，导航栏div和主内容div脱离了默认文档流，实现左浮动。此时右边栏div仍然在默认文档流之上，遵循CSS默认的布局规则。
+
+ ![html-xhtml-relation](/public/img/html/div-right-on-doc-flow.png)
+
+
+---
+
+### 右边栏左浮动
+
+&emsp;&emsp;设定右边栏div左浮动：
+
+    .right {float:left;}
+
+&emsp;&emsp;用Chrome浏览器查看浮动效果：
+
+ ![html-xhtml-relation](/public/img/html/div-right-float-left.png)
+
+&emsp;&emsp;接下来要做的就是分配三列div占据屏幕宽度的百分比了，具体请参考3.6小节代码。
+
+
+## 4.4 定位
+
+&emsp;&emsp;除了float属性，position属性也可以修改默认文档流。
+
+###  相对（relative）定位
+
+&emsp;&emsp;相对定位，根据事先设置好的垂直或水平位置，让这个元素“相对于”它在默认文档流里面的初始位置移动。
+
+&emsp;&emsp;如果将 top 设置为 20px，那么框将在初始位置顶部下面 20 像素的地方。如果 left 设置为 30 像素，那么会在元素左边创建 30 像素的空间，也就是将元素向右移动。
+
+ ![html-xhtml-relation](/public/img/html/css-relative-position.png)
+
+&emsp;&emsp;下面的例子中分别对\<h2\>进行了相对定位（**position:relative**）。你可以尝试修改名成为left的属性数值，查看相对定位的显示效果。
+
+    <html>
+    <head>
+    <style type="text/css">
+    h2.pos_left
+    {
+    position:relative;
+    left:-10px
+    }
+    h2.pos_right
+    {
+    position:relative;
+    left:20px
+    }
+    </style>
+    </head>
+    
+    <body>
+    <h2>这是位于正常位置的标题</h2>
+    <h2 class="pos_left">这个标题相对于其正常位置向左移动</h2>
+    <h2 class="pos_right">这个标题相对于其正常位置向右移动</h2>
+    <p>相对定位会按照元素的原始位置对该元素进行移动。</p>
+    <p>样式 "left:-20px" 从元素的原始左侧位置减去 20 像素。</p>
+    <p>样式 "left:20px" 向元素的原始左侧位置增加 20 像素。</p>
+    </body>
+    
+    </html>
+
+  [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+&emsp;&emsp;相对定位的一个特点是：目标元素相对于自己的默认位置移动后，原来的位置仍然会被占据。这个特点可以用下面的例子直接说明：
+
+    <div style=" width:100px; height:100px;">div1</div>
+    <div style=" width:100px; height:100px;">div2</div>
+    <div style=" width:100px; height:100px;">div3</div>
+
+&emsp;&emsp;在对DIV元素进行相对定位之前效果是这样的：
+
+ ![html-xhtml-relation](/public/img/html/div-position-relative.jpg)
+
+&emsp;&emsp;当第二个DIV相对于自己的默认位置移动之后，代码应该是这样的：
+
+    <div style=" width:100px; height:100px;">div1</div>
+    <div style=" width:100px; height:100px; position:relative; top:-20px; left:50px;">div2</div>
+    <div style=" width:100px; height:100px;">div3</div>
+
+&emsp;&emsp;效果是这样的：
+
+ ![html-xhtml-relation](/public/img/html/div-postion-relative-2.jpg)
+
+&emsp;&emsp;蓝色边框就是div2原来的位置，黑色边框就是通过position:relative相对于原来的位置左移50px; 上移20px得到的。
+
+&emsp;&emsp;我们还看到，div2原来的位置仍然空在那里，div3也没有因为div2移动到别的地方跟着一起向上移动。
+
+### 绝对（absolute）定位
+
+&emsp;&emsp;绝对定位就是把一个元素直接在页面上进行定位。
+
+&emsp;&emsp;这种情况下，元素不会出现在默认的文档流里面，因此不存在可供参考的初始位置。那么，绝对定位参考的是什么呢？请看下面的小例子：
+
+    <html>
+    <head>
+    <style type="text/css">
+    h2.pos_abs
+    {
+    position:absolute;
+    left:100px;
+    top:150px
+    }
+    </style>
+    </head>
+    <body>
+    <h2 class="pos_abs">这是带有绝对定位的标题</h2>
+    <p>通过绝对定位，元素可以放置到页面上的任何位置。下面的标题距离页面左侧 100px，距离页面顶部 150px。</p>
+    </body>
+    </html>
+
+  [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+&emsp;&emsp;绝对定位的一个特点是：元素被直接定位到页面上的位置，比如说，相对于页面左侧100px，距离页面顶部150px。
 
 
 # 5. 收官之作，完成底部区域
@@ -642,12 +935,27 @@ description:
 
 ## 5.3 清除浮动效果
 
+&emsp;&emsp;下面是底部栏设置颜色之后的样子：
+
+ ![html-xhtml-relation](/public/img/html/div-footer-not-clear-float.png ) 
+
 &emsp;&emsp;为了清除底部区域左边的浮动效果，让它单独显示最底一行，我们在文章头部更新如下样式代码：
 
      .footer { clear:left;}
 
+ ![html-xhtml-relation](/public/img/html/div-footer-clear-float.PNG) 
+
+&emsp;&emsp;从此以后浮动在footer div左边的三个上层div都被清除了。
 
 # 6. 你还需要了解什么
+
+## 6.1 清除浮动（clear）
+
+&emsp;&emsp;clear属性规定元素的哪一侧不允许其他浮动元素。
+
+    
+
+## 6.6 样式继承
 
 # 7.更多思考
 
