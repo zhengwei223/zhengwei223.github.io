@@ -820,6 +820,98 @@ description:
 
 ## 4.4 定位
 
+&emsp;&emsp;除了float属性，position属性也可以修改默认文档流。
+
+###  相对（relative）定位
+
+&emsp;&emsp;相对定位，根据事先设置好的垂直或水平位置，让这个元素“相对于”它在默认文档流里面的初始位置移动。
+
+&emsp;&emsp;如果将 top 设置为 20px，那么框将在初始位置顶部下面 20 像素的地方。如果 left 设置为 30 像素，那么会在元素左边创建 30 像素的空间，也就是将元素向右移动。
+
+ ![html-xhtml-relation](/public/img/html/css-relative-position.png)
+
+&emsp;&emsp;下面的例子中分别对\<h2\>进行了相对定位（**position:relative**）。你可以尝试修改名成为left的属性数值，查看相对定位的显示效果。
+
+    <html>
+    <head>
+    <style type="text/css">
+    h2.pos_left
+    {
+    position:relative;
+    left:-10px
+    }
+    h2.pos_right
+    {
+    position:relative;
+    left:20px
+    }
+    </style>
+    </head>
+    
+    <body>
+    <h2>这是位于正常位置的标题</h2>
+    <h2 class="pos_left">这个标题相对于其正常位置向左移动</h2>
+    <h2 class="pos_right">这个标题相对于其正常位置向右移动</h2>
+    <p>相对定位会按照元素的原始位置对该元素进行移动。</p>
+    <p>样式 "left:-20px" 从元素的原始左侧位置减去 20 像素。</p>
+    <p>样式 "left:20px" 向元素的原始左侧位置增加 20 像素。</p>
+    </body>
+    
+    </html>
+
+  [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+&emsp;&emsp;相对定位的一个特点是：目标元素相对于自己的默认位置移动后，原来的位置仍然会被占据。这个特点可以用下面的例子直接说明：
+
+    <div style=" width:100px; height:100px;">div1</div>
+    <div style=" width:100px; height:100px;">div2</div>
+    <div style=" width:100px; height:100px;">div3</div>
+
+&emsp;&emsp;在对DIV元素进行相对定位之前效果是这样的：
+
+ ![html-xhtml-relation](/public/img/html/div-position-relative.jpg)
+
+&emsp;&emsp;当第二个DIV相对于自己的默认位置移动之后，代码应该是这样的：
+
+    <div style=" width:100px; height:100px;">div1</div>
+    <div style=" width:100px; height:100px; position:relative; top:-20px; left:50px;">div2</div>
+    <div style=" width:100px; height:100px;">div3</div>
+
+&emsp;&emsp;效果是这样的：
+
+ ![html-xhtml-relation](/public/img/html/div-postion-relative-2.jpg)
+
+&emsp;&emsp;蓝色边框就是div2原来的位置，黑色边框就是通过position:relative相对于原来的位置左移50px; 上移20px得到的。
+
+&emsp;&emsp;我们还看到，div2原来的位置仍然空在那里，div3也没有因为div2移动到别的地方跟着一起向上移动。
+
+### 绝对（absolute）定位
+
+&emsp;&emsp;绝对定位就是把一个元素直接在页面上进行定位。
+
+&emsp;&emsp;这种情况下，元素不会出现在默认的文档流里面，因此不存在可供参考的初始位置。那么，绝对定位参考的是什么呢？请看下面的小例子：
+
+    <html>
+    <head>
+    <style type="text/css">
+    h2.pos_abs
+    {
+    position:absolute;
+    left:100px;
+    top:150px
+    }
+    </style>
+    </head>
+    <body>
+    <h2 class="pos_abs">这是带有绝对定位的标题</h2>
+    <p>通过绝对定位，元素可以放置到页面上的任何位置。下面的标题距离页面左侧 100px，距离页面顶部 150px。</p>
+    </body>
+    </html>
+
+  [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
+
+&emsp;&emsp;绝对定位的一个特点是：元素被直接定位到页面上的位置，比如说，相对于页面左侧100px，距离页面顶部150px。
+
 
 # 5. 收官之作，完成底部区域
 
@@ -843,12 +935,27 @@ description:
 
 ## 5.3 清除浮动效果
 
+&emsp;&emsp;下面是底部栏设置颜色之后的样子：
+
+ ![html-xhtml-relation](/public/img/html/div-footer-not-clear-float.png ) 
+
 &emsp;&emsp;为了清除底部区域左边的浮动效果，让它单独显示最底一行，我们在文章头部更新如下样式代码：
 
      .footer { clear:left;}
 
+ ![html-xhtml-relation](/public/img/html/div-footer-clear-float.PNG) 
+
+&emsp;&emsp;从此以后浮动在footer div左边的三个上层div都被清除了。
 
 # 6. 你还需要了解什么
+
+## 6.1 清除浮动（clear）
+
+&emsp;&emsp;clear属性规定元素的哪一侧不允许其他浮动元素。
+
+    
+
+## 6.6 样式继承
 
 # 7.更多思考
 
