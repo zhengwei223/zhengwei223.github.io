@@ -111,8 +111,6 @@ description:
 
  ![html-xhtml-relation](/public/img/html/header_step_07.PNG)
 
-
-
 ---
 
 ### 第二步
@@ -122,6 +120,43 @@ description:
      .header img {margin-right:20px;}
 
  ![html-xhtml-relation](/public/img/html/header_step_08.PNG)
+
+## 代码实例
+
+&emsp;&emsp;到目前为止，代码是这样的：
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head><title>CSS+DIV Layout</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    
+    <style> 
+    .header {background-color:#441111;} 
+    .header  h1 {
+            color : white;
+            line-height:80px;
+            } 
+    .header img {
+                float:left; 
+                width:100px;
+                height:70px;
+                padding:5px; 
+                margin-right:20px;
+                }
+
+    </style>
+    </head>
+    <body> 
+    <div>  
+    <div class="header">  
+     <img src="/public/img/html/i_love_html.jpg" alt="i love html" />  
+     <h1>Website Name</h1> 
+     </div> 
+    </div>
+    </body>
+    </html> 
+
+ [打开编辑器并且复制、运行](/public/tiyEditor.html) 
 
 # 2 关于头部，你需要了解什么
 
@@ -483,7 +518,11 @@ description:
     .nav {background-color:#ffdd99;}
     .right {background-color:#bb9955;}
 
-## 3.3 把三块区域放在同一行
+&emsp;&emsp;设置背景颜色颜色之后的效果是这样的
+
+ ![html-xhtml-relation](/public/img/html/main-content-demo.PNG)
+
+## 3.3 三个div从左到右一字排开
 
 &emsp;&emsp;在文章头部加入如下样式代码：
 
@@ -491,37 +530,43 @@ description:
     .content {float:left;}
     .right {float:left;}
 
-## 3.4 去掉导航栏超级链接的下划线
+&emsp;&emsp;三个div在页面上就按照左中右的顺序显示出来了：
+
+ ![html-xhtml-relation](/public/img/html/main-content-float-left.PNG)
+
+## 3.4 去掉a元素的下划线
 
 &emsp;&emsp;在文章头部加入如下样式代码：
 
     a {text-decoration:none;}
 
-## 3.5 去掉无序列表元素前的实心圆点
+## 3.5 改变li元素显示样式
 
 &emsp;&emsp;在文章头部加入如下样式代码：
 
     .nav ul {list-style-type:none;}
 
-## 3.6 分别调整三个区域容器的宽高
+## 3.6 按百分比分配屏幕宽度
 
-&emsp;&emsp;在文章头部更新如下样式代码：
+&emsp;&emsp;在html头部更新如下样式代码，使得三个div从左到右按照设定的百分比分配屏幕宽度：
 
-     .content {width:60%;height:350px;}
-     .nav {width:20%;height:350px;height:auto;}
-     .right {width:20%;height:350px;height:auto;}
+     .content {width:60%;}
+     .nav {width:20%;}
+     .right {width:20%;}
+
+ ![html-xhtml-relation](/public/img/html/div_three_col.PNG)
+
+&emsp;&emsp;当你调整浏览器窗口宽度的时候，这三个div所占宽度会按照百分比动态调整。
 
 # 4. 关于页面主体，你需要了解什么
 
-## 4.1 页面元素的显示
+## 4.1 页面元素的显示方式
 
-&emsp;&emsp;用来控制页面布局的最重要的一个CSS属性是**display**。
+&emsp;&emsp;用来控制页面布局的最重要的一个CSS属性是**display**，它定义了浏览器显示一个网页元素的方式显。
 
-&emsp;&emsp;这个属性定义了页面元素将要以什么方式显示，所有类型的元素也都有一个默认的**display**属性值。
+&emsp;&emsp;所有类型的元素也都有一个默认的**display**属性值。根据W3C规范，大多数元素display属性的默认值是block和inline，前者被称为块（block-level）元素，后者被称为行（inline）元素。
 
-### 块级(block-level)元素
-
-&emsp;&emsp;**display**默认值是**block**的元素是块级元素。
+### 块(block-level)元素
 
 &emsp;&emsp;常见的一个块级元素由div，p和form。下面以div为例说明块级元素的特性：
 
@@ -564,19 +609,20 @@ description:
 
   [打开编辑器并且复制、运行](/public/tiyEditor.html)
 
-&emsp;&emsp;我们可以看到，不只是它的宽度充满了整个页面的宽度 ，而且第二个元素位置换行显示，这也是块级元素的就是主要特征。
+&emsp;&emsp;我们可以看到，不只是它的宽度充满了整个页面的宽度 ，而且第二个元素位置换行显示，这也是块元素的主要特征。
 
  ![html-xhtml-relation](/public/img/html/div-display-as-block-el.PNG)
 
 
-&emsp;&emsp;
+&emsp;&emsp;使用Chrome浏览器开发工具，查看div元素的属性：
+
+ ![html-xhtml-relation](/public/img/html/div-display-block-demo.PNG)
 
 ---
 
-### 行级(inline)元素
+### 行(inline)元素
 
-&emsp;&emsp;**display**默认值是**inline**的元素是行级元素。
-&emsp;&emsp;span和a标签都是标准的行级元素，来看一个综合性的例子：
+&emsp;&emsp;span和a标签都是标准的行元素，来看一个综合性的例子：
 
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -611,13 +657,162 @@ description:
 
   [打开编辑器并且复制、运行](/public/tiyEditor.html)
 
-&emsp;&emsp;行内元素没有打断段落里面在同一行上的显示的文字，换句话说就是没有像块元素一样直接换行显示：
+&emsp;&emsp;块元素像个容器，它里面的内容可以是其他块元素或者行元素。
 
  ![html-xhtml-relation](/public/img/html/p-span-a-css-display.PNG)
 
-## 4.2 浮动和清除浮动
+&emsp;&emsp;请注意，行元素没有让段落里原来同一行上的文字换行，这正是它们和块元素最大的不同：
 
-## 4.3 绝对定位和相对定位
+&emsp;&emsp;使用Chrome浏览器开发工具，查看a元素的属性：
+
+ ![html-xhtml-relation](/public/img/html/p-a-display-inline-demo.PNG)
+
+&emsp;&emsp;你也可以用开发者工具，选中行元素span,查看它的display属性。
+
+
+## 4.2 html默认文档流
+
+&emsp;&emsp;所谓的html默认文档流，就是在浏览器按照默认的CSS规范（每个元素都依照display属性的默认值）显示页面的时候，各个元素所表现出来的位置和顺序。
+
+&emsp;&emsp;我们用例子来说明什么是默认文档流：
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <html>
+    <head>
+    <style>
+    div {
+        /**
+        注意：这里没有设置div的宽度属性        
+        */
+        height:100px;
+        /**
+        背景色：银灰色        
+        */
+        background-color: lightgrey;
+        /**
+        边框：两像素宽的红色实线        
+        */
+        border: 2px solid red;
+        /**
+        内边距：5px       
+        */
+        padding: 5px;
+        /**
+        外边距是5px 让两个div的边框显示出来       
+        */
+        margin:50px; 
+    }
+    a {
+      margin:10px;
+      padding:10px;
+    }
+    </style>
+    </head>
+    <body> 
+    <h2>演示块级元素</h2>
+    <div><a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a>
+    <a href="http://www.baidu.com">百度搜索</a></div>
+    <div></div>
+    <div></div>
+    </body>
+    </html>
+
+  [打开编辑器并且复制、运行](/public/tiyEditor.html)
+
+&emsp;&emsp;图片中的箭头走向标示出了这个网页内容的默认文档流的走向：
+
+ ![html-xhtml-relation](/public/img/html/default-doc-flow-demo.PNG)
+
+&emsp;&emsp;图中绿色箭头标示了**a**（inline）元素的默认文档流走向：它们会在同一行里头尾相连、挨个显示；倘若一行宽度不够用，新的元素会流动到下一行继续显示。
+
+&emsp;&emsp;图中的黑色箭头标示了div（block）元素的默认文档流走向：每个块元素占据一整行，从上单下按照它们出现的先后顺序显示。
+
+
+## 4.3 浮动
+
+&emsp;&emsp;在步骤3.3，为了改变三个div从上到下各占一行、顺序放置的html默认布局，我们用到了下面的代码：
+
+    .nav {float:left;}
+    .content {float:left;}
+    .right {float:left;}
+
+&emsp;&emsp;这里设置了三个div的**浮动**属性为左浮动。
+
+&emsp;&emsp;我们看这三个div是怎么离开默认文档流实现左浮动的。
+
+---
+
+### 默认布局
+
+&emsp;&emsp;不设定div左浮动效果是这样的：
+
+ ![html-xhtml-relation](/public/img/html/div-in-default-layout.PNG)
+
+
+---
+
+### 导航栏左浮动
+
+&emsp;&emsp;设定导航栏左浮动：
+
+    .nav {float:left;}
+
+ ![html-xhtml-relation](/public/img/html/div-nav-float-left.PNG)
+
+&emsp;&emsp;在Chrome浏览器开发工具里面查看导航栏div
+
+ ![html-xhtml-relation](/public/img/html/nav-float-left-inspect.png)
+
+&emsp;&emsp;在导航栏div左浮动之后，原来在它下面的主内容div也发生了变化：
+
+ ![html-xhtml-relation](/public/img/html/div-content-on-doc-flow.png)
+
+---
+
+### 主内容左浮动
+
+&emsp;&emsp;设定主内容div左浮动：
+
+    .content {float:left;}
+
+ ![html-xhtml-relation](/public/img/html/div-content-float-left.png)
+
+&emsp;&emsp;目前为止，导航栏div和主内容div脱离了默认文档流，实现左浮动。此时右边栏div仍然在默认文档流之上，遵循CSS默认的布局规则。
+
+ ![html-xhtml-relation](/public/img/html/div-right-on-doc-flow.png)
+
+
+---
+
+### 右边栏左浮动
+
+&emsp;&emsp;设定右边栏div左浮动：
+
+    .right {float:left;}
+
+&emsp;&emsp;用Chrome浏览器查看浮动效果：
+
+ ![html-xhtml-relation](/public/img/html/div-right-float-left.png)
+
+&emsp;&emsp;接下来要做的就是分配三列div占据屏幕宽度的百分比了，具体请参考3.6小节代码。
+
+
+## 4.4 定位
 
 
 # 5. 收官之作，完成底部区域
