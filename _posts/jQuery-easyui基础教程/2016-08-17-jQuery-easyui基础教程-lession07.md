@@ -40,8 +40,8 @@ description:
    <tr>
       <th width="200px">属性名</th>
       <th width="180px">属性值类型</th>
-      <th width="650px">描述</th>
-      <th>默认值</th>
+      <th width="600px">描述</th>
+      <th width="100px">默认值</th>
    </tr>
    <tr>
       <td>width</td>
@@ -52,7 +52,8 @@ description:
    <tr>
       <td>height</td> 
 	  <td>number</td> 
-	  <td>设置进度条高度。</td><td>22</td>
+	  <td>设置进度条高度。</td>
+      <td>22</td>
    </tr>
    <tr>
       <td>value</td> 

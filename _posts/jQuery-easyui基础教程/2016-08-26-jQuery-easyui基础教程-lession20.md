@@ -92,7 +92,7 @@ HTML中非常重要的一个标签是Form标签，登录、注册、查找等很
 
 ```
 $('#ff').form({    
-    url:'/easyUI/test', 
+    url:'具体的url', 
     //novalidate:true, //不进行格式校验 
     success:function(data){    
         alert(data);    
@@ -176,6 +176,27 @@ $('#ff').form({
 
 代码如下：
 
+```
+<form action="" id="f">
+	<input type="text" name="loginName"/>
+</form>
+
+/*
+ * load方法：读取记录填充到表单中。数据参数可以是一个字符串或一个对象类型，如果是字符串则作为远程URL，否则作为本地记录。
+ */
+/* 
+$('#f').form('load',{
+	loginName:'name2'//直接给loginName赋值为name2
+});
+*/
+$('#f').form('load',"../data/form_data.json");
+```
+
+**参考代码:[20/form02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/20/form02.html)**
+
+
+## 实现登录、注册功能：
+
 JS代码：
 
 ```
@@ -219,11 +240,51 @@ function regist(){
 } 
 ```
 
-**参考代码:[20/form02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/20/form02.html)**
+**参考代码:[20/form03.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/20/form03.html)**
 
 结合数据库和服务器端代码，实现注册和登录功能。效果如下图：
 
 ![image](http://i.imgur.com/DO4nQ0b.png)
+
+
+## 提交form表单的时候再校验格式：
+
+```
+<div id="loginWindow" class="easyui-window" title="登录" style="width:350px;height:250px;">
+	<div style="text-align: center;font-family: cursive;font-size: 30px;padding-top:20px;">登录</div>
+	<form id="ff" class="easyui-form" method="post" data-options="novalidate:true"  style="padding:10px 20px 10px 40px;">
+		<table>
+				<tr>
+					<td style="text-align: right;">用户名:</td>
+					<td><input type="text" name="loginName" class="easyui-validatebox" data-options="required:true,validType:'email'"></td>
+				</tr>
+				<tr>
+					<td style="text-align: right;">密码:</td>
+					<td><input type="password" name="password"></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding-left:100px;height: 70px;">
+						<a href="#" onclick="login();" class="easyui-linkbutton" style="padding-left:10px;padding-right:10px;margin-right:10px;" icon="icon-ok">登录</a>
+					</td>
+				</tr>
+			</table>
+	</form>
+</div>	
+
+function login(){
+	$('#ff').form('submit',{
+			 url:'具体的url',  
+            onSubmit:function(){
+                return $(this).form('enableValidation').form('validate');
+            },
+            success:function(data){    
+	        alert(data);    
+	    }
+    });
+}	
+```
+
+**参考代码:[20/form04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/20/form04.html)**
 
 以上便是Form的基本用法。
 
