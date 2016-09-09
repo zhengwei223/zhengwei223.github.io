@@ -1,23 +1,21 @@
 ---
 layout: post
-title: React 入门实例教程
+title: React初探：入门实例教程
 category: react
 tags: React 入门实例教程
-author: 郑未【编】
+author: 郑未
 keywords: lanqiao 蓝桥 培训 教程  React 入门实例教程
 description:
 p_cate: 前端那些事儿
 ---
 
->原文作者： 阮一峰  ,原文链接：[http://www.ruanyifeng.com/blog/2015/03/react.html](http://www.ruanyifeng.com/blog/2015/03/react.html)。本站做了一些改动。
+
 
 现在最热门的前端框架，毫无疑问是 [React](https://facebook.github.io/react/) 。
 
-React 起源于 Facebook 的内部项目，因为该公司对市场上所有 [JavaScript MVC 框架](http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html)，都不满意，就决定自己写一套，用来架设 Instagram 的网站。做出来以后，发现这套东西很好用，就在2013年5月开源了。
+React 起源于 Facebook 的内部项目，因为该公司对市场上所有 [JavaScript MVC 框架](http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html)，都不满意，就决定自己写一套。在2013年5月该项目开源。
 
-我断断续续学了几个月，看过二十几篇教程，在这个过程中，将对自己有帮助的 Demo 都收集下来，做成了一个库 [React Demos](https://github.com/ruanyf/react-demos) 。
-
-下面，我就根据这个库，写一篇全面又易懂的 React 入门教程。你只需要跟着每一个 Demo 做一遍，就能初步掌握 React 。当然，前提是你必须拥有基本 JavaScript 和 DOM 知识，但是你读完就会发现，React 所要求的预备知识真的很少。
+下面，我们通过若干浅显的demo来完成react的第一轮学习。
 
 # 0.安装
 
@@ -55,15 +53,11 @@ React 起源于 Facebook 的内部项目，因为该公司对市场上所有 [Ja
 </html>
 ```
 
-上面代码有两个地方需要注意。首先，最后一个 `<script>` 标签的 `type` 属性为 `text/babel` 。这是因为 React 独有的 JSX 语法，跟 JavaScript 不兼容。凡是使用 JSX 的地方，都要加上 `type="text/babel"` 。
+上面代码有两个地方需要注意。
 
-其次，上面代码一共用了三个库： `react.js` 、`react-dom.js` 和 `Browser.js` ，它们必须首先加载。其中，`react.js` 是 React 的核心库，`react-dom.js` 是提供与 DOM 相关的功能，`Browser.js` 的作用是将 JSX 语法转为 JavaScript 语法，这一步很消耗时间，实际上线的时候，应该将它放到服务器完成。
+- 首先，最后一个 `<script>` 标签的 `type` 属性为 `text/babel` 。这是因为 React 独有的 JSX 语法，跟 JavaScript 不兼容。凡是使用 JSX 的地方，都要加上 `type="text/babel"` 。
 
-```
-babel src --out-dir build
-```
-
-上面命令可以将 `src` 子目录的 `js` 文件进行语法转换，转码后的文件全部放在 `build` 子目录。
+- 其次，上面代码一共用了三个库： `react.js` 、`react-dom.js` 和 `Browser.js` ，它们必须首先加载。其中，`react.js` 是 React 的核心库，`react-dom.js` 是提供与 DOM 相关的功能，`Browser.js` 的作用是将 JSX 语法转为 JavaScript 语法。
 
 # 2.ReactDOM.render()
 
@@ -82,7 +76,7 @@ ReactDOM.render(
 
 # 3.JSX 语法
 
-上一节的代码， HTML 语言直接写在 JavaScript 语言之中，不加任何引号，这就是 JSX 的语法，它允许 HTML 与 JavaScript 的混写（查看 [示例01](https://coding.net/u/lanqiao/p/reactDemo/git/blob/master/examples/01/index.html)）:
+上一节的代码， HTML 语言直接写在 `JavaScript` 语言之中，不加任何引号，这就是 JSX 的语法，它允许 HTML 与 JavaScript 的混写（查看 [示例01](https://coding.net/u/lanqiao/p/reactDemo/git/blob/master/examples/01/index.html)）:
 
 ```
 <script type="text/babel">
@@ -102,7 +96,7 @@ ReactDOM.render(
 
  ![Alt text](/public/img/react/1.2.png)
 
-JSX 允许直接在模板插入 JavaScript 变量。如果这个变量是一个数组，则会展开这个数组的所有成员:
+JSX 允许直接在模板中插入 JavaScript 变量。如果这个变量是一个数组，则会展开这个数组的所有成员:
 
 ```
 var arr = [
@@ -138,7 +132,7 @@ React 允许将代码封装成组件（component），然后像插入普通 HTML
 </script>
 ```
 
-上面代码中，变量 `HelloMessage` 就是一个组件类。模板插入 `<HelloMessage />` 时，会自动生成 `HelloMessage `的一个实例（下文的"组件"都指组件类的实例）。所有组件类都必须有自己的 `render` 方法，用于输出组件。
+上面代码中，变量 `var HelloMessage` 就是一个组件类。模板插入 `<HelloMessage />` 时，会自动生成 `HelloMessage `的一个实例（下文的"组件"都指组件类的实例）。所有组件类都必须有自己的 `render` 方法，用于输出组件。
 
 注意，组件类的第一个字母必须大写，否则会报错，比如`HelloMessage`不能写成`helloMessage`。另外，组件类只能包含一个顶层标签，否则也会报错。
 
@@ -147,7 +141,8 @@ var HelloMessage = React.createClass({
   render: function() {
     return <h1>
       Hello {this.props.name}
-    </h1><p>
+    </h1>
+    <p>
       some text
     </p>;
   }
@@ -276,6 +271,7 @@ ReactDOM.render(
         )
     },
     handleClick:function(){
+      //查找ref=myTextInput的dom元素
       alert(this.refs.myTextInput.value);
     }
   });
@@ -427,7 +423,7 @@ var UserGist = React.createClass({
   },
 
   componentWillMount: function() {
-    // ajax请求并设置状态
+    // 发起ajax请求并设置状态
     $.get(this.props.source, function(result) {
       var lastGist = result[0];
       if (this.isMounted()) {
@@ -458,6 +454,7 @@ ReactDOM.render(
 
 上面代码使用 jQuery 完成 Ajax 请求，这是为了便于说明。React 本身没有任何依赖，完全可以不用jQuery，而使用其他库。
 
+上面代码中，我们给`UserGist`组件传入`url`作为`source`属性，组件的`getInitialState`函数初始化`state`的`username`和`lastGistUrl`为空字符串，在即将生成`dom`并插入的监听函数`componentWillMount`中发起`ajax`请求，并根据返回的`json`重新设置`state`，这样`render`函数使用的就是最新的`state`了。
 
 一个更复杂的示例（查看 [示例09](https://coding.net/u/lanqiao/p/reactDemo/git/blob/master/examples/09/index.html)）,查询github上最受欢迎的js仓库。
 
@@ -514,7 +511,32 @@ ReactDOM.render(
 
 如果Promise对象正在抓取数据（pending状态），组件显示"正在加载"；如果Promise对象报错（rejected状态），组件显示报错信息；如果Promise对象抓取数据成功（fulfilled状态），组件显示获取的数据。
 
-# 11.参考链接
+# 11.总结
+
+- 我们首先需要知道：使用`react`要引入`react.js`和`react-dom.js`，如果要使用`jsx`语法，还要引入`browser.js`
+- 使用`jsx`语法，`script`标签的`type`属性应该定义为`text/babel`
+- `ReactDOM.render`函数有两个参数，第一个参数是虚拟`dom`，第二个参数是插入`dom`的父级`dom`
+- `React.createClass`函数用于创建组件，它接收一个组件描述对象，该对象有若干属性：
+  - `render`,函数，返回虚拟dom，可以夹杂`html`语法和`js`语法
+  - `propTypes`，对象，描述组件各属性的类型及较验规则
+  - `getDefaultProps`，函数，返回一个对象，描述各属性的默认值
+  - `getInitialState`，函数，返回状态对象
+  - `componentWillMount`，函数，在mount之前被调用
+  - `componentDidMount`，函数，在mount之后被调用
+- `React.createClass`中任意地方都可以通过`this.props.propName`来获得实例化该组件时传入的属性
+- `React.createClass`中状态监听函数和事件监听函数中都可以用`setState`函数刷新`state`状态，`react`会自动比对新状态下`dom`的差异并决定是否重新渲染。
+- 获取真实的`DOM`节点，需要在节点上添加`ref`属性，指定一个名字，然后在`jsx`中使用`this.refs.refName`就可以获得这个节点。
+- `this.props.children`是特殊的，它用于获得组件的所有子节点，遍历这个对象，我们使用：
+
+```
+React.Children.map(this.props.children,function(child){...});
+```
+
+- ajax请求要么在传入属性时就发生，直接将ajax结果作为熟悉传递给组件；要么就在`componentWillMount`或者`componentDidMount`函数中执行并将结果（或部分结果）设置到`state`中。
+
+
+
+# 12.参考链接
 
 1. [React's official site](http://facebook.github.io/react)
 2. [React's official examples](https://github.com/facebook/react/tree/master/examples)
