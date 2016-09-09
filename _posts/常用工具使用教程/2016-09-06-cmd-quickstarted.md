@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 命令行速成
-category: 常用工具使用教程
+title: 命令行速成(windows-powershell)
+category: cmd
 tags: cmd 工具
 author: 王晨宇【译】
 keywords: lanqiao 蓝桥 培训 教程 cmd

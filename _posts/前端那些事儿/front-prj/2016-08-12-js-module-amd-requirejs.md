@@ -1,13 +1,14 @@
 ---
 layout: post
-title: JavaScript模块化开发实验（1）
-category: front-modularity
+title: JavaScript模块化开发实验（1）requirejs体验
+category: front-prj
 tags: 前端 模块化 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 前端 模块化
 p_cate: 前端那些事儿
-
 ---
+
+本教程配套源码在这里→[front高级教程配套源码](https://coding.net/u/lanqiao/p/frontAdvance/git).
 
 # Foreword
 
@@ -129,7 +130,7 @@ RequireJS是一个js文件和模块加载器。
 
 ## 实验步骤
 
-当然首先要到requirejs的网站去下载js -> [压缩版](http://requirejs.org/docs/release/2.1.11/minified/require.js)，把代码粘贴到require.min.js并保存在js目录下.
+当然首先要到requirejs的网站去下载js -> [压缩版](http://requirejs.org/docs/release/2.1.11/minified/require.js)，把代码粘贴到require.min.js并保存在`js/lib`目录下.
 
 假设我们有这样的目录结构
 
@@ -137,10 +138,11 @@ RequireJS是一个js文件和模块加载器。
 -www
   -modularize1.html
   -js
-    +jquery.min.js
-    +require.min.js
-  -app
-    +modularize1.js
+    -lib
+      +jquery.min.js
+      +require.min.js
+    -app
+      +modularize1.js
 ```
 
 modularize1.html只用一个`script`标签：
@@ -153,7 +155,7 @@ modularize1.html只用一个`script`标签：
         <title>模块化-require.js</title>
     </head>
     <body>
-        <script data-main="js/app/modularize1.js" src="js/require.min.js"></script>
+        <script data-main="js/app/modularize1.js" src="js/lib/require.min.js"></script>
     </body>
 </html>
 ```
@@ -167,7 +169,7 @@ modularize1.js:
 require.config({
     baseUrl:'js/',
     paths:{
-        jquery:'jquery.min'
+        jquery:'lib/jquery.min'
     }
 });
 
@@ -187,7 +189,30 @@ require(
 
 1. jquery的模块id必须是'jquery'
 
-2. 有时我们依赖的模块并没有按模块化规范将自己定义为一个amd模块，这个时候我们需要使用到`requireJS`的`shim`参数，请移步[官方文档](http://requirejs.org/docs/api.html#config-shim)
+2. 有时我们依赖的模块并没有按模块化规范将自己定义为一个amd模块，比如我们经常会用到的jquery插件。这个时候我们需要使用到`requireJS`的`shim`参数，以`jquery.form`插件为例
+
+```
+require.config({
+    paths:{... },
+    shim: {
+        "jquery.form" : {
+            deps : ["jquery"]   //声明jquery.form的依赖
+        }
+    }
+})
+```
+
+这样配置之后我们就可以使用`jquery.form`了
+
+```
+require.config(["jquery", "jquery.form"], function($){
+    $(function(){
+        $("#form").ajaxSubmit({...});
+    })
+})
+```
+
+更多关于shim的细节，请移步[官方文档](http://requirejs.org/docs/api.html#config-shim)
 
 # 实验3.定义模块供他人使用
 
@@ -195,14 +220,14 @@ require(
 
 有时，我们不仅要依赖第三方模块，我们自己也要写一些模块给别人使用，下面看看如何自定义模块：
 
-1. js目录下新建myutils.js，内容如下：
+1. js/app目录下新建myutils.js，内容如下：
 
 ```
 //通过配置，简化模块路径的使用
 require.config({
     baseUrl:'js/',
     paths:{
-        jquery:'jquery.min'
+        jquery:'lib/jquery.min'
     }
 });
 
@@ -226,8 +251,8 @@ define函数的第一个参数为导入当前模块所依赖的模块，此处�
 require.config({
     baseUrl:'js/',
     paths:{
-        jquery:'jquery.min',
-        myutils:'myutils'  //新增
+        jquery:'lib/jquery.min',
+        myutils:'app/myutils'  //新增
     }
 });
 
