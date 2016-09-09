@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: 创建连接按钮、菜单按钮、分割按钮  
+title: 创建连接按钮、菜单按钮、分割按钮、开关按钮  
 category: jQuery-easyui基础教程  
 tags: Git jQuery EasyUI 项目 实战  
 author: 李彩琴  
@@ -450,6 +450,203 @@ function myBtn(){
 效果如下图：
 
 ![image](http://i.imgur.com/bRyvtZ3.png)
+
+
+# SwitchButton
+
+## SwitchButton简介
+
+  
+用在"form"表单中的开关按钮。按钮有2个状态：“开”和“关”，用户可以点击或轻敲来切换，标签状态是可定制的。效果如图：
+
+![image](http://i.imgur.com/xsvhn61.png)
+
+## SwitchButton程序
+
+
+```
+<input class="easyui-switchbutton" checked> <br/><br/>
+<input class="easyui-switchbutton">
+```	
+
+**参考代码:[16/switchbutton01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/16/switchbutton01.html)**
+
+效果如上图。
+
+
+## SwitchButton常用属性
+
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th width="200px">属性名</th>
+      <th width="180px">属性值类型</th>
+      <th width="600px">描述</th>
+      <th width="100px">默认值</th>
+   </tr>
+   <tr>
+      <td>width</td>
+	  <td>number</td>
+	  <td>开关按钮宽度。</td>
+	  <td>60</td>
+   </tr>
+   <tr>
+      <td>height</td> 
+	  <td>number</td> 
+	  <td>开关按钮高度。</td>
+	  <td>26</td>
+   </tr>
+   <tr>
+      <td>handleWidth</td> 
+      <td>number</td> 
+      <td>开关把手宽度。</td> 
+      <td>auto</td>
+   </tr>
+   <tr>
+      <td>checked</td> 
+      <td>boolean</td> 
+      <td>定义按钮是否开启。</td> 
+      <td>false</td>
+   </tr>
+   <tr>
+      <td>disabled</td> 
+      <td>boolean</td> 
+      <td>定义按钮是否禁用。</td> 
+      <td>false</td>
+   </tr>
+   <tr>
+      <td>readonly</td> 
+      <td>boolean</td> 
+      <td>定义按钮是否只读。</td> 
+      <td>false</td>
+   </tr>
+   <tr>
+      <td>reversed</td> 
+      <td>boolean</td> 
+      <td>设置为true时，反转开关文本。</td> 
+      <td>false</td>
+   </tr>
+   <tr>
+      <td>onText</td> 
+      <td>string</td> 
+      <td>左边文本值（反转后是右边）。</td> 
+      <td>ON</td>
+   </tr>
+   <tr>
+      <td>offText</td> 
+      <td>string</td> 
+      <td>右边文本值（反转后是左边）。</td> 
+      <td>OFF</td>
+   </tr>
+   <tr>
+      <td>handleText</td> 
+      <td>string</td> 
+      <td>开关把手文本值。</td> 
+      <td>''</td>
+   </tr>
+   <tr>
+      <td>value</td> 
+      <td>string</td> 
+      <td>给按钮绑定默认值。</td> 
+      <td>on</td>
+   </tr>
+</table>
+
+
+## SwitchButton常用方法  
+
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th width="300px">方法名</th> 
+      <th width="300px">方法参数</th> 
+      <th width="600px">描述</th>
+   </tr>
+   <tr>
+      <td>options</td> 
+      <td>none</td> 
+      <td>返回属性对象。</td>
+   </tr>
+   <tr>
+      <td>resize</td> 
+      <td>param</td> 
+      <td>调整开关按钮大小。</td>
+   </tr>
+   <tr>
+      <td>disable</td> 
+      <td>none</td> 
+      <td>禁用开关按钮。</td>
+   </tr>
+   <tr>
+      <td>enable</td> 
+      <td>none</td> 
+      <td>启用开关按钮。</td>
+   </tr>
+   <tr>
+      <td>readonly</td> 
+      <td>mode</td> 
+      <td>启用/禁用只读模式。</td>
+   </tr>
+   <tr>
+      <td>check</td> 
+      <td>none</td> 
+      <td>启用开关按钮。</td>
+   </tr>
+   <tr>
+      <td>uncheck</td> 
+      <td>none</td> 
+      <td>禁用开关按钮。</td>
+   </tr>
+   <tr>
+      <td>clear</td> 
+      <td>none</td> 
+      <td>清除开关按钮的值。</td>
+   </tr>
+   <tr>
+      <td>reset</td> 
+      <td>none</td> 
+      <td>重置开关按钮的值。</td>
+   </tr>
+   <tr>
+      <td>setValue</td> 
+      <td>value</td> 
+      <td>设置开关按钮的值。</td>
+   </tr>
+</table>  
+
+
+## SwitchButton常用事件
+
+<table class="table table-bordered table-striped table-condensed">
+   <tr>
+      <th width="300px">事件名</th>
+	  <th width="300px">事件参数</th>
+	  <th width="600px">描述</th>
+   </tr>
+   <tr>
+      <td>onChange</td>
+	  <td>checked</td>
+	  <td>在更改控件值的时候触发。</td>
+   </tr>
+</table> 
+
+参考jQuery EasyUI的API。
+
+案例一：
+
+代码如下：
+
+```
+$("#input1").switchbutton({
+	reversed:true,
+	onText:'Yes',
+	offText:'No',
+	handleText:'handle',
+	width:160,
+	handleWidth:80
+});
+```
+
+**参考代码:[16/switchbutton01.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/16/switchbutton01.html)**
+
 
 以上便是各种按钮的基本用法。
 
