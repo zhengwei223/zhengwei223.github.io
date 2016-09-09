@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LESS快速入门
-category: front-build
+category: heter
 tags: Web前端 less
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Web前端 less
