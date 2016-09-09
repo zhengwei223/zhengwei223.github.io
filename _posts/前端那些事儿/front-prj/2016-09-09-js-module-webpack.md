@@ -57,7 +57,7 @@ www/
 
 当然，为了让项目最简化，我们实际中没有img,font,css。我们尽可能只演示js的模块化和打包。
 
-# todo添加功能的实现
+# 实验2.todo添加功能的实现
 
 **学语言写helloworld，学前端写todo.**我们只想做最简单的功能（输入姓名和内容提交，上方会新增一个条目），因为功能不是重点，重点是模块化开发和webpack的使用：
 
@@ -96,7 +96,7 @@ www/
 ## todo.js
 
 ```
-require('../lib/jquery.min');
+require('../lib/jquery.min');  
 
 $(function() {
     $('#btn-submit').click( function() {
@@ -112,12 +112,20 @@ $(function() {
 
 除了第一行代码，剩余代码就是常规的`jquery`使用方法：获取值，操作`dom`。但是，现在的`todo.html`是不会有任何互动效果的，因为我们的`todo.js`不在`dist`目录下。现在轮到webpack上场了，我们曾号称它是模块加载器和打包工具。
 
-# 配置webpack
+# 实验3.配置webpack
+
+我们在node环境下工作，还需执行下述命令（只需执行一次）来添加本次构建任务的依赖：
+
+```
+npm init  #生成package.json
+cnpm install webpack -save-dev  #本地安装webpack包，保证require('webpack');可以成功
+```
+*对于第二条命令，你可能不是很理解，之前我们不是安装过webpack吗？上一次安装是我们需要使用webpack命令，而这次安装是因为我们在代码中要依赖这个模块。你可以理解为上次安装了一个工具（命令行），这次是下载了一个模块。以后我们还会安装更多工具和模块。*
 
 项目工程路径下新建`webpack.config.js`：
 
 ```
-var webpack = require('webpack');  //依赖npm安装的webpack
+var webpack = require('webpack');  //依赖npm安装的webpack，只需引用名字
 
 ///导出所有配置项
 module.exports = {
@@ -135,13 +143,13 @@ module.exports = {
 
 这份配置文件告诉webpack入口文件在哪里，出口文件去哪里。
 
-# 构建并查看效果
+
+
+# 实验4.构建并查看效果
 
 ## 构建
 
 ```
-npm init  #生成package.json
-cnpm install webpack -save-dev  #本地安装webpack包，保证require('webpack');可以成功
 webpack --display-error-details #根据配置进行构建
 ```
 
@@ -167,3 +175,12 @@ $ webpack -d    //生成map映射文件，告知哪些模块被最终打包到�
 
 如果前面都做对的话，这个页面我们预期的功能应该都实现了。
 
+# 总结
+
+这样，你就学会了webpack的基本使用，并大致了解其工作思路，还顺便学会了node所遵循的commonJS对依赖模块的处理。有些细节，大家需要注意：
+
+- npm是node的包管理器，通过它能获得可直接运行的命令行工具如webpack，也需要用它来下载各种模块如webpack（内容是代码）
+- 使用webpack,编写源码时要注意，页面中引入的js或者css路径应该是构建后的文件路径，src和build是分开的，如果你学过java应该很容易理解
+- webpack把入口文件视为一个模块，默认情况下会把它依赖的模块的代码合并到入口文件中，这样做有利有弊
+- webpack不仅支持commonJS这种写法，也支持AMD的写法，参考上一章，你可以自己试试
+- 但是，既然在node环境下编码，正是看中了这种编码方式爽的地方——可以随处`require`，而不是AMD那种依赖前置（把依赖全部写在开头）
