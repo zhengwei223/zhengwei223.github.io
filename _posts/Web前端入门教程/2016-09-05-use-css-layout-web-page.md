@@ -817,6 +817,29 @@ description:
 
 &emsp;&emsp;接下来要做的就是分配三列div占据屏幕宽度的百分比了，具体请参考3.6小节代码。
 
+---
+
+### 其他浮动方式
+
+&emsp;&emsp;元素float属性有一个默认值none（不浮动）。除了令div左（left）浮动，我们还可以让元素按其他方式浮动，比如右（right）浮动。
+
+&emsp;&emsp;我们来做一个实验，把3.3小节的所有浮动属性修改为右（right）浮动，
+
+    .nav {float:right;}
+    .content {float:right;}
+    .right {float:right;}
+
+&emsp;&emsp;三个div全部右浮动的效果跟原来的情况形成左右对称：
+
+ ![html-xhtml-relation](/public/img/html/div-all-float-right.PNG)
+
+
+---
+
+### 试一试
+
+&emsp;&emsp;让其中任意两个元素左浮动，一个元素右浮动，或者反过来，请你自己修改代码并仔细观察：这样做会产生什么效果？
+
 
 ## 4.4 定位
 
@@ -921,7 +944,7 @@ description:
 
        <p>Footer</p>
 
-&emsp;&emsp;我们仍然需要一个DIV来划分出页面上的一个区块：
+&emsp;&emsp;我们仍然需要一个DIV来划分出页面上的一个区域：
 
     <div class="footer">
        <p>Footer</p>
@@ -939,28 +962,20 @@ description:
 
  ![html-xhtml-relation](/public/img/html/div-footer-not-clear-float.png ) 
 
-&emsp;&emsp;为了清除底部区域左边的浮动效果，让它单独显示最底一行，我们在文章头部更新如下样式代码：
+&emsp;&emsp;底部（footer）div位于默认文档流上，有三个div在默认文档流的“表面”上浮起来，跑到浏览器窗口的**左边**。为了解决三个div遮挡底部（footer）div的问题，我们可以通过设置CSS的clear属性，“**清除浮动**”:不允许其他元素浮动到底部（footer）div的左侧：
 
      .footer { clear:left;}
 
  ![html-xhtml-relation](/public/img/html/div-footer-clear-float.PNG) 
 
-&emsp;&emsp;从此以后浮动在footer div左边的三个上层div都被清除了。
+&emsp;&emsp;底部区域终于放对位置了！
+
+&emsp;&emsp;元素样式的clear属性默认值是none，其他值还可以是right（清除右侧浮动）、both（清除两侧浮动）。大家可以根据需要在项目实战的时候灵活运用。
 
 # 6. 你还需要了解什么
-
-## 6.1 清除浮动（clear）
-
-&emsp;&emsp;clear属性规定元素的哪一侧不允许其他浮动元素。
-
-    
 
 ## 6.6 样式继承
 
 # 7.更多思考
 
 # 8.面试题
-
-
-
-&emsp;&emsp;
