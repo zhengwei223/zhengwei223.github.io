@@ -10,7 +10,7 @@ p_cate: 前端那些事儿
 
 本教程配套源码在这里→[front高级教程配套源码](https://coding.net/u/lanqiao/p/frontAdvance/git).
 
-# Foreword
+# 0.Foreword
 
 > Here comes Module!
 
@@ -18,7 +18,7 @@ p_cate: 前端那些事儿
 
 于是，`JavaScript` 的模块化成为迫切需求。在 ES6 Module 来临之前，`JavaScript` 社区提供了强大支持，尝试在现有的运行环境下，实现模块的效果。
 
-# 实验1：好的习惯——封装思维，不污染全局变量
+# 1.好的习惯——封装思维，不污染全局变量
 
 以前，我们在页面上引入一个自定义的js文件，这个文件里面全是各式各样的**全局**函数和变量，这是很要命的。我们首先要学会封装的思维，比如，`index.html`的全部js代码应该放入`index.js`中，而`index.js`中应该这样写代码：
 
@@ -50,7 +50,7 @@ jQuery(document).ready(function() {
 
 这样做，函数的归属很清晰，f1是Index专属的。如果你能改变以前的习惯，用这种方式封装自己的代码，已经是很大的进步了。
 
-# 所谓模块，还有依赖
+# 2.所谓模块，还有依赖
 
 所谓模块，就是一个独立的闭包，它可能依赖别的模块，通常它会导出一些变量或者函数给别的模块使用，这样它也就被别的模块依赖了。
 
@@ -72,7 +72,7 @@ jQuery(document).ready(function() {
 
 我们能否明确当前模块所依赖的模块，就像JAVA里面的import那样？这是个问题。
 
-# CommonJS & Node
+# 3.CommonJS & Node
 
 > Javascript: not just for browsers any more! —— CommonJS Slogen
 
@@ -108,7 +108,7 @@ CommonJS 前身叫 ServerJS ，**后来希望能更加 COMMON，成为通吃各�
 * RequireJS & AMD（异步加载，预执行，依赖前置。默认推荐 AMD 写法）
 * SeaJS & CMD（异步加载，懒执行，依赖就近，默认推荐 CommonJS 写法）
 
-# RequireJS & AMD
+# 4.RequireJS & AMD
 
 >由于 Node 原生支持模块的作用域，并不需要额外的 wrapper
 
@@ -126,7 +126,7 @@ var $ = require('jquery');
 
 RequireJS是一个js文件和模块加载器。
 
-# 实验2.初步使用requirejs完成对jquery的依赖
+# 5.初步使用requirejs完成对jquery的依赖
 
 ## 实验步骤
 
@@ -214,7 +214,7 @@ require.config(["jquery", "jquery.form"], function($){
 
 更多关于shim的细节，请移步[官方文档](http://requirejs.org/docs/api.html#config-shim)
 
-# 实验3.定义模块供他人使用
+# 6.定义模块供他人使用
 
 ## 实验步骤
 
@@ -272,7 +272,7 @@ require(
 实验2和实验3，就是对简单使用RequireJS进行模块化开发的示范。
 
 
-# SeaJS & CMD
+# 7.SeaJS & CMD
 
 CMD (Common Module Definition) 是 [SeaJS](http://seajs.org/docs/) 在推广过程中对模块定义的规范化产出，是 Modules/2.0 流派的支持者，因此 SeaJS 的模块写法尽可能与 Modules/1.x 规范保持一致。
 
@@ -333,7 +333,7 @@ Sea.js 借鉴了 RequireJS 的不少东西，比如将 FlyScript 中的 module.d
 
 
 
-# AMD vs CMD
+# 8.AMD vs CMD
 
 **虽然两者目前都兼容各种风格，但其底层原理并不相同，从其分别推荐的写法就可以看出两者背后原理的不同：**
 
