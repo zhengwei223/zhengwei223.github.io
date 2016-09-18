@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 怎么入门前端开发
+title: Web前端入门引言
 category: Web前端入门教程
 tags: Web前端
 author: 曹小虎
@@ -22,7 +22,7 @@ description:
 
 &emsp;&emsp;互联网上所有网站都可以用同样的客户端--Web浏览器来访问，不管是谷歌公司的Chrome，还是开源社区的Firefox，或者是微软公司的IE浏览器，只要输入一样的网站地址，你都会看到内容和外观完全一样的网页内容。这是因为，虽然出自不同厂家之手，不同名目的浏览器们都能够遵照同样的标准、按照同样的办法来解析你的电脑从互联网上下载的一份内容。这些标准的由W3C（the World Wide Web Consortium）组织统一修订和发布，其中最重要的三个Web前端技术标准就是**HTML标准**、**CSS标准**和**JavaScript**标准。
 
-# 1.前端全传
+# 1.前端技术概览
 
 &emsp;&emsp;HTML、CSS和JavaScript，这三种Web前端技术标准也就是我们“Web前端技术入门”课程要学习的主要内容。
 
@@ -82,7 +82,7 @@ description:
 &emsp;&emsp;html是Hyper Text Markup Language的缩写，就是超文本标记语言的意思。
 
 
-## 1.2 CSS是干什么的
+## 1.2 查看网页里的CSS
 
 &emsp;&emsp;在浏览器Network面板上，第二条下载记录的名称是**style.css**,类型是**stylesheet**（中文名：样式表）。
 
@@ -102,11 +102,11 @@ description:
 
 
 
-## 1.3 没有CSS会怎样
+## 1.3 没有CSS的网页
 
-&emsp;&emsp;想要知道没有CSS会怎样，我们可以尝试把现有网页内容中的CSS删除。
+&emsp;&emsp;想要知道没有CSS会怎样，我们可以先尝试删除现有网页内容中的CSS。
 
-### 删除style.css和index.css
+### 删除样式表
 
 &emsp;&emsp;为了更直接的说明问题，我们一起看一看没有CSS之后的网页是什么样子的。
 
@@ -117,7 +117,7 @@ description:
  ![web-frontend-content](/public/img/html/delete-css-el.png) 
 
 
-### 网页变成什么样
+### 效果
 
  ![web-frontend-content](/public/img/html/all-css-deleted.png)
 
@@ -127,7 +127,7 @@ description:
 
 
 
-## 1.4 Javascript让网站动起来
+## 1.4 Javascript，让网站交互起来
 
 &emsp;&emsp;JavaScript是一种可以添加到网页里面增强网页交互性的的编程语言。
 
@@ -140,17 +140,17 @@ description:
 &emsp;&emsp;这段Javascript代码在官网首页html文档加载完成后开始执行，为网站首页加入了全屏滚动的动态特效。这个动态效果**只能**通过JavaScript编程语言实现。
 
 
-# 2.掌握Web前端的好处
+# 2.学好Web前端的好处
 
 &emsp;&emsp;即便你不打算从事网页设计的职业，我这里仍然有好多不错的理由来打动你跟我一起学习Web前端开发技术。更重要的是，本教程也会给每一位有志于从事网页设计的同学们提供一个最短时间内掌握职业技能的便捷途径。
 
 &emsp;&emsp;下面是几个足够打动人心的理由：
   
-# 2.1 你可以更好地在线工作
+# 2.1 你可以更好利用浏览器
 
 &emsp;&emsp;今天越来越多的个人生意主和企业白领在网上完成他们的工作,他们在互联网上通过浏览器收发邮件、管理日程。也有很多大型跨国企业的雇员在企业内网上借助浏览器监控和管理项目进展、为分布全球的项目团队成员提供有效的沟通交流手段。
 
-# 2.2 你可以自己动手网站
+# 2.2 你可以自己动手做网站
 
 &emsp;&emsp;如果你需要经常对自己的个人或者企业网站进行微小改动，那么你真的应该立即开始学习HTML。因为你只需要学习一些简单的HTML网页技术支持，就可以省去雇佣一个专职网页设计师的昂贵费用。无论你是正在经营一个个人小微企业，还是作为基层雇员身在大型跨国公司，类似修改一个Word文档网页这样的小事，都只需要一点基本的的HTML知识就可以轻松搞定！
 
