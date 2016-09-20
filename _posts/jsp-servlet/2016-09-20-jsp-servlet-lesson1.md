@@ -1,7 +1,7 @@
 ---
 layout: post
 
-title: 动态网页基础JSPv2
+title: 动态网页基础
 
 category: JSP-Servlet教程
 
