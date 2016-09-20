@@ -1,6 +1,6 @@
 ---
 layout: post
-title: react模块化开发
+title: React模块化开发
 category: react
 tags: React 模块化开发
 author: 郑未
