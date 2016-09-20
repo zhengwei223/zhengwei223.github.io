@@ -1,0 +1,16 @@
+---
+layout: page
+title: <img src="/public/img/courses/jsp.jpg"></i>
+titlename: JSP-Servlet教程
+---
+<div class="lessons">
+  <ul class="list-unstyled">
+{% for post in site.categories["JSP-Servlet教程"]  reversed%}
+
+    <li>
+      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  
+{% endfor %}
+  </ul>
+</div>
