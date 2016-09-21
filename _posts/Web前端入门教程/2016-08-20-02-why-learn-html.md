@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 前端入门
+title: 开门见山说前端
 category: Web前端入门教程
 tags: Web前端
 author: 曹小虎
