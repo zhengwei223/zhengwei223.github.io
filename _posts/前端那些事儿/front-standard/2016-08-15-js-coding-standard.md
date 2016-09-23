@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 最好用的javascript编码规范中文版（转自airbnb js编码规范项目）
+title: 最好用的javascript编码规范中文版
 category: front-standard
 tags: 前端 js 编码规范
 author: 
@@ -9,7 +9,7 @@ description:
 p_cate: 前端那些事儿
 ---
 
-*用更合理的方式写 JavaScript*
+*用更合理的方式写 JavaScript*（转自airbnb js编码规范项目）
 
 # 类型 #
 
