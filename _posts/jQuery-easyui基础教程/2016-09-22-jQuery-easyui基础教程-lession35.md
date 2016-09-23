@@ -27,10 +27,7 @@ description:
 
 ```
 <h1>TreeGrid</h1>
-<table id="test" title="Folder Browser" class="easyui-treegrid" style="width:400px;height:300px"
-		url="../data/treegrid_data.json"
-		rownumbers="true"
-		idField="id" treeField="name">
+<table id="test" title="Folder Browser" class="easyui-treegrid" style="width:400px;height:300px" url="../data/treegrid_data.json" rownumbers="true" idField="id" treeField="name">
 	<thead>
 		<tr>
 			<th field="name" width="160">Name</th>
