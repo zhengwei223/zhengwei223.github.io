@@ -12,3 +12,15 @@ titlename: 工具
     </li>
 {% endfor %}
   </ul>
+
+  <h1>命令行</h1>
+  <ul class="list-unstyled">
+{% for post in site.categories["cmd"]  reversed%}
+    <li>
+      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+{% endfor %}
+	<li>
+      <a target="_blank" href="http://blog.csdn.net/niushuai666/article/details/7275406">vim简明教程</a>
+    </li>
+  </ul>
