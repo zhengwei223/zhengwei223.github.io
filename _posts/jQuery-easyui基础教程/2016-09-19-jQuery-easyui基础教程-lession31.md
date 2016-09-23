@@ -38,11 +38,11 @@ description:
 	  <td>object</td>
 	  <td>销毁行的时候显示的确认对话框消息。</td>
 	  <td>destroyMsg:{ <br/>
-	norecord:{    // 在没有记录选择的时候执行 <br/>
+	norecord:{ <br/>
 		title:'Warning', <br/>
 		msg:'No record is selected.' <br/>
 	}, <br/>
-	confirm:{       // 在选择一行的时候执行	 <br/>	title:'Confirm', <br/>
+	confirm:{ <br/>	title:'Confirm', <br/>
 		msg:'Are you sure you want to delete?' <br/>
 	} <br/>
 } <br/>
@@ -319,7 +319,7 @@ function formatDate(val,row){
 
 ![image](http://i.imgur.com/srXzaDU.png)
 
-Tip:语境菜单如上图所示。右键单击某一列的标题，会出现如下菜单，可以动态控制显示哪些列。
+Tip:**语境菜单**如上图所示。右键单击某一列的标题，会出现如下菜单，可以动态控制显示哪些列。
 
 **参考代码:[31/datagrid05.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/31/datagrid05.html)**
 

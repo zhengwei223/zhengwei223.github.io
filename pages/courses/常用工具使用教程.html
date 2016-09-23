@@ -24,3 +24,13 @@ titlename: 工具
       <a target="_blank" href="http://blog.csdn.net/niushuai666/article/details/7275406">vim简明教程</a>
     </li>
   </ul>
+
+  <h1>其他</h1>
+  <ul class="list-unstyled">
+{% for post in site.categories["常用工具使用教程"]  reversed%}
+    <li>
+      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+{% endfor %}
+  </ul>
+  
