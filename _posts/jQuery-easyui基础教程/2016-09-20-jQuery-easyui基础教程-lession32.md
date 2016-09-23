@@ -100,7 +100,7 @@ description:
       <td>onExpandRow</td><td>index,row</td><td>在展开行的时候触发。</td>
    </tr>
    <tr>
-      <td>onCollapseRow</td><td>index,row</td><td在折叠行的时候触发。</td>
+      <td>onCollapseRow</td><td>index,row</td><td>在折叠行的时候触发。</td>
    </tr>
    <tr>
       <td>onBeforeSave</td><td>index</td><td>在保存一行记录之前触发，返回false可以取消保存操作。</td>
@@ -454,7 +454,7 @@ $(function(){
 **参考代码:[32/datagrid10.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/32/datagrid10.html)**
 
 
-##  创建展开行明细编辑表单的 CRUD 应用
+#  创建展开行明细编辑表单的 CRUD 应用
 
 ### HTML代码：
 

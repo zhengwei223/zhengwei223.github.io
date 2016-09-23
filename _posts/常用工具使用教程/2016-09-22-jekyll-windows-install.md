@@ -73,6 +73,10 @@ Following the commands on official Jekyll Quick-start guide, a new Jekyll blog s
 
 Now browse to [http://localhost:4000](http://localhost:4000)
 
+# 插件
+
+如果使用了插件，记得要用`gem`进行安装。
+
 # 关于中文路径
 
 中文文本内容，jekyll可以很好处理，但是如果文件名带有中文，在编译后的_site目录下的文件名是乱码，解决这个问题需要修改jekyll和webrick的源码：

@@ -11,7 +11,7 @@ scrolltop: true
   <p>
     本教程所有示例代码可以通过克隆<a href="https://git.coding.net/lanqiao/frontAdvance.git">代码仓库</a>来获得。
   </p>
-  <ul class="list-unstyled">
+  <ul>
 {% for post in site.categories["es6"]  reversed%}
     <li>
       <dl>
@@ -19,7 +19,6 @@ scrolltop: true
         </dt>
         <dd>{{ post.description }}</dd>
       </dl>
-      
     </li>
 {% endfor %}
   </ul>
@@ -28,34 +27,50 @@ scrolltop: true
   <ul class="list-unstyled">
 {% for post in site.categories["front-prj"]  reversed%}
     <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      <dl>
+        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        </dt>
+        <dd>{{ post.description }}</dd>
+      </dl>
     </li>
 {% endfor %}
   </ul>
 
   <h1>异构</h1>
-  <ul class="list-unstyled">
+  <ul>
 {% for post in site.categories["heter"]  reversed%}
     <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      <dl>
+        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        </dt>
+        <dd>{{ post.description }}</dd>
+      </dl>
     </li>
 {% endfor %}
   </ul>
 
   <h1>编程规范与建议</h1>
-  <ul class="list-unstyled">
+   <ul>
 {% for post in site.categories["front-standard"]  reversed%}
     <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      <dl>
+        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        </dt>
+        <dd>{{ post.description }}</dd>
+      </dl>
     </li>
 {% endfor %}
-  </ul>  
+  </ul>
 
   <h1>react系列教程</h1>
-  <ul class="list-unstyled">
+  <ul>
 {% for post in site.categories["react"]  reversed%}
     <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      <dl>
+        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        </dt>
+        <dd>{{ post.description }}</dd>
+      </dl>
     </li>
 {% endfor %}
-  </ul> 
+  </ul>

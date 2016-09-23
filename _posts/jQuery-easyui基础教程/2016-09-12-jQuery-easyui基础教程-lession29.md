@@ -52,7 +52,9 @@ DataGrid以表格形式展示数据，并提供了丰富的选择、排序、分
 
 ![image](http://i.imgur.com/EQWZTuj.png)
 
-## 最佳实践：通过```<table>```标签创建DataGrid控件。在表格内使用```<th>```标签定义列。
+## 最佳实践：
+
+通过```<table>```标签创建DataGrid控件。在表格内使用```<th>```标签定义列。
 
 
 ## DataGrid常用属性  
@@ -864,7 +866,7 @@ $('#tt').datagrid({
       <td>onClickCell</td><td>index, field, value</td><td>在用户点击一个单元格的时候触发。</td>
    </tr>
    <tr>
-      <td>onDblClickCell</td><td>index, field, value/td><td>在用户双击一个单元格的时候触发。 </td>
+      <td>onDblClickCell</td><td>index, field, value</td><td>在用户双击一个单元格的时候触发。 </td>
    </tr>
    <tr>
       <td>onBeforeSortColumn</td><td>sort, order</td><td>在用户排序一个列之前触发，返回false可以取消排序。</td>
