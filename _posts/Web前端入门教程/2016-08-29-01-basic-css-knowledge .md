@@ -1,6 +1,6 @@
 ---
 layout: post
-title: CSS基础及常用样式
+title: CSS基础及常用样式(待废弃)
 category: Web前端入门教程
 tags: Web前端
 author: 曹小虎

@@ -1,28 +1,48 @@
 ---
 layout: page
-title: 前端那些事儿
+title: <img src="/public/img/courses/front-end.jpg"></i>
+titlename: 前端
 scrolltop: true
 ---
-
-  <h1>模块化开发解决方案</h1>
+  <h1>ES6系列教程</h1>
+  <p class="bg-warning">
+  2015年发生了一件大事，就是JavaScript的新标准（ES2015/ES6）发布了，未来的js代码都会按新标准书写！一定要学！定要学！要学！follow me……
+  </p>
+  <p>
+    本教程所有示例代码可以通过克隆<a href="https://git.coding.net/lanqiao/frontAdvance.git">代码仓库</a>来获得。
+  </p>
   <ul class="list-unstyled">
-{% for post in site.categories["front-modularity"]  reversed%}
+{% for post in site.categories["es6"]  reversed%}
+    <li>
+      <dl>
+        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        </dt>
+        <dd>{{ post.description }}</dd>
+      </dl>
+      
+    </li>
+{% endfor %}
+  </ul>
+  
+  <h1>前端工程化解决方案</h1>
+  <ul class="list-unstyled">
+{% for post in site.categories["front-prj"]  reversed%}
     <li>
       <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
     </li>
 {% endfor %}
   </ul>
 
-  <h1>构建、调试、代理、打包部署等一系列工程化</h1>
+  <h1>异构</h1>
   <ul class="list-unstyled">
-{% for post in site.categories["front-build"]  reversed%}
+{% for post in site.categories["heter"]  reversed%}
     <li>
       <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
     </li>
 {% endfor %}
   </ul>
 
-  <h1>编程规范</h1>
+  <h1>编程规范与建议</h1>
   <ul class="list-unstyled">
 {% for post in site.categories["front-standard"]  reversed%}
     <li>
