@@ -50,9 +50,11 @@ DataGrid以表格形式展示数据，并提供了丰富的选择、排序、分
  
 效果如下图：
 
-![image](http://i.imgur.com/Xao9XkF.png)
+![image](http://i.imgur.com/EQWZTuj.png)
 
-## 最佳实践：通过```<table>```标签创建DataGrid控件。在表格内使用```<th>```标签定义列。
+## 最佳实践：
+
+通过```<table>```标签创建DataGrid控件。在表格内使用```<th>```标签定义列。
 
 
 ## DataGrid常用属性  
@@ -504,29 +506,41 @@ DataGrid列是一个数组对象，该元素也是一个数组对象。元素数
 
 ```
 <h1>DataGrid</h1>
-<table id="tt" class="easyui-datagrid" style="width:600px;height:250px"	>
+<table id="tt" style="width:900px;height:500px">
 	<thead>
-		<tr>	
+		<tr>
 			<!-- field属性：对应json文件中的哪个字段 -->
-			<th data-options="field:'itemid'" width="80">Item ID</th>
-			<th data-options="field:'productid'" width="80">Product ID</th>
-			<th data-options="field:'listprice'" width="80" align="right">List Price</th>
-			<th data-options="field:'unitcost'" width="80" align="right">Unit Cost</th>
+			<th data-options="field:'itemId'" width="80">Item ID</th>
+			<th data-options="field:'productId'" width="80">Product ID</th>
+			<th data-options="field:'listPrice'" width="80" align="right">List Price</th>
+			<th data-options="field:'unitCost'" width="80" align="right">Unit Cost</th>
 			<th data-options="field:'attr1'" width="150">Attribute</th>
 			<th data-options="field:'status'" width="60" align="center">Stauts</th>
 		</tr>
 	</thead>
 </table>
 
-$(function(){
-	$('#tt').datagrid({
-		url:'../data/datagrid_data.json',//可以是给后台发送请求的url
-		title:'Load Data',//标题
-		iconCls:'icon-save',//标题左边的图标
-		fitColumns:true,//固定列
-		rownumbers:true,//显示行号
-		pagination:true//并没有真正实现分页，需要结合代码实现
-	});
+$('#tt').datagrid({
+	/**
+		json文件中的total表示总记录数，该属性在分页插件中需要用到   可选属性
+		
+		json文件中的rows表示数据
+		
+		json文件中的footer表示行脚，该属性在行脚时需要用到   可选属性
+		 {"itemId":"Total","listPrice":282.35},  表示在itemId这一列显示“Total”
+	   */
+	url:'../dist/data/datagrid_data.json',//可以是给后台发送请求的url
+	title:'Load Data',//标题
+	iconCls:'icon-save',//标题左边的图标
+	fitColumns:true,//固定列
+	rownumbers:true,//显示行号
+	showFooter:true,//显示行脚
+	pagination:true,//并没有真正实现分页，需要结合代码实现
+	rowStyler: function(index,row){//定义行样式   带2个参数的函数：index：该行索引从0开始   row：与此相对应的记录行。 
+		if (row.listPrice<20){
+			return 'background-color:red;color:#fff;'; 
+		}
+	}
 });
 ```
 
@@ -534,7 +548,7 @@ $(function(){
 
 效果如下图：
 
-![image](http://i.imgur.com/sU22ASR.png)
+![image](http://i.imgur.com/tUsb37Z.png)
 
 
 ## DataGrid常用方法  
@@ -852,7 +866,7 @@ $(function(){
       <td>onClickCell</td><td>index, field, value</td><td>在用户点击一个单元格的时候触发。</td>
    </tr>
    <tr>
-      <td>onDblClickCell</td><td>index, field, value/td><td>在用户双击一个单元格的时候触发。 </td>
+      <td>onDblClickCell</td><td>index, field, value</td><td>在用户双击一个单元格的时候触发。 </td>
    </tr>
    <tr>
       <td>onBeforeSortColumn</td><td>sort, order</td><td>在用户排序一个列之前触发，返回false可以取消排序。</td>
@@ -951,6 +965,9 @@ function getSelections() {
 
 **参考代码:[29/datagrid02.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/29/datagrid02.html)**
 
+效果如下图：
+
+![image](http://i.imgur.com/6xQ8sGv.png)
 
 ## 添加工具栏
 
@@ -965,28 +982,35 @@ function getSelections() {
 	</div>	
 	<div style="padding-left:5px;">
 		<span>Item ID:</span>
-		<input id="itemid" style="line-height:20px;border:1px solid #ccc">
+		<input id="itemId" style="width:180px;line-height:20px;border:1px solid #ccc">
 		<span>Product ID:</span>
-		<input id="productid" style="line-height:20px;border:1px solid #ccc">
+		<input id="productId" style="width:180px;line-height:20px;border:1px solid #ccc">
+		Status: 
+		<input class="easyui-combobox" id="status" style="width:180px;"	data-options="data:[{id:1,text:'P'},id:2,text:'F'}],valueField:'id',textField:'text',icons:[{iconCls:'icon-clear',handler:function(){$('#status').combobox('clear');}}]">
 		<br/><br/>
-		Date From: <input class="easyui-datebox" style="width:80px">
-		To: <input class="easyui-datetimebox" style="width:80px">
-		Language: 
-		<input class="easyui-combobox" style="width:100px" data-options="url:'../data/language_data.json',valueField:'id',textField:'text'">
-		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">Search</a>
-		<br/>
+		Date From: <input class="easyui-datebox" id="startDate" style="width:180px;" data-options="icons:[{iconCls:'icon-clear',handler:function(){$('#startDate').datebox('clear');}}]">
+		To: <input class="easyui-datebox" id="endDate" style="width:180px;" data-options="icons:[{iconCls:'icon-clear',handler:function(){$('#endDate').datebox('clear');}}]">
+		<a href="#" class="easyui-linkbutton" onclick="doSearch();" data-options="iconCls:'icon-search'">Search</a>
 	</div>
 </div>
-
 $('#tt').datagrid({
 	toolbar:'#tb',
 	...
 });
 function doSearch(){
+	var itemId = $('#itemId').val();
+	var productId = $('#productId').val();
 	var startDate = $('#startDate').datebox("getValue");
 	var endDate = $('#endDate').datebox("getValue");
-	var language = $('#language').datebox("getValue");
-	alert($('#itemid').val()+','+$('#productid').val()+","+startDate+","+endDate+","+language);
+	var status = $("#status").combobox("getText");
+	/**
+		必须处理startDate和endDate，他们对应服务器端的Date类型，如果不处理也没有输入值的话，会传""，而后台无法正确将""转换为Date类型，则报错。
+		startDate == ''?undefined:startDate   如果没有输入值，则给startDate赋值为undefined,即不会将该参数传递给后台。
+	*/
+	startDate = (startDate == ''?undefined:startDate);
+	endDate = (endDate == ''?undefined:endDate);
+	//结合后台代码真正实现查找功能
+	alert(itemId+","+productId+","+startDate+","+endDate+","+status);
 }
 ```
 
@@ -994,7 +1018,7 @@ function doSearch(){
 
 效果如下图：
 
-![image](http://i.imgur.com/rHWIhJn.png)
+![image](http://i.imgur.com/GxEY734.png)
 
 
 以上便是数据表格的基本操作。
