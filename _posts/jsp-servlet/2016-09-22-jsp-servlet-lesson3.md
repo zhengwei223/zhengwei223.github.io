@@ -588,6 +588,7 @@ rs = pstmt.executeQuery();
    </tr>
    <tr>
       <td>DriverManager.getConnection()方法</td>
+	  <td rowspan="12">SQLException</td>
    </tr>
    <tr>
       <td>Connection接口的createStatement()方法</td>
@@ -603,7 +604,7 @@ rs = pstmt.executeQuery();
    </tr>
    <tr>
       <td>PreparedStatement接口的setXxx()方法</td>
-      <td>SQLException</td>
+      
    </tr>
    <tr>
       <td>PreparedStatement接口的executeUpdate()方法</td>
