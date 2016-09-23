@@ -25,17 +25,27 @@ description:
 
 ## 开发ComboGrid程序
 
+
 ```
-<form id="ff" method="post">   
-    <div>   
-        <label for="name">Name:</label>   
-        <input class="easyui-validatebox" type="text" name="name" data-options="required:true" />   
-    </div>   
-    <div>   
-        <label for="email">Email:</label>   
-        <input class="easyui-validatebox" type="text" name="email" data-options="validType:'email'" />   
-    </div>   
-</form>  
+<input id="cg" style="width:150px">
+<script type="text/javascript">
+	$('#cg').combogrid({
+		panelWidth:500,
+		url: '../dist/data/datagrid_data.json',
+		idField:'itemId',
+		textField:'productId',
+		mode:'remote',
+		fitColumns:true,
+		columns:[[
+			{field:'itemId',title:'Item ID',width:60},
+			{field:'productId',title:'Product ID',align:'right',width:80},
+			{field:'listPrice',title:'List Price',align:'right',width:60},
+				{field:'unitCost',title:'Unit Cost',align:'right',width:60},
+			{field:'attr1',title:'Attribute',width:150},
+			{field:'status',title:'Stauts',align:'center',width:60}
+		]]
+	});
+</script>
 ```
 
 **参考代码:[36/datagrid16.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/36/datagrid16.html)**
@@ -127,36 +137,6 @@ description:
 ## ComboGrid常用事件
 
 数据表格下拉框事件完全扩展自combo(自定义下拉框)和datagrid(数据表格)。
-
-
-## 案例一：
-
-
-代码如下：
-
-```
-<input id="cg" style="width:150px">
-<script type="text/javascript">
-	$('#cg').combogrid({
-		panelWidth:500,
-		url: '../dist/data/datagrid_data.json',
-		idField:'itemId',
-		textField:'productId',
-		mode:'remote',
-		fitColumns:true,
-		columns:[[
-			{field:'itemId',title:'Item ID',width:60},
-			{field:'productId',title:'Product ID',align:'right',width:80},
-			{field:'listPrice',title:'List Price',align:'right',width:60},
-				{field:'unitCost',title:'Unit Cost',align:'right',width:60},
-			{field:'attr1',title:'Attribute',width:150},
-			{field:'status',title:'Stauts',align:'center',width:60}
-		]]
-	});
-</script>
-```
-
-**参考代码:[36/datagrid16.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/36/datagrid16.html)**
 
 
 以上便是下拉数据网络的基本用法。
