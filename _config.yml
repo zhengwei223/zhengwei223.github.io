@@ -69,6 +69,7 @@ cates_basic:
     - 安卓入门教程
     - 常用工具使用教程
 cates_advanced:
+    - 前端那些事儿
     - 数据结构与算法
     - 设计模式
     - clean code
@@ -80,7 +81,6 @@ cates_advanced:
     - JVM性能调优
     - web应用系统安全入门教程
     - 框架源码解读系列
-    - 前端那些事儿
 cates_project:
     - JavaSe实现五子棋游戏
     - JavaSe实现植物大战僵尸
