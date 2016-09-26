@@ -12,8 +12,7 @@ category: JSP-Servlet教程
 tags: JSP Servlet
 
 
-description: 本章将系统介绍三层架构。在实际开发中，
-“三层架构”可以提高代码的可重用性。
+description: 本章将系统介绍三层架构。在实际开发中，“三层架构”可以提高代码的可重用性。
 
 author: 颜群
 
