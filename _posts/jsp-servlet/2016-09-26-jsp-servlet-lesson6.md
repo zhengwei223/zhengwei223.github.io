@@ -45,11 +45,11 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 使用上，就是对DAL中的方法进行“组装”。比如，该层也可以实现对Student的增删改查，但与DAL不同的是，BLL中的增、删、改、查不再是 “原子性”的功能，而是包含了一定的业务逻辑。比如该层中的“删”不再像DAL中那样仅仅实现“删”，而是在“删”之前要进行业务逻辑的判断：先查找该学生是否存在（即先执行了“查”），如果存在才会真正的“删”，如果不存在则应该提示错误信息。即BLL中的“删”，应该是“带逻辑的删”（即先“查”后“删”），也就是对DAL中的“查”和“删”两个方法进行了“组装”。
 
-在程序中，BLL一般写在`service`包（或`biz`包）中，包里面的类名也是以”Service（或Biz）”结尾，如`StudentService.java`、`DepartmentService.java`、`NewsService`等。换句话说，在程序中，BLL是由service包中的多个“类名`Service.java`”组成。每一个“类名`Service.java`”类，就包含着对该“类名”的所有对象的业务操作，如`StudenService.java`中包含对所有Student对象的“带逻辑的删”、“带逻辑的增”等业务逻辑操作，`DepartmentService.java`中包含对所有Department对象的“带逻辑的删”、“带逻辑的
+在程序中，BLL一般写在`service`包（或`biz`包）中，包里面的类名也是以”Service（或Biz）”结尾，如`StudentService.java`、`DepartmentService.java`、`NewsService`等。换句话说，在程序中，BLL是由service包中的多个“类名`Service.java`”组成。每一个“类名`Service.java`”类，就包含着对该“类名”的所有对象的业务操作，如`StudenService.java`中包含对所有Student对象的“带逻辑的删”、“带逻辑的增”等业务逻辑操作，`DepartmentService.java`中包含对所有Department对象的“带逻辑的删”、“带逻辑的增”等业务逻辑操作。
 
 * 表示层(USL)：
 
-位于三层中的最上层，用于显示数据和接收用户输入的数据，为用户提供一种交互式操作的界面。USL又分为“USL前台代码”和“USL后台代码”，其中“USL前台代码”是指用户能直接访问到的界面，一般是程序的外观（如html文件、JSP文件等），类似于MVC模式中的“视图”；“USL后台代码”是指用来调用业务逻辑层的JAVA代码（如Servlet），类似于MVC模式中的“控制器”。表示层前台代码一般放在WebContent目录下，而表示层后台代码目前放在servlet包下。
+位于三层中的最上层，用于显示数据和接收用户输入的数据，为用户提供一种交互式操作的界面。USL又分为“USL前台代码”和“USL后台代码”，其中“USL前台代码”是指用户能直接访问到的界面，一般是程序的外观（如html文件、JSP文件等），类似于MVC模式中的“视图”；“USL后台代码”是指用来调用业务逻辑层的JAVA代码（如`Servlet`），类似于MVC模式中的“控制器”。表示层前台代码一般放在WebContent目录下，而表示层后台代码目前放在servlet包下。
 
 以下，是一个最基本三层架构的示例图：
 
@@ -854,6 +854,410 @@ web.xml
 *图6-07*
 
 # 6.3优化三层架构 #
+
+为了使设计与实现相分离，以及更好的解耦合，我们给上面的项目加入接口，并且重构部分代码。
+
+给业务逻辑层和数据访问层加上接口。接口所在的包名，与之前该层的包名相同，如业务逻辑层中接口所在的包名，仍然是`org.lanqiao.service`；接口的文件名，一般在前面加上字母I（Interface的简称），如`IStudentService.java`。而实现类所在的包名，需在后面加上impl（implements的缩写），如`org.lanqiao.service.impl`；实现类的文件名，一般在后面加上Impl，如`StudentServiceImpl.java`。如图，
+
+![](http://i.imgur.com/nI5lQka.png)
+
+*图6-08*
+
+分析之前的代码，可以发现数据访问层中，存在着大量的重复代码。我们可以把重复的代码提取出来，封装到一个公共的类中（帮助类），从而实现代码的重构。为此，我们再创建一个数据访问层的帮助类`DBUtil.java`，并放入`util`包中。
+
+org.lanqiao.DBUtil.java
+
+```
+package org.lanqiao.util;
+// 省略import
+public class DBUtil
+{
+	// 通用的增加、删除、修改方法。执行传入sql语句，参数os存放sql语句中占位符?的真实值
+	public static boolean executeAddOrUpdateOrDelete(String sql, 
+Object[] os)
+	{
+		// flag用来标记是否增加成功，若增加成功则返回true，若增加失败则返回false
+		boolean flag = true;
+		try
+		{
+			Class.forName(DRIVER_NAME);
+			conn = DriverManager.getConnection(URL, USERNAME, PWD);
+			pstmt = conn.prepareStatement(sql);
+			if (os != null)
+			{
+                 //假设参数sql="insert into student(stuNo,stuName,…)
+ values(?,?,..)";其中stuNo代表学号，是整数类型；而stuName代表姓名，是字符串类型。因此可以使用os={1, "张三"};这种Object类型的数组来代表sql语句中的多个？占位符
+				for (int i = 0; i < os.length; i++)
+				{
+					pstmt.setObject(i + 1, os[i]);
+				}
+			}
+			pstmt.executeUpdate();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			flag = false;
+		}
+		finally
+		{
+			try
+			{
+				pstmt.close();
+				conn.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return flag;
+	}
+
+	// 通用的查询方法，返回查询的结果集ResultSet对象
+	public static ResultSet queryStudentsBySql(String sql, Object[] os)
+	{
+		ResultSet rs = null;
+		try
+		{
+			Class.forName(DRIVER_NAME);
+			conn = DriverManager.getConnection(URL, USERNAME, PWD);
+			pstmt = conn.prepareStatement(sql);
+			if (os != null)
+			{
+//假设参数sql="select * from student where stuAge = ? or stuName = ?";其中stuAge代表年龄，是整数类型；而stuName代表姓名，是字符串类型。因此可以使用os={23, "张三"};这种Object类型的数组来代表sql语句中的多个？占位符
+				for (int i = 0; i < os.length; i++)
+				{
+					pstmt.setObject(i + 1, os[i]);
+				}
+			}
+			rs = pstmt.executeQuery();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return rs;
+	}
+}
+```
+
+可以发现，虽然将访问数据库的方法都到了一个`DBUtil`类中，但该类中的代码仍有较多的重复。例如，每个方法都需要加载数据库驱动类，并获取数据库连接对象、创建`PreparedStatement`对象等。为此，我们可以重构这些重复的代码，并将释放操作单独写在一个`closeAll()`方法中，做进一步简化，如下，
+
+org.lanqiao.DBUtil.java
+
+```
+package org.lanqiao.util;
+// 省略import
+public class DBUtil
+{
+	// 省略属性定义及初始化赋值
+
+	// 将创建PreparedStatement对象的方法提取出来
+	public static PreparedStatement
+ createPreparedStatement(String sql,Object[] os) 
+throws ClassNotFoundException,SQLException
+	{
+		Class.forName(DRIVER_NAME);
+		conn = DriverManager.getConnection(URL, USERNAME, PWD);
+		pstmt = conn.prepareStatement(sql);
+		if (os != null)
+		{
+			for (int i = 0; i < os.length; i++)
+			{
+				pstmt.setObject(i + 1, os[i]);
+			}
+		}
+		return pstmt;
+	}
+
+	// 将关闭访问数据库相关对象的方法，单独写在一个方法中(注意PreparedStatement继承自Statement)
+	public static void closeAll(ResultSet rs, Statement stmt, 
+Connection conn)
+	{
+		try
+		{
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			if (conn != null)
+				conn.close();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	// 通用的增加、删除、修改方法
+	public static boolean executeAddOrUpdateOrDelete(String sql ,
+Object[] os)
+	{
+		// flag用来标记是否增加成功，若增加成功则返回true，若增加失败则返回false
+		boolean flag = true;
+
+		try
+		{
+			// 获取Statement对象
+			pstmt = createPreparedStatement(sql,os);
+			pstmt.executeUpdate();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			flag = false;
+		}
+		finally
+		{
+			closeAll(null, pstmt, conn);
+		}
+		return flag;
+	}
+
+	// 通用的查询方法，返回查询的结果集ResultSet对象
+	public static ResultSet executeQuery(String sql, Object[] os) 
+{
+		ResultSet rs = null; 
+		try 
+{
+			pstmt = createPreparedStatement(sql,os);
+			rs = pstmt.executeQuery();
+		} catch (SQLException e) 
+{
+			System.out.println("SQLException：" + e);
+		}catch (Exception e) 
+{
+			System.out.println("查询发生异常：" + e);
+		}
+		return rs;
+	}
+```
+
+说明：
+
+* 1.问：数据访问层DAL中的某一个`DAO`实现类（如`StudentDaoImpl.java`），是用于访问数据库；而数据库帮助类DBUtil.java也是用于访问数据库。二者有什么区别？
+
+答：`StudentDaoImpl.java`这种DAO实现类的操作对象是Student，即对Student进行增删改查等数据访问；而`DBUtil.java`中的增删改查方法都是通用的，不针对于任何一个实体。一般来讲，DAO实现类可以通过调用DBUtil.java中的方法，来实现对某一个特定实体（如Student）的增删改查等操作，详见后文中StudentDaoImpl.java中的代码。
+
+* 2.问：查询方法`executeQuery()`的返回值类型为什么是`ResultSet`，而不是`List<Student>`。例如，查询方法能否写成以下形式：
+
+```
+//将查询到的学生集合放入List中，并返回
+public static List<Student> queryStudentsBySql(String sql, Object[] os)
+{
+	List<Student> students = new ArrayList<Student>();
+	ResultSet rs = null;
+	try
+	{
+		pstmt = createPreparedStatement(sql,os);
+		rs = pstmt.executeQuery();
+		while (rs.next())
+		{
+			int sNo = rs.getInt("stuNo");
+			String sName = rs.getString("stuName");
+			int sAge = rs.getInt("stuAge");
+			String gName = rs.getString("graName");
+			// 将查到的学生信息，封装到stu对象中
+			Student stu = new Student(sNo, sName, sAge, gName);
+			// 将封装好的stu对象，存放到List集合中
+			students.add(stu);
+		}
+	}
+	catch (Exception e)
+	{
+		e.printStackTrace();
+	}
+	finally
+	{
+		closeAll(rs, pstmt, conn);
+	}
+	return students;
+}
+```
+
+答：对于查询方法， `List<Student>`类型的返回值看起来确实比`ResultSet`更加直观，甚至在使用上更加方便。但是考虑到工具类中方法的“通用性”，就只能使用`ResultSet`作为返回值类型。
+
+例如，对于增删改的通用方法executeAddOrUpdateOrDelete(`String sql` ,`Object[] os`)来说，只要传入①用于增删改的SQL语句（`sql`参数）②用于替换SQL语句中所有？占位符的数组（os参数），就能够实现相应SQL语句所代表的增删改功能。也就是说，`executeAddOrUpdateOrDelete()`不依赖任何“实体”，无论是增删改“学生”，还是增删改“班级”、“图书”、“新闻”等，都可以通过调用该方法实现。同样的，如果查询方法的返回值是`List<Student>`，并且方法中存在`rs.getInt("stuNo")`等代码，那么该查询方法就强烈依赖于`Student`类，而不能像增删改方法那样实现“通用性”。因此，为了查询方法的“通用性”，我们只能退一步，让查询方法仅返回结果集`ResultSet`就可以了，至于实体类数据的封装，以及`List`集合的填充等操作就只能转交到`DAO`实现类去完成。
+
+有了`DBUtil.java`之后，数据库访问层中实现类的代码就简单许多了（其他代码不变），如下，
+
+org.lanqiao.dao.impl.StudentDaoImpl.java
+
+```
+package org.lanqiao.dao.impl;
+// 省略import
+public class StudentDaoImpl implements IStudentDao
+{
+	// 增加学生
+	public boolean addStudent(Student stu)
+	{
+		String sql = "insert into student(stuNo,stuName,stuAge,graName) values(?,?,?,?)";
+		Object[] os =
+		{ stu.getStudentNo(), stu.getStudentName(),
+ stu.getStudentAge(), stu.getGradeName() };
+		return DBUtil.executeAddOrUpdateOrDelete(sql, os);
+	}
+
+	// 根据学号删除学生
+	public boolean deleteStudentByNo(int stuNo)
+	{
+		String sql = "delete from student where stuNo = ?";
+		Object[] os =	{ stuNo };
+		return DBUtil.executeAddOrUpdateOrDelete(sql, os);
+	}
+
+	// 修改学生信息:将原来学号为stuNo的学生信息，修改为实体类stu中的包含信息
+	public boolean updateStudent(Student stu, int stuNo)
+	{
+		String sql = "update student set stuNo = ?,stuName = ?,
+stuAge = ?,graName=?  where stuNo = ? ";
+		Object[] os =
+		{ stu.getStudentNo(), stu.getStudentName(), 
+stu.getStudentAge(), stu.getGradeName(), 
+stu.getStudentNo() };
+		return DBUtil.executeAddOrUpdateOrDelete(sql, os);
+	}
+
+	// 根据学号，查询某一个学生
+	public Student queryStudentByNo(int stuNo)
+	{
+		String sql = "select stuNo,stuName,stuAge,graName from student where stuNo = ? ";
+		Object[] os =	{ stuNo };
+		Student stu = null;
+		try
+		{
+			ResultSet rs = DBUtil.executeQuery(sql, os);
+
+			if (rs.next())
+			{
+				int sNo = rs.getInt("stuNo");
+				String sName = rs.getString("stuName");
+				int sAge = rs.getInt("stuAge");
+				String gName = rs.getString("graName");
+				// 将查到的学生信息，封装到stu对象中
+				stu = new Student(sNo, sName, sAge, gName);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		// 判断students集合是否为空
+		return stu;
+	}
+
+	// 查询全部学生
+	public List<Student> queryAllStudents()
+	{
+		String sql = "select stuNo,stuName,stuAge,graName from student ";
+		Object[] os = null;
+		List<Student> students = new ArrayList<Student>();
+		try
+		{
+			ResultSet rs = DBUtil.executeQuery(sql, os);
+			while (rs.next())
+			{
+				int sNo = rs.getInt("stuNo");
+				String sName = rs.getString("stuName");
+				int sAge = rs.getInt("stuAge");
+				String gName = rs.getString("graName");
+				// 将查到的学生信息，封装到stu对象中
+				Student stu = new Student(sNo, sName, sAge, gName);
+				// 将封装好的stu对象，存放到List集合中
+				students.add(stu);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		// 判断students集合是否为空
+		return students;
+	}
+
+	// 根据学号，判断某一个学生是否已经存在
+	public boolean isExistByNo(int stuNo)
+	{
+		boolean isExist = false;
+		Student stu = queryStudentByNo(stuNo);
+		// 如果stu为null，说明查无此人，即此人不存在；否则说明已经存在此人
+		isExist = (stu == null) ? false : true;
+		return isExist;
+	}
+}
+```
+
+优化后的三层架构的结构图，如下，
+
+![](http://i.imgur.com/HLrVZeH.jpg)
+
+*图6-09*
+
+从图中可以发现，优化后的三层架构的基本结构是：
+
+表示层（USL前台Jsp或`Html`，及USL后台Servlet）+业务逻辑层（接口，及实现类）+数据访问层（接口，及实现类）+工具类包+实体类包
+
+其中表示层前台，也可以加入CSS、JavaScript等进行美化和验证。
+
+完整代码，可参见源码中的StudentManagerBy3TierAndInterface项目。
+
+# 6.4练习题 #
+
+**一、选择题**
+
+1.下列关于JavaBean的描述，正确的是（    ）。（选择两项）（难度★）
+
+A．类可以是公有的，也可以是私有的
+
+B．具有公有的有参构造方法
+
+C．具有公有的访问属性的`getter`和`setter`方法
+
+D．属性名的前两个字母要么全部大写，要么全部小写
+
+2.三层架构是分层模式中最常见的类型，下面（    ）不是三层架构中的层次。（选择一项）（难度★）
+
+A．数据访问层		
+				
+B．业务逻辑层
+
+C．表示层	
+						
+D．会话层
+
+3.使用分层模式开发的好处，下列（    ）说法是错误的。（选择一项）（难度★★）
+
+A．结构清晰，职责明确		
+		
+B．提高了代码的重用性
+
+C．每一层的组件保持高内聚、低耦合		
+
+D．程序执行效率高
+
+**二、简答题**
+
+1.三层架构包括哪三层？每一层的作用是什么？三层中的每一层，可以用哪些技术来实现？（难度★★）
+
+2.简述MVC模式和三层架构的区别与联系。（难度★★★）
+
+3.简述三层中各层之间的关系。（难度★★★）
+
+4.使用三层继续优化第五章练习题中的“部门管理系统”。（难度★★★★）
+
+5.请描述使用分层模式的优缺点。（难度★★★）
+
+
+
 
 
 
