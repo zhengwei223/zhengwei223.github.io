@@ -697,9 +697,729 @@ public class DBUtil
 
 # 7.3文件上传 #
 
+在Java Web中，有很多文件上传的工具，我们以常用的Commons-FileUpload组件为例，进行详细的讲解。
+
+## 7.3.1使用 Commons-FileUpload实现文件上传 ##
+
+Commons是Apache组织的一个项目，除了文件上传以外，Commons还提供了命令行处理、数据库连接池等功能。
+
+Commons-FileUpload不但能方便的实现文件上传功能，还可以获取上传文件的各种信息（如文件的名称、类型、大小等），并能对上传的文件进行一些控制（如限制上传的类型、大小等）。
+
+在实际使用之前，我们需要先下载Commons-FileUpload的JAR文件（下载地址[http://commons.apache.org/proper/commons-fileupload/)](http://commons.apache.org/proper/commons-fileupload/)）。此外，因为文件上传必然会涉及到文件的读写操作，所以还需要下载Commons-IO的JAR文件（下载地址[http://commons.apache.org/proper/commons-io/)](http://commons.apache.org/proper/commons-io/)）。将这两个文件下载后解压，分别找到commons-fileupload-1.3.1.jar和commons-io-2.4.jar，并将这两个`jar`加入到Web项目的`lib`目录内即可。
+
+下面，通过示例详细讲解Commons-FileUpload的使用。本示例的项目名为StudentManagerWithFileUpload，该项目基于之前的StudentManagerWithJNDIPool项目。
+
+**(1)文件上传前台**
+
+文件上传的前台是通过表单实现的，但上传文件与一般文本类型的编码类型不同。需要在表单中增加`enctype=”multipart/form-data”`属性和值，用于将表单设置为文件上传所需要的编码类型。此外，还必须将method设置为`post`方式，并且通过`input`标签的`type=”file”`来加入上传控件，如下，
+
+在增加学生页面addStudent.jsp中，加入文件上传的前台代码：
+
+```
+    …
+<%-- 在form中设置文件上传的enctype属性 --%>
+		<form action="AddStudentServlet" 
+enctype="multipart/form-data" method="post">
+			学号：<input type="text" name="sno" /><br/>
+			姓名：<input type="text" name="sname" /><br/>
+			年龄：<input type="text" name="sage" /><br/>
+			年级：<input type="text" name="gname" /><br/>
+			<%--上传文件 --%>
+			上传照片：<input type="file" name="sPictrue" />
+			<input type="submit" value="增加" /><br/>
+		</form>
+```
+
+运行结果：
+
+![](http://i.imgur.com/oJ2fEZe.jpg)
+
+*图7-04*
+
+**(2)文件上传后台**
+
+首先要确保Web项目的`lib`下存在commons-fileupload-版本号.jar和commons-io-版本号.jar，这两个组件提供了很多文件上传所依赖的接口、类和方法，如下
+
+①`ServletFileUpload`类的常用方法：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void setSizeMax(long sizeMax)</td>
+      <td>设置上传数据的最大允许的字节数</td>
+   </tr>
+   <tr>
+      <td>public List<FileItem>     parseRequest(HttpServletRequest request)</td>
+      <td>解析form表单中的每个字段的数据，并将所有字段数据分别包装成独立的FileItem对象，再将这些FileItem对象封装到一个List集合并返回</td>
+   </tr>
+   <tr>
+      <td>public static final boolean isMultipartContent</td>
+      <td>判断请求消息中的内容是否是“multipart/form-data”类型</td>
+   </tr>
+</table>
+
+②FileItem接口的常用方法：
+
+`FileItem`对象用于封装单个表单字段元素的数据，一个表单字段元素对应一个`FileItem`对象。`FileItem`是一个接口，通常使用它的实现类`DiskFileItem`类。
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>boolean isFormField()</td>
+      <td>判断FileItem对象里面封装的数据是一个普通文本表单字段（返回true），还是一个文件表单字段（返回false）。</td>
+   </tr>
+   <tr>
+      <td>String getName()</td>
+      <td>获得文件上传字段中的文件名;普通表单字段返回null。</td>
+   </tr>
+   <tr>
+      <td>String getFieldName()</td>
+      <td>获取表单字段元素的name属性值。</td>
+   </tr>
+   <tr>
+      <td>void write(File file)  throws Exception</td>
+      <td>将FileItem对象中的内容保存到某个指定的文件中。</td>
+   </tr>
+   <tr>
+      <td>String getString()</td>
+      <td>将FileItem对象中保存的数据流内容以一个字符串返回。它有两个重载形式，public String getString()和public String getString(String encodeing)。前者使用缺省的字符集编码将主体内容转换成字符串，后者使用参数指定的字符集编码。如果在读取普通表单字段元素的内容时，出现了乱码现象，可以调用第二个方法。</td>
+   </tr>
+   <tr>
+      <td>long getSize()</td>
+      <td>返回单个上传文件的字节数。</td>
+   </tr>
+</table>
+
+③FileItemFactory接口的常用方法：
+
+`ServletFileUpload`对象的创建，需要依赖于FileItemFactory接口，并且可以从接口名得知FileItemFactory是一个工厂。我们通常使用的是`FileItemFactory`的实现类`DiskFileItemFactory`类。
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void   setSizeThreshold(int sizeThreshold)</td>
+      <td>文件上传组件在解析上传数据中的每个字段内容时，需要临时保存解析出的数据，以便在后面进行数据的进一步处理。如果上传的文件很大，例如1000M的文件，在内存中将无法临时保存该文件内容，文件上传组件转而采用临时文件来保存这些数据；但如果上传的文件很小，例如100个字节的文件，显然将其直接保存在内存中性能会更加好些。  setSizeThreshold()方法用于设置将上传文件以临时文件的形式保存在磁盘的临界值（以字节为单位）；如果没有设置此临界值，将会采用系统默认值10KB。</td>
+   </tr>
+   <tr>
+      <td>public void  setRepository(File repository)</td>
+      <td>设置当上传文件尺寸大于setSizeThreshold()方法设置的临界值时，将文件以临时文件形式保存在磁盘上的存放目录。</td>
+   </tr>
+</table>
+
+现在，就来编写实现上传的后台代码。
+
+AddStudentServlet.java
+
+```
+package org.lanqiao.servlet;
+// 省略import
+public class AddStudentServlet extends HttpServlet
+{
+	…
+	protected void doPost(HttpServletRequest request, 
+HttpServletResponse response) 
+throws ServletException, IOException
+	{
+		request.setCharacterEncoding("utf-8");
+		// 使用out.println()之前，需要使用setContentType()方法设置编码
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		// 上传的文件名
+		String uploadFileName = "";
+		// 表单字段元素的name属性值
+		String fieldName = "";
+		// 请求信息request中的内容是否是multipart类型
+		boolean isMultipart 
+= ServletFileUpload.isMultipartContent(request);
+		// 上传文件的存储路径（Web应用在tomcat部署路径中的upload目录，）
+		String uploadFilePath 
+= request.getSession().getServletContext()
+.getRealPath("upload/");
+		if (isMultipart)
+		{
+			FileItemFactory factory = new DiskFileItemFactory();
+			// 通过FileItemFactory对象，产生ServletFileUpload对象
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			try
+			{
+				// 保存学生信息的属性值
+				int studentNo = -1;
+				String studentName = null;
+				int studentAge = -1;
+				String gradeName = null;
+				// 解析form表单中所有字段元素
+				List<FileItem> items = upload.parseRequest(request);
+				// 遍历form表单的每一个字段元素
+				Iterator<FileItem> iter = items.iterator();
+				while (iter.hasNext())
+				{
+					FileItem item = (FileItem) iter.next();
+					// 如果是普通表单字段
+					if (item.isFormField())
+					{
+						// 获取表单字段的name属性值
+						fieldName = item.getFieldName();
+						// 依次处理每一个字段
+						if (fieldName.equals("sno"))
+						{
+							String studentNoStr = item.getString("UTF-8");
+							studentNo = Integer.parseInt(studentNoStr);
+						}
+						else if (fieldName.equals("sname"))
+						{
+							studentName = item.getString("UTF-8");
+						}
+						else if (fieldName.equals("sage"))
+						{
+							String studentAgeStr 
+= item.getString("UTF-8");
+							studentAge = Integer.parseInt(studentAgeStr);
+						}
+						else if (fieldName.equals("gname"))
+						{
+							gradeName = item.getString("UTF-8");
+						}
+
+					}
+					else
+					// 文件表单字段
+					{
+						// 获取正在上传的文件名
+						String fileName = item.getName();
+						if (fileName != null && !fileName.equals(""))
+						{
+							File saveFile
+ = new File(uploadFilePath, fileName);
+
+							item.write(saveFile);
+				     		out.println("增加学生信息及图片上传成功！");
+                             return ;
+						}
+					}
+				}
+				// 将数据封装到实体类中
+				Student stu = new Student(studentNo, 
+studentName, studentAge, gradeName);
+				// 调用业务逻辑层代码
+				IStudentService stuService = new StudentServiceImpl();
+				boolean result = stuService.addStudent(stu);
+…
+	}
+}
+```
+
+通过代码可以发现，如果请求的表单中如果增加了`enctype="multipart/form-data"`来设置类型，就不能再用`request.getParameter()`来接收表单参数，而应该使用FileItem的`getString()`方法结合`if`判断来接收。
+
+在运行项目前，我们先在tomcat服务器的项目部署目录中新建一个upload文件夹，用于接收上传的文件，如图，
+
+![](http://i.imgur.com/zRpTAoq.png)
+
+*图7-05*
+
+然后执行addStudent.jsp，输入学生信息并上传一个名为abc.png的图片，运行结果：
+
+![](http://i.imgur.com/n2A9GYl.png)
+
+*图7-06*
+
+查看upload目录，可以看到文件已经正确上传。
+
+说明：
+
+读者可以尝试，如果修改服务器AddStudentServlet.java中的代码，再重启tomcat，那么tomcat中的upload目录就会消失。这是因为我们之前将Tomcat的Server Locations设置为了第二项“Use Tomcat installation”，这样会使得每次tomcat重启时都会检查项目是否有改动，如果有，就会重新编译并部署项目，所以会导致用户自己建立的upload目录消失。解决办法可以简单的将Server Locations改为其他选项，或使用虚拟路径来解决，或直接将upload目录放置到tomcat目录外的任一路径，读者可以自行尝试。
+
+而如果服务器AddStudentServlet.java中的代码没有修改，再次重启tomcat，因为代码没修改，因此就不会重新编译部署，所以upload就不会被删除。
+
+## 7.3.2使用 Commons-FileUpload控制文件上传 ##
+
+为了提高系统的安全和性能，我们经常需要对上传的文件进行一些控制，如控制上传文件的类型、大小等。
+
+**(1)控制上传文件的类型**
+
+我们已经知道，可以通过FileItem的`getName()`方法获取上传文件的文件名（如abc.png，日记.txt，阿甘正传.rmvb），而文件的类型就是通过”.”后面的字符控制的（如png、jpg、bmp等是图片格式，txt是一种文本文档格式，rmvb是一种电影格式等）。因此，我们只需要将文件名”.”后面的内容进行截取，然后判断截取后的内容是否符合要求即可，具体如下，
+
+AddStudentServlet.java
+
+```
+	protected void doPost(HttpServletRequest request, 
+HttpServletResponse response)
+ throws ServletException, IOException
+	{
+        …
+        PrintWriter out = response.getWriter();
+		// 获取正在上传的文件名
+		String fileName = item.getName();
+		if (fileName != null && !fileName.equals(""))
+		{
+		   //获取文件类型（即文件的扩展名）
+		   String ext = ileName.substring(fileName.lastIndexOf(".")+1);
+			//控制文件的格式只能是 gif、bmp或jpg类型的
+			if(!("png".equals(ext) || "bmp".equals(ext)
+ || "jpg".equals(ext)))
+			{	
+			     out.println("增加学生信息或图片上传失败！
+<br/>文件类型必须是png、bmp或jpg!<br/>");
+				 return ;
+			}
+									
+			File saveFile = new File(uploadFilePath, item.getName());
+			item.write(saveFile);
+										
+			out.println("增加学生信息及图片上传成功！");
+			return ;
+	}
+```
+
+如果上传一张图片abc.png，则提示上传成功；但如果上传一个文本文档如oracle.txt，则提示“…失败！文件类型必须是png、bmp或jpg! 
+
+**(2)控制上传文件的大小**
+
+前面讲过，我们可以通过DiskFileItemFactory的`setSizeThreshold()`方法来设置缓冲区大小，并且当上传的文件超过缓冲区大小时，可以临时存储在由`setRepository()`方法设置的临时文件目录中。此外，可以通过ServletFileUpload的`setSizeMax()`来限制单个上传文件的最大字节数。设置完成以后，执行`ServletFileUpload.parseRequest()`方法时，如果发现正在上传的文件超过了`setSizeMax()`设置的最大值，则就会抛出一个FileUploadBase.SizeLimitExceededException类型的异常。因此上传时如果抛出了此异常，就说明上传的文件超出了最大值。控制上传文件大小的具体代码，如下，
+
+AddStudentServle
+
+```
+package org.lanqiao.servlet;
+// 省略import
+public class AddStudentServlet extends HttpServlet
+{
+	protected void doPost(HttpServletRequest request,
+                               HttpServletResponse response) 
+throws ServletException, IOException
+	{
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		…
+		if (isMultipart)
+		{
+			// 限制上传文件的大小
+			DiskFileItemFactory diskFileItemFactory 
+= new DiskFileItemFactory();
+			// 创建临时文件目录路径
+			File tempPath = new File("d:\\temp");
+			// 设置缓冲区大小为10KB
+			diskFileItemFactory.setSizeThreshold(10240);
+			// 设置上传文件用到临时文件存放路径
+			diskFileItemFactory.setRepository(tempPath);
+
+			ServletFileUpload upload 
+= new ServletFileUpload(diskFileItemFactory);
+			// 设置上传单个文件的最大值是20KB
+			upload.setSizeMax(20480);
+			try
+			{
+				...
+				// 解析form表单中所有字段元素
+				List<FileItem> items = upload.parseRequest(request);
+				…
+				item.write(saveFile);
+				out.println("增加学生信息及图片上传成功！");
+				return;
+			}
+			catch (FileUploadBase.SizeLimitExceededException e)
+			{
+				out.println("超过单个上传文件的最大值！上传失败！");
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+			out.close();
+			}
+		}
+	}
+}
+```
+
+需要注意，因为我们设置了临时目录为d:\\temp，所以在运行前必须在d盘创建此temp目录。上面代码中，我们将单个上传文件的最大值设置为了20KB，如果尝试上传一个大于20KB的文件，则会提示“超过单个上传文件的最大值！上传失败！”。
+
+# 7.4过滤器 #
+
+## 7.4.1 过滤器原理 ##
+
+过滤器（Filter），基本的功能是对Servlet的调用过程进行拦截，从而在Servlet的响应前后执行一些特定的功能。常见用Filter实现的功能有：URL级别的权限访问控制、过滤敏感词汇、压缩响应信息、设置POST方式的统一编码等。
+
+程序中的过滤器就好比生活中的自来水过滤器，可以将水中的杂质、有害物质等进行过滤，从而使水变得更加有利于我们使用。
+
+![](http://i.imgur.com/wTRPGUq.gif)
+
+*图7-07*
+
+如上图，当客户端向服务器中的资源发出请求时，会先被过滤器Filter进行拦截处理，之后再将处理后的请求转发给真正的服务器资源。此外，当服务器接收到请求并对其做出响应后，响应结果也会先被过滤器拦截处理，之后再将处理后的响应转发给客户端。即在请求、响应的过程前，都会先被过滤器进行拦截处理。
+
+程序中的过滤器，实际就是一个实现了`javax.servlet.Filter`接口的类，`javax.servlet.Filter`接口中定义了以下3个方法：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>void init(FilterConfig conf)</td>
+      <td>用来完成过滤器初始化过程，在应用程序启动前，由Web容器调用。类似于Servlet中的init()。</td>
+   </tr>
+   <tr>
+      <td>void doFilter(ServletRequest request,  ServletResponse response,  FilterChain chain)</td>
+      <td>当请求和响应被过滤器拦截后，就通过doFilter()方法来处理：request参数就是拦截的请求，response参数就是拦截的响应，可以使用FilterChain参数的doFilter()方法来将拦截的请求和释放开。类似于Servlet中的doGet()、doPost()。</td>
+   </tr>
+   <tr>
+      <td>void destroy()</td>
+      <td>用于释放被Filter对象打开的资源，例如关闭数据库、关闭IO流等。在应用程序关闭时，由容器调用。类似于Servlet中的destroy()。</td>
+   </tr>
+</table>
+
+与Servlet类似，Filter的`init()`和`destroy()`方法各自只会被调用一次，而`doFilter()`方法会在每次客户端发出请求时被调用。
+
+其中`init()`方法里的FilterConfig参数，主要为过滤器提供初始化参数。FilterConfig是一个接口，常用的方法如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>String getFilterName()</td>
+      <td>获取web.xml中的过滤器的名称</td>
+   </tr>
+   <tr>
+      <td>String getInitParameter(String param)</td>
+      <td>获取web.xml中参数名对应的参数值</td>
+   </tr>
+   <tr>
+      <td>ServletContext getServletContext()</td>
+      <td>获取web应用程序的ServletContext</td>
+   </tr>
+</table>
+
+## 7.4.2开发第一个Filter程序 ##
+
+本示例采用Servlet2.5版本。
+
+步骤：
+
+(1)新建Web项目（FilterProject）；再在WebContext下新建`jsp`，在`src`下新建Servlet。如下：
+
+发送请求的客户端JSP：index.jsp
+
+```…
+<a href="MyServlet">访问MyServlet...</a>
+…
+```
+
+处理请求的控制器Servlet：MyServlet.java
+
+```
+…
+public class MyServlet extends HttpServlet {
+	protected void doGet(HttpServletRequest request,
+ HttpServletResponse response) 
+throws ServletException, IOException {
+		System.out.println("doGet...");
+	}
+	…
+}
+```
+
+在web.xml中配置此Servlet:
+
+```
+<servlet>
+    <servlet-name>MyServlet</servlet-name>
+    <servlet-class>
+org.lanqiao.servlet.MyServlet
+</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>MyServlet</servlet-name>
+    <url-pattern>/MyServlet</url-pattern>
+</servlet-mapping>
+```
+
+(2)开发过滤器，拦截Servlet程序。
+
+新建一个过滤器（即实现了`javax.servlet.Filter`接口的类）。
+
+MyFirstFilter.java
+
+```
+package org.lanqiao.servlet;
+
+import java.io.IOException;
+import javax.servlet.*;
+
+public class MyFirstFilter implements Filter
+{
+	@Override
+	public void init(FilterConfig arg0) throws ServletException
+	{
+		System.out.println("过滤器01的初始化init()方法...");
+	}
+	
+	@Override
+	public void doFilter(ServletRequest request, 
+ServletResponse response, FilterChain chain)
+			throws IOException, ServletException
+	{
+		System.out.println("过滤器01的执行方法:doFilter()方法...");
+	}
+	
+	@Override
+	public void destroy()
+	{
+		System.out.println("过滤器01的销毁destory()方法...");
+	}
+}
+```
+
+在web.xml 中配置此Filter：
+
+```
+<filter>
+  	<filter-name>MyFirstFilter</filter-name>
+  	<filter-class>
+org.lanqiao.filter. MyFirstFilter
+</filter-class>
+ </filter>
+ <filter-mapping>
+  	<filter-name>MyFirstFilter</filter-name>
+  	<url-pattern>/MyServlet</url-pattern>
+</filter-mapping>
+```
+
+Filter的配置方法和Servlet的配置方法相类似：先通过`<url-pattern>`匹配需要拦截的请求，再根据`<filter-name>`找到对应的过滤器处理类`<filter-class>`,最后执行过滤器处理类中的`init()`、`doFilter()`、`destroy()`等方法。
+
+(4)部署并启动项目，访问index.jsp中的超链接，可以在控制台看到以下输出：
+
+![](http://i.imgur.com/6DrHIo6.png)
+
+*图7-08*
+
+可以发现，index.jsp通过超链接向Servlet发出的请求确实被Filter拦截了，甚至只执行了Filter中的`doFilter()`方法，而没有执行Servlet中的`doGet()`方法。如果想让请求被Filter拦截之后，仍然能正常访问到当初所请求的Servlet，则需要在Filter的`doFilter()`方法里加上`chain.doFilter()`方法，表示拦截完毕、释放请求及相应，如下：
+
+MyFirstFilter.java
+
+```
+…
+public class MyFirstFilterimplements Filter
+{
+    
+	@Override
+	public void doFilter(ServletRequest request, 
+ServletResponse response, FilterChain chain)
+		        	throws IOException, ServletException
+	{
+		System.out.println("过滤器01的执行方法:doFilter()方法...");
+		chain.doFilter(request, response);
+	}
+}
+```
+
+ 修改MyFirstFilter.java以后，重启服务，再次运行并访问index.jsp中的超链接，可在控制台看到以下输出：
+
+![](http://i.imgur.com/PKdBcOe.png)
+
+*图7-09*
+
+从输出结果可以得知，index.jsp发出的请求确实先被Filter进行了拦截处理，然后再执行了Servlet中的`doGet()`方法。
+
+之前讲过，Filter能对请求和响应都进行拦截。实际上在Filter中，`chain.doFilter()`之前的代码就是拦截请求时所执行得代码，`chain.doFilter()`之后的代码就是拦截响应时所执行得代码，将过滤器修改如下：
+
+MyFirstFilter.java
+
+```
+…
+public class MyFirstFilter implements Filter
+{
+	…
+	@Override
+	public void doFilter(ServletRequest request, 
+ServletResponse response, FilterChain chain)
+			throws IOException, ServletException
+	{
+		System.out.println("拦截请求01...");
+		chain.doFilter(request, response);
+		System.out.println("拦截响应01...");
+	}
+}
+```
+
+再次重启服务并执行index.jsp中的超链接，得到以下输出：
+
+![](http://i.imgur.com/Nss3RWj.png)
+
+*图7-10*
+
+即Filter会先拦截请求（即执行`chain.doFilter()`之前的代码），然后通过`chain.doFilter()`释放请求（去执行Servlet中的`doGet()`/`doPost()`），最后再拦截响应（即执行`chain.doFilter()`之后的代码）。
+
+## 7.4.3 Filter映射 ##
+
+Filter通过web.xml中的`<url-pattern>`元素来配置需要拦截的请求。例如，之前编写的
+
+`<url-pattern>/MyServlet</url-pattern>`
+
+表示拦截请求路径为“`/MyServlet`”的请求。如果想拦截项目中的所有请求，可以使用通配符“*”，如下：
+
+`<url-pattern>/*</url-pattern>`
+
+其中“/”表示当前项目的根路径，相当于[http://localhost:8888/FilterProject/](http://localhost:8888/FilterProject/)。
+
+还可以给通配符加上自定义后缀，如下，
+
+`<url-pattern>/*.do</url-pattern>`
+
+表示拦截所有以“`.do`”结尾的请求，如http://localhost:8888/ProjectName/ServletName.do。
+
+此外，还可以通过`<filter-mapping>`的子元素`<dispatcher>`来指定拦截的特定方式的请求，如下：
+
+```
+<filter-mapping>
+     …
+  	<dispatcher>拦截方式1</dispatcher>
+<dispatcher>拦截方式2</dispatcher>
+<dispatcher>…</dispatcher>
+</filter-mapping>
+```
+
+常见拦截方式的值有以下四个：
+
+<table>
+   <tr>
+      <td>拦截方式的值</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>REQUEST</td>
+      <td>只会拦截通过地址栏直接访问方式发出的请求。</td>
+   </tr>
+   <tr>
+      <td>INCLUDE</td>
+      <td>只会拦截通过RequestDispatcher的include()方式发出的请求。</td>
+   </tr>
+   <tr>
+      <td>FORWARD</td>
+      <td>只会拦截通过RequestDispatcher的forward()方式发出的请求（即请求转发方式）。</td>
+   </tr>
+   <tr>
+      <td>ERROR</td>
+      <td>只会拦截通过<error-page>方式发出的请求，此方式使用较少。</td>
+   </tr>
+</table>
+
+如下，表示此过滤器会拦截所有通过地址栏访问方式，以及通过请求转发方式发出的请求：
+
+```
+<filter-mapping>
+     …
+  	<dispatcher> REQUEST</dispatcher>
+<dispatcher> FORWARD</dispatcher>
+</filter-mapping>
+```
+
+## 7.4.4 Filter链 ##
+
+**(1)原理**
+
+我们还可以为Web应用程序注册多个Filter，对某一请求/响应进行多次拦截。拦截的过程如下图：
+
+![](http://i.imgur.com/WnqQVHf.gif)
+
+*图7-11*
+
+如果对某一个请求配置了多个Filter，则每个Fiter都会对该请求及响应进行拦截。拦截的顺序是按照过滤器的`<filter-mapping>`在web.xml中的配置顺序。像这样，多个Filter拦截同一个请求时，这些Filter就会组成一个Filter链，并且每一个Filter都是通过FilterChain的`doFilter()`方法，将当前Filter拦截的请求放行，使请求进入下一个Filter。
+
+上图中，客户端发出的请求会先被过滤器1所拦截，过滤器1处理完请求后可以通过调用`doFilter()`方法将请求放行；随后请求会被过滤器2拦截，过滤器2处理完请求后同样可以调用`doFilter()`方法将请求放行，最终请求到达服务器资源。同理，当服务器向客户端发出响应时，也会依次被过滤器所拦截，只是拦截响应的顺序与拦截请求的顺序完全相反。
+
+**(2)示例**
+
+我们在之前的FilterProject项目基础上，开发一个使用Filter链的程序。
+
+之前的过滤器MyFirstFilter拦截的是MyServlet资源，我们再建一个过滤器MySecondFilter同样来拦截MyServlet资源，如下：
+
+MySecondFilter.java
+
+```
+…
+public class MySecondFilter implements Filter
+{
+	@Override
+	public void init(FilterConfig arg0) throws ServletException
+	{
+		System.out.println("过滤器02的初始化init()方法...");
+	}
+
+	@Override
+	public void doFilter(ServletRequest request, 
+ServletResponse response, FilterChain chain)
+			throws IOException, ServletException
+	{
+		System.out.println("拦截请求02...");
+ 		chain.doFilter(request, response);
+		System.out.println("拦截响应02...");
+	}
+
+	@Override
+	public void destroy()
+	{	System.out.println("过滤器02的销毁destory()方法...");
+	}
+}
+```
+
+对过滤器MySecondFilter进行配置，使其和MyFirstFilter一样都拦截MyServlet资源，如下：
+
+web.xml
+
+```
+<filter>
+  	<filter-name>MyFirstFilter</filter-name>
+  	<filter-class>
+org.lanqiao.filter.MyFirstFilter
+</filter-class>
+ </filter>
+ <filter-mapping>
+  	<filter-name>MyFirstFilter</filter-name>
+  	<url-pattern>/MyServlet</url-pattern>
+ </filter-mapping>
+
+ <filter>
+  	<filter-name>MySecondFilter</filter-name>
+  	<filter-class>
+org.lanqiao.filter.MySecondFilter
+</filter-class>
+ </filter>
+ <filter-mapping>
+  	<filter-name>MySecondFilter</filter-name>
+  	<url-pattern>/MyServlet</url-pattern>
+ </filter-mapping>
+```
+
+MyFirstFilter 的`< filter-mapping >`写在MySecondFilter的`< filter-mapping >`前面，因此拦截的顺序是:请求先被MyFirstFilter拦截，再被MySecondFilter拦截；而拦截响应的顺序正好相反。
+
+重启服务，再次通过index.jsp中的超链接，向服务器的MyServlet资源发出请求，运行结果如下：
+
+![](http://i.imgur.com/PrEF5XR.png)
 
 
+*图7-12*
 
+# 7.5监听器 #
+
+在Web应用程序的运行期间，Web容器会创建和销毁四个对象：`ServletContext`、`HttpSession`、`ServletRequest`、`PageContext`，这些对象被称为“域对象”（相当于JSP中的“范围对象”）。除了`PageContext`以外，Servlet API为其他三个域对象都提供了各自的监听器，用来监听它们的行为。
+
+## 7.5.1监听域对象的生命周期 ##
+
+**(1)原理**
 
 
 
