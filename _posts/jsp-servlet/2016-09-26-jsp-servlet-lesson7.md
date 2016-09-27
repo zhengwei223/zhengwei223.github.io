@@ -1235,32 +1235,6 @@ Filter通过web.xml中的`<url-pattern>`元素来配置需要拦截的请求。�
 </filter-mapping>
 ```
 
-常见拦截方式的值有以下四个：
-
-<table>
-   <tr>
-      <td>拦截方式的值</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>REQUEST</td>
-      <td>只会拦截通过地址栏直接访问方式发出的请求。</td>
-   </tr>
-   <tr>
-      <td>INCLUDE</td>
-      <td>只会拦截通过RequestDispatcher的include()方式发出的请求。</td>
-   </tr>
-   <tr>
-      <td>FORWARD</td>
-      <td>只会拦截通过RequestDispatcher的forward()方式发出的请求（即请求转发方式）。</td>
-   </tr>
-   <tr>
-      <td>ERROR</td>
-      <td>只会拦截通过<error-page>方式发出的请求，此方式使用较少。</td>
-   </tr>
-</table>
-
-
 ## 7.4.4 Filter链 ##
 
 **(1)原理**
