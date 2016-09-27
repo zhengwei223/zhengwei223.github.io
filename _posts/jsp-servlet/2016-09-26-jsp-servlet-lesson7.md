@@ -738,64 +738,6 @@ enctype="multipart/form-data" method="post">
 
 **(2)文件上传后台**
 
-首先要确保Web项目的`lib`下存在commons-fileupload-版本号.jar和commons-io-版本号.jar，这两个组件提供了很多文件上传所依赖的接口、类和方法，如下
-
-①`ServletFileUpload`类的常用方法：
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>public void setSizeMax(long sizeMax)</td>
-      <td>设置上传数据的最大允许的字节数</td>
-   </tr>
-   <tr>
-      <td>public List<FileItem>  parseRequest(HttpServletRequest request)</td>
-      <td>解析form表单中的每个字段的数据，并将所有字段数据分别包装成独立的FileItem对象，再将这些FileItem对象封装到一个List集合并返回</td>
-   </tr>
-   <tr>
-      <td>public static final boolean isMultipartContent</td>
-      <td>判断请求消息中的内容是否是“multipart/form-data”类型</td>
-   </tr>
-</table>
-
-②`FileItem`接口的常用方法：
-
-
-`FileItem`对象用于封装单个表单字段元素的数据，一个表单字段元素对应一个`FileItem`对象。FileItem是一个接口，通常使用它的实现类`DiskFileItem`类。
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>boolean isFormField()</td>
-      <td>判断FileItem对象里面封装的数据是一个普通文本表单字段（返回true），还是一个文件表单字段（返回false）。</td>
-   </tr>
-   <tr>
-      <td>String getName()</td>
-      <td>获得文件上传字段中的文件名;普通表单字段返回null。</td>
-   </tr>
-   <tr>
-      <td>String getFieldName()</td>
-      <td>获取表单字段元素的name属性值。</td>
-   </tr>
-   <tr>
-      <td>void write(File file)  throws Exception</td>
-      <td>将FileItem对象中的内容保存到某个指定的文件中。</td>
-   </tr>
-   <tr>
-      <td>String getString()</td>
-      <td>将FileItem对象中保存的数据流内容以一个字符串返回。它有两个重载形式，public String getString()和public String getString(String encodeing)。前者使用缺省的字符集编码将主体内容转换成字符串，后者使用参数指定的字符集编码。如果在读取普通表单字段元素的内容时，出现了乱码现象，可以调用第二个方法。</td>
-   </tr>
-   <tr>
-      <td>long getSize()</td>
-      <td>返回单个上传文件的字节数。</td>
-   </tr>
-</table>
 
 ③FileItemFactory接口的常用方法：
 
