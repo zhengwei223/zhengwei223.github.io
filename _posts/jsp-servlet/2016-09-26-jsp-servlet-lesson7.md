@@ -738,6 +738,9 @@ enctype="multipart/form-data" method="post">
 
 **(2)文件上传后台**
 
+①ServletFileUpload类的常用方法：
+
+
 ③FileItemFactory接口的常用方法：
 
 `ServletFileUpload`对象的创建，需要依赖于FileItemFactory接口，并且可以从接口名得知FileItemFactory是一个工厂。我们通常使用的是`FileItemFactory`的实现类`DiskFileItemFactory`类。
@@ -1234,6 +1237,16 @@ Filter通过web.xml中的`<url-pattern>`元素来配置需要拦截的请求。�
 </filter-mapping>
 ```
 
+如下，表示此过滤器会拦截所有通过地址栏访问方式，以及通过请求转发方式发出的请求：
+
+```
+<filter-mapping>
+     …
+  	<dispatcher> REQUEST</dispatcher>
+<dispatcher> FORWARD</dispatcher>
+</filter-mapping>
+```
+
 ## 7.4.4 Filter链 ##
 
 **(1)原理**
@@ -1328,7 +1341,460 @@ MyFirstFilter 的`< filter-mapping >`写在MySecondFilter的`< filter-mapping >`
 
 **(1)原理**
 
+Servlet API提供了`ServletContextListener`、`HttpSessionListener`、`ServletRequestListener`三个监听器接口，用来分别监听`ServletContext`、`HttpSession`、`ServletRequest`三个域对象。当这三个域对象创建或销毁时，就会自动触发相应的监听器接口。
 
+例如，`ServletContextListener`接口可以用来监听`ServletContext`域对象的创建、销毁过程。当在Web应用程序中注册了一个或多个实现了`ServletContextListener`接口的事件监听器时，Web容器就会在创建、销毁每个`ServletContext`对象时都产生一个相应的事件对象，然后依次调用每个`ServletContext`事件监听器中的处理方法，并将产生的事件对象传递给这些方法来完成时间的处理工作。
+
+`ServletContextListener`接口定义了以下两个事件处理方法：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void contextInitialized(ServletContextEvent sce)</td>
+      <td>当ServletContext对象被创建时， Web容器会自动触发此方法。并且可以通过参数ServletContextEvent来获取创建的ServletContext对象</td>
+   </tr>
+   <tr>
+      <td>public void contextDestroyed(ServletContextEvent sce)</td>
+      <td>当ServletContext对象被销毁时， Web容器会自动触发此方法。并且会将之前的ServletContextEvent对象传递到此方法的参数中。</td>
+   </tr>
+</table>
+
+类似的，`HttpSessionListener`和`ServletRequestListener`接口也都提供了各自的事件处理方法，如下：
+
+`HttpSessionListener`接口定义的事件处理方法：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void sessionCreated(HttpSessionEvent se)</td>
+      <td>当HttpSession对象被创建时， Web容器会自动触发此方法。并且可以通过参数HttpSessionEvent来获取创建的HttpSession对象</td>
+   </tr>
+   <tr>
+      <td>public void sessionDestroyed(HttpSessionEvent se)</td>
+      <td>当HttpSession对象被销毁时， Web容器会自动触发此方法。并且会将之前的HttpSessionEvent对象传递到此方法的参数中。</td>
+   </tr>
+</table>
+
+`ServletRequestListener`接口定义的事件处理方法：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void requestInitialized(ServletRequestEvent sre)</td>
+      <td>当ServletRequest对象被创建时， Web容器会自动触发此方法。并且可以通过参数ServletRequestEvent来获取创建的ServletRequest对象</td>
+   </tr>
+   <tr>
+      <td>public void requestDestroyed(ServletRequestEvent sre)</td>
+      <td>当ServletRequest对象被销毁时， Web容器会自动触发此方法。并且会将之前的ServletRequestEvent对象传递到此方法的参数中。</td>
+   </tr>
+</table>
+
+**(2)案例**
+
+我们用一个类来同时实现`ServletContextListener`、`HttpSessionListener`、`ServletRequestListener`三个接口，即同时具有三个监听器的功能。
+
+ContextSessionRequestListener.java
+
+```
+package org.lanqiao.listener;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class ContextSessionRequestListener 
+implements ServletContextListener,
+HttpSessionListener,ServletRequestListener
+{
+	@Override
+	public void requestInitialized(ServletRequestEvent sre)
+	{
+		System.out.println("监听ServletRequest：
+[ServletRequest]对象[创建]完成");
+	}
+	@Override
+	public void requestDestroyed(ServletRequestEvent sre)
+	{
+		System.out.println("监听ServletRequest：
+[ServletRequest]对象[销毁]完成");
+	}
+	@Override
+	public void sessionCreated(HttpSessionEvent se)
+	{
+		System.out.println("监听HttpSession：
+[HttpSession]对象[创建]完成");		
+	}
+	@Override
+	public void sessionDestroyed(HttpSessionEvent se)
+	{
+		System.out.println("监听HttpSession：
+[HttpSession]对象[销毁]完成");		
+	}
+	@Override
+	public void contextInitialized(ServletContextEvent sce)
+	{
+		System.out.println("监听ServletContext：
+[ServletContext]对象[创建]完成");	
+	}
+	@Override
+	public void contextDestroyed(ServletContextEvent sce)
+	{
+		System.out.println("监听ServletContext：
+[ServletContext]对象[销毁]建完成");	
+	}
+}
+```
+
+再在web.xml中部署ContextSessionRequestListener监听器，如下：
+
+web.xml
+
+```
+…
+<listener>
+  	<listener-class>
+  		org.lanqiao.listener.ContextSessionRequestListener
+  	</listener-class>
+</listener>
+…
+```
+
+一个完整的监听器需要编写`Listener`类和配置`<Listener>`。如果Web应用程序有多个监听器，则会按照`<listener>`在web.xml中的配置顺序依次触发。
+
+最后新建index.jsp和sessionInvalidate.jsp用来测试监听器：
+
+index.jsp
+
+```
+…
+<body>
+	index.jsp页面<br/>
+	<a href="sessionInvalidate.jsp">销毁session</a>
+</body>
+…
+```
+
+essionInvalidate.jsp
+
+```
+<%@ page language="java" contentType="text/html; 
+charset=UTF-8"    pageEncoding="UTF-8"%>
+<%
+	System.out
+.println("========sessionInvalidate.jsp页面=========");
+	session.invalidate();
+%>
+```
+
+部署并启动项目，在启动时可以发现执行了`contextInitialized()`方法：
+
+![](http://i.imgur.com/Lkae0p0.jpg)
+
+*图7-13*
+
+这是因为Web容器在启动时会自动加载部署过的项目，并为该项目创建对应的`ServletContext`对象，而web.xml中配置了用于监听`ServletContext`对象创建、销毁的监听器ContextSessionRequestListener，所以会调用监听器中的`contextInitialized()`方法，从而输出相应的语句。
+
+再访问index.jsp，又会得到以下结果：
+
+![](http://i.imgur.com/XM06gXH.jpg)
+
+*图7-14*
+
+这是因为访问index.jsp时，就会向Web容器发送一次请求（创建了一个请求），所以执行了用于监听ServletRequest 被创建的`requestInitialized()`方法，即输出“监听`ServletRequest`：`[ServletRequest]`对象[创建]完成”;
+
+同时，第一次访问index.jsp时，Web容器还为浏览器创建了对应的`HttpSession`对象，所以还会执行用于监听`HttpSession`被创建的`sessionCreated()`方法，即输出“监听`HttpSession`：`[HttpSession]`对象[创建]完成”.
+
+当请求发送完毕后，`ServletRequest`对象随之被销毁，所以又会执行用于监听`ServletRequest`被销毁的`requestDestroyed()`方法，即输出“监听`ServletRequest`：`[ServletRequest]`对象[销毁]完成”。
+
+点击index.jsp中的超链接“销毁`session`”，如图
+
+![](http://i.imgur.com/fOn6IG2.jpg)
+
+*图7-15*
+
+控制台又会再输出以下黑色方框中的内容：
+
+![](http://i.imgur.com/aForTJK.png)
+
+*图7-16*
+
+这是因为点击超链接后，会跳转到一个新的页面，即发送了一个新的请求，所以会再次触发用于监听`ServletRequest` 被创建的`requestInitialized()`方法；随后，进入sessionInvalidate.jsp页面,执行该JSP里面的输出语句，并执行`session.invalidate()`销毁`session`，所以会触发用于监听`HttpSession`被销毁的`sessionDestroyed()`方法，即输出“监听`HttpSession`：`[HttpSession]`对象[销毁]完成”。之后，请求执行完毕从而被销毁，再次触发用于监听`ServletRequest`被销毁的`requestDestroyed()`方法。
+
+最后，停止Web服务，又会触发用于监听`ServletContext`对象被销毁的`contextDestroyed()`方法，即输出“监听`ServletContext`：`[ServletContext]`对象[销毁]建完成”，如图：
+
+![](http://i.imgur.com/TPulMuT.png)
+
+*图7-17*
+
+## 7.5.2监听域对象中属性的变更 ##
+
+**(1)原理**
+
+`ServletContext`、`HttpSession`、`ServletRequest`三个域对象都可以通过`setAttribute()`和`removeAtribute()`等方法进行属性的增加、替换（修改）、删除。Servlet API也提供了ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口，用来监测这三个域对象的属性的变更。
+
+例如，当向`ServletRequest`对象中增加、替换（修改）、删除某个属性时，Web容器就会自动调用ServletRequestAttributeListener监听器接口中的相应方法，如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void attributeAdded (ServletRequestAttributeEvent srae)</td>
+      <td>当向ServletRequest对象中增加一个属性时，Web容器就会自动调用该方法。</td>
+   </tr>
+   <tr>
+      <td>public void attributeRemoved (ServletRequestAttributeEvent srae)</td>
+      <td>当ServletRequest对象中的某个属被替换（修改）时，Web容器就会自动调用该方法。</td>
+   </tr>
+   <tr>
+      <td>public void attributeReplaced (ServletRequestAttributeEvent srae)</td>
+      <td>当从ServletRequest对象中删除一个属性时，Web容器就会自动调用该方法。</td>
+   </tr>
+</table>
+
+其中方法的参数是一个`ServletRequestAttributeEvent`对象，监听器可以通过这个参数来获取正在增加、替换（修改）、删除属性的域对象。
+
+类似的，ServletContextAttributeListener接口中的方法如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void attributeAdded (ServletContextAttributeEvent srae)</td>
+      <td>当向ServletContext对象中增加一个属性时，Web容器就会自动调用该方法。</td>
+   </tr>
+   <tr>
+      <td>public void attributeRemoved (ServletContextAttributeEvent srae)</td>
+      <td>当ServletContext对象中的某个属被替换（修改）时，Web容器就会自动调用该方法。</td>
+   </tr>
+   <tr>
+      <td>public void attributeReplaced (ServletContextAttributeEvent srae)</td>
+      <td>当从ServletContext对象中删除一个属性时，Web容器就会自动调用该方法。</td>
+   </tr>
+</table>
+
+HttpSessionAttributeListener接口中的方法如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void attributeAdded (HttpSessionBindingEvent srae)</td>
+      <td>当向HttpSession对象中增加一个属性时，Web容器就会自动调用该方法。</td>
+   </tr>
+   <tr>
+      <td>public void attributeRemoved (HttpSessionBindingEvent srae)</td>
+      <td>当HttpSession对象中的某个属被替换（修改）时，Web容器就会自动调用该方法。</td>
+   </tr>
+   <tr>
+      <td>public void attributeReplaced (HttpSessionBindingEvent srae)</td>
+      <td>当从HttpSession对象中删除一个属性时，Web容器就会自动调用该方法。</td>
+   </tr>
+</table>
+
+可以发现，ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口中的方法名完全一致，只是方法的参数类型不相同。
+
+**(2)案例**
+
+①新建attributeListener.jsp，用于增加、替换、删除属性，从而触发域对象的属性监听器
+
+attributeListener.jsp
+
+```
+…
+<body>
+	<%
+		getServletContext().setAttribute("school","北京蓝桥");
+		getServletContext().setAttribute("school","东莞蓝桥");
+		getServletContext().removeAttribute("school");
+		
+		session.setAttribute("school","北京蓝桥");
+		session.setAttribute("school","东莞蓝桥");
+		session.removeAttribute("school");
+		
+		request.setAttribute("school","北京蓝桥");
+		request.setAttribute("school","东莞蓝桥");
+		request.removeAttribute("school");
+	%>
+</body>
+…
+```
+
+②创建用于监听域对象属性变更的监听器，即创建一个类并实现ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口
+
+AttributeListener.java
+
+```
+package org.lanqiao.listener;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+public class AttributeListener implements ServletContextAttributeListener,HttpSessionAttributeListener,ServletRequestAttributeListener
+{
+
+	@Override
+	public void attributeAdded(ServletRequestAttributeEvent srae)
+	{
+		String attributeName  = srae.getName();
+		Object attrubiteValue = srae.getServletRequest()
+.getAttribute(attributeName);
+		System.out.println("[ServletRequest][增加]属性,"
++attributeName+":"+attrubiteValue);
+	}
+	@Override
+	public void attributeRemoved(ServletRequestAttributeEvent srae)
+	{
+		String attributeName  = srae.getName();
+		System.out.println("[ServletRequest][删除]属性,"
++attributeName);				
+	}
+
+	@Override
+	public void attributeReplaced(ServletRequestAttributeEvent srae)
+	{
+		String attributeName  = srae.getName();
+		Object attrubiteValue = srae.getServletRequest()
+.getAttribute(attributeName);
+		System.out.println("[ServletRequest][替换]属性,"
++attributeName+":"+attrubiteValue);
+	}
+	@Override
+	public void attributeAdded(HttpSessionBindingEvent sbe)
+	{
+		String attributeName  = sbe.getName();
+		Object attrubiteValue =  sbe.getSession()
+.getAttribute(attributeName);
+		System.out.println("[HttpSession][增加]属性,"
++attributeName+":"+attrubiteValue);	
+	}
+	@Override
+	public void attributeRemoved(HttpSessionBindingEvent sbe)
+	{
+		String attributeName  = sbe.getName();
+		System.out.println("[HttpSession][删除]属性,"
++attributeName);	 		
+	}
+	@Override
+	public void attributeReplaced(HttpSessionBindingEvent sbe)
+	{
+		String attributeName  = sbe.getName();
+		Object attrubiteValue =  sbe.getSession()
+.getAttribute(attributeName) ;
+		System.out.println("[HttpSession][替换]属性,"
++attributeName+":"+attrubiteValue);	
+	}
+	@Override
+	public void attributeAdded(ServletContextAttributeEvent scae)
+	{
+		String attributeName  = scae.getName();
+		Object attrubiteValue =  scae.getServletContext()
+.getAttribute(attributeName);
+		System.out.println( "[ServletContext][增加]属性,"
++attributeName+":"+attrubiteValue);	
+	}
+	@Override
+	public void attributeRemoved(ServletContextAttributeEvent scae)
+	{
+		String attributeName  = scae.getName();
+		System.out.println("[ServletContext][删除]属性,"
++attributeName);
+	}
+	@Override
+	public void attributeReplaced(ServletContextAttributeEvent scae)
+	{
+		String attributeName  = scae.getName();
+		Object attrubiteValue =  scae.getServletContext()
+.getAttribute(attributeName);
+		System.out.println("[ServletContext][替换]属性,"
++attributeName+":"+attrubiteValue);	
+	}
+}
+```
+
+③配置监听器
+
+web.xml
+
+```
+…
+  <listener>
+  	<listener-class>
+  		org.lanqiao.listener.AttributeListener
+  	</listener-class>
+  </listener>
+…
+```
+
+部署并启动项目，通过浏览器地址栏访问[http://localhost:8888/ListenerProject/attributeListener.jsp](http://localhost:8888/ListenerProject/attributeListener.jsp)，在控制台可以看到以下输出：
+
+![](http://i.imgur.com/5Y7vVxY.jpg)
+
+*图7-18*
+
+当三个域对象进行增加、替换、删除属性时，都会触发相应的监听方法。
+
+
+
+# 7.6练习题 #
+
+**一、选择题**
+
+1  在Tomcat中配置JNDI资源时，需要在（    ）文件里配置。（选择一项）（难度★）
+
+A．web.xml		
+				
+B．server.xml
+
+C．context.xml		
+				
+D．tomcat-users.xml
+
+
+2  当应用程序使用完数据库连接池中的连接之后，下面的说法中最准确的是（    ）。（选择一项）（难度★★）
+
+A．立即关闭连接
+
+B．将连接一直置于空闲状态
+
+C．将连接置于空闲状态，直到超过最大空闲时间时关闭连接
+
+D．将连接置于空闲状态，直到超过最大空闲时间时关闭连接（且连接数不低于最小连接数）
+
+**二、简答题**
+
+1.分页类包含类哪些属性？（难度★★）
+
+2.页面大小与总页数之间，有什么关系？若已知页面大小，如何设置总页数？（难度★★）
+
+3.写出基于oracle的分页SQL语句。（难度★★★）
+
+4.通过JSP及Servlet实现上传照片的功能。（难度★★★）
+
+5.在Tomcat中，如何配置和使用数据库连接池？（难度★★★）
+
+6.请描述什么是数据库连接池和使用数据库连接池的好处。（难度★★）
+
+7.什么是数据源？请介绍使用数据源的好处。（难度★★）
+
+8.什么是JNDI？请简要描述JNDI的作用。（难度★★）
+
+9.使用连接池继续优化第六章练习题中的“部门管理系统”。（难度★★★★）
+
+10.使用分页继续优化第六章练习题中的“部门管理系统”。（难度★★★★）
+
+11.使用过滤器，将第六章练习题中的“部门管理系统”进行POST方式的统一编码。（难度★★★）
 
 
 
