@@ -738,6 +738,28 @@ enctype="multipart/form-data" method="post">
 
 **(2)文件上传后台**
 
+首先要确保Web项目的lib下存在commons-fileupload-版本号.jar和commons-io-版本号.jar，这两个组件提供了很多文件上传所依赖的接口、类和方法，如下
+
+①ServletFileUpload类的常用方法：
+
+<table>
+   <tr>
+      <td></td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void setSizeMax(long sizeMax)</td>
+      <td>设置上传数据的最大允许的字节数</td>
+   </tr>
+   <tr>
+      <td>public List<FileItem>  parseRequest(HttpServletRequest request)</td>
+      <td>解析form表单中的每个字段的数据，并将所有字段数据分别包装成独立的FileItem对象，再将这些FileItem对象封装到一个List集合并返回</td>
+   </tr>
+   <tr>
+      <td>public static final boolean isMultipartContent</td>
+      <td>判断请求消息中的内容是否是“multipart/form-data”类型</td>
+   </tr>
+</table>
 
 ③FileItemFactory接口的常用方法：
 
