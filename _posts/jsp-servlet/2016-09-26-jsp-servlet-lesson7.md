@@ -752,7 +752,7 @@ enctype="multipart/form-data" method="post">
       <td>设置上传数据的最大允许的字节数</td>
    </tr>
    <tr>
-      <td>public List<FileItem>     parseRequest(HttpServletRequest request)</td>
+      <td>public List<FileItem>  parseRequest(HttpServletRequest request)</td>
       <td>解析form表单中的每个字段的数据，并将所有字段数据分别包装成独立的FileItem对象，再将这些FileItem对象封装到一个List集合并返回</td>
    </tr>
    <tr>
@@ -761,11 +761,10 @@ enctype="multipart/form-data" method="post">
    </tr>
 </table>
 
+②`FileItem`接口的常用方法：
 
-②FileItem接口的常用方法：
 
 `FileItem`对象用于封装单个表单字段元素的数据，一个表单字段元素对应一个`FileItem`对象。FileItem是一个接口，通常使用它的实现类`DiskFileItem`类。
-
 
 <table>
    <tr>
