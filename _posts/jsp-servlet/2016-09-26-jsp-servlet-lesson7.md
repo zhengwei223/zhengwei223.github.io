@@ -761,9 +761,11 @@ enctype="multipart/form-data" method="post">
    </tr>
 </table>
 
+
 ②FileItem接口的常用方法：
 
-`FileItem`对象用于封装单个表单字段元素的数据，一个表单字段元素对应一个`FileItem`对象。`FileItem`是一个接口，通常使用它的实现类`DiskFileItem`类。
+`FileItem`对象用于封装单个表单字段元素的数据，一个表单字段元素对应一个`FileItem`对象。FileItem是一个接口，通常使用它的实现类`DiskFileItem`类。
+
 
 <table>
    <tr>
