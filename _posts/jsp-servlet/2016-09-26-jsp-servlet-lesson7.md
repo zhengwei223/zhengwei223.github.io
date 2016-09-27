@@ -1260,15 +1260,6 @@ Filter通过web.xml中的`<url-pattern>`元素来配置需要拦截的请求。�
    </tr>
 </table>
 
-如下，表示此过滤器会拦截所有通过地址栏访问方式，以及通过请求转发方式发出的请求：
-
-```
-<filter-mapping>
-     …
-  	<dispatcher> REQUEST</dispatcher>
-<dispatcher> FORWARD</dispatcher>
-</filter-mapping>
-```
 
 ## 7.4.4 Filter链 ##
 
