@@ -105,27 +105,31 @@ function contentEffects(){
   // 代码高亮 b
   $("pre").addClass("prettyprint linenums");
   $("code").addClass("prettyprint");
-  prettyPrint();
 
   // Config ZeroClipboard
   $('pre.prettyprint').each(function () {
-      var btnHtml = '<div class="zero-clipboard">'
-        +'<span class="clip_button">复制</span></div>';
+      var txt = $(this).text();
+      var $span = $('<span class="clip_button" '
+        // +'data-clipboard-text="'+ txt  +'" '
+        +'data-placement="left" title="复制到剪贴板"'
+        +'>复制</span>').data('clipboard-text',txt);
 
-      $(this).before(btnHtml)
+      var $btnDiv = $('<div class="zero-clipboard"></div>').append($span);
+     
+      $(this).before($btnDiv)
+  });
+  //添加提示效果
+  $('.clip_button').tooltip({
+    delay: { "show": 100, "hide": 500 }
   });
   var client = new ZeroClipboard( $('.clip_button') );
   // Handlers for ZeroClipboard
   client.on( 'ready', function(event) {
-        $('.clip_button')
-            .data('placement', 'left')
-            .attr('title', '复制到剪贴板!')
-            .tooltip();
 
         client.on( 'copy', function(event) {
           event.clipboardData
             .setData('text/plain', 
-              $(event.target).parent().nextAll('.prettyprint').first().text());
+              $(event.target).data('clipboard-text'));
         } );
 
         client.on( 'aftercopy', function(event) {
@@ -144,6 +148,16 @@ function contentEffects(){
           // + event.message );
         ZeroClipboard.destroy();
   } );
+
+  prettyPrint();
+  $('.prettyprint>.pln').each(
+    function(){
+      var txt = $(this).text();
+      // if($.trim(txt).length==0){
+        $(this).text(txt.replace(/\s/g,' '));
+      // }
+    }
+  );
   // 代码高亮 e 
 }
 //生成table of content  end
