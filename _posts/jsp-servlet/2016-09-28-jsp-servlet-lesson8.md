@@ -326,6 +326,7 @@ throws ServletException, IOException
 
 在`request`作用域内增加了`“test”`和`“nullVar”`两个变量，并且`“nullVar”`的值是`null`。然后再在index.jsp中获取，如下，
 
+
 index.jsp
 
 ```
