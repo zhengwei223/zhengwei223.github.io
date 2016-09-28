@@ -838,7 +838,7 @@ JSTLDemo02.jsp
 	</c:choose>
 ```
 
-其中，`<c:choose>`类似于Java中的`switch`关键字，`<c:when>`类似于Java中的`case`关键字，`<c:otherwise>`类似于Java中的`default`关键字。当`<c:when>`中的`test`为true时，执行当前<c:when>标签中的代码块；如果所有when中的`test`都为false，则才会执行`<c:otherwise>`中的代码块。
+其中，`<c:choose>`类似于Java中的`switch`关键字，`<c:when>`类似于Java中的`case`关键字，`<c:otherwise>`类似于Java中的`default`关键字。当`<c:when>`中的`test`为true时，执行当前<c:when>标签中的代码块；如果所有`when`中的`test`都为false，则才会执行`<c:otherwise>`中的代码块。
 
 示例：
 JSTLDemo02.jsp
