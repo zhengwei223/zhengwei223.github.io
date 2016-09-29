@@ -787,5 +787,1113 @@ $(document).ready(function() {
 
 通过$(document).keydown(function (event) { … });给整个文档注册了`keydown`事件，当按下键盘时，就会触发`keydown`中的`function()`。并且通过event.keyCode判断当按下回车键时，执行`alert()`方法。常见`keyCode`所对应的按键如下：
 
-字母和数字键的键码值`(keyCode)`
+**字母和数字键的键码值`(keyCode)`**
 
+<table>
+   <tr>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+   </tr>
+   <tr>
+      <td>BackSpace</td>
+      <td>8</td>
+      <td>Esc</td>
+      <td>27</td>
+      <td>Right Arrow</td>
+      <td>39</td>
+      <td>-_</td>
+      <td>189</td>
+   </tr>
+   <tr>
+      <td>Tab</td>
+      <td>9</td>
+      <td>Spacebar</td>
+      <td>32</td>
+      <td>Dw Arrow</td>
+      <td>40</td>
+      <td>.&gt;</td>
+      <td>190</td>
+   </tr>
+   <tr>
+      <td>Clear</td>
+      <td>12</td>
+      <td>Page Up</td>
+      <td>33</td>
+      <td>Insert</td>
+      <td>45</td>
+      <td>/?</td>
+      <td>191</td>
+   </tr>
+   <tr>
+      <td>Enter</td>
+      <td>13</td>
+      <td>Page Down</td>
+      <td>34</td>
+      <td>Delete</td>
+      <td>46</td>
+      <td>`~</td>
+      <td>192</td>
+   </tr>
+   <tr>
+      <td>Shift</td>
+      <td>16</td>
+      <td>End</td>
+      <td>35</td>
+      <td>Num Lock</td>
+      <td>144</td>
+      <td>[{</td>
+      <td>219</td>
+   </tr>
+   <tr>
+      <td>Control</td>
+      <td>17</td>
+      <td>Home</td>
+      <td>36</td>
+      <td>;:</td>
+      <td>186</td>
+      <td>\|</td>
+      <td>220</td>
+   </tr>
+   <tr>
+      <td>Alt</td>
+      <td>18</td>
+      <td>Left Arrow</td>
+      <td>37</td>
+      <td>=+</td>
+      <td>187</td>
+      <td>]}</td>
+      <td>221</td>
+   </tr>
+   <tr>
+      <td>Cape Lock</td>
+      <td>20</td>
+      <td>Up Arrow</td>
+      <td>38</td>
+      <td>,&lt;</td>
+      <td>188</td>
+      <td>'"</td>
+      <td>222</td>
+   </tr>
+</table>
+
+**字母和数字键的键码值`(keyCode)`**
+
+<table>
+   <tr>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+   </tr>
+   <tr>
+      <td>A</td>
+      <td>65</td>
+      <td>J</td>
+      <td>74</td>
+      <td>S</td>
+      <td>83</td>
+      <td>主键盘区1</td>
+      <td>49</td>
+   </tr>
+   <tr>
+      <td>B</td>
+      <td>66</td>
+      <td>K</td>
+      <td>75</td>
+      <td>T</td>
+      <td>84</td>
+      <td>主键盘区2</td>
+      <td>50</td>
+   </tr>
+   <tr>
+      <td>C</td>
+      <td>67</td>
+      <td>L</td>
+      <td>76</td>
+      <td>U</td>
+      <td>85</td>
+      <td>主键盘区3</td>
+      <td>51</td>
+   </tr>
+   <tr>
+      <td>D</td>
+      <td>68</td>
+      <td>M</td>
+      <td>77</td>
+      <td>V</td>
+      <td>86</td>
+      <td>主键盘区4</td>
+      <td>52</td>
+   </tr>
+   <tr>
+      <td>E</td>
+      <td>69</td>
+      <td>N</td>
+      <td>78</td>
+      <td>W</td>
+      <td>87</td>
+      <td>主键盘区5</td>
+      <td>53</td>
+   </tr>
+   <tr>
+      <td>F</td>
+      <td>70</td>
+      <td>O</td>
+      <td>79</td>
+      <td>X</td>
+      <td>88</td>
+      <td>主键盘区6</td>
+      <td>54</td>
+   </tr>
+   <tr>
+      <td>G</td>
+      <td>71</td>
+      <td>P</td>
+      <td>80</td>
+      <td>Y</td>
+      <td>89</td>
+      <td>主键盘区7</td>
+      <td>55</td>
+   </tr>
+   <tr>
+      <td>H</td>
+      <td>72</td>
+      <td>Q</td>
+      <td>81</td>
+      <td>Z</td>
+      <td>90</td>
+      <td>主键盘区8</td>
+      <td>56</td>
+   </tr>
+   <tr>
+      <td>I</td>
+      <td>73</td>
+      <td>R</td>
+      <td>82</td>
+      <td>主键盘区0</td>
+      <td>48</td>
+      <td>主键盘区9</td>
+      <td>57</td>
+   </tr>
+</table>
+
+
+<table>
+   <tr>
+      <td colspan="4">数字键盘上的键的键码值(keyCode)</td>
+      <td colspan="4">功能键键码值(keyCode)</td>
+   </tr>
+   <tr>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+   </tr>
+   <tr>
+      <td>数字区0</td>
+      <td>96</td>
+      <td>数字区8</td>
+      <td>104</td>
+      <td>F1</td>
+      <td>112</td>
+      <td>F7</td>
+      <td>118</td>
+   </tr>
+   <tr>
+      <td>数字区1</td>
+      <td>97</td>
+      <td>数字区9</td>
+      <td>105</td>
+      <td>F2</td>
+      <td>113</td>
+      <td>F8</td>
+      <td>119</td>
+   </tr>
+   <tr>
+      <td>数字区2</td>
+      <td>98</td>
+      <td>数字区*</td>
+      <td>106</td>
+      <td>F3</td>
+      <td>114</td>
+      <td>F9</td>
+      <td>120</td>
+   </tr>
+   <tr>
+      <td>数字区3</td>
+      <td>99</td>
+      <td>数字区+</td>
+      <td>107</td>
+      <td>F4</td>
+      <td>115</td>
+      <td>F10</td>
+      <td>121</td>
+   </tr>
+   <tr>
+      <td>数字区4</td>
+      <td>100</td>
+      <td>数字区Enter</td>
+      <td>108</td>
+      <td>F5</td>
+      <td>116</td>
+      <td>F11</td>
+      <td>122</td>
+   </tr>
+   <tr>
+      <td>数字区5</td>
+      <td>101</td>
+      <td>数字区-</td>
+      <td>109</td>
+      <td>F6</td>
+      <td>117</td>
+      <td>F12</td>
+      <td>123</td>
+   </tr>
+   <tr>
+      <td>数字区6</td>
+      <td>102</td>
+      <td>数字区.</td>
+      <td>110</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>数字区7</td>
+      <td>103</td>
+      <td>数字区/</td>
+      <td>111</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+   </tr>
+</table>
+
+**多媒体键码值(keyCode)**
+
+<table>
+   <tr>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+   </tr>
+   <tr>
+      <td>搜索</td>
+      <td>170</td>
+      <td>浏览器</td>
+      <td>172</td>
+      <td>音量减</td>
+      <td>174</td>
+      <td>停止</td>
+      <td>179</td>
+   </tr>
+   <tr>
+      <td>收藏</td>
+      <td>171</td>
+      <td>静音</td>
+      <td>173</td>
+      <td>音量加</td>
+      <td>175</td>
+      <td>邮件</td>
+      <td>180</td>
+   </tr>
+</table>
+
+**(4)表单事件**
+
+表单事件是指在HTML表单内的动作所触发的事件，常用表单事件的方法如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>focus()</td>
+      <td>获取焦点时，触发的事件方法</td>
+   </tr>
+   <tr>
+      <td>blur()</td>
+      <td>失去焦点时，触发的事件方法</td>
+   </tr>
+</table>
+
+示例：event.jsp
+
+```
+<html>
+<head>
+…
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+	<script type="text/javascript">
+		    $(document).ready(function() {
+		    	$("#username").focus(function(){
+                   //改变当前元素的背景色
+		        	$(this).css("background-color","yellow") ;
+		        });
+		        $("#username").blur(function(){
+		        	$(this).css("background-color","white") ;
+		        });
+		    	…
+		    });
+		</script>
+</head>
+<body>
+	…
+	<form action="">
+		  用户名：<input type="text"  id="username"/><br/>
+		 密码： <input type="password"  id="password"/><br/>
+		  <input type="submit" value="显示">
+	</form>
+</body>
+</html>
+```
+
+运行结果：
+
+当鼠标光标在用户名的输入框时，背景色是黄色，如图：
+
+![](http://i.imgur.com/HOe6ab1.png)
+
+*图9-13*
+
+当鼠标光标离开用户名的输入框时，背景色恢复为白色，如图：
+
+![](http://i.imgur.com/o7kECEl.png)
+
+*图9-14*
+
+## 9.3.2绑定事件与移除事件 ##
+
+如果需要为匹配的元素绑定或移除一个或多个事件，可以使用绑定事件方法`bind()`或移除事件方法`unbind()`。
+
+**(1)绑定事件**
+
+**语法：**
+
+绑定一个事件：
+jQuery对象.bind(type,[data],fn);
+
+绑定多个事件：
+jQuery对象.bind({type:fn, type:fn, …,type:fn});
+
+其中参数的含义如下：
+
+<table>
+   <tr>
+      <td>参数</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>type</td>
+      <td>事件类型，如`click`、`focus`、`mouseover`等，还可以是自定义事件。</td>
+   </tr>
+   <tr>
+      <td>data</td>
+      <td>可选参数。可以作为event.data的属性值，传递给事件对象额外的数据。</td>
+   </tr>
+   <tr>
+      <td>fn</td>
+      <td>处理函数，用来绑定该事件的处理函数。</td>
+   </tr>
+</table>
+
+**①绑定单个事件**
+
+以绑定`click`事件为例。当单击`div`内容时，改变`div`的背景色，如下：
+
+**示例：event.jsp**
+
+```
+<html>
+<head>
+    …
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+	<script type="text/javascript">
+            …
+		    $(document).ready(function() {
+		    	 $("#textId").bind("click",function() {
+		    		   $(this).css("background-color","yellow");
+		    	 });
+                …
+		</script>
+</head>
+<body>
+	<div style="border:1px solid red;" id="textId">
+		some text...
+	</div>
+	 …
+</body>
+</html>
+```
+
+单击div后的运行结果：
+
+![](http://i.imgur.com/NINgWsd.png)
+
+*图9-15*
+
+**②同时绑定多个事件**
+
+还可以使用`bind()`方法，一次性绑定多个事件，如下：
+
+**示例：event.jsp**
+
+```
+<html>
+<head>
+     …
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $("#textId").bind({
+		    	mouseover:function () {
+		    		$(this).css("background-color","yellow");
+		        },
+		    	mouseout:function () {
+		    			$(this).css("background-color","white");
+		    	}
+		    });
+		    	…
+		</script>
+</head>
+<body>
+	<div style="border:1px solid red;" id="textId">
+		some text...
+	</div>
+	…
+</body>
+</html>
+```
+
+当鼠标悬浮在div上面时，div背景色变为黄色，如图：
+
+![](http://i.imgur.com/UuTNOKQ.png)
+
+*图9-16*
+
+当鼠标离开div后，div背景色恢复为白色，如图：
+
+![](http://i.imgur.com/EA1JW8c.png)
+
+*图9-17*
+
+**(2)移除事件**
+
+在jQuery中，可以使用`unbind()`方法为元素移除一个或多个事件。
+
+语法:
+
+jQuery对象.unbind([type],[fn]);
+
+参数的简介如下：
+
+<table>
+   <tr>
+      <td>参数</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>[type]</td>
+      <td>事件类型，如click、focus、mouseover等，还可以是自定义事件。</td>
+   </tr>
+   <tr>
+      <td>[fn]</td>
+      <td>处理函数，用来解除绑定的处理函数。</td>
+   </tr>
+</table>
+
+当`unbind()`不带参数时，表示移除绑定的全部事件。
+
+## 9.3.3复合事件 ##
+
+jQuery提供了两个复合事件方法：`hover()`和`toggle()`方法。
+
+**(1)hover()**
+
+`hover()`方法相当于`mouseover()`和`mouseout()`方法的组合
+
+**语法：**
+
+`jQuery对象. hover (fn1,fn2);`
+
+其中，fn1相当于`mouseover()`，fn2相当于`mouseout ()`。
+
+示例：
+
+```
+$("#textId").hover(
+		function(){
+$(this).css("background-color","yellow");
+		},
+		function(){
+$(this).css("background-color","white");
+		}		 
+);
+```
+
+当鼠标悬浮到id=” textId”的`div`时，背景色变为黄色；鼠标移出时，背景色变为白色。
+
+**(2)toggle()**
+
+**语法**（适用于jQuery1.9以前版本）：
+
+`jQuery对象. toggle(fn1,fn2,…,fnN);`
+
+在jQuery1.9版本以前，可以用`toggle()`方法模拟鼠标连续的`click`事件：第一次单击元素时，触发第一个事件方法fn1；第二次单击元素时，触发第二个事件方法fn2；…；当最后一个事件方法fnN被触发完后，若再次单击，就又会触发第一个事件方法fn1，如此轮番循环调用。
+
+示例：event.jsp
+
+```
+$("body").toggle(
+		function () {
+		    $(this).css("background-color", "red");
+		},
+		function () {
+		    $(this).css("background-color", "yellow"); 
+		},
+		function () {
+		    $(this).css("background-color", "blue"); 
+		}
+);
+```
+
+当在body中连续单击鼠标时，背景色会在红、黄、蓝之间切换。但从jQuery1.9版本开始，jQuery去掉了`toggle()`方法的此功能。toggle方法还可以用来切换元素的显示与隐藏，会在后续讲解。
+
+# 9.4 显示效果 #
+
+还可以使用jQuery来控制网页元素的显示、隐藏、改变透明度等显示效果。
+
+## 9.4.1 控制元素的隐藏与显示 ##
+
+jQuery中，控制元素隐藏与显示的方法如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>hide([speed],[callback])</td>
+      <td>隐藏元素。</td>
+   </tr>
+   <tr>
+      <td>show([speed],[callback])</td>
+      <td>显示元素。</td>
+   </tr>
+   <tr>
+      <td>toggle(([speed],[callback]))</td>
+      <td>切换元素的隐藏或显示状态。</td>
+   </tr>
+</table>
+
+其中`speed`和`callback`都是可选参数。
+
+
+`speed`：元素显示或隐藏的时间（单位是毫秒；默认值是0，表示会立刻显示或隐藏）。如`hide(1000)`，表示在1秒中内隐藏某元素；此外还可以使用`show`、`normal`、`fast`来控制隐藏或显示的时间，如`hide(“fast”)`。需要注意，如果`speed`使用数字来表示，是不需要双引号的；但如果使用的是`show`等关键字，则需要加上双引号。
+
+`callback`：隐藏或显示后，会执行的方法（回调方法）。
+
+示例：event.jsp
+
+```
+$(document).ready(function() {
+		$("body").click(function(){
+					$("#textId").toggle(1000);		    		 
+		});
+});
+```
+
+当在body中单击鼠标时，id=”textId”的`div`会在1秒中内切换显示或隐藏状态。
+
+
+## 9.4.2 控制元素的透明度 ##
+
+`fadeIn()`和`fadeOut()`可以改变元素的透明度，从而实现淡入淡出效果。
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>fadeIn([speed],[callback])</td>
+      <td>控制元素淡入，用法同show()</td>
+   </tr>
+   <tr>
+      <td>fadeOut([speed],[callback])</td>
+      <td>控制元素淡出，用法同hide()</td>
+   </tr>
+</table>
+
+## 9.4.3控制元素的高度 ##
+
+可以使用`slideUp()`和`slideDown()`方法来控制元素的高度。
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>slideDown()</td>
+      <td>元素从上向下拉伸，直至全部显示，用法同show()</td>
+   </tr>
+   <tr>
+      <td>slideUp()</td>
+      <td>元素从下向上缩短，直至隐藏，用法同hide()</td>
+   </tr>
+</table>
+
+
+从效果上看，`hide()`、`fadeOut()`、`slideUp()`都可以将显示的元素隐藏；`show()`、`slideDown()`、`fadeIn()`都可以将隐藏的元素显示。
+
+# 9.5 操作DOM #
+
+jQuery对JavaScript操作DOM的方法进行了封装，使用起来也更加简便。
+
+## 9.5.1 样式操作 ##
+
+在jQuery中，对元素样式的操作可以分为直接设置样式、追加样式、移除样式、切换样式等。
+
+**(1) 直接设置样式**
+
+jQuery使用`css()`方法为指定的元素直接设置样式值。
+
+**语法：**
+
+设置单个样式属性：	    `jQuery对象.css(name,value);`
+
+同时设置多个样式属性：	`jQuery对象.css({name:value , name:value ,…, name:value });`
+
+其中的参数简介如下：
+
+<table>
+   <tr>
+      <td>参数</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>name</td>
+      <td>CSS属性的名称，如color、font-size、background等。</td>
+   </tr>
+   <tr>
+      <td>value</td>
+      <td>CSS属性的值，如red、12px、#FFFFFF等</td>
+   </tr>
+</table>
+
+示例：jQueryDemo.jsp
+
+```
+<html>
+<head>
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("img").hover(
+                //鼠标悬浮在图片上面时：加上边框，并改变透明度
+				function(){
+					$(this).css({"border":"5px solid red",
+"opacity":"0.5"});
+					},
+                //鼠标移出图片时：去掉边框，并消除透明度
+				function(){
+					$(this).css({"border":"0","opacity":"1"});
+				}
+);
+		 });
+		</script>
+</head>
+<body>
+		<img src="imgs/pic.png" width="150" height="120" />
+</body>	
+</html>
+```
+
+运行结果：
+
+当鼠标悬浮在图片上面时：
+
+![](http://i.imgur.com/EK6EQcX.png)
+
+*图9-18*
+
+当鼠标离开图片时：
+
+![](http://i.imgur.com/TssTtCS.png)
+
+*图9-19*
+
+**(2)追加或移出类样式**
+
+**①追加类样式**
+
+除了使用`CSS()`直接设置样式外，还可以使用`addClass()`为元素追加类样式。
+
+**语法：**
+
+追加一个类样式：	`jQuery对象.addClass(class)`
+
+同时追加多个类样式（用空格隔开）：`jQuery对象.addClass(class1 class2 …classN)`
+
+示例：jQueryDemo.jsp
+
+```
+<html>
+<head>
+		<style type="text/css" >
+			.myStyle1 {font-size:14px; color:red; }
+			.myStyle2 {background-color:yellow;}
+		</style>
+
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		
+		   	 $(document).ready(function() {
+		   		 $("p").click(function() {
+					   $(this).addClass("myStyle1 myStyle2");
+				   });
+		     }); 
+		</script>
+</head>
+<body>
+		<p>追加多个类样式示例...</p>
+		…
+</body>	
+</html>
+```
+
+运行结果：
+	
+当单击`<p>`元素时，会给`<p>`元素追加`.myStyle1`和`.myStyle2`两个样式，如图
+
+![](http://i.imgur.com/9ef7UnA.png)
+
+*图9-20*
+
+**②移除类样式**
+
+`addClass()`可以为元素追加类样式；与之相反，可以使用`removeClass()`为元素移除类样式。
+
+**语法：**
+
+移除一个类样式：	jQuery对象`.removeClass(class)`
+
+移除多个类样式：	jQuery对象`.removeClass(class1 class2 … classN)`
+
+移除全部类样式：	jQuery对象`.removeClass()`
+
+**②切换类样式**
+
+`toggle()`方法可以切换元素的显示与隐藏状态；类似的，`toggleClass()`方法可以切换（增加或删除）元素的类样式。
+
+**语法：**	
+
+切换（增加或删除）一个类样式：	jQuery对象`.toggleClass(class)`
+
+切换（增加或删除）多个类样式：	jQuery对象`.toggleClass(class1 class2 … classN)`
+
+例如，当执行`“jQuery对象.toggleClass(class) ”`时：如果元素中含有名为`class`的类样式时，就删除该样式；如果元素中不存在名为`class`的类样式时，就为元素加入该样式，即`toggleClass()`就相当于`addClass()`和`removeClass()`的轮番切换使用。
+
+示例：jQueryDemo.jsp
+
+```
+<html>
+<head>
+		<style type="text/css" >
+			.myStyle1 {font-size:14px; color:red; }
+			.myStyle2 {background-color:yellow;}
+		</style>
+
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   	 $(document).ready(function() { 
+		   		 $("p").click(function() {
+					   $(this).toggleClass("myStyle1 myStyle2");
+				   });
+		   	 });
+		</script>
+</head>
+<body>
+		<p>追加多个类样式示例...</p>
+		…
+</body>	
+</html>
+```
+
+当连续点击`<p>`元素的内容时，`<p>`元素就会不断的追加或移除`.myStyle1`和`.myStyle2`两个类样式。
+
+## 9.5.2内容操作 ##
+
+jQuery还提供了对元素内容（HTML代码、文本内容、属性值）的操作方法。
+
+**(1)对HTML代码的操作**
+
+jQuery可以使用`html()`方法对元素的HTML代码进行操作，该方法类似于JavaScript中的innerHTML。
+
+**语法：** `jQuery对象.html([content])`
+
+如果存在参数`content`，表示给选中的元素赋上新的内容`content`；如果不存在参数content，表示获取被选中的元素内容。
+
+示例：htmlDemo.jsp
+
+```
+<html>
+<head>
+        …
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+			   //给div赋上内容
+			   $("div").html("<h1 style='background: yellow'>
+hello</h1>");
+			 //获取div内容
+			   var $html = $("div").html();
+			   alert($html);
+		   });
+		</script>
+</head>
+<body>
+		<div></div>
+</body>
+</html>
+```
+
+先通过`html([content])`给`<div>`赋值，再通过`html()`获取`<div>`的值，运行结果如图
+
+![](http://i.imgur.com/SIAjkmE.png)
+
+*图9-21*
+
+**(2)对文本内容的操作**
+
+jQuery还可以使用`text()`方法获取或设置元素的文本内容。
+
+语法：
+`jQuery对象.text([content]);`
+
+如果存在参数`content`，表示将选中的元素赋上新的文本内容`content`；如果不存在参数`content`，表示获取被选中元素的文本内容。
+
+示例：textDemo.jsp
+
+```
+<html>
+<head>
+        …
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+			   //给div赋上文本内容
+			   $("div").text("<h1 style='background:
+ yellow'>hello</h1>");
+			 //获取div文本内容
+			   var $text = $("span").text();
+			   alert($text);
+		   });
+		</script>
+…
+</head>
+<body>
+		<div></div>
+		<span style="background: yellow">world</span>
+</body>
+</html>
+```
+
+运行结果：
+
+![](http://i.imgur.com/nCph7Tq.png)
+
+*图9-22*
+
+可以发现`html(content)`会将渲染后的效果赋值给元素，而`text(content)`只是简单的将内容以文本形式赋值给元素；`html()`会将渲染内容和文本内容一起返回，而`text()`只会返回文本内容。
+
+**(3)对属性值的操作**
+
+jQuery还可以通过`val()`方法来获取或设置元素的`value`属性值。
+
+语法：
+`jQuery对象.val([v])`
+
+如果存在参数`value`，表示将选中元素的`value`值设置为v；如果不存在参数v，表示获取被选中元素的`value`值。
+
+示例：valDemo.jsp
+
+```
+<html>
+<head>
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+			   $("#searchId").focus(function(){
+                   // 获取当前文本框的值       
+					var txt_value =  $(this).val();
+                   // 如果当前value是默认值“搜索”，则清空文本框内容
+   					if(txt_value=="搜索"){  
+			             $(this).val("");              					                } 
+				  });
+				$("#searchId").blur(function(){	
+                      // 获取当前文本框的值
+				  	    var txt_value =  $(this).val();  
+                      // 如果当前value值是空，则设置为默认值“搜索”
+ 					    if(txt_value==""){
+			                 $(this).val("搜索");					   
+} 
+				});
+			   
+		   });
+		</script>
+</head>
+<body>
+	 <input  type="text"  value="搜索" id="searchId" />
+</body>
+</html>
+```
+
+运行结果：
+
+当鼠标光标停留搜索框中时，`value`值为空，如图
+
+![](http://i.imgur.com/mjViqGl.png)
+
+*图9-23*
+
+当鼠标光标离开搜索框中时，`value`值为“搜索”，如图
+
+![](http://i.imgur.com/OjvPw5d.png)
+
+*图9-24*
+
+## 9.5.3节点与属性操作 ##
+
+jQuery对节点的操作主要有两种：对节点本身的操作，以及对节点中属性的操作。
+
+**(1)节点操作**
+
+节点操作主要包括查找节点、创建节点、插入节点、删除节点、替换节点和复制节点等六种操作。
+
+**①查找节点**
+
+查找节点是通过jQuery选择器实现，详见“9.2jQuery选择器”。
+
+**②创建节点**
+
+$()称之为工厂函数，可以用于获取节点、转化节点或创建节点：
+
+$(选择器)：通过选择器获取节点
+
+$(DOM节点)：把DOM节点转化成jQuery节点
+
+$(HTML字符串)：使用HTML字符串创建jQuery节点
+
+因此，创建jQuery节点主要是通过$(HTML字符串)实现。
+
+示例：node.jsp
+
+`var $node = $("<li>橘子</li>");`
+
+以上就创建了一个新的jQuery节点。
+
+**③插入节点**
+
+`$node`节点创建完毕后，就可以插入到DOM文档之中。jQuery提供了多种方法实现节点的插入。
+
+假设网页中存在如下节点：
+
+node.jsp
+
+```
+<ul>
+	<li>香蕉</li>
+	<li>苹果</li>
+</ul>
+```
+
+运行结果：
+
+![](http://i.imgur.com/ZYaeS5i.png)
+
+*图9-25*
+
+以插入`$node`节点为例，插入节点的方法如下：
+
+<table>
+   <tr>
+      <td rowspan="5">内部插入</td>
+  </tr>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+      <td>运行结果</td>
+  </tr>
+  <tr>
+      <td>$(A).append(B)</td>
+      <td>将B追加到A中 如：$("ul").append($node);</td>
+     <td rowspan="2"><img src=![](http://i.imgur.com/jfF4fNv.png)></td>
+   </tr>
+   <tr>
+      <td>$(A).appendTo(B)</td>
+      <td>把A追加到B中 如：$ node.appendTo("ul");</td>
+   </tr>
+   <tr>
+      <td>$(A). prepend (B)</td>
+      <td>将B前置插入到A中 如：$("ul"). prepend ($node);</td>
+     <td rowspan="2"><img src=![](http://i.imgur.com/x8sBA5w.png)></td>
+   </tr>
+   <tr>
+      <td>$(A). prependTo (B)</td>
+      <td>将A前置插入到B中 如：$ node.prependTo ("ul");</td>
+   </tr>
+   <tr>
+      <td rowspan="4">外部插入</td>
+   </tr>
+   <tr>
+      <td>$(A).after(B)</td>
+      <td>将B插入到A之后 如：$("ul").after($node);</td>
+     <td rowspan="2"><img src=![](http://i.imgur.com/mj9yiL7.png)></td>
+   </tr>
+   <tr>
+      <td>$(A).insertAfter(B)</td>
+      <td>将A插入到B之后 如：$ node.insertAfter("ul");</td>
+   </tr>
+   <tr>
+      <td>$(A).before(B)</td>
+      <td>将B插入至A之前 ：$("ul").before($node);</td>
+      <td rowspan="2"><img src=![](http://i.imgur.com/5UbpxZF.png)></td>
+   </tr>
+   <tr>
+      <td>$(A).insertBefore(B)</td>
+      <td>将A插入到B之前 如：$ node.insertBefore("ul");</td>
+   </tr>
+</table>
