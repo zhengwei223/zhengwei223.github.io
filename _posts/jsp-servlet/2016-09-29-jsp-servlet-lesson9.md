@@ -1897,3 +1897,5 @@ node.jsp
       <td>将A插入到B之前 如：$ node.insertBefore("ul");</td>
    </tr>
 </table>
+
+**④替换节点**
