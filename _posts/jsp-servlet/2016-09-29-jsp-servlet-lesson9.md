@@ -729,4 +729,63 @@ $(document).ready(function() {
 运行结果：
 当鼠标悬浮在边框上面时：
 
+![](http://i.imgur.com/FGwyIMf.png)
+
+*图9-11*
+
+当鼠标移出边框时：
+
+![](http://i.imgur.com/4jibxV5.png)
+
+*图9-12*
+
+**(3)键盘事件**
+
+键盘事件是指每次按下或者释放键盘上的按键时所产生的事件，常用键盘事件的方法有：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>keydown( )</td>
+      <td>按下键盘时，触发的事件方法</td>
+   </tr>
+   <tr>
+      <td>keyup( )</td>
+      <td>释放按键时，触发的事件方法</td>
+   </tr>
+   <tr>
+      <td>keypress( )</td>
+      <td>产生可打印的字符时，触发的事件方法</td>
+   </tr>
+</table>
+
+使用键盘事件时，通常会使用`event`参数的`keyCode`属性来判断具体的按键，如下：
+
+示例：event.jsp
+
+```
+<html>
+<head>
+…
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+	<script type="text/javascript">
+		$(document).keydown(function (event) {
+			//按回车键时触发（keyCode为13时，表示回车键）
+	   		 if (event.keyCode == "13") {
+	            alert("您按下了回车键");
+	        }
+		});
+</head>
+<body>
+</body>
+</html>
+```
+
+通过$(document).keydown(function (event) { … });给整个文档注册了`keydown`事件，当按下键盘时，就会触发`keydown`中的`function()`。并且通过event.keyCode判断当按下回车键时，执行`alert()`方法。常见`keyCode`所对应的按键如下：
+
+字母和数字键的键码值`(keyCode)`
 
