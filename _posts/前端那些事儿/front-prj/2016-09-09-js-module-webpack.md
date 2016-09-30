@@ -8,13 +8,18 @@ keywords: lanqiao 蓝桥 培训 教程 前端 模块化
 p_cate: 前端那些事儿
 ---
 
+<p class="text-danger">
+
+本教程配套源码在这里→<a href="https://coding.net/u/lanqiao/p/frontAdvance/git/tree/master/webpackDemo">webpack示例项目</a>。
+</p>
+
 # 0.前情回顾
 
 上一章我们主要介绍了`amd`模块化规范和`requirejs`的用法。需要指出的是虽然`requirejs`非常好地实现了`amd`规范，但它只是一个模块加载器，而现在的前端开发除了模块加载以外，还需要一套工程化构建流程及支持工具。
 
 所谓工程化构建，包括：代码的编译、调试、代理、打包部署等。
 
-因此本章介绍：webpack——一款模块加载器兼打包工具，它同时支持amd、cmd写法，还有丰富的插件可以对代码进行混淆压缩等优化。
+因此本章介绍：webpack——一款模块加载器兼**打包工具**，它同时支持amd、cmd写法，还有丰富的插件可以对代码进行混淆压缩等优化。
 
 # 1.安装node（npm）和webpack
 
