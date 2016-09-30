@@ -46,7 +46,7 @@ AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，�
 
 **(1) open(methodName,URL,isAsync)**
 
-建立与服务器连接。`methodName`指定请求的方法名；URL指定请求地址；isAsync是一个`boolean`值，代表是否采用异步方式（默认true；若无特殊需求，此值一般都填true）。
+建立与服务器连接。`methodName`指定请求的方法名；URL指定请求地址；`isAsync`是一个`boolean`值，代表是否采用异步方式（默认true；若无特殊需求，此值一般都填true）。
 
 **(2) send(content)**
 
