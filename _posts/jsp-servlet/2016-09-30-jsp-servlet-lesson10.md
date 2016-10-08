@@ -577,7 +577,7 @@ JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。在�
 
 **(1)定义JSON对象和JSON数组**
 
-**①JSON对象**
+**① JSON对象**
 
 **a.定义JSON对象**
 
@@ -613,7 +613,7 @@ alert("姓名："+name+",年龄："+age	);
 
 *图10-06*
 
-**②JSON数组**
+**② JSON数组**
 
 **a.定义JSON数组**
 
