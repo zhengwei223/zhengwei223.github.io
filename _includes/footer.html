@@ -6,3 +6,6 @@
 <script src="/public/js/vendor/ZeroClipboard.min.js"></script>
 <!-- <script src="/public/js/vendor/anchor.min.js"></script> -->
 <script src="/public/js/base_930.js"></script>
+{% if page.script%}
+	<script type="text/javascript" src="{{page.script}}"></script>
+{% endif %}

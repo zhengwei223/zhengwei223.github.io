@@ -231,19 +231,21 @@ var app = function($){
     });
   };
   var init = function(){
-    renderCode();renderImg();renderTable();renderLink();bindPjax();tooltipAll();
+    renderCode();renderImg();renderTable();renderLink();tooltipAll();
     renderToc();
     scrollspy();affixSidebar();
     bindEvents();
     renderDuoShuo();
   };
   return {
-    init: init
+    init: init,
+    bindPjax:bindPjax
   };
 }(jQuery);
 
 (function($){
  $(function(){
   app.init();
+  app.bindPjax();
  });
 })(jQuery);

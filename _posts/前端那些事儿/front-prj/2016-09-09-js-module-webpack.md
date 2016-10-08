@@ -81,11 +81,10 @@ www/
         <input type="button" value="Post" id="btn-submit"/><br>
             </div>
         </div>
+        <script type="text/javascript" src="js/app/todo.js"></script></body>
     </body>
 </html>
 ```
-
-没有`script`标签，我们暂不依赖任何js，后面自有玄机。
 
 ## todo.js
 
@@ -105,7 +104,7 @@ $(function() {
 });
 ```
 
-第一行代码是commonJS的写法，**依赖的包需要提前使用npm安装到当前工程目录下的node_modules目录下**，剩余代码就是常规的`jquery`使用方法：获取值，操作`dom`。但是，现在的`todo.html`是不会有任何互动效果的，因为它没有加载`todo.js`。现在轮到webpack上场了，我们曾号称它是模块加载器和打包工具。
+第一行代码是commonJS的写法，**依赖的包需要提前使用npm安装到当前工程目录下的node_modules目录下**，剩余代码就是常规的`jquery`使用方法：获取值，操作`dom`。`require`函数没有浏览器支持，我们也没使用resuirejs，现在运行这个网页肯定会得到**函数未定义**的错误，这就轮到webpack上场了，我们曾号称它是模块加载器和打包工具。
 
 # 4.webpack基本配置
 
@@ -116,67 +115,34 @@ npm init  #生成package.json
 cnpm install webpack -save-dev  #本地安装webpack包，保证require('webpack');可以成功
 ```
 
+第一条命令会交互式地让你输入若干关于项目的基础信息，一路输入回车即可。
+
 *对于第二条命令，你可能不是很理解，之前我们不是安装过webpack吗？上一次安装是我们需要使用webpack命令，而这次安装是因为我们在代码中要依赖这个模块。你可以理解为上次安装了一个工具（命令行），这次是下载了一个模块(node_modules目录下)。以后我们还会安装更多工具和模块。*
 
-项目工程路径下新建`webpack.config.js`：
+项目工程路径下新建js文件：`webpack.config.js`：
 
 ```
 var webpack = require('webpack');  //依赖npm安装的webpack，只需引用名字
 
-///导出所有配置项
+//导出所有配置项
 module.exports = {
     //入口文件名称-路径配置
-    entry: {
-        todo : './js/app/todo.js'
-    },
-    //入口文件的输出
-    output: {
-        path: 'dist/js/app/',
-        filename: '[name].js'
-    }
-
+  entry: {
+      todo : './js/app/todo.js'
+  },
+  //入口文件的输出
+  output: {
+      path: 'dist/js/app/',
+      filename: '[name].js'
+  }
 };
 ```
+
+我们导出的是一个配置对象，这个对象的格式为`{entry:...,output:...}`,entry是入口，output是出口。
 
 这份配置文件告诉webpack入口文件在哪里，出口文件去哪里。
 
-# 5.添加插件，自动为html插入脚本
-
-因为编译后的产出物路径会根据配置的变化而变化，所以在html中写死依赖脚本的路径需要手工维护，现在我们介绍一种插件，可以自动将脚本路径插入html中。
-
-执行下列命令安装插件：`cnpm install html-webpack-plugin --save-dev`
-
-在配置文件webpack.config.js中使用插件，本例完整的配置文件如下：
-
-```
-var webpack = require('webpack');  //依赖npm安装的webpack，只需引用名字
-//导入Html-Webpack-Plugin
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-//新建实例，配置模板（依赖脚本路径留空的页面）、产出路径、插入在什么节点
-const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: `${__dirname}/todo.html`,
-  filename: '../../todo.html',//相对于入口文件输出位置的路径
-  inject: 'body',
-});
-///导出所有配置项
-module.exports = {
-    //入口文件名称-路径配置
-    entry: {
-        todo : './js/app/todo.js'
-    },
-    //入口文件的输出
-    output: {
-        path: 'dist/js/app/',
-        filename: '[name].js'
-    },
-    // plugins 放置所使用的插件，这里使用前面HTMLWebpackPluginConfig实例
-    plugins: [HTMLWebpackPluginConfig]
-};
-```
-
-*请仔细阅读注释以了解代码的含义。*
-
-# 6.构建并查看效果
+# 5.构建并查看效果
 
 ## 构建
 
@@ -198,27 +164,20 @@ $ webpack -d    //生成map映射文件，告知哪些模块被最终打包到�
 
 ## 盘点产出物
 
-### 1.编译后的脚本
+### js脚本
 
 查看`dist/js/app/`目录，发现生成了一个`todo.js`文件，这个文件和我们自己编写的`todo.js`完全不一样，这里面不仅包含了我们写的代码，还直接合并了`jquery`的代码（第78行）。如果我们的`webpack`命令带上了`-p`命令，那这里面的代码就更面目全非了，因为`-p`会压缩代码。
 
 直接`require`是`commonJS`就近加载的写法，默认情况下会导致`webpack`**将依赖的文件合并至入口文件**。这样做的好处在于，可以减少浏览器的http请求次数（一个页面只有一个入口js文件），但会增大入口文件的size。
 
-### 2.生成的html
-
-`dist`目录下会出现一个和项目根路径下的`todo.html`相似的`todo.html`，不同的是，生成的`html`中`body`标签的最后插入了脚本的定位。
-
-```
-...
-    <script type="text/javascript" src="js/app/todo.js"></script></body>
-</html>
-```
 
 ## 运行todo.html
 
-如果前面都做对的话，用浏览器打开`dist/todo.html`，就能看到我们预期的功能都实现了。
+拷贝todo.html至dist目录，用浏览器打开，就能看到我们预期的功能都实现了。
 
-# 7.总结
+![2.3](/public/img/front-advance/2.3.png)
+
+# 6.总结
 
 ## 关于webpack
 
@@ -233,6 +192,7 @@ $ webpack -d    //生成map映射文件，告知哪些模块被最终打包到�
 
 ## 配置
 
-- webpack的配置文件是一个`js`文件，是以js语法来书写的，首先导入webpack对象，然后导出一个配置对象
+- webpack的配置文件是一个`js`文件，是以js语法来书写的，首先导入webpack对象，然后导出一个配置对象，本文给配置对象设置了2个属性
+  - entry，对象，代表源码入口文件
+  - output，对象，代表编译后的出口文件
 - webpack把入口文件视为一个模块，默认情况下会把它依赖的模块的代码合并到入口文件中，这样做有利有弊
-- 为了自动管理页面和脚本、样式之间的关系，我们使用了`html-webpack-plugin`插件，它会根据配置将`<script>`标签自动插入新生成的页面中。
