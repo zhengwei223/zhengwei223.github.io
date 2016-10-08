@@ -1,11 +1,12 @@
 ---
 layout: post
-title: JavaScript模块化开发实验（2）webpack入门
+title: webpack入门
 category: front-prj
 tags: 前端 模块化 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 前端 模块化
 p_cate: 前端那些事儿
+description: Webpack 是一个模块打包器。它将根据模块的依赖关系进行静态分析，然后将这些模块按照指定的规则生成对应的静态资源。本章将带领大家完成webpack的基本使用。
 ---
 
 <p class="text-danger">
@@ -184,6 +185,8 @@ $ webpack -d    //生成map映射文件，告知哪些模块被最终打包到�
 ![2.2](/public/img/front-advance/2.2.jpg)
 
 可以看到Webpack的目标就是对项目中的静态资源进行统一管理，为产品的最终发布提供最优的打包部署方案。
+
+本章我们重点强调webpack的**依赖加载器**和**打包工具**的角色，我们todo.js中以commonJS的模式依赖了jquery，webpack可以很好地处理，它以物理方式将jquery源码引入到最终生成的js中，而不像requirejs那样动态加载。
 
 ## node、npm和commonJS
 
