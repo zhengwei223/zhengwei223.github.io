@@ -57,7 +57,7 @@ desc: 单篇文章的布局模板
         </ul>
         <div class="btn-group btn-group-sidebar">
           
-          <a class="btn btn-default btn-pre pjaxlink " href="{{preUrl}}"
+          <a class="btn btn-default btn-primary btn-pre pjaxlink " href="{{preUrl}}"
           {% if preUrl==null  %}disabled
           {% else %}
           data-toggle="tooltip" data-placement="left" title="{{preTitle}}"
@@ -65,14 +65,14 @@ desc: 单篇文章的布局模板
             <span aria-hidden="true">&larr;</span> 
           </a>
 
-          <button class="btn btn-default scrolltop-btn">
+          <button class="btn btn-default btn-primary scrolltop-btn">
             <i class="icon fa fa-angle-double-up"></i>
           </button>
-          <a class="btn btn-default btn-course pjaxlink" href={{coursePage}}>
+          <a class="btn btn-default btn-primary btn-course pjaxlink" href={{coursePage}}>
             <i class="icon fa fa-book"></i>
           </a>
 
-          <a class="btn btn-default btn-next pjaxlink " href="{{nextUrl}}"
+          <a class="btn btn-default btn-primary btn-next pjaxlink " href="{{nextUrl}}"
           {% if nextUrl==null %}disabled
           {% else %}
           data-toggle="tooltip" data-placement="right" title="{{nextTitle}}"
