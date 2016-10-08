@@ -6,9 +6,12 @@ tags: 前端 模块化
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 前端 模块化
 p_cate: 前端那些事儿
+description: 模块化开发js已经成为必须。本文介绍require及模块化相关概念，随着es6的来临这种方案已经慢慢变得过时，不过作为了解还是必要的。
 ---
+<p class="text-danger">
 
-本教程配套源码在这里→[front高级教程配套源码](https://coding.net/u/lanqiao/p/frontAdvance/git).
+本教程配套源码在这里→<a href="https://coding.net/u/lanqiao/p/frontAdvance/git/tree/master/requirejsDemo">requirejs示例代码</a>。
+</p>
 
 # 0.Foreword
 
@@ -58,8 +61,8 @@ jQuery(document).ready(function() {
 
 ```
 <script src="assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="assets/plugins/jquery.**.min.js" type="text/javascript"></script> 
-<script src="assets/plugins/jquery.**.min.js" type="text/javascript"></script>
+<script src="assets/plugins/jquery.ui-**.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/jquery.ui-**.min.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="assets/scripts/app.js" type="text/javascript"></script>
 <script src="assets/scripts/index.js" type="text/javascript"></script>
@@ -72,7 +75,7 @@ jQuery(document).ready(function() {
 
 我们能否明确当前模块所依赖的模块，就像JAVA里面的import那样？这是个问题。
 
-# 3.CommonJS & Node
+# 3.CommonJS,服务端的模块化标准
 
 > Javascript: not just for browsers any more! —— CommonJS Slogen
 
@@ -81,7 +84,7 @@ jQuery(document).ready(function() {
 CommonJS 本质上只是一套规范，而 Node.js 采用并实现了部分规范，CommonJS Module 的写法也因此广泛流行。
 
 
-让我们看看 Node 中的实现：
+让我们看看 Node 中的写法：
 
 ```js
 var a = require('./a')  // 加载模块（同步加载）
@@ -94,7 +97,7 @@ exports.b = function(){ // 暴露 b 函数接口
 
 `exports`是一个内置对象，就像`require`是一个内置加载函数一样。如果你希望直接赋值一个完整的对象或者构造函数，覆写`module.exports`就可以了。
 
-CommonJS 前身叫 ServerJS ，**后来希望能更加 COMMON，成为通吃各种环境的模块规范，改名为 CommonJS** 。CommonJS 最初只专注于 Server-side 而非浏览器环境，因此它采用了同步加载的机制，这对服务器环境（硬盘 I/O 速度）不是问题，而对浏览器环境（网速）来说并不合适。
+CommonJS 前身叫 ServerJS ，**后来希望能更加 COMMON，成为通吃各种环境的模块规范，改名为 CommonJS** 。CommonJS 最初只专注于 **Server-side**而非浏览器环境，因此它采用了同步加载的机制，这对服务器环境（硬盘 I/O 速度）不是问题，而对浏览器环境（网速）来说并不合适。
 
 
 因此，各种适用于浏览器环境的模块框架与标准逐个诞生，他们的共同点是：
@@ -106,7 +109,6 @@ CommonJS 前身叫 ServerJS ，**后来希望能更加 COMMON，成为通吃各�
 本文接下来要讨论的典例是：
 
 * RequireJS & AMD（异步加载，预执行，依赖前置。默认推荐 AMD 写法）
-* SeaJS & CMD（异步加载，懒执行，依赖就近，默认推荐 CommonJS 写法）
 
 # 4.RequireJS & AMD
 
@@ -120,7 +122,7 @@ var $ = require('jquery');
   require is not defined
 ```
 
-我们需要一个额外的叫做module-loader的东西来提供导入导出支持，下面介绍第一个loader：**RequireJS** 
+我们需要一个额外的叫做**module-loader**的东西来提供导入导出支持，下面介绍著名的module-loader：**RequireJS** 
 
 > RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments
 
@@ -143,9 +145,10 @@ RequireJS是一个js文件和模块加载器。
       +require.min.js
     -app
       +modularize1.js
+      +...
 ```
 
-modularize1.html只用一个`script`标签：
+[modularize1.html](https://coding.net/u/lanqiao/p/frontAdvance/git/blob/master/requirejsDemo/modularize1.html)只用一个`script`标签：
 
 ```html
 <!DOCTYPE html>
@@ -162,7 +165,7 @@ modularize1.html只用一个`script`标签：
 
 注意`script`标签的`data-main`属性，它指向的js文件将在`require.min.js`被加载后立即加载。
 
-modularize1.js:
+[modularize1.js](https://coding.net/u/lanqiao/p/frontAdvance/git/blob/master/requirejsDemo/js/app/modularize1.js) :
 
 ```js
 //通过配置，简化模块路径的使用
@@ -176,12 +179,12 @@ require.config({
 require(
     ['jquery'],
     function ($) {
-    $('body').append('<h1>hello world</h1>')
+      $('body').append('<h1>hello world</h1>')
     }
 );
 ```
 
-`require.config`用于做一些路径的配置，`requirejs`函数的第一个参数用数组声明当前代码的所有依赖，由于`config`的作用，这里只需使用模块id而不是全路径，第二个参数是回调函数：依赖模块加载完成后立即执行。
+`require.config`用于做一些路径的配置，`require`函数的第一个参数用数组声明当前代码的所有依赖，由于`config`的作用，这里只需使用模块id而不是全路径，第二个参数是回调函数：依赖模块加载完成后立即执行。
 
 现在页面上成功显示了一级标题`hello,world`
 
@@ -212,7 +215,7 @@ require.config(["jquery", "jquery.form"], function($){
 })
 ```
 
-更多关于shim的细节，请移步[官方文档](http://requirejs.org/docs/api.html#config-shim)
+更多关于shim的细节，请移步→[官方文档](http://requirejs.org/docs/api.html#config-shim)
 
 # 6.定义模块供他人使用
 
@@ -220,7 +223,7 @@ require.config(["jquery", "jquery.form"], function($){
 
 有时，我们不仅要依赖第三方模块，我们自己也要写一些模块给别人使用，下面看看如何自定义模块：
 
-1. js/app目录下新建myutils.js，内容如下：
+1. js/app目录下新建[myutils.js](https://coding.net/u/lanqiao/p/frontAdvance/git/blob/master/requirejsDemo/js/app/myutils.js)，内容如下：
 
 ```
 //通过配置，简化模块路径的使用
@@ -242,9 +245,9 @@ define(['jquery'],function($){
 
 RequireJS规定一个文件只能定义一个模块。
 
-define函数的第一个参数为导入当前模块所依赖的模块，此处没有用到jquery，只是示范这种形式。第二个参数用于返回对象或函数，返回的对象或函数将成为模块的导出，接下来我们看看怎么使用这个模块。
+`define`函数的第一个参数为导入当前模块所依赖的模块，此处没有用到jquery，只是示范这种形式。第二个参数用于返回对象或函数，返回的对象或函数将成为模块的导出，接下来我们看看怎么使用这个模块。
 
-2. modularize1.js中改变为：
+2. [modularize2.js](https://coding.net/u/lanqiao/p/frontAdvance/git/blob/master/requirejsDemo/js/app/modularize2.js)同时依赖jquery和myutils.js：
 
 ```js
 //通过配置，简化模块路径的使用
@@ -271,97 +274,14 @@ require(
 
 实验2和实验3，就是对简单使用RequireJS进行模块化开发的示范。
 
+# 7.导出直接运行函数和字面值对象
 
-# 7.SeaJS & CMD
+见[myutils2](https://coding.net/u/lanqiao/p/frontAdvance/git/blob/master/requirejsDemo/js/app/myutils2.js)、[myutils3](https://coding.net/u/lanqiao/p/frontAdvance/git/blob/master/requirejsDemo/js/app/myutils3.js)和[modularize3.js](https://coding.net/u/lanqiao/p/frontAdvance/git/blob/master/requirejsDemo/js/app/modularize3.js)。
 
-CMD (Common Module Definition) 是 [SeaJS](http://seajs.org/docs/) 在推广过程中对模块定义的规范化产出，是 Modules/2.0 流派的支持者，因此 SeaJS 的模块写法尽可能与 Modules/1.x 规范保持一致。
 
-不过目前国外的该流派都死得差不多了，RequireJS 目前成为浏览器端模块的事实标准，国内最有名气的就是玉伯的 Sea.js ，不过对国际的推广力度不够。
+# 8.相关阅读
 
-* CMD Specification
+- [SeaJS](http://seajs.org/docs/) 
+- CMD Specification
     * [English (CMDJS-repo)](https://github.com/cmdjs/specification/blob/master/draft/module.md)
     * [Chinese (SeaJS-repo)](https://github.com/seajs/seajs/issues/242)
-
-
-CMD 主要有 define, factory, require, export 这么几个东西
-
- * define `define(id?, deps?, factory)`
- * factory `factory(require, exports, module)`
- * require `require(id)`
- * exports `Object`
-
-
-CMD 推荐的 Code Style 是使用 CommonJS 风格的 `require`：
-
-*这个 require 实际上是一个全局函数，用于加载模块，这里实际就是传入而已*
-
-```js
-define(function(require, exports) {
-
-    // 获取模块 a 的接口
-    var a = require('./a');
-    // 调用模块 a 的方法
-    a.doSomething();
-
-    // 对外提供 foo 属性
-    exports.foo = 'bar';
-    // 对外提供 doSomething 方法
-    exports.doSomething = function() {};
-
-});
-```
-
-但是你也可以使用 AMD 风格，或者使用 return 来进行模块暴露
-
-```js
-define('hello', ['jquery'], function(require, exports, module) {
-
-    // 模块代码...
-
-    // 直接通过 return 暴露接口
-    return {
-        foo: 'bar',
-        doSomething: function() {}
-    };
-
-});
-```
-
-
-
-Sea.js 借鉴了 RequireJS 的不少东西，比如将 FlyScript 中的 module.declare 改名为 define 等。Sea.js 更多地来自 Modules/2.0 的观点，但尽可能去掉了学院派的东西，加入了不少实战派的理念。
-
-
-
-# 8.AMD vs CMD
-
-**虽然两者目前都兼容各种风格，但其底层原理并不相同，从其分别推荐的写法就可以看出两者背后原理的不同：**
-
-对于依赖的模块，AMD 是**提前执行**，CMD 是**懒执行**。（都是先加载）AMD 推崇**依赖前置**，CMD 推崇**依赖就近**。   
-
-看代码：
-
-```js
-// AMD 默认推荐
-
-define(['./a', './b'], function(a, b) {  // 依赖前置，提前执行
-
-    a.doSomething()
-    b.doSomething()
-
-})
-
-```
-
-```js
-// CMD
-
-define(function(require, exports, module) {
-
-    var a = require('./a')
-    a.doSomething()
-
-    var b = require('./b') // 依赖就近，延迟执行
-    b.doSomething()
-})
-```
