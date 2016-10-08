@@ -60,7 +60,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 *图11-05*
 
-此外，我们还可以新增加一个Expressions功能标签：以此点击Window→Show View→Expressions，如图，
+此外，我们还可以新增加一个`Expressions`功能标签：以此点击Window→Show View→Expressions，如图，
 
 ![](http://i.imgur.com/ITrCIpV.png)
 
@@ -235,7 +235,7 @@ JPDA_TRANSPORT表示连接方式，可以设置为`dt_shmem`或`dt_socket`，分
 
 *图11-19*
 
-在右侧Connection标签中，输入项目名、远程调试的端口号等，如图，
+在右侧`Connection`标签中，输入项目名、远程调试的端口号等，如图，
 
 ![](http://i.imgur.com/v2RakUd.png)
 
@@ -259,7 +259,7 @@ JPDA_TRANSPORT表示连接方式，可以设置为`dt_shmem`或`dt_socket`，分
 
 *图11-23*
 
-**(4) 执行远程调试 **
+**(4) 执行远程调试**
 
 在本地的项目中打上断点，再通过浏览器远程访问服务器部署的项目，如[http://192.168.1.123:9090/DebugDemo](http://192.168.1.123:9090/DebugDemo)。此时，就会在本地的Eclipse中进入调试模式，而调试的就是远程服务器中的项目代码。调试的方法和本地调试完全相同。
 
@@ -335,7 +335,7 @@ firebugCss.jsp
 
 *图11-28*
 
-单击以后，“橘子”的相关样式就会显示在firebug右下角的“样式”标签中：“橘子”的样式在ul.css的第1行，并且具体样式是ul li:first-child{ background-color:yellow;…} 。
+单击以后，“橘子”的相关样式就会显示在firebug右下角的“样式”标签中：“橘子”的样式在`ul.css`的第1行，并且具体样式是`ul li:first-child{ background-color:yellow;…}` 。
 
 **③ 调试CSS样式**
 
@@ -351,7 +351,7 @@ firebugCss.jsp
 
 **b.在firebug中新增样式**
 
-选中样式的最后一个属性值（即选中font-size的属性值20px），然后按下回车键，之后依次输入属性名和属性值，如图
+选中样式的最后一个属性值（即选中`font-size`的属性值20px），然后按下回车键，之后依次输入属性名和属性值，如图
 
 ![](http://i.imgur.com/SBDtPSu.png)
 
