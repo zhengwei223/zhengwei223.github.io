@@ -137,15 +137,15 @@ RequireJS是一个js文件和模块加载器。
 假设我们有这样的目录结构
 
 ```
--www
-  -modularize1.html
-  -js
-    -lib
-      +jquery.min.js
-      +require.min.js
-    -app
-      +modularize1.js
-      +...
+.
+├── modularize1.html          # 示例页面
+├── js/                       
+│   ├── lib/                  # 依赖的js库
+│   |   ├── jquery.min.js             
+│   |   ├── require.min.js           
+├── app/                  
+│   ├── modularize1.js        # 自定义js
+│   ├── ...              
 ```
 
 [modularize1.html](https://coding.net/u/lanqiao/p/frontAdvance/git/blob/master/requirejsDemo/modularize1.html)只用一个`script`标签：

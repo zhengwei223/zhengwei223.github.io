@@ -70,8 +70,8 @@ Loader 可以在 `require()` 引用模块的时候添加，也可以在 webpack 
       },
       //入口文件的输出
       output: {
-          path: 'dist/js/app/',
-          filename: '[name].js'
+          path: __dirname+'/dist',
+          filename: '/js/app/[name].js'
       },
       module: {
         loaders: [
