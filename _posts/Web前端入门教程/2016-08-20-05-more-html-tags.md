@@ -345,6 +345,10 @@ description:
 
 &emsp;&emsp;我们在网站上注册、登录的时候，会需要先页面上输入用户名、密码等等的信息，然后点击类似“确认”的某个按钮，向网站后端传送数据的过程。这个场景就用到了HTML表单，表示表单的标签是\<form\>。
 
+## 6.1 简单表单
+
+&emsp;&emsp;下面是一个简单的HTML表单，表单元素的属性action表示接受数据提交的后端服务地址，method属性的含义是用于提交的网络请求的方法。
+
      <FORM action="http://somesite.com/prog/adduser" method="post">
         <P>
         <LABEL for="firstname">姓: </LABEL>
@@ -356,13 +360,19 @@ description:
         <LABEL for="sex">性别: </LABEL>
         <INPUT type="radio" name="sex" id="sex" value="Male"> Male
         <INPUT type="radio" name="sex" id="sex" value="Female"> Female<BR>
-        <INPUT type="submit" value="确认/提交"> <INPUT type="reset" value="重置/清空">
+        <INPUT type="submit" value="确认/提交"> 
+        <INPUT type="reset" value="重置/清空">
         </P>
      </FORM>
 
   [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
 
 &emsp;&emsp;你可以在里面填写资料、并且点击提交。
+
+## 6.2 真实的表单提交
+
+&emsp;&emsp;我们可以找一个真实网站中用表单向后端提交数据的例子来说明问题。
+
 
 
 
