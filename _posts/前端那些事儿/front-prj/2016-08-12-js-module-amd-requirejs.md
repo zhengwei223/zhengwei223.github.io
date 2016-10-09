@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JavaScript模块化开发实验（1）requirejs体验
+title: requirejs体验
 category: front-prj
 tags: 前端 模块化 
 author: 郑未
