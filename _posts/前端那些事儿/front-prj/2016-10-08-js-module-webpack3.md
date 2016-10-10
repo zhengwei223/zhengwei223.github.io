@@ -39,7 +39,7 @@ Webpack 本身内置了一些常用的插件，还可以通过 npm 安装第三�
 
     /*! @author zhengwei */
 
-# 常用插件
+# 3.常用插件
 
 ## UglifyJsPlugin
 
@@ -64,7 +64,7 @@ HtmlWebpackPlugin这个插件可以帮助生成 HTML 文件，自动插入编译
 
     npm install html-webpack-plugin@2 --save-dev
 
-### 配置文件  
+### 新建配置文件  
 
 [webpack.config-plugins.js](https://coding.net/u/lanqiao/p/frontAdvance/git/tree/master/webpackDemo/webpack.config-plugins.js)
 
@@ -138,4 +138,16 @@ ExtractTextPlugin从bundle中提取出特定的text到一个文件中。使用 e
 根据已有的loader，创建一个提取器（loader的再封装）。
 第17行，新增一个插件。
 
+# 4.注意
 
+<p class="bg-warning">
+HtmlWebpackPlugin插件带上hash选项之后，html页面中引入的css和js文件自动带hash值后缀，这时直接打开html会报错：
+</p>
+
+![4.2](/public/img/front-advance/4.2.png)
+
+<p class="bg-warning">提示无法加载文件，现在我们需要用web服务器来运行这些资源，然后通过网络访问的形式来加载页面。
+  <b>或者，我们在开发环境下取消hash选项。</b>
+</p>
+
+请看下一章→[开发环境及webpack-dev-server的使用](/front-prj/js-module-webpack3-1).
