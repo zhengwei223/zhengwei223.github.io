@@ -740,6 +740,60 @@ enctype="multipart/form-data" method="post">
 
 ①ServletFileUpload类的常用方法：
 
+<table>
+   <tr>
+      <td></td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void setSizeMax(long sizeMax)</td>
+      <td>设置上传数据的最大允许的字节数</td>
+   </tr>
+   <tr>
+      <td>public List&lt;FileItem&gt; parseRequest(HttpServletRequest request)</td>
+      <td>解析form表单中的每个字段的数据，并将所有字段数据分别包装成独立的FileItem对象，再将这些FileItem对象封装到一个List集合并返回</td>
+   </tr>
+   <tr>
+      <td>public static final boolean isMultipartContent</td>
+      <td>判断请求消息中的内容是否是“multipart/form-data”类型</td>
+   </tr>
+</table>
+
+②FileItem接口的常用方法：
+
+FileItem对象用于封装单个表单字段元素的数据，一个表单字段元素对应一个FileItem对象。FileItem是一个接口，通常使用它的实现类DiskFileItem类。
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>boolean isFormField()</td>
+      <td>判断FileItem对象里面封装的数据是一个普通文本表单字段（返回true），还是一个文件表单字段（返回false）。</td>
+   </tr>
+   <tr>
+      <td>String getName()</td>
+      <td>获得文件上传字段中的文件名;普通表单字段返回null。</td>
+   </tr>
+   <tr>
+      <td>String getFieldName()</td>
+      <td>获取表单字段元素的name属性值。</td>
+   </tr>
+   <tr>
+      <td>void write(File file)  throws Exception</td>
+      <td>将FileItem对象中的内容保存到某个指定的文件中。</td>
+   </tr>
+   <tr>
+      <td>String getString()</td>
+      <td>将FileItem对象中保存的数据流内容以一个字符串返回。它有两个重载形式，public String getString()和public String getString(String encodeing)。前者使用缺省的字符集编码将主体内容转换成字符串，后者使用参数指定的字符集编码。如果在读取普通表单字段元素的内容时，出现了乱码现象，可以调用第二个方法。</td>
+   </tr>
+   <tr>
+      <td>long getSize()</td>
+      <td>返回单个上传文件的字节数。</td>
+   </tr>
+</table>
+
 
 ③FileItemFactory接口的常用方法：
 
@@ -1237,6 +1291,32 @@ Filter通过web.xml中的`<url-pattern>`元素来配置需要拦截的请求。�
 </filter-mapping>
 ```
 
+常见拦截方式的值有以下四个：
+
+<table>
+   <tr>
+      <td>拦截方式的值</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>REQUEST</td>
+      <td>只会拦截通过地址栏直接访问方式发出的请求。</td>
+   </tr>
+   <tr>
+      <td>INCLUDE</td>
+      <td>只会拦截通过RequestDispatcher的include()方式发出的请求。</td>
+   </tr>
+   <tr>
+      <td>FORWARD</td>
+      <td>只会拦截通过RequestDispatcher的forward()方式发出的请求（即请求转发方式）。</td>
+   </tr>
+   <tr>
+      <td>ERROR</td>
+      <td>只会拦截通过&lt;error-page&gt;方式发出的请求，此方式使用较少。</td>
+   </tr>
+</table>
+
+
 如下，表示此过滤器会拦截所有通过地址栏访问方式，以及通过请求转发方式发出的请求：
 
 ```
@@ -1481,7 +1561,7 @@ index.jsp
 …
 ```
 
-essionInvalidate.jsp
+sessionInvalidate.jsp
 
 ```
 <%@ page language="java" contentType="text/html; 
