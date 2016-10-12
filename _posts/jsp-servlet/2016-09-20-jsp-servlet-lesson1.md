@@ -1,11 +1,13 @@
 ---
 layout: post
 
-title: 动态网页基础
+title: 动态网页基础JSP
 
 category: JSP-Servlet教程
 
 tags: JSP Servlet
+
+description: 本章将从动态页面和静态页面的区别说起，介绍Web应用系统的工作原理。
 
 author: 颜群
 
@@ -168,11 +170,11 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 　　访问地址:端口号
 
-　　其中网址http://localhost代表本机地址。若要关闭Tomcat服务器，可双击运行bin目录中的shutdown.bat关闭命令。
+　　其中网址http://localhost代表本机地址。若要关闭Tomcat服务器，可双击运行`bin`目录中的shutdown.bat关闭命令。
 
 　　但是，如果Tomcat服务器的默认端口8080被其他应用程序占用（例如Oracle也会使用到8080端口），那么就需要我们手动修改Tomcat的端口号。修改方法如下：
 
-①打开Tomcat安装目录，然后找到conf目录，打开里面的server.xml文件
+①打开Tomcat安装目录，然后找到`conf`目录，打开里面的server.xml文件
 
 ②找到如下代码
 
@@ -201,7 +203,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 *图1-14*
 
-　　其中，HTTP Status 404代表要访问的资源不存在。在开发时，为了方便JSP页面的调试，即使要访问的文件夹中的资源不存在，我们也希望能显示出该文件夹中的目录结构。可以打开Tomcat安装目录里conf目录下的web.xml文件，找到如下代码，
+　　其中，HTTP Status 404代表要访问的资源不存在。在开发时，为了方便JSP页面的调试，即使要访问的文件夹中的资源不存在，我们也希望能显示出该文件夹中的目录结构。可以打开Tomcat安装目录里`conf`目录下的web.xml文件，找到如下代码，
 
 ```
 …
@@ -258,7 +260,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 　　前面我们所使用的examples项目是tomcat自带的Web示例项目，那么我们如何新建自己的Web项目呢？其实很简单，只需要按照一定的规则，建立项目的目录结构即可，具体目录结构如下：
 
-　　先在tomcat安装路径的webapps目录中，新建一个项目文件夹（如JspProject），再在JspProject中新建WEB-INF文件夹，再在WEB-INF中新建classes、lib两个文件夹和web.xml文件，如图，
+　　先在tomcat安装路径的`webapps`目录中，新建一个项目文件夹（如JspProject），再在JspProject中新建WEB-INF文件夹，再在WEB-INF中新建`classes`、`lib`两个文件夹和web.xml文件，如图，
 
 ![](http://i.imgur.com/xx9Hqtb.png)
 
@@ -279,9 +281,9 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 </web-app>
 ```
 
-　　其中<welcome-file-list>标签用来指定项目的默认首页。
+　　其中`<welcome-file-list>`标签用来指定项目的默认首页。
 
-　　说明：上面web.xml文件中的基本内容，不需要开发人员亲自去写。可以直接从webapps里任意一个项目里找到web.xml文件，然后复制即可。
+　　说明：上面web.xml文件中的基本内容，不需要开发人员亲自去写。可以直接从`webapps`里任意一个项目里找到web.xml文件，然后复制即可。
 
 　　至此，就完成了Web项目结构的搭建。
 
@@ -331,11 +333,11 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 说明：
 
-1.我们输入的地址[http://localhost:8888/JspProject/](http://localhost:8888/JspProject/)中，并没有指定要访问的是index.jsp页面，但仍然能成功访问index.jsp文件，原因就是之前在web.xml中的<welcome-file-list>标签中，设置了默认首页是index.jsp。
+1.我们输入的地址[http://localhost:8888/JspProject/](http://localhost:8888/JspProject/)中，并没有指定要访问的是index.jsp页面，但仍然能成功访问index.jsp文件，原因就是之前在web.xml中的`<welcome-file-list>`标签中，设置了默认首页是index.jsp。
 
-如果要访问的页面，没有在<welcome-file-list>中配置，则必须输入完整的访问地址。假设index.jsp没有在<welcome-file-list>中配置，则应该访问[http://localhost:8080/JspProject/index.jsp](http://localhost:8080/JspProject/index.jsp)
+如果要访问的页面，没有在`<welcome-file-list>`中配置，则必须输入完整的访问地址。假设index.jsp没有在`<welcome-file-list>`中配置，则应该访问[http://localhost:8080/JspProject/index.jsp](http://localhost:8080/JspProject/index.jsp)
 
-2.代码<% out.print("Hello World"); %>就是JSP的输出语句。如果JSP代码出错，例如忘了写最后的分号“；”，则会出现HTTP状态码为500的错误提示，如图
+2.代码`<% out.print("Hello World"); %>`就是JSP的输出语句。如果JSP代码出错，例如忘了写最后的分号“；”，则会出现HTTP状态码为500的错误提示，如图
 
 ![](http://i.imgur.com/wTNdStm.png)
 
@@ -391,7 +393,7 @@ extends org.apache.jasper.runtime.HttpJspBase
 }
 ```
 
-　　可以发现，JSP中的HTML代码，本质是通过JAVA类中的输出流动态生成的。实际上，此种JAVA类称为Servlet（后续会讲），而JSP本质是Servlet的一种简化形式。
+　　可以发现，JSP中的HTML代码，本质是通过JAVA类中的输出流动态生成的。实际上，此种JAVA类称为`Servlet`（后续会讲），而JSP本质是`Servlet`的一种简化形式。
 
 (3)执行class文件
 
@@ -541,7 +543,7 @@ index.jsp
 　　关闭Tomcat服务后，就不能再访问JSP页面了。
 
 
-# 1.4练习题
+# 1.4 本章总结
 
 1.简述B/S架构与C/S架构的区别。
 
@@ -569,9 +571,9 @@ CS：客户端/浏览器，比如QQ的pc版。QQ的每一次升级，都会涉�
 
 ②配置tomcat环境变量:  变量名：CATALINA_HOME，变量值：tomcat安装目录
 
-(2)配置完毕后，在tomcat目录中的bin目录里，startup.bat是启动命令，shutdown.bat是关闭命令。
+(2)配置完毕后，在`tomcat`目录中的`bin`目录里，startup.bat是启动命令，shutdown.bat是关闭命令。
 
-(3)在webapps目录里新建项目目录（如MyJSP），再在项目目录里依次创建classes、lib目录以及web.xml文件；最后再在项目目录里手写JSP文件即可。
+(3)在webapps目录里新建项目目录（如MyJSP），再在项目目录里依次创建`classes`、`lib`目录以及web.xml文件；最后再在项目目录里手写JSP文件即可。
 
 3．使用Eclipse开发WEB项目
 
@@ -607,6 +609,15 @@ file-->new-->other-->Dynamic Web Project-->启项目名-->finish
 打开浏览器输入
 http://网络地址:端口号/项目名称/网页地址 
 
+如http://localhost:8888/JspProject/index.jsp
+
+# 1.5 本章练习 #
+
+1.简述B/S架构与C/S架构的区别（难度★）。
+
+2.使用Eclipse开发一个Web项目，通过项目中的JSP文件输出“Hello World”（难度★★）。
+
+3.简述JSP的执行流程（难度★★）。
 
 
 
