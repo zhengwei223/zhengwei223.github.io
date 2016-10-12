@@ -35,6 +35,8 @@ Webpack 本身内置了一些常用的插件，还可以通过 npm 安装第三�
 
 *注意plugins和module是平级的。*
 
+安装webpack模块，运行：`npm install webpack --save-dev`，因为我们要使用webpack的导出对象，因此需要把webpack安装在node_modules中
+
 运行`webpack --config webpack.config3.js`，可以看到新编译后的`todo.js`头部添加了如下注释：
 
     /*! @author zhengwei */
@@ -68,7 +70,7 @@ HtmlWebpackPlugin这个插件可以帮助生成 HTML 文件，自动插入编译
 
 [webpack.config-plugins.js](https://coding.net/u/lanqiao/p/frontAdvance/git/tree/master/webpackDemo/webpack.config-plugins.js)
 
-    var webpack = require('webpack');  //依赖npm安装的webpack，只需引用名字
+    var webpack = require('webpack');  
     var HtmlWebpackPlugin = require('html-webpack-plugin');//第三方插件，需安装并require
     module.exports = {
       ...,
@@ -96,16 +98,17 @@ HtmlWebpackPlugin这个插件可以帮助生成 HTML 文件，自动插入编译
 
 ![4.1](/public/img/front-advance/4.1.png)
 
-可以看到dist目录下还是那些东西，不过我们打开todo.html可以看到body的最后，引入script的部分有些变化：
+可以看到dist目录重新生成了todo.html，其body的最后一部分，引入script的部分有些变化：
 
-    <script type="text/javascript" src="js/app/todo.js"></script><script type="text/javascript" src="js/app/todo.js?e7d8235f47eae87d8d4b"></script>
+    <script type="text/javascript" src="js/app/todo.js"></script>
+    <script type="text/javascript" src="js/app/todo.js"></script>
 
 这里第一个`script`标签是html模板中本来就有的，第二个`script`标签是插件自动插入的。明显，重复了，现在我们需要删掉模板中的`script`标签，这样以后就不用维护html中的`script`标签了。
 修改后重新编译，dist目录下的todo.html正确了。
 
 ## ExtractTextPlugin
 
-ExtractTextPlugin从bundle中提取出特定的text到一个文件中。使用 extract-text-webpack-plugin就可以把css从js中独立抽离出来。之前的css和style两个loader会用js动态地将模块内引入的样式以`style`标签的形式插入到页面中。
+extract-text-webpack-plugin从bundle中提取出特定的text到一个文件中，因此利用它就可以把css从js中独立抽离出来。而不是用js动态地将模块内引入的样式以`style`标签的形式插入到dom中。
 
 ### 安装插件
 
@@ -137,17 +140,3 @@ ExtractTextPlugin从bundle中提取出特定的text到一个文件中。使用 e
 第10行，`ExtractTextPlugin.extract([notExtractLoader], loader, [options])`
 根据已有的loader，创建一个提取器（loader的再封装）。
 第17行，新增一个插件。
-
-# 4.注意
-
-<p class="bg-warning">
-HtmlWebpackPlugin插件带上hash选项之后，html页面中引入的css和js文件自动带hash值后缀，这时直接打开html会报错：
-</p>
-
-![4.2](/public/img/front-advance/4.2.png)
-
-<p class="bg-warning">提示无法加载文件，现在我们需要用web服务器来运行这些资源，然后通过网络访问的形式来加载页面。
-  <b>或者，我们在开发环境下取消hash选项。</b>
-</p>
-
-请看下一章→[开发环境及webpack-dev-server的使用](/front-prj/js-module-webpack3-1).

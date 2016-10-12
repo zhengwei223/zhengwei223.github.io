@@ -20,18 +20,19 @@ description: 本篇主要介绍：公共js库、css如何单独打包。
     ├── webpack.config-*.js         # webpack配置
     ├── index.html                  # 首页
     ├── todo.html                   
-    ├── js/                    # js&jsx资源
+    ├── js/                         # js&jsx资源
     │   ├── app/   
-    │   │   ├── index.js                # index页面入口
-    │   │   ├── todo.js                 # todo页面入口
-    ├── css/                    # js&jsx资源
-    │   ├── main.css                    # 全局样式表
-    │   ├── todo.css                    # todo页面专用样式表
-    ├── node_modules/                   # js&jsx资源
-    │   ├── jquery                      # jquery node版本
+    │   │   ├── index.js            # index入口
+    │   │   ├── todo.js             # todo入口
+    │   │   ├── *.js                # 其他入口
+    ├── css/                    
+    │   ├── main.css                # 全局样式表
+    │   ├── todo.css                # todo页面专用样式表
+    ├── node_modules/                  
+    │   ├── jquery                  # jquery node版本
     │   ├── ...
 
-现在的情况是，index.js和todo.js都引入了jquery和main.css，那么jquery和main.css就可以算作公共组件了，我们需要把他们单独打包而不是联合打包。
+现在的情况是，index-mpa.js和todo-mpa.js等js模块都引入了jquery和main.css，那么jquery和main.css就可以算作公共组件了，我们需要把他们单独打包而不是联合打包。
 
 # 实验：hack CommonsChunkPlugin插件
 
@@ -58,7 +59,7 @@ CommonsChunkPlugin是webpack的内置插件，因此无需安装。
 
 ![4.4](/public/img/front-advance/4.4.png)
 
-对比上次编译，多出了common.js(主要内容为jquery)和common.css(主要包含main.css)，而且现在index.js大小为233 bytes，之前为88.2kb。由于common.js会被多页面复用，浏览器可以将其缓存起来，这样可以大大减少网络传输数据量。
+对比上次编译，多出了common.js(主要内容为jquery)和common.css(主要包含main.css)，而且现在todo-mpa.js大小仅为661 bytes，之前为88.6kb，这是因为todo-mpa.js不再包含公共代码。由于common.js会被多页面复用，浏览器可以将其缓存起来，这样可以大大减少网络传输数据量。
 
 ## 4.自动给html插入公共代码
 
@@ -74,7 +75,7 @@ CommonsChunkPlugin是webpack的内置插件，因此无需安装。
 
     let htmlPlugin = new HtmlWebpackPlugin({
         filename:name+'.html',
-        template:name+'.html',
+        template:...,
         inject:'body',
         //每个html引入自己的js和css ，还有名为common的chunk 
         chunks:[name,'common']
