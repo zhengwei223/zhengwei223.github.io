@@ -39,8 +39,8 @@ webpack和webpack-dev-server命令都可能带一堆参数，我们可以修改p
       "description": "前端那些事儿的配套源码",
       "main": "webpack.config.js",
       "scripts": {
-        "dev": "webpack-dev-server --config webpack.config-plugins.js --devtool eval --progress --colors --content-base dist/ --host 127.0.0.1 --port 8008",
-        "build": "webpack --config webpack.config-plugins.js --progress --colors"
+        "dev"   : "webpack-dev-server --config webpack.config-plugins.js --devtool eval --progress --colors --content-base dist/ --host 127.0.0.1 --port 8008",
+        "build" : "webpack --config webpack.config-plugins.js --progress --colors"
       },
       ....省略
 

@@ -81,7 +81,7 @@ npm中有一个用于文件名匹配的glob模块，通过glob很容易遍历出
 
 新增[webpack.config-mpa.js](https://coding.net/u/lanqiao/p/frontAdvance/git/blob/master/webpackDemo/webpack.config-mpa.js)，内容如下：
 
-    var webpack = require('webpack');  //依赖npm安装的webpack，只需引用名字
+    var webpack = require('webpack');  
     var HtmlWebpackPlugin = require('html-webpack-plugin');//第三方插件，需安装并require
     var ExtractTextPlugin = require("extract-text-webpack-plugin");
     var glob = require('glob');
@@ -124,7 +124,7 @@ npm中有一个用于文件名匹配的glob模块，通过glob很容易遍历出
 
 # 4.实验：多页面自动插入js和css
 
-现实开发中，多个页面会分别依赖不同的js和css，也会共同依赖公共的js和css，下面我们就来模拟一下：
+现实开发中，多个页面会分别依赖不同的js和css，也会共同依赖公共的js和css，那么怎么做到给每个页面准确插入它依赖的js和css呢？下面我们就来模拟一下：
 
 ## 实验步骤
 
@@ -134,18 +134,18 @@ npm中有一个用于文件名匹配的glob模块，通过glob很容易遍历出
         background-color: #fff;
     }
 
-2.todo.js依赖main.css，这样todo引入了两部分css
+2.在todo2.js基础上新建todo-mpa.js，依赖main.css，这样todo-mpa引入了两部分css
 
     ...
     require('../../css/todo.css');
     require('../../css/main.css');
     ...
 
-3.index.js依赖main.css
+3.在index.js上新建index-mpa.js，依赖main.css
 
     import $ from 'jquery'
     require('../../css/main.css');
-    var $a = $('<a>',{href:'todo.html'});
+    var $a = $('<a>',{href:'todo-mpa.html'});  // 此处有变化
     $a.text('todo');
     $a.appendTo('body');
 
@@ -218,27 +218,30 @@ npm中有一个用于文件名匹配的glob模块，通过glob很容易遍历出
 - 第13行使用了`entriesMap`对象
 - 31行到41行，我们遍历了`entriesMap`对象，为每个入口新增一个`HtmlWebpackPlugin`实例并将这个实例添加到`webpackConfig.plugins`这个数组中——40行
 - 最后再导出`webpackConfig`对象
-- 需要注意的是，我们的入口js文件名应该和它的html文件名一致，我们遍历的是js的文件名，但34,35行都指向了html
-- 特别注意第38行，每个html应该插入不同的js和css，如果不加这行，产出的所有js和css都会插入每个html中
+- 需要注意的是，`HtmlWebpackPlugin`虽然使用了`entriesMap`，但是给html插入脚本这件事本身和入口文件是没有关系的，我们只是假定每个入口文件都有一个同名的html模板同时也需要生成一个同名的html，并且新生成的html插入与入口文件同名的chunk。
+- 注意第38行，每个html应该插入不同的js和css，如果不加这行，产出的所有js和css chunk都会插入每个html中
+
+如果你看懂了上面的逻辑，我要说的是，就这样编译是要报错的，因为我们扫描app目录下所有js为入口，这没有问题，但我们为每个入口定制了一个HtmlWebpackPlugin（以入口名为模板html的名字和产出html的名字），为了展示递进关系我们有好几个`todo*.js`，这些入口没有对应的同名的html模板，因此仅针对当前状况我们要改写下代码：
+
+    // template:name+'.html',  //正常环境使用
+    template:(()=>{
+      if(name.startsWith('todo'))
+        return 'todo.html'     //todo打头的，以todo.html为模板
+      if(name.startsWith('index'))
+        return 'index.html'    //index打头的，以index.html为模板
+    })(),
 
 *重要概念：Webpack中将打包后的文件都称之为“Chunk”。*
 
-## 小结
-
-现在我们有两个页面，两个js文件，两个css文件，其关系如下：
-
-    index.html→index.js(依赖jquery)→main.css
-    todo.html→todo.js(依赖jquery)→main.css+todo.css
-    index中用js动态插入了一个超链接，可以链接到todo.html
 
 ## 编译
 
-请修改package.json中的`--config webpack.config-mpa.js`选项并编译——`npm run build`。
+请修改package.json中build和dev命令的`--config webpack.config-mpa.js`选项并编译——`npm run build`。
 产出物如下：
 
 ![4.3](/public/img/front-advance/4.3.png)
 
 ## 问题
 
-现在页面可以正确地运行。但问题是，jquery代码在index.js和todo.js中重复了，main.css在index.css和todo.css中重复了。随着页面增多、依赖的公共库增多，每个css和js文件都会变得比较庞大，该怎么做呢？
-请看下一章→[公共组件单独打包](/front-prj/js-module-webpack5)
+现在页面可以正确地运行（启动server后访问：`http://localhost:<port>/webpack-dev-server/index-mpa.html`）。但问题是，jquery代码在index*.js和todo*.js中重复了，main.css在index*.css和todo*.css中重复了。随着页面增多、依赖的公共库增多，每个css和js文件都会变得比较庞大，该怎么做呢？
+请看下一章→[公共组件单独打包](/front-prj/js-module-webpack5)。
