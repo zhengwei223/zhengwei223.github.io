@@ -152,7 +152,7 @@ Connection connection = DriverManager
 
 获得了`Connection`连接后，就可以通过`Connection`对象来获得`Statement`或`PreparedStatement`对象，并通过该对象向数据库发送SQL语句。如果SQL语句是增、删、改操作，则返回一个`int`型结果，表示多少行受到了影响，即增、删、改了几条数据；如果SQL语句是查询操作，则返回一个`ResultSet`结果集，该结果集包含了SQL查询的所有结果。如下，
 
-**①Statement对象：**
+**①`Statement`对象：**
 
 `Statement stmt = connection.createStatement();`
 
@@ -185,7 +185,7 @@ Connection connection = DriverManager
    </tr>
 </table>
 
-**②PreparedStatement对象：**
+**②`PreparedStatement`对象：**
 
 ```
 PreparedStatement pstmt = connection
@@ -296,7 +296,7 @@ while(rs.next)
    </tr>
 </table>
 
-**(1)使用Statement访问数据库**
+**(1)使用`Statement`访问数据库**
 
 **①实现“增删改”操作。**
 
@@ -701,7 +701,7 @@ catch (Exception e)
 
 创建`Statement`对象时不使用SQL语句做参数（如`Statement stmt = connection.createStatement();`），不会解析和编译SQL语句，而是每次调用`executeUpdate()`或`executeQuery()`方法时才进行SQL语句的解析和编译操作（如`stmt.executeUpdate("delete from student where stuno =5");`）。
 
-而创建`PreparedStatement`对象时，是使用带占位符？的SQL语句作为参数（如`PreparedStatement pstmt = connection.prepareStatement("delete from student where stuName = ? and stuAge = ?");`），会预先解析和编译该SQL语句，之后通过setXxx()方法给占位符赋值，最后执行SQL语句时，就无需再解析和编译SQL语句，直接执行即可（如`pstmt.executeUpdate()`）。这就使得，如果多次操作相同，就可以大大提高性能。即PreparedStatement是预编译的SQL语句对象。
+而创建`PreparedStatement`对象时，是使用带占位符？的SQL语句作为参数（如`PreparedStatement pstmt = connection.prepareStatement("delete from student where stuName = ? and stuAge = ?");`），会预先解析和编译该SQL语句，之后通过`setXxx()`方法给占位符赋值，最后执行SQL语句时，就无需再解析和编译SQL语句，直接执行即可（如`pstmt.executeUpdate()`）。这就使得，如果多次操作相同，就可以大大提高性能。即PreparedStatement是预编译的SQL语句对象。
 
 **3.提高了安全性，能有效防止SQL注入**
 
