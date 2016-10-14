@@ -2,7 +2,7 @@
 
 layout: post
 
-title: JSP基础语法
+title: Java Bean
 
 category: JSP-Servlet教程
 
@@ -16,7 +16,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 ---
 
-> 本章简介
+> **本章简介**
 
 Java Bean是一种JAVA语言写成的可重用组件，从而使开发者在IDE工具中可以很方便的使用该组件。在开发过程中，如果能发现一些已存在的Java Bean组件，我们就可以直接使用该Java Bean组件进行开发，从而避免从零开始编写所有代码，提高开发效率。对于Java开发人员来说，不仅要会使用Java API，还要掌握Java Bean这种组件的使用。
 
@@ -43,15 +43,17 @@ public boolean getSex()
 
 在程序中，开发人员需要处理的无非是数据和业务逻辑，而这两种操作都可以封装成Java Bean组件。因此，Java Bean从功能上可以划分为以下两类：
 
-①封装数据②封装业务逻辑。
+**①封装数据。**
+
+**②封装业务逻辑。**
 
 # 4.1使用Java Bean封装数据
 
 通常情况，一个封装数据的JavaBean（也可以称为“实体类”），对应着数据库内的一张表（或视图），并且与该表（或视图）中的字段一一对应。
 
-例如，在registerJDBC.jsp中，涉及一张登录表(login)，该表中有两个字段：用户名(name)和密码(password)。下面，创建一个与该登录表相对应的封装数据的JavaBean（用于封装用户名、密码）：
+例如，在registerJDBC.jsp中，涉及一张登录表`(login)`，该表中有两个字段：用户名`(name)`和密码`(password)`。下面，创建一个与该登录表相对应的封装数据的JavaBean（用于封装用户名、密码）：
 
-在项目的src目录下新建一个`LoginInfo`类，如图，
+在项目的`src`目录下新建一个`LoginInfo`类，如图，
 
 ![](http://i.imgur.com/7O3Y3jm.png)
 
@@ -113,7 +115,7 @@ public class LoginInfo
 
 一个封装数据的JavaBean，对应着数据库内的一张表（或视图）；而一个封装业务的JavaBean，通常用来对封装数据的JavaBean进行控制操作，或相关的业务逻辑操作。例如，下面就来创建一个封装业务的JavaBean（LoginControl.java），用来对之前封装数据的JavaBean（LoginInfo.java）进行控制操作：
 
-LoginControl.java
+**LoginControl.java**
 
 ```
 package org.lanqiao.control;
@@ -163,11 +165,12 @@ getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE"
 ```
 
 接下来，我们再编写注册功能时，就可以通过JavaBean来简化JSP页面：
-注册页jspJDBC/registerWithJavaBean.jsp
+
+**注册页jspJDBC/registerWithJavaBean.jsp**
 
 实现用户名(uname)和密码(upwd)的表单录入，代码及运行图省略（页面中`<form action="registerJDBCWithJavaBean.jsp" …>`）。
 
-将注册信息写入数据库的功能页jspJDBC/registerJDBCWithJavaBean.jsp
+将注册信息写入数据库的功能页**jspJDBC/registerJDBCWithJavaBean.jsp**
 
 ```
 <body>
