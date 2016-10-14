@@ -30,7 +30,7 @@ JDBC的原理如上图所示，最顶层是我们自己编写的Java应用程序
 
 **(1)JDBC API**
 
-JDBC API由SUN公司提供，其中包含了Java应用程序与各种不同数据库交互的标准接口，如Connection连接接口、Statement操作接口、ResultSet结果集接口、PreparedStatement预处理操作接口等。我们可以使用这些JDBC接口来操作各种数据库。
+JDBC API由SUN公司提供，其中包含了Java应用程序与各种不同数据库交互的标准接口，如`Connection`连接接口、`Statement`操作接口、`ResultSet`结果集接口、`PreparedStatement`预处理操作接口等。我们可以使用这些JDBC接口来操作各种数据库。
 
 **(2)JDBC Driver Manager**
 
@@ -42,7 +42,7 @@ JDBC驱动由各个数据库厂商或第三方厂商提供，负责连接各种�
 
 ## 3.1.2JDBC API
 
-JDBC API主要可以完成三件事：①与数据库建立连接、②发送SQL语句、③返回处理结果，如图：
+JDBC API主要可以完成三件事：**①与数据库建立连接**、**②发送SQL语句**、**③返回处理结果**，如图：
 
 ![](http://i.imgur.com/XCLAIhe.png)
 
@@ -83,7 +83,7 @@ JDBC API中常用接口、类的介绍如下：
 
 **(1)导入JDBC驱动包，并加载驱动类**
 
-使用JDBC访问数据库前，需要先导入相应的驱动包（如oracle数据库的驱动包是ojdbc版本号.jar），之后再使用Class.forName()方法将具体的JDBC驱动类加载到Java虚拟机中，代码如下
+使用JDBC访问数据库前，需要先导入相应的驱动包（如oracle数据库的驱动包是ojdbc版本号.jar），之后再使用`Class.forName()`方法将具体的JDBC驱动类加载到Java虚拟机中，代码如下
 
 ```
 Class.forName("JDBC驱动类名");
@@ -124,14 +124,14 @@ Class.forName("JDBC驱动类名");
 
 **(2)与数据库建立连接**
 
-JDBC使用DriverManager类来管理驱动程序，并通过getConnection()方法在数据库和相应的驱动程序之间建立起连接，如下，
+JDBC使用DriverManager类来管理驱动程序，并通过`getConnection()`方法在数据库和相应的驱动程序之间建立起连接，如下，
 
 ```
 Connection connection = DriverManager
 .getConnection("连接字符串","数据库用户名","数据库密码");
 ```
 
-Connection接口的常用方法如下：
+`Connection`接口的常用方法如下：
 
 <table>
    <tr>
@@ -150,7 +150,7 @@ Connection接口的常用方法如下：
 
 **(3)发送SQL语句，并获取执行结果**
 
-获得了Connection连接后，就可以通过Connection对象来获得Statement或PreparedStatement对象，并通过该对象向数据库发送SQL语句。如果SQL语句是增、删、改操作，则返回一个int型结果，表示多少行受到了影响，即增、删、改了几条数据；如果SQL语句是查询操作，则返回一个ResultSet结果集，该结果集包含了SQL查询的所有结果。如下，
+获得了`Connection`连接后，就可以通过`Connection`对象来获得`Statement`或`PreparedStatement`对象，并通过该对象向数据库发送SQL语句。如果SQL语句是增、删、改操作，则返回一个`int`型结果，表示多少行受到了影响，即增、删、改了几条数据；如果SQL语句是查询操作，则返回一个`ResultSet`结果集，该结果集包含了SQL查询的所有结果。如下，
 
 **①Statement对象：**
 
@@ -164,7 +164,7 @@ Connection接口的常用方法如下：
 
 `ResultSet rs = stmt.executeQuery("查询的SQL语句");`
 
-Statement的常用方法：
+**`Statement`的常用方法：**
 
 <table>
    <tr>
@@ -200,7 +200,7 @@ PreparedStatement pstmt = connection
 
 `ResultSet rs = pstmt.executeQuery();`
 
-PreparedStatement的常用方法：
+**`PreparedStatement`的常用方法：**
 
 <table>
    <tr>
@@ -225,7 +225,7 @@ PreparedStatement的常用方法：
    </tr>
 </table>
 
-** (4)处理返回结果集**
+**(4)处理返回结果集**
 
 如果是查询操作，可以通过循环来取出结果集中的所有数据，如下：
 
@@ -238,7 +238,7 @@ while(rs.next)
 }
 ```
 
-ResultSet的常用方法：
+**`ResultSet`的常用方法：**
 
 <table>
    <tr>
@@ -271,7 +271,7 @@ ResultSet的常用方法：
 
 现在使用JDBC来访问Oracle数据库，在导入了“ojdbc版本号.jar之后”，就可以通过程序访问数据库。
 
-假设数据库中存在一张学生表student，各字段名称及类型如下：
+假设数据库中存在一张学生表`student`，各字段名称及类型如下：
 
 <table>
    <tr>
@@ -300,9 +300,9 @@ ResultSet的常用方法：
 
 **①实现“增删改”操作。**
 
-使用Statement的executeUpdate()方法，执行删除操作：
+使用`Statement`的`executeUpdate()`方法，执行删除操作：
 
-JDBCUpdateByStatement.java
+**JDBCUpdateByStatement.java**
 
 ```
 import java.sql.*;
@@ -368,9 +368,9 @@ int count =	stmt.executeUpdate(deleteSql );
 }
 ```
 
-执行executeUpdate()方法，即可把student表中stuno为5的那条数据删除。
+执行`executeUpdate()`方法，即可把`student`表中`stuno`为5的那条数据删除。
 
-如果要执行增加操作，只需要修改上述代码中executeUpdate()方法的SQL参数，如下：
+如果要执行增加操作，只需要修改上述代码中`executeUpdate()`方法的SQL参数，如下：
 
 ```
 //通过executeUpdate()实现对数据库的增加操作
@@ -379,7 +379,7 @@ values(5,'王五',25)" ;
 int count=stmt.executeUpdate(addSql);
 ```
 
-如果要执行修改操作，也只需要修改executeUpdate()方法中的SQL参数，如下，
+如果要执行修改操作，也只需要修改`executeUpdate()`方法中的SQL参数，如下，
 
 ```
 //通过executeUpdate()实现对数据库的修改操作
@@ -388,17 +388,17 @@ set stuName = '李四' where stuName='王五'" ;
 int count=stmt.executeUpdate(updateSql);
 ```
 
-即“增删改”操作，唯一不同的就是executeUpdate()方法中的SQL参数。
+即“增删改”操作，唯一不同的就是`executeUpdate()`方法中的SQL参数。
 
 **②实现“查询”操作。**
 
-此时，数据库中student表的中数据如下：
+此时，数据库中`student`表的中数据如下：
 
 ![](http://i.imgur.com/4AKbgxH.png)
 
 现在通过JDBC来执行查询表的操作：
 
-JDBCQueryByStatement.java
+**JDBCQueryByStatement.java**
 
 ```
 …
@@ -467,23 +467,23 @@ String querySql = "select stuNo,stuName,stuAge from student";
 }
 ```
 
-执行executeQuery()方法，即可查询出student表中所有的stuNo、stuName和stuAge字段值，如图
+执行`executeQuery()`方法，即可查询出`student`表中所有的`stuNo`、`stuName`和`stuAge`字段值，如图
 
 ![](http://i.imgur.com/nMyhvUB.jpg)
 
 *图3-03*
 
-如果是根据String类型的name变量进行模糊查询，则查询的SQL语句可写为：
+如果是根据`String`类型的`name`变量进行模糊查询，则查询的SQL语句可写为：
 
 ```
 "select stuNo,stuName,stuAge from student where stuName like '%"+name + "%'"
 ```
 
-**(2)使用PreparedStatement访问数据库**
+**(2)使用`PreparedStatement`访问数据库**
 
 **①实现“增删改”操作。**
 
-JDBUpdateByPreparedStatement.java
+**JDBUpdateByPreparedStatement.java**
 
 ```
 …
@@ -516,11 +516,11 @@ public class JDBUpdateByPreparedStatement
 }
 ```
 
-使用PreparedStatement执行“增删改”操作，唯一不同的就是prepareStatement()方法中的SQL参数。
+使用`PreparedStatement`执行“增删改”操作，唯一不同的就是`prepareStatement()`方法中的SQL参数。
 
 **②实现“查询”操作。**
 
-JDBCQueryByPreparedStatement.java
+**JDBCQueryByPreparedStatement.java**
 
 ```
 …
@@ -562,7 +562,7 @@ username = ? and password = ?" ;
 }
 ```
 
-使用PreparedStatement进行模糊查询时，可以在setXxx()方法中加入通配符，如下是根据String类型的name变量的模糊查询：
+使用`PreparedStatement`进行模糊查询时，可以在`setXxx()`方法中加入通配符，如下是根据`String`类型的`name`变量的模糊查询：
 
 ```
 PreparedStatement pstmt = ... ;
@@ -626,7 +626,7 @@ rs = pstmt.executeQuery();
    </tr>
 </table>
 
-并且，为了及时的释放使用完毕的资源，就需要在数据库访问结束时，调用各个对象的close()方法。
+并且，为了及时的释放使用完毕的资源，就需要在数据库访问结束时，调用各个对象的`close()`方法。
 
 <table>
    <tr>
@@ -647,11 +647,11 @@ rs = pstmt.executeQuery();
    </tr>
 </table>
 
-因此在编码时，释放资源的顺序应该写为：ResultSet的close()(查询操作)→Statement的close()→Connection的close()。也就是说，在JDBC代码中，先释放范围小的资源，再释放范围大的资源。
+因此在编码时，释放资源的顺序应该写为：`ResultSet`的`close()`(查询操作)→`Statement`的`close()`→`Connection`的`close()`。也就是说，在JDBC代码中，先释放范围小的资源，再释放范围大的资源。
 
-值得注意的是，因为PreparedStatement继承自Statement，所以Statement接口的close()方法代表了PreparedStatement对象.close()和Statement对象.close()两个方法。
+值得注意的是，因为`PreparedStatement`继承自`Statement`，所以`Statement`接口的`close()`方法代表了`PreparedStatement`对象`.close()`和`Statement`对象`.close()`两个方法。
 
-此外，如果不及时的通过close()方法释放资源，已创建的Connection对象、Statement对象、ResultSet对象也会在JVM执行垃圾回收时自动释放。但此种方式会造成资源的释放不及时，故不推荐。
+此外，如果不及时的通过`close()`方法释放资源，已创建的`Connection`对象、`Statement`对象、`ResultSet`对象也会在JVM执行垃圾回收时自动释放。但此种方式会造成资源的释放不及时，故不推荐。
 
 综上，JDBC的代码结构如下：
 
@@ -683,29 +683,29 @@ catch (Exception e)
 		}
 ```
 
-**(4)使用PreparedStatement的优势**
+**(4)使用`PreparedStatement`的优势**
 
-现在我们知道，Statement和PreparedStatement都可以实现数据库的增删改查等操作。二者相比，PreparedStatement有如下优势：
+现在我们知道，`Statement`和`PreparedStatement`都可以实现数据库的增删改查等操作。二者相比，`PreparedStatement`有如下优势：
 
-1.提高了代码的可读性和可维护性
+**1.提高了代码的可读性和可维护性**
 
-PreparedStatement可以避免了繁琐的SQL语句拼接操作。
+`PreparedStatement`可以避免了繁琐的SQL语句拼接操作。
 
 例如，SQL语句`“insert into student(stuNo,stuName,stuAge,course) values(5,'王五',25)”`，如果将其中的字段值用变量来表示`（int stuNo=5;String stuName="王五";int stuAge=23;）`，用Statement方式执行时，需要写成：
 
 `stmt.executeUpdate("insert into student(stuNo,stuName,stuAge ) values("+stuNo+",'"+stuName+"',"+stuAge+")");`
 
-而如果用PreparedStatement方式执行时，就可以先用?充当参数值的占位符，然后再用setXxx()方法设置?的具体值，避免了SQL语句的拼接操作。
+而如果用`PreparedStatement`方式执行时，就可以先用?充当参数值的占位符，然后再用`setXxx()`方法设置?的具体值，避免了SQL语句的拼接操作。
 
-2.提高了SQL语句的性能
+**2.提高了SQL语句的性能**
 
-创建Statement对象时不使用SQL语句做参数（如`Statement stmt = connection.createStatement();`），不会解析和编译SQL语句，而是每次调用executeUpdate()或executeQuery()方法时才进行SQL语句的解析和编译操作（如`stmt.executeUpdate("delete from student where stuno =5");`）。
+创建`Statement`对象时不使用SQL语句做参数（如`Statement stmt = connection.createStatement();`），不会解析和编译SQL语句，而是每次调用`executeUpdate()`或`executeQuery()`方法时才进行SQL语句的解析和编译操作（如`stmt.executeUpdate("delete from student where stuno =5");`）。
 
-而创建PreparedStatement对象时，是使用带占位符？的SQL语句作为参数（如`PreparedStatement pstmt = connection.prepareStatement("delete from student where stuName = ? and stuAge = ?");`），会预先解析和编译该SQL语句，之后通过setXxx()方法给占位符赋值，最后执行SQL语句时，就无需再解析和编译SQL语句，直接执行即可（如`pstmt.executeUpdate()`）。这就使得，如果多次操作相同，就可以大大提高性能。即PreparedStatement是预编译的SQL语句对象。
+而创建`PreparedStatement`对象时，是使用带占位符？的SQL语句作为参数（如`PreparedStatement pstmt = connection.prepareStatement("delete from student where stuName = ? and stuAge = ?");`），会预先解析和编译该SQL语句，之后通过setXxx()方法给占位符赋值，最后执行SQL语句时，就无需再解析和编译SQL语句，直接执行即可（如`pstmt.executeUpdate()`）。这就使得，如果多次操作相同，就可以大大提高性能。即PreparedStatement是预编译的SQL语句对象。
 
-3.提高了安全性，能有效防止SQL注入
+**3.提高了安全性，能有效防止SQL注入**
 
-使用PreparedStatement，传入的任何数据都不会和已经编译的SQL语句进行拼接，从而避免了SQL注入攻击。例如，在使用Statement时，可能会用以下代码来进行登陆验证：
+使用`PreparedStatement`，传入的任何数据都不会和已经编译的SQL语句进行拼接，从而避免了SQL注入攻击。例如，在使用`Statement`时，可能会用以下代码来进行登陆验证：
 
 ```
 stmt = connection.createStatement();
@@ -721,25 +721,25 @@ if(rs.next())
 }
 ```
 
-这样的代码看起来没有问题，但试想如果用户输入uname的值是“任意值' or 1=1--”、upwd的值是“任意值”，则SQL语句拼接后的结果如下：
+这样的代码看起来没有问题，但试想如果用户输入`uname`的值是“任意值' or 1=1--”、`upwd`的值是“任意值”，则SQL语句拼接后的结果如下：
 
 ```
 select count(*) from login  where username = '任意值' or 1=1--' and password = '任意值'
 ```
 
-SQL语句中，用“or 1=1” 使where条件永远成立，并且用“--”将后面的SQL语句注释掉，这样就造成了安全隐患（SQL注入），使得并不存在的用户名和密码也能登录成功。而PreparedStatement中使用了占位符？以及setXxx()方法有效避免了这种漏洞。
+SQL语句中，用`“or 1=1”` 使`where`条件永远成立，并且用“--”将后面的SQL语句注释掉，这样就造成了安全隐患（SQL注入），使得并不存在的用户名和密码也能登录成功。而`PreparedStatement`中使用了占位符？以及`setXxx()`方法有效避免了这种漏洞。
 
-综上，我们在实际开发中推荐使用PreparedStatement来操作数据库。
+综上，我们在实际开发中推荐使用`PreparedStatement`来操作数据库。
 
 # 3.2JSP访问数据库
 
-我们之前讲过，可以在JSP中通过<% %>来编写JAVA代码。也就是说，JAVA代码能实现的功能，也就可以借助<% %>在JSP中实现。我们接下来，就在JSP中实现一个“用户注册”的功能。该功能写在WebContent下的jspJDBC目录中。
+我们之前讲过，可以在JSP中通过`<% %>`来编写JAVA代码。也就是说，JAVA代码能实现的功能，也就可以借助`<% %>`在JSP中实现。我们接下来，就在JSP中实现一个“用户注册”的功能。该功能写在`WebContent`下的jspJDBC目录中。
 
-注册页jspJDBC/register.jsp
+**注册页jspJDBC/register.jsp**
 
-实现用户名(uname)和密码(upwd)的表单录入，代码及运行图省略。
+实现用户名`(uname)`和密码`(upwd)`的表单录入，代码及运行图省略。
 
-将注册信息写入数据库的功能页jspJDBC/registerJDBC.jsp，代码如下，
+将注册信息写入数据库的功能页**jspJDBC/registerJDBC.jsp**，代码如下，
 
 ```
 <%@page import="java.sql.PreparedStatement"%>
@@ -785,7 +785,7 @@ SQL语句中，用“or 1=1” 使where条件永远成立，并且用“--”将
 
 运行以上代码，就能实现用户注册功能，并将注册信息写入数据库。
 
-需要注意，必须在page指令里导入Connection、PreparedStatement等的包名，如[%@page import="java.sql.Connection"%](%@page import="java.sql.Connection"%)；并将数据库的驱动包加入Web工程，导入方法如下：将数据库驱动包（ojdbc5.jar）直接复制在WEB-INF下的lib文件夹中即可，如图：
+需要注意，必须在`page`指令里导入`Connection`、`PreparedStatement`等的包名，如[%@page import="java.sql.Connection"%](%@page import="java.sql.Connection"%)；并将数据库的驱动包加入Web工程，导入方法如下：将数据库驱动包（ojdbc5.jar）直接复制在WEB-INF下的lib文件夹中即可，如图：
 
 ![](http://i.imgur.com/eWSMNvL.png)
 
@@ -815,21 +815,21 @@ C．JDBC Driver Manager
 				
 D．JDBC驱动
 
-3  下列（    ）方法是Statement对象获取查询结果集的方法。（选择一项）
+3  下列（    ）方法是`Statement`对象获取查询结果集的方法。（选择一项）
 
-A．execute(String sql)		
+A．`execute(String sql)`		
 				
-B．executeUpdate(String sql)
+B．`executeUpdate(String sql)`
 
-C．executeQuery(String sql)	
+C．`executeQuery(String sql)	`
 				
-D．executeResultSet(String sql)
+D．`executeResultSet(String sql)`
 
 **二、简答题**
 
 1.简述JDBC的基本步骤。（难度★）
 
-2.简述Statement和PreparedStatement两种方式的区别。（难度★★）
+2.简述`Statement`和`PreparedStatement`两种方式的区别。（难度★★）
 
 3.描述什么是SQL注入，请用一个例子加以说明。（难度★）
 
@@ -837,7 +837,7 @@ D．executeResultSet(String sql)
 
 5.请描述JDBC连接数据库的步骤，并写出JDBC连接Oracle的示例代码。（难度★★★）
 
-6.使用PreparedStatement的方式，实现一个“部门管理系统”：包括增加部门、修改部门、删除部门、根据部门编号查询一个部门、根据部门名称模糊查询相关部门、查询全部部门等功能。（难度★★★★）
+6.使用`PreparedStatement`的方式，实现一个“部门管理系统”：包括增加部门、修改部门、删除部门、根据部门编号查询一个部门、根据部门名称模糊查询相关部门、查询全部部门等功能。（难度★★★★）
 
 
 
