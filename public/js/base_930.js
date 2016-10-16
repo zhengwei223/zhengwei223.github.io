@@ -173,7 +173,7 @@ var app = function($){
       //65=h1的上外边距（25）+导航条的高度（40）
       $('body,html').animate({scrollTop:$('.doc-title').offset().top-65}, 500);
       $('#sidebar').collapse('toggle') //隐藏目录
-    });
+    })
     //侧边栏隐藏时，按钮样式为展开
     $('#sidebar').on('hidden.bs.collapse', function () {
       $('.sidebar-toggle>i').removeClass('icon-zhankai').addClass('icon-shouqi');
@@ -181,6 +181,12 @@ var app = function($){
     //侧边栏显示时，按钮样式为收起
     $('#sidebar').on('shown.bs.collapse', function () {
       $('.sidebar-toggle>i').removeClass('icon-shouqi').addClass('icon-zhankai');
+    })
+    $('body').on('keyup',function(e){
+      if(e.which===37)
+        $('.btn-pre').click()
+      if(e.which===39)
+        $('.btn-next').click()
     })
   };
   var scrollspy = function(){

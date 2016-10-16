@@ -216,3 +216,534 @@ org/lanqiao/mapper/studentMapper.xml
 
 ## 13.3.2 批量定义别名 ##
 
+如果用上面的方法，当要定义多个别名时，就必须配置多个`<typeAlias>`。我们还可以一次性的，定义一批别名。具体如下，
+
+(1)在MyBatis配置文件中，给一个`packge`中的所有实体类定义别名
+
+conf.xml
+
+```
+<typeAliases>
+		<package name="org.lanqiao.entity"/>
+		<package name="其他包"/>
+</typeAliases>
+```
+
+以上，就给`“org.lanqiao.entity”`包中的所有实体类都自动定义了别名，别名就是“不带包名的类名（不区分大小写）”。例如，以上就将 `org.lanqiao.entity.Student`类的别名定义为`Student`、`student`、`sTUdent`或`STUDENT`等。
+
+(2) 在SQL映射文件中引用别名
+
+与“单个别名定义”中的方法相同，即直接使用`student`（或`Student`等）作为`resultType`的属性值。本书后面使用到的类型，都采用的是批量定义的别名。
+
+除了我们自己定义的别名以外，MyBatis还对常见的Java数据类型都内置了别名，并且这些别名也都是不区分大小写的，如下，
+
+<table>
+   <tr>
+      <td>别名</td>
+      <td>映射的类型</td>
+      <td>别名</td>
+      <td>映射的类型</td>
+   </tr>
+   <tr>
+      <td>_byte</td>
+      <td>byte</td>
+      <td>_double</td>
+      <td>double</td>
+   </tr>
+   <tr>
+      <td>_long</td>
+      <td>long</td>
+      <td>_float</td>
+      <td>float</td>
+   </tr>
+   <tr>
+      <td>_short</td>
+      <td>short</td>
+      <td>_boolean</td>
+      <td>boolean</td>
+   </tr>
+   <tr>
+      <td>_int</td>
+      <td>int</td>
+      <td>string</td>
+      <td>String</td>
+   </tr>
+   <tr>
+      <td>_integer</td>
+      <td>int</td>
+      <td>byte</td>
+      <td>Byte</td>
+   </tr>
+   <tr>
+      <td>long</td>
+      <td>Long</td>
+      <td>short</td>
+      <td>Short</td>
+   </tr>
+   <tr>
+      <td>int</td>
+      <td>Integer</td>
+      <td>double</td>
+      <td>Double</td>
+   </tr>
+   <tr>
+      <td>integer</td>
+      <td>Integer</td>
+      <td>float</td>
+      <td>Float</td>
+   </tr>
+   <tr>
+      <td>boolean</td>
+      <td>Boolean</td>
+      <td>date</td>
+      <td>Date</td>
+   </tr>
+   <tr>
+      <td>decimal</td>
+      <td>BigDecimal</td>
+      <td>bigdecimal</td>
+      <td>BigDecimal</td>
+   </tr>
+   <tr>
+      <td>object</td>
+      <td>Object</td>
+      <td>map</td>
+      <td>Map</td>
+   </tr>
+   <tr>
+      <td>hashmap</td>
+      <td>HashMap</td>
+      <td>list</td>
+      <td>List</td>
+   </tr>
+   <tr>
+      <td>arraylist</td>
+      <td>ArrayList</td>
+      <td>collection</td>
+      <td>Collection</td>
+   </tr>
+   <tr>
+      <td>iterator</td>
+      <td>Iterator</td>
+      <td></td>
+      <td></td>
+   </tr>
+</table>
+
+# 13.4 typeHandlers类型处理器 #
+
+类型处理器用于java类型和jdbc类型之间的映射。例如，之前在SQL映射文件中有如下配置，
+
+org/lanqiao/mapper/studentMapper.xml
+
+```
+…
+<select id="queryStudentByNo" parameterType="int" resultType="student">
+			select * from student where stuNo=#{stuNo}
+</select>
+…
+```
+
+MyBatis内置了一些常用类型处理器，可以将`parameterType`中传入的类型，自动转为JDBC需要的类型。例如，当给SQL映射文件传入一个`int`型的数字31时，`…where stuNo=#{stuNo}`就会变为`…where stuNo=31`；而如果SQL语句是`…where stuName=#{stuName}`，当传入一个`String`类型的“张三”时，则就会变为`…where stuName='张三'`，即自动为`String`类型加上了引号。
+
+## 13.4.1 内置的类型处理器 ##
+
+Mybatis内置的类型处理器如下，
+
+<table>
+   <tr>
+      <td>类型处理器</td>
+      <td>Java类型</td>
+      <td>JDBC类型</td>
+   </tr>
+   <tr>
+      <td>BooleanTypeHandler </td>
+      <td>Boolean，boolean </td>
+      <td>任何兼容的布尔值</td>
+   </tr>
+   <tr>
+      <td>ByteTypeHandler </td>
+      <td>Byte，byte </td>
+      <td>任何兼容的数字或字节类型</td>
+   </tr>
+   <tr>
+      <td>ShortTypeHandler </td>
+      <td>Short，short </td>
+      <td>任何兼容的数字或短整型</td>
+   </tr>
+   <tr>
+      <td>IntegerTypeHandler </td>
+      <td>Integer，int </td>
+      <td>任何兼容的数字和整型</td>
+   </tr>
+   <tr>
+      <td>LongTypeHandler </td>
+      <td>Long，long </td>
+      <td>任何兼容的数字或长整型</td>
+   </tr>
+   <tr>
+      <td>FloatTypeHandler </td>
+      <td>Float，float </td>
+      <td>任何兼容的数字或单精度浮点型</td>
+   </tr>
+   <tr>
+      <td>DoubleTypeHandler </td>
+      <td>Double，double </td>
+      <td>任何兼容的数字或双精度浮点型</td>
+   </tr>
+   <tr>
+      <td>BigDecimalTypeHandler</td>
+      <td>BigDecimal </td>
+      <td>任何兼容的数字或十进制小数类型</td>
+   </tr>
+   <tr>
+      <td>StringTypeHandler </td>
+      <td>String </td>
+      <td>CHAR和VARCHAR类型</td>
+   </tr>
+   <tr>
+      <td>ClobTypeHandler </td>
+      <td>String </td>
+      <td>CLOB和LONGVARCHAR类型</td>
+   </tr>
+   <tr>
+      <td>NStringTypeHandler </td>
+      <td>String </td>
+      <td>NVARCHAR和NCHAR类型</td>
+   </tr>
+   <tr>
+      <td>NClobTypeHandler </td>
+      <td>String </td>
+      <td>NCLOB类型</td>
+   </tr>
+   <tr>
+      <td>ByteArrayTypeHandler </td>
+      <td>byte[] </td>
+      <td>任何兼容的字节流类型</td>
+   </tr>
+   <tr>
+      <td>BlobTypeHandler </td>
+      <td>byte[] </td>
+      <td>BLOB和LONGVARBINARY类型</td>
+   </tr>
+   <tr>
+      <td>DateTypeHandler </td>
+      <td>Date（java.util）</td>
+      <td>TIMESTAMP类型</td>
+   </tr>
+   <tr>
+      <td>DateOnlyTypeHandler </td>
+      <td>Date（java.util）</td>
+      <td>DATE类型</td>
+   </tr>
+   <tr>
+      <td>TimeOnlyTypeHandler </td>
+      <td>Date（java.util）</td>
+      <td>TIME类型</td>
+   </tr>
+   <tr>
+      <td>SqlTimestampTypeHandler </td>
+      <td>Timestamp（java.sql）</td>
+      <td>TIMESTAMP类型</td>
+   </tr>
+   <tr>
+      <td>SqlDateTypeHandler </td>
+      <td>Date（java.sql）</td>
+      <td>DATE类型</td>
+   </tr>
+   <tr>
+      <td>SqlTimeTypeHandler </td>
+      <td>Time（java.sql）</td>
+      <td>TIME类型</td>
+   </tr>
+   <tr>
+      <td>ObjectTypeHandler </td>
+      <td>任意</td>
+      <td>其他或未指定类型</td>
+   </tr>
+   <tr>
+      <td>EnumTypeHandler </td>
+      <td>Enumeration类型</td>
+      <td>VARCHAR。任何兼容的字符串类型，作为代码存储（而不是索引）。</td>
+   </tr>
+</table>
+
+## 13.4.1 自定义类型处理器 ##
+
+除了MyBatis内置的处理器以外，我们还可以自定义类型处理器，来实现特定的java类型与jdbc类型之间的映射。
+
+先给学生实体类`Student.java`中增加一个表示性别的属性`（boolean stuSex）`，并给学生表增加一个性别字段`(number stuSex)`。由于属性`stuSex`是`boolean`类型，而字段`stuSex`是数字`number`类型，因此我们需要实现一个类型处理器，用来实现java中`boolean`类型和数据库中`number`类型之间的映射和转换。
+
+为了实现类型转换，现在约定：
+
+学生实体类中的`stuSex`属性：true表示男，false表示女
+
+学生表中的`stuSex`字段：   1表示男，0表示女。
+
+**开发并使用自定义类型处理器的具体步骤如下：**
+
+**(1)创建自定义类型处理器**
+
+使用MyBatis开发自定义类型处理器，需要实现`TypeHandler`接口（或继承`BaseTypeHandler`抽象类）。
+
+`TypeHandler`是实现自定义类型转换器最原始的接口，但为了便于开发，MyBatis还提供了`BaseTypeHandler`抽象类。`BaseTypeHandler`底层实现了`TypeHandler`接口，并对接口中的方法做了简单处理以方便我们使用，所以我们可以直接继承`BaseTypeHandler`抽象类。如下，自定义的类型处理器BooleanAndIntConverter，用于将java中`Boolean`类型与jdbc中`NUMBER`类型之间的相互转换：
+
+org.lanqiao.converter.BooleanAndIntConverter.java
+
+```
+public class BooleanAndIntConverter extends BaseTypeHandler<Boolean>
+{
+	/**
+	 * java类型(booean)-->JDBC类型(NUMBER)
+	 * 
+	 * @param ps:
+	 *            当前的PreparedStatement对象
+	 * @param i
+	 *            :当前参数的位置
+	 * @param parameter:
+	 *            当前参数值
+	 */
+	@Override
+	public void setNonNullParameter(PreparedStatement ps, int i, Boolean parameter, JdbcType jdbcType)
+			throws SQLException
+	{
+		/**
+		 * 如果Java类型的parameter==true，则在数据库中存储jdbc类型的数字1；
+		 * 如果Java类型的parameter==false，则在数据库中存储jdbc类型的数字0；
+		 */
+		if (parameter)
+		{
+			ps.setInt(i, 1);
+		}
+		else
+		{
+			ps.setInt(i, 0);
+		}
+	}
+
+	/**
+	 *  JDBC类型(NUMBER)-->java类型(booean)
+	 */
+	@Override
+	public Boolean getNullableResult(ResultSet rs, String columnName) throws SQLException
+	{
+		/**
+		 *  通过字段名获取值
+		 */
+		int sexNum = rs.getInt(columnName);
+		/**
+		 * 如果数据库中的jdbc变量sexNum == 1，则返回java类型的true； 如果数据库中的jdbc变量sexNum ==
+		 * 0，则返回java类型的false；
+		 */
+		if (sexNum == 1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 *  JDBC类型(NUMBER)-->java类型(booean)
+	 */
+	@Override
+	public Boolean getNullableResult(ResultSet rs, int columnIndex) throws SQLException
+	{
+		/**
+		 *  通过字段的索引获取值
+		 */
+		int sexNum = rs.getInt(columnIndex);
+		if (sexNum == 1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 *  JDBC类型(NUMBER)-->java类型(booean)
+	 */
+	@Override
+	public Boolean getNullableResult(CallableStatement cs, int columnIndex) throws SQLException
+	{
+		/**
+		 *  通过调用存储过程获取值
+		 */
+		int sexNum = cs.getInt(columnIndex);
+		if (sexNum == 1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+```
+
+**(2)配置自定义类型处理器**
+
+自定义类型处理器BooleanAndIntConverter开发完毕后，还需要将它注册到配置文件中，如下：
+
+**MyBatis配置文件conf.xml**
+
+```
+<configuration>
+	…
+	<typeAliases> … </typeAliases>
+
+	<!-- 配置自定义类型处理器，并指定是用于java中Boolean类型与jdbc中INTEGER类型之间的转换 -->
+	 <typeHandlers>  
+       <typeHandler handler="org.lanqiao.converter
+.BooleanAndIntConverter" 
+javaType="java.lang.Boolean" jdbcType="INTEGER"/>  
+    </typeHandlers> 
+
+	<environments default="development">
+		…
+	</environments>
+	…
+</configuration>
+```
+
+**(3)使用自定义类型处理器**
+
+程序运行之前，数据库中`student`表的数据如下：
+
+![](http://i.imgur.com/vU0Xq1j.png)
+
+*图13-02*
+
+学生类`Student`的属性如下：
+
+**Student.java**
+
+```
+public class Student{
+	//学号
+	private int stuNo;
+	//姓名 
+	private String stuName;
+	//性别： true：男，false:女
+	private boolean stuSex ;
+    //setter、getter
+}
+```
+
+现在，使用自定义的类型处理器BooleanAndIntConverter来实现`Student`的`boolean`类型的`stuSex`属性，与`student`表中`NUMBER`类型的`stuSex`字段之间的类型转换处理。
+
+**①查询时，使用自定义类型处理器（jdbc类型的`NUMBER`→ java类型的`Boolean`）**
+
+**SQL映射文件：studentMapper.xml**
+
+```
+<select id="queryStudentByStuNoWithConverter" 
+parameterType="int" resultMap="studentResult">  
+       select * from student where stuNo=#{stuNo}  
+ </select> 
+ 
+<resultMap id="studentResult" type="org.lanqiao.entity.Student">  
+    <id property="stuNo" column="stuNo"/>
+	<result property="stuName" column="stuName"/>
+<result property="stuSex"  column="stuSex"
+javaType="java.lang.Boolean" jdbcType="INTEGER"/>  
+</resultMap>  
+```
+
+使用resultMap中`result`元素的 `javaType`和`jdbcType`属性，指定当从数据库中查询到INTEGER类型（JDBC类型）的`stuSex`字段值时，就会将查询结果自动转为`Boolean`类型（JAVA类型）的值（如果从数据库中查询到1，就转为true；如果查到0，就转为false）。
+
+**动态代理接口：IStudentMapper.java**
+
+```
+public interface IStudentMapper
+{
+   …
+	Student queryStudentByStuNoWithConverter(int stuNo);
+}
+```
+
+**测试方法：TestMyBatis.java**
+
+```
+public static void testQueryStudentByStuNoWithConverter() throws IOException
+{
+	 …
+	IStudentMapper studentMapper 
+= session.getMapper(IStudentMapper.class);
+	Student student 
+= studentMapper.queryStudentByStuNoWithConverter(34);
+	System.out.println(student.getStuNo()","
++student.getStuName()+","+student.getStuSex());
+	session.close();
+}
+```
+
+执行测试方法，运行结果：
+
+![](http://i.imgur.com/Mwyd8sy.png)
+
+*图13-03*
+
+**②增/删/改时，使用自定义类型处理器（java类型的`Boolean`→ jdbc类型的`NUMBER`）**
+
+**SQL映射文件：studentMapper.xml**
+
+```
+<insert id="addStudentWithConverter" 
+parameterType="org.lanqiao.entity.Student" >  
+   insert into student(stuNo,stuName,stuSex) values(#{stuNo},'${stuName}'
+,#{stuSex, javaType=java.lang.Boolean, jdbcType=INTEGER}) 
+</insert>
+```
+
+通过`#{stuSex, javaType=java.lang.Boolean, jdbcType=INTEGER}`指定当执行增加时，会把JAVA中`Boolean`类型的`stuSex`值转为JDBC中`INTEGER`类型的值并存储到数据库中。
+
+**动态代理接口：IStudentMapper.java**
+
+```
+public interface IStudentMapper
+{
+    …
+	public abstract void addStudentWithConverter(Student student);
+}
+```
+
+**测试方法：TestMyBatis.java**
+
+```
+public static void testAddStudentWithConverter() throws IOException
+{
+	…
+	IStudentMapper studentMapper 
+= session.getMapper(IStudentMapper.class);
+	Student student = new Student();
+	student.setStuNo(38);
+	student.setStuName("王二小");
+	student.setStuSex(true);//男
+	studentMapper.addStudentWithConverter(student);
+	session.commit();
+	session.close();
+}
+```
+
+执行测试方法，就会在数据库中新增一条“王二小”的记录，如下：
+
+![](http://i.imgur.com/8dER5wj.png)
+
+*图13-04*
+
+即实现了从JAVA类型的`boolean`值true，到JDBC类型的`NUMBER`值1的类型转换处理。
+
+# 13.5 练习题 #
+
+1.将数据库信息写在properties文件后，如何在MyBatis主配置文件中引用？（难度★）
+
+2.如何批量为实体类定义别名？（难度★★）
+
+3.使用MyBatis替换JDBC，优化第八章练习题中的“部门管理系统”。（难度★★★★）
