@@ -7,6 +7,7 @@ author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Sublime
 description: 
 importance: 2
+p_cate: 常用工具使用教程
 ---
 
 > 原文  [http://www.jianshu.com/p/335b7d1be39e](http://www.jianshu.com/p/335b7d1be39e)
