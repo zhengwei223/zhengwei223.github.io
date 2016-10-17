@@ -13,7 +13,7 @@ p_cate: 常用工具使用教程
 
 **远程分支也是一个指针，它也在本地，但只读，你不能移动,当你做任何网络通信操作时，它们会自动移动。它们以 (remote)/(branch) 形式命名**
 
-```
+```shell
 git branch -a
 ---
 * dev
@@ -35,7 +35,7 @@ git branch -a
 
 在master上我们做了很多工作：
 
-```
+```shell
 git branch -vv
 ---
 * dev    4e644ee ...
@@ -48,7 +48,7 @@ git branch -vv
 
 现在`master`分支前进了6个版本，而`origin/master`还留在原地。现在我们需要进行一次推送，和远程仓库通信并让`origin/master`分支前进到`master`分支所在位置：
 
-```
+```shell
 git checkout master
 git push
 ```
@@ -57,7 +57,7 @@ git push
 
 有一种场景：我们在本地建立了一个新分支如dev，现在我们想分享到远程仓库，以便协作者也能获取到这个分支，怎么做？先尝试：
 
-```
+```shell
 git checkout dev
 git push
 ---
@@ -69,7 +69,7 @@ To push the current branch and set the remote as upstream, use
 
 根据提示，我们应该执行这样的命令：
 
-```
+```shell
 git push --set-upstream origin dev
 ---
 Total 0 (delta 0), reused 0 (delta 0)
@@ -80,7 +80,7 @@ Branch dev set up to track remote branch dev from origin.
 
 这行命令不仅进行了推送，还自动将本地`dev`分支跟踪远程`dev`分支。
 
-```
+```shell
 git b -vv
 ---
 * dev    4e644ee [origin/dev] dev change test1
@@ -93,7 +93,7 @@ git b -vv
 
 需要指出的是，`clone`命令将会获得远程仓库的所有分支的所有提交历史，在此基础上，你可以查看分支并随意进行切换，而且所有本地分支都自动是跟踪分支。
 
-```
+```shell
 gitdemo git:(dev) cd ../
 mkdir gitdemo2
 cd gitdemo2
@@ -109,7 +109,7 @@ git branch -a
 
 我们回到上层目录并新建子目录`gitdemo2`，在`gitdemo2`下克隆`gitdemo`，你会发现我们默认在`master`分支上，可以列出所有本地和远程的分支，然后进行切换。
 
-```
+```shell
 git checkout dev
 ---
 Branch dev set up to track remote branch dev from origin.
@@ -124,14 +124,14 @@ git branch -vv
 
 现在我们在`gitdemo2/gitdemo`下新增并推送一个分支：
 
-```
+```shell
 git checkout -b test #新建分支
 git push --set-upstream origin test  #推送并建立跟踪
 ```
 
 这样远程仓库中就有了三个分支，但是我们之前的工作区`gitdemo`本地还没有新增的`test`分支，这时我们不可能再次`clone`，我们可以这样做：
 
-```
+```shell
 cd ../../gitdemo  #回到原来工作区
 git branch -a     #还没有test分支
 git fetch origin  #下载所有分支并更新远程分支 
@@ -157,7 +157,7 @@ Switched to a new branch 'test'
 
 假设你已经通过远程分支做完所有的工作了 - 也就是说你和你的协作者已经完成了一个特性并且将其合并到了远程仓库的 `master `分支（或任何其他稳定代码分支）。 可以运行带有 `--delete` 选项的 `git push `命令来删除一个远程分支。 如果想要从服务器上删除 `test` 分支，运行下面的命令：
 
-```
+```shell
 git branch -vv
 ---
 dev    4e644ee [origin/dev] dev change test1
@@ -191,7 +191,7 @@ git branch -a  #远程分支没有了，但本地分支还在
 
 `git fetch origin`可拉取所有远程内容，但只更新仓库区，我们会获得一些只读的远程分支，还需合并（`git merge`）才能将远程分支合并到本地分支（可以将远程分支想象为一个特殊的本地分支，这样可以利用上一章的概念来思考）。一个典型的工作流程是：
 
-```
+```shell
 git fetch [origin]   #如果只拉取当前分支，可省略远程仓库名
 git checkout dev
 git merge

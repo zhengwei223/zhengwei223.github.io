@@ -9,81 +9,85 @@ description:
 
 ---
 
-Bootstrap 提供了一套响应式、移动设备优先的流式栅格系统，随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多12列。
 
-# 课程目标
-掌握bootstrap的栅格布局系统。
+# 3.导航条和正文内容
 
-# 简介
+请按以下几个步骤操作：
+- 从boots-home（下载的boots源码根目录）/docs/example/starter-template/index.html中拷贝`body`标签下的内容（**不要script**）
+- 覆盖index.html中的`h1`标签
+- 运行并查看效果
 
-栅格系统用于通过一系列的行（row）与列（column）的组合来创建页面布局，你的内容就可以放入这些创建好的布局中。下面就介绍一下 Bootstrap 栅格系统的规则：
+![Alt text](/public/img/boots/1.2.png)
 
-- “行（row）”必须包含在 .container 容器中 或者 .container-fluid容器中。
+我们会发现导航条挡住了下面的正文内容，这是因为`nav`标记的样式类`navbar-fixed-top`设定其为固定位置，实际相当于设定`position: fixed;`，整个`nav`脱离了文档流，因此展示文本内容的`div`顶格显示了。
 
-```
-	<div class="container">
-		<div class="row"></div>
-	</div>
-```
-
-- 通过“行（.row）”在水平方向创建一组“列（column）”。
-- 你的内容应当放置于“列（column）”内，并且，只有“列（column）”可以作为行（.row）”的直接子元素。
-- 用“.col-尺寸代号-4”这种预定义的类，可以用来快速创建列并指定列宽尺寸代号为xs（超小）、sm（小）、md（中等）、lg（大）。
-- 栅格系统中的列是通过指定1到12的值来表示其跨越的范围。例如，三个等宽的列可以使用三个 .col-xs-4 来创建。
-- 如果一“行（row）”中包含了的“列（column）”大于 12，多余的“列（column）”所在的元素将被作为一个整体另起一行排列。
+我们回头去看boots原有的示例的第21行：
 
 ```
-	<div class="container">
-		<div class="row">
-			<div class="col-md-4">col-md-4  第1页</div>
-			<div class="col-md-4">col-md-4  第2页</div>
-			<div class="col-md-4">col-md-4  第3页</div>
-		</div>
-	</div>
+<!-- Custom styles for this template -->
+<link href="starter-template.css" rel="stylesheet">
 ```
 
-效果如下：
+引入了自定义样式，在这个样式文件中设定了`body`上方内补以迫使`nav`下的`div`下移，并设定了`.starter-template `的文本居中，我们也需要把这个样式文件拷贝到01目录下并引入。这样效果就出来了。
 
-![image](/public/img/h5/grid-md-4.png)
+![Alt text](/public/img/boots/1.3.png)
 
-可以看到三个div各占屏幕宽度的三分之一。
+# 4.代码解析
 
-- 在元素上应用 .col-md-* 栅格类，此clsss适用于“宽度大于等于md（middle）”的设备 ， 在小于md（middle）宽度的设备上无效。我们将上述案例所在的浏览器变窄，会看到不一样的效果：
+![Alt text](/public/img/boots/1.6.png)
 
-![image](/public/img/h5/grid-md-4-sm.png)
+- nav是h5的语义标签，我们关联了`navbar navbar-inverse navbar-fixed-top`三个样式类
+  - `navbar`是boots预定义的基本导航条样式
+  - `navbar-inverse`将基本导航条样式的颜色进行反转，【试试】不要这个样式？
+  - `navbar-fixed-top`固定导航条在最上端
+- nav下是一个仅用于做容器（`.container`用于包裹多行多列）的div，boots的行列布局必须放在`.container`中。这个容器里面是两个列：
+- 第一列div是`.navbar-header`，它被设定为向左浮动，里面放了一个按钮和一个超链接
+  - 按钮默认是隐藏的(`.collapsed`类设定屏幕宽度大于某值时隐藏)
+  - 超链接样式为`.navbar-brand`顾名思义用来放品牌logo的，示例中简单将内容设定为`Project name`，可以根据自己需求来改变，加图片也是可以的
+- 第二列div是真正的导航，下面是一个`ul`
+  - 我们只需像示例代码那样在`ul`下面放置列表项`li`和超链接就可以了
+- 导航条代码下面的`div .container`是下一个容器，里面的内容比较简单不详细解释了，如前文所述`.starter-template`设定了盒子内补和文本居中。
+  
+**细节很多，暂时不去了解。总体而言，我们会感受到boots预定义的样式，给我们带来了便捷，只需熟悉样式类与标记的配合，我们很快就可以做出效果还不错的导航条。**
 
-因为col-md-*的设置只有在md及以上的设备上有效，所以屏幕变窄时，这三个div会回到原始的块级元素（独占一行），形成纵向堆叠。
+# 5.未发觉的响应式效果
 
-# 断点
-断点——界定设备尺寸的临界点
+我们将运行的页面所在浏览器窗体变窄，或者在开发模式下，选择移动设备调试，会看到这样的效果：
 
-- 超小屏幕 手机 (<768px)
-  - 默认为堆叠，一般我们不关注
-  - .container最大宽度：自动
-  - 类前缀：.col-xs-
-- 小屏幕 平板 (≥768px)
-  - 默认为堆叠，设备宽度大于此断点时，列水平排列
-  - .container最大宽度：750px
-  - 类前缀：.col-sm-
-- 中等屏幕 桌面显示器 (≥992px)	
-  - 默认为堆叠，设备宽度大于此断点时，列水平排列
-  - .container最大宽度：970px
-  - 类前缀：.col-md-
-- 大屏幕 大桌面显示器 (≥1200px)
-  - 默认为堆叠，设备宽度大于此断点时，列水平排列
-  - .container最大宽度：1170px
-  - 类前缀：.col-lg-
+![Alt text](/public/img/boots/1.4.png)
 
-### 综合案例
-因为在xs上默认堆叠，往往我们只需关注sm和md上的表现形式就可以了，试试下面的代码，并拉动浏览器的侧边控制其宽度，试验div的排列表现。
+在chrome中F12调出开发者工具并点击手机图标，就会得到这样的效果。
 
-```
-<div class="row">
-	<div class="col-sm-6 col-md-3" style="background-color: #1B6D85;">something</div>
-	<div class="col-sm-6 col-md-3" style="background-color: #31B0D5;">something</div>
-	<div class="col-sm-6 col-md-3" style="background-color: #761C19;">something</div>
-	<div class="col-sm-6 col-md-3" style="background-color: #D43F3A;">something</div>
-</div>
-```
+我们继续关注页面的呈现效果，发现导航条不见了，`brand`还在，多了一个内容为3短杠的按钮，点击这个按钮会滑出纵向排列的导航条：
 
-你会发现，屏幕小于768时，它们呈一纵，768-992时，它们各占屏幕一半从而形成2行2列，当大于等于992时，它们各占屏幕四分之一从而形成一行。
+![Alt text](/public/img/boots/1.5.png)
+
+接下来我们来解释下什么是响应式布局：
+
+- 响应式布局：根据不同设备宽度，自动变换页面组件的显示属性和位置属性，我们可以反复控制浏览器窗体的宽度来观察在哪个临界点，页面效果开始变化的。答案是768px，这是boots设定的小设备和中等设备的宽度断点。
+- 在这个断点下，导航条被隐藏了(`.collapse`类设定组件隐藏，但同时有`.navbar-collapse`类且屏幕宽度大于某值时会显示出来)，只能通过按钮来触发；而大于这个断点时，按钮被隐藏了，导航条显示出来了
+
+**boots是移动优先的设计理念，因此它的很多组件都考虑了在移动设备上的呈现效果。**
+
+# 6.总结
+
+本章只是一个快速起步，得到想要的结果很重要，细节暂时不求甚解。学完本章，你应该能够：
+
+- 获得boots的dist以用于自己的项目
+- 知道示例源码在何处，以及怎么使用starter-template
+- 快速做出带导航条和正文文本内容的页面
+- 能修改导航菜单项
+- 了解到boots的响应式布局效果，但暂时不需要深入，能观察到页面在什么情况下会发生变化
+- 这一章的代码其实包含了很多细节，后续课程我们会详细解释的
+
+# 7.课后练习
+
+大家应该做一些紧扣本章主题的扩展练习以便加深对知识点的理解：
+
+- 如果只想用导航，而不是用导航条的话，只要给`ul`附加`.nav`类，这个类还有不少的扩展类，标签样式的`.nav-tabs`，胶囊式标签页`.nav-pills`,【试一试】你可以通过[boots中文网](http://v3.bootcss.com/components/#nav)来做一些尝试
+- 【尝试】取消样式`navbar-inverse navbar-fixed-top`看看效果有什么变化
+- 【了解】几个`meta`标签的作用
+- 【了解】`html5shiv.min.js`和`respond.min.js` 的作用
+- 了解`<!--[if lt IE 9]>`的作用
+（完）
+

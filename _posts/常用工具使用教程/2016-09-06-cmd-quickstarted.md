@@ -7,6 +7,7 @@ author: 王晨宇【译】
 keywords: lanqiao 蓝桥 培训 教程 cmd
 description: 
 importance: 2
+p_cate: 常用工具使用教程
 ---
 
 该附件是指导如何使用命令行的超级快速课程，该课程计划在1-2天内快速完成，但不会对内核高级编程使用进行指导。

@@ -85,7 +85,7 @@ $ git commit --amend [file1] [file2] ...
 ```
 
 
-## 五、分支
+# 五、分支
 
 ```
 #显示所有本地分支
@@ -126,7 +126,7 @@ $ git push origin --delete [branch-name]
 $ git branch -dr [remote/branch]
 ```
 
-## 六、标签
+# 六、标签
 
 ```
 $ git tag                      #列出所有本地标签
@@ -144,7 +144,7 @@ $ git push [remote] --tags
 $ git checkout -b [branch] [tag]
 ```
 
-## 七、查看信息
+# 七、查看信息
 
 ```
 # 显示有变更的文件
@@ -190,7 +190,7 @@ $ git show [commit]:[filename]
 $ git reflog
 ```
 
-## 八、远程操作
+# 八、远程操作
 
 ```
 
@@ -217,7 +217,7 @@ $ git push --tags                       #上传所有标签
 ```
 
 
-## 九、撤销
+# 九、撤销
 
 ```
 $ git reset --hard HEAD      #撤销工作目录中所有未提交文件的修改内容
@@ -251,7 +251,7 @@ $ git stash
 $ git stash pop
 ```
 
-## 十、其他
+# 十、其他
 生成一个可供发布的压缩包
 
 	$ git archive
