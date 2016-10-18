@@ -4,7 +4,7 @@ title: Java初体验
 category: 初学者的第一套Java教程
 tags: Java 入门
 keywords: 蓝桥 lanqiao 教程 java Java8 开发环境
-description: 
+description: 本章将介绍①Java开发环境的搭建②编写并运行第一个Java小程序
 author: 付天有
 order: 1
 ---
