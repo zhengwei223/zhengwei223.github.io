@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Java初体验
+title: 从〇开始——Java初体验
 category: 初学者的第一套Java教程
 tags: Java 入门
 keywords: 蓝桥 lanqiao 教程 java Java8 开发环境
@@ -8,12 +8,16 @@ description: 本章将介绍①Java开发环境的搭建②编写并运行第一
 author: 付天有
 order: 1
 ---
+>内容提要
 
-# 实验一：windows上搭建Java开发环境
+- Java开发环境的搭建
+- 编写并运行第一个Java小程序
+
+# 实验一 windows上搭建Java开发环境
 
 目标：在windows操作系统上搭建Java开发环境。
 
-## 0 下载
+## 1 下载
 
 搭建Java开发环境，第一步我们就需要安装JDK。大家可以在ORACLE官方网站上下载，下载路径：[http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
@@ -23,12 +27,12 @@ order: 1
 
 ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.6.jpg)
 
-## 1 安装
+## 2 安装
 
 下载后根据提示进行安装，安装JDK的同时也会安装JRE，一并安装就可以了。
 安装JDK，安装过程中可以自定义安装目录等信息，例如我们选择安装目录为 C:\Program Files (x86)\Java\jdk1.8.0_91。
 
-## 2 配置环境变量
+## 3 配置环境变量
 
 当我们安装好JDK后，就要配置环境变量了。一般来说，我们会配置这三个环境变量：
 
@@ -88,7 +92,7 @@ CLASSPATH 设置
 
 `注意：如果使用1.5以上版本的JDK，不用设置CLASSPATH环境变量，也可以正常编译和运行Java程序。`
 
-## 3 测试JDK是否安装成功
+## 4 测试JDK是否安装成功
 
 1、"开始"->"运行"，键入"cmd"或者"powershell"；`win+R`可以快速进入“运行”。
 
@@ -96,18 +100,18 @@ CLASSPATH 设置
 
 ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/Java8/2016-08-05_javac.png)
 
-## 注意事项
+## 5 注意事项
 
 在设置环境变量过程中一定要注意，`;`和`,`均为半角英文状态下输入。
 
 # 实验一的解读
 
-## JDK&JRE
+## 1 JDK&JRE
 
 - JDK：java develop kit (Java 开发包)，也是我们步骤1和2的核心角色，以前JDK 叫做java software develop kit， 后来出了1.2版本后， 就改名叫JDK了。所以如果有人和你说JavaSDK请不要感觉陌生。JDK为我们提供了开发应用程序所需要的一系列工具。
 - JRE：java runtime environment（Java 运行环境）对于大多数Java用户，可能只需要运行Java程序，而不需要去开发程序，此时仅安装JRE即可，**JDK的安装是包含JRE的**。 
 
-## 环境变量
+## 2 环境变量
 
 1. JAVA_HOME：顾名思义，Java的家，设定这个变量是为了让操作系统(windows)找到你JDK安装位置。其他的环境变量都可以利用`%JAVA_HOME%`来引用这个路径。
 
@@ -115,11 +119,11 @@ CLASSPATH 设置
 3. CLASSPATH：java命令运行的都是`.class`文件，这个路径配置告诉java命令可以在哪个目录下找到`.class`文件来运行。
 
 
-# 实验二： 开发第一个Java程序
+# 实验二 开发第一个Java程序
 
 目标：完成第一个实验后，我们就要享受一下我们的工作成果，利用JDK开发第一个Java应用程序。
 
-## 1.编写源代码文件
+## 1 编写源代码文件
 
 打开记事本，添加如下的代码：
 
@@ -135,7 +139,7 @@ CLASSPATH 设置
 
 将文件保存为：MyFirstJavaProgram.java。
 
-## 2.编译源代码
+## 2 编译源代码
 
 打开命令提示符窗口(win键+R输入cmd/powershell回车)，然后进入源码所在目录(MyFirstJavaProgram.java文件所在目录)。假设它是D:\source。输入下列命令：
 
@@ -149,7 +153,7 @@ javac MyFirstJavaProgram.java
 
 此时D:\source(MyFirstJavaProgram.java文件所在目录)路径下多出了一个MyFirstJavaProgram.class文件，**注意，这是自动产生的**。编译成功。
 
-## 3.运行.class
+## 3 运行.class
 
 首先确保自己在D:\source目录下，然后命令行输入`java MyFirstJavaProgram`来运行程序。
 
@@ -159,7 +163,7 @@ javac MyFirstJavaProgram.java
     D:\source> java MyFirstJavaProgram 
     Hello World
 
-## 注意事项
+## 4 注意事项
 
 - 确保`java`和`javac`能够正确运行(参考JDK安装和环境变量配置)；
 - 注意`java`和`javac`命令的运行目录，确保命令执行在`.java`和`.class`文件的所在目录；
@@ -169,15 +173,15 @@ javac MyFirstJavaProgram.java
 
 # 实验二的解读
 
-## 源代码文件
+## 1 源代码文件
 
 保存着Java程序的源代码，源代码是以人类可读的形式存在的。
 
-## class文件
+## 2 class文件
 
 对源代码执行`javac`命令生成的文件，`javac`是编译命令，从`.java`文件到`.class`文件的生成过程叫做编译。`.class`文件也叫做字节码文件，是二进制形式，非人类阅读模式，属于java虚拟机可以阅读的内容。`java`命令正是启动了java虚拟机装载并阅读这个文件，然后按文件中的指令进行运算和输入输出的。更深入的内容，请接着阅读。
 
-## 运行机制
+## 3 运行机制
 
 ![Java运行机制](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/Java8/jvm.png)
 
@@ -185,7 +189,7 @@ javac MyFirstJavaProgram.java
 - 然后我们让虚拟机器来加载并执行这个文件
 - 具体JVM内部的流程，大家只做简单了解即可
 
-## JVM
+## 4 JVM
 
 JVM是Java Virtual Machine（Java虚拟机）的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。Java虚拟机包括一套字节码指令集、一组寄存器、一个栈、一个垃圾回收堆和一个存储方法域。 JVM屏蔽了与具体操作系统平台相关的信息，使Java程序只需生成在Java虚拟机上运行的目标代码（字节码）,就可以在多种平台上不加修改地运行。JVM在执行字节码时，实际上最终还是把字节码解释成具体平台上的机器指令执行。
 
