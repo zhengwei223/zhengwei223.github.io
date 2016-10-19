@@ -1,187 +1,204 @@
 ---
 layout: post
-title: boots常用组件
+title: Bootstrap网格布局
 category: Bootstrap入门实例教学
 tags: Web前端 Bootstrap 
 author: 郑未
-keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap CSS概览
+keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap
 description:
 ---
+Bootstrap 提供了一套响应式、移动设备优先的流式栅格系统，随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多12列。
 
-这一章我们继续来玩儿官网提供的示例，并加以解读。
+# 课程目标
+掌握bootstrap的栅格布局系统。
 
->官网有案例，我们最好遵循官网的案例先轮一遍。只是初学者千头万绪不知学习的顺序，才有了本教程的解读。
+# 简介
 
-# 0.查看整体效果并获得源码
+栅格系统用于通过一系列的行（row）与列（column）的组合来创建页面布局，你的内容就可以放入这些创建好的布局中。下面就介绍一下 Bootstrap 栅格系统的规则：
 
-访问[boots中文网](http://v3.bootcss.com/examples/theme/)可以看到boots的一个兵器展览，这里面应有尽有。
+- “行（row）”必须包含在 `.container` 容器中 或者 `.container-fluid`容器中。
 
-源码在你下载的boots-home/docs/examples/theme下：
-
-- `index.html`是页面标记
-  - 可以看到这里面代码很多，我们的学习方式是**分而治之，各个击破**！
-- `theme.css`是这个示例依赖的自定义的少量样式
-
-本来这个示例是说“**Bootstrap主题——加载可选的 Bootstrap 主题，获得增强的视觉体验。**”但我认为，用它来学习boots提供的常用组建也是不错的选择。
-
-# 1.Buttons
-
-## 1.1获得按钮示例及效果
-按钮是非常常用和常见的页面元素。
-
-但`index.html`的内容太多，我们不要一次性读完，先聚焦到按钮组件的各种效果上来。继续使用第一章里面的[基础模板](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/01/index0.html)来创建我们的[02/index1html](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/02/index1.html)
-
-在`body`中先定义一个基本容器：
-
+```html
+  <div class="container">
+    <div class="row"></div>
+  </div>
 ```
-<main>
+
+- 通过“行（`.row`）”在水平方向创建一组“列（column）”。
+- 你的内容应当放置于“列（column）”内，并且，只有“列（column）”可以作为行（.row）”的直接子元素。
+- 用“`.col-尺寸代号-4`”这种预定义的类，可以用来快速创建列并指定列宽尺寸代号为xs（超小）、sm（小）、md（中等）、lg（大）。
+- 栅格系统中的列是通过指定1到12的值来表示其跨越的范围。例如，三个等宽的列可以使用三个 `.col-xs-4` 来创建。
+- 如果一“行（row）”中包含了的“列（column）”大于 12，多余的“列（column）”所在的元素将被作为一个整体另起一行排列。
+
+# 中等屏幕三列布局
+
+代码见grid0.html,在上一章模板基础之上，新建页面，输入下列内容（重复内容省略）：
+
+```html
+<head>
+...
+    <link rel="stylesheet" href="grid0.css">
+...
+  </head>
+  <body>
+    <h1>网格布局</h1>
     <div class="container">
-      
+      <div class="row">
+        <div class="col-md-4"><h1>col1</h1></div>
+        <div class="col-md-4"><h1>col2</h1></div>
+        <div class="col-md-4"><h1>col3</h1></div>
+      </div>
     </div>
-</main>
+    ...
+  </body> 
 ```
 
-`main`是新的语义标签，没有实质用处，`.container`设定了一个基本容器，随后我们的内容放在这个容器里面。
+其中grid0.css设定了每个单元格的高度及边框样式，如下：
 
-然后，把官方示例boots-home/docs/examples/theme/index.html的80-118行拷贝到`div .container`里面，也可以从下面直接拷贝，不过最好学会拆解官方的代码：
-
+```css
+.row>div{
+  height: 100px;
+  border: 3px dotted red;
+}
 ```
-<div class="page-header">
-  <h1>Buttons</h1>
+
+
+效果如下：
+
+![image](/public/img/boots/2.01.png)
+
+可以看到三个div各占屏幕宽度的三分之一。
+
+- 在元素上应用 `.col-md-* `栅格类，此clsss适用于“宽度大于等于md（middle）”的设备 ， 在小于md（middle）宽度的设备上无效。我们将上述案例所在的浏览器变窄，会看到不一样的效果：
+
+![image](/public/img/boots/2.02.png)
+
+因为`col-md-*`的设置只有在md及以上的设备上有效，所以屏幕变窄时，这三个div会回到原始的块级元素（独占一行），形成**纵向堆叠**。
+
+# 断点
+
+断点用于区分大、中、小及超小设备的临界点：
+
+- 超小屏幕 手机 (<768px)
+  - 默认为堆叠，一般我们不关注
+  - `.container`最大宽度：自动
+  - 类前缀：`.col-xs-`
+- 小屏幕 平板 (≥768px)
+  - 默认为堆叠，设备宽度大于此断点时，列水平排列
+  - `.container`最大宽度：750px
+  - 类前缀：`.col-sm-`
+- 中等屏幕 桌面显示器 (≥992px) 
+  - 默认为堆叠，设备宽度大于此断点时，列水平排列
+  - `.container`最大宽度：970px
+  - 类前缀：`.col-md-`
+- 大屏幕 大桌面显示器 (≥1200px)
+  - 默认为堆叠，设备宽度大于此断点时，列水平排列
+  - `.container`最大宽度：1170px
+  - 类前缀：`.col-lg-`
+
+# 自适应多种设备
+
+代码见grid1.html,因为在xs上各列默认堆叠，往往我们只需关注sm和md上的表现形式就可以了，试试下面的代码，并拉动浏览器的侧边控制其宽度，试验div的排列表现。
+
+```html
+<div class="row">
+  <div class="col-sm-6 col-md-3" ><h2>col-sm-6 col-md-3</h2></div>
+  <div class="col-sm-6 col-md-3" ><h2>col-sm-6 col-md-3</h2></div>
+  <div class="col-sm-6 col-md-3" ><h2>col-sm-6 col-md-3</h2></div>
+  <div class="col-sm-6 col-md-3" ><h2>col-sm-6 col-md-3</h2></div>
 </div>
-<p>
-  <button type="button" class="btn btn-lg btn-default">Default</button>
-  <button type="button" class="btn btn-lg btn-primary">Primary</button>
-  <button type="button" class="btn btn-lg btn-success">Success</button>
-  <button type="button" class="btn btn-lg btn-info">Info</button>
-  <button type="button" class="btn btn-lg btn-warning">Warning</button>
-  <button type="button" class="btn btn-lg btn-danger">Danger</button>
-  <button type="button" class="btn btn-lg btn-link">Link</button>
-</p>
-<p>
-  <button type="button" class="btn btn-default">Default</button>
-  <button type="button" class="btn btn-primary">Primary</button>
-  <button type="button" class="btn btn-success">Success</button>
-  <button type="button" class="btn btn-info">Info</button>
-  <button type="button" class="btn btn-warning">Warning</button>
-  <button type="button" class="btn btn-danger">Danger</button>
-  <button type="button" class="btn btn-link">Link</button>
-</p>
-<p>
-  <button type="button" class="btn btn-sm btn-default">Default</button>
-  <button type="button" class="btn btn-sm btn-primary">Primary</button>
-  <button type="button" class="btn btn-sm btn-success">Success</button>
-  <button type="button" class="btn btn-sm btn-info">Info</button>
-  <button type="button" class="btn btn-sm btn-warning">Warning</button>
-  <button type="button" class="btn btn-sm btn-danger">Danger</button>
-  <button type="button" class="btn btn-sm btn-link">Link</button>
-</p>
-<p>
-  <button type="button" class="btn btn-xs btn-default">Default</button>
-  <button type="button" class="btn btn-xs btn-primary">Primary</button>
-  <button type="button" class="btn btn-xs btn-success">Success</button>
-  <button type="button" class="btn btn-xs btn-info">Info</button>
-  <button type="button" class="btn btn-xs btn-warning">Warning</button>
-  <button type="button" class="btn btn-xs btn-danger">Danger</button>
-  <button type="button" class="btn btn-xs btn-link">Link</button>
-</p>
 ```
 
-在hb里面运行页面，会得到这个纯粹展示按钮的页面效果：
+你会发现，屏幕小于768时，它们呈一纵，768-992时，它们各占屏幕一半从而形成2行2列，当大于等于992时，它们各占屏幕四分之一从而形成一行。
 
-![2.1](/public/img/boots/2.1.png)
+![image](/public/img/boots/2.03.png)
 
-## 1.2代码解读
+*超小设备*
 
-按钮很炫吧，回到源码，进行解读
+![image](/public/img/boots/2.04.png)
 
-- `div > h1`这一段，就是标题
-- 第一个段落里面的按钮都是“巨大”的，但拥有不同样式，它们的`type`属性都是`button`，样式类具有共性`btn btn-lg btn-*`，这里面`btn`是基础样式，`btn-lg`将按钮调整到最大，后面的类
-  - `btn-default`默认的按钮，背景色透明
-  - `btn-primary`和主题颜色一致的按钮
-  - `btn-success`成功状态的按钮
-  - `btn-info`普通信息状态的按钮
-  - `btn-warning`警告状态的按钮
-  - `btn-danger`危险状态的按钮
-  - `btn-link`看起来像一个链接的按钮
-- 第二排按钮就很好理解了，和上一组类似，只是没了`btn-lg`，按钮大小恢复到了正常水平
-- 第三排按钮添加了`btn-sm`样式类，因此这组按钮比正常按钮都要小些
-- 第四排按钮添加了`btn-xs`样式类，因此这组按钮比small还要小些，是最小的
+*小设备，呈现两列*
 
-## 1.3小结
+![image](/public/img/boots/2.05.png)
 
-按钮就是这么简单，定义`type="button"` ，样式类必须有`btn`，然后根据设计调整大小（`btn-lg`,`btn-sm`,`btn-xs`或者没有）和状态（7种状态随你选择）。
+*中、大设备，呈现4列*
 
+# 更巧妙的例子
 
-# 2.表格
+[网格工作示例](https://github.com/ananth22by7/visualizing-bootstrap.git)，你可以克隆这个项目并运行index.html，随意拖动体会下响应式网格布局，进一步你可以查看源码了解这个例子是怎么设计的。
 
-## 2.1获得表格示例及效果
+# 列的偏移
 
-重复1.1的动作，不过这次我们把121-259行的代码拷贝到新的一个模板文件中，得到[02/index2.html](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/02/index2.html)，运行效果如图：
+见grid2.html，为了给列增加左边距，可以使用`col-offset-X`附加样式类，X表示偏移多少列。试试下面的代码：
 
-![2.2](/public/img/boots/2.2.png)
-
-一大堆代码，最终得到的是四个样子稍微有点差别的表格。
-
-## 2.2代码解读
-
-为了搞清楚代码结构，我们先在hb中把所有`table`标记收起来，效果就像这样。
-
-![2.3](/public/img/boots/2.3.png)
-
-为了便于说明，我们将4个`table`的4个父容器`div`及更上层`div`编号。我们不得不提前讨论boots的栅格系统了：
-
-- 1号和2号`div`都使用了`.row`，顾名思义它们分别代表一行，里面可以分为多个列，boots的一个行最多有12个等宽的列，通过设置下级元素所占据的列数来设置宽度
-- 1.1和1.2都使用了`col-md-6`，这说明它们各占6列，也就是分别占据一行的一半宽度，`col-*-6`是很好理解的，那`md`是什么意思呢？——它是middle的简写，意味着屏幕宽度大于中等断点（920px）的时候这个样式有效，也意味着屏幕宽度小于这个数值的时候，`div`会恢复为独占一行，你可以【试试】。
-- 2.1和2.2同上，不赘述
-- 四个`table`的内容都差不多，且子标签上没有附加任何样式类，区别仅在于他们分别使用了`class="table"`,`class="table table-striped"`,`class="table table-bordered"`,`class="table table-condensed"`
-  - `.table`是表格基本样式，所以每个上都有
-  - `table-striped`设定表格主体的行呈条纹状，即单双行背景色不一样
-  - `table-bordered`设定表格有边框
-  - `table-condensed`设定紧缩表格，可以让表格更加紧凑，单元格中的内补（padding）均会减半
-  - 可以将它们组合起来使用
-  - 还可通过添加 `.table-hover` 类让 `<tbody>` 中的每一行对鼠标悬停状态作出响应
-- 还有一个细节，就是2.1和2.2的表格中有单元格合并现象,`<td colspan="2">Larry the Bird</td>`,这和html标准用法是一致的
-
-关于表格的更多细节,可以阅读[boots中文网](http://v3.bootcss.com/css/#tables)
-
-## 2.3小结
-
-表格也是这么地简单，甚至比按钮还简单，只需为`table`标记设置样式类就可以了，它们都需要`.table`类，而其他的条纹、边框、紧缩、悬停可根据自己的设计来灵活选择。
-
-# 3.缩略图
-
-## 3.1 获得缩略图示例及效果
-
-重复1.1的动作，不过这次我们把262-265行的代码拷贝到新的一个模板文件中，得到[03/index.html](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/03/index.html)，运行效果如图：
-
-![2.3](/public/img/boots/2.4.png)
-
-这个运行效果是有问题的，我们并未看到任何图，需要看看源码。
-
-## 3.2代码解读
-
-对于缩略图来说，非常简单，只需给`img`标记加上`img-thumbnail`样式类就可以了。
-
-但是我们所看到的`img`并无`src`属性，取而代之的是`data-src`，而且指向了一个js路径`data-src="holder.js/200x200"`。这里我们使用到了一个叫做holder的js工具，用于生成占位图，后半段`200x200`指的是图片的宽高，需要注意的是200和200之间是一个英文字母`x`而不是一个乘号。
-
-那这里为什么没得到效果呢？是因为我们还需引入`holder.js`，注意img的`data-src`并不需要指向`holder.js`的真实路径，它是一种固定写法，所谓引入`holder.js`是用`script`标签来引入：
-
-- 在boots-home/docs/assets/js/vendor/目录下，将文件`holder.min.js`拷贝到我们的工程路径下
-
-![2.5](/public/img/boots/2.5.png)
-
-- 在[03/index.html](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/03/index.html)中导入
-
-```
-<script src="../dist/js/vendor/holder.min.js" type="text/javascript" charset="utf-8"></script>
+```html
+<div class="container">
+  <h1>The Offset feature in Bootstrap</h1>
+  <h2>PacktPub</h2>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-8">
+    <h2>这一大段话都偏到右边去了</h2>
+    ......
+    </div>
+  </div>
+</div>
 ```
 
-刷新页面将会得到效果
+# 列的推拉
 
-![2.6](/public/img/boots/2.6.png)
+见grid3.html，为了改变列出现的默认顺序，可以使用`col-push-X`和`col-pull-X`附加类。`push`是向右移动X个单位，`pull`是向左移动X个单位。试试下面的代码：
 
-## 3.3小结
+    <div class="container">
+      <h1>Welcome to Packt</h1>
+      <p>We will look at the concept of Grid Layouts now</p>
+      <div class="row">
+        <div class="col-md-9 col-md-push-3">
+          <h2>PacktPub</h2>
+          <p>
+            这是先出现的列，但被推到了右边.
+          </p> 
+        </div>
+        <div class="col-md-3 col-md-pull-9">
+          <h2>PacktLib: Online</h2>
+          <p>这是后出现的列，但被拉到了左边.</p>
+        </div>
+      </div>
+    </div>
 
-本来讲缩略图，但是使用太简单（`class="img-thumbnail"`），反而变成讲解`holder.js`，这个工具对于前端设计人员是很有用的，可以快速生成你想要的占位图，它其实还有很丰富的用法，可参考其[官方文档](https://github.com/imsky/holder)
+# 列的嵌套
 
+见grid4.html，可以把行列组合放进一个已有的列中，从而形成嵌套：
+
+    <div class="container">
+     <h1>Hello, world!</h1>
+     <p>这是一个展示列嵌套的例子。</p>
+     <div class="row ">
+       <div class="col-lg-6" id="packtlib">
+         <h2>行列可以被嵌套.</h2>
+         <div class="row"  >
+           <div class="col-lg-6" id="packt">
+             <p>第一子列</p> 
+           </div>
+           <div class="col-lg-6" id="pub">
+             <p>第二子列</p>
+           </div>
+         </div>
+       </div>
+     </div> <!-- the row class div -->
+    </div> <!-- the container div -->
+
+效果如下：
+
+![image](/public/img/boots/2.06.png)
+
+# 小结
+
+本章主要内容：
+
+- 利用网格预定义样式类来快速将网页划分为多列
+- boots是响应式的，预定义的样式类可以用于响应式布局
+- 通过列偏移可以为列增加外边距
+- 通过推拉可以改变列出现的顺序
+- 行列是可以嵌套的
+
+下一章，我们将使用本章知识完成一个博客系统的“文章页”。

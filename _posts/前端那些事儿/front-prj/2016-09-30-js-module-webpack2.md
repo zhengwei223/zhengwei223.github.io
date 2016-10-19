@@ -121,13 +121,13 @@ Loader 可以在 `require()` 引用模块的时候添加，也可以在 webpack 
 
     { "presets": [ "es2015" ] }
 
-### 3.使用es6语法
+### 4.使用es6语法
 
     // todo.js代码片段
     // var $ = require('jquery');
     import $ from 'jquery';   // 使用babel-loader后，es6写法，可以被解析
 
-### 4.重新编译
+### 5.重新编译
 
     webpack --config webpack.config2.js 
 
