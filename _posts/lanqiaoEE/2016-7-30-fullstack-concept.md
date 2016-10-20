@@ -1,7 +1,7 @@
 ---
 layout: post
 title: JavaEE全栈技术概念手册
-category: roadmap
+category: lanqiaoEE
 tags: 概念 路线图 roadmap
 author: 郑未
 keywords: lanqiao 蓝桥 全栈 JavaEE 教程
@@ -68,7 +68,7 @@ Servlet中还有很多可以操作的对象，此处不赘述，参考[JavaEE-AP
 
 ### Web-MVC
 
-Mvc并不是JavaEE的标准，是一种编程思想，旨在划清视图逻辑和业务逻辑。在Servlet中可以直接生成html视图，但是这样就违背了mvc原则。按照mvc原则，Servlet不应该考虑视图怎么展现，它只提供数据即可。
+MVC并不是JavaEE的标准，是一种编程思想，旨在划清视图逻辑和业务逻辑。在Servlet中可以直接生成html视图，但是这样就违背了mvc原则。按照mvc原则，Servlet不应该考虑视图怎么展现，它只提供数据即可。
 
 ![](/public/img/roadmap/fullstack3.png)
 

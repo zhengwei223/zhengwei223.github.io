@@ -5,11 +5,12 @@ category: Bootstrap入门实例教学
 tags: Web前端 Bootstrap 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap
-description:
+description: Bootstrap 提供了一套响应式、移动设备优先的流式栅格系统，随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多12列。
 ---
 Bootstrap 提供了一套响应式、移动设备优先的流式栅格系统，随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多12列。
 
 # 课程目标
+
 掌握bootstrap的栅格布局系统。
 
 # 简介
