@@ -15,7 +15,7 @@ description: 为了巩固对Boots的网格布局系统的理解，本章用一�
 
 ## 1.拷贝模板
 
-修改title标签的内容。
+修改`title`标签的内容。
 
 ## 2.整体结构
 
@@ -77,3 +77,8 @@ description: 为了巩固对Boots的网格布局系统的理解，本章用一�
 
 给侧边栏加`hidden-sm hidden-xs`这两个样式类，就可以得到这样的效果。他们的含义分别是在小和超小设备上隐藏这个元素。
 
+# 五 总结
+
+* 你会发现用boots来做行列布局实在是太轻松了，只需掌握`container`,`row`和各种列(`col-*-*`)的使用
+* boots定义了很多方便实用的样式类，本章我们用到了`text-center`和`list-unstyled`
+* 为了做到响应式布局，不仅可以使用`col-*-*`，还可以使用boots定义好的系列[响应式工具类](http://v3.bootcss.com/css/#responsive-utilities)，本章用到了`hidden-sm hidden-xs`。
