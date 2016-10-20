@@ -21,11 +21,11 @@ order: 1
 
 搭建Java开发环境，第一步我们就需要安装JDK。大家可以在ORACLE官方网站上下载，下载路径：[http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.5.jpg)
+![](/public/img/Java8/1.5.jpg)
 
 这里要提醒大家，不同平台和系统的安装文件是不一样的，根据自己电脑的情况选着合适的版本进行安装，32位选x86，64位选择x64。
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.6.jpg)
+![](/public/img/Java8/1.6.jpg)
 
 ## 2 安装
 
@@ -46,15 +46,15 @@ order: 1
 
 右击"我的电脑"，点击"属性"，选择"高级系统设置"；
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.7.png)
+![](/public/img/Java8/1.7.png)
 
 选择"高级"选项卡，点击"环境变量"；
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.8.png)
+![](/public/img/Java8/1.8.png)
 
 然后就会出现如下图所示的画面：
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.9.png)
+![](/public/img/Java8/1.9.png)
 
 在"系统变量"中设置3项变量，`JAVA_HOME`,`PATH`,`CLASSPATH`(大小写无所谓)，若已存在则点击"编辑"，不存在则点击"新建"。
 
@@ -75,19 +75,19 @@ order: 1
 
 JAVA_HOME 设置
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.10.png)
+![](/public/img/Java8/1.10.png)
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.11.png)
+![](/public/img/Java8/1.11.png)
 
 PATH设置
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.12.png)
+![](/public/img/Java8/1.12.png)
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.13.png)
+![](/public/img/Java8/1.13.png)
 
 CLASSPATH 设置
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/master/public/img/Java8/1.14.png)
+![](/public/img/Java8/1.14.png)
 
 
 `注意：如果使用1.5以上版本的JDK，不用设置CLASSPATH环境变量，也可以正常编译和运行Java程序。`
@@ -98,7 +98,7 @@ CLASSPATH 设置
 
 2、键入命令: `java -version`、`java`、`javac`几个命令，出现正常提示信息，说明环境变量配置成功；
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/Java8/2016-08-05_javac.png)
+![](/public/img/Java8/2016-08-05_javac.png)
 
 ## 5 注意事项
 
@@ -183,7 +183,7 @@ javac MyFirstJavaProgram.java
 
 ## 3 运行机制
 
-![Java运行机制](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/Java8/jvm.png)
+![Java运行机制](/public/img/Java8/jvm.png)
 
 - 通过JDK的`javac`命令编译之后， 我们得到了`.class`文件
 - 然后我们让虚拟机器来加载并执行这个文件

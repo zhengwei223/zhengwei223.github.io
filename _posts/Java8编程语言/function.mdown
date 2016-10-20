@@ -1,0 +1,38 @@
+透彻函数的使用
+
+
+# 实验一 用函数封装扑克牌初始化的过程
+
+# 实验一 用函数封装随机抽牌的过程
+
+# 实验一 用函数封装输出一个数组的过程
+
+...
+
+
+f(obj)
+
+--> this.f()  ===== f(this)
+
+
+
+char[] arr;
+
+length(arr);
+concat(arr);
+....
+
+
+--->
+
+
+
+class {
+  char[] arr;
+  length(){
+    this.arr
+  }
+concat(){
+  this.arr
+}
+}
