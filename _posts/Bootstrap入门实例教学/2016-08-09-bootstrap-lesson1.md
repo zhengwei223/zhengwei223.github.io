@@ -63,15 +63,15 @@ HBuilder下载安装比较简单，此处不表。
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
   <body>
     <h1>你好，世界！</h1>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
   </body>
@@ -105,7 +105,7 @@ HBuilder下载安装比较简单，此处不表。
     ├── 01                          # 第一课的页面及样式
     ├── 02                          
     ├── 03
-    ├── assets                      # css 字体 js                   
+    ├── assets                      # css，字体，js                   
     │   ├── css
     │   ├── fonts
     │   └── js
