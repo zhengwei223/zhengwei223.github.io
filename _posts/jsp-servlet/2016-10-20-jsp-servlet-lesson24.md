@@ -276,7 +276,7 @@ view.InternalResourceViewResolver">
 
 *图24-02*
 
-点击超链接[<a href="firstSpringMVC">My First SpringMVC Demo</a>](<a href="firstSpringMVC">My First SpringMVC Demo</a>)，结果如下，
+点击超链接<a href="firstSpringMVC">My First SpringMVC Demo</a>，结果如下，
 
 ![](http://i.imgur.com/jgVPbJq.png)
 
@@ -287,8 +287,8 @@ view.InternalResourceViewResolver">
 
 # 24.3 练习题 #
 
-1使用SpringMVC有什么优势？
+1.使用SpringMVC有什么优势？
 
-2如何搭建SpringMVC的开发环境？
+2.如何搭建SpringMVC的开发环境？
 
-3简述开发SpringMVC程序的基本步骤。
+3.简述开发SpringMVC程序的基本步骤。
