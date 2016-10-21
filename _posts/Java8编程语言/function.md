@@ -1,0 +1,361 @@
+---
+layout: post
+title: 编程的艺术——方法和类的封装
+category: 初学者的第一套Java教程
+tags: Java 入门
+keywords: 蓝桥 lanqiao 教程 java Java8 面向对象 类 方法
+description: 到目前为止，我们所些的程序都是编写在主方法中，一旦程序逻辑复杂，则main方法内就会堆积大量的代码，如何高效的维护这些代码呢？
+author: 付天有
+importance: 2
+order: 7
+---
+
+> 到目前为止，我们所些的程序都是编写在主方法中，一旦程序逻辑复杂，则main方法内就会堆积大量的代码，如何高效的维护这些代码呢？
+
+内容摘要
+
+- 方法封装的基本要素
+- 方法的声明和调用
+- 方法的重载
+- 类封装的基本要素
+
+# 基础知识
+
+方法：在一些早期语言中称为函数，是指一段整体的、可以做某一件事儿的程序片段。
+
+## 1 方法的声明
+到目前为止，我们接触最多的就是main方法，main方法的定义其实就是一个典型的方法结构。
+
+![](http://method-main)
+
+自定义方法的基本要素：
+
+- 修饰符：非本小节重点，后续会详细介绍。
+- 返回值：main方法返回值定义为`void`，表示不需要返回值。返回值可以是任意的数据类型（包括8种基础数据类型，引用数据类型），一旦指定返回值，方法体中必须用`return`相应类型的返回值。
+
+	public static int getIntMax(){
+		//方法声明返回值类型为int,必须用return返回一个int类型变量
+		return 2147483647;
+	}
+
+程序中如果存在分支，则每一个分支都必须要保证程序能够返回指定类型的值。
+
+- 方法名：遵循命名规范的一个标准标识符，常规协定方法命名为小写字母开头。
+
+- 参数列表：参数列表是由（数据类型 标识符）组合的序列，方法可以没有参数，但是`()`不能省略，也可以有多个参数，参数之间用`,`分隔，方法参数可以将方法的一些必要数据传递给方法体。
+
+	public static boolean isEvenNumber(int num){
+		if(num%2==0){
+			return true
+		}
+		return false;//为了保证方法一定会遵守返回值约定，默认return false;
+	}
+
+	public static int sum(int num1,int num2 ){
+		return num1+num2;
+	}
+
+
+# 实验一 打印扑克的花色和点数
+
+> 上节实验，我们模拟了扑克游戏的发牌过程，但是在输出手牌过程中，我们都是利用1-54的整数来代表扑克牌，这次我们按照我们的约定[1-13(黑桃A-K)、14-26(红桃A-K)、梅花、方片。53小鬼，54大鬼]，输出每一副手牌的花色和点数。
+
+## 关键方法
+
+除大鬼（53）和小鬼（54）这两张牌比较特殊，其他牌的编号都是有规律可循的，牌的花色可以**按照整除13**来编码,按照约定，则整除结果0,1,2,3分别就代表黑桃、红桃、梅花、方片。而**整除余下的值**就是当前牌的点数。以34为例，`34/13=2`花色为梅花，`34%13=8`,34代表梅花8。
+
+## 分析花色
+
+### 关键代码
+
+	int card = 34;
+	String result ="";
+	int color = card/13;
+	switch (color) {
+	case 0:
+		result = "黑桃";
+		break;
+	case 1:
+		result = "红桃";
+		break;
+	case 2:
+		result = "梅花";
+		break;
+	case 3:
+		result = "方片";
+		break;
+	default:
+		result = "错误花色代码";
+		break;
+	}
+		
+	System.out.println("手牌花色为" + result);
+
+## 分析点数
+	
+	int card = 34;
+	int point = card%13;
+	String result ="";
+	switch (point) {
+	case 1:
+		result = "A";
+		break;
+	case 11:
+		result = "J";
+		break;
+	case 12:
+		result = "Q";		
+		break;
+	case 13:
+		result = "K";
+		break;
+	default:
+		result = (point+"");//非AKQJ的点数直接就为数字，由于point是int，加一个空字符串""自动转型为String
+		break;
+	}
+	System.out.println("手牌点数为" + result);
+
+## 方法的封装
+
+上面两段代码单独编写难度都并不大，但是试想如果把这两段代码加入到上节实验中输出一个人的手牌时，代码的复杂度就会增加很多。
+
+	//发牌等系列代码
+	//循环遍历每一张手牌
+	//分析花色
+	//分析点数
+	//输出花色和点数
+
+方法的封装时，要思考方法的目的和过程需要的数据。无论是分析点数，还是分析花色，核心关注分析的都是**牌的代码**，而过程产出的结果即是牌的花色和点数。所以封装方法如下
+
+	
+	/**
+	 * 封装通过扑克代码，得到扑克点数和花色的方法
+	 * @param card 扑克代码
+	 * @return 扑克的花色和点数的字符串表示
+	 */
+	public static String cardInfo(int card){
+		
+		if(card == 53){
+			return "小鬼";
+		}
+		
+		if(card == 54){
+			return "大鬼";
+		}
+		
+		String result ="";	//声明要返回的结果字符串
+		
+		int color = card/13;//花色代码
+		int point = card%13;//点数代码
+		
+		//分析花色
+		switch (color) {
+		case 0:
+			result = "黑桃";
+			break;
+		case 1:
+			result = "红桃";
+			break;
+		case 2:
+			result = "梅花";
+			break;
+		case 3:
+			result = "方片";
+			break;
+		default:
+			return "错误的代码";
+		}
+		
+		//分析点数，点数直接与得到的花色result拼接
+		switch (point) {
+		case 1:
+			result += "A";
+			break;
+		case 11:
+			result += "J";
+			break;
+		case 12:
+			result += "Q";		
+			break;
+		case 13:
+			result += "K";
+			break;
+		default:
+			result += point;//非AKQJ的点数直接就为数字
+			break;
+		}
+		return result;
+	}
+
+## 方法的调用与重载
+
+### 调用方法
+
+	public static void main(String[] args) {
+		int card = 34;
+		String cardInfo = cardInfo(card);
+		System.out.println(cardInfo);
+	}
+
+### 形参与实参
+
+形参：方法声明时参数列表被引用的变量。`public static String cardInfo(int card)`中card被称为形参。形参变量隶属于方法体，是方法体内部的局部变量，在方法体外部是不允许被使用的。
+
+实参：方法调用时，方法调用者传递给参数的实际参数。`String cardInfo = cardInfo(card);`中card即为实参，形参与实参的命名并无关系。
+	
+**注意：在调用方法时形参和实参要严格统一，包括参数的数据类型，数量，声明顺序。**
+
+### 方法的重载
+
+如果我们再设计一个直接可以返回一组手牌的方法。这个方法和`public static String cardInfo(int card)`功能相似，只不过处理的参数不同，我们要处理的是一个`int[]`。此时可以考虑方法的重载。
+
+一个类中可以拥有**同名不同形参**的方法（不同的参数类型，数量，顺序），这些方法叫做重载方法。
+
+	public static String cardInfo(int[] cards){
+		String result = "";
+		//循环扑克数组
+		for (int i = 0; i < cards.length; i++) {
+			int currentCard = cards[i];//当前遍历的扑克代码
+			//调用已完成的cardInfo方法，获取当前扑克信息
+			String currentCardInfo = cardInfo(currentCard);
+			result +=currentCardInfo;//追加到结果字符串
+			if(i != cards.length-1){
+				//非末位，加一个,分隔符
+				result+=",";
+			}
+		}
+		return result;
+	}
+
+`cardInfo(int card);`和`cardInfo(int[] cards);`两个方法就构成了方法的重载。调用时会根据不同参数类型，自动选择相应形参匹配方法执行。
+
+	public static void main(String[] args) {
+		int card = 34;
+		String cardInfo = cardInfo(card);	//调用int为形参的cardInfo方法
+		System.out.println(cardInfo);
+		int[] cards = {1,2,33,45};
+		String cardsInfo = cardInfo(cards);	//调用int[]为形参的cardInfo方法
+		System.out.println(cardsInfo);
+	}
+
+# 实验二 封装并重构扑克游戏
+
+> 将扑克游戏发牌过程拆解，利用方法封装这些子过程
+
+
+## 1 初始化过程
+
+### 关键代码
+
+	/**
+	 * 初始化牌堆
+	 * @return 并得到一副牌，标号1-54
+	 */
+	public static int[] init(){
+		//扑克牌声明
+		int[] cards = new int[54];
+		//扑克牌赋值
+		for (int i = 0; i < cards.length; i++) {
+			cards[i] = i+1;
+		}
+		return cards;
+	}
+
+### 解读
+
+方法定义的关键就在于**参数和返回值**的设定，首先要明确方法的目的，希望通过初始化过程得到一副扑克牌。所以返回值为一个`int[]`描述一副扑克牌。初始化过程不需要其他数据，所以无方法参数设定。
+
+
+## 2 发牌过程
+
+### 关键代码
+	/**
+	 * @todo 发指定数量的牌
+	 * @param cards 扑克牌堆
+	 * @param count 要发牌的数量
+	 * @return 发牌后得到的手牌
+	 */
+	public static int[] deal(int[] cards,int count){
+		//根据指定数量声明手牌数组
+		int[] resultCards = new int[count];
+		
+		for (int i = 0; i < resultCards.length;) {
+			//注意循环控制i++并没有写在for表达式中，而是在循环内部自己控制
+			int ram = (int) (Math.random() * (54));//获取0-53随机数，代表在牌堆内的随机位置
+			//cards[ram]即为随机抽取的牌，-1代表此牌已发，所以仅当随机位置的牌大于0时，此牌方可发出。
+			if (cards[ram] > 0) {
+				//如果随机下标已派出，则该下标值置为-1，如遇到-1，重新生成随机数派牌
+				resultCards[i] = cards[ram];
+				cards[ram] = -1;//已发的牌，在牌堆内置为-1。
+				i++;
+			} 
+		}
+		//返回已发手牌
+		return resultCards;
+	}
+
+### 解读
+
+该过程可以理解为从指定牌堆取出N张牌，牌堆和抽取数量都是过程的必要数据，所以设定为方法参数，通过过程，我们希望得到一副发好的手牌。
+
+方法封装的精髓就在于把握变与不变，方法的参数都是可变因素，因为在调用期间，参数是任意的，
+
+## 封装并隐藏数据传递过程
+
+经过这三个方法的封装，我们会发现我们会频繁的去传递牌堆`int[] cards`这个变量
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+透彻函数的使用
+
+
+# 实验一 用函数封装扑克牌初始化的过程
+
+# 实验一 用函数封装随机抽牌的过程
+
+# 实验一 用函数封装输出一个数组的过程
+
+...
+
+
+f(obj)
+
+--> this.f()  ===== f(this)
+
+
+
+char[] arr;
+
+length(arr);
+concat(arr);
+....
+
+
+--->
+
+
+
+class {
+  char[] arr;
+  length(){
+    this.arr
+  }
+concat(){
+  this.arr
+}
+}
