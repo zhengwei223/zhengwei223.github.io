@@ -1,15 +1,14 @@
 ---
 layout: post
-title: less变量详解
-category: cache
+title: 自定义利器——变量详解
+category: Bootstrap入门实例教学
 tags: Web前端 Bootstrap 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap 变量
+description: Bootstrap的样式是用less来编写的，提供了很多基础的less变量和混入，下面就来具体看下bootstrap为我们提供了哪些常用的变量吧。
 ---
 
-Bootstrap源码中的LESS变量详解
-
-Bootstrap的核心是用less来编写的，bootstrap对less进行了二次封装，提供了很多基础的less变量和函数，个人觉得非常有用，下面就来具体看下bootstrap为我们提供了哪些常用的变量吧。 
+>Bootstrap的样式是用less来编写的，提供了很多基础的less变量和混入，下面就来具体看下bootstrap为我们提供了哪些常用的变量吧。 
 
 # 基本变量
 
