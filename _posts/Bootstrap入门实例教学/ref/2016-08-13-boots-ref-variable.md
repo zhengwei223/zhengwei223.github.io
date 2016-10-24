@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 自定义利器——变量详解
-category: Bootstrap入门实例教学
+category: boots-reference
 tags: Web前端 Bootstrap 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap 变量

@@ -32,10 +32,14 @@ scrolltop: true
 下面我们就赶紧开始来学习这门课程吧
 
 <div class="lessons">
-  <ul class="list-unstyled">
+  <ul class="lesson-list list-unstyled">
 {% for post in site.categories["Bootstrap入门实例教学"]  reversed%}
     <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      <dl>
+        <dt><h5><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a></h5>
+        </dt>
+        <dd>{{ post.description }}</dd>
+      </dl>
     </li>
 {% endfor %}
   </ul>

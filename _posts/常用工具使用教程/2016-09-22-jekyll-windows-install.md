@@ -5,7 +5,7 @@ category: 常用工具使用教程
 tags: jekyll windows
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 jekyll
-description: 本文主要介绍在windows下如何安装jekyll从而可以在本地预览博客
+description: jekyll在其官方网站上说并不建议在windows操作系统安装，可是我们已经在windows环境下操作比较习惯了，而安装linux或mac的成本又比较高。因此，虽然在windows安装jekyll的流程比较麻烦一些，但是也是能够安装成功的。下面就来讲解如何在windows下安装jekyll，进行一些本地预览等功能。
 p_cate: 常用工具使用教程
 ---
 
