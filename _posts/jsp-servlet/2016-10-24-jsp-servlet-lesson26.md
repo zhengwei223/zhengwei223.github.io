@@ -390,6 +390,7 @@ view-name="success"/>
 
 
 **①通过`“forward:”`指定跳转方式为请求转发**
+
 ```
 	@RequestMapping("/testForward")
 	public String testForward(){
