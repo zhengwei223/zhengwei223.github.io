@@ -11,11 +11,14 @@ scrolltop: true
   <p class="text-danger">
     本教程所有示例代码在这里→<a href="https://coding.net/u/lanqiao/p/frontAdvance/git/tree/master/es6">es6示例代码</a>。
   </p>
-  <ul>
+  <ul class="lesson-list list-unstyled">
 {% for post in site.categories["es6"]  reversed%}
     <li>
       <dl>
-        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        <dt>
+          <h5>
+            <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+          </h5>
         </dt>
         <dd>{{ post.description }}</dd>
       </dl>
@@ -24,11 +27,14 @@ scrolltop: true
   </ul>
   
   <h1>前端工程化解决方案</h1>
-  <ul>
+  <ul class="lesson-list list-unstyled">
 {% for post in site.categories["front-prj"]  reversed%}
     <li>
       <dl>
-        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        <dt>
+        <h5>
+        <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        </h5>
         </dt>
         <dd>{{ post.description }}</dd>
       </dl>
@@ -37,11 +43,11 @@ scrolltop: true
   </ul>
 
   <h1>异构</h1>
-  <ul>
+  <ul class="lesson-list list-unstyled">
 {% for post in site.categories["heter"]  reversed%}
     <li>
       <dl>
-        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        <dt><h5><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a></h5>
         </dt>
         <dd>{{ post.description }}</dd>
       </dl>
@@ -50,11 +56,11 @@ scrolltop: true
   </ul>
 
   <h1>编程规范与建议</h1>
-   <ul>
+   <ul class="lesson-list list-unstyled">
 {% for post in site.categories["front-standard"]  reversed%}
     <li>
       <dl>
-        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        <dt><h5><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a></h5>
         </dt>
         <dd>{{ post.description }}</dd>
       </dl>
@@ -63,11 +69,11 @@ scrolltop: true
   </ul>
 
   <h1>react系列教程</h1>
-  <ul>
+  <ul class="lesson-list list-unstyled">
 {% for post in site.categories["react"]  reversed%}
     <li>
       <dl>
-        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        <dt><h5><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a></h5>
         </dt>
         <dd>{{ post.description }}</dd>
       </dl>

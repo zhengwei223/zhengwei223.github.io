@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Bootstrap网格布局
-category: Bootstrap入门实例教学
+category: boots-reference
 tags: Web前端 Bootstrap 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap

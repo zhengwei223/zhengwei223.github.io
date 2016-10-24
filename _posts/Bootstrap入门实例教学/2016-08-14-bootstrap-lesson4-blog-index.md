@@ -1,13 +1,27 @@
 ---
 layout: post
-title: 栅格布局系统
-category: cache
+title: 4.博客站点首页
+category: Bootstrap入门实例教学
 tags: Web前端 Bootstrap 
 author: 郑未
-keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap 栅格布局系统
-description:
-
+keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap 博客站点首页
+description: 纸上得来终觉浅。本章将带领大家完成一个酷炫的博客站点首页设计。在实践过程中你将学到关于基础样式、组件和自定义boots的综合知识和实践能力。进而可以设计自己的个性化博客首页。
 ---
+>纸上得来终觉浅。本章将带领大家完成一个酷炫的博客站点首页设计。在实践过程中你将学到关于基础样式、组件和自定义boots的综合知识和实践能力。进而可以设计自己的个性化博客首页。
+
+# 一 设计目标与网格 #
+
+# 二 头部导航与巨幅个性logo #
+
+# 三 主体部分：最新的文章列表 #
+
+# 四 侧边栏：标签列表 #
+
+# 五 侧边栏：个人信息 #
+
+# 六 侧边栏：好友链接 #
+
+# 七 页脚版权声明与媒体链接
 
 
 # 3.导航条和正文内容
