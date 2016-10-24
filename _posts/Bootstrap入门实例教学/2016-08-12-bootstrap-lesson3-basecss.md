@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bootstrap基础样式及自定义简介
+title: 3.重要知识准备：基础样式及自定义简介
 category: Bootstrap入门实例教学
 tags: Web前端 Bootstrap 
 author: 郑未
@@ -255,10 +255,8 @@ LESS提供了便利的混合，比如说`lighten()`与`darken()`。Bootstrap在m
 
 ## 小结
 
-这里我们给了些自定义的建议，并整个利用别人做好的主题来替换variable.less文件，个中细节没有详细解释，我们会在下一章进行。
+这里我们给了些自定义的建议，并整个利用别人做好的主题来替换variable.less文件，个中细节没有详细解释，如果想了解boots变量的含义，请移步→[boots变量详解](/boots-reference/boots-ref-variable)。
 
 # 七 总结
 
 当你了解了boots的基础样式后，你可以直接使用这些丰富的样式类；如果有自定义需求，有两种选择①通过覆盖的方式②修改boots的源码并自行构建，前提是你了解less。
-
-下一章，我们将介绍variables.less中的那些核心变量。

@@ -4,32 +4,51 @@ title: <img src="/public/img/courses/tools.jpeg"></i>
 titlename: 工具
 ---
 
-  <h1>写给JAVA程序员的第一套Git教程</h1>
-  <ul class="list-unstyled">
+  <h1>Git教程</h1>
+  <ul class="lesson-list list-unstyled">
 {% for post in site.categories["git"]  reversed%}
     <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      <dl>
+        <dt><h5><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a></h5>
+        </dt>
+        <dd>{{ post.description }}</dd>
+      </dl>
     </li>
 {% endfor %}
   </ul>
 
   <h1>命令行</h1>
-  <ul class="list-unstyled">
+  <ul class="lesson-list list-unstyled">
 {% for post in site.categories["cmd"]  reversed%}
     <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      <dl>
+        <dt><h5><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a></h5>
+        </dt>
+        <dd>{{ post.description }}</dd>
+      </dl>
     </li>
 {% endfor %}
 	<li>
-      <a target="_blank" href="http://blog.csdn.net/niushuai666/article/details/7275406">vim简明教程</a>
+    <dl>
+      <dt><h5>
+        <a target="_blank" href="http://blog.csdn.net/niushuai666/article/details/7275406">vim简明教程</a>
+      </h5>
+      </dt>
+      <dd>vim是linux上使用最为广泛的文本编辑器，有必要了解。</dd>
+    </dl>  
+      
     </li>
   </ul>
 
   <h1>其他</h1>
-  <ul class="list-unstyled">
+  <ul class="lesson-list list-unstyled">
 {% for post in site.categories["常用工具使用教程"]  reversed%}
     <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      <dl>
+        <dt><h5><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a></h5>
+        </dt>
+        <dd>{{ post.description }}</dd>
+      </dl>
     </li>
 {% endfor %}
   </ul>
