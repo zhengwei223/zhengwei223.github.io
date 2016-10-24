@@ -1,12 +1,14 @@
 ---
 layout: post
-title: 博客-文章页的布局设计
+title: 2.体会布局——博客文章页设计
 category: Bootstrap入门实例教学
 tags: Web前端 Bootstrap 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 Web前端 Bootstrap
-description: 为了巩固对Boots的网格布局系统的理解，本章用一个实例来进行示范。
+description: 本章用一个简单页面实例来示范boots的网格布局系统，但需要大家提前阅读基础知识<a href="/boots-reference/boots-ref-grid">网格布局</a>。
 ---
+请提前阅读[网格布局](/boots-reference/boots-ref-grid)。
+
 >我们需要做出一个有标题、正文、文章目录的博客文章页面：
 
 ![文章页](/public/img/boots/3.1.png "文章页")
@@ -15,7 +17,7 @@ description: 为了巩固对Boots的网格布局系统的理解，本章用一�
 
 ## 1.拷贝模板
 
-修改`title`标签的内容。
+拷贝[基础模板](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/01/index0.html)，修改`title`标签的内容。
 
 ## 2.整体结构
 

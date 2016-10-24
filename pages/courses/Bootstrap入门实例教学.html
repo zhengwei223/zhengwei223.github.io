@@ -11,14 +11,9 @@ scrolltop: true
 <p>Bootstrap，来自 Twitter，是目前最受欢迎的前端框架。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。</p>
 
 
-<p>本教程将向您讲解 Bootstrap 框架的基础，通过实例来进行教学。</p>
+<p>本教程将由浅入深向您讲解 Bootstrap 框架，包括样式、组件、插件的使用以及如何自定义，其中穿插了一个“博客”前端页面的案例。</p>
 
 <h2>谁适合阅读本教程？</h2>
-<p>
-只要您具备 HTML 和 CSS 的基础知识，您就可以阅读本教程，进而开发出自己的网站。
-</p>
-
-<h2>阅读本教程前，您需要了解的知识：</h2>
 <p>
 在您开始阅读本教程之前，您必须具备 HTML 、 CSS 和 JavaScript 的基础知识。如果您还不了解这些概念，那么建议您先阅读我们的<a href="/pages/course/Web前端入门教程">基础教程</a>
 </p>
@@ -37,10 +32,14 @@ scrolltop: true
 下面我们就赶紧开始来学习这门课程吧
 
 <div class="lessons">
-  <ul class="list-unstyled">
+  <ul class="lesson-list list-unstyled">
 {% for post in site.categories["Bootstrap入门实例教学"]  reversed%}
     <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      <dl>
+        <dt><h5><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a></h5>
+        </dt>
+        <dd>{{ post.description }}</dd>
+      </dl>
     </li>
 {% endfor %}
   </ul>

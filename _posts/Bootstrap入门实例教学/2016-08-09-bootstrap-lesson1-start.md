@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bootstrap安装与使用
+title: 1.Bootstrap安装与使用
 category: Bootstrap入门实例教学
 tags: Web前端 Bootstrap 
 author: 郑未
