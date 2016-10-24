@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bootstrap基础样式及自定义
+title: Bootstrap基础样式及自定义简介
 category: Bootstrap入门实例教学
 tags: Web前端 Bootstrap 
 author: 郑未
