@@ -809,7 +809,7 @@ items="${allBallMap}" delimiter="、"/>
 
 ## 28.2.4 `select`标签 ##
 
-`<form:select …/>`标签会被渲染为一个普通的HTML `select`标签，，并且也可以绑定request域的数据。`<form:select …/>`与`<form:radiobuttons…/>`标签的使用方法非常相似，如下是以`<form:select …/>`的形式选择最喜欢的球类：
+`<form:select …/>`标签会被渲染为一个普通的HTML `select`标签，，并且也可以绑定`request`域的数据。`<form:select …/>`与`<form:radiobuttons…/>`标签的使用方法非常相似，如下是以`<form:select …/>`的形式选择最喜欢的球类：
 
 **控制器：org.lanqiao.handler.FormDemo.java**
 
@@ -866,3 +866,436 @@ allBallMap.put(1,"足球");
 
 ## 28.2.5 `option`标签和`options`标签 ##
 
+**①`option`标签**
+
+`<form:option.../>`标签会被渲染为一个普通的HTML `option`标签。当一个`<form:select …/>`标签没有通过`items`属性绑定数据源的时候，就可以在`<form:select …/>`标签中通过普通HTML `option`标签或者`<form:option.../>`标签来指定可供选择的项。
+
+
+**控制器：org.lanqiao.handler.FormDemo.java**
+
+```
+//package、import
+@Controller
+@RequestMapping(value = "/FormDemo")
+public class FormDemo
+{
+	…
+	@RequestMapping(value="/testOption")
+	public String testOption(Map<String,Object> map){
+		Person per = new Person();
+		//没有执行per.setFavoriteBall(1);
+         //也没有设置allBallMap（所有的option选项）
+		map.put("person", per);
+		
+		return "forward:/views/option.jsp";
+	}
+}
+…
+```
+
+**views/option.jsp**
+
+```
+…
+	<form:form action="" method="post" commandName="person">  
+              最喜欢的球类: 
+              <!-- select中没有通过items绑定数据源 -->
+              <form:select path="favoriteBall">  
+                       <form:option value="1">足球</form:option>  
+                       <option value="2">篮球</option>  
+                       <option value="3">乒乓球</option>  
+              </form:select>  
+          	<input type="submit" value="提交"/>
+    	</form:form>    
+…
+```
+
+执行[http://localhost:8888/SpringMVCDemo/FormDemo/testOption](http://localhost:8888/SpringMVCDemo/FormDemo/testOption)，运行结果：
+
+![](http://i.imgur.com/tPaWBtL.png)
+
+*图28-12*
+
+可以发现，当`<form:select…/>`标签中没有通过`items`绑定数据源时，就可以通过普通的HTML `option`标签以及`<form:option…/>`标签来指定可选项。
+
+
+**此时，读者可能会有两个疑问：**
+
+**①**如果在使用`<form:select…/>`标签的时候，已经通过`items`属性绑定数据源，但同时又在其标签体里面使用了`option`标签，那么这个时候会渲染出什么样的效果呢？是根据两种形式的优先级决定最终的`option`呢，还是会两种共存呢？
+
+
+**②**从上面的运行结果可以发现，`<form:option…/>`标签与普通的HTML `option`标签的显示效果无异，那么二者的区别究竟在哪里？
+
+
+**先来解释第一个问题：**
+
+在控制器中设置`Person`对象的`favoriteBall`属性值（即被选中的`option`），并设置用于显示的所有`option`集合`allBallMap`（即所有的`option`，用于绑定`select`的数据源），如下：
+
+
+**控制器：org.lanqiao.handler.FormDemo.java**
+
+```
+//package、import
+@Controller
+@RequestMapping(value = "/FormDemo")
+public class FormDemo
+{
+	…
+	@RequestMapping(value="/testOptionWithMap")
+	public String testOptionWithMap(Map<String,Object> map){
+		Person per = new Person();
+		//最爱的球类设置为1（足球）
+		per.setFavoriteBall(1);
+		map.put("person", per);
+		
+		Map<Integer,String> allBallMap = new HashMap<Integer,String>();
+		//Map对象的key表示可选项option的value；Map对象的value表示与之对应的显示值
+		allBallMap.put(1,"足球-football");
+		allBallMap.put(2,"篮球-basketball");
+		allBallMap.put(3,"乒乓球-pingpang");
+		map.put("allBallMap",allBallMap);
+		return "forward:/views/option.jsp";
+	}
+}
+```
+
+再在`<form:select…/>`标签中，通过`items`属性绑定`option`的数据源；并且同时又编写`<form option..>`及`<option..>`。即通过两种方式设置了`option`选项，如下：
+
+
+**views/option.jsp**
+
+```
+…
+	<form:form action="" method="post" commandName="person">  
+               最喜欢的球类: 
+              <form:select path="favoriteBall" items="${allBallMap }">  
+                       <form:option value="1">足球</form:option>  
+                       <option value="2">篮球</option>  
+                       <option value="3">乒乓球</option>  
+              </form:select>  
+          	<input type="submit" value="提交"/>
+    	</form:form>    
+…
+```
+
+执行[http://localhost:8888/SpringMVCDemo/FormDemo/testOptionWithMap](http://localhost:8888/SpringMVCDemo/FormDemo/testOptionWithMap)，运行结果：
+
+![](http://i.imgur.com/e9aF6t2.png)
+
+*图28-13*
+
+通过结果发现，当用`items`绑定数据源和手写`option`两种方式同时设置可选项时，`items`绑定数据源方式的优先级高，会覆盖掉手写`option`方式的效果。
+
+**对于第二个问题：**
+
+通过`Person`对象的`favoriteBall`属性，来设置最喜欢的球类为2（在后续JSP中，数字2对应的选项是“篮球-A”），如下：
+
+
+**控制器：org.lanqiao.handler.FormDemo.java**
+
+```
+//package、import
+@Controller
+@RequestMapping(value = "/FormDemo")
+public class FormDemo
+{
+	…
+	@RequestMapping(value="/test2WaysOption")
+	public String test2WaysOption(Map<String,Object> map){
+		Person per = new Person();
+		per.setFavoriteBall(2);
+		map.put("person", per);
+		return "forward:/views/option.jsp";
+	}
+}
+```
+
+再在JSP中，通过普通的HTML `option`标签和`<form:option…>`标签同时设置value=”2”的`option`；并且此时没有给`select`标签通过`items`绑定数据源，如下：
+
+
+**views/option.jsp**
+
+```
+…
+<form:form action="" method="post" commandName="person">  
+       最喜欢的球类: 
+       <!-- select中没有通过items绑定数据源 -->
+       <form:select path="favoriteBall" >  
+               <form:option value="1">足球</form:option>  
+               <form:option value="2">篮球-A</form:option>  
+               <option value="2">篮球-B</option>  
+               <option value="3">乒乓球</option>  
+        </form:select>  
+        <input type="submit" value="提交"/>
+</form:form>    
+…
+```
+
+执行[http://localhost:8888/SpringMVCDemo/FormDemo/test2WaysOption](http://localhost:8888/SpringMVCDemo/FormDemo/test2WaysOption)，运行结果：
+
+![](http://i.imgur.com/2i60Og5.jpg)
+
+*图28-14*
+
+可以发现，`HTML option`标签和`<form:option…>`标签的区别就在于：普通`HTML option`标签不具备数据绑定功能；而`<form:option…>`标签具有数据绑定功能，它能把与表单对象属性值（favoriteBall=2）相对应的`option`（`<option value="2"..>`）设置为选中状态。
+
+**②`options`标签**
+
+使用`<form:options…>`标签时，需要指定其`items`属性。`<form:options…>`标签会根据`items`属性生成一系列的普通`HTML option`标签。换句话说，`<form:options…>`标签的`items`属性与`<form:select…>`标签的`items`属性的使用方法完全相同，都是用来绑定可选项的数据源，如下：
+
+**控制器：org.lanqiao.handler.FormDemo.java**
+
+```
+//package、import
+@Controller
+@RequestMapping(value = "/FormDemo")
+public class FormDemo
+{
+	…
+	@RequestMapping(value="/testOptionsWithMap")
+	public String testOptionsWithMap(Map<String,Object> map){
+		Person per = new Person();
+		//最爱的球类设置为2（篮球）
+		per.setFavoriteBall(2);
+		map.put("person", per);
+		
+		Map<Integer,String> allBallMap = new HashMap<Integer,String>();
+		//Map对象的key表示可选项option的value；Map对象的value表示与之对应的显示值
+		allBallMap.put(1,"足球");
+		allBallMap.put(2,"篮球");
+		allBallMap.put(3,"乒乓球");
+		map.put("allBallMap",allBallMap);
+		
+		return "forward:/views/options.jsp";
+	}}
+```
+
+**views/options.jsp**
+
+```
+…
+	 <form:form action="" method="post" commandName="person">  
+         	最喜欢的球类:  
+         		<form:select path="favoriteBall" >  
+         			<form:options items="${allBallMap}"/>
+         		</form:select>
+		<input type="submit" value="提交"/>
+  	  </form:form>
+…
+```
+
+执行[http://localhost:8888/SpringMVCDemo/FormDemo/testOptionsWithMap](http://localhost:8888/SpringMVCDemo/FormDemo/testOptionsWithMap)，运行结果：
+
+![](http://i.imgur.com/iQHYjmc.png)
+
+*图28-15*
+
+可以发现，`<form:options…>`标签与`<form:select…>`标签的使用方法非常相似。
+
+## 28.2.6 `errors`标签 ##
+
+在上一章中，我们使用了JSR303进行数据校验，并将错误信息存储到了`BindingResult`对象中。
+
+`BindingResult`接口的定义如下：
+
+```
+public interface BindingResult extends Errors
+{…}
+```
+
+可以发现`BindingResult`继承自`Errors`接口。
+
+`<form:errors…>`标签可以显示`Errors`对象中的错误信息，可以通过`path`属性来绑定两种类型的错误信息，
+
+**①**用`<form:errors path="*"/>`显示所有的错误信息
+
+
+**②**用`<form:errors path="绑定对象的属性名"/>`显示特定元素的错误信息。例如，如果`form`表单绑定的是`student`对象，则`<form:errors path=" stuName "/>`可以显示`student`对象中`stuName`属性的错误信息。
+
+
+**`<form:errors…>`标签的具体使用步骤如下：**
+
+**①编写实体类，加入JSR303校验**
+
+**org.lanqiao.entity.Student.java**
+
+```
+//package、import
+public class Student 
+{
+    //用户名不能为空
+	@NotEmpty
+	private String stuName;
+    //出生日期必须在今天之前
+	@Past
+	private Date birthday ;
+    //Email必须符合邮箱格式
+	@Email
+	private String email;
+    //setter、getter
+}
+```
+
+**②新增`request`域对象，并绑定到Spring表单标签**
+
+在`request`域中新增`student`对象，并绑定到**index.jsp**的表单中，如下：
+
+
+**org.lanqiao.handler.FirstSpringDemo.java**
+
+```
+//package、import
+@Controller
+@RequestMapping(value = "/FirstSpringDemo")
+public class FirstSpringDemo
+{
+     …
+@RequestMapping("/testErrors")
+	public String testErrors( Map<String, Object> map)
+	{
+		Student student = new Student();
+        //在request域中新增student对象
+		map.put("student", student) ;
+		return "../index";
+	}
+}
+```
+
+**index.jsp**
+
+```
+…
+		<form:form action="testValid" commandName="student">
+				用户名:<form:input path="stuName"/><br/>
+				生日:<form:input path="birthday"/><br/>
+				邮箱:<form:input path="email"/><br/>
+				<input type="submit" value="提交"/>
+		</form:form>
+…
+```
+
+**③加入`<form:errors…>`标签**
+
+在Spring表单中加入`<form:errors…>`标签，如下：
+
+**index.jsp**
+
+```
+…
+		<form:form action="testValid" commandName="student">
+                 <form:errors path="*"></form:errors><br/>
+				用户名:<form:input path="stuName"/><br/>
+				…
+		</form:form>
+…
+```
+
+**④校验**
+
+在`action`指定的处理方法`testValid()`中进行校验，并约定校验失败后跳回之前的表单页面**index.jsp**，如下：
+
+
+**org.lanqiao.handler.FirstSpringDemo.java**
+
+```
+//package、import
+@Controller
+@RequestMapping(value = "/FirstSpringDemo")
+public class FirstSpringDemo
+{
+     …
+@RequestMapping("/testValid")
+	public String testValid(@Valid Student student, 
+BindingResult result, Map<String, Object> map)
+	{
+		if (result.getErrorCount() > 0)
+		{
+			//将错误信息通过map放入request作用域之中
+			 map.put ("errors",result.getFieldErrors());
+             //校验失败后，跳转到index.jsp中
+             return "../index";
+		}
+		return "success";
+	}
+```
+
+执行[http://localhost:8888/SpringMVCDemo/FirstSpringDemo/testErrors](http://localhost:8888/SpringMVCDemo/FirstSpringDemo/testErrors)，运行结果：
+
+![](http://i.imgur.com/iZ3DS0p.png)
+
+*图28-16*
+
+输入以下不合法内容，并提交
+
+![](http://i.imgur.com/Y4wVWja.png)
+
+*图28-17*
+
+提交后结果：
+
+![](http://i.imgur.com/6Py436q.png)
+
+*图28-18*
+
+可见，`<form:errors path="*"></form:errors>`可以显示`request`域中的所有错误信息。如果想只显示某一指定元素的错误信息，就需要使用`<form:errors path="绑定对象的属性名"/>`。对**index.jsp**进行修改，如下：
+
+
+**index.jsp**
+
+```
+…
+		<form:form action="testValid" commandName="student">
+                 用户名:<form:input path="stuName"/>
+				<form:errors path="stuName"></form:errors><br/>
+				生日:<form:input path="birthday"/>
+				<form:errors path="birthday"></form:errors><br/>
+				邮箱:<form:input path="email"/>
+				<form:errors path="email"></form:errors><br/>
+				<input type="submit" value="提交"/>		
+</form:form>
+…
+```
+
+再次执行[http://localhost:8888/SpringMVCDemo/FirstSpringDemo/testErrors](http://localhost:8888/SpringMVCDemo/FirstSpringDemo/testErrors)，并输入不合法的内容，运行结果：
+
+![](http://i.imgur.com/UGDE7CS.png)
+
+*图28-19*
+
+我们再思考：“不能为空”、“需要一个过去的时间”……这些都是校验框架内置的错误信息。我们能否自定义错误信息呢？可以！需要在资源文件中配置错误信息，方法如下：
+
+
+在`src`下创建并编写**i18n.properties**资源文件，并在**springmvc.xml**中配置。详见“视图和视图解析器”一章中的“通过解析JstlView实现国际化”。
+
+
+**资源文件中，错误信息的编写规则是：**
+
+**校验注解名（如`@NotEmpty`）去掉@.表单绑定的对象名.属性名=错误信息**
+
+如下：       
+
+**i18n.properties**
+
+```
+NotEmpty.student.stuName=\u59D3\u540D\u4E0D\u80FD\u4E3A\u7A7A
+Past.student.birthday=\u51FA\u751F\u65E5\u671F\u5FC5\u987B\u5728\u4ECA\u5929\u4EE5\u524D
+Email.student.email=\u90AE\u7BB1\u683C\u5F0F\u6709\u8BEF
+```
+
+**说明：**
+
+**①**properties中的汉字自动转为了ASCII，用户输入的原文是：
+
+**②**NotEmpty.student.stuName=姓名不能为空
+
+**③**Past.student.birthday=出生日期必须在今天以前
+
+**④**Email.student.email=邮箱格式有误
+
+
+
+之后，重启服务，再次执行并输入错误信息，运行结果如下：
+
+![](http://i.imgur.com/efeHssN.png)
+
+*图28-20*
