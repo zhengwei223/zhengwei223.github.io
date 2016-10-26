@@ -11,6 +11,57 @@ description: 纸上得来终觉浅。本章将带领大家完成一个酷炫的�
 
 # 一 设计目标与网格 #
 
+这一章的设计目标是一个博客站点的首页，效果和讲解顺序如图：
+
+![总体效果](/public/img/boots/4.12.png)
+
+对应的主体页面标记如下：
+
+    <body>
+      <!-- 导航条  -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+      </nav><!-- /导航条 -->
+
+      <header class="home-header">
+      </header><!-- /home-header -->
+
+      <main>
+        <div class="container">
+          <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 post-container">
+            </div><!-- /post-container -->
+
+            <!-- Sidebar Container -->
+            <div class="
+            col-lg-3 
+            col-md-3 
+            sidebar-container">
+              <!-- Featured Tags -->
+              <section class="tags-container">
+              </section><!-- /tags-container -->
+
+              <!-- Short About -->
+              <section class="hidden-sm hidden-xs short-about-container">
+              </section><!-- /short-about-container -->
+
+              <!-- Friends Blog -->
+              <section class="friends-container">
+              </section><!-- friends-container -->
+            </div><!-- /sidebar-container -->
+          </div><!--/row-->
+        </div>
+      </main><!-- main -->
+      <footer class="home-footer">
+        <div class="container-fluid">
+
+        </div>
+      </footer><!-- footer -->
+
+    </body>
+
+代码中都有每个组件含义的注释，就不赘述了。下面我们就一步一步来完成这个实验。
+
 # 二 头部导航 #
 
 ## 标签结构
@@ -18,37 +69,37 @@ description: 纸上得来终觉浅。本章将带领大家完成一个酷炫的�
 我们首先来搭建导航条，它在页面的最上方。以下是导航条的标签结构，这段代码的原型来自[官网](http://v3.bootcss.com/components/#navbar)，我们去掉了不必要的表单部分，做了一些调整，形成了[下列代码](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/blog-index/index-1.html)：
 
     <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed"
-                  data-toggle="collapse" data-target="#navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- 此处可以用图片取代文字 -->
-                <a class="navbar-brand" href="#">Your Blog</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#">Home</a>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Tags</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed"
+            data-toggle="collapse" data-target="#navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- 此处可以用图片取代文字 -->
+          <a class="navbar-brand" href="#">Your Blog</a>
         </div>
-        <!-- /.container -->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="#">Home</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <a href="#">Tags</a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
     </nav>
 
 ## 代码解析
@@ -94,7 +145,7 @@ description: 纸上得来终觉浅。本章将带领大家完成一个酷炫的�
 - 至于颜色，你喜欢什么颜色就用什么颜色
 
 在bootstrap.less中修改variable.less为"__variable.less"并重新编译css到某个位置同时保证你的页面引用了正确的位置。例如：
-    
+
     //编译
     lessc bootstrap.less ../../blog-index/bootstrap.min.css
     //引入
@@ -377,6 +428,8 @@ section标记便是我们新增的内容。
 
 ## fontawesome字体图标的使用
 
+代码中fa打头的样式类都来自font-awesome字体图标，因此我们需要了解fontawesome字体图标的使用：
+
 - 克隆项目
 
 ```    
@@ -401,13 +454,13 @@ assets
 ├── img
 ├── js
 └── less
-    ├── font-awesome
-    │   ├── font-awesome.less
-    │   ├── ...
-    │   ├── variables.less 
-    │   └── path.less 
-    ├── bootstrap.less
-    └── ...
+├── font-awesome
+│   ├── font-awesome.less
+│   ├── ...
+│   ├── variables.less 
+│   └── path.less 
+├── bootstrap.less
+└── ...
 ```
 
 - 修改bootstrap.less文件导入font-awesome:
@@ -477,6 +530,184 @@ assets
 
 # 六 侧边栏：好友链接 #
 
+本节代码在[此处](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/blog-index/index-5.html)。
+
+## 添加标记
+
+    <!-- Friends Blog -->
+    <section class="friends-container">
+      <hr>
+      <h5>FRIENDS</h5>
+      <ul class="list-inline friends-list">
+        <li><a href="#">Lanqiao Blog</a></li>
+        <li><a href="#">Foo</a></li>
+        <li><a href="#">Bar</a></li>
+        <li><a href="#">Example Friends</a></li>
+        <li><a href="#">It helps SEO</a></li>
+      </ul>
+    </section><!-- friends-container -->
+
+## 优化样式
+
+    .short-about-container,.friends-container{
+      color: #bfbfbf;  // 灰色
+      a{
+        color: #bfbfbf;
+        text-decoration: none;
+        &:hover,&:focus{
+          color: #0085a1;
+          border-color: #0085a1;
+        }
+      }
+      h5 {
+        color: @gray;
+        a{
+          color: @gray;
+        }
+      }
+      .short-about p{
+        .text-center();  // 文字居中
+        margin: 10px 0;
+      }
+    }   
+
+由于和个人介绍类似，所以我们可以直接共享之前的样式。
+
+## 效果展示
+
+![好友链接](/public/img/boots/4.09.png)
+
 # 七 页脚版权声明与媒体链接
 
+本节代码在[此处](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/blog-index/index-6.html)。
 
+## 添加标记
+
+    ...
+    </main><!-- main -->
+    <footer class="home-footer">
+      <div class="container-fluid">
+        <ul class="list-inline text-center">
+          <li>
+            <a  href="#">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa  fa-stack-1x fa-inverse">知</i>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a  href="#">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a  href="#">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a  href="#">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+        </ul>
+        <p class="copyright text-muted text-center">
+          Copyright © Lanqiao 2016
+        </p>
+      </div>
+    </footer><!-- footer -->
+
+## 优化样式
+
+    .home-footer {
+      padding: 50px 0 65px;
+      li{
+        padding-right: 5px;
+        padding-left: 5px;
+
+        a{
+          font-size: 20px;
+          color: @gray-darker;
+          text-decoration: none;
+
+          &:hover,&:focus{
+            color: #0085a1;
+          }
+        }
+      }
+    }
+
+## 效果展示
+
+![页脚](/public/img/boots/4.10.png)
+
+# 八 页头巨幕、微调、完结
+
+最终代码在[此处](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/blog-index/index.html)。
+
+## 页头巨幕
+
+为了让博客更具有个性，我们决定在页面上方增加一个巨幕并以巨大的字体打出我们的名字：
+
+    ...
+    </nav><!-- /导航条 -->
+    <header class="home-header">
+      <div class="jumbotron">
+        <div class="container-fluid text-center">
+          <h1>Your Blog</h1>
+          <h2>Sub title</h2>
+        </div>
+      </div>
+    </header>
+    <main>
+    ...
+
+`jumbotron`是boots内置的巨幕组件样式类，直接使用即可。
+
+  样式：
+
+    .home-header{
+      color: #fff;  // 字体颜色： 白
+      .jumbotron{
+        background-color: #e8a7a7;  // 背景颜色： 淡红
+      }
+      h1{
+        font-size: 80px;
+      }
+      h2{
+        font-size: 22px;
+      }
+    }
+
+效果：
+
+![巨幕](/public/img/boots/4.11.png)
+
+## 整页调整
+
+- 我们把logo从文字换为了图片
+- 为`.post-container`增加了右侧内边距
+
+这些大家都可以通过查看[custom.less源代码](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/assets/less/__custom.less)了解。
+
+# 九 小结
+
+下面我们来请点一下本章的知识要点：
+
+- 我们利用了Bootstrap的响应式导航条、巨幕和网格系统；
+- 我们自定义了一些Bootstrap的LESS文件；
+- 我们还创建了自己的LESS文件，并将它集成到了项目中；
+- 我们加入了Font Awesome，获得了最流行的网络字体图标
+- 我们实现了一个容易维护的个人博客网站，网站的文件组织非常稳健，注释非常完善
+
+有了这些经验，Bootstap及基本能为你所用了：利用它可以迅速搭建网站框架，然后再对核心内容进行定制。在后面几章里，我们还将继续完善整个博客站点，从而丰富你的经验。
