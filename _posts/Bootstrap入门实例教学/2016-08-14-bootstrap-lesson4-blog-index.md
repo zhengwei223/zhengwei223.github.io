@@ -72,20 +72,20 @@ description: 纸上得来终觉浅。本章将带领大家完成一个酷炫的�
     //##
 
     // Basics of a navbar
-    @navbar-height:                    60px;
+    @navbar-height                    : 60px;
     ...
-    @navbar-default-color:             #404040;
-    @navbar-default-bg:                #f8f8f8;
+    @navbar-default-color             : #404040;
+    @navbar-default-bg                : #f8f8f8;
     ...
     // Navbar links
-    @navbar-default-link-color:                @navbar-default-color;
-    @navbar-default-link-hover-color:          #0085a1;
+    @navbar-default-link-color        : @navbar-default-color;
+    @navbar-default-link-hover-color  : #0085a1;
     ...
-    @navbar-default-link-active-color:         #0085a1;
+    @navbar-default-link-active-color : #0085a1;
     ...
     // Navbar brand label
-    @navbar-default-brand-color:               @navbar-default-link-color;
-    @navbar-default-brand-hover-color:         #0085a1;
+    @navbar-default-brand-color       : @navbar-default-link-color;
+    @navbar-default-brand-hover-color : #0085a1;
 
 这次修改，我们
 
@@ -182,12 +182,12 @@ description: 纸上得来终觉浅。本章将带领大家完成一个酷炫的�
 拷贝scaffolding.less为__scaffolding.less，修改body样式：
 
     body {
-      font-family: @font-family-base;
-      font-size: @font-size-base;
-      line-height: @line-height-base;
-      color: @text-color;
-      background-color: @body-bg;
-      padding-top: 60px;  // 新增
+      font-family      : @font-family-base;
+      font-size        : @font-size-base;
+      line-height      : @line-height-base;
+      color            : @text-color;
+      background-color : @body-bg;
+      padding-top      : 60px;  // 新增
     }
 
 如果我们做正确了，效果也正确了：
@@ -205,31 +205,31 @@ description: 纸上得来终觉浅。本章将带领大家完成一个酷炫的�
     color: @gray-dark;
     // 二级标题
     h3{
-      font-weight: 300;
-      font-size: 16px;
+      font-weight : 300;
+      font-size   : 16px;
     }
     // 文本预览
     .post-content-preview{
-      font-style: italic;
-      color: #a3a3a3;
+      font-style : italic;
+      color      : #a3a3a3;
       &:hover{
-        text-decoration: none;
-        color: #0085a1;
+        text-decoration : none;
+        color           : #0085a1;
       }
     }
     // 悬停和激活状态
     &:hover,&:active,&:focus{
-      text-decoration: none;
-      color: #0085a1;
+      text-decoration : none;
+      color           : #0085a1;
     }
   }
   // 作者和时间信息
   .post-meta{
-    font-family: Lora,'Times New Roman',serif;
-    color: gray;
-    font-size: 18px;
-    font-style: italic;
-    margin-top: 10px;
+    font-family : Lora,'Times New Roman',serif;
+    color       : gray;
+    font-size   : 18px;
+    font-style  : italic;
+    margin-top  : 10px;
   }
 
 }
@@ -247,7 +247,233 @@ description: 纸上得来终觉浅。本章将带领大家完成一个酷炫的�
 
 # 四 侧边栏：标签列表 #
 
+本节代码在[此处](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/blog-index/index-3.html)
+
+## 添加html标记
+
+整个标签列表可以视为一个组件，我们将它放在侧边栏这个容器之中：
+
+    <!-- Sidebar Container -->
+    <div class="col-lg-3 col-md-3 sidebar-container">
+      <section class="tags-container">
+        <hr>
+        <h5><a href="#">FEATURED TAGS</a></h5>
+        <div class="tags">
+          <a href="#" title="标签1" rel="3">标签1</a>
+          <a href="#" title="标签2" rel="3">标签2</a>
+          <a href="#" title="标签3" rel="3">标签3</a>
+        </div>    
+      </section><!-- /tags-container -->
+    </div><!-- /sidebar-container -->
+
+section标记便是我们新增的内容。
+
+## 组件样式
+
+同样在__custom.less中我们为`tags-container`组件设定样式：
+
+```css
+// 标签
+.tags-container{
+  // 标题
+  h5 a{
+    color           : @gray;
+    text-decoration : none;
+
+    &:hover,&:focus{
+      color: #0085a1;
+    }
+  }
+  .tags{
+    margin-bottom: 10px;
+    // 具体标签：加边框
+    a{
+      color           : #bfbfbf;
+      border          : 1px solid rgba(202, 99, 99, 0.8);
+      border-radius   : 999em;
+      padding         : 5px 10px;
+      line-height     : 24px;
+      font-size       : 12px;
+      text-decoration : none;
+      margin          : 0 5px;
+      margin-bottom   : 6px;
+
+      &:hover,&:focus{
+        color        : #0085a1;
+        border-color : #0085a1;
+      }
+    }
+  }
+}
+```
+
+## 查看效果
+
+保存更改，重新编译less，刷新页面，效果如下：
+
+![标签列表](/public/img/boots/4.06.png)
+
 # 五 侧边栏：个人信息 #
+
+本节代码在[此处](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/blog-index/index-4.html)
+
+## 添加html标记
+
+我们将个人信息组件放到侧边栏容器中，标签列表之后：
+
+```html    
+...</section><!-- /tags-container -->
+
+<!-- Short About -->
+<section class="hidden-sm hidden-xs short-about-container">
+  <hr>
+  <h5><a href="#">ABOUT ME</a></h5>
+  <div class="short-about">
+    <img src="../assets/img/lanqiao.png" width="100%" height="100%">
+    <p>立人达人，专注教育。</p>
+    <!-- 社交链接 -->
+    <ul class="list-inline">
+      <!-- 知乎 -->
+      <li>
+        <a target="_blank" href="#">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-stack-1x fa-inverse">知</i>
+          </span>
+        </a>
+      </li>
+      <!-- 微博 -->
+      <li>
+        <a target="_blank" href="#">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      <!-- facebook -->
+      <li>
+        <a target="_blank" href="#">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      <!-- github -->
+      <li>
+        <a target="_blank" href="#">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</section><!-- /short-about-container -->
+```
+
+## fontawesome字体图标的使用
+
+- 克隆项目
+
+```    
+git clone https://github.com/FortAwesome/Font-Awesome.git
+```
+
+- 拷贝font目录下的字体到你工程项目的字体目录下，我拷贝到了`./assets/font`目录
+- 将整个less目录拷贝重命名为font-awesome再剪切到`./assets/less`目录
+
+```
+assets
+├── css
+├── fonts
+│   ├── FontAwesome.otf
+│   ├── fontawesome-webfont.eot
+│   ├── fontawesome-webfont.svg
+│   ├── fontawesome-webfont.ttf
+│   ├── fontawesome-webfont.woff
+│   ├── fontawesome-webfont.woff2
+│   ├── glyphicons-halflings-regular.eot
+│   └── glyphicons-...
+├── img
+├── js
+└── less
+    ├── font-awesome
+    │   ├── font-awesome.less
+    │   ├── ...
+    │   ├── variables.less 
+    │   └── path.less 
+    ├── bootstrap.less
+    └── ...
+```
+
+- 修改bootstrap.less文件导入font-awesome:
+
+```
+// @import "glyphicons.less";  // 去掉默认字体图标
+@import "./font-awesome/font-awesome.less";
+```
+
+- 修改"./font-awesome/variable.less"中字体图标的路径
+
+```
+//@fa-font-path:        "../fonts";
+@fa-font-path:        "../assets/fonts";
+```
+
+- 在页面中使用font-awesome提供的css类引入字体图标，如：
+
+```
+<i class="fa fa-camera-retro"></i>
+<i class="fa fa-camera-retro fa-2x"></i>
+<i class="fa fa-camera-retro fa-3x"></i>
+<i class="fa fa-camera-retro fa-4x"></i>
+```
+
+效果：<i class="fa fa-camera-retro"></i>
+<i class="fa fa-camera-retro fa-2x"></i>
+<i class="fa fa-camera-retro fa-3x"></i>
+<i class="fa fa-camera-retro fa-4x"></i>
+
+在i标签的外部，还可以加超链接标签等。
+
+- 更多关于样式的使用，请到[font-awesome示例](http://fontawesome.io/examples/)去了解。
+
+## 组件样式
+
+目前的页面效果：
+
+![个人信息](/public/img/boots/4.07.png)
+
+在__custom.less中新增如下代码：
+
+```css
+.short-about-container{
+  color: #bfbfbf;  // 灰色
+  a{
+    color: #bfbfbf;
+    text-decoration: none;
+    &:hover,&:focus{
+      color: #0085a1;
+      border-color: #0085a1;
+    }
+  }
+  h5 a{
+    color: @gray;
+  }
+  .short-about p{
+    .text-center();  // 文字居中
+    margin: 10px 0;
+  }
+}
+```
+
+保存更改，重新编译less，刷新页面后，效果如下：
+
+![个人信息](/public/img/boots/4.08.png)
 
 # 六 侧边栏：好友链接 #
 
