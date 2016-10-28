@@ -5,7 +5,6 @@ category: front-prj
 tags: 前端 模块化 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 前端 模块化 webpack 项目模板
-p_cate: 前端那些事儿
 description: 本篇为大家提供一个基于webpack进行前端开发的项目模板，它区分了开发环境和生成环境，考虑了日常前端开发所需的基本配置。这个环境支持es6、less等最新语法，要扩展可以自行增加loader和插件。
 ---
 

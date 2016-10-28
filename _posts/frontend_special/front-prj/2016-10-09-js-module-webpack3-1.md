@@ -5,7 +5,6 @@ category: front-prj
 tags: 前端 模块化 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 前端 模块化 webpack 多页面 多入口
-p_cate: 前端那些事儿
 description: 本篇主要介绍：如何自动构建入口文件，并生成对应的output；公共js库如何单独打包。多入口文件，自动扫描入口。同时支持SPA和多页面型的项目公共js库如何单独打包。
 ---
 

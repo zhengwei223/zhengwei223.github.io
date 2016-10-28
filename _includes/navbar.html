@@ -1,5 +1,5 @@
 <!-- Static navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top navbar-slide">
   <div class="container">
   	<!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -104,8 +104,8 @@
             {% endif %}
             {% endfor %}
 
-            <li class="dropdown-submenu">
-              <a href="#">高级主题</a>
+            <li class="dropdown-sub">
+              <a href="javascript:void(0);" >高级主题<i class="fa fa-arrow-circle-right"></i></a>
               <ul class="dropdown-menu">
                 {% for cate in site.cates_mobile_special %}
                 {% if site.categories[cate].size > 0 %} 
@@ -132,8 +132,8 @@
 			    </ul>
         </li>
         <!-- 
-        <li class="dropdown">
-          <a href="#" data-toggle="dropdown" class="dropdown-toggle">思想<strong class="caret"></strong></a>
+        <li class="dropdown-sub">
+          <a href="javascript:void(0);" >高级主题<i class="fa fa-arrow-circle-right"></i></a>
           <ul class="dropdown-menu">
             {% for cate in site.cates_mind %}
             {% if site.categories[cate].size > 0 %} 

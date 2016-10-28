@@ -207,7 +207,7 @@ js直接调用collapse插件：
       // =================
 
       $(window).on('scroll.bs.navslide.data-api',function (e) {
-        Plugin.call($('.navbar .navbar-slide'),'toggle')
+        Plugin.call($('.navbar.navbar-slide'),'toggle')
       });
 
       var old = $.fn.navslide;

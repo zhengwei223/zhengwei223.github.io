@@ -5,7 +5,6 @@ category: front-prj
 tags: 前端 模块化 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 前端 模块化 webpack Loader
-p_cate: 前端那些事儿
 description: Webpack本身只能处理原生的JavaScript模块，你可以随意地require js模块，webpack能将其加载。如果要require其他类型的文件（如css、js），就需要使用loader（加载器）进行转换。loader转换器可以将各种类型的资源转换成模块，这样，任何资源都可以成为Webpack可以处理的模块，从而可以被require。
 ---
 <p class="text-danger">

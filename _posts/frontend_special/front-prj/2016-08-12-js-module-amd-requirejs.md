@@ -5,7 +5,6 @@ category: front-prj
 tags: 前端 模块化 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 前端 模块化
-p_cate: 前端那些事儿
 description: 模块化开发js已经成为必须。本文介绍require及模块化相关概念，随着es6的来临这种方案已经慢慢变得过时，不过作为了解还是必要的。
 ---
 <p class="text-danger">

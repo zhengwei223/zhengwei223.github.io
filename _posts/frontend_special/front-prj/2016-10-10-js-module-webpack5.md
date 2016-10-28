@@ -5,7 +5,6 @@ category: front-prj
 tags: 前端 模块化 
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程 前端 模块化 webpack 公共组件
-p_cate: 前端那些事儿
 description: 本篇主要介绍：公共js库、css如何单独打包。
 ---
 

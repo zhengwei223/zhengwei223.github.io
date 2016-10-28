@@ -9,11 +9,11 @@ titlename: react系列教程
     <li>
       <dl>
         <dt>
-        <h5>
-        <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
-        </h5>
+          <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
         </dt>
-        <dd>{{ post.description }}</dd>
+        <dd>
+          <a class="pjaxlink" href="{{ post.url }}">{{ post.description }}</a>
+        </dd>
       </dl>
     </li>
 {% endfor %}
