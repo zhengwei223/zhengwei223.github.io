@@ -46,10 +46,29 @@ var Index = function($){
 		  '</div>'
 		].join("");
 	};
+	var sameHeight = function(){
+		var defereds = []
+		var $imgs = $('img')
+		$imgs.each(function() {
+		    var dfd = $.Deferred();
+		    $(this).load(dfd.resolve);
+		    defereds.push(dfd);
+		})
+		$.when.apply(null, defereds).done(function() {
+	    var $cols = $('.indexContent .row div[class^="col-"')
+			var heights = $cols.map(function(){
+				return $(this).height()
+			}).get()
+
+			var maxHeight = Math.max.apply(null,heights);
+			$cols.height(maxHeight);
+		})
+	}
 	return {
 		init:function(){
 			$('.indexContent .row').append(courses.map(course=>getDom(course)).join(""));
-		}
+		},
+		sameHeight:sameHeight
 	};
 
 }(jQuery);
@@ -57,5 +76,6 @@ var Index = function($){
 (function($){
 	$(function(){
 		Index.init();
+		Index.sameHeight();
 	});
 })(jQuery);

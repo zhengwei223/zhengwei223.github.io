@@ -6,7 +6,6 @@ tags: React 入门实例教程
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程  React
 description:
-p_cate: 前端那些事儿
 ---
 
 es5有很多蹩脚的语法，es6（es2015）很爽，但浏览器支持还不够，因此出现了很多转换器，可以把es6语法风格的代码转为es5的实际代码，这样可以顺利在各主流浏览器上运行，同时又能获得es6的编码快感。

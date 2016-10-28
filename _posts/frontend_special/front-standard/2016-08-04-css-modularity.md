@@ -5,7 +5,6 @@ category: front-standard
 tags: css
 author: 郑未
 keywords: lanqiao 蓝桥 全栈  教程 css
-p_cate: 前端那些事儿
 ---
 
 个人或者团队需要将主要页面的布局用DIV图的模式按层次画出来，这个DIV图就是在设计原型的基础上，将页面中的主要模块使用的ID名、class名标注出来，方便建立维护文档以便将来进行修改与升级。

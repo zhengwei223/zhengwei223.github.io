@@ -6,7 +6,6 @@ tags: React 入门实例教程
 author: 郑未
 keywords: lanqiao 蓝桥 培训 教程  React 入门实例教程
 description:
-p_cate: 前端那些事儿
 ---
 
 
@@ -353,43 +352,42 @@ React 为每个状态都提供了两种处理函数，`will` 函数在进入状�
 
 请看栗子（查看 [示例07](https://coding.net/u/lanqiao/p/reactDemo/git/blob/master/examples/07/index.html)）：
 
-```
-<script type="text/babel">
-var Hello = React.createClass({
-  getInitialState: function () {
-    return {
-      opacity: 1.0
-    };
-  },
+    <script type="text/babel">
+    var Hello = React.createClass({
+      getInitialState: function () {
+        return {
+          opacity: 1.0
+        };
+      },
 
-  componentDidMount: function () {
-    this.timer = setInterval(function () {
-      var opacity = this.state.opacity;
-      opacity -= .05;
-      if (opacity < 0.1) {
-        opacity = 1.0;
+      componentDidMount: function () {
+        this.timer = setInterval(function () {
+          var opacity = this.state.opacity;
+          opacity -= .05;
+          if (opacity < 0.1) {
+            opacity = 1.0;
+          }
+          this.setState({
+            opacity: opacity
+          });
+        }.bind(this), 100);
+      },
+
+      render: function () {
+        return (
+          <div style={% raw %}{{opacity: this.state.opacity}}{% endraw %}>
+            Hello {this.props.name}
+          </div>
+        );
       }
-      this.setState({
-        opacity: opacity
-      });
-    }.bind(this), 100);
-  },
+    });
 
-  render: function () {
-    return (
-      <div style={{opacity: this.state.opacity}}>
-        Hello {this.props.name}
-      </div>
+    ReactDOM.render(
+      <Hello name="world"/>,
+      document.getElementById('container')
     );
-  }
-});
+    </script>
 
-ReactDOM.render(
-  <Hello name="world"/>,
-  document.getElementById('container')
-);
-</script>
-```
 
 上面代码在`hello`组件加载以后，通过 `componentDidMount `方法设置一个定时器，每隔100毫秒，就重新设置组件的透明度，从而引发重新渲染。
 
@@ -402,7 +400,7 @@ style="opacity:{this.state.opacity};"
 而要写成
 
 ```
-style={{opacity: this.state.opacity}}
+style={% raw %}{{opacity: this.state.opacity}}{% endraw %}
 ```
 
 这是因为 React 组件样式是一个对象，所以第一重大括号表示这是 JavaScript 语法，第二重大括号表示样式对象。
