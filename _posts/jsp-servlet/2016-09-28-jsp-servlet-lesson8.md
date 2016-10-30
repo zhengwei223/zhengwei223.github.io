@@ -16,7 +16,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 ---
 
-> 本章简介
+> **本章简介**
 
 通过之前学习的三层架构，我们已经可以将表示层、业务逻辑层和数据访问层相互分离，从而实现程序的解耦合，以及提高系统的可维护性和可扩展性等。但在之前的代码中，表示层JSP的代码里仍然嵌套了很多JAVA代码，从而造成了表示层一定程度的混乱。
 
@@ -32,9 +32,9 @@ EL的全称是Expression Language，可以用来替代JSP页面中的JAVA代码�
 
 **语法：**
 
-${EL表达式}
+**${EL表达式}**
 
-EL表达式通常由两部分组成：对象和属性。可以使用“点操作符”或“中括号[]操作符”来操作对象的属性。
+**EL表达式通常由两部分组成：对象和属性。可以使用“点操作符”或“中括号[]操作符”来操作对象的属性。**
 
 讲解之前，我们先通过一个简单例子来回忆一下之前不用EL的使用情景。先创建两个封装数据的JavaBean，如下，
 
@@ -68,7 +68,7 @@ public class Student
 
 再创建一个Servlet用于初始化一些数据，并将此Servlet设置为项目的默认访问程序：
 
-InitServlet.java
+**InitServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -112,7 +112,7 @@ throws ServletException, IOException
 
 如上，程序会在InitServlet中给`student`对象的各个属性赋值，然后请求转发到index.jsp中。我们先用传统的Scriptlet接收对象，并将对象的属性显示到前台，如下，
 
-index.jsp
+**index.jsp**
 
 ```
 …
@@ -140,7 +140,7 @@ index.jsp
 
 *图8-01*
 
-可以发现，程序的确能够正常的显示。但如果将index.jsp中的代码用EL表达式来实现，就会简单许多。如下是使用EL修改后的index.jsp，功能与之前的Scriptlet代码相同，
+可以发现，程序的确能够正常的显示。但如果将**index.jsp**中的代码用EL表达式来实现，就会简单许多。如下是使用EL修改后的**index.jsp**，功能与之前的Scriptlet代码相同，
 
 ```
 …
@@ -171,17 +171,17 @@ index.jsp
 
 **(2)中括号[]操作符**
 
-除了点操作符以外，还可以使用中括号操作符“[]”来访问某个对象的属性，例如`${requestScope.student.studentNo }`可以等价写成`${requestScope.student["studentNo"] }`或`${requestScope["student"]["studentNo"]` }。除此之外，中括号[]操作符还有一些其他独有功能：
+除了点操作符以外，还可以使用中括号操作符来访问某个对象的属性，例如`${requestScope.student.studentNo }`可以等价写成`${requestScope.student["studentNo"] }`或`${requestScope["student"]["studentNo"]` }。除此之外，中括号[]操作符还有一些其他独有功能：
 
-<1>如果属性名称中包含一些特殊字符，如“.”、“?”、“-”等，就必须使用中括号操作符，而不能用点操作符。例如，如果在之前的InitServlet中写了`request.setAttribute("school-name", "LanQiao")`;那么在index.jsp中就不能用`${requestScope. school-name }`，而必须改为`${requestScope ["school-name "]` }。
+**<1>**如果属性名称中包含一些特殊字符，如“.”、“?”、“-”等，就必须使用中括号操作符，而不能用点操作符。例如，如果在之前的InitServlet中写了`request.setAttribute("school-name", "LanQiao")`;那么在**index.jsp**中就不能用`${requestScope. school-name }`，而必须改为`${requestScope ["school-name "]` }。
 
-<2>如果要动态取值时，也必须使用中括号操作符，而不能用点操作符。例如，`String data=”school”`（即`data`是一个变量），那么就只能用`${ requestScope [data]}`。需要注意中括号里面的值：如果加了双引号则表示一个常量，如`${requestScope ["school-name "] }`，表示获取`"school-name "`的属性值；而如果不加上双引号，则表示一个变量，如`${ requestScope [data]}`，表示获取`data`所表示的`”school”`的属性值，即等价于`${ requestScope [”school”]}`。所以在使用中括号获取属性值时，一定要注意是否加引号。此外，中括号中的值，除了双引号以外，也可以使用单引号，作用是一样的。
+**<2>**如果要动态取值时，也必须使用中括号操作符，而不能用点操作符。例如，`String data=”school”`（即`data`是一个变量），那么就只能用`${ requestScope [data]}`。需要注意中括号里面的值：如果加了双引号则表示一个常量，如`${requestScope ["school-name "] }`，表示获取`"school-name "`的属性值；而如果不加上双引号，则表示一个变量，如`${ requestScope [data]}`，表示获取`data`所表示的`”school”`的属性值，即等价于`${ requestScope [”school”]}`。所以在使用中括号获取属性值时，一定要注意是否加引号。此外，中括号中的值，除了双引号以外，也可以使用单引号，作用是一样的。
 
-<3>访问数组。如果要访问`request`作用域内的一个对象名为`names`的数组，就可以通过中括号来表示索引，如`${ requestScope .array[0]}`、`${ requestScope .array[1]}`等。
+**<3>**访问数组。如果要访问`request`作用域内的一个对象名为`names`的数组，就可以通过中括号来表示索引，如`${ requestScope .array[0]}`、`${ requestScope .array[1]}`等。
 
-点操作符和中括号操作符还可以用来获取Map中的属性值，如下，
+点操作符和中括号操作符还可以用来获取`Map`中的属性值，如下，
 
-InitServlet.java
+**InitServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -204,7 +204,7 @@ throws ServletException, IOException
 }
 ```
 
-index.jsp
+**index.jsp**
 
 ```
 <body>
@@ -303,7 +303,7 @@ EL表达式还能够进行一些简单的运算。
 
 Empty操作符用来判断一个值是否为`null`或不存在。我们在InitServlet中给`request`的作用域内增加两个变量，如下，
 
-InitServlet.java
+**InitServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -324,10 +324,10 @@ throws ServletException, IOException
 }
 ```
 
-在`request`作用域内增加了`“test”`和`“nullVar”`两个变量，并且`“nullVar”`的值是`null`。然后再在index.jsp中获取，如下，
+在`request`作用域内增加了`“test”`和`“nullVar”`两个变量，并且`“nullVar”`的值是`null`。然后再在**index.jsp**中获取，如下，
 
 
-index.jsp
+**index.jsp**
 
 ```
 <body>
@@ -468,7 +468,7 @@ JSTL（JSP Standard Tag Library，JSP标准标签库），是一个不断完善�
 
 `<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>`
 
-其中prefix="c"表示在当前页面中，JSTL标签库是通过前缀“c”来使用的。
+其中`prefix="c"`表示在当前页面中，JSTL标签库是通过前缀“c”来使用的。
 
 ## 8.2.2 JSTL核心标签库 ##
 
@@ -513,9 +513,9 @@ JSTL核心标签库主要包含三类：通用标签库、条件标签库和迭�
 
 **<2> target版**
 
-用于给JavaBean对象的属性或Map对象赋值。
+用于给`JavaBean`对象的属性或`Map`对象赋值。
 
-**a.给JavaBean对象的属性赋值**
+**a.给`JavaBean`对象的属性赋值**
 
 **语法：**
 
@@ -524,18 +524,18 @@ JSTL核心标签库主要包含三类：通用标签库、条件标签库和迭�
 value="propertyValue"  scope="scope"/>
 ```
 
-`target`：需要操作的JavaBean对象，通常使用EL表达式来表示。
+**`target`**：需要操作的`JavaBean`对象，通常使用EL表达式来表示。
 
-`property`：对象的属性名。
+**`property`**：对象的属性名。
 
-`value`：对象的属性值。
+**`value`**：对象的属性值。
 
-`scope`：此属性值的作用域，有4个可填项，即`page`，`request`，`session`和`application`。
+**`scope`**：此属性值的作用域，有4个可填项，即`page`，`request`，`session`和`application`。
 
 示例：
-先通过Servlet给JavaBean对象的属性赋值，
+先通过Servlet给`JavaBean`对象的属性赋值，
 
-InitJSTLDataServlet.java
+**InitJSTLDataServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -558,7 +558,7 @@ throws ServletException, IOException
 }
 ```
 
-JSTLDemo.jsp
+**JSTLDemo.jsp**
 
 ```
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -579,7 +579,7 @@ property="schoolAddress" value="广东东莞蓝桥基地" />
 
 *图8-07*
 
-**b.给Map对象赋值**
+**b.给`Map`对象赋值**
 
 **语法：**
 
@@ -588,19 +588,19 @@ property="schoolAddress" value="广东东莞蓝桥基地" />
 value="mapValue"  scope="scope"/>
 ```
 
-`target`：需要操作的Map对象，通常使用EL表达式来表示。
+**`target`**：需要操作的`Map`对象，通常使用EL表达式来表示。
 
-`property`：表示Map对象的`key`。
+**`property`**：表示`Map`对象的`key`。
 
-`value`：表示Map对象的`value`。
+**`value`**：表示`Map`对象的`value`。
 
-`scope`：此Map对象的作用域，有4个可填项，即`page`，`request`，`session`和`application`。
+**`scope`**：此`Map`对象的作用域，有4个可填项，即`page`，`request`，`session`和`application`。
 
 示例：
-先通过Servlet给Map对象的属性赋值，如下
+先通过Servlet给`Map`对象的属性赋值，如下
 
 
-InitJSTLDataServlet.java
+**InitJSTLDataServlet.java**
 
 
 ```
@@ -625,9 +625,9 @@ throws ServletException, IOException
 }
 ```
 
-再使用`<c:set…/>`对Map对象的属性赋值，如下，
+再使用`<c:set…/>`对`Map`对象的属性赋值，如下，
 
-JSTLDemo.jsp
+**JSTLDemo.jsp**
 
 ```
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -653,7 +653,7 @@ ${requestScope.countries.us }<br/>
 
 需要注意的是，`<c:set>`标签不仅能对已有变量赋值；如果需要赋值的变量并不存在， `<c:set>`也会自动产生该对象，如下，
 
-index.jsp
+**index.jsp**
 
 ```
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -679,17 +679,19 @@ index.jsp
 
 `<c:out value="value" default="defaultValue" escapeXml="isEscape"/>`
 
-`value`：输出显示结果，可以使用EL表达式。
+**`value`**：输出显示结果，可以使用EL表达式。
 
-`default`：可选项。当`value`表示的对象，不存在或为空时的默认输出值。
+**`default`**：可选项。当`value`表示的对象，不存在或为空时的默认输出值。
 
-`escapeXml`：可选项，值为true或false。为true时（默认情况），将`value`中的值以字符串的形式原封不动的显示出来；为false时，会将内容以HTML渲染后的结果显示。
+**`escapeXml`**：可选项，值为true或false。为true时（默认情况），将`value`中的值以字符串的形式原封不动的显示出来；为false时，会将内容以HTML渲染后的结果显示。
 
-示例：
-先在InitJSTLDataServlet中创建`address`对象，然后给`address`中的schoolAddress属性赋值，再把`address`对象放入`request`作用域，之后请求转发到index.jsp，如下，
+**示例：**
 
 
-InitJSTLDataServlet.java
+先在`InitJSTLDataServlet`中创建`address`对象，然后给`address`中的schoolAddress属性赋值，再把`address`对象放入`request`作用域，之后请求转发到index.jsp，如下，
+
+
+**InitJSTLDataServlet.java**
 
 ```
 …
@@ -706,7 +708,7 @@ throws ServletException, IOException
 …
 ```
 
-index.jsp
+**index.jsp**
 
 ```
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -728,7 +730,7 @@ escapeXml="false"/>
 </body>
 ```
 
-执行InitJSTLDataServlet，运行结果：
+执行`InitJSTLDataServlet`，运行结果：
 
 ![](http://i.imgur.com/mPXuOLn.png)
 
@@ -744,13 +746,13 @@ escapeXml="false"/>
 
 `<c:remove var="variableName" scope="scope"/>`
 
-`var`：等待被移除的变量名
+**`var`**：等待被移除的变量名
 
-`scope`：变量被移除的作用域，有4个可填项：`page`，`request`，`session`和`application`。
+**`scope`**：变量被移除的作用域，有4个可填项：`page`，`request`，`session`和`application`。
 
 示例：
 
-index.jsp
+**index.jsp**
 
 ```
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -800,7 +802,7 @@ JSTL的条件标签库，包含单重选择标签`<c:if>`和多重选择标签`<
 
 示例：
 
-JSTLDemo02.jsp
+**JSTLDemo02.jsp**
 
 ```
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -819,7 +821,7 @@ JSTLDemo02.jsp
 
 *图8-12*
 
-②多重选择标签`<c:choose>`、`<c:when>`、 `<c:otherwise>`
+**②多重选择标签**`<c:choose>`、`<c:when>`、 `<c:otherwise>`
 
 类似于Java中的`switch`语句。
 
@@ -840,10 +842,12 @@ JSTLDemo02.jsp
 	</c:choose>
 ```
 
-其中，`<c:choose>`类似于Java中的`switch`关键字，`<c:when>`类似于Java中的`case`关键字，`<c:otherwise>`类似于Java中的`default`关键字。当`<c:when>`中的`test`为true时，执行当前<c:when>标签中的代码块；如果`test`都为false，则才会执行`<c:otherwise>`中的代码块。
+其中，`<c:choose>`类似于Java中的`switch`关键字，`<c:when>`类似于Java中的`case`关键字，`<c:otherwise>`类似于Java中的`default`关键字。当`<c:when>`中的`test`为true时，执行当前`<c:when>`标签中的代码块；如果`test`都为false，则才会执行`<c:otherwise>`中的代码块。
 
 示例：
-JSTLDemo02.jsp
+
+
+**JSTLDemo02.jsp**
 
 ```
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -872,7 +876,7 @@ JSTLDemo02.jsp
 
 *图8-13*
 
-**(3)迭代<c:forEach>标签库**
+**(3)迭代`<c:forEach>`标签库**
 
 在Java之中有两种`for`循环，一种是传统的`for`循环，形式如`for(int i=0;i<10;i++)`；另一种是增强的`for`循环，形式如`for(String name : names)` ，其中`names`是字符串数组。类似的，在JSTL中也提供了两种`<c:forEach>`标签与之相对应，一种用于遍历集合对象的成员，另一种用于让代码重复的循环执行。
 
@@ -888,22 +892,22 @@ end="endIndex" step="step">
 </c:forEach>
 ```
 
-`var`：当前对象的引用，即表示循环正在遍历的那个对象。例如，当循环遍历到第一个成员素，`var` 就代表第一个成员；当循环遍历到第二个成员素，`var` 就代表第二个成员……
+**`var`**：当前对象的引用，即表示循环正在遍历的那个对象。例如，当循环遍历到第一个成员素，`var` 就代表第一个成员；当循环遍历到第二个成员素，`var` 就代表第二个成员……
 
-`items`：当前循环的集合名。
+**`items`**：当前循环的集合名。
 
-`varStatus`：可选项。存放`var`所引用成员的相关信息，入索引序号(index)等。
+**`varStatus`**：可选项。存放`var`所引用成员的相关信息，入索引序号(index)等。
 
-`begin`：可选项。遍历集合的开始位置，从0开始。
+**`begin`**：可选项。遍历集合的开始位置，从0开始。
 
-`end`：可选项。遍历集合的结束位置。
+**`end`**：可选项。遍历集合的结束位置。
 
-`step`：可选项，默认为1。遍历集合的步长，比如当`step`为1时，会依次遍历第0个、第1个、第2个……；当`step`为2时，会依次遍历第0个、第2个、第4个……。
+**`step`**：可选项，默认为1。遍历集合的步长，比如当`step`为1时，会依次遍历第0个、第1个、第2个……；当`step`为2时，会依次遍历第0个、第2个、第4个……。
 
 示例：
 先通过Servlet给集合中加入数据，再用`<c:forEach>`遍历输出。
 
-InitJSTLForeachDataServlet.java
+**InitJSTLForeachDataServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -927,7 +931,7 @@ throws ServletException, IOException {
 }
 ```
 
-JSTLDemo02.jsp
+**JSTLDemo02.jsp**
 
 ```
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -960,8 +964,9 @@ begin="beginIndex" end="endIndex" step="step">
 
 其中`var`、`varStatus`、`begin`、`end`、`step`属性的含义，与“遍历集合对象的成员”中对应的属性含义相同，并且能发现此种方式的`<c:forEach>`缺少了`“items”`属性。此种方式的`<c:forEach>`主要用来让循环体执行固定的次数。
 
-示例：
-JSTLDemo02.jsp
+**示例：**
+
+**JSTLDemo02.jsp**
 
 ```
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -981,7 +986,7 @@ JSTLDemo02.jsp
 
 至此我们就学完了EL表达式和JSTL标签库的相关内容，读者可以使用它们来替换以前JSP页面中的Scriptlet。
 
-# 8.3练习题 #
+# 8.3 练习题 #
 
 **一、选择题**
 
@@ -1010,10 +1015,10 @@ D．user
 
 1.在使用EL表达式时，如果不显式指定对象的作用域范围，则系统会按照什么顺序依次查找？（难度★）
 
-2.使用JSTL标签<c: ... >之前，需要进行哪些准备工作？（难度★）
+2.使用JSTL标签`<c: ... >`之前，需要进行哪些准备工作？（难度★）
 
-3.<c:set>标签有哪几种？各如何使用？（难度★★）
+3.请问`<c:set>`标签有哪几种？各如何使用？（难度★★）
 
-4请介绍JSTL中的for Each迭代标签有哪些属性，并简要描述各属性的含义。（难度★★★）
+4.请介绍JSTL中的for Each迭代标签有哪些属性，并简要描述各属性的含义。（难度★★★）
 
 5.使用EL和JSTL继续优化第七章练习题中的“部门管理系统”。（难度★★★）
