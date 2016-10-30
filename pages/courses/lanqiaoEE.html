@@ -2,6 +2,7 @@
 layout: page
 title: 
 titlename: JAVA企业级项目开发全过程实录
+scrolltop: true
 ---
 
 <h1>关于此课程</h1>
@@ -14,21 +15,7 @@ titlename: JAVA企业级项目开发全过程实录
 	<li>开发流程的定义和开发过程的管理</li>
 	<li>服务端技术架构的设计、开发规范和Demo</li>
 	<li>前端、移动端技术架构的设计、开发规范和Demo</li>
-	<li>蓝桥教学教务系统的实践过程</li>
-</ol>
-<h2>实际产出物</h2>
-<ol>
-	<li>蓝桥软件学院项目管理手册</li>
-	<li>项目管理工具：禅道使用手册</li>
-	<li>测试团队工作规范</li>
-	<li>开发团队工作规范</li>
-	<li>蓝桥教学教务系统项目规划（开发计划、测试计划）</li>
-	<li>蓝桥教学教务系统产品说明文档</li>
-	<li>蓝桥教学教务系统测试用例文档</li>
-	<li>蓝桥教学教务系统架构设计文档（技术选型）</li>
-	<li>蓝桥教学教务系统数据库设计文档</li>
-	<li>蓝桥教学教务系统接口设计文档</li>
-	<li>蓝桥教学教务系统示例模块的源码</li>
+	<li>蓝桥**系统的实践过程</li>
 </ol>
 
 <h2>谁适合阅读本教程？</h2>
@@ -42,28 +29,30 @@ titlename: JAVA企业级项目开发全过程实录
 测试人员必须具备操作系统、数据库、软件测试等基础知识。
 </p>
 
+<h1>课程列表</h1>
+<ol class="lesson-list">
+  <!-- <li>
+    <dl>
+      <dt>
+        <a href="/lanqiaoee/fullstack-concept">JavaEE全栈技术概念手册</a>
+      </dt>
+      <dd>
+        
+      </dd>
+    </dl>
+  </li> -->
+  {% for post in site.categories["lanqiaoEE"]  reversed%}
+  <li>
+    <dl>
+      <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      </dt>
+      <dd><a class="pjaxlink" href="{{ post.url }}">{{ post.description }}</a></dd>
+    </dl>
+  </li>
+  {% endfor %}
+</ol>
 
-<h1>资源列表</h1>
 
-<p>文档管理：https://git.coding.net/lanqiao/lanqiaoEE.git</p>
 
-<p>服务端代码管理：https://git.coding.net/lanqiao/restSSMdemo.git</p>
 
-<p>前端代码管理：https://git.coding.net/lanqiao/eduAdminStatic.git</p>
 
-<!-- <div class="lessons">
-  <ul class="list-unstyled">
-{% for post in site.categories["lanqiaoEE"]  reversed%}
-    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
-    {% capture this_month %}{{ post.date | date: "%m" }}{% endcapture %}
-    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
-    {% capture next_month %}{{ post.previous.date | date: "%m" }}{% endcapture %}
-  
-    <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-  
-{% endfor %}
-  </ul>
-</div>
- -->

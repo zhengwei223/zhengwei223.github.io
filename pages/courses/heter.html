@@ -1,0 +1,21 @@
+---
+layout: page
+title: <img src="/public/img/courses/front-end.jpg"></i>
+titlename: 前端-异构
+scrolltop: true
+---
+
+  <h1>异构语言</h1>
+  <ul class="lesson-list list-unstyled">
+{% for post in site.categories["heter"]  reversed%}
+    <li>
+      <dl>
+        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        </dt>
+        <dd>
+          <a class="pjaxlink" href="{{ post.url }}">{{ post.description }}</a>
+        </dd>
+      </dl>
+    </li>
+{% endfor %}
+  </ul>

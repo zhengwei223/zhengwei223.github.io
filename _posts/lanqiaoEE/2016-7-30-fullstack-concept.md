@@ -5,7 +5,7 @@ category: lanqiaoEE
 tags: 概念 路线图 roadmap
 author: 郑未
 keywords: lanqiao 蓝桥 全栈 JavaEE 教程
-description: 本文档旨在向读者介绍JavaEE全栈技术的概貌 
+description: 本文档旨在向读者介绍JavaEE全栈技术的概貌，熟悉这些技术是做好项目的前提。 
 importance: 1
 ---
 
@@ -13,28 +13,28 @@ importance: 1
 
 ![典型技全栈术模型](/public/img/roadmap/fullstack1.png)
 
-## 客户层
+# 客户层
 客户层负责展现ui，用户交互，向web层发起请求（携带请求参数），Web层负责向客户层输出数据（整个html或者html片段，或者json，或者xml）。客户端主要有浏览器、**手机应用、其他移动设备、其他系统**。
 
-### 浏览器
+## 浏览器
 浏览器运行html，相关的技术有：html、css和js。Html由标签组成，用于描述页面上的元素及展现方式，可以选择h4或者h5，[参考文档](https://developer.mozilla.org/en-US/docs/Web/HTML)。Css用于描述页面元素的样式（如颜色、大小、边距、位置），也有新的版本，css3，[CSS](https://developer.mozilla.org/en-US/docs/Web/CSS "css参考文档")。Js（[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)）是一种编程语言，之前主要运行在浏览器上，由浏览器提供js引擎负责对js进行解释和执行，主要负责提升页面的交互能力，可以让页面动起来（最典型的就是弹窗）。
 
 Css 框架：原始的html基本上就是黑白+框，css可以美化html，但是对于编程人员来讲，多数不擅长美化工作，好在业界出现了像[Twitter Bootstrap](http://twitter.github.com/bootstrap/)这样优秀的css框架。它提供了便捷的布局方式（改进了div+css布局），所有页面元素的默认美化样式，ui组建的基本交互，还接受各种ui插件（ui、样式和交互）。
 Js框架：同样，原始的js开发效率较低，为完成一个简单的交互需要写多行代码，js框架的作用就是提供更简单、更强大的API。首推[JQuery](http://www.jquery.com/)。
 
-###  移动设备
+##  移动设备
 安卓程序：有一套自己的ui及交互方式
 
 ios程序：有一套自己的ui及交互方式
 
 H5程序：有一套自己的ui及交互方式
 
-### 其他系统
+## 其他系统
 不确定是否有ui，不确定其技术。Web层只负责提供API，典型地返回json或者xml，对客户层的具体表现不知道。
 
-## Web层
+# Web层
 
-### JavaEE
+## JavaEE
 
 受[JavaEE规范](https://jcp.org/aboutJava/communityprocess/final/jsr316/index.html)约束。编程要使用[JavaEE-API](https://docs.oracle.com/javaee/7/api/)。
 
@@ -66,14 +66,14 @@ Servlet中，可以操作[HttpServletResponse](https://docs.oracle.com/javaee/7/
 
 Servlet中还有很多可以操作的对象，此处不赘述，参考[JavaEE-API的http包](https://docs.oracle.com/javaee/7/api/javax/servlet/http/package-summary.html)。
 
-### Web-MVC
+## Web-MVC
 
 MVC并不是JavaEE的标准，是一种编程思想，旨在划清视图逻辑和业务逻辑。在Servlet中可以直接生成html视图，但是这样就违背了mvc原则。按照mvc原则，Servlet不应该考虑视图怎么展现，它只提供数据即可。
 
 ![](/public/img/roadmap/fullstack3.png)
 
 
-#### Model是什么
+### Model是什么
 
 ![](/public/img/roadmap/fullstack4.png)
 
@@ -81,7 +81,7 @@ Model就是上图中的DTO，俗称数据传输对象，它贯穿于多个层。
 
 不用框架也可以实现mvc，最典型的MVC就是JSP + servlet + javabean的模式。但有了框架更好。框架帮我们解决了很多问题，如数据绑定（含类型转换）、层次分割、标签、国际化支持等。
 
-#### Struts
+### Struts
 Struts的第一代产品曾统领java世界的mvc框架，升级到第二代后仍是主流，但有没落的趋势。
 
 ![](/public/img/roadmap/fullstack5.png)
@@ -106,7 +106,7 @@ Struts的第一代产品曾统领java世界的mvc框架，升级到第二代后�
 
 在上述过程中所有的对象（Action，Results，Interceptors，等）都是通过ObjectFactory来创建的。
 
-#### SpringMVC
+### SpringMVC
 通常我们说的[spring](http://spring.io/)是[spring-framework](http://projects.spring.io/spring-framework/)，其实spring还有不少其他的项目。Spring-framework提供：
 
 依赖注入、AOP面向切面编程、Spring Mvc web应用程序和RESTful web service框架、对持久层的支持等等。
@@ -141,7 +141,7 @@ HttpMessageConveter： 将请求消息（如Json、xml等数据）转换成一�
 
 8. 将渲染结果返回给客户端。
 
-#### 独特视角解读MVC
+### 独特视角解读MVC
 其实mvc框架的核心是改进Servlet，因为Servlet太low：
 
 1. Servlet所有处理方法的参数都是容器给的，所以很难测试，必须先启动容器，很难用编程方式来进行测试（自己构造request等参数？好想法！）
@@ -164,7 +164,7 @@ Struts和spring都提供了xml和注解方式来配置请求到handler的映射�
 
 4. 至于其他的，如数据验证、国际化、模板语言标签、el表达式等，都是附加值。
 
-#### 推荐SpringMVC
+### 推荐SpringMVC
 SpringMVC3.0 Restful的风格终于回归了MVC框架的简单本质，对比之下Struts2概念太复杂更新又太懒了。SpringMVC的优点：
 
 - 让我们能非常简单的设计出干净的Web层和薄薄的Web层；
@@ -193,7 +193,7 @@ SpringMVC3.0 Restful的风格终于回归了MVC框架的简单本质，对比之
 
 - 支持Restful风格。
 
-### 视图模板
+## 视图模板
 Web网页视图要动态起来，都采用“模板”这种概念，即静态模板部分+动态数据填空部分。JSP就是典型的模板语言，俗称在HTML（模板）中写Java代码（动态），但是为了让JSP好维护、易阅读，通常不在JSP里面写Java代码，而是用el表达式、标签等形式来做动态数据填空。
 
 类似的有freemarker、velocity，作用是类似的，当下比较流行freemarker：FreeMarker是一个用Java语言编写的模板引擎，它基于模板来生成文本输出。FreeMarker与Web容器无关，即在Web运行时，它并不知道Servlet或HTTP。它不仅可以用作表现层的实现技术，而且还可以用于生成HTML，XML，JSP等文本。SpringMVC中可以无缝集成Freemarker。其优点：
@@ -210,14 +210,15 @@ Web网页视图要动态起来，都采用“模板”这种概念，即静态�
 
 - 使用表达式语言。
 
-#### 注意
+### 注意
 
 要注意任何模板其背后都有一个引擎负责将其转换为html或别的文本，JSP虽然像HTML，但是浏览器并不会解析它（特别是其el及自定义标签部分），因为JSP不符合HTML标准。
 
 转换的时机在业务处理结束之后，mvc的视图解析器会调用对应的引擎生成文本，以io流形式写出，典型地，向浏览器发送html文本。
 
-### Restful web service 和Ajax
-#### 概念
+## Restful web service 和Ajax
+
+### 概念
 
 REST（REpresentation State Transfer）：表述性状态转移——不知道是什么鬼！
 
@@ -240,7 +241,7 @@ REST web service要做到以下几点：
 
 	--基于https对内容进行加密。
 
-#### 解读
+### 解读
 
 REST只注重服务端，用于提供服务，并不管客户端在什么平台，用什么技术，更不管客户端怎么渲染视图，所以我们之前做的项目都不是REST（我们的项目自己渲染视图，显然限定了客户端必须是浏览器）。
 
@@ -248,7 +249,7 @@ REST基于HTTP，一个URL就是一个资源，这是JavaEE本身做到的，但
 
 REST也不推荐用cookie，REST中的ST代表“状态转送”，一个良好的REST设计的操作（请求）是自包含的，每个请求附带着（传送）服务器完成该请求所需的全部信息（状态）。
 
-#### REST和AJAX
+### REST和AJAX
 
 AJAX是非常受欢迎的web开发技术，使用js让页面更具有交互性。
 
@@ -256,7 +257,7 @@ AJAX是非常受欢迎的web开发技术，使用js让页面更具有交互性�
 
 AJAX应用被视为遵循REST概念，每个XMLHttpRequest视为一次REST请求，响应，通常是JSON，是最主流的REST响应格式。
 
-#### Rest的安全机制
+### Rest的安全机制
 - 判定用户是否已经登录：每次登录后,为用户生成一个唯一的随机token,客户端调用时,把token传过来(query params or header),服务器根据token找到对应的用户 
 
 1. access token 没过期的话，直接认为用户已登录 
@@ -272,22 +273,22 @@ AJAX应用被视为遵循REST概念，每个XMLHttpRequest视为一次REST请求
  
 其实web网站的session也是基于token实现的,只是token是写在cookies里,由web框架自动管理。 
 
-### Web的安全
-#### 合法性
+## Web的安全
+### 合法性
 
 Web资源的安全必须考虑，通常保护资源的手段为认证（authentication）与授权（authorization），即身份验证和权限判断。如果某资源设定为受保护，那么访问者必须是本系统的用户，需要用户名密码进行验证，验证通过后还要比对该用户拥有的权限和本资源所需的权限是否一致。
 
 安全框架有：[Apache Shiro](http://shiro.apache.org/)和SpringSecurity。
 
-#### 传输的安全性
+### 传输的安全性
 
 为保证数据在传输过程中的安全，需要对数据进行加密，此处需要了解[SSL](https://www.digicert.com/ssl.htm)和[HTTPS](https://en.wikipedia.org/wiki/HTTPS)。
 
-## 业务层
+# 业务层
 
 业务层由于和业务相关，是属于项目核心部分，没有什么框架，但要注意两个问题①依赖②事务。
 
-### 用spring完成di（dependency injection ）
+## 用spring完成di（dependency injection ）
 
 ![](/public/img/roadmap/fullstack7.png)
 
@@ -295,7 +296,7 @@ Web资源的安全必须考虑，通常保护资源的手段为认证（authenti
 
 Spring通过ioc容器来实现di，配置方式有xml和注解两种方式
 
-### 事务控制应该架设在服务层上
+## 事务控制应该架设在服务层上
 
 如题！为什么呢？因为一个业务可能调用多个crud数据库操作，如果在dao层，就可能出现同一个业务部分成功部分失败的情况，为了保证一个service方法内的操作同成功同失败，事务应该定义在service的方法级别。
 
@@ -303,23 +304,23 @@ Spring通过ioc容器来实现di，配置方式有xml和注解两种方式
 
 Spring提供了强大的声明式事务，可以通过xml和注解方式实现。
 
-## 持久层
+# 持久层
 
 数据存储形式虽多（xml、其他文件、数据库），但开发中说的持久层往往特指数据库持久化技术。
 
-### Jdbc
+## Jdbc
 
 Jdbc是java给编程者提供的最基础的操作数据库的工具，但是太基础，无法接受数据对象作为sql参数，sql产出也不是对象或者对象集合（是类似二维数组的ResultSet）。
 
 因此才会有那么多著名的orm框架，连JavaEE规范都出了JPA-API。
 
-### [Hibernate](http://hibernate.org/orm/)
+## [Hibernate](http://hibernate.org/orm/)
 
 ![](/public/img/roadmap/fullstack8.png)
 
 Hibernate将实体对象与表的映射作为其基础配置，于其上设计了一个SQL引擎，对外公开了面向对象的持久化操作API，编程者调用这些API，会转入SQL引擎自动生成sql语句，底层仍然是调用jdbc来完成的。
 
-### [iBatis](http://blog.mybatis.org/)
+## [iBatis](http://blog.mybatis.org/)
 
 ![](/public/img/roadmap/fullstack9.png)
 
@@ -329,7 +330,7 @@ iBatis最大的特点是，sql得编程人员自己写，框架帮你做连接�
 
 可见iBatis是一个对jdbc轻量封装的框架。
 
-### MyBatis and MyBatis-Spring
+## MyBatis and MyBatis-Spring
 
 ![](/public/img/roadmap/fullstack10.png)
 
@@ -338,60 +339,60 @@ iBatis最大的特点是，sql得编程人员自己写，框架帮你做连接�
 
 MyBatis3有重大的突破，可以将Mapping File中的一个操作映射到一个方法，而整个Mapping File就和一个接口对应。神奇的是，我们并不需要实现这个接口，我们只需做好映射，框架会自动帮助我们实现（底层用代理模式），因此持久层的客户（如服务层）依赖Mapper Interface即可。
 
-### 数据库连接池: Druid
+## 数据库连接池: Druid
 连接池的基本原理是批量初始化数据库连接并管理这些连接，当app不需要连接的时候，是回收而不是关闭，这样就提高了连接的利用率，减少了反复向数据库申请连接的高额开销。
 
 常用连接池实现有：[DBCP](https://commons.apache.org/proper/commons-dbcp/)、[C3P0](http://www.mchange.com/projects/c3p0/)以及阿里的[druid](https://github.com/alibaba/druid)。
 
 
-## 资源层
+# 资源层
 
 资源层主要指应用程序之外的资源，如服务器和数据库。
 
-### 关系型数据库
+## 关系型数据库
 
 Oracle，MySQL。
 
-### NOSQL数据库:
+## NOSQL数据库:
 
 使用Nosql的大部分为对性能要求较高的应用。普通应用不需要使用Nosql数据库。如，MongoDb、redis等。
 
-### 操作系统
+## 操作系统
 
 开发随意。部署环境通常是Linux。
 
-## 核心支撑层及工具
+# 核心支撑层及工具
 
 这些东西不在哪一层上，可能每一层都要用，如日志组件、io工具包等。
 
-### Spring IOC及AOP
+## Spring IOC及AOP
 
 必备。
 
-#### Cache
+### Cache
 
 普通应用不使用缓存，小型缓存使用[Ehcache](http://ehcache.org/)，大型缓存使用[Memcached](http://memcached.org/)或[Redis](http://redis.io/)。
 
-#### Schedule： [Quartz](http://quartz-scheduler.org/)
+### Schedule： [Quartz](http://quartz-scheduler.org/)
 
-#### General：[Apache Commons Lang](http://commons.apache.org/lang/)，[Apache Commons IO](http://commons.apache.org/io/)，[Guava](http://code.google.com/p/guava-libraries/)。
+### General：[Apache Commons Lang](http://commons.apache.org/lang/)，[Apache Commons IO](http://commons.apache.org/io/)，[Guava](http://code.google.com/p/guava-libraries/)。
 
-#### XML： DOM4J、jdom。
+### XML： DOM4J、jdom。
 
-#### [JSON](http://www.json.org/)： 
+### [JSON](http://www.json.org/)： 
 
 GSon虽然系出名门而且接口优雅，但[Jackson](http://jackson.codehaus.org/)的功能更加丰富到匪夷所思，而且比GSon快很多。
 
-#### Logging: 
+### Logging: 
 
 [Slf4j](http://www.slf4j.org/) + Logback。
 
 用[Log4jdbc](http://code.google.com/p/log4jdbc/)在开发时查看实际执行的SQL。
 
-#### Unit Test： [JUnit](http://www.junit.org/)。
+### Unit Test： [JUnit](http://www.junit.org/)。
 
 
-## 开发环境
+# 开发环境
 
 首选eclipse。
 
