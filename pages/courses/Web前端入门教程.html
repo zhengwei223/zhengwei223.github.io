@@ -5,18 +5,20 @@ titlename: Web前端入门教程
 scrolltop: true
 ---
 	<h1>HTML+CSS+JS</h1>
-  <ul class="list-unstyled">
+  <ul class="lesson-list list-unstyled">
 {% for post in site.categories["Web前端入门教程"]  reversed%}
-
     <li>
-      <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      <dl>
+        <dt><a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        </dt>
+        <dd><a class="pjaxlink" href="{{ post.url }}">{{ post.description }}</a></dd>
+      </dl>
     </li>
-  
 {% endfor %}
   </ul>
 
   <h1>js优秀文章集锦</h1>
-  <ul class="list-unstyled">
+  <ul class="lesson-list list-unstyled">
 		<li>
       <a target="_blank" href="http://blog.xieliqun.com/2016/08/10/call-apply-bind/">JS中的call、apply、bind方法详解</a>
     </li>
