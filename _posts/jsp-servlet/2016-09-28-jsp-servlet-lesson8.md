@@ -484,7 +484,7 @@ JSTL核心标签库主要包含三类：通用标签库、条件标签库和迭�
 
 通用标签库包含了3个标签：赋值标签`<c:set>`、显示标签`<c:out>`、删除标签`<c:remove>`
 
-**①赋值标签<c:set>**
+**①赋值标签&lt;c:set&gt;**
 
 `<c:set>`标签的作用，是给变量在某个作用域内赋值，有两个版本：`“var”`版和`“target”`版。
 
@@ -671,7 +671,7 @@ ${requestScope.countries.us }<br/>
 
 *图8-09*
 
-**②输出标签<c:out>**
+**②输出标签&lt;c:out&gt;**
 
 输出标签`<c:out>`类似于JSP中的`<%= %>`，但功能更加强大。
 
@@ -738,7 +738,7 @@ escapeXml="false"/>
 
 从结果可以发现，当`value`中输出的对象不存在或为空，会输出`default`指定的默认值；当`escapeXml`为false时，会将`value`中的内容先渲染成HTML格式再输出显示。
 
-**③移除标签<c:remove>**
+**③移除标签&lt;c:remove&gt;**
 
 `<c:set>`标签的作用，是给变量在某个作用域内赋值。与之相反，`<c:remove>`标签的作用，是移除某个作用域内的变量。
 
@@ -781,7 +781,7 @@ escapeXml="false"/>
 
 JSTL的条件标签库，包含单重选择标签`<c:if>`和多重选择标签`<c:choose>`、`<c:when>`、 `<c:otherwise>`。
 
-**①单重选择标签<c:if>**
+**①单重选择标签&lt;c:if&gt;**
 
 类似于Java中的`if`选择语句。
 
