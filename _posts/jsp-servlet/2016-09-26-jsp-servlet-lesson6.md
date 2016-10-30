@@ -21,11 +21,11 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 ---
 
-# 6.1什么是三层 #
+# 6.1 什么是三层 #
 
 在实际的开发中，为了更好的解耦合、使开发人员之间的分工明确、提高代码的可重用性等，通常会采用“三层架构”的模式来组织代码。
 
-所谓“三层”，是指表示层(USL，User Show Layer)、业务逻辑层(BLL，Business Logic Layer)、数据访问层(DAL，Data Access Layer)，各层的位置如下图，
+**所谓“三层”，是指表示层(USL，User Show Layer)、业务逻辑层(BLL，Business Logic Layer)、数据访问层(DAL，Data Access Layer)**，各层的位置如下图，
 
 ![](http://i.imgur.com/EPOZGsr.png)
 
@@ -33,39 +33,39 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 三层中使用的数据，是通过实体类（即封装数据的JavaBean）来传递的。实体类一般放在`entity`包下。
 
-* 数据访问层(DAL)：
+* **数据访问层(`DAL`)**：
 
 也称为持久层，位于三层中的最下层，用于对数据进行处理。该层中的方法一般都是“原子性”的，即每一个方法都不可再分。比如，可以在DAL层中实现数据的增删改查操作，而增、删、改、查四个操作是非常基本的功能，都是不能再拆分的。
 
-在程序中，DAL一般写在`dao`包中，包里面的类名也是以”Dao”结尾，如`StudentDao.java`、`DepartmentDao.java`、`NewsDao.java`等；换句话说，在程序中，DAL是由dao包中的多个“类名`Dao.java`”组成。每一个“类名`Dao.java`”类，就包含着对该“类名”的所有对象的数据操作，如`StudentDao.java`中包含对所有Student对象的增、删、改、查等数据操作，`DepartmentDao.java`中包含对所有Department对象的增、删、改、查等数据操作。
+在程序中，`DAL`一般写在`dao`包中，包里面的类名也是以`”Dao”`结尾，如`StudentDao.java`、`DepartmentDao.java`、`NewsDao.java`等；换句话说，在程序中，DAL是由`dao`包中的多个“类名`Dao.java`”组成。每一个“类名`Dao.java`”类，就包含着对该“类名”的所有对象的数据操作，如`StudentDao.java`中包含对所有`Student`对象的增、删、改、查等数据操作，`DepartmentDao.java`中包含对所有`Department`对象的增、删、改、查等数据操作。
 
-* 业务逻辑层(BLL)：
+* **业务逻辑层(`BLL`)**：
 
-位于三层中的中间层（DAL与BLL中间），起到了数据交换中承上启下的作用，用于对业务逻辑的封装。BLL的设计对于一个支持可扩展的架构尤为关键，因为它扮演了两个不同的角色。对于DAL而言，它是调用者；对于USL而言，它却是被调用者。依赖与被依赖的关系都纠结在BLL上。
+位于三层中的中间层（`DAL`与`BLL`中间），起到了数据交换中承上启下的作用，用于对业务逻辑的封装。`BLL`的设计对于一个支持可扩展的架构尤为关键，因为它扮演了两个不同的角色。对于`DAL`而言，它是调用者；对于`USL`而言，它却是被调用者。依赖与被依赖的关系都纠结在`BLL`上。
 
-使用上，就是对DAL中的方法进行“组装”。比如，该层也可以实现对Student的增删改查，但与DAL不同的是，BLL中的增、删、改、查不再是 “原子性”的功能，而是包含了一定的业务逻辑。比如该层中的“删”不再像DAL中那样仅仅实现“删”，而是在“删”之前要进行业务逻辑的判断：先查找该学生是否存在（即先执行了“查”），如果存在才会真正的“删”，如果不存在则应该提示错误信息。即BLL中的“删”，应该是“带逻辑的删”（即先“查”后“删”），也就是对DAL中的“查”和“删”两个方法进行了“组装”。
+使用上，就是对`DAL`中的方法进行“组装”。比如，该层也可以实现对`Student`的增删改查，但与`DAL`不同的是，`BLL`中的增、删、改、查不再是 “原子性”的功能，而是包含了一定的业务逻辑。比如该层中的“删”不再像`DAL`中那样仅仅实现“删”，而是在“删”之前要进行业务逻辑的判断：先查找该学生是否存在（即先执行了“查”），如果存在才会真正的“删”，如果不存在则应该提示错误信息。即`BLL`中的“删”，应该是“带逻辑的删”（即先“查”后“删”），也就是对`DAL`中的“查”和“删”两个方法进行了“组装”。
 
-在程序中，BLL一般写在`service`包（或`biz`包）中，包里面的类名也是以”Service（或Biz）”结尾，如`StudentService.java`、`DepartmentService.java`、`NewsService`等。换句话说，在程序中，BLL是由service包中的多个“类名`Service.java`”组成。每一个“类名`Service.java`”类，就包含着对该“类名”的所有对象的业务操作，如`StudenService.java`中包含对所有Student对象的“带逻辑的删”、“带逻辑的增”等业务逻辑操作，`DepartmentService.java`中包含对所有Department对象的“带逻辑的删”、“带逻辑的增”等业务逻辑操作。
+在程序中，`BLL`一般写在`service`包（或`biz`包）中，包里面的类名也是以”Service（或Biz）”结尾，如`StudentService.java`、`DepartmentService.java`、`NewsService`等。换句话说，在程序中，BLL是由`service`包中的多个“类名`Service.java`”组成。每一个“类名`Service.java`”类，就包含着对该“类名”的所有对象的业务操作，如`StudenService.java`中包含对所有`Student`对象的“带逻辑的删”、“带逻辑的增”等业务逻辑操作，`DepartmentService.java`中包含对所有`Department`对象的“带逻辑的删”、“带逻辑的增”等业务逻辑操作。
 
-* 表示层(USL)：
+* **表示层(`USL`)**：
 
-位于三层中的最上层，用于显示数据和接收用户输入的数据，为用户提供一种交互式操作的界面。USL又分为“USL前台代码”和“USL后台代码”，其中“USL前台代码”是指用户能直接访问到的界面，一般是程序的外观（如html文件、JSP文件等），类似于MVC模式中的“视图”；“USL后台代码”是指用来调用业务逻辑层的JAVA代码（如`Servlet`），类似于MVC模式中的“控制器”。表示层前台代码一般放在WebContent目录下，而表示层后台代码目前放在servlet包下。
+位于三层中的最上层，用于显示数据和接收用户输入的数据，为用户提供一种交互式操作的界面。`US`L又分为“`USL`前台代码”和“`USL`后台代码”，其中“`USL`前台代码”是指用户能直接访问到的界面，一般是程序的外观（如html文件、JSP文件等），类似于MVC模式中的“视图”；“`USL`后台代码”是指用来调用业务逻辑层的JAVA代码（如`Servlet`），类似于MVC模式中的“控制器”。表示层前台代码一般放在WebContent目录下，而表示层后台代码目前放在`servlet`包下。
 
-以下，是一个最基本三层架构的示例图：
+**以下，是一个最基本三层架构的示例图**：
 
 ![](http://i.imgur.com/Koc0Nwe.png)
 
 *图6-02*
 
-不难发现，MVC模式与三层架构的关系如下图，
+不难发现，**MVC模式与三层架构的关系如下图**，
 
 ![](http://i.imgur.com/9rrKq9j.png)
 
 *图6-03*
 
-MVC和三层架构，是分别从两个不同的角度去设计的，但目的都是为了“解耦，分层，代码复用等”。
+**MVC和三层架构，是分别从两个不同的角度去设计的，但目的都是为了“解耦，分层，代码复用等”。**
 
-# 6 .2三层间的关系 #
+# 6 .2 三层间的关系 #
 
 三层之中，上层依赖于下层：表示层依赖于业务逻辑层，业务逻辑层依赖于数据访问层。
 
@@ -73,7 +73,7 @@ MVC和三层架构，是分别从两个不同的角度去设计的，但目的�
 
 下面通过一个简单的“学生管理系统”案例，详细讲解一下三层。本案例主要通过三层架构，实现一个能对学生进行“增删改查”的项目，采用Servlet2.5方式。
 
-**实体类**：org.lanqiao.entity.Student.java
+**实体类：org.lanqiao.entity.Student.java**
 
 ```
 package org.lanqiao.entity;
@@ -103,7 +103,7 @@ int studentAge, String gradeName)
 
 **数据访问层**：对学生信息，最基本的“增删改查”操作
 
-org.lanqiao.dao.StudentDao.java
+**org.lanqiao.dao.StudentDao.java**
 
 ```
 package org.lanqiao.dao;
@@ -349,7 +349,7 @@ from student ";
 
 **业务逻辑层**：实现带逻辑的“增删改查”操作，本质是对数据访问层的多个方法进行了“组装”。
 
-org.lanqiao.service.StudentService.java
+**org.lanqiao.service.StudentService.java**
 
 ```
 package org.lanqiao.service;
@@ -426,7 +426,9 @@ public class StudentService
 
 通常情况，一个Servlet只用来实现一个功能。所以增、删、改、查询一个学生、查询全部学生等5个功能，需要编写5个对应的Servlet来实现。
 
-(1)增加学生org.lanqiao.servlet.AddStudentServlet.java
+**(1)**增加学生
+
+**org.lanqiao.servlet.AddStudentServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -475,7 +477,10 @@ Integer.parseInt(request.getParameter("sage"));
 }
 ```
 
-(2)根据学号，删除某一个学生信息org.lanqiao.servlet.DeleteStudentServlet.java
+**(2)**根据学号，删除某一个学生信息
+
+
+**org.lanqiao.servlet.DeleteStudentServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -519,7 +524,9 @@ Integer.parseInt(request.getParameter("stuNo"));
 }
 ```
 
-(3)根据学号，查询某一个学生信息org.lanqiao.servlet.QueryStudentByNoServlet.java
+**(3)**根据学号，查询某一个学生信息
+
+**org.lanqiao.servlet.QueryStudentByNoServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -554,7 +561,9 @@ Integer.parseInt(request.getParameter("stuNo"));
 }
 ```
 
-(4)查询全部学生信息org.lanqiao.servlet.QueryAllStudentsServlet.java
+**(4)**查询全部学生信息
+
+**org.lanqiao.servlet.QueryAllStudentsServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -587,7 +596,9 @@ throws ServletException, IOException
 }
 ```
 
-(5)根据学号，修改某一个学生信息org.lanqiao.servlet.UpdateStudentServlet.java
+**(5)**根据学号，修改某一个学生信息
+
+**org.lanqiao.servlet.UpdateStudentServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -643,7 +654,9 @@ Integer.parseInt(request.getParameter("sage"));
 
 **表示层前台代码：**
 
-(1)增加学生addStudent.jsp
+**(1)**增加学生
+
+**addStudent.jsp**
 
 ```
 <body>
@@ -672,15 +685,17 @@ AddStudentServlet.java中的代码 --%>
 
 *图6-04*
 
-(2)根据学号，删除某一个学生
+**(2)**根据学号，删除某一个学生
 
-删除学生的表示层前端代码，是通过index.jsp中的超链接实现的，如下，
+删除学生的表示层前端代码，是通过**index.jsp**中的超链接实现的，如下，
 
 `<a href="DeleteStudentServlet?stuNo=<%=stu.getStudentNo() %>">删除</a>`
 
-，具体可查看index.jsp。
+，具体可查看**index.jsp**。
 
-(3)根据学号，查询某一个学生信息showStudentInfo.jsp
+**(3)**根据学号，查询某一个学生信息
+
+**showStudentInfo.jsp**
 
 ```
 <body>
@@ -717,9 +732,12 @@ value="<%=stu.getGradeName() %>" /><br/>
 </body>
 ```
 
-在学生列表页index.jsp中点击“学号”链接后，通过QueryStudentByNoServlet执行请求转发到学生信息详情页showStudentInfo.jsp 。
+在学生列表页**index.jsp**中点击“学号”链接后，通过`QueryStudentByNoServlet`执行请求转发到学生信息详情页**showStudentInfo.jsp** 。
 
-(4)查询全部学生信息index.jsp
+
+**(4)**查询全部学生信息
+
+**index.jsp**
 
 ```
 <body>
@@ -786,8 +804,10 @@ value="<%=stu.getGradeName() %>" /><br/>
 	</body>
 ```
 
-需要注意的是，项目运行后的第一个执行程序是QueryAllStudentsServlet，而不是index.jsp。因为项目的首页index.jsp要展示的学生列表信息，必须先通过QueryAllStudentsServlet查询后才能得到。这个顺序可以通过web.xml来配置，如下，
-web.xml
+需要注意的是，项目运行后的第一个执行程序是`QueryAllStudentsServlet`，而不是**index.jsp**。因为项目的首页**index.jsp**要展示的学生列表信息，必须先通过`QueryAllStudentsServlet`查询后才能得到。这个顺序可以通过**web.xml**来配置，如下，
+
+
+**web.xml**
 
 ```
 … 
@@ -797,15 +817,15 @@ web.xml
 … 	
 ```
 
-通过QueryAllStudentsServlet执行请求转发到index.jsp的运行结果：
+通过`QueryAllStudentsServlet`执行请求转发到**index.jsp**的运行结果：
 
 ![](http://i.imgur.com/luwDFkA.jpg)
 
 *图6-05*
 
-(5)根据学号，修改某一个学生信息
+**(5)**根据学号，修改某一个学生信息
 
-修改学生的前端代码中，进入修改界面是通过学生列表页index.jsp中的超链接实现的，如下，
+修改学生的前端代码中，进入修改界面是通过学生列表页**index.jsp**中的超链接实现的，如下，
 
 ```
 <td>
@@ -817,7 +837,7 @@ web.xml
 </td>
 ```
 
-而修改页面，是通过学生详情页showStudentInfo.jsp实现的。
+而修改页面，是通过学生详情页**showStudentInfo.jsp**实现的。
 
 通过本案例可以发现，使用三层搭建的项目，是通过表示层前台代码和用户交互，然后通过表示层后台代码调用业务逻辑层，再通过业务逻辑层调用数据访问层，最后通过数据访问层和数据库交互；并且当数据访问层获取到数据以后，再将数据传递给业务逻辑层，而业务逻辑层则将最终的数据传递给表示层，如下图。
 
@@ -833,7 +853,7 @@ web.xml
 
 下层到上层的数据传递：方法的返回值。
 
-其中，特殊的是USL层，USL前台代码通过http请求（如`get`/`post`方式的表单提交），将数据传递给USL后台代码（如Servlet）；USL后台代码通过转发或重定向，跳转回USL前台代码（如JSP）。
+其中，特殊的是`USL`层，`USL`前台代码通过http请求（如`get`/`post`方式的表单提交），将数据传递给`USL`后台代码（如Servlet）；`USL`后台代码通过转发或重定向，跳转回USL前台代码（如JSP）。
 
 结合对于本案例来讲：
 
@@ -853,7 +873,7 @@ web.xml
 
 *图6-07*
 
-# 6.3优化三层架构 #
+# 6.3 优化三层架构 #
 
 为了使设计与实现相分离，以及更好的解耦合，我们给上面的项目加入接口，并且重构部分代码。
 
@@ -865,7 +885,7 @@ web.xml
 
 分析之前的代码，可以发现数据访问层中，存在着大量的重复代码。我们可以把重复的代码提取出来，封装到一个公共的类中（帮助类），从而实现代码的重构。为此，我们再创建一个数据访问层的帮助类`DBUtil.java`，并放入`util`包中。
 
-org.lanqiao.DBUtil.java
+**org.lanqiao.DBUtil.java**
 
 ```
 package org.lanqiao.util;
@@ -944,7 +964,7 @@ Object[] os)
 
 可以发现，虽然将访问数据库的方法都到了一个`DBUtil`类中，但该类中的代码仍有较多的重复。例如，每个方法都需要加载数据库驱动类，并获取数据库连接对象、创建`PreparedStatement`对象等。为此，我们可以重构这些重复的代码，并将释放操作单独写在一个`closeAll()`方法中，做进一步简化，如下，
 
-org.lanqiao.DBUtil.java
+**org.lanqiao.DBUtil.java**
 
 ```
 package org.lanqiao.util;
@@ -1036,11 +1056,13 @@ Object[] os)
 
 说明：
 
-* 1.问：数据访问层DAL中的某一个`DAO`实现类（如`StudentDaoImpl.java`），是用于访问数据库；而数据库帮助类DBUtil.java也是用于访问数据库。二者有什么区别？
+* **1.问**：数据访问层DAL中的某一个`DAO`实现类（如`StudentDaoImpl.java`），是用于访问数据库；而数据库帮助类**DBUtil.java**也是用于访问数据库。二者有什么区别？
 
-答：`StudentDaoImpl.java`这种DAO实现类的操作对象是Student，即对Student进行增删改查等数据访问；而`DBUtil.java`中的增删改查方法都是通用的，不针对于任何一个实体。一般来讲，DAO实现类可以通过调用DBUtil.java中的方法，来实现对某一个特定实体（如Student）的增删改查等操作，详见后文中StudentDaoImpl.java中的代码。
+**答**：`StudentDaoImpl.java`这种`DAO`实现类的操作对象是`Student`，即对`Student`进行增删改查等数据访问；而`DBUtil.java`中的增删改查方法都是通用的，不针对于任何一个实体。一般来讲，`DAO`实现类可以通过调用**DBUtil.java**中的方法，来实现对某一个特定实体（如`Student`）的增删改查等操作，详见后文中**StudentDaoImpl.java**中的代码。
 
-* 2.问：查询方法`executeQuery()`的返回值类型为什么是`ResultSet`，而不是`List<Student>`。例如，查询方法能否写成以下形式：
+
+
+* **2.问**：查询方法`executeQuery()`的返回值类型为什么是`ResultSet`，而不是`List<Student>`。例如，查询方法能否写成以下形式：
 
 ```
 //将查询到的学生集合放入List中，并返回
@@ -1076,13 +1098,16 @@ public static List<Student> queryStudentsBySql(String sql, Object[] os)
 }
 ```
 
-答：对于查询方法， `List<Student>`类型的返回值看起来确实比`ResultSet`更加直观，甚至在使用上更加方便。但是考虑到工具类中方法的“通用性”，就只能使用`ResultSet`作为返回值类型。
+**答**：对于查询方法， `List<Student>`类型的返回值看起来确实比`ResultSet`更加直观，甚至在使用上更加方便。但是考虑到工具类中方法的“通用性”，就只能使用`ResultSet`作为返回值类型。
 
-例如，对于增删改的通用方法executeAddOrUpdateOrDelete(`String sql` ,`Object[] os`)来说，只要传入①用于增删改的SQL语句（`sql`参数）②用于替换SQL语句中所有？占位符的数组（os参数），就能够实现相应SQL语句所代表的增删改功能。也就是说，`executeAddOrUpdateOrDelete()`不依赖任何“实体”，无论是增删改“学生”，还是增删改“班级”、“图书”、“新闻”等，都可以通过调用该方法实现。同样的，如果查询方法的返回值是`List<Student>`，并且方法中存在`rs.getInt("stuNo")`等代码，那么该查询方法就强烈依赖于`Student`类，而不能像增删改方法那样实现“通用性”。因此，为了查询方法的“通用性”，我们只能退一步，让查询方法仅返回结果集`ResultSet`就可以了，至于实体类数据的封装，以及`List`集合的填充等操作就只能转交到`DAO`实现类去完成。
+例如，对于增删改的通用方法`executeAddOrUpdateOrDelete(String sql ,Object[] os)`来说，只要传入①用于增删改的SQL语句（`sql`参数）②用于替换SQL语句中所有？占位符的数组（os参数），就能够实现相应SQL语句所代表的增删改功能。也就是说，`executeAddOrUpdateOrDelete()`不依赖任何“实体”，无论是增删改“学生”，还是增删改“班级”、“图书”、“新闻”等，都可以通过调用该方法实现。
+
+
+同样的，如果查询方法的返回值是`List<Student>`，并且方法中存在`rs.getInt("stuNo")`等代码，那么该查询方法就强烈依赖于`Student`类，而不能像增删改方法那样实现“通用性”。因此，为了查询方法的“通用性”，我们只能退一步，让查询方法仅返回结果集`ResultSet`就可以了，至于实体类数据的封装，以及`List`集合的填充等操作就只能转交到`DAO`实现类去完成。
 
 有了`DBUtil.java`之后，数据库访问层中实现类的代码就简单许多了（其他代码不变），如下，
 
-org.lanqiao.dao.impl.StudentDaoImpl.java
+**org.lanqiao.dao.impl.StudentDaoImpl.java**
 
 ```
 package org.lanqiao.dao.impl;
@@ -1204,13 +1229,13 @@ stu.getStudentNo() };
 
 从图中可以发现，优化后的三层架构的基本结构是：
 
-表示层（USL前台Jsp或`Html`，及USL后台Servlet）+业务逻辑层（接口，及实现类）+数据访问层（接口，及实现类）+工具类包+实体类包
+表示层（`USL`前台Jsp或`Html`，及`USL`后台Servlet）+业务逻辑层（接口，及实现类）+数据访问层（接口，及实现类）+工具类包+实体类包
 
 其中表示层前台，也可以加入CSS、JavaScript等进行美化和验证。
 
 完整代码，可参见源码中的StudentManagerBy3TierAndInterface项目。
 
-# 6.4练习题 #
+# 6.4 练习题 #
 
 **一、选择题**
 
