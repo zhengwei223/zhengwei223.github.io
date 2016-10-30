@@ -40,7 +40,7 @@ jQuery的设计思想是write less do more（写的少，做的多）。一般�
 
 *图9-02*
 
-开发版和发布版的区别如下：
+**开发版和发布版的区别如下：**
 
 <table>
    <tr>
@@ -69,17 +69,17 @@ jQuery的设计思想是write less do more（写的少，做的多）。一般�
 
 **(2)引入jQuery库**
 
-引入jQuery库实际就是引入外部js文件，具体步骤如下（将jQuery库引入到index.jsp中）：
+引入jQuery库实际就是引入外部js文件，具体步骤如下（将jQuery库引入到**index.jsp**中）：
 
-①在Web项目的WebContent目录中新建js目录，将jquery-1.12.3.js放入js目录，如图，
+**①**在Web项目的WebContent目录中新建js目录，将jquery-1.12.3.js放入js目录，如图，
 
 ![](http://i.imgur.com/8W00OLf.png)
 
 *图9-03*
 
-②在index.jsp中引入js库，如下，
+**②**在**index.jsp**中引入js库，如下，
 
-index.jsp
+**index.jsp**
 
 ```
 …
@@ -96,9 +96,9 @@ index.jsp
 </html>
 ```
 
-## 9.1.3开发第一个jQuery程序 ##
+## 9.1.3 开发第一个jQuery程序 ##
 
-index.jsp
+**index.jsp**
 
 ```
 …
@@ -132,7 +132,7 @@ $(document).ready(function() {
 });
 ```
 
-作用类似于传统JavaScript中的window.onload事件，但仍然与window.onload有一些区别，如下
+作用类似于传统JavaScript中的`window.onload`事件，但仍然与`window.onload`有一些区别，如下
 
 <table>
    <tr>
@@ -165,7 +165,7 @@ jQuery(document).ready(function() {
 });
 ```
 
-## 9.1.4DOM对象和jQuery对象 ##
+## 9.1.4 DOM对象和jQuery对象 ##
 
 **(1)DOM模型**
 
@@ -175,7 +175,7 @@ DOM是Document Object Model（文档对象模型）的简称，只有(X)HTML、X
 
 以HTML页面为例：每一个HTML页面，都具有一个DOM，每一个DOM都可以表示成一棵树。如下，是一个基本的HTML程序：
 
-domDemo.html
+**domDemo.html**
 
 ```
 <html>
@@ -211,11 +211,11 @@ content="text/html; charset=UTF-8">
 
 *图9-06*
 
-DOM中的节点通常分为三种类型：元素节点、属性节点和文本节点。
+**`DOM`中的节点通常分为三种类型：元素节点、属性节点和文本节点。**
 
 **①元素节点**
 
-像domDemo.html中的`<html>`、`<body>`、`<p>`、`<li>`等标签形式的节点，就称之为元素节点。正是这些元素节点的堆积，才形成了一个HTML文档的结构。元素节点之中还可以嵌套一些子元素节点，例如本例中的`<li>`就是`<ul>`元素的子元素节点，而`<ul>`又是`<body>`元素的子元素节点，`<html>`元素是根元素节点等。
+像**domDemo.html**中的`<html>`、`<body>`、`<p>`、`<li>`等标签形式的节点，就称之为元素节点。正是这些元素节点的堆积，才形成了一个HTML文档的结构。元素节点之中还可以嵌套一些子元素节点，例如本例中的`<li>`就是`<ul>`元素的子元素节点，而`<ul>`又是`<body>`元素的子元素节点，`<html>`元素是根元素节点等。
 
 **②属性节点**
 
@@ -229,48 +229,49 @@ HTML文档的内容都是由文本节点提供的，文本节点就是指HTML中
 
 文本节点总包含在元素节点的内部，例如`<li>`紫色`</li>`。但并不是所有元素节点都一定包含文本节点，例如`<img>`元素节点就没有包含文本节点。
 
-**(2)DOM对象**
+**(2)`DOM`对象**
 
-在JavaScript中，可以使用`getElementById()`或`getElementsByName()`等方法获取DOM元素节点。通过该方式得到的DOM元素就称之为DOM对象，DOM对象可以使用JavaScript中的方法或属性，如下：
+在JavaScript中，可以使用`getElementById()`或`getElementsByName()`等方法获取DOM元素节点。通过该方式得到的`DOM`元素就称之为`DOM`对象，`DOM`对象可以使用JavaScript中的方法或属性，如下：
 
 ```
 var dom = document.getElementById("myId") ;//获取DOM对象
 var html = dom.innerHTML ;//DOM对象使用JavaScript中的属性
 ```
 
-**(3)jQuery对象**
+**(3)`jQuery`对象**
 
-通过`$()`将DOM对象包装后产生的对象，就是jQuery对象，例如：
+通过`$()`将`DOM`对象包装后产生的对象，就是jQuery对象，例如：
 
 ```
 //使用jQuery对象的html()方法，等价于document.getElementById("#myId ").innerHTML;
 $("#myId").html();
 ```
 
-以上代码将id=”myId”的DOM对象通过`$()`转为了jQuery对象，并且调用了jQuery对象的`html()`方法。
+以上代码将`id=”myId”`的`DOM`对象通过`$()`转为了`jQuery`对象，并且调用了`jQuery`对象的`html()`方法。
 
-值得注意的是，DOM对象的方法/属性和jQuery对象的方法/属性是彼此独立的，即DOM对象只能使用DOM对象的方法/属性，而jQuery对象只能使用jQuery对象的方法/属性。例如DOM对象可以使用DOM对象拥有的`innerHTML`属性，但不能使用jQuery对象拥有的`html()`方法。
+值得注意的是，`DOM`对象的方法/属性和`jQuery`对象的方法/属性是彼此独立的，即`DOM`对象只能使用`DOM`对象的方法/属性，而`jQuery`对象只能使用`jQuery`对象的方法/属性。例如`DOM`对象可以使用`DOM`对象拥有的`innerHTML`属性，但不能使用`jQuery`对象拥有的`html()`方法。
 
-** (4)DOM和jQuery对象之间的相互转换**
 
-刚才提到，DOM对象的方法/属性和jQuery对象的方法/属性是彼此独立的，但是在某些情况下，如果一定需要用DOM对象来调用jQuery对象的属性/方法；或者要用jQuery对象来调用DOM对象的属性/方法，就必须进行DOM对象与jQuery对象之间的类型转换。
+**(4)`DOM`和`jQuery`对象之间的相互转换**
 
-**①将DOM对象转为jQuery对象**
+刚才提到，`DOM`对象的方法/属性和`jQuery`对象的方法/属性是彼此独立的，但是在某些情况下，如果一定需要用`DOM`对象来调用`jQuery`对象的属性/方法；或者要用`jQuery`对象来调用`DOM`对象的属性/方法，就必须进行`DOM`对象与`jQuery`对象之间的类型转换。
 
-将一个DOM对象用`$()`包裹起来，就可以转换成一个jQuery对象，即$(DOM对象)就是一个jQuery对象，如下：
+**①将`DOM`对象转为`jQuery`对象**
+
+将一个`DOM`对象用`$()`包裹起来，就可以转换成一个`jQuery`对象，即$(DOM对象)就是一个`jQuery`对象，如下：
 
 ```
 var domObject = document.getElementById("myId");//获取一个DOM对象
 var $jQueryObject = $(domObject); //通过$()将DOM对象转为jQuery对象
 ```
 
-**②将jQuery对象转为DOM对象**
+**②将`jQuery`对象转为`DOM`对象**
 
-jQuery对象的本质是一个类似数组或集合的对象，而DOM对象的本质是一个普通的对象。因此jQuery对象转DOM对象的本质，就是将一个数组或集合转为一个普通对象。
+`jQuery`对象的本质是一个类似数组或集合的对象，而`DOM`对象的本质是一个普通的对象。因此`jQuery`对象转`DOM`对象的本质，就是将一个数组或集合转为一个普通对象。
 
 **a.方式一**
 
-将jQuery对象看作一个数组，通过使用数组下标的方式转为DOM对象，例如:
+将`jQuery`对象看作一个数组，通过使用数组下标的方式转为`DOM`对象，例如:
 
 ```
 var $jqueryObject = $("#myId") ; //获取jQuery对象
@@ -279,14 +280,14 @@ var jsObject = jqueryObject[0] ; //通过数组下标的方式，将jQuery对象
 
 **b.方式二**
 
-将jQuery对象看作一个集合，通过使用`get(index)`的方式转为DOM对象，例如:
+将`jQuery`对象看作一个集合，通过使用`get(index)`的方式转为`DOM`对象，例如:
 
 ```
 var $jqueryObject = $("#myId") ; //获取jQuery对象
 var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对象转为DOM对象
 ```
 
-说明：
+**说明：**
 
  在JavaScript对象和jQuery对象的变量命名上，一般习惯给jQuery对象的变量名前加上$，以表示区分。例如，var $variable = jQuery对象; varvariable=DOM对象。
 
@@ -347,10 +348,10 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
    </tr>
 </table>
 
-其中，在使用交集选择器时，除了“选择器1”以外的其他选择器不能是标签选择器（为了防止歧义），例如：无法用`$(".titlediv")`表示class="title"并且是`div`的元素，因为`.title`和`div`连在一起会造成歧义，会被程序理解成是`class= "titlediv"`的元素。
+其中，在使用交集选择器时，除了“选择器1”以外的其他选择器不能是标签选择器（为了防止歧义），例如：无法用`$(".titlediv")`表示`class="title"`并且是`div`的元素，因为`.title`和`div`连在一起会造成歧义，会被程序理解成是`class= "titlediv"`的元素。
 
-示例：
-index.jsp
+
+**示例：index.jsp**
 
 ```
 <html>
@@ -379,7 +380,7 @@ index.jsp
 
 **(2) 层次选择器**
 
-层次选择器通过DOM 元素之间的层次关系来获取元素，如获取相邻关系、同辈关系、后代关系、父子关系的元素等，如下。
+层次选择器通过`DOM`元素之间的层次关系来获取元素，如获取相邻关系、同辈关系、后代关系、父子关系的元素等，如下。
 
 <table>
    <tr>
@@ -415,8 +416,7 @@ index.jsp
 </table>
 
 
-示例：
-index.jsp
+**示例：index.jsp**
 
 ```
 <html>
@@ -493,8 +493,7 @@ index.jsp
    </tr>
 </table>
 
-示例：
-index.jsp
+**示例：index.jsp**
 
 ```
 <html>
@@ -524,7 +523,7 @@ index.jsp
 
 *图9-09*
 
-## 9.2.2过滤选择器 ##
+## 9.2.2 过滤选择器 ##
 
 过滤选择器是通过一些过滤规则来筛选元素，语法特点是使用“:”作为过滤选择器的标识符，如使用`$(“li:first”)`来过滤出第一个`li`元素。常见的过滤选择器有基本选择器、可见性选择器、表单对象选择器、内容选择器、子元素选择器等。
 
@@ -590,8 +589,7 @@ index.jsp
    </tr>
 </table>
 
-示例：
-index.jsp
+**示例：index.jsp**
 
 ```
 <html>
@@ -646,17 +644,19 @@ index.jsp
 
 例如`$("p:hidden").show()`表示将所有隐藏的`<p>`元素的状态变为显示; `$("p:visible").hide()`表示将所有显示的`<p>`元素的状态变为隐藏。`show()`的功能是显示，`hide()`的功能是隐藏，会在后续章节详解。
 
-# 9.3事件 #
+# 9.3 事件 #
 
 事件是指可以被控件识别的操作。例如按下确定按钮，选择某个单选按钮或者复选框。每一种控件有自己可以识别的事件，如窗体能识别加载、单击、双击等事件，文本框能识别文本改变等事件……
 
-jQuery事件是对JavaScript事件的封装，大体上可以分为基础事件和复合事件。
+**jQuery事件是对JavaScript事件的封装，大体上可以分为基础事件和复合事件。**
 
-事件方法的语法格式如下：
 
-事件方法名(function(){
+**事件方法的语法格式如下：**
+
+
+**事件方法名(function(){
 …
-});
+});**
 
 例如：文档就绪事件
 
@@ -666,13 +666,13 @@ $(document).ready(function() {
 });
 ```
 
-## 9.3.1基础事件 ##
+## 9.3.1 基础事件 ##
 
 基础事件可以分为window事件、鼠标事件、键盘事件、表单事件等。
 
 **(1) window事件**
 
-所谓window事件，就是指当用户执行某些会影响浏览器的操作时而产生的事件。例如，第一次打开网页时的加载页面、关闭窗口、移动窗口、调节窗口大小等操作引发的事件。在jQuery中，最常用的window事件是文档就绪事件，即当页面中的DOM元素全部加载完毕时所触发的事件，该事件对应的方法是`ready()`。
+所谓window事件，就是指当用户执行某些会影响浏览器的操作时而产生的事件。例如，第一次打开网页时的加载页面、关闭窗口、移动窗口、调节窗口大小等操作引发的事件。在jQuery中，最常用的window事件是文档就绪事件，即当页面中的`DOM`元素全部加载完毕时所触发的事件，该事件对应的方法是`ready()`。
 
 **(2)鼠标事件**
 
@@ -697,7 +697,7 @@ $(document).ready(function() {
    </tr>
 </table>
 
-示例：event.jsp
+**示例：event.jsp**
 
 ```
 <html>
@@ -764,7 +764,7 @@ $(document).ready(function() {
 
 使用键盘事件时，通常会使用`event`参数的`keyCode`属性来判断具体的按键，如下：
 
-示例：event.jsp
+**示例：event.jsp**
 
 ```
 <html>
@@ -785,7 +785,7 @@ $(document).ready(function() {
 </html>
 ```
 
-通过$(document).keydown(function (event) { … });给整个文档注册了`keydown`事件，当按下键盘时，就会触发`keydown`中的`function()`。并且通过event.keyCode判断当按下回车键时，执行`alert()`方法。常见`keyCode`所对应的按键如下：
+通过`$(document).keydown(function (event) { … })`;给整个文档注册了`keydown`事件，当按下键盘时，就会触发`keydown`中的`function()`。并且通过event.keyCode判断当按下回车键时，执行`alert()`方法。常见`keyCode`所对应的按键如下：
 
 **字母和数字键的键码值`(keyCode)`**
 
@@ -1139,7 +1139,7 @@ $(document).ready(function() {
    </tr>
 </table>
 
-示例：event.jsp
+**示例：event.jsp**
 
 ```
 <html>
@@ -1193,11 +1193,11 @@ $(document).ready(function() {
 
 **语法：**
 
-绑定一个事件：
-jQuery对象.bind(type,[data],fn);
+**绑定一个事件：**
+**jQuery对象.bind(type,[data],fn);**
 
-绑定多个事件：
-jQuery对象.bind({type:fn, type:fn, …,type:fn});
+**绑定多个事件：**
+**jQuery对象.bind({type:fn, type:fn, …,type:fn});**
 
 其中参数的含义如下：
 
@@ -1306,9 +1306,9 @@ jQuery对象.bind({type:fn, type:fn, …,type:fn});
 
 在jQuery中，可以使用`unbind()`方法为元素移除一个或多个事件。
 
-语法:
+**语法:**
 
-jQuery对象.unbind([type],[fn]);
+**jQuery对象.unbind([type],[fn]);**
 
 参数的简介如下：
 
@@ -1356,7 +1356,7 @@ $(this).css("background-color","white");
 );
 ```
 
-当鼠标悬浮到id=” textId”的`div`时，背景色变为黄色；鼠标移出时，背景色变为白色。
+当鼠标悬浮到`id=” textId”`的`div`时，背景色变为黄色；鼠标移出时，背景色变为白色。
 
 **(2)toggle()**
 
@@ -1366,7 +1366,7 @@ $(this).css("background-color","white");
 
 在jQuery1.9版本以前，可以用`toggle()`方法模拟鼠标连续的`click`事件：第一次单击元素时，触发第一个事件方法fn1；第二次单击元素时，触发第二个事件方法fn2；…；当最后一个事件方法fnN被触发完后，若再次单击，就又会触发第一个事件方法fn1，如此轮番循环调用。
 
-示例：event.jsp
+**示例：event.jsp**
 
 ```
 $("body").toggle(
@@ -1382,11 +1382,11 @@ $("body").toggle(
 );
 ```
 
-当在body中连续单击鼠标时，背景色会在红、黄、蓝之间切换。但从jQuery1.9版本开始，jQuery去掉了`toggle()`方法的此功能。toggle方法还可以用来切换元素的显示与隐藏，会在后续讲解。
+当在body中连续单击鼠标时，背景色会在红、黄、蓝之间切换。但从jQuery1.9版本开始，jQuery去掉了`toggle()`方法的此功能。`toggle`方法还可以用来切换元素的显示与隐藏，会在后续讲解。
 
 # 9.4 显示效果 #
 
-还可以使用jQuery来控制网页元素的显示、隐藏、改变透明度等显示效果。
+**还可以使用jQuery来控制网页元素的显示、隐藏、改变透明度等显示效果。**
 
 ## 9.4.1 控制元素的隐藏与显示 ##
 
@@ -1418,7 +1418,7 @@ jQuery中，控制元素隐藏与显示的方法如下：
 
 `callback`：隐藏或显示后，会执行的方法（回调方法）。
 
-示例：event.jsp
+**示例：event.jsp**
 
 ```
 $(document).ready(function() {
@@ -1428,7 +1428,7 @@ $(document).ready(function() {
 });
 ```
 
-当在body中单击鼠标时，id=”textId”的`div`会在1秒中内切换显示或隐藏状态。
+当在body中单击鼠标时，`id=”textId”`的`div`会在1秒中内切换显示或隐藏状态。
 
 
 ## 9.4.2 控制元素的透明度 ##
@@ -1450,7 +1450,7 @@ $(document).ready(function() {
    </tr>
 </table>
 
-## 9.4.3控制元素的高度 ##
+## 9.4.3 控制元素的高度 ##
 
 可以使用`slideUp()`和`slideDown()`方法来控制元素的高度。
 
@@ -1474,11 +1474,11 @@ $(document).ready(function() {
 
 # 9.5 操作DOM #
 
-jQuery对JavaScript操作DOM的方法进行了封装，使用起来也更加简便。
+jQuery对JavaScript操作`DOM`的方法进行了封装，使用起来也更加简便。
 
 ## 9.5.1 样式操作 ##
 
-在jQuery中，对元素样式的操作可以分为直接设置样式、追加样式、移除样式、切换样式等。
+**在jQuery中，对元素样式的操作可以分为直接设置样式、追加样式、移除样式、切换样式等。**
 
 **(1) 直接设置样式**
 
@@ -1507,7 +1507,7 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
    </tr>
 </table>
 
-示例：jQueryDemo.jsp
+**示例：jQueryDemo.jsp**
 
 ```
 <html>
@@ -1562,7 +1562,7 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
 
 同时追加多个类样式（用空格隔开）：`jQuery对象.addClass(class1 class2 …classN)`
 
-示例：jQueryDemo.jsp
+**示例：jQueryDemo.jsp**
 
 ```
 <html>
@@ -1604,11 +1604,11 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
 
 **语法：**
 
-移除一个类样式：	jQuery对象`.removeClass(class)`
+移除一个类样式：	`jQuery对象.removeClass(class)`
 
-移除多个类样式：	jQuery对象`.removeClass(class1 class2 … classN)`
+移除多个类样式：	`jQuery对象.removeClass(class1 class2 … classN)`
 
-移除全部类样式：	jQuery对象`.removeClass()`
+移除全部类样式：	`jQuery对象.removeClass()`
 
 **②切换类样式**
 
@@ -1622,7 +1622,7 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
 
 例如，当执行`“jQuery对象.toggleClass(class) ”`时：如果元素中含有名为`class`的类样式时，就删除该样式；如果元素中不存在名为`class`的类样式时，就为元素加入该样式，即`toggleClass()`就相当于`addClass()`和`removeClass()`的轮番切换使用。
 
-示例：jQueryDemo.jsp
+**示例：jQueryDemo.jsp**
 
 ```
 <html>
@@ -1651,7 +1651,7 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
 
 当连续点击`<p>`元素的内容时，`<p>`元素就会不断的追加或移除`.myStyle1`和`.myStyle2`两个类样式。
 
-## 9.5.2内容操作 ##
+## 9.5.2 内容操作 ##
 
 jQuery还提供了对元素内容（HTML代码、文本内容、属性值）的操作方法。
 
@@ -1663,7 +1663,7 @@ jQuery可以使用`html()`方法对元素的HTML代码进行操作，该方法�
 
 如果存在参数`content`，表示给选中的元素赋上新的内容`content`；如果不存在参数content，表示获取被选中的元素内容。
 
-示例：htmlDemo.jsp
+**示例：htmlDemo.jsp**
 
 ```
 <html>
@@ -1703,7 +1703,7 @@ jQuery还可以使用`text()`方法获取或设置元素的文本内容。
 
 如果存在参数`content`，表示将选中的元素赋上新的文本内容`content`；如果不存在参数`content`，表示获取被选中元素的文本内容。
 
-示例：textDemo.jsp
+**示例：textDemo.jsp**
 
 ```
 <html>
@@ -1747,7 +1747,7 @@ jQuery还可以通过`val()`方法来获取或设置元素的`value`属性值。
 
 如果存在参数`value`，表示将选中元素的`value`值设置为v；如果不存在参数v，表示获取被选中元素的`value`值。
 
-示例：valDemo.jsp
+**示例：valDemo.jsp**
 
 ```
 <html>
@@ -1795,7 +1795,7 @@ jQuery还可以通过`val()`方法来获取或设置元素的`value`属性值。
 
 *图9-24*
 
-## 9.5.3节点与属性操作 ##
+## 9.5.3 节点与属性操作 ##
 
 jQuery对节点的操作主要有两种：对节点本身的操作，以及对节点中属性的操作。
 
@@ -1809,17 +1809,17 @@ jQuery对节点的操作主要有两种：对节点本身的操作，以及对�
 
 **②创建节点**
 
-$()称之为工厂函数，可以用于获取节点、转化节点或创建节点：
+**$()**称之为工厂函数，可以用于获取节点、转化节点或创建节点：
 
-$(选择器)：通过选择器获取节点
+**$(选择器)**：通过选择器获取节点
 
-$(DOM节点)：把DOM节点转化成jQuery节点
+**$(DOM节点)**：把DOM节点转化成jQuery节点
 
-$(HTML字符串)：使用HTML字符串创建jQuery节点
+**$(HTML字符串)**：使用HTML字符串创建jQuery节点
 
-因此，创建jQuery节点主要是通过$(HTML字符串)实现。
+因此，**创建jQuery节点主要是通过$(HTML字符串)实现。**
 
-示例：node.jsp
+**示例：node.jsp**
 
 `var $node = $("<li>橘子</li>");`
 
@@ -1831,7 +1831,7 @@ $(HTML字符串)：使用HTML字符串创建jQuery节点
 
 假设网页中存在如下节点：
 
-node.jsp
+**node.jsp**
 
 ```
 <ul>
@@ -1997,7 +1997,7 @@ jQuery主要是通过`attr()`和`removeAttr()`方法来对节点的属性进行�
    </tr>
 </table>
 
-示例：node.jsp
+**示例：node.jsp**
 
 ```
 <html>
@@ -2038,7 +2038,7 @@ jQuery还提供了获取子节点集合、同辈节点集合、父节点集合�
 
 为了便于讲解，首先设计一个HTML页面，如下
 
-nodeList.jsp
+**nodeList.jsp**
 
 ```
 …
@@ -2137,7 +2137,7 @@ nodeList.jsp
    </tr>
 </table>
 
-示例：nodeList.jsp
+**示例：nodeList.jsp**
 
 ```
 <html>
@@ -2215,7 +2215,7 @@ nodeList.jsp
    </tr>
 </table>
 
-offset()示例：cssDom.jsp
+**offset()示例：cssDom.jsp**
 
 ```
 <html>
@@ -2271,7 +2271,7 @@ offset()示例：cssDom.jsp
 
 *图9-31*
 
-offsetParent()示例：cssDom.jsp
+**offsetParent()示例：cssDom.jsp**
 
 ```
 <html>
@@ -2328,7 +2328,7 @@ position:absolute;left:10px;top:200px；">
 
 下面的`check()`方法，是一种常见校验方法的形式：
 
-input.jsp
+**input.jsp**
 
 ```
 <script type="text/javascript">
@@ -2401,7 +2401,7 @@ input.jsp
    </tr>
 </table>
 
-onsubmit事件示例：input.jsp
+**onsubmit事件示例：input.jsp**
 
 ```
 <html>
@@ -2441,7 +2441,7 @@ onsubmit事件示例：input.jsp
 而如果输入的表单数据全部合法，才会执行`action`跳转。
 以上使用`onsubmit`实现的表单校验，等价于以下使用`submit()`方法：
 
-`submit()`方法示例：input.jsp
+**`submit()`方法示例：input.jsp**
 
 ```
 <html>
@@ -2559,8 +2559,7 @@ onsubmit事件示例：input.jsp
 
 有了正则校验规则后，就可以使用`test()`方法来执行校验。如果校验的内容和规则一致，则返回`true`；不一致，则返回`false`。
 
-**示例：
-reg.jsp**
+**示例：reg.jsp**
 
 ```
 <html>
