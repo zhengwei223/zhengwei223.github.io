@@ -4,15 +4,15 @@ layout: post
 
 title: MyBatis入门
 
-category: JSP-Servlet教程
+category: MyBatis框架
 
-tags: JSP Servlet
+tags: MyBatis
 
 description: 本章将介绍MyBatis入门。
 
 author: 颜群
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 ---
 
