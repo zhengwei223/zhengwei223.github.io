@@ -16,7 +16,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 ---
 
->本章简介
+>**本章简介**
 
 MyBatis曾被称为iBatis。iBatis是apache的一个开源项目， 2010年由apache software foundation 迁移到了google code，并且改名为MyBatis。
 
@@ -28,9 +28,9 @@ MyBatis是一个支持普通SQL查询、存储过程和高级映射的优秀持�
 
 我们先通过一个简单例子，了解一下使用MyBatis的整体思路和开发流程。
 
-① 获取MyBatis驱动包
+**①** 获取MyBatis驱动包
 
-可以在官网[http://blog.mybatis.org/](http://blog.mybatis.org/)或[https://github.com/mybatis/mybatis-3/releases](https://github.com/mybatis/mybatis-3/releases)中下载MyBatis的资源文件mybatis-3.x.x.zip，解压后可得到如下文件：
+可以在官网[http://blog.mybatis.org/](http://blog.mybatis.org/)或[https://github.com/mybatis/mybatis-3/releases](https://github.com/mybatis/mybatis-3/releases)中下载MyBatis的资源文件**mybatis-3.x.x.zip**，解压后可得到如下文件：
 
 <table>
    <tr>
@@ -55,13 +55,13 @@ MyBatis是一个支持普通SQL查询、存储过程和高级映射的优秀持�
    </tr>
 </table>
 
-② 创建一个普通的Java项目（项目名MyBatisDemo），并在该项目的`src`目录下，创建一个`libs`目录(newFolder)并存放mybatis-3.x.x.jar和ojdbc6.jar（`oracle`驱动包），再将这两个`jar`包设置为构建目录（Build Path），如图，
+**②** 创建一个普通的Java项目（项目名MyBatisDemo），并在该项目的`src`目录下，创建一个`libs`目录(newFolder)并存放**mybatis-3.x.x.jar**和**ojdbc6.jar**（`oracle`驱动包），再将这两个`jar`包设置为构建目录（Build Path），如图，
 
 ![](http://i.imgur.com/PkRFtkH.png)
 
 *图12-01*
 
-③ 创建（或使用之前已有的）“学生表”，各字段及类型如下：
+**③** 创建（或使用之前已有的）“学生表”，各字段及类型如下：
 
 <table>
    <tr>
@@ -90,9 +90,9 @@ MyBatis是一个支持普通SQL查询、存储过程和高级映射的优秀持�
 
 *图12-02*
 
-④ 创建与学生表对应的实体类，如下，
+**④** 创建与学生表对应的实体类，如下，
 
-`org.lanqiao.entity.Student.java`
+**org.lanqiao.entity.Student.java**
 
 ```
 package org.lanqiao.entity;
@@ -119,9 +119,9 @@ public class Student
 }
 ```
 
-⑤ 创建学生表的SQL映射文件，
+**⑤** 创建学生表的SQL映射文件，
 
-org/lanqiao/entity/studentMapper.xml
+**org/lanqiao/entity/studentMapper.xml**
 
 ```
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -139,11 +139,11 @@ org/lanqiao/entity/studentMapper.xml
 
 1.在SQL映射文件中，SQL语句（如select * from ….）的最后没有分号“;”。
 
-2.配置文件`conf.xml`以及映射文件`studentMapper.xml`中的头信息、约束等，不必我们自己手写，可以在之前mybatis-3.x.x.zip的解压的文件里找到mybatis- 3.x.x.pdf，此向导文件中就有MyBatis的配置及映射模板，我们只需要复制粘贴，然后修改相关属性值即可。
+2.配置文件`conf.xml`以及映射文件`studentMapper.xml`中的头信息、约束等，不必我们自己手写，可以在之前**mybatis-3.x.x.zip**的解压的文件里找到**mybatis- 3.x.x.pdf**，此向导文件中就有MyBatis的配置及映射模板，我们只需要复制粘贴，然后修改相关属性值即可。
 
-⑥ 创建MyBatis的配置文件，如下，
+**⑥** 创建MyBatis的配置文件，如下，
 
-conf.xml
+**conf.xml**
 
 ```
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -172,9 +172,9 @@ value="jdbc:oracle:thin:@127.0.0.1:1521:XE" />
 </configuration>
 ```
 
-⑦ 编写测试类：执行SQL映射文件中定义的`select`语句
+**⑦** 编写测试类：执行SQL映射文件中定义的`select`语句
 
-`org.lanqiao.test.TestMyBatis.java`
+**org.lanqiao.test.TestMyBatis.java**
 
 ```
 package org.lanqiao.test;
@@ -203,9 +203,9 @@ public class TestMyBatis
 ```
 
 测试类中，`statement`变量指向了SQL映射文件中id为`getStudentByNo`的`select`标签，
-并通过`SqlSession`对象的`selectOne()`方法，将“32”传入该`select`标签中，最后`select`标签中的SQL语句以#{stuNo}的方式将“32”赋值给了`stuNo`。
+并通过`SqlSession`对象的`selectOne()`方法，将“32”传入该`select`标签中，最后`select`标签中的SQL语句以`#{stuNo}`的方式将“32”赋值给了`stuNo`。
 
-执行测试类TesMyBatis.java，运行结果：
+执行测试类**TesMyBatis.java**，运行结果：
 
 ![](http://i.imgur.com/1j6KRHI.png)
 
@@ -213,9 +213,9 @@ public class TestMyBatis
 
 通过以上流程，可以发现MyBatis执行的总体思路是：
 
-MyBatis应用程序根据XML配置文件（conf.xml）创建`SqlSessionFactory`，再由`SqlSessionFactory`创建一个`SqlSession`对象。`SqlSession`对象包含了执行SQL所需要的所有方法，可以直接运行映射的SQL语句，完成对数据的增删改查等操作。其中映射的SQL语句存放在一个SQL映射文件中（如studentMapper.xml），应用程序可以通过SQL映射文件中的namespace+id找到对应的SQL语句。
+MyBatis应用程序根据XML配置文件（**conf.xml**）创建`SqlSessionFactory`，再由`SqlSessionFactory`创建一个`SqlSession`对象。`SqlSession`对象包含了执行SQL所需要的所有方法，可以直接运行映射的SQL语句，完成对数据的增删改查等操作。其中映射的SQL语句存放在一个SQL映射文件中（如**studentMapper.xml**），应用程序可以通过SQL映射文件中的`namespace+id`找到对应的SQL语句。
 
-其中，`SqlSession`对象的常用方法如下：
+**其中，`SqlSession`对象的常用方法如下：**
 
 <table>
    <tr>
@@ -258,7 +258,7 @@ MyBatis应用程序根据XML配置文件（conf.xml）创建`SqlSessionFactory`�
 
 # 12.2 MyBatis配置文件简介 #
 
-以下是官方提供的MyBatis配置文件(conf.xml)模板：
+以下是官方提供的MyBatis配置文件(**conf.xml**)模板：
 
 ```
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -288,11 +288,11 @@ MyBatis应用程序根据XML配置文件（conf.xml）创建`SqlSessionFactory`�
 
 `<environments default="development">`
 
-**default**：指定默认environment的id值
+**default**：指定默认`environment`的id值
 
 **environments**：MyBatis允许配置多种不同的数据库环境，如开发环境、测试环境、工作环境等。因此在MyBatis中，我们可以使用相同的SQL映射来操作不同的数据库。但要注意，虽然允许配置多种不同的环境，但在使用时，`environments`只能选择唯一的一个环境，即通过`environments`元素的`default`属性来指定默认使用的`environment`的id值。这样可以方便开发者快速的在不同数据库环境之间切换。而每个数据库环境（`environment`元素），在程序中对应着一个`SqlSessionFactory`对象。
 
-我们之前在测试类TesMyBatis.java中，通过配置文件（conf.xml）创建的`SqlSessionFactory`对象，就是根据数据库环境`environment`元素的内容产生的。具体代码如下：
+我们之前在测试类**TesMyBatis.java**中，通过配置文件（**conf.xml**）创建的`SqlSessionFactory`对象，就是根据数据库环境`environment`元素的内容产生的。具体代码如下：
 
 ```
 	String resource = "conf.xml";
@@ -347,9 +347,9 @@ id：数据库环境的id值
 
 `type`: 指定数据源类型
 
-MyBatis中有三种数据源类型，UNPOOLED、 POOLED和JNDI：
+**MyBatis中有三种数据源类型，UNPOOLED、 POOLED和JNDI：**
 
-① UNPOOLED ：每次被请求时简单打开和关闭连接，需要配置的以下属性：
+**①** UNPOOLED ：每次被请求时简单打开和关闭连接，需要配置的以下属性：
 
 <table>
    <tr>
@@ -378,9 +378,9 @@ MyBatis中有三种数据源类型，UNPOOLED、 POOLED和JNDI：
    </tr>
 </table>
 
-② POOLED：简单的数据库连接池类型，它使得数据库连接可被复用，不必在每次请求时都去创建一个物理的连接。
+**②** POOLED：简单的数据库连接池类型，它使得数据库连接可被复用，不必在每次请求时都去创建一个物理的连接。
 
-③ JNDI ：从tomcat等容器中获取数据源
+**③** JNDI ：从tomcat等容器中获取数据源
 
 **(5) 映射文件**
 
@@ -392,11 +392,11 @@ MyBatis中有三种数据源类型，UNPOOLED、 POOLED和JNDI：
 
 `mappers`：配置SQL映射文件。
 
-`mapper`的`resource`属性：SQL映射文件（XxxMapper.java）的相对路径。
+`mapper`的`resource`属性：SQL映射文件（**XxxMapper.java**）的相对路径。
 
 # 12.3 SQL映射文件简介 #
 
-SQL映射文件（XxxMapper.java）的基础模板如下(以选择`select`为例)：
+SQL映射文件（**XxxMapper.java**）的基础模板如下(以选择`select`为例)：
 
 ```
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -442,7 +442,8 @@ CRUD是指`Create`、`Read`、`Update`和`Delete`，即我们常说的“增删�
 
 学生表、学生实体类`Student.java`、MyBatis配置文件`conf.xml`和之前完全一样。
 
-SQL映射文件：org/lanqiao/entity/studentMapper.xml
+
+**SQL映射文件：org/lanqiao/entity/studentMapper.xml**
 
 ```
 …
@@ -480,7 +481,7 @@ resultType="org.lanqiao.entity.Student">
 </mapper>
 ```
 
-测试类`org.lanqiao.test.TestMyBatis.java`
+**测试类org.lanqiao.test.TestMyBatis.java**
 
 ```
 package org.lanqiao.test;
@@ -565,9 +566,9 @@ public class TestMyBatis
 
 我们之前开发的“MyBatisDemo”项目，在测试类（`TestMyBatis.java`）里，每执行一个数据库操作（增、删、改、查），都必须通过`statement`变量来指向SQL映射文件（studentMapper.xml）中某一个标签的id值（即通过`namespace+id`的方式指定，例如用`String statement = "org.lanqiao.entity.studentMapper" + ".addStudent"`来指定“增加”所需要的SQL语句）。可以发现，这种使用硬编码的方式来指定SQL语句，开发起来比较繁琐，因此我们可以使用“约定优于配置”来简化：使用“约定”来省略`statement`变量的配置。具体实现步骤如下：
 
-(1)在之前的“MyBatisDemo”项目上二次开发。其中，学生表、学生实体类`(Student.java)`都与之前的完全一样。
+**(1)** 在之前的“MyBatisDemo”项目上二次开发。其中，学生表、学生实体类`(Student.java)`都与之前的完全一样。
 
-(2) 新建接口，在接口中定义操作数据库的方法，并给方法增加一些“约定”。其中，“约定”需要参照SQL配置文件（studentMapper.xml）中的各个标签（如`<select>`），如下：
+**(2)** 新建接口，在接口中定义操作数据库的方法，并给方法增加一些“约定”。其中，“约定”需要参照SQL配置文件（**studentMapper.xml**）中的各个标签（如`<select>`），如下：
 
 ```
 <!-- 根据学号，查询一个学生 -->
@@ -577,19 +578,19 @@ resultType="org.lanqiao.entity.Student">
 </select>
 ```
 
-接口中方法的具体“约定”如下：
+**接口中方法的具体“约定”如下：**
 
-① 方法名和SQL配置文件（studentMapper.xml）中相关方法的id值相同。例如，SQL配置文件中“查询一个学生”的`<select>`标签的id值是`“queryStudentByNo”`，那么在接口中“查询一个学生”的方法名就也必须是`queryStudentByNo ()`。
+**①** 方法名和SQL配置文件（**studentMapper.xml**）中相关方法的id值相同。例如，SQL配置文件中“查询一个学生”的`<select>`标签的id值是`“queryStudentByNo”`，那么在接口中“查询一个学生”的方法名就也必须是`queryStudentByNo ()`。
 
-②方法的输入参数类型，和SQL配置文件中`“parameterType”`的类型相同。例如，SQL配置文件中“查询一个学生”的`“parameterType”`类型是`int`，则在接口中“查询一个学生”方法的输入参数类型就必须是`int`，即`getStudentByNo(int stuNo)`。特殊情况：如果SQL配置文件中不存在`“parameterType”`，则表示是一个无参方法。
+**②**方法的输入参数类型，和SQL配置文件中`“parameterType”`的类型相同。例如，SQL配置文件中“查询一个学生”的`“parameterType”`类型是`int`，则在接口中“查询一个学生”方法的输入参数类型就必须是`int`，即`getStudentByNo(int stuNo)`。特殊情况：如果SQL配置文件中不存在`“parameterType”`，则表示是一个无参方法。
 
-③ 方法的返回值类型，和SQL配置文件中`“resultType”`的类型相同。例如，SQL配置文件中“查询一个学生”的`“resultType”`类型是`“org.lanqiao.entity.Student”`，则在接口中“查询一个学生”方法的返回值类型就必须是`“org.lanqiao.entity.Student`（或简写为`Student`）”，即`Student getStudentByNo(int stuNo){ … }`。
+**③** 方法的返回值类型，和SQL配置文件中`“resultType”`的类型相同。例如，SQL配置文件中“查询一个学生”的`“resultType”`类型是`“org.lanqiao.entity.Student”`，则在接口中“查询一个学生”方法的返回值类型就必须是`“org.lanqiao.entity.Student`（或简写为`Student`）”，即`Student getStudentByNo(int stuNo){ … }`。
 
-特殊情况：
+**特殊情况：**
 
-a.如果SQL配置文件中不存在`“resultType”`，则表示是方法的返回值为`void`。
+**a.**如果SQL配置文件中不存在`“resultType”`，则表示是方法的返回值为`void`。
 
-b.如果方法的返回值是一个集合类型（例如，返回类型是`List<Student>`），但在SQL配置文件中的`“resultType”`却不能集合类型，而应该是集合中的元素类型（例如，配置文件中要使用`resultType="org.lanqiao.entity.Student"`来表示返回值类型`List<Student>`）。
+**b.**如果方法的返回值是一个集合类型（例如，返回类型是`List<Student>`），但在SQL配置文件中的`“resultType”`却不能集合类型，而应该是集合中的元素类型（例如，配置文件中要使用`resultType="org.lanqiao.entity.Student"`来表示返回值类型`List<Student>`）。
 
 可以发现，有了上述三条“约定”，MyBatis就能将接口中的方法和数据库标签（如`<select>`、`<insert>`等）一一对应起来，而不再需要使用`statement`变量来指定。
 
@@ -597,7 +598,7 @@ b.如果方法的返回值是一个集合类型（例如，返回类型是`List<
 
 综上，按照以上三条“约定”，接口的定义如下，
 
-`org.lanqiao.mapper.IStudentMapper.java`
+**org.lanqiao.mapper.IStudentMapper.java**
 
 ```
 package org.lanqiao.maper;
@@ -618,9 +619,9 @@ public interface IStudentMapper
 }
 ```
 
-(3 )修改的SQL映射文件studentMapper.xml：将`mapper`的`namespace`值修改为接口`IStudentMapper.java`的“包名+接口名”，如下，
+**(3)** 修改的SQL映射文件**studentMapper.xml**：将`mapper`的`namespace`值修改为接口`IStudentMapper.java`的“包名+接口名”，如下，
 
-org/lanqiao/entity/studentMapper.xml
+**org/lanqiao/entity/studentMapper.xml**
 
 ```
 …
@@ -631,10 +632,10 @@ org/lanqiao/entity/studentMapper.xml
 
 我们可以发现，MyBatis就是通过`namespace`的值来定位接口的路径，并用接口中编写方法的“约定”来将SQL映射文件中的各个数据库标签（如`<select>`、`<insert>`等）与接口中的方法一一对应的。有了接口方法和数据库标签的一一对应关系，也就可以直接通过接口中方法名来定位数据库标签，而不用再使用`statement`变量来定位数据库标签。
 
-(4) 习惯上，我们在使用此种基于约定的“Mapper动态代理方式”实现MyBatis时，会把SQL配置文件和接口放在同一个包下。因此需要将项目中`studentMapper.xml`移动到接口所在包
+**(4)** 习惯上，我们在使用此种基于约定的“Mapper动态代理方式”实现MyBatis时，会把SQL配置文件和接口放在同一个包下。因此需要将项目中`studentMapper.xml`移动到接口所在包
 `“org.lanqiao.mapper”`中。移动完后，注意要修改MyBatis配置文件(conf.xml)中的SQL配置文件路径，如下，
 
-conf.xml
+**conf.xml**
 
 ```
 …
@@ -646,7 +647,7 @@ conf.xml
 </configuration>
 ```
 
-(5)在测试类中编写测试代码。
+**(5)**在测试类中编写测试代码。
 
 以上工作完成以后，我们就可以使用Mapper动态代理来完成MyBatis程序了。
 
@@ -665,7 +666,7 @@ conf.xml
 
 以“查询一个学生为例”，具体如下，
 
-org.lanqiao.test.TestMyBatis.java
+**org.lanqiao.test.TestMyBatis.java**
 
 ```
 package org.lanqiao.test;
