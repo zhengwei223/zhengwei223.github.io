@@ -4,21 +4,21 @@ layout: post
 
 title: MyBatis配置文件深入
 
-category: JSP-Servlet教程
+category: MyBatis框架
 
-tags: JSP Servlet
+tags: MyBatis
 
 description: 本章将介绍MyBatis配置文件。
 
 author: 颜群
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 ---
 
-# 13.1 properties属性 #
+# 13.1 `properties`属性 #
 
-我们之前是把数据库信息，直接写在MyBatis配置文件conf.xml中，如下，
+我们之前是把数据库信息，直接写在MyBatis配置文件**conf.xml**中，如下，
 
 ```
 …
@@ -32,7 +32,7 @@ value="jdbc:oracle:thin:@127.0.0.1:1521:XE" />
 …
 ```
 
-为了方便的查阅和维护数据库信息，我们可以把数据库信息单独写在一个属性文件中，以后需要使用时再直接引用即可。例如，先在`src`下新建一个properties文件，如图，
+为了方便的查阅和维护数据库信息，我们可以把数据库信息单独写在一个属性文件中，以后需要使用时再直接引用即可。例如，先在`src`下新建一个**properties**文件，如图，
 
 ![](http://i.imgur.com/H0GVrOe.png)
 
@@ -41,7 +41,7 @@ value="jdbc:oracle:thin:@127.0.0.1:1521:XE" />
 
 然后将数据库信息以`“key=value”`的形式，写在该属性文件中，如下，
 
-db.properties
+**db.properties**
 
 ```
 driver=oracle.jdbc.OracleDriver
@@ -52,7 +52,7 @@ password=sa
 
 最后，再在配置文件中，通过`<properties>`标签引入该属性文件，并以形如EL的方式引用属性值，如下，
 
-conf.xml
+**conf.xml**
 
 ```
 …
@@ -138,9 +138,9 @@ conf.xml
    </tr>
 </table>
 
-以下，是在MyBatis配置文件conf.xml中设置`settings`的示例代码：
+以下，是在MyBatis配置文件**conf.xml**中设置`settings`的示例代码：
 
-conf.xml
+**conf.xml**
 
 ```
 …
@@ -161,11 +161,11 @@ value="equals,clone,hashCode,toString"/>
 
 # 13.3 为实体类自定义别名 #
 
-之前在SQL映射文件中，如果`parameterType`或`resultType`为实体类的对象类型，我们可以通过全类名的形式指定的（即“包名+类名”）。此外，我们还可以在MyBatis配置文件conf.xml中为实体类设置别名，然后再在SQL映射文件中使用该别名。
+之前在SQL映射文件中，如果`parameterType`或`resultType`为实体类的对象类型，我们可以通过全类名的形式指定的（即“包名+类名”）。此外，我们还可以在MyBatis配置文件**conf.xml**中为实体类设置别名，然后再在SQL映射文件中使用该别名。
 
 例如，我们之前在第一个MyBatis示例中，SQL映射文件中的`resultType`属性值，就是通过全类名指定的，如下
 
-org/lanqiao/mapper/studentMapper.xml
+**org/lanqiao/mapper/studentMapper.xml**
 
 ```
 …
@@ -182,7 +182,7 @@ org/lanqiao/mapper/studentMapper.xml
 
 (1)在MyBatis配置文件中，为实体类定义别名
 
-conf.xml
+**conf.xml**
 
 ```
 <configuration>
@@ -204,7 +204,7 @@ conf.xml
 
  (2) 在SQL映射文件中引用别名
 
-org/lanqiao/mapper/studentMapper.xml
+**org/lanqiao/mapper/studentMapper.xml**
 
 ```
 …
@@ -220,7 +220,7 @@ org/lanqiao/mapper/studentMapper.xml
 
 (1)在MyBatis配置文件中，给一个`packge`中的所有实体类定义别名
 
-conf.xml
+**conf.xml**
 
 ```
 <typeAliases>
@@ -332,9 +332,9 @@ conf.xml
 
 # 13.4 typeHandlers类型处理器 #
 
-类型处理器用于java类型和jdbc类型之间的映射。例如，之前在SQL映射文件中有如下配置，
+类型处理器用于**java**类型和**jdbc**类型之间的映射。例如，之前在SQL映射文件中有如下配置，
 
-org/lanqiao/mapper/studentMapper.xml
+**org/lanqiao/mapper/studentMapper.xml**
 
 ```
 …
@@ -470,9 +470,9 @@ Mybatis内置的类型处理器如下，
 
 ## 13.4.1 自定义类型处理器 ##
 
-除了MyBatis内置的处理器以外，我们还可以自定义类型处理器，来实现特定的java类型与jdbc类型之间的映射。
+除了MyBatis内置的处理器以外，我们还可以自定义类型处理器，来实现特定的**java**类型与**jdbc**类型之间的映射。
 
-先给学生实体类`Student.java`中增加一个表示性别的属性`（boolean stuSex）`，并给学生表增加一个性别字段`(number stuSex)`。由于属性`stuSex`是`boolean`类型，而字段`stuSex`是数字`number`类型，因此我们需要实现一个类型处理器，用来实现java中`boolean`类型和数据库中`number`类型之间的映射和转换。
+先给学生实体类`Student.java`中增加一个表示性别的属性`（boolean stuSex）`，并给学生表增加一个性别字段`(number stuSex)`。由于属性`stuSex`是`boolean`类型，而字段`stuSex`是数字`number`类型，因此我们需要实现一个类型处理器，用来实现**java**中`boolean`类型和数据库中`number`类型之间的映射和转换。
 
 为了实现类型转换，现在约定：
 
@@ -488,7 +488,7 @@ Mybatis内置的类型处理器如下，
 
 `TypeHandler`是实现自定义类型转换器最原始的接口，但为了便于开发，MyBatis还提供了`BaseTypeHandler`抽象类。`BaseTypeHandler`底层实现了`TypeHandler`接口，并对接口中的方法做了简单处理以方便我们使用，所以我们可以直接继承`BaseTypeHandler`抽象类。如下，自定义的类型处理器BooleanAndIntConverter，用于将java中`Boolean`类型与jdbc中`NUMBER`类型之间的相互转换：
 
-org.lanqiao.converter.BooleanAndIntConverter.java
+**org.lanqiao.converter.BooleanAndIntConverter.java**
 
 ```
 public class BooleanAndIntConverter extends BaseTypeHandler<Boolean>
