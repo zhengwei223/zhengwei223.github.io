@@ -21,9 +21,6 @@ var Index = function($){
 		{imgSrc:'/public/img/courses/algorithm.jpg',
 			title:'数据结构与算法',
 			link:'/pages/courses/数据结构与算法.html'},
-		{imgSrc:'/public/img/courses/front-end.jpg',
-			title:'前端高级课程',
-			link:'/pages/courses/前端那些事儿.html'},
 		{imgSrc:'/public/img/courses/jsp.jpg',
 			title:'JSP-Servlet教程',
 			link:'/pages/courses/JSP-Servlet教程.html'}
