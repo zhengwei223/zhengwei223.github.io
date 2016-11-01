@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 掌握集合框架
+title: 可变长数组与泛型
 category: 初学者的第一套Java教程
 tags: Java 入门
 keywords: 蓝桥 lanqiao 教程 java Java8 集合框架
@@ -13,9 +13,8 @@ order: 9
 内容摘要
 
 - 自定义增强型数组类（可以动态添加数组内容）
-- 认识Java集合类的结构
-- 各种结合类的特点
-- 学会使用迭代器遍历集合
+- 了解泛型
+- ArrayList和LinkedList优缺点
 
 # 实验一 完成增强的数组
 
@@ -149,6 +148,8 @@ Object 类的 toString 方法返回一个字符串，该字符串由类名（对
 
 ## 6 增加元素
 
+在为数组添加元素过程中，就有可能出现初始空间不够用的情况，所以在添加之前，需要判断数组空间是否够用，如果不够，就按照一定算法扩容。
+
 	public void add(Object element){
 		//调用类内方法，探寻扩容
 		ensureCapacity(size+1);	
@@ -187,6 +188,8 @@ Object 类的 toString 方法返回一个字符串，该字符串由类名（对
 	容器内有3条数据，内置数组空间为4，元素分别是：123,aaa,333
 
 ## 7 删除元素
+
+删除元素时，需要把所删位置之后的元素全部前移一位，把删除留下的空位补齐。
 
 	/**
 	 * 删除指定下标元素
@@ -245,6 +248,8 @@ Object 类的 toString 方法返回一个字符串，该字符串由类名（对
 
 ## 8 修改元素
 
+修改仅需根据指定的下标替换元素即可。
+
 	/**
 	 * 用指定的元素替代此列表中指定位置上的元素。
 	 * index:要替代元素索引
@@ -266,6 +271,8 @@ Object 类的 toString 方法返回一个字符串，该字符串由类名（对
 
 ## 9 返回长度
 
+size方法比较容易，因为咱们内部就维护了一个记录长度的成员变量，并在删除和添加这种会对内部元素数量造成影响的方法中对它加以维护。所以这时我们直接取值就可以。
+
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
@@ -284,9 +291,6 @@ Object 类的 toString 方法返回一个字符串，该字符串由类名（对
 			}
 		}
 		return result;
-
-size方法比较容易，因为咱们内部就维护了一个记录长度的成员变量，并在删除和添加这种会对内部元素数量造成影响的方法中对它加以维护。所以这时我们直接取值就可以。
-
 
 ## 10 JDK的实现-ArrayList
 
@@ -357,181 +361,3 @@ size方法比较容易，因为咱们内部就维护了一个记录长度的成�
 
 在这里`E`可以理解为一个参数，这个参数在构造时可以指定其具体类型`ArrayProImpl<Student> arr = new ArrayProImpl<Student>()`。并且一旦泛型被指定，所有受泛型影响的方法均必须遵循泛型使用。
 
-# 实验二 利用ArrayList存储学生信息
-
-> 目的：控制台连续获取学生信息（学号、姓名、专业），直至输入到学号为-1时，终止录入并打印所有学生信息。
-
-## 1 抽象学生信息类
-
-首先学号、姓名、专业构成了一个学生信息。用之前我们学习的面向对象的思想来考虑，就可以抽象一个拥有学号、姓名、专业等属性的类。
-	
-	package chapter09;
-	
-	public class StudentInfo {
-		
-		//学号
-		private String no;
-	
-		//姓名
-		private String name;
-		
-		//专业
-		private String major;
-		
-		
-		//getter and setter
-		public String getNo() {
-			return no;
-		}
-	
-		public void setNo(String no) {
-			this.no = no;
-		}
-	
-		public String getName() {
-			return name;
-		}
-	
-		public void setName(String name) {
-			this.name = name;
-		}
-	
-		public String getMajor() {
-			return major;
-		}
-	
-		public void setMajor(String major) {
-			this.major = major;
-		}
-		
-	}
-
-这里我们提供的三个属性的get和set方法，通常情况下，我们不会提供`public`的成员变量，外部不可以直接通过`对象.属性`来操作成员变量。所以提供公有的get和set方法来操作私有属性。
-
-**注意：get和set方法有一些常规协定，请大家遵守。**
-
-1. set方法无返回值，参数为相应成员变量类型。
-2. get方法返回值为成员变量类型，无方法参数。
-3. 命名为get/set+成员变量名称（首字母大写）。
-4. 避免tUser这种一个小写字母接着一个大写字母的变量命名方式。
-
-
-## 2 主程序思路
-
-	//声明可变长容器
-	//声明控制台信息捕获器
-	//循环获取控制台数据
-	{
-		//获取学号
-		//如果学号为-1，终止循环
-		//获取姓名
-		//获取专业
-		//创建学生信息实例
-		//设置学号信息
-		//设置姓名信息
-		//设置专业信息
-
-		//学生信息添加到容器
-	}
-	//遍历容器内所有学生信息
-
-## 3 主程序代码
-
-	public static void main(String[] args) {
-		//声明可变长容器
-		ArrayList<StudentInfo> container = new ArrayList<StudentInfo>();
-		//声明控制台信息捕获器
-		Scanner scanner = new Scanner(System.in);
-		
-		//循环获取控制台数据
-		while(true){
-			//获取学号
-			System.out.println("请输入学生学号...");
-			String no = scanner.next();
-			
-			//如果学号为-1,则打印容器内所有内容，终止循环
-			if(no.equals("-1")){
-				break;
-			}
-			
-			//获取姓名
-			System.out.println("请输入学生姓名...");
-			String name = scanner.next();
-			
-			//获取专业
-			System.out.println("请输入学生专业...");
-			String major = scanner.next();
-			
-			//创建学生信息实例
-			StudentInfo info = new StudentInfo();
-			
-			info.setNo(no);//设置学号信息
-			info.setName(name);//设置姓名信息
-			info.setMajor(major);//设置专业信息
-			
-			container.add(info);//添加到容器
-		}
-		
-		//循环遍历ArrayList
-		for (int i = 0; i < container.size(); i++) {
-			System.out.println(container.get(i));
-		}
-	}
-
-## 解读
-
-`ArrayList<StudentInfo> container = new ArrayList<StudentInfo>();`创建一个ArrayList实例，并声明泛型`StudentInfo`，作为盛放学生信息的容器。要注意不要在循环体内声明该变量，那样会重复构建新的容器。
-
-`info.setXxx`方法来设置学生信息对象的各种属性。
-
-`container.add(info)`正如我们`ArrayProImpl`的实现一样，可以不必关心数组的长度。
-
-集合的遍历，由与ArrayList为每一个元素维护了一个下标，所以我们可以像数组那样用for循环遍历出每一个元素。
-
-执行结果
-
-	请输入学生学号...
-	01
-	请输入学生姓名...
-	张三
-	请输入学生专业...
-	计算机
-	请输入学生学号...
-	-1 
-	chapter09.StudentInfo@1f2cea2
-
-还记得`chapter09.StudentInfo@1f2cea2`格式么。他就是`Object`的`toString()`默认实现，我们`System.out.println(container.get(i));`输出的是每一个`StudentInfo`实例，想要输出的更清晰，需要重写`StudentInfo`的toString()方法。
-
-	@Override
-	public String toString() {
-		return "学生信息 [no=" + this.no + ", name=" + this.name + ", major=" + this.major + "]";
-	}
-
-执行结果
-
-	请输入学生学号...
-	01
-	请输入学生姓名...
-	张三
-	请输入学生专业...
-	计算机
-	请输入学生学号...
-	02
-	请输入学生姓名...
-	李四
-	请输入学生专业...
-	软件工程
-	请输入学生学号...
-	-1
-	学生信息 [no=01, name=张三, major=计算机]
-	学生信息 [no=02, name=李四, major=软件工程]
-
-## 关于LinkedList
-
-`ArrayList`还有一个好兄弟`LinkedList`,它与`ArrayList`同属一个父接口，使用方法也完全相同，不过在实现思路上不同。
-
-`ArrayList`的内部存储结构为数组，在获取元素上比较块
-
-实验二 拒绝重复的学生信息
-
-> 目的：在学生信息录入过程，如果发现重复的信息，
