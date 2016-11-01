@@ -1,5 +1,5 @@
 <!-- Static navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top navbar-slide">
   <div class="container">
   	<!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -15,89 +15,176 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-			<a href="#" data-toggle="dropdown" class="dropdown-toggle">基础课程<strong class="caret"></strong></a>
-			<ul class="dropdown-menu">
-				{% for cate in site.cates_basic %}
-				{% if site.categories[cate].size > 0 %} 
-				<li>
-					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
-				</li>
-				{% endif %}
-				{% endfor %}
-				
-			</ul>
-		</li>
+			    <a href="#" data-toggle="dropdown" class="dropdown-toggle">通识<strong class="caret"></strong></a>
+    			<ul class="dropdown-menu" role="menu">
+    				{% for cate in site.cates_common %}
+    				{% if site.categories[cate].size > 0 %} 
+    				<li>
+    					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
+    				</li>
+    				{% endif %}
+    				{% endfor %}
+            <!-- 
+            <li class="dropdown-sub">
+              <a href="javascript:void(0);" >高级主题<i class="fa fa-arrow-circle-right"></i></a>
+              <ul class="dropdown-menu">
+                {% for cate in site.cates_common_special %}
+                {% if site.categories[cate].size > 0 %} 
+                <li>
+                  <a href="/pages/courses/{{ cate }}.html">{{ cate }} </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </li> 
+            -->
+    			</ul>
+		    </li>
         <li class="dropdown">
-        	<a href="#" data-toggle="dropdown" class="dropdown-toggle">高级课程
-			<strong class="caret"></strong>
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle">JAVA<strong class="caret"></strong></a>
+          <ul class="dropdown-menu">
+            {% for cate in site.cates_java %}
+            {% if site.categories[cate].size > 0 %} 
+            <li>
+              <a href="/pages/courses/{{ cate }}.html">{{ cate }} </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            <!-- 
+            <li class="dropdown-sub">
+              <a href="javascript:void(0);" >高级主题<i class="fa fa-arrow-circle-right"></i></a>
+              <ul class="dropdown-menu">
+                {% for cate in site.cates_java_special %}
+                {% if site.categories[cate].size > 0 %} 
+                <li>
+                  <a href="/pages/courses/{{ cate }}.html">{{ cate }} </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </li>
+             -->
+          </ul>
+        </li>
+        <li class="dropdown">
+        	<a href="#" data-toggle="dropdown" class="dropdown-toggle">前端
+			     <strong class="caret"></strong>
         	</a>
-			<ul class="dropdown-menu">
-				<li>
-					<a href="/pages/courses/前端那些事儿.html">前端那些事儿</a>
-				</li>
-				{% for cate in site.cates_advanced %}
-				{% if site.categories[cate].size > 0 %} 
-				<li>
-					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
-				</li>
-				{% endif %}
-				{% endfor %}
-			</ul>
+    			<ul class="dropdown-menu">
+    				{% for cate in site.cates_frontend %}
+    				{% if site.categories[cate].size > 0 %} 
+    				<li>
+    					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
+    				</li>
+    				{% endif %}
+    				{% endfor %}
+            <li class="dropdown-sub">
+              <a href="javascript:void(0);" >高级主题<i class="fa fa-arrow-circle-right"></i></a>
+              <ul class="dropdown-menu">
+                {% for cate1 in site.cates_frontend_special %}
+                {% if site.categories[cate1].size > 0 %} 
+                <li>
+                  <a href="/pages/courses/{{ cate1 }}.html">{{ cate1 }} </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </li>
+			    </ul>
+        </li>
+        <!-- 
+        <li class="dropdown">
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle">移动端<strong class="caret"></strong></a>
+          <ul class="dropdown-menu">
+            {% for cate in site.cates_mobile %}
+            {% if site.categories[cate].size > 0 %} 
+            <li>
+              <a href="/pages/courses/{{ cate }}.html">{{ cate }} </a>
+            </li>
+            {% endif %}
+            {% endfor %}
 
+            <li class="dropdown-sub">
+              <a href="javascript:void(0);" >高级主题<i class="fa fa-arrow-circle-right"></i></a>
+              <ul class="dropdown-menu">
+                {% for cate in site.cates_mobile_special %}
+                {% if site.categories[cate].size > 0 %} 
+                <li>
+                  <a href="/pages/courses/{{ cate }}.html">{{ cate }} </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </li>
+          </ul>
         </li>
+         -->
         <li class="dropdown">
-        	<a href="#" data-toggle="dropdown" class="dropdown-toggle">项目实践<strong class="caret"></strong></a>
-			<ul class="dropdown-menu">
-				{% for cate in site.cates_project %}
-				{% if site.categories[cate].size > 0 %} 
-				<li>
-					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
-				</li>
-				{% endif %}
-				{% endfor %}
-				
-			</ul>
-
+        	<a href="#" data-toggle="dropdown" class="dropdown-toggle">项目<strong class="caret"></strong></a>
+			    <ul class="dropdown-menu">
+  				  {% for cate in site.cates_project %}
+  				  {% if site.categories[cate].size > 0 %} 
+    				<li>
+    					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
+    				</li>
+  				  {% endif %}
+  				  {% endfor %}
+			    </ul>
         </li>
+        <!-- 
+        <li class="dropdown-sub">
+          <a href="javascript:void(0);" >高级主题<i class="fa fa-arrow-circle-right"></i></a>
+          <ul class="dropdown-menu">
+            {% for cate in site.cates_mind %}
+            {% if site.categories[cate].size > 0 %} 
+            <li>
+              <a href="/pages/courses/{{ cate }}.html">{{ cate }} </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            
+          </ul>
+        </li> -->
+        <!-- 
         <li class="dropdown">
-        	<a href="#" data-toggle="dropdown" class="dropdown-toggle">技术前沿<strong class="caret"></strong></a>
-			<!-- <ul class="dropdown-menu">
-				{% for cate in site.cates_frontiers %}
-				{% if site.categories[cate].size > 0 %} 
-				<li>
-					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
-				</li>
-				{% endif %}
-				{% endfor %}
-				
-			</ul> -->
-        </li>
+        	<a href="#" data-toggle="dropdown" class="dropdown-toggle">前沿<strong class="caret"></strong></a>
+    			<ul class="dropdown-menu">
+    				{% for cate in site.cates_frontiers %}
+    				{% if site.categories[cate].size > 0 %} 
+    				<li>
+    					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
+    				</li>
+    				{% endif %}
+    				{% endfor %}
+    				
+    			</ul>
+        </li> -->
         <li class="dropdown">
-        	<a href="#" data-toggle="dropdown" class="dropdown-toggle">职业发展<strong class="caret"></strong></a>
-			<ul class="dropdown-menu">
-				{% for cate in site.cates_cep %}
-				{% if site.categories[cate].size > 0 %} 
-				<li>
-					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
-				</li>
-				{% endif %}
-				{% endfor %}
-				
-			</ul>
+        	<a href="#" data-toggle="dropdown" class="dropdown-toggle">职业<strong class="caret"></strong></a>
+    			<ul class="dropdown-menu">
+    				{% for cate in site.cates_cep %}
+    				{% if site.categories[cate].size > 0 %} 
+    				<li>
+    					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
+    				</li>
+    				{% endif %}
+    				{% endfor %}
+    				
+    			</ul>
         </li>
 
         <li class="dropdown">
         	<a href="#" data-toggle="dropdown" class="dropdown-toggle">师说<strong class="caret"></strong></a>
-			<ul class="dropdown-menu">
-				{% for cate in site.cates_master %}
-				{% if site.categories[cate].size > 0 %} 
-				<li>
-					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
-				</li>
-				{% endif %}
-				{% endfor %}
-				
-			</ul>
+    			<ul class="dropdown-menu">
+    				{% for cate in site.cates_master %}
+    				{% if site.categories[cate].size > 0 %} 
+    				<li>
+    					<a href="/pages/courses/{{ cate }}.html">{{ cate }}	</a>
+    				</li>
+    				{% endif %}
+    				{% endfor %}
+    				
+    			</ul>
         </li>
         
       </ul>

@@ -16,7 +16,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 ---
 
->本章简介
+>**本章简介**
 
 AJAX（Asynchronous Javascript And XML，异步JavaScript和XML），是一种用于创建快速动态网页的技术。从名字可以发现，Ajax并不是一种全新的技术，而是整合了JavaScript和XML等现有技术。
 
@@ -42,7 +42,7 @@ AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，�
 
 使用JavaScript来实现Ajax，主要是借助`XMLHttpRequest`对象向服务器发送请求，并获取返回结果。
 
-## 10.2.1 XMLHttpRequest对象的常用方法 ##
+## 10.2.1 `XMLHttpRequest`对象的常用方法 ##
 
 **(1) open(methodName,URL,isAsync)**
 
@@ -62,9 +62,9 @@ AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，�
 
 `XMLHttpRequest.setRequestHeader("Content-Type", "mulipart/form-data");`
 
-## 10.2.2 XMLHttpRequest对象的常用属性 ##
+## 10.2.2 `XMLHttpRequest`对象的常用属性 ##
 
-**(1)readystate**
+**(1)`readystate`**
 
 `readystate`表示`XMLHttpRequest` 对象发送的HTTP请求状态，共有以下五种状态：
 
@@ -95,7 +95,7 @@ AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，�
    </tr>
 </table>
 
-**(2) status**
+**(2) `status`**
 
 `status`表示HTTP响应中的状态码，各状态码的含义如下：
 
@@ -128,15 +128,15 @@ AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，�
 
 可以发现，状态码为200时才表示响应成功；如果不是200，则说明HTTP响应不正常。
 
-** (3) onreadystatechange**
+**(3) `onreadystatechange`**
 
 指定`XMLHttpRequest`对象的回调函数。每当`readyState`属性值改变时，就会调用一次此回调函数。
 
-**(4) responseText**
+**(4) `responseText`**
 
 从服务器端返回的`string`格式的响应内容。
 
-**(5) responseXML**
+**(5) `responseXML`**
 
 从服务器端返回的XML格式的数据，可以直接被当作`DOM`对象使用。
 
@@ -144,19 +144,19 @@ AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，�
 
 使用JavaScript实现Ajax，分为`POST`或`GET`两种方式，但大体的步骤都相同，如下：
 
-①创建`XMLHttpRequest`对象，即创建一个异步调用对象
+**①**创建`XMLHttpRequest`对象，即创建一个异步调用对象
 
-②设置并编写回调函数
+**②**设置并编写回调函数
 
-③初始化`XMLHttpRequest`对象的参数值（若是`POST`方式，则还需要设置“请求头”）
+**③**初始化`XMLHttpRequest`对象的参数值（若是`POST`方式，则还需要设置“请求头”）
 
-④发送HTTP请求
+**④**发送HTTP请求
 
 再在回调函数中编写：
 
-⑤获取异步调用返回的数据
+**⑤**获取异步调用返回的数据
 
-⑥使用JavaScript或Jquery等实现局部刷新
+**⑥**使用JavaScript或Jquery等实现局部刷新
 
 **示例：**
 
@@ -280,13 +280,13 @@ xmlHttpRequest.status == 200)
 
 如果将上例改为`GET`方式的Ajax，则只需要做四处更改，具体如下：
 
-①将`XMLHttpRequest`对象的`open()`方法中的`method`参数值改为`”get”`；
+**①**将`XMLHttpRequest`对象的`open()`方法中的`method`参数值改为`”get”`；
 
-②给`XMLHttpRequest`对象的`send()`方法中的`url`参数，加上需要传递的参数值（即把`url`的值，从"请求地址"改为"请求地址?参数名1=参数值1&参数名2=参数值2&..."）
+**②**给`XMLHttpRequest`对象的`send()`方法中的`url`参数，加上需要传递的参数值（即把`url`的值，从"请求地址"改为"请求地址?参数名1=参数值1&参数名2=参数值2&..."）
 
-③删除设置`XMLHttpRequest`对象头信息的代码
+**③**删除设置`XMLHttpRequest`对象头信息的代码
 
-④将`XMLHttpRequest`对象的`send(data)`方法中的`data`，改为`null`（即将`data`的值，转移到了`send()`方法的`url`参数中）。
+**④**将`XMLHttpRequest`对象的`send(data)`方法中的`data`，改为`null`（即将`data`的值，转移到了`send()`方法的`url`参数中）。
 
 可以发现，将`POST`方式改为`GET`方式后，把需要发送的参数从`send()`方法转移到`open`方法中的`url`参数中，并且不需要再设置头信息。
 
@@ -321,7 +321,7 @@ xmlHttpRequest.status == 200)
 
 除了使用JavaScript以外，我们还可以使用JQuery来实现Ajax，而且更加简洁、方便。主要是通过JQuery的`$.ajax()`、`$.get()`、`$.post()`、`load()`等方法来实现的。
 
-## 10.3.1 $.ajax()方法 ##
+## 10.3.1 `$.ajax()`方法 ##
 
 语法：
 
@@ -384,6 +384,7 @@ xmlHttpRequest.status == 200)
 
 现在用jQuery提供的`$.ajax()`方法，来实现“检测手机号码是否已绑定”的客户端函数（服务器端及客户端其他代码，与之前的完全一致）：
 
+
 **客户端jQuery_ajax.jsp**
 
 ```
@@ -420,7 +421,7 @@ xmlHttpRequest.status == 200)
 
 运行结果与之前的完全相同。
 
-## 10.3.2 $.get()方法 ##
+## 10.3.2 `$.get()`方法 ##
 
 `$.get()`方法指定以`GET`方式发送Ajax请求。与`$.ajax()`相比，是将参数值按照一定的顺序书写，并省略了参数名、`type`参数、以及`error()`函数。
 
@@ -457,7 +458,7 @@ xmlHttpRequest.status == 200)
 	});
 ```
 
-## 10.3.3 $.post()方法 ##
+## 10.3.3 `$.post()`方法 ##
 
 `$.get()`方法指定以`POST`方式发送请求，也是将参数值按照一定的顺序书写。
 
@@ -477,7 +478,7 @@ xmlHttpRequest.status == 200)
 
 即语法上，只是将方法名`$.get()`变为了`$.post()`，其他语法完全一致。
 
-## 10.3.4 $(selector).load ()方法 ##
+## 10.3.4 `$(selector).load ()`方法 ##
 
 `$(selector).load ()`方法是在`$.get()`（或`$.post()`）方法的基础上进一步优化，不但会发送请求，还会将响应的数据放入指定的元素。其中`$(selector)`是指jQuery选择器指定的元素。
 
@@ -502,7 +503,7 @@ xmlHttpRequest.status == 200)
 
 **服务器端jQuery_load.jsp**
 
-MobileLoadServlet.java
+**MobileLoadServlet.java**
 
 ```
 //省略import
@@ -596,7 +597,7 @@ var stu = {"name":"张三"};
 
 可以通过“JSON对象名.key”获取对应的`value`值，如下：
 
-json.jsp
+**json.jsp**
 
 ```
 …

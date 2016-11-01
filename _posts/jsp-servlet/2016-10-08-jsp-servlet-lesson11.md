@@ -22,7 +22,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 ## 11.1.1 使用Eclipse调试JAVA程序 ##
 
-调试JAVA程序的步骤如下：
+**调试JAVA程序的步骤如下：**
 
 **① 打断点**
 
@@ -150,7 +150,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 例如，有一个前端页面，如下
 
-index.jsp
+**index.jsp**
 
 ```
 …
@@ -164,7 +164,7 @@ index.jsp
 
 *图11-16*
 
-如果执行index.jsp中的超链接，则程序会自动停留在Servlet中的断点处，如图：
+如果执行**index.jsp**中的超链接，则程序会自动停留在Servlet中的断点处，如图：
 
 ![](http://i.imgur.com/W9wFgwI.png)
 
@@ -180,9 +180,9 @@ index.jsp
 
 **(1) 调试准备**
 
-① 远程的Tomcat服务器上部署了Java Web程序，并且本机的Eclipse中有该Java Web的源代码。
+**①** 远程的Tomcat服务器上部署了Java Web程序，并且本机的Eclipse中有该Java Web的源代码。
 
-② 在本机的环境变量中，配置CATALINA_HOME和JRE_HOME
+**②** 在本机的环境变量中，配置CATALINA_HOME和JRE_HOME
 
 其中CATALINA_HOME是Tomcat的根目录；JRE_HOME是JRE的根目录。
 
@@ -190,9 +190,9 @@ index.jsp
 
 **a. 如果远程服务器是Windows环境**
 
-在`%CATALINE_HOME%/bin`下建立debug.bat文件，并编写以下内容：
+在`%CATALINE_HOME%/bin`下建立**debug.bat**文件，并编写以下内容：
 
-debug.bat
+**debug.bat**
 
 ```
 set JPDA_ADDRESS=9090 
@@ -217,7 +217,7 @@ JPDA_TRANSPORT表示连接方式，可以设置为`dt_shmem`或`dt_socket`，分
 改为
 `JPDA_ADDRESS="9090"`
 
-配置完成后，在Windows下运行`debug.bat`, 在Linux下运行 `startup.sh`启动Tomcat。如果在启动日志中出现Listening for transport dt_socket at address: 9090，则说明远程调试端口监听成功。
+配置完成后，在Windows下运行`debug.bat`, 在Linux下运行 `startup.sh`启动Tomcat。如果在启动日志中出现**Listening for transport dt_socket at address: 9090**，则说明远程调试端口监听成功。
 
 **(3)在本地Eclipse中关联源代码**
 
@@ -269,19 +269,19 @@ Firebug是Firefox浏览器下的一款扩展插件，可以用来调试HTML、CS
 
 ## 11.2.1 安装Firebug ##
 
-① 打开firefox浏览器，并打开工具中的附加组件，如图：
+**①** 打开firefox浏览器，并打开工具中的附加组件，如图：
 
 ![](http://i.imgur.com/k66rCyk.png)
 
 *图11-24*
 
-② 在弹出的页面中，搜索firebug，再点击安装，如图
+**②** 在弹出的页面中，搜索firebug，再点击安装，如图
 
 ![](http://i.imgur.com/WfQGluF.png)
 
 *图11-25*
 
-③ 重新打开浏览器，点击功能键F12，就可以在浏览器下方看到firebug，如图
+**③** 重新打开浏览器，点击功能键F12，就可以在浏览器下方看到firebug，如图
 
 ![](http://i.imgur.com/jj0Nz2A.png)
 
@@ -293,7 +293,7 @@ Firebug是Firefox浏览器下的一款扩展插件，可以用来调试HTML、CS
 
 **(1) 调试CSS**
 
-ul.css
+**ul.css**
 
 ```
 ul li:first-child
@@ -303,7 +303,7 @@ ul li:first-child
 }
 ```
 
-firebugCss.jsp
+**firebugCss.jsp**
 
 ```
 <html>
@@ -405,7 +405,7 @@ firebugCss.jsp
 
 如果JavaScript代码有误，Firebug也会给出错误提示。例如，以下代码存在三处错误：未引入jQuery库（或jQuery库地址错误）、缺少右括号“)”、单击button按钮时触发了一个不存在的函数`showInfo()`。
 
-firebugJsp.jsp
+**firebugJsp.jsp**
 
 ```
 <html>
@@ -428,7 +428,7 @@ firebugJsp.jsp
 </html>
 ```
 
-运行firebugJsp.jsp后，因为错误的提示存在优先级，所以会先提示找不到右括号“)”：如图
+运行**firebugJsp.jsp**后，因为错误的提示存在优先级，所以会先提示找不到右括号“)”：如图
 
 ![](http://i.imgur.com/7Bko7m3.png)
 
@@ -440,7 +440,7 @@ firebugJsp.jsp
 
 *图11-37*
 
-修复此错误，即在源码第13行中加入“)”后，再次运行firebugJsp.jsp时，又会提示“$未定义”，如图，
+修复此错误，即在源码第13行中加入“)”后，再次运行**firebugJsp.jsp**时，又会提示“$未定义”，如图，
 
 ![](http://i.imgur.com/RptieXH.png)
 
@@ -448,7 +448,7 @@ firebugJsp.jsp
 
 分析可知，$是jQuery的标识，提示“$未定义”可能的原因就是jQuery库引入有误，因此检查后可以发现是没有引入jQuery库。
 
-将jQuery库引入后，再次运行firebugJsp.jsp并单击button，又能发现firebug提示“`showInfo()`为定义”，如图，
+将jQuery库引入后，再次运行**firebugJsp.jsp**并单击button，又能发现firebug提示“`showInfo()`为定义”，如图，
 
 ![](http://i.imgur.com/1nLGbD9.png)
 
