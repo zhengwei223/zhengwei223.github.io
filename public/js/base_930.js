@@ -188,6 +188,31 @@ var app = function($){
       if(e.which===39)
         $('.btn-next').click()
     })
+    var MQL = 992;
+    // 中大屏幕上，点击下拉列表无效，采用鼠标滑入展开下拉列表
+    $('.dropdown>a,.dropdown-sub>a').on('click.dropdown',function(e){
+      if ($(window).width() >= MQL) {
+        e.preventDefault()
+        e.stopPropagation()
+      }        
+    })
+    // 二级导航按钮，点击有效
+    $('.dropdown-sub>a').on('click.dropdown',function(e){
+      if ($(window).width() < MQL) {
+        e.preventDefault()
+        e.stopPropagation()
+        var $menu = $('.dropdown-menu',$(this).parent())
+        var isDisplay = $menu.css('display')||'none'
+        $menu.css('display',isDisplay=='none'?'block':'none')
+      }        
+    })
+    // 中大屏幕上，鼠标滑入无效，点击有效
+    $('.dropdown>a,.dropdown-sub>a').on('mouseover.dropdown',function(e){
+      if ($(window).width() < MQL) {
+        e.preventDefault()
+        e.stopPropagation()
+      }        
+    })
   };
   var scrollspy = function(){
     // Scrollspy
