@@ -57,7 +57,7 @@ desc: 单篇文章的布局模板
         </ul>
         <div class="btn-group btn-group-sidebar">
           
-          <a class="btn btn-default btn-primary btn-pre pjaxlink " href="{{preUrl}}"
+          <a class="btn btn-default btn-primary btn-pre pjaxlink " href="{% if nextUrl==null %}javascript:void(0);{% else %}{{preUrl}}{% endif %}"
           {% if preUrl==null  %}disabled
           {% else %}
           data-toggle="tooltip" data-placement="left" title="{{preTitle}}"
@@ -72,7 +72,8 @@ desc: 单篇文章的布局模板
             <i class="icon fa fa-book"></i>
           </a>
 
-          <a class="btn btn-default btn-primary btn-next pjaxlink " href="{{nextUrl}}"
+          <a class="btn btn-default btn-primary btn-next pjaxlink " 
+            href="{% if nextUrl==null %}javascript:void(0);{% else %}{{nextUrl}}{% endif %}"
           {% if nextUrl==null %}disabled
           {% else %}
           data-toggle="tooltip" data-placement="right" title="{{nextTitle}}"
