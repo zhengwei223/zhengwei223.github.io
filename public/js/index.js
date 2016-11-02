@@ -21,9 +21,6 @@ var Index = function($){
 		{imgSrc:'/public/img/courses/algorithm.jpg',
 			title:'数据结构与算法',
 			link:'/pages/courses/数据结构与算法.html'},
-		{imgSrc:'/public/img/courses/front-end.jpg',
-			title:'前端高级课程',
-			link:'/pages/courses/前端那些事儿.html'},
 		{imgSrc:'/public/img/courses/jsp.jpg',
 			title:'JSP-Servlet教程',
 			link:'/pages/courses/JSP-Servlet教程.html'}
@@ -33,7 +30,7 @@ var Index = function($){
 		return [
 			'<div class="col-sm-6 col-md-4">',
 		  '  <div class="thumbnail">',
-		  '    <img src="'+course.imgSrc+'" alt="..." class="img-responsive">',
+		  '    <img src="'+course.imgSrc+'" alt="..." class="img-responsive hidden-sm hidden-xs">',
 		  '    <div class="caption">',
 		  '      <h3>'+course.title+'</h3>',
 		  '      <p>',
@@ -51,9 +48,18 @@ var Index = function($){
 		var $imgs = $('img')
 		$imgs.each(function() {
 		    var dfd = $.Deferred();
-		    $(this).load(dfd.resolve);
 		    defereds.push(dfd);
+				// 如果图片已经存在于浏览器缓存，考虑兼容性ie上有缓存时，不执行load，通过complete可以判断
+				if(this.complete){
+					dfd.resolve()
+				}else{
+					$(this).load(function(){
+						dfd.resolve()
+					});
+				}
+		    
 		})
+
 		$.when.apply(null, defereds).done(function() {
 	    var $cols = $('.indexContent .row div[class^="col-"')
 			var heights = $cols.map(function(){
