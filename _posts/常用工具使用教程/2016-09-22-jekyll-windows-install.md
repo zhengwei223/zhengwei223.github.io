@@ -105,4 +105,4 @@ def prevent_directory_traversal(req, res)
 	...
 ```
 
-把`Encoding.find("filesystem")`替换为`"gb2312"`
+把`Encoding.find("filesystem")`整个替换为`"gb2312"`
