@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 4.交互效果：插件与js
+title: 5.交互效果：插件与js
 category: Bootstrap入门实例教学
 tags: Web前端 Bootstrap 
 author: 郑未
