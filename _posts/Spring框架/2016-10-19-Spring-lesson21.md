@@ -26,6 +26,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE Spring框架
 
 我们之前是将所有的配置内容，都放在了一个applicationContext.xml之中，这样会造成配置内容的可读性、可维护性变差。而且，如果多个开发人员同时使用同一个配置文件，将很容易引起并发性的冲突。因此，我们通常需要把applicationContext.xml分解成多个比较细粒度的配置文件，每个配置文件只配置某一个模块。
 
+
 通常有两种分解的思路：
 
 
