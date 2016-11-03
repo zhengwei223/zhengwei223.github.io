@@ -99,7 +99,7 @@ public class Student
 }
 ```
 
-试想，如果现在Stuent想去学习Oracle课程，那么就必须再重写一个学习`Oracle`方法，并在方法里自己创建`OracleCourse`对象来调用学习Oracle的方法，如下
+试想，如果现在Stuent想去学习Oracle课程，那么就必须再重写一个学习Oracle方法，并在方法里自己创建`OracleCourse`对象来调用学习Oracle的方法，如下
 
 
 **Student.java**
