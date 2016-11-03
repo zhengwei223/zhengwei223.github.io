@@ -418,7 +418,6 @@ ClassPathXmlApplicationContext("applicationContext.xml");
 
 实现步骤及配置方法与“后置通知”相同，这里仅演示“异常通知”的实现类：
 
-
 **LoggerThrowsAdvice.java**
 
 ```
@@ -454,6 +453,7 @@ Object[] arguments, Object target, Throwable ex)
 
 
 环绕通知的实现类举例如下：
+
 **LoggerAround.java**
 
 
