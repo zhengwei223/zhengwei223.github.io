@@ -30,6 +30,7 @@ Spring整合MyBatis，主要是通过把MyBatis的`sqlsessionfactory`交给Sprin
 
 **a.导入Spring整合MyBatis所需要的JAR包**
 
+
 包括MyBatis的JAR、Spring相关的JAR、以及数据库相关的JAR，如下
 
 <table>
