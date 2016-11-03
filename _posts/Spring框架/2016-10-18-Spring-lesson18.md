@@ -96,7 +96,7 @@ public class Student
 }
 ```
 
-**②**通过Spring配置文件（applicationContext.xml）给实体类对象的属性赋值，并将该对象放入Spring IOC容器
+**②**通过Spring配置文件（**applicationContext.xml**）给实体类对象的属性赋值，并将该对象放入Spring IOC容器
 
 **applicationContext.xml**
 
