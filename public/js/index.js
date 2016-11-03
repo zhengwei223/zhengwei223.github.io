@@ -326,9 +326,16 @@ var Index = function($){
 	}
 
 	var particleground = function(){
-		$('#particles').particleground({
-			dotColor: '#5cbdaa',
-      lineColor: '#5cbdaa'
+		// $('#particles').particleground({
+		// 	dotColor: '#5cbdaa',
+  //     lineColor: '#5cbdaa'
+		// });
+		// 使用 new Particleground.特效名 创建特效
+    new Particleground.particle( '#particles',{
+	    // 两粒子圆心点连线的最大距离为90
+	    distance: 90,
+	    // 在定位点半径为100内的所有粒子，两粒子圆心点之间满足dis，则连线
+	    range: 100
 		});
 	}
 	return {
