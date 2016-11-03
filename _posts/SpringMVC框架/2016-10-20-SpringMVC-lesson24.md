@@ -7,10 +7,10 @@ layout: post
 title: SpringMVC入门
 
 
-category: JSP-Servlet教程
+category: SpringMVC框架
 
 
-tags: JSP Servlet
+tags: SpringMVC
 
 
 description: 本章将系统介绍SpringMVC入门。SpringMVC可以很好地将数据、业务与展现进行分离。
@@ -19,7 +19,7 @@ description: 本章将系统介绍SpringMVC入门。SpringMVC可以很好地将�
 author: 颜群
 
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 
 ---
@@ -166,6 +166,8 @@ SpringMVC中常见的`<url-pattern>`值如下表，
 ```
 
 如上，我们使用超链接向**web.xml**中的`<url-pattern>`发送一个可以被拦截的请求，然后交由SpringMVC处理。
+
+
 
 
 **(5)**开发请求处理类

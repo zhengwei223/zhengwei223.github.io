@@ -4,15 +4,15 @@ layout: post
 
 title: 视图和视图解析器
 
-category: JSP-Servlet教程
+category: SpringMVC框架
 
-tags: JSP Servlet
+tags: SpringMVC
 
 description: 本章将系统介绍视图和视图解析器。
 
 author: 颜群
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 ---
 
