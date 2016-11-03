@@ -56,7 +56,7 @@ description:
 
 &emsp;&emsp;学习这门课程需要同学们跟着老师的讲解一起动手练习，从而快速提升动手能力，直到能自己独立写出一个简单的小型网站。我们需要用到以下几样工具：
 
-### Web浏览器
+## Web浏览器
 
 &emsp;&emsp;Web浏览器是最常用的Web客户端程序，它一般都安装在用户的电脑桌面上。
 
@@ -68,14 +68,13 @@ description:
 
 &emsp;&emsp;Chrome不仅支持到最新的Web技术标准、能够给普通网民最极致的上网体验，而且它还内置了十分强大的开发者工具（Chrome DevTools），受到广大Web程序员的追捧喜爱
 
-### 文本编辑器
+## 文本编辑器
 
 &emsp;&emsp;文本编辑器就是用来编写文字文件的桌面应用程序。windows和Mac系统有自带的文本编辑器都可以直接拿来写网页。
 
 &emsp;&emsp;给大家推荐一款windows平台下的文本编辑软件Notepad++,大家可以直接在百度搜索“Notepad++”下载安装。
 
-
-
+ ![notepad_plus_plus_from_baidu](/public/img/html/notepad_plus_plus_from_baidu.png)
 
 
 
