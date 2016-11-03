@@ -127,7 +127,7 @@ unpackWARs="true">
    </tr>
 </table>
 
-现在，我们模仿以上配置，增加一个**name=” www.test.com”**的虚拟主机，并通过`defaultHost`设置为默认；之后，再配置虚拟路径。具体如下：
+现在，我们模仿以上配置，增加一个`name=” www.test.com”`的虚拟主机，并通过`defaultHost`设置为默认；之后，再配置虚拟路径。具体如下：
 
 **D:\apache-tomcat-8.0.32\conf\server.xml**
 
