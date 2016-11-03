@@ -25,7 +25,8 @@
   NavSlide.TRANSITION_DURATION = 100
   NavSlide.DEFAULTS = {
     speed       :'slow',
-    previousTop : 0 
+    previousTop : 0 ,
+    header      : '.doc-title,.masthead' 
   }
 
   // 原型方法定义
@@ -36,10 +37,36 @@
     var currentTop = $(window).scrollTop();
     // 检测是否向上滚动：向上
     if (currentTop < this.previousTop) {
-      this.$element.show(this.options.speed)
+      // 向上但并未到顶
+      if (currentTop > eHeight && this.$element.css('display')=='none') {
+        this.$element.css(
+          {'background-color':'rgba(255,255,255,.9)',
+           'position':'fixed',
+           'top':0,
+           'left':0,
+           'right':0,
+           'margin':'auto',
+           'z-index':2,
+           'border-bottom':'1px solid',
+           'border-radius':'4px'
+           })
+          .show(this.options.speed)
+      }
+      if(currentTop <= eHeight ){
+        // 向上到顶
+        this.$element
+          .css(
+            {'background-color':'transparent',
+             'top':0,
+             'position':'relative',
+             'border':'1px solid rgb(142, 207, 232)',
+             'border-radius':'4px'
+             })
+          .show()
+      }
     } else {  // 向下滚动
       // 如果滚动距离超过nav高度：隐藏
-      if (currentTop > eHeight)
+      if (currentTop > eHeight && this.$element.css('display')=='block')
         this.$element.hide(this.options.speed)
     }
     this.previousTop = currentTop;
