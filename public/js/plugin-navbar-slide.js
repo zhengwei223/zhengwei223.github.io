@@ -14,9 +14,11 @@
 
   var NavSlide = function (element, options) {
     // 选取元素
-    this.$element      = $(element)
+    this.$element = $(element)
+    this.dump     = this.$element.clone(true)
     // 合并默认选项和指定选项
-    this.options       = $.extend({}, NavSlide.DEFAULTS, options)
+    this.options  = $.extend({}, NavSlide.DEFAULTS, options)
+    this.init();
   }
 
   // 静态常量定义
@@ -31,6 +33,19 @@
 
   // 原型方法定义
   // ================================
+  NavSlide.prototype.init = function (){
+    this.dump.css({'background-color':'rgba(255,255,255,.9)',
+       'position':'fixed',
+       'top':0,
+       'left':0,
+       'right':0,
+       'margin':'auto',
+       'z-index':2,
+       'border-bottom':'1px solid',
+       'border-radius':'4px',
+       'display':'none'
+       }).appendTo('body')
+  }
   NavSlide.prototype.toggle = function () {
     var eHeight = this.$element.height();
     // 当前滚动高度
@@ -38,36 +53,32 @@
     // 检测是否向上滚动：向上
     if (currentTop < this.previousTop) {
       // 向上但并未到顶
-      if (currentTop > eHeight && this.$element.css('display')=='none') {
-        this.$element.css(
-          {'background-color':'rgba(255,255,255,.9)',
-           'position':'fixed',
-           'top':0,
-           'left':0,
-           'right':0,
-           'margin':'auto',
-           'z-index':2,
-           'border-bottom':'1px solid',
-           'border-radius':'4px'
-           })
+      if (currentTop > eHeight ) {
+        this.dump
           .show(this.options.speed)
       }
       if(currentTop <= eHeight ){
         // 向上到顶
-        this.$element
-          .css(
-            {'background-color':'transparent',
-             'top':0,
-             'position':'relative',
-             'border':'1px solid rgb(142, 207, 232)',
-             'border-radius':'4px'
-             })
-          .show()
+        this.dump.hide()
+        // this.$element
+        //   .css(
+        //     {'background-color':'transparent',
+        //      'top':0,
+        //      'position':'relative',
+        //      'border':'1px solid rgb(142, 207, 232)',
+        //      'border-radius':'4px',
+        //      'display':'block'
+        //      })
+        //   .show()
       }
     } else {  // 向下滚动
       // 如果滚动距离超过nav高度：隐藏
-      if (currentTop > eHeight && this.$element.css('display')=='block')
-        this.$element.hide(this.options.speed)
+      if (currentTop > eHeight && this.dump.css('display')=='block')
+        this.dump.hide(this.options.speed)
+        // this.$element.css({
+        //   'position':'fixed',
+        //   'top':'-60px'
+        // })
     }
     this.previousTop = currentTop;
   }
