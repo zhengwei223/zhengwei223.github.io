@@ -158,3 +158,4 @@ mac等系统上搭建本地jekyll预览环境，请自行解决。
 - [https://github.com/Huxpro/huxpro.github.io](https://github.com/Huxpro/huxpro.github.io)
 - [https://github.com/wsgzao/wsgzao.github.io](https://github.com/wsgzao/wsgzao.github.io)
 - [https://github.com/lay1010/lay1010.github.io](https://github.com/lay1010/lay1010.github.io)
+- [JacMan主题及使用说明](https://github.com/zhengwei223/jacman/blob/master/README_zh.md)
