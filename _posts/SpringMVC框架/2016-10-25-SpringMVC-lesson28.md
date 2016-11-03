@@ -4,15 +4,15 @@ layout: post
 
 title: 表单标签
 
-category: JSP-Servlet教程
+category: SpringMVC框架
 
-tags: JSP Servlet
+tags: SpringMVC
 
 description: 在使用SpringMVC的时候，表单标签可以直接访问request域中的对象。
 
 author: 颜群
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 ---
 

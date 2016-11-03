@@ -4,15 +4,15 @@ layout: post
 
 title: 异常处理
 
-category: JSP-Servlet教程
+category: SpringMVC框架
 
-tags: JSP Servlet
+tags: SpringMVC
 
 description: 本章将系统介绍异常处理。
 
 author: 颜群
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 ---
 
