@@ -65,7 +65,7 @@ public void valueUnbound(HttpSessionBindingEvent event);
 此外，这两个方法都有一个共同的参数：`HttpSessionBindingEvent`类型的事件对象，我们可以通过这个参数来获取当前的`HttpSession`对象。
 
 
-下面通过一个示例来演示HttpSessionBindingListener接口的使用：
+下面通过一个示例来演示**HttpSessionBindingListener**接口的使用：
 
 **org.lanqiao.listener.BeanDemo.java**
 
