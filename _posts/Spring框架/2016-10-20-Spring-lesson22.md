@@ -33,6 +33,7 @@ Quartz框架是一个开源的企业级任务调度服务，它可以单独使�
 
 ## 22.1.1 Quartz框架基本概念 ##
 
+
 使用Quartz框架之前，需要先下载Quartz的相关`JAR`包。可以在其官方网站进行下载[http://www.quartz-scheduler.org/downloads](http://www.quartz-scheduler.org/downloads)。本书是基于Quartz的2.2.2版本，下载的Quartz文件名是quartz-2.2.2-distribution.tar.gz。
 
 
