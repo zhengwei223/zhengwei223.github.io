@@ -51,7 +51,7 @@ var app = function($){
         (function(id){
           $li.find('a').click(function(event){
             event.preventDefault();
-            $('body,html').animate({scrollTop:$('#'+id).offset().top-60}, 1000);
+            $('body,html').animate({scrollTop:$('#'+id).offset().top-10}, 500);
             $('#sidebar').collapse('toggle')
           });
         })(id);
@@ -75,7 +75,7 @@ var app = function($){
             (function(id){
               $subLi.click(function(event){
                 event.preventDefault();
-                $('body,html').animate({scrollTop:$('#'+h2id).offset().top-60}, 1000);
+                $('body,html').animate({scrollTop:$('#'+h2id).offset().top-10}, 1000);
                 $('#sidebar').collapse('toggle')
               });
             })(h2id);
@@ -218,10 +218,11 @@ var app = function($){
     // Scrollspy
     var $window = $(window);
     var $body   = $(document.body);
-    var off = $('.navbar').height()-1+25;
+    var offset = $('.navbar').height();
+    
     $body.scrollspy({
       target: '.doc-side-container',
-      offset: off
+      offset: offset
     });
     
     $body.scrollspy('refresh');
@@ -245,7 +246,9 @@ var app = function($){
           ,
           bottom: function () {
             var heightOfFooter = $('footer').outerHeight(true);
-            return (this.bottom = heightOfFooter);
+            return (this.bottom = heightOfFooter
+              +$('.ds-share').outerHeight(true)
+              +$('.ds-thread').outerHeight(true));
           }
         }
       });
