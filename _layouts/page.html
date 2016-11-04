@@ -22,12 +22,12 @@ desc: 单页的布局模板，适用于列表型的页面，如归档
 		<div class="col-md-3 doc-side-container collapse" id="sidebar">
 			<nav class="doc-sidebar hidden-print affix-top">
 				<ul class="nav nav-pills nav-stacked">
-				</ul>
+				</ul><!-- /nav -->
 				{% if page.scrolltop %}
 				<div class="text-center">
 					<button class="btn btn-default btn-primary scrolltop-btn">
 						<i class="icon fa fa-angle-double-up"></i>
-					</button>
+					</button><!-- /scrolltop-btn -->
 				</div>
 				{% endif %}
 			</nav>
@@ -41,6 +41,6 @@ desc: 单页的布局模板，适用于列表型的页面，如归档
 	<button class="btn btn-primary sidebar-toggle collapsed"
 	data-toggle="collapse" data-target="#sidebar">
 	<i class="icon iconfont icon-shouqi"></i>
-</button>
+</button><!-- collapsed toggle -->
 </div>
 {% endif %}
