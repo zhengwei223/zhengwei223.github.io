@@ -41,33 +41,17 @@
     // 检测是否向上滚动：向上
     if (currentTop < this.previousTop) {
       // 向上但并未到顶
-    
-      if (currentTop > eHeight ) {
+      if (currentTop > eHeight && this.dump.css('display')=='none') {
         this.dump
           .show(this.options.speed)
-      }
-      if(currentTop <= eHeight ){
+      }else{
         // 向上到顶
         this.dump.hide()
-        // this.$element
-        //   .css(
-        //     {'background-color':'transparent',
-        //      'top':0,
-        //      'position':'relative',
-        //      'border':'1px solid rgb(142, 207, 232)',
-        //      'border-radius':'4px',
-        //      'display':'block'
-        //      })
-        //   .show()
       }
     } else {  // 向下滚动
-      // 如果滚动距离超过nav高度：隐藏
-      if (currentTop > eHeight && this.dump.css('display')=='block')
+      // 隐藏
+      if (this.dump.css('display')=='block')
         this.dump.hide(this.options.speed)
-        // this.$element.css({
-        //   'position':'fixed',
-        //   'top':'-60px'
-        // })
     }
     this.previousTop = currentTop;
   }
