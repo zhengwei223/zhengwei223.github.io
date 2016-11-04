@@ -26,7 +26,7 @@
   NavSlide.VERSION  = '1.0.1'
   NavSlide.TRANSITION_DURATION = 100
   NavSlide.DEFAULTS = {
-    speed       :'slow',
+    speed       :'300',
     previousTop : 0 ,
     header      : '.doc-title,.masthead' 
   }
