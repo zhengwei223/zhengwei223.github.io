@@ -25,7 +25,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 以“根据学号，查询学生信息”为例，相关代码如下，
 
-**控制器StudentHandlder.java**
+**控制器StudentHandler.java**
 
 ```
 package org.lanqiao.handler;
