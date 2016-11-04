@@ -11,14 +11,14 @@
 
   // 类定义：构造函数初始化属性
   // ================================
-
+  
   var NavSlide = function (element, options) {
     // 选取元素
     this.$element = $(element)
-    this.dump     = this.$element.clone(true)
+    this.dump     = this.$element.clone(true).removeClass('navbar-slide')
     // 合并默认选项和指定选项
     this.options  = $.extend({}, NavSlide.DEFAULTS, options)
-    this.init();
+    init(this.dump);
   }
 
   // 静态常量定义
@@ -33,19 +33,7 @@
 
   // 原型方法定义
   // ================================
-  NavSlide.prototype.init = function (){
-    this.dump.css({'background-color':'rgba(255,255,255,.9)',
-       'position':'fixed',
-       'top':0,
-       'left':0,
-       'right':0,
-       'margin':'auto',
-       'z-index':2,
-       'border-bottom':'1px solid',
-       'border-radius':'4px',
-       'display':'none'
-       }).appendTo('body')
-  }
+  
   NavSlide.prototype.toggle = function () {
     var eHeight = this.$element.height();
     // 当前滚动高度
@@ -53,6 +41,7 @@
     // 检测是否向上滚动：向上
     if (currentTop < this.previousTop) {
       // 向上但并未到顶
+    
       if (currentTop > eHeight ) {
         this.dump
           .show(this.options.speed)
@@ -83,7 +72,19 @@
     this.previousTop = currentTop;
   }
 
-
+  var init = function($el){
+    $el.css({'background-color':'rgba(255,255,255,.9)',
+       'position':'fixed',
+       'top':0,
+       'left':0,
+       'right':0,
+       'margin':'auto',
+       'z-index':2,
+       // 'border-bottom':'1px solid',
+       // 'border-radius':'4px',
+       'display':'none'
+       }).appendTo('body')
+  }
 
   // NavSlide PLUGIN DEFINITION
   // ==========================
@@ -109,9 +110,9 @@
 
   // 事件代理, 智能初始化
   // =================
-
+  var $nav = $('.navbar.navbar-slide:first')
   $(window).on('scroll.bs.navslide.data-api',function (e) {
-    Plugin.call($('.navbar.navbar-slide'),'toggle')
+    Plugin.call($nav,'toggle')
   });
 
   var old = $.fn.navslide;
