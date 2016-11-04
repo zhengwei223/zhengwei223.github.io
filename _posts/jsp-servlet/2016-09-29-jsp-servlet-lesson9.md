@@ -12,7 +12,7 @@ description: 本章将系统介绍jQuery。使用jQuery既能减少代码量，�
 
 author: 颜群
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
@@ -1208,7 +1208,7 @@ $(document).ready(function() {
    </tr>
    <tr>
       <td>type</td>
-      <td>事件类型，如`click`、`focus`、`mouseover`等，还可以是自定义事件。</td>
+      <td>事件类型，如click、focus、mouseover等，还可以是自定义事件。</td>
    </tr>
    <tr>
       <td>data</td>
@@ -1339,7 +1339,7 @@ jQuery提供了两个复合事件方法：`hover()`和`toggle()`方法。
 
 **语法：**
 
-`jQuery对象. hover (fn1,fn2);`
+**jQuery对象. hover (fn1,fn2);**
 
 其中，fn1相当于`mouseover()`，fn2相当于`mouseout ()`。
 
@@ -1661,7 +1661,7 @@ jQuery可以使用`html()`方法对元素的HTML代码进行操作，该方法�
 
 **语法：** `jQuery对象.html([content])`
 
-如果存在参数`content`，表示给选中的元素赋上新的内容`content`；如果不存在参数content，表示获取被选中的元素内容。
+如果存在参数`content`，表示给选中的元素赋上新的内容`content`；如果不存在参数`content`，表示获取被选中的元素内容。
 
 **示例：htmlDemo.jsp**
 
@@ -1848,75 +1848,17 @@ jQuery对节点的操作主要有两种：对节点本身的操作，以及对�
 
 以插入`$node`节点为例，插入节点的方法如下：
 
-<table>
-   <tr>
-      <td rowspan="5">内部插入</td>
-  </tr>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-      <td>运行结果</td>
-  </tr>
-  <tr>
-      <td>$(A).append(B)</td>
-      <td>将B追加到A中 如：$("ul").append($node);</td>
-     <td rowspan="2"><img src="![](http://i.imgur.com/jfF4fNv.png)"></td>
-   </tr>
-   <tr>
-      <td>$(A).appendTo(B)</td>
-      <td>把A追加到B中 如：$ node.appendTo("ul");</td>
-   </tr>
-   <tr>
-      <td>$(A). prepend (B)</td>
-      <td>将B前置插入到A中 如：$("ul"). prepend ($node);</td>
-     <td rowspan="2"><img src="![](http://i.imgur.com/x8sBA5w.png)"></td>
-   </tr>
-   <tr>
-      <td>$(A). prependTo (B)</td>
-      <td>将A前置插入到B中 如：$ node.prependTo ("ul");</td>
-   </tr>
-   <tr>
-      <td rowspan="4">外部插入</td>
-   </tr>
-   <tr>
-      <td>$(A).after(B)</td>
-      <td>将B插入到A之后 如：$("ul").after($node);</td>
-     <td rowspan="2"><img src="![](http://i.imgur.com/mj9yiL7.png)"></td>
-   </tr>
-   <tr>
-      <td>$(A).insertAfter(B)</td>
-      <td>将A插入到B之后 如：$ node.insertAfter("ul");</td>
-   </tr>
-   <tr>
-      <td>$(A).before(B)</td>
-      <td>将B插入至A之前 ：$("ul").before($node);</td>
-      <td rowspan="2"><img src="![](http://i.imgur.com/5UbpxZF.png)"></td>
-   </tr>
-   <tr>
-      <td>$(A).insertBefore(B)</td>
-      <td>将A插入到B之前 如：$ node.insertBefore("ul");</td>
-   </tr>
-</table>
+![](http://i.imgur.com/PNcBdFY.png)
+
+
 
 **④替换节点**
 
 在jQuery中，可以使用`replaceWith()`和`replaceAll()`方法来替换节点。
 
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-      <td>运行结果</td>
-   </tr>
-   <tr>
-      <td>$(A).replaceWith(B)</td>
-      <td rowspan="2">用B节点替换A节点 如：$("ul li:first").replaceWith($node);</td>
-      <td rowspan="2"><img src="![](http://i.imgur.com/yoipbgq.png)"></td>
-   </tr>
-   <tr>
-      <td>$(B).replaceAll(A)</td>
-   </tr>
-</table>
+![](http://i.imgur.com/WbgFKRc.png)
+
+
 
 **⑤删除节点**
 
@@ -2371,8 +2313,6 @@ position:absolute;left:10px;top:200px；">
    </tr>
    <tr>
       <td rowspan="3">校验事件</td>
-   </tr>
-   <tr>
       <td>onsubmit</td>
       <td>当提交表单时（单击submit按钮时）触发</td>
    </tr>
@@ -2386,8 +2326,6 @@ position:absolute;left:10px;top:200px；">
    </tr>
    <tr>
       <td rowspan="3">校验方法</td>
-   </tr>
-   <tr>
       <td>submit()</td>
       <td>提交表单、单击submit按钮</td>
    </tr>
