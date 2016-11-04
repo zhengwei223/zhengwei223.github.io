@@ -92,16 +92,16 @@
     })
   }
 
-  // 事件代理, 智能初始化
+  // 事件代理, 智能初始化 ：中大设备上，启用导航条隐藏与显示功能
   // =================
-  var $nav = $('.navbar.navbar-slide:first')
-  // var throttled = _.throttle(updatePosition, 100);
-  // $(window).scroll(throttled);
-  $(window).on('scroll.bs.navslide.data-api',
-    _.debounce(function (e) {
-      Plugin.call($nav,'toggle')
-    },100)
-  );
+  if ($(window).width() > 991)) {
+    var $nav = $('.navbar.navbar-slide:first')
+    $(window).on('scroll.bs.navslide.data-api',
+      _.debounce(function (e) {
+        Plugin.call($nav,'toggle')
+      },100)
+    );
+  }
 
   var old = $.fn.navslide;
   // 暴露为jquery插件, 外部可以用js来使用插件
