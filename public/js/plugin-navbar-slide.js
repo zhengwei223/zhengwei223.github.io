@@ -8,13 +8,13 @@
 // IIFE
  +function ($) {
   'use strict';
-
   // 类定义：构造函数初始化属性
   // ================================
   
   var NavSlide = function (element, options) {
     // 选取元素
     this.$element = $(element)
+    this.eHeight = this.$element.height()
     this.dump     = this.$element.clone(true).removeClass('navbar-slide')
     // 合并默认选项和指定选项
     this.options  = $.extend({}, NavSlide.DEFAULTS, options)
@@ -26,7 +26,7 @@
   NavSlide.VERSION  = '1.0.1'
   NavSlide.TRANSITION_DURATION = 100
   NavSlide.DEFAULTS = {
-    speed       :'300',
+    speed       : 100,
     previousTop : 0 ,
     header      : '.doc-title,.masthead' 
   }
@@ -35,15 +35,15 @@
   // ================================
   
   NavSlide.prototype.toggle = function () {
-    var eHeight = this.$element.height();
     // 当前滚动高度
     var currentTop = $(window).scrollTop();
     // 检测是否向上滚动：向上
     if (currentTop < this.previousTop) {
       // 向上但并未到顶
-      if (currentTop > eHeight && this.dump.css('display')=='none') {
-        this.dump
-          .show(this.options.speed)
+      if (currentTop > this.eHeight) {
+        if (this.dump.css('display')=='none') {
+          this.dump.show(this.options.speed)
+        }
       }else{
         // 向上到顶
         this.dump.hide()
@@ -92,12 +92,16 @@
     })
   }
 
-  // 事件代理, 智能初始化
+  // 事件代理, 智能初始化 ：中大设备上，启用导航条隐藏与显示功能
   // =================
-  var $nav = $('.navbar.navbar-slide:first')
-  $(window).on('scroll.bs.navslide.data-api',function (e) {
-    Plugin.call($nav,'toggle')
-  });
+  if ($(window).width() > 991)) {
+    var $nav = $('.navbar.navbar-slide:first')
+    $(window).on('scroll.bs.navslide.data-api',
+      _.debounce(function (e) {
+        Plugin.call($nav,'toggle')
+      },100)
+    );
+  }
 
   var old = $.fn.navslide;
   // 暴露为jquery插件, 外部可以用js来使用插件
