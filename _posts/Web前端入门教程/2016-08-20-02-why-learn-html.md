@@ -17,7 +17,7 @@ description: 主要向大家介绍Web前端入门课程的学习内容和需要�
 
 # 1.什么是Web
 
-&emsp;&emsp;“Web”就是“万维网”（ 英文缩写WWWW，全名是world Wide Web ) 。它建立在Internet（因特网）之上、是一个让人们共享图片、文字、声音、视频信息的大型信息系统。
+&emsp;&emsp;“Web”就是“万维网”（ 英文缩写WWW，全名是world Wide Web ) 。它建立在Internet（因特网）之上、是一个让人们共享图片、文字、声音、视频信息的大型信息系统。
 
 &emsp;&emsp;人们用Web客户端（前端）发起请求，获取到存储在Web站点的服务器（后端）上的网页（Web Page）文件，由客户端负责把它读取、展示成外观不一、并且可以让用户与之互动的图形界面。
 
@@ -63,6 +63,8 @@ description: 主要向大家介绍Web前端入门课程的学习内容和需要�
  ![web_browser_logo_grid](/public/img/html/web_browser_logo_grid.jpg)
 
 &emsp;&emsp;现在所有的浏览器厂商都在努力支持最新的Web技术标准，因此，无论你选择哪一种浏览器作为打开工具，同一个网页的界面内容，还有外观样式，应该都没有差别。
+
+&emsp;&emsp;你可以通过百度经验上的[常用浏览器有哪些类型?](http://jingyan.baidu.com/article/a17d528539d8948098c8f281.html)页面了解到如今最常见几种Web浏览器。
 
 &emsp;&emsp;根据百度流量研究院发布的[Web浏览器市场份额](http://tongji.baidu.com/data/browser)统计，Chrome浏览器目前是最受欢迎的Web浏览器。
 
