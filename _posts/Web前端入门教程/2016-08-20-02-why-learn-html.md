@@ -64,6 +64,8 @@ description: 主要向大家介绍Web前端入门课程的学习内容和需要�
 
 &emsp;&emsp;现在所有的浏览器厂商都在努力支持最新的Web技术标准，因此，无论你选择哪一种浏览器作为打开工具，同一个网页的界面内容，还有外观样式，应该都没有差别。
 
+&emsp;&emsp;你可以通过百度经验上的[常用浏览器有哪些类型?](http://jingyan.baidu.com/article/a17d528539d8948098c8f281.html)页面了解到如今最常见几种Web浏览器。
+
 &emsp;&emsp;根据百度流量研究院发布的[Web浏览器市场份额](http://tongji.baidu.com/data/browser)统计，Chrome浏览器目前是最受欢迎的Web浏览器。
 
 &emsp;&emsp;Chrome不仅支持到最新的Web技术标准、能够给普通网民最极致的上网体验，而且它还内置了十分强大的开发者工具（Chrome DevTools），受到广大Web程序员的追捧喜爱
