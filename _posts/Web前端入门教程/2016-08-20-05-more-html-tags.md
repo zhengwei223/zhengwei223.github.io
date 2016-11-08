@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 关于HTML，你需要了解更多
+title: 复杂的网站
 category: Web前端入门教程
 tags: Web前端
 author: 曹小虎
@@ -13,6 +13,13 @@ description:
 
 - 认识一些常见的HTML标签
 - 用更多标签定义复杂网页
+
+# 实验三：根据HTML标准验证网页语法
+
+目标：  
+&emsp;&emsp;时至今日，W3C组织已经发布了多个版本的HTML标准。在网页开发的过程中遵循最新的HTML标准可以让人们更容易通过搜索引擎找你的网站，也会帮助这些用户获得更好的上网体验。
+
+&emsp;&emsp;本实验将和大家一起来验证自己的HTML代码是否遵循HTML标准。
 
 # 1. 在网页上显示文字标题
 
