@@ -94,7 +94,7 @@
 
   // 事件代理, 智能初始化 ：中大设备上，启用导航条隐藏与显示功能
   // =================
-  if ($(window).width() > 991)) {
+  if ($(window).width() > 991) {
     var $nav = $('.navbar.navbar-slide:first')
     $(window).on('scroll.bs.navslide.data-api',
       _.debounce(function (e) {
