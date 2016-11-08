@@ -8,15 +8,17 @@
 // IIFE
  +function ($) {
   'use strict';
-
   // 类定义：构造函数初始化属性
   // ================================
-
+  
   var NavSlide = function (element, options) {
     // 选取元素
-    this.$element      = $(element)
+    this.$element = $(element)
+    this.eHeight = this.$element.height()
+    this.dump     = this.$element.clone(true).removeClass('navbar-slide')
     // 合并默认选项和指定选项
-    this.options       = $.extend({}, NavSlide.DEFAULTS, options)
+    this.options  = $.extend({}, NavSlide.DEFAULTS, options)
+    init(this.dump);
   }
 
   // 静态常量定义
@@ -24,28 +26,49 @@
   NavSlide.VERSION  = '1.0.1'
   NavSlide.TRANSITION_DURATION = 100
   NavSlide.DEFAULTS = {
-    speed       :'slow',
-    previousTop : 0 
+    speed       : 100,
+    previousTop : 0 ,
+    header      : '.doc-title,.masthead' 
   }
 
   // 原型方法定义
   // ================================
+  
   NavSlide.prototype.toggle = function () {
-    var eHeight = this.$element.height();
     // 当前滚动高度
     var currentTop = $(window).scrollTop();
     // 检测是否向上滚动：向上
     if (currentTop < this.previousTop) {
-      this.$element.show(this.options.speed)
+      // 向上但并未到顶
+      if (currentTop > this.eHeight) {
+        if (this.dump.css('display')=='none') {
+          this.dump.show(this.options.speed)
+        }
+      }else{
+        // 向上到顶
+        this.dump.hide()
+      }
     } else {  // 向下滚动
-      // 如果滚动距离超过nav高度：隐藏
-      if (currentTop > eHeight)
-        this.$element.hide(this.options.speed)
+      // 隐藏
+      if (this.dump.css('display')=='block')
+        this.dump.hide(this.options.speed)
     }
     this.previousTop = currentTop;
   }
 
-
+  var init = function($el){
+    $el.css({'background-color':'rgba(255,255,255,.9)',
+       'position':'fixed',
+       'top':0,
+       'left':0,
+       'right':0,
+       'margin':'auto',
+       'z-index':2,
+       // 'border-bottom':'1px solid',
+       // 'border-radius':'4px',
+       'display':'none'
+       }).appendTo('body')
+  }
 
   // NavSlide PLUGIN DEFINITION
   // ==========================
@@ -69,12 +92,16 @@
     })
   }
 
-  // 事件代理, 智能初始化
+  // 事件代理, 智能初始化 ：中大设备上，启用导航条隐藏与显示功能
   // =================
-
-  $(window).on('scroll.bs.navslide.data-api',function (e) {
-    Plugin.call($('.navbar.navbar-slide'),'toggle')
-  });
+  if ($(window).width() > 991)) {
+    var $nav = $('.navbar.navbar-slide:first')
+    $(window).on('scroll.bs.navslide.data-api',
+      _.debounce(function (e) {
+        Plugin.call($nav,'toggle')
+      },100)
+    );
+  }
 
   var old = $.fn.navslide;
   // 暴露为jquery插件, 外部可以用js来使用插件
