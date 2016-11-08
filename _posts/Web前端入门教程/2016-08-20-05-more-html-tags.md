@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 在网页里显示和发送数据
+title: HTML表格和表单
 category: Web前端入门教程
 tags: Web前端
 author: 曹小虎
@@ -15,7 +15,11 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 # 实验一：展示统计数据
 
+&emsp;&emsp;
+
 # 实验二：用表单提交数据
+
+&emsp;&emsp;
 
 # 实验三：根据HTML标准验证网页语法
 
