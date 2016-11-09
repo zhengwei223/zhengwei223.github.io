@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 浅尝辄止Web前端
+title: Web前端概述
 category: Web前端入门教程
 tags: Web前端
 author: 曹小虎
