@@ -66,9 +66,9 @@ cates_java:
     - 初学者的第一套Java教程
     - JDBC入门教程
     - JSP-Servlet教程
+    - MyBatis框架
     - Spring框架
     - SpringMVC框架
-    - MyBatis框架
 cates_java_special:    
     - guava解析
     - 缓存
