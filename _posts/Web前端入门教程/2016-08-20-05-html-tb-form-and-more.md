@@ -11,7 +11,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 > 本章目标
 
 - 用表格显示数据
-- 用表单录入数据
+- 用表单收集用户数据
 
 # 实验一：用表格绘制唐诗排行榜
 
@@ -313,7 +313,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;当页面上一个表格非常庞大的时候，可以借助这种分区来优化表格的显示。比如说，让表格数据行垂直滚动。
 
-&emsp;&emsp;实现这个效果需要借助一点CSS语法。
+&emsp;&emsp;实现这个效果需要在HTML元素的**style**属性里面写入一点**样式代码**。
 
 &emsp;&emsp;首先，修改thead元素的开始标签：
 
@@ -330,11 +330,300 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 &emsp;&emsp;这里我们提前用到了一些样式（style）代码，只是为了演示tbody单独滚动的情况，以后的CSS章节会深入讲解怎么把表格数据行里的单元格宽度控制好。
 
 
-# 实验二：用表单提交数据
+# 实验二：用表单收集用户数据
 
-&emsp;&emsp;
+目标：
+
+在网页上HTML表单被用于收集用户输入的内容，然后把这些数据上传到万维网上的网站服务器。
+
+这个实验将制作一个网站新用户的注册表单。 
+
+ ![user_register_form](/public/img/html/user_register_form.png){:width="300px" height="300px"} 
+
+## 2.1 插入表单元素
+
+&emsp;&emsp;表单的HTML标签是“from”。
+
+### 使用form标签
+
+&emsp;&emsp;首先，在Notepad++里打开一个空白文档，输入下面的html文档结构：
+
+    <!DOCTYPE html>
+    <html>
+     <head>
+      <!--告诉浏览器，用utf-8的编码格式显示网页内容-->
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <!--网页标题-->
+    <title>注册表单</title>
+    </head>
+    <body>
+     <!-- 页面内容区 -->
+    </body>
+    </html>
+
+&emsp;&emsp;保存这个新文件，名称是“userRegister.html”。
+
+&emsp;&emsp;然后在“页面内容区”写入一个表单元素：
+
+    <!-- 表单元素开始 -->
+    <!-- 表单的名称是“userRegister”-->
+    <form name="userRegister">
+     <!-- 表单内容区 -->
+       <h1>用户注册</h1>
+    </form>
+    <!-- 表单元素结束 -->
+
+&emsp;&emsp;刷新页面，可以看到下面的页面效果：
+
+ ![userRegister_form_step_01](/public/img/html/userRegister_form_step_01.png){:width="300px" height="300px"} 
+
+## 2.2 定义“联系方式”输入区
+
+### 使用文本输入框
+
+&emsp;&emsp;我们需要两个文本框，让用户填写他们的手机号码和邮箱地址。
+
+&emsp;&emsp;在表单元素内容区插入下面的代码：
+
+      <!-- 
+           标签文字和input元素一起放入label元素的内容区，
+           这样做可以把标签（label）和输入元素（input）绑定起来 
+      -->
+      <label>
+      <!-- label元素内容区开始 -->
+      手机：
+      <!-- 类型为“文本”的输入元素，name属性可以自定义，比如“username” -->
+      <input type="text" name="username" />
+      <!-- label元素内容区结束 -->
+	  </label>
+	  
+      <label>
+      <!-- label元素内容区开始 -->
+	  邮箱：
+      <!-- 类型为“文本”的输入元素，name属性可以自定义，比如“email” -->
+      <input type="text" name="email" />
+      <!-- label元素内容区结束 -->
+      </label>
+
+&emsp;&emsp;刷新页面，可以看到页面上出现了两个文本框：
+
+ ![userRegister_form_step_02](/public/img/html/userRegister_form_step_02.png){:width="300px" height="300px"} 
+
+### 使用内容分区和无序列表
+
+&emsp;&emsp;我们需要一个fieldset元素，把“手机”和“邮箱”两个文本输入元素放到同一个页面分区里。
+
+&emsp;&emsp;同时，为了让两个文本框从上到下排列，我们也要用到无序列表。
+
+&emsp;&emsp;具体做法如下：
+
+    <fieldset>
+    <!-- fieldset内容区开始 -->
+     <!-- fieldset标题 -->
+     <legend>联系方式</legend>
+
+     <ul style="list-style-type: none;">
+     <!-- 无序列表内容区开始 -->
+       <li>
+          <!-- 区域一 -->
+       </li>
+       <li>
+          <!-- 区域二 -->
+       </li>
+     <!-- 无序列表内容区结束 -->
+     </ul>
+    <!-- fieldset内容区结束 -->
+    </fieldset>
+
+&emsp;&emsp;把之前的两个label元素分别移动到“区域一”和“区域二”内，刷新页面之后可以看到：
+
+ ![userRegister_form_step_03](/public/img/html/userRegister_form_step_03.png){:width="300px" height="300px"} 
+
+## 2.3 定义“个人信息”输入区
+
+&emsp;&emsp;比照“联系方式”分区的定义，我们需要一个新的，让用户输入“个人信息”的页面分区。
+
+&emsp;&emsp;接着上面一个fieldset定义结束的位置，我们开始定义新的“个人信息”分区，码如下：
+
+    <fieldset>
+     <legend>个人信息</legend>
+     <ul style="list-style-type: none;">
+       <!-- 输入元素定义区 -->
+     </ul>
+    </fieldset>
+
+### 插入“称呼”输入元素
+
+&emsp;&emsp;在无序列表里插入如下代码：
+
+    <li>
+      <label>
+                  <!-- 两个radio类型的输入元素,name属性可以自定义，比如都取“gender”这个值 -->
+                  <!-- 二者只能选中其一，用于让用户输入自己的性别信息-->
+            称呼：<input type="radio"  name="gender" value="1">先生</input>
+                 <input type="radio"  name="gender" value="0">女士</input>
+      </label>
+    </li>
+
+
+&emsp;&emsp;刷新页面，页面上可以看到新增的“个人信息”分区，还有输入“称呼”信息的元素：
+
+ ![userRegister_form_step_04](/public/img/html/userRegister_form_step_04.png){:width="300px" height="300px"} 
+
+### 插入头像文件输入元素
+
+&emsp;&emsp;我们需要让用户在表单里选择一个自己喜欢的头像图片，这就要在表单里插入一个“file”类型的input元素。
+
+&emsp;&emsp;代码如下：
+
+    <li>
+     <label>
+            <!-- input元素类型是“file”，name属性可以自定义，比如“headimg” -->
+     头像：  <input type="file" name="headimg" />
+     </label>
+    </li>
+
+&emsp;&emsp;刷新页面，页面上就多了一个可以选择文件的input控件。
+
+ ![userRegister_form_step_05](/public/img/html/userRegister_form_step_05.png){:width="300px" height="300px"} 
+
+&emsp;&emsp;你只需要点击“选择文件”的按钮，然后找到并且打开自己的头像文件就可以了。
+
+ ![userRegister_form_step_06](/public/img/html/userRegister_form_step_06.png){:width="400px" height="400px"} 
+
+### 插入“名称”和“密码”输入元素
+
+&emsp;&emsp;这一步，我们一共插入三个输入（input）控件：名称、密码、确认密码。
+
+&emsp;&emsp;用户在“名称”输入框输入自己的账户名，在密码框输入账号密码，然后在第二个密码框里确认自己是真的想要用这个登录密码。
+
+&emsp;&emsp;具体代码如下：
+
+    <li>
+    <label>
+    名称：  <input type="text" name="username" />
+    </label>
+    </li>
+    
+    <li>
+    <label>
+             <!--  input元素类型是“password”，name属性可以自定义，比如“password” -->
+    密码：    <input type="password" name="password" />
+    </label>
+    </li>
+    
+    <li>
+    <label>
+             <!--  input元素类型是“password”，name属性可以自定义，比如“_password” -->
+    确认：    <input type="password" name="_password" />
+    </label>
+    </li>
+
+&emsp;&emsp;完成之后刷新页面，可以看到页面新增了三个输入控件：
+
+ ![userRegister_form_step_07](/public/img/html/userRegister_form_step_07.png){:width="400px" height="400px"} 
+
+### 使用下拉列表、多选框和多行文本控件
+
+&emsp;&emsp;这一步，我们要在网页上展示一个下拉列表和一组多选框。
+
+&emsp;&emsp;首先使用下面的代码，在表单里插入一个下拉列表：
+
+    <li>
+    <label>
+           <!-- 下拉列表元素的标签名是“select” -->
+           <!-- 下拉列表元素的name属性可以自定义，比如“agegroup” -->
+    年龄段：<select name="agegroup">
+             <!-- 
+                 1.下拉列表选项的标签名是“option”，
+                 2.每个选项都有一个“value”属性 
+                 3.option元素开始标签<option>和结束标签</option>之间的内容，
+                   是这个选项在页面上显示的文字
+             -->
+             <option value ="0">1~20</option>
+             <!-- 开始标签里面的“selected”表示，这个选项是默认值 -->
+             <option value ="1" selected>21~30</option>
+             <option value="2">31~40</option>
+             <option value="3">41~50</option>
+		     <option value="4">50~120</option>
+            </select>
+    </label>
+    </li>
+
+&emsp;&emsp;然后使用下面的代码，在页面插入一组多选框：
+
+    <li>
+    <label for="favorite">
+         <!--  多选框input元素类型是“checkbox”，name属性可以自定义，比如“favorite” -->
+         <!--  位于同一组多选框的name属性必须保持一致 -->
+         <!--  同组内的每一个多选框value属性的值不相同、页面上显示的文字不同 -->
+    最爱：<input type="checkbox" name="favorite"  value="唐诗">唐诗</input>
+         <input type="checkbox" name="favorite"  value="宋词">宋词</input>
+         <input type="checkbox" name="favorite"  value="元曲">元曲</input><br/>
+         <input type="checkbox" name="favorite"  value="明清散文">明清散文</input>
+         <input type="checkbox" name="favorite"  value="明清小说">明清小说</input>
+         <input type="checkbox" name="favorite"  value="民国科幻">民国科幻</input>
+    </label>
+    </li>
+
+&emsp;&emsp;刷新页面，在页面上可以看到新增的组件。经过测试，下拉列表有默认值 多选框也能正常工作：
+
+ ![userRegister_form_step_08](/public/img/html/userRegister_form_step_08.png){:width="400px" height="400px"} 
+
+&emsp;&emsp;使用下面的代码在表单里插入多行文本控件：
+
+    <li>
+    <label>
+         <!--  多行文本控件的标签名是“textarea”，name属性可以自定义，比如“selfIntroduction”  -->
+    自述：<textarea rows="3" name="selfIntroduction" cols="50"></textarea>
+    </label>
+    </li>
+
+&emsp;&emsp;再次刷新页面，页面上就可以看到一个多行文本框组件了：
+
+ ![userRegister_form_step_09](/public/img/html/userRegister_form_step_09.png){:width="400px" height="400px"} 
+
+
+## 2.4 测试表单提交
+
+&emsp;&emsp;表单的功能就是把用户在页面上输入的各种信息发送到网站服务器。
+
+ ![when-you-submit-form](/public/img/html/when-you-submit-form.png){:width="400px" height="400px"}
+
+&emsp;&emsp;目前为止，想要提交表单，我们还需要做两件事。
+
+### 定义动作按钮
+
+&emsp;&emsp;我们在表单里面定义一个提交按钮和一个重置按钮。点击前者，可以发起提交动作；点击后者，可以把表单上的旧数据清空。
+
+    <!-- 提交按钮的input元素类型是“submit”，name属性可以自定义，比如“submit”   -->
+    <input type="submit" name="submit" value="提交（submit）"/>
+    <!-- 提交按钮的reset元素类型是“submit”，name属性可以自定义，比如“reset”   -->
+    <input type="reset" name="reset" value="清空（reset）"/>
+
+### 定义相关的表单属性
+
+&emsp;&emsp;涉及表单提交的两个关键属性是“action”和“method”。
+
+&emsp;&emsp;我们在form元素的开始标签里面加入下面的代码就行了：
+
+      <!-- "action"属性指向一个可以处理用户数据的万维网地址 -->
+      <!-- "method"属性定义了表单的提交方式,这里的值是“get” -->
+     <form action="http://mycorporation.com.cn/vistor/rgister.do" method="get"
+           name="userRegister">
+
+&emsp;&emsp;最后，刷新页面，你会看到一个完整的表单已经完成：
+
+ ![userRegister_form_step_10](/public/img/html/userRegister_form_step_10.png){:width="400px" height="400px"} 
+
 
 # 实验二的解读
+
+## 更多表单属性
+
+## 表单上input元素的类型
+
+
 
 # 实验三：根据HTML标准验证网页语法
 
