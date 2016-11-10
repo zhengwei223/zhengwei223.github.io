@@ -18,7 +18,7 @@ description: 本章将系统介绍JSP/Servlet相关技术。
 author: 颜群
 
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
@@ -48,11 +48,11 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 **3.总页数：**总页数可以由“数据总数”和“页面大小”计算得出。例如，
 
-①如果一共有80条数据（即“数据总数”为80），而每页只显示10条（即“页面大小”为10），则可以得到总页数=80/10=8（正好除尽，没有余数），共8页；
+**①**如果一共有80条数据（即“数据总数”为80），而每页只显示10条（即“页面大小”为10），则可以得到总页数=80/10=8（正好除尽，没有余数），共8页；
 
-②如果一共有82条数据，每页仍然显示10条，则总页数=82/10（有余数）+1=9，共9页数据。因此，我们在求总页数之前，需要先判断是否有余数。综上，求总页数的公式：
+**②**如果一共有82条数据，每页仍然显示10条，则总页数=82/10（有余数）+1=9，共9页数据。因此，我们在求总页数之前，需要先判断是否有余数。综上，求总页数的公式：
 
-总页数 = （数据总数 % 页面大小==0 ） ? （数据总数 / 页面大小） : （数据总数 / 页面大小 +1）
+**总页数 = （数据总数 % 页面大小==0 ） ? （数据总数 / 页面大小） : （数据总数 / 页面大小 +1）**
 
 需要注意，因为“总页数”是由“数据总数”和“页面大小”计算而来的，所以不应该手动的为“总页数”赋值，即不存在“总页数”的`setter`方法。
 
@@ -62,7 +62,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 为了便于维护，我们把这5个属性封装到一个`Page`类中，并提供相应的`getter`/`setter`方法，如下，
 
-org.lanqiao.util.Page
+**org.lanqiao.util.Page**
 
 ```
 package org.lanqiao.util;
@@ -92,17 +92,17 @@ public class Page
 }
 ```
 
-再在数据访问层，增加分页操作需要的两个方法：
+**再在数据访问层，增加分页操作需要的两个方法：**
 
-①获取数据总数的方法;
+**①**获取数据总数的方法;
 
-②获取当前页面中全部学生的信息的集合的方法（例如获取`List<Student> students`集合的值）。
+**②**获取当前页面中全部学生的信息的集合的方法（例如获取`List<Student> students`集合的值）。
 
-而这两个方法都需要使用特定的SQL语句：
+**而这两个方法都需要使用特定的SQL语句：**
 
-①获取数据总数方法：使用“select count(*) from student”语句即可。
+**①**获取数据总数方法：使用“select count(*) from student”语句即可。
 
-②获取当前页面中全部学生的信息的集合：
+**②**获取当前页面中全部学生的信息的集合：
 
 我们需要知道当前页的第一条及最后一条数据的行号，然后使用“select * from student where 编号>=第一条数据行号 and 编号<=最后一条数据行号”即可查出当前页的全部学生信息。为了分析“第一条及最后一条数据的行号”，我们列了以下表格（假设每页显示10条数据，即页面大小为10）：
 
@@ -134,9 +134,9 @@ public class Page
    </tr>
 </table>
 
-可以发现，第n页需要显示的数据，就是第 (n-1)*10+1条至第 n*10条之间的数据，而其中的“10”就是“页面大小”。因此，第n页需要显示的数据范围如下：
+可以发现，第n页需要显示的数据，就是第 (n-1)*10+1条至第 n*10条之间的数据，而其中的“10”就是“页面大小”。因此，**第n页需要显示的数据范围如下：**
 
-第“ (n-1)*页面大小+1”条   至    第 “n*页面大小”条
+**第“ (n-1)*页面大小+1”条   至    第 “n*页面大小”条**
 
 所以，查询当前页的全部学生信息的SQL为：
 
@@ -161,11 +161,15 @@ select * from
 where r>=((当前页的页码-1)*页面大小+1)
 ```
 
-以上，就是使用oracle时的分页SQL语句，可以发现此SQL语句需要“当前页的页码（currentPage）”和“页面大小（pageSize）”两个参数，而这两个参数需要通过三层逐步传递：用户通过JSP输入或指定currentPage 和pageSize→在JSP中，将二者附加在超链接或表单中，传入表示层后端代码Servlet中→在Servlet中，将二者传入`SERVICE`层方法的入参中→再在`SERVICE`层中，将二者传入`DAO`层方法的入参中→最后在`DAO`层中，将二者放入分页的SQL语句之中，并通过`DBUtil`执行最终的SQL语句，从而实现分页。具体如下（演示代码的顺序：数据库帮助类`DBUtil`→`DAO`层→`SERVICE`层→`UI`层）：
+以上，就是使用oracle时的分页SQL语句，可以发现此SQL语句需要“当前页的页码（currentPage）”和“页面大小（pageSize）”两个参数，而这两个参数需要通过三层逐步传递：
+
+用户通过JSP输入或指定`currentPage` 和`pageSize`→在JSP中，将二者附加在超链接或表单中，传入表示层后端代码Servlet中→在Servlet中，将二者传入`SERVICE`层方法的入参中→再在`SERVICE`层中，将二者传入`DAO`层方法的入参中→最后在`DAO`层中，将二者放入分页的SQL语句之中，并通过`DBUtil`执行最终的SQL语句，从而实现分页。
+
+具体如下（演示代码的顺序：数据库帮助类`DBUtil`→`DAO`层→`SERVICE`层→`UI`层）：
 
 为了实现分页，DBUtil需要从数据库查询①数据总数（`Page`类中的属性`totalCount`），以及②当前页面中全部学生信息的集合（`Page`类中的属性`students`）。因此需要在`DBUtil`中加入“查询数据总数”方法`getTotalCount()`；查询学生信息集合（结果集）的方法`executeQuery()`，在之前的DBUtil中已经讲解过，因此不再赘述。
 
-DBUtil.java
+**DBUtil.java**
 
 ```
 package org.lanqiao.util;
@@ -203,7 +207,7 @@ public class DBUtil
 
 再在`DAO`层，加入“①获取数据总数”方法，和“②获取当前页面中全部学生信息的集合”方法：
 
-IStudentDao.java接口
+**IStudentDao.java接口**
 
 ```
 package org.lanqiao.dao;
@@ -220,7 +224,7 @@ public interface IStudentDao
 }
 ```
 
-StudentDaoImpl.java实现类
+**StudentDaoImpl.java实现类**
 
 ```
 package org.lanqiao.dao.impl;
@@ -277,7 +281,7 @@ public class StudentDaoImpl implements IStudentDao
 
 然后在`SERVICE`层，加入“①获取数据总数”方法，和“②获取当前页面中全部学生信息的集合”方法
 
-IStudentService.java接口
+**IStudentService.java接口**
 
 ```
 package org.lanqiao.service;
@@ -293,7 +297,7 @@ public interface IStudentService
 }
 ```
 
-StudentServiceImpl.java实现类
+**StudentServiceImpl.java实现类**
 
 ```
 package org.lanqiao.service.impl;
@@ -318,7 +322,7 @@ public class StudentServiceImpl implements IStudentService
 
 先在表示层的后台代码（查询Servlet）中加入控制页码的程序，然后给`Page`类的各个属性赋值，最后再跳转到表示层的前台JSP中：
 
-QueryAllStudentsServlet.java
+**QueryAllStudentsServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -381,9 +385,9 @@ stuService.getStudentsListForCurrentPage(pages.getCurrentPage()
 
 阅读以上代码可知， currentPage(当前页)的值，是通过前台JSP传来的 currentPage设置的；而pageSize（页面大小）的值，是通过硬编码的方式直接写成了3（读者也可以尝试将pageSize的值通过前台传来）。
 
-因为程序是先执行QueryAllStudentsServlet，然后再跳转到index.jsp中，因此需要将QueryAllStudentsServlet设置为项目的默认启动程序，如下：
+因为程序是先执行QueryAllStudentsServlet，然后再跳转到**index.jsp**中，因此需要将QueryAllStudentsServlet设置为项目的默认启动程序，如下：
 
-web.xml
+**web.xml**
 
 ```
 <?xml …>
@@ -491,7 +495,7 @@ org.lanqiao.servlet.QueryAllStudentsServlet
 
 *图7-02*
 
-说明：
+**说明：**
 
 基于不同数据库的分页操作，唯一不同的就是SQL语句。常用的数据库（如MySql、SqlServer）用来实现分页SQL语句如下：
 
@@ -509,9 +513,9 @@ org.lanqiao.servlet.QueryAllStudentsServlet
 
 JNDI的全称是Java Naming and Directory Interface（JAVA命名与目录接口），是一种将对象和名字绑定的技术。使用JNDI，应用程序可以通过资源名字来获得相应的对象、服务或目录。我们以使用JNDI访问Tomcat为例，来详细介绍一下JNDI的使用。
 
-Servers项目中有一个context.xml文件（即Tomcat目录中的context.xml文件），此文件中的信息就可以被所有Web项目共享。
+Servers项目中有一个**context.xml**文件（即Tomcat目录中的**context.xml**文件），此文件中的信息就可以被所有Web项目共享。
 
-我们在context.xml中，加入以下代码：
+我们在**context.xml**中，加入以下代码：
 
 ```
 <Context>
@@ -520,13 +524,13 @@ type="java.lang.String" />
 </Context>
 ```
 
-其中Context是context.xml文件的根标签。`Environment`就是可以用来使用JNDI的元素：`name`表示当前Environment元素的名字，相当于唯一标示符；`value`表示`name`对应的内容值，即`name`与`value`构成了一组键值对；`type`表示`value`中的内容类型。此`Environment`的作用就类似于`String jndiName = “jndiValue”`。之后，在该tomcat中的任意一个Web项目里，均可以获取到此`Environment`的`value`值了。
+其中`Context`是**context.xml**文件的根标签。`Environment`就是可以用来使用JNDI的元素：`name`表示当前`Environment`元素的名字，相当于唯一标示符；`value`表示`name`对应的内容值，即`name`与`value`构成了一组键值对；`type`表示`value`中的内容类型。此`Environment`的作用就类似于`String jndiName = “jndiValue”`。之后，在该tomcat中的任意一个Web项目里，均可以获取到此`Environment`的`value`值了。
 
 JNDI的演示项目名是StudentManagerWithJNDIPool，该项目是建立在StudentManagerWithPage项目基础之上：
 
-在index.jsp中加入以下代码，用于获取context.xml中的`Environment`值：
+在**index.jsp**中加入以下代码，用于获取**context.xml**中的`Environment`值：
 
-index.jsp
+**index.jsp**
 
 ```
 <body>
@@ -552,7 +556,7 @@ index.jsp
 
 *图7-03*
 
-可以发现，使用JNDI定义的变量（通过context.xml中的`Environment`元素定义），可以在任意一个Web项目中使用（同一个Tomcat中）。
+可以发现，使用JNDI定义的变量（通过**context.xml**中的`Environment`元素定义），可以在任意一个Web项目中使用（同一个Tomcat中）。
 
 ## 7.2.2连接池 ##
 
@@ -571,9 +575,9 @@ index.jsp
 `DataSource`对象由Tomcat提供，我们可以使用JNDI来从Tomcat中获取到该对象。
 我们现在就来讲解如何在项目中使用数据源：
 
-和JNDI一样，首先需要在Servers项目的context.xml中增加元素。不同的是，配置数据源需要使用`Resource`元素，而不是`Environment`，如下，
+和JNDI一样，首先需要在Servers项目的**context.xml**中增加元素。不同的是，配置数据源需要使用`Resource`元素，而不是`Environment`，如下，
 
-context.xml
+**context.xml**
 
 ```
 <Resource name="jdbc/student" auth="Container" 
@@ -631,9 +635,9 @@ driverClassName="oracle.jdbc.driver.OracleDriver"  url="jdbc:oracle:thin:@127.0.
    </tr>
 </table>
 
-与JNDI不同的是，配置数据库连接池，除了在context.xml中配置以外，还需要在Web应用的web.xml中配置`<resource-ref>`元素：
+与JNDI不同的是，配置数据库连接池，除了在**context.xml**中配置以外，还需要在Web应用的**web.xml**中配置`<resource-ref>`元素：
 
-web.xml
+**web.xml**
 
 ```
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
@@ -647,7 +651,7 @@ web.xml
 </web-app>	
 ```
 
-`<resource-ref>`元素中的`<description>`可以用来对配置的资源进行描述说明，其他的子元素值只需要和context.xml中`<Resource>`的相关值保持一致即可，具体如下：
+`<resource-ref>`元素中的`<description>`可以用来对配置的资源进行描述说明，其他的子元素值只需要和**context.xml**中`<Resource>`的相关值保持一致即可，具体如下：
 
 `<res-ref-name>`值对应于`<Resource>`中的`name`值；
 
@@ -657,9 +661,9 @@ web.xml
 
 此外，还需要注意采用数据源方式访问数据库，数据源是由Tomcat创建并维护的，因此还需要把JDBC的驱动包（ojdbc5.jar）复制到Tomcat的`lib`目录下。
 
-最后，我们修改StudentManagerWithJNDIPool项目的DBUtil.java文件，将传统的JDBC方式替换为数据源方式来访问数据库，如下，
+最后，我们修改StudentManagerWithJNDIPool项目的**DBUtil.java**文件，将传统的JDBC方式替换为数据源方式来访问数据库，如下，
 
-DBUtil.java
+**DBUtil.java**
 
 ```
 package org.lanqiao.util;
@@ -685,15 +689,15 @@ public class DBUtil
 
 运行此项目，运行结果与之前的完全相同。不同的是，使用连接池的方式来访问数据库，可以提高项目的性能。
 
-我们总结一下，使用连接池实现数据库连接的步骤：
+我们总结一下，**使用连接池实现数据库连接的步骤：**
 
-1.配置context.xml文件：在Tomcat的context.xml中加入`<Resource>`元素及相关属性；
+**1.**配置**context.xml**文件：在Tomcat的**context.xml**中加入`<Resource>`元素及相关属性；
 
-2.配置web.xml文件：在项目的web.xml中`< resource-ref>`元素及相关属性；
+**2.**配置**web.xml**文件：在项目的**web.xml**中`< resource-ref>`元素及相关属性；
 
-3.给Tomcat的`lib`目录加入相应的数据库驱动；
+**3.**给Tomcat的`lib`目录加入相应的数据库驱动；
 
-4.编码查找数据源(使用`lookup()`方法)，实现连接数据库。
+**4.**编码查找数据源(使用`lookup()`方法)，实现连接数据库。
 
 # 7.3文件上传 #
 
@@ -705,7 +709,7 @@ Commons是Apache组织的一个项目，除了文件上传以外，Commons还提
 
 Commons-FileUpload不但能方便的实现文件上传功能，还可以获取上传文件的各种信息（如文件的名称、类型、大小等），并能对上传的文件进行一些控制（如限制上传的类型、大小等）。
 
-在实际使用之前，我们需要先下载Commons-FileUpload的JAR文件（下载地址[http://commons.apache.org/proper/commons-fileupload/)](http://commons.apache.org/proper/commons-fileupload/)）。此外，因为文件上传必然会涉及到文件的读写操作，所以还需要下载Commons-IO的JAR文件（下载地址[http://commons.apache.org/proper/commons-io/)](http://commons.apache.org/proper/commons-io/)）。将这两个文件下载后解压，分别找到commons-fileupload-1.3.1.jar和commons-io-2.4.jar，并将这两个`jar`加入到Web项目的`lib`目录内即可。
+在实际使用之前，我们需要先下载Commons-FileUpload的JAR文件（下载地址[http://commons.apache.org/proper/commons-fileupload/)](http://commons.apache.org/proper/commons-fileupload/)）。此外，因为文件上传必然会涉及到文件的读写操作，所以还需要下载Commons-IO的JAR文件（下载地址[http://commons.apache.org/proper/commons-io/)](http://commons.apache.org/proper/commons-io/)）。将这两个文件下载后解压，分别找到**commons-fileupload-1.3.1.jar**和**commons-io-2.4.jar**，并将这两个`jar`加入到Web项目的`lib`目录内即可。
 
 下面，通过示例详细讲解Commons-FileUpload的使用。本示例的项目名为StudentManagerWithFileUpload，该项目基于之前的StudentManagerWithJNDIPool项目。
 
@@ -713,7 +717,7 @@ Commons-FileUpload不但能方便的实现文件上传功能，还可以获取�
 
 文件上传的前台是通过表单实现的，但上传文件与一般文本类型的编码类型不同。需要在表单中增加`enctype=”multipart/form-data”`属性和值，用于将表单设置为文件上传所需要的编码类型。此外，还必须将method设置为`post`方式，并且通过`input`标签的`type=”file”`来加入上传控件，如下，
 
-在增加学生页面addStudent.jsp中，加入文件上传的前台代码：
+在增加学生页面**addStudent.jsp**中，加入文件上传的前台代码：
 
 ```
     …
@@ -738,7 +742,7 @@ enctype="multipart/form-data" method="post">
 
 **(2)文件上传后台**
 
-①ServletFileUpload类的常用方法：
+**①ServletFileUpload类的常用方法：**
 
 <table>
    <tr>
@@ -759,7 +763,7 @@ enctype="multipart/form-data" method="post">
    </tr>
 </table>
 
-②FileItem接口的常用方法：
+**②FileItem接口的常用方法：**
 
 FileItem对象用于封装单个表单字段元素的数据，一个表单字段元素对应一个FileItem对象。FileItem是一个接口，通常使用它的实现类DiskFileItem类。
 
@@ -795,7 +799,7 @@ FileItem对象用于封装单个表单字段元素的数据，一个表单字段
 </table>
 
 
-③FileItemFactory接口的常用方法：
+**③FileItemFactory接口的常用方法：**
 
 `ServletFileUpload`对象的创建，需要依赖于FileItemFactory接口，并且可以从接口名得知FileItemFactory是一个工厂。我们通常使用的是`FileItemFactory`的实现类`DiskFileItemFactory`类。
 
@@ -816,7 +820,7 @@ FileItem对象用于封装单个表单字段元素的数据，一个表单字段
 
 现在，就来编写实现上传的后台代码。
 
-AddStudentServlet.java
+**AddStudentServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -924,7 +928,7 @@ studentName, studentAge, gradeName);
 
 *图7-05*
 
-然后执行addStudent.jsp，输入学生信息并上传一个名为abc.png的图片，运行结果：
+然后执行**addStudent.jsp**，输入学生信息并上传一个名为abc.png的图片，运行结果：
 
 ![](http://i.imgur.com/n2A9GYl.png)
 
@@ -932,11 +936,11 @@ studentName, studentAge, gradeName);
 
 查看upload目录，可以看到文件已经正确上传。
 
-说明：
+**说明：**
 
-读者可以尝试，如果修改服务器AddStudentServlet.java中的代码，再重启tomcat，那么tomcat中的upload目录就会消失。这是因为我们之前将Tomcat的Server Locations设置为了第二项“Use Tomcat installation”，这样会使得每次tomcat重启时都会检查项目是否有改动，如果有，就会重新编译并部署项目，所以会导致用户自己建立的upload目录消失。解决办法可以简单的将Server Locations改为其他选项，或使用虚拟路径来解决，或直接将upload目录放置到tomcat目录外的任一路径，读者可以自行尝试。
+读者可以尝试，如果修改服务器**AddStudentServlet.java**中的代码，再重启tomcat，那么tomcat中的upload目录就会消失。这是因为我们之前将Tomcat的Server Locations设置为了第二项“Use Tomcat installation”，这样会使得每次tomcat重启时都会检查项目是否有改动，如果有，就会重新编译并部署项目，所以会导致用户自己建立的upload目录消失。解决办法可以简单的将Server Locations改为其他选项，或使用虚拟路径来解决，或直接将upload目录放置到tomcat目录外的任一路径，读者可以自行尝试。
 
-而如果服务器AddStudentServlet.java中的代码没有修改，再次重启tomcat，因为代码没修改，因此就不会重新编译部署，所以upload就不会被删除。
+而如果服务器**AddStudentServlet.java**中的代码没有修改，再次重启tomcat，因为代码没修改，因此就不会重新编译部署，所以upload就不会被删除。
 
 ## 7.3.2使用 Commons-FileUpload控制文件上传 ##
 
@@ -946,7 +950,7 @@ studentName, studentAge, gradeName);
 
 我们已经知道，可以通过FileItem的`getName()`方法获取上传文件的文件名（如abc.png，日记.txt，阿甘正传.rmvb），而文件的类型就是通过”.”后面的字符控制的（如png、jpg、bmp等是图片格式，txt是一种文本文档格式，rmvb是一种电影格式等）。因此，我们只需要将文件名”.”后面的内容进行截取，然后判断截取后的内容是否符合要求即可，具体如下，
 
-AddStudentServlet.java
+**AddStudentServlet.java**
 
 ```
 	protected void doPost(HttpServletRequest request, 
@@ -984,7 +988,7 @@ HttpServletResponse response)
 
 前面讲过，我们可以通过DiskFileItemFactory的`setSizeThreshold()`方法来设置缓冲区大小，并且当上传的文件超过缓冲区大小时，可以临时存储在由`setRepository()`方法设置的临时文件目录中。此外，可以通过ServletFileUpload的`setSizeMax()`来限制单个上传文件的最大字节数。设置完成以后，执行`ServletFileUpload.parseRequest()`方法时，如果发现正在上传的文件超过了`setSizeMax()`设置的最大值，则就会抛出一个FileUploadBase.SizeLimitExceededException类型的异常。因此上传时如果抛出了此异常，就说明上传的文件超出了最大值。控制上传文件大小的具体代码，如下，
 
-AddStudentServle
+**AddStudentServlet.java**
 
 ```
 package org.lanqiao.servlet;
@@ -1106,18 +1110,22 @@ throws ServletException, IOException
 
 本示例采用Servlet2.5版本。
 
-步骤：
+**步骤：**
 
-(1)新建Web项目（FilterProject）；再在WebContext下新建`jsp`，在`src`下新建Servlet。如下：
+**(1)**新建Web项目（FilterProject）；再在WebContext下新建`jsp`，在`src`下新建Servlet。如下：
 
-发送请求的客户端JSP：index.jsp
+发送请求的客户端JSP：
+
+**index.jsp**
 
 ```…
 <a href="MyServlet">访问MyServlet...</a>
 …
 ```
 
-处理请求的控制器Servlet：MyServlet.java
+处理请求的控制器Servlet：
+
+**MyServlet.java**
 
 ```
 …
@@ -1131,7 +1139,7 @@ throws ServletException, IOException {
 }
 ```
 
-在web.xml中配置此Servlet:
+在**web.xml**中配置此Servlet:
 
 ```
 <servlet>
@@ -1146,11 +1154,11 @@ org.lanqiao.servlet.MyServlet
 </servlet-mapping>
 ```
 
-(2)开发过滤器，拦截Servlet程序。
+**(2)**开发过滤器，拦截Servlet程序。
 
 新建一个过滤器（即实现了`javax.servlet.Filter`接口的类）。
 
-MyFirstFilter.java
+**MyFirstFilter.java**
 
 ```
 package org.lanqiao.servlet;
@@ -1182,7 +1190,7 @@ ServletResponse response, FilterChain chain)
 }
 ```
 
-在web.xml 中配置此Filter：
+在**web.xml** 中配置此Filter：
 
 ```
 <filter>
@@ -1199,15 +1207,15 @@ org.lanqiao.filter. MyFirstFilter
 
 Filter的配置方法和Servlet的配置方法相类似：先通过`<url-pattern>`匹配需要拦截的请求，再根据`<filter-name>`找到对应的过滤器处理类`<filter-class>`,最后执行过滤器处理类中的`init()`、`doFilter()`、`destroy()`等方法。
 
-(4)部署并启动项目，访问index.jsp中的超链接，可以在控制台看到以下输出：
+**(3)**部署并启动项目，访问index.jsp中的超链接，可以在控制台看到以下输出：
 
 ![](http://i.imgur.com/6DrHIo6.png)
 
 *图7-08*
 
-可以发现，index.jsp通过超链接向Servlet发出的请求确实被Filter拦截了，甚至只执行了Filter中的`doFilter()`方法，而没有执行Servlet中的`doGet()`方法。如果想让请求被Filter拦截之后，仍然能正常访问到当初所请求的Servlet，则需要在Filter的`doFilter()`方法里加上`chain.doFilter()`方法，表示拦截完毕、释放请求及相应，如下：
+可以发现，**index.jsp**通过超链接向Servlet发出的请求确实被Filter拦截了，甚至只执行了Filter中的`doFilter()`方法，而没有执行Servlet中的`doGet()`方法。如果想让请求被Filter拦截之后，仍然能正常访问到当初所请求的Servlet，则需要在Filter的`doFilter()`方法里加上`chain.doFilter()`方法，表示拦截完毕、释放请求及相应，如下：
 
-MyFirstFilter.java
+**MyFirstFilter.java**
 
 ```
 …
@@ -1225,17 +1233,17 @@ ServletResponse response, FilterChain chain)
 }
 ```
 
- 修改MyFirstFilter.java以后，重启服务，再次运行并访问index.jsp中的超链接，可在控制台看到以下输出：
+ 修改**MyFirstFilter.java**以后，重启服务，再次运行并访问**index.jsp**中的超链接，可在控制台看到以下输出：
 
 ![](http://i.imgur.com/PKdBcOe.png)
 
 *图7-09*
 
-从输出结果可以得知，index.jsp发出的请求确实先被Filter进行了拦截处理，然后再执行了Servlet中的`doGet()`方法。
+从输出结果可以得知，**index.jsp**发出的请求确实先被Filter进行了拦截处理，然后再执行了Servlet中的`doGet()`方法。
 
 之前讲过，Filter能对请求和响应都进行拦截。实际上在Filter中，`chain.doFilter()`之前的代码就是拦截请求时所执行得代码，`chain.doFilter()`之后的代码就是拦截响应时所执行得代码，将过滤器修改如下：
 
-MyFirstFilter.java
+**MyFirstFilter.java**
 
 ```
 …
@@ -1254,7 +1262,7 @@ ServletResponse response, FilterChain chain)
 }
 ```
 
-再次重启服务并执行index.jsp中的超链接，得到以下输出：
+再次重启服务并执行**index.jsp**中的超链接，得到以下输出：
 
 ![](http://i.imgur.com/Nss3RWj.png)
 
@@ -1264,7 +1272,7 @@ ServletResponse response, FilterChain chain)
 
 ## 7.4.3 Filter映射 ##
 
-Filter通过web.xml中的`<url-pattern>`元素来配置需要拦截的请求。例如，之前编写的
+Filter通过**web.xml**中的`<url-pattern>`元素来配置需要拦截的请求。例如，之前编写的
 
 `<url-pattern>/MyServlet</url-pattern>`
 
@@ -1291,7 +1299,7 @@ Filter通过web.xml中的`<url-pattern>`元素来配置需要拦截的请求。�
 </filter-mapping>
 ```
 
-常见拦截方式的值有以下四个：
+**常见拦截方式的值有以下四个：**
 
 <table>
    <tr>
@@ -1347,7 +1355,7 @@ Filter通过web.xml中的`<url-pattern>`元素来配置需要拦截的请求。�
 
 之前的过滤器MyFirstFilter拦截的是MyServlet资源，我们再建一个过滤器MySecondFilter同样来拦截MyServlet资源，如下：
 
-MySecondFilter.java
+**MySecondFilter.java**
 
 ```
 …
@@ -1378,7 +1386,7 @@ ServletResponse response, FilterChain chain)
 
 对过滤器MySecondFilter进行配置，使其和MyFirstFilter一样都拦截MyServlet资源，如下：
 
-web.xml
+**web.xml**
 
 ```
 <filter>
@@ -1406,7 +1414,7 @@ org.lanqiao.filter.MySecondFilter
 
 MyFirstFilter 的`< filter-mapping >`写在MySecondFilter的`< filter-mapping >`前面，因此拦截的顺序是:请求先被MyFirstFilter拦截，再被MySecondFilter拦截；而拦截响应的顺序正好相反。
 
-重启服务，再次通过index.jsp中的超链接，向服务器的MyServlet资源发出请求，运行结果如下：
+重启服务，再次通过**index.jsp**中的超链接，向服务器的MyServlet资源发出请求，运行结果如下：
 
 ![](http://i.imgur.com/PrEF5XR.png)
 
@@ -1482,7 +1490,7 @@ Servlet API提供了`ServletContextListener`、`HttpSessionListener`、`ServletR
 
 我们用一个类来同时实现`ServletContextListener`、`HttpSessionListener`、`ServletRequestListener`三个接口，即同时具有三个监听器的功能。
 
-ContextSessionRequestListener.java
+**ContextSessionRequestListener.java**
 
 ```
 package org.lanqiao.listener;
@@ -1532,9 +1540,9 @@ HttpSessionListener,ServletRequestListener
 }
 ```
 
-再在web.xml中部署ContextSessionRequestListener监听器，如下：
+再在**web.xml**中部署ContextSessionRequestListener监听器，如下：
 
-web.xml
+**web.xml**
 
 ```
 …
@@ -1548,9 +1556,9 @@ web.xml
 
 一个完整的监听器需要编写`Listener`类和配置`<Listener>`。如果Web应用程序有多个监听器，则会按照`<listener>`在web.xml中的配置顺序依次触发。
 
-最后新建index.jsp和sessionInvalidate.jsp用来测试监听器：
+最后新建**index.jsp**和**sessionInvalidate.jsp**用来测试监听器：
 
-index.jsp
+**index.jsp**
 
 ```
 …
@@ -1561,7 +1569,7 @@ index.jsp
 …
 ```
 
-sessionInvalidate.jsp
+**sessionInvalidate.jsp**
 
 ```
 <%@ page language="java" contentType="text/html; 
@@ -1581,19 +1589,19 @@ charset=UTF-8"    pageEncoding="UTF-8"%>
 
 这是因为Web容器在启动时会自动加载部署过的项目，并为该项目创建对应的`ServletContext`对象，而web.xml中配置了用于监听`ServletContext`对象创建、销毁的监听器ContextSessionRequestListener，所以会调用监听器中的`contextInitialized()`方法，从而输出相应的语句。
 
-再访问index.jsp，又会得到以下结果：
+再访问**index.jsp**，又会得到以下结果：
 
 ![](http://i.imgur.com/XM06gXH.jpg)
 
 *图7-14*
 
-这是因为访问index.jsp时，就会向Web容器发送一次请求（创建了一个请求），所以执行了用于监听ServletRequest 被创建的`requestInitialized()`方法，即输出“监听`ServletRequest`：`[ServletRequest]`对象[创建]完成”;
+这是因为访问**index.jsp**时，就会向Web容器发送一次请求（创建了一个请求），所以执行了用于监听ServletRequest 被创建的`requestInitialized()`方法，即输出“监听`ServletRequest`：`[ServletRequest]`对象[创建]完成”;
 
 同时，第一次访问index.jsp时，Web容器还为浏览器创建了对应的`HttpSession`对象，所以还会执行用于监听`HttpSession`被创建的`sessionCreated()`方法，即输出“监听`HttpSession`：`[HttpSession]`对象[创建]完成”.
 
 当请求发送完毕后，`ServletRequest`对象随之被销毁，所以又会执行用于监听`ServletRequest`被销毁的`requestDestroyed()`方法，即输出“监听`ServletRequest`：`[ServletRequest]`对象[销毁]完成”。
 
-点击index.jsp中的超链接“销毁`session`”，如图
+点击**index.jsp**中的超链接“销毁`session`”，如图
 
 ![](http://i.imgur.com/fOn6IG2.jpg)
 
@@ -1619,7 +1627,7 @@ charset=UTF-8"    pageEncoding="UTF-8"%>
 
 `ServletContext`、`HttpSession`、`ServletRequest`三个域对象都可以通过`setAttribute()`和`removeAtribute()`等方法进行属性的增加、替换（修改）、删除。Servlet API也提供了ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口，用来监测这三个域对象的属性的变更。
 
-例如，当向`ServletRequest`对象中增加、替换（修改）、删除某个属性时，Web容器就会自动调用ServletRequestAttributeListener监听器接口中的相应方法，如下：
+例如，当向`ServletRequest`对象中增加、替换（修改）、删除某个属性时，Web容器就会自动调用**ServletRequestAttributeListener监听器接口中的相应方法**，如下：
 
 <table>
    <tr>
@@ -1642,7 +1650,7 @@ charset=UTF-8"    pageEncoding="UTF-8"%>
 
 其中方法的参数是一个`ServletRequestAttributeEvent`对象，监听器可以通过这个参数来获取正在增加、替换（修改）、删除属性的域对象。
 
-类似的，ServletContextAttributeListener接口中的方法如下：
+类似的，**ServletContextAttributeListener接口中的方法如下：**
 
 <table>
    <tr>
@@ -1663,7 +1671,7 @@ charset=UTF-8"    pageEncoding="UTF-8"%>
    </tr>
 </table>
 
-HttpSessionAttributeListener接口中的方法如下：
+**HttpSessionAttributeListener接口中的方法如下：**
 
 <table>
    <tr>
@@ -1688,9 +1696,9 @@ HttpSessionAttributeListener接口中的方法如下：
 
 **(2)案例**
 
-①新建attributeListener.jsp，用于增加、替换、删除属性，从而触发域对象的属性监听器
+**①**新建**attributeListener.jsp**，用于增加、替换、删除属性，从而触发域对象的属性监听器
 
-attributeListener.jsp
+**attributeListener.jsp**
 
 ```
 …
@@ -1712,9 +1720,9 @@ attributeListener.jsp
 …
 ```
 
-②创建用于监听域对象属性变更的监听器，即创建一个类并实现ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口
+**②**创建用于监听域对象属性变更的监听器，即创建一个类并实现ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口
 
-AttributeListener.java
+**AttributeListener.java**
 
 ```
 package org.lanqiao.listener;
@@ -1803,9 +1811,9 @@ public class AttributeListener implements ServletContextAttributeListener,HttpSe
 }
 ```
 
-③配置监听器
+**③**配置监听器
 
-web.xml
+**web.xml**
 
 ```
 …
@@ -1833,13 +1841,13 @@ web.xml
 
 1  在Tomcat中配置JNDI资源时，需要在（    ）文件里配置。（选择一项）（难度★）
 
-A．web.xml		
+A．**web.xml**		
 				
-B．server.xml
+B．**server.xml**
 
-C．context.xml		
+C．**context.xml**		
 				
-D．tomcat-users.xml
+D．**tomcat-users.xml**
 
 
 2  当应用程序使用完数据库连接池中的连接之后，下面的说法中最准确的是（    ）。（选择一项）（难度★★）
