@@ -26,6 +26,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 我们给之前的项目（StudentManagerBy3TierAndInterface）存入10条数据并显示，如图，
 
+
 ![](http://i.imgur.com/1KTETX5.png)
 
 *图7-01*
