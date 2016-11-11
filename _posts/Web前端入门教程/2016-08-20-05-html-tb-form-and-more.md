@@ -701,7 +701,10 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
  ![data_table_01](/public/img/html/data_table_01.png){:width="500px" height="500px"}
 
- 2.请你根据W3School的input标签页面的描述，给用户注册表单换一个图片样式的提交按钮。
+ 2.请你根据W3School的input标签页面的描述，给用户注册表单换一个显示成图片的提交按钮。
+
+       <!-- 你需要定义一个自己的图片路径 -->
+    <input type="image" src="your_img_path" alt="Submit"/>
 
  3.请你在用户表单里面使用hidden类型的input元素，然后用get方法提交表单，检查这个隐藏域数据能否出现在在地址栏里：
     
