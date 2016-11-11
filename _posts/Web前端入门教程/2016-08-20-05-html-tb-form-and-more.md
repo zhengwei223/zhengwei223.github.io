@@ -706,7 +706,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
        <!-- 你需要定义一个自己的图片路径 -->
     <input type="image" src="your_img_path" alt="Submit"/>
 
- 3.请你在用户表单里面使用hidden类型的input元素，然后用get方法提交表单，检查这个隐藏域数据能否出现在在地址栏里：
+ 3.请你在用户表单里面使用hidden类型的input元素，然后用get方法提交表单，检查这个隐藏域数据能否出现在地址栏里：
     
     <input type="hidden" name="language" value="zh_CN"/>
 
