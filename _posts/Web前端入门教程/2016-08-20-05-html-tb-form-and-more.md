@@ -575,7 +575,10 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
     <li>
     <label>
          <!--  多行文本控件的标签名是“textarea”，name属性可以自定义，比如“selfIntroduction”  -->
-    自述：<textarea rows="3" name="selfIntroduction" cols="50"></textarea>
+         <!--  
+           rows属性和cols属性的出现规定多行文本框以字符数计算的高度和宽度，分别是3行、50列 
+         -->
+    自述：<textarea name="selfIntroduction"  rows="3" cols="50"></textarea>
     </label>
     </li>
 
@@ -584,22 +587,9 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
  ![userRegister_form_step_09](/public/img/html/userRegister_form_step_09.png){:width="400px" height="400px"} 
 
 
-## 2.4 测试表单提交
+## 2.4 提交表单
 
-&emsp;&emsp;表单的功能就是把用户在页面上输入的各种信息发送到网站服务器。
-
- ![when-you-submit-form](/public/img/html/when-you-submit-form.png){:width="400px" height="400px"}
-
-&emsp;&emsp;目前为止，想要提交表单，我们还需要做两件事。
-
-### 定义动作按钮
-
-&emsp;&emsp;我们在表单里面定义一个提交按钮和一个重置按钮。点击前者，可以发起提交动作；点击后者，可以把表单上的旧数据清空。
-
-    <!-- 提交按钮的input元素类型是“submit”，name属性可以自定义，比如“submit”   -->
-    <input type="submit" name="submit" value="提交（submit）"/>
-    <!-- 提交按钮的reset元素类型是“submit”，name属性可以自定义，比如“reset”   -->
-    <input type="reset" name="reset" value="清空（reset）"/>
+&emsp;&emsp;仅有上面的这些给用户填充数据的界面控件，还不是一个完整的表单。
 
 ### 定义相关的表单属性
 
@@ -612,27 +602,111 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
      <form action="http://mycorporation.com.cn/vistor/rgister.do" method="get"
            name="userRegister">
 
-&emsp;&emsp;最后，刷新页面，你会看到一个完整的表单已经完成：
+### 定义动作按钮
+
+&emsp;&emsp;我们需要在表单里面定义一个提交（submit）表单的按钮，一个重置（reset）表单的按钮。
+
+&emsp;&emsp;具体代码如下：
+
+    <!-- 提交按钮的input元素类型是“submit”，name属性可以自定义，比如“submit”   -->
+    <!-- submit按钮被点击之后，整个表单的数据会被送到网站服务器   -->
+    <input type="submit" name="submit" value="提交（submit）"/>
+    <!-- 提交按钮的reset元素类型是“reset”，name属性可以自定义，比如“reset”   -->
+    <!-- reset按钮可以帮助你一次性清除掉你想要丢弃的问题数据   -->
+    <input type="reset" name="reset" value="清空（reset）"/>
+
+
+&emsp;&emsp;最后，刷新页面，我们可以看到一个最终完成的表单：
 
  ![userRegister_form_step_10](/public/img/html/userRegister_form_step_10.png){:width="400px" height="400px"} 
+
+&emsp;&emsp;你可以尝试输入自己的信息来提交表单了！
 
 
 # 实验二的解读
 
-## 更多表单属性
+&emsp;&emsp;在实验二里，我们制作了一个注册网站新用户的表单。
 
-## 表单上input元素的类型
+&emsp;&emsp;表单的功能就是把用户在页面上输入的各种信息发送到网站服务器。
+
+ ![when-you-submit-form](/public/img/html/when-you-submit-form.png){:width="400px" height="400px"}
+
+## input元素
+
+&emsp;&emsp;我们在表单内容区用到最多的是input元素。
+
+&emsp;&emsp;**input元素**的用途就是让人用它**输入**某种信息。
+
+&emsp;&emsp;在英文里“input”既是动词也是名词。因此，它的字面含义，除了有“人跟界面互动的动作”意外，应该还包含动作完成以后、留在界面上的数据。
+
+&emsp;&emsp;根据属性“type”的不同取值，input元素能给我们提供不同类型的输入界面，比如：文本输入框，密码输入框、文件选择框、单选按钮、多选按钮、提交按钮和重置按钮。
+
+&emsp;&emsp;W3School[input元素的type属性](http://www.w3school.com.cn/tags/tag_input.asp)页面有关于这个属性的完整的介绍。
+
+&emsp;&emsp;我们刚才制作的表单暂时没有用到两种类型的input：hidden和image。
+
+## 下拉列表和多行文本框
+
+### select
+
+&emsp;&emsp;我们在表单里用select标签定义了一个单选下拉列表。
+
+&emsp;&emsp;如果想要让列表支持同时选中多个选项，你可以在select开始标签里面重新定义它的某个属性。具体怎么做，请参考[W3School的select标签](http://www.w3school.com.cn/tags/tag_select.asp)页面。
+
+### textarea
+
+&emsp;&emsp;[textarea标签](http://www.w3school.com.cn/tags/tag_textarea.asp)定义的多行文本框也很有用。因为文本类型的input元素只能允许用户输入单行文字。
+
+## 表单提交
+
+&emsp;&emsp;我们来输入数据，模拟一次用户注册的表单提交过程。
+
+### action属性
+
+&emsp;&emsp;比如说，可以这样输入：
+
+ ![userRegister_form_step_11](/public/img/html/userRegister_form_step_11.png){:width="400px" height="400px"} 
+
+&emsp;&emsp;提交之后，页面会显示找不到相关服务器地址：
+
+ ![userRegister_form_step_12](/public/img/html/userRegister_form_step_12.png){:width="500px" height="500px"}
+
+&emsp;&emsp;这是因为我们在action属性里面里定义了一个不存在的网站服务器地址。
+
+### method属性
+
+&emsp;&emsp;**method属性**规定如何发送表单数据（表单数据发送到**action 属性**规定的WWW地址）。
+
+&emsp;&emsp;我们在method里面定义了“get”，你可以通过查看[W3School上form表单的method属性](http://www.w3school.com.cn/tags/att_form_method.asp)页面来连接这个属性的其他定义。
+
+&emsp;&emsp;用get方法提交表单，表单的里面的数据会不经过任何加密直接显示在浏览器窗口的地址栏里，因此这种方法不适合用来提交敏感数据，比如密码或者银行账号。
+
+&emsp;&emsp;修改表单的method属性,再提交表单：
+
+      <!-- "action"属性指向一个可以处理用户数据的万维网地址 -->
+      <!-- "method"属性定义了表单的提交方式,这里的值是“post” -->
+     <form action="http://mycorporation.com.cn/vistor/rgister.do" method="post"
+           name="userRegister">
+
+&emsp;&emsp;再提交表单，就不一样了：
+
+ ![userRegister_form_step_13](/public/img/html/userRegister_form_step_13.png){:width="500px" height="500px"}
+
+&emsp;&emsp;post提交表单，数据不会显示在地址栏上面，而是先经过某种形式的加密再传送给服务器。
 
 
+# 习题：
 
-# 实验三：根据HTML标准验证网页语法
+ 1.下面有一个来源于国家统计局网站的数据表，请你根据学到的表格知识制作一个网页表格，显示外观可以略有不同：
 
-目标：  
-&emsp;&emsp;时至今日，W3C组织已经发布了多个版本的HTML标准。在网页开发的过程中遵循最新的HTML标准可以让人们更容易通过搜索引擎找你的网站，也会帮助这些用户获得更好的上网体验。
+ ![data_table_01](/public/img/html/data_table_01.png){:width="500px" height="500px"}
 
-&emsp;&emsp;本实验将和大家一起来验证自己的HTML代码是否遵循HTML标准。
+ 2.请你根据W3School的input标签页面的描述，给用户注册表单换一个图片样式的提交按钮。
 
-# 实验三的解读
+ 3.请你在用户表单里面使用hidden类型的input元素，然后用get方法提交表单，检查这个隐藏域数据能否出现在在地址栏里：
+    
+    <input type="hidden" name="language" value="zh_CN"/>
+
 
 
 
