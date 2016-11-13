@@ -701,12 +701,16 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
  ![data_table_01](/public/img/html/data_table_01.png){:width="500px" height="500px"}
 
- 2.请你根据W3School的input标签页面的描述，给用户注册表单换一个显示成图片的提交按钮。
+ 2.使用thead给数据表格分区，可以实现对行多列的复杂表头。请你运用学到的知识，特别是“th”元素的“rowspan”属性，做出有下面结构的多行表头：
+
+ ![multi_row_thead](/public/img/html/multi_row_thead.png){:width="500px" height="500px"}
+
+ 3.请你根据W3School的input标签页面的描述，给用户注册表单换一个显示成图片的提交按钮。
 
        <!-- 你需要定义一个自己的图片路径 -->
     <input type="image" src="your_img_path" alt="Submit"/>
 
- 3.请你在用户表单里面使用hidden类型的input元素，然后用get方法提交表单，检查这个隐藏域数据能否出现在地址栏里：
+ 4.请你在用户表单里面使用hidden类型的input元素，然后用get方法提交表单，检查这个隐藏域数据能否出现在地址栏里：
     
     <input type="hidden" name="language" value="zh_CN"/>
 
