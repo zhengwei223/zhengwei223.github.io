@@ -7,7 +7,7 @@ category: lanqiaoEE
 
 tags: 文档说明
 
-description:项目操作手册说明
+description: 项目操作手册说明
 
 author: 郑未
 
