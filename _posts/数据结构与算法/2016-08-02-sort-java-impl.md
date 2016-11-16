@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 常见排序算法_java版本
-category: 数据结构与算法
+category: ref
 tags: 进阶 数据结构与算法 排序
 keywords: 蓝桥 lanqiao 教程 数据结构 算法 排序
 description: 
