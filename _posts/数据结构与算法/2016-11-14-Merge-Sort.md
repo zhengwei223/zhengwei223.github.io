@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 算法基础-归并排序算法
+title: 算法基础-归并排序算法的具体实现
 category: 数据结构与算法
 tags: 进阶 数据结构与算法 排序
 keywords: 蓝桥 lanqiao 教程 数据结构 算法 归并排序

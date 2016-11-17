@@ -12,35 +12,17 @@ desc: 单页的布局模板，适用于列表型的页面，如归档
 
 <div class="container doc-container" style="margin-top: -20px;">
 	<div class="row">
-		<div class="col-md-9 doc-content">
+		<div class="doc-content">
 			<div id="page-content" >
 				{{ content }}
 			</div>
 			<!-- <hr> -->
 		</div>
-		<!-- 右侧文章目录 和相关按钮-->
-		<div class="col-md-3 doc-side-container collapse" id="sidebar">
-			<nav class="doc-sidebar hidden-print affix-top">
-				<ul class="nav nav-pills nav-stacked">
-				</ul><!-- /nav -->
-				{% if page.scrolltop %}
-				<div class="text-center">
-					<button class="btn btn-default btn-primary scrolltop-btn">
-						<i class="icon fa fa-angle-double-up"></i>
-					</button><!-- /scrolltop-btn -->
-				</div>
-				{% endif %}
-			</nav>
-		</div>
-
 	</div>
 </div>
-{% if page.scrolltop %}
-<!-- 侧边栏toggle按钮 -->
-<div class="sidebar-tg-container">
-	<button class="btn btn-primary sidebar-toggle collapsed"
-	data-toggle="collapse" data-target="#sidebar">
-	<i class="icon iconfont icon-shouqi"></i>
-</button><!-- collapsed toggle -->
-</div>
-{% endif %}
+
+<!-- 回到顶部按钮 -->
+<div class="func-btns-container">
+	<a href="javascript:void(0);" class=" btn btn-default btn-primary scrolltop-btn"><span aria-hidden="true">&#8593; </span>
+	</a>
+</div><!-- scrolltop-container -->
