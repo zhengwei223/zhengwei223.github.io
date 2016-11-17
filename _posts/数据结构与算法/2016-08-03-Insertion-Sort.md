@@ -4,7 +4,7 @@ title: 算法基础-插入排序算法
 category: 数据结构与算法
 tags: 进阶 数据结构与算法 排序
 keywords: 蓝桥 lanqiao 教程 数据结构 算法 插入排序
-description: 插入排序算法是算法入门的起手式。
+description: 插入排序算法是算法入门的起手式。本章末尾有4个习题。
 author: 郑未
 
 ---
