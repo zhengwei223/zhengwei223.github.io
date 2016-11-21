@@ -31,7 +31,8 @@ var app = function($){
     if ($("#content").length) {
       $h1List = $("#content > h1");
     }else{
-      $h1List = $("#page-content > h1");
+      // $h1List = $("#page-content > h1");
+      return;// page页面上不渲染toc
     }
 
     var lenOfH1 = $h1List.length;
@@ -168,20 +169,25 @@ var app = function($){
     $('[data-toggle="tooltip"]').tooltip();
   };
   var bindEvents = function(){
+    var btmHeight=($('footer').outerHeight(true)
+    +$('.ds-share').outerHeight(true)
+    +$('.ds-thread').outerHeight(true));
+    $('.func-btns-container').css('top',($(window).height()
+-btmHeight)+'px');// 定位回到顶部按钮的位置
     //回到顶部
     $('.scrolltop-btn').on("click", function() {
       //65=h1的上外边距（25）+导航条的高度（40）
       $('body,html').animate({scrollTop:$('.doc-title').offset().top-65}, 500);
       $('#sidebar').collapse('toggle') //隐藏目录
     })
-    //侧边栏隐藏时，按钮样式为展开
+    /*//侧边栏隐藏时，按钮样式为展开
     $('#sidebar').on('hidden.bs.collapse', function () {
       $('.sidebar-toggle>i').removeClass('icon-zhankai').addClass('icon-shouqi');
     })
     //侧边栏显示时，按钮样式为收起
     $('#sidebar').on('shown.bs.collapse', function () {
       $('.sidebar-toggle>i').removeClass('icon-shouqi').addClass('icon-zhankai');
-    })
+    })*/
     $('body').on('keyup',function(e){
       if(e.which===37)
         $('.btn-pre').click()
@@ -206,7 +212,7 @@ var app = function($){
         $menu.css('display',isDisplay=='none'?'block':'none')
       }        
     })
-    // 中大屏幕上，鼠标滑入无效，点击有效
+    // 中大屏幕以下，鼠标滑入无效，点击有效
     $('.dropdown>a,.dropdown-sub>a').on('mouseover.dropdown',function(e){
       if ($(window).width() < MQL) {
         e.preventDefault()
@@ -214,24 +220,28 @@ var app = function($){
       }        
     })
   };
+  // 滚动监视
   var scrollspy = function(){
-    // Scrollspy
-    var $window = $(window);
-    var $body   = $(document.body);
-    var offset = $('.navbar').height();
-    
-    $body.scrollspy({
-      target: '.doc-side-container',
-      offset: offset
-    });
-    
-    $body.scrollspy('refresh');
+    if($('.doc-side-container')){
+      // Scrollspy
+      var $window = $(window);
+      var $body   = $(document.body);
+      var offset = $('.navbar').height();
+      
+      $body.scrollspy({
+        target: '.doc-side-container',
+        offset: offset
+      });
+      
+      $body.scrollspy('refresh');
+    }
   };
+  // 固定侧边栏
   var affixSidebar = function(){
-    var $sidebarToggle=$('.sidebar-toggle');
+    // 侧边栏
+    var $sideBar = $('.doc-sidebar');
     //仅在大屏幕上affix
-    if(!$sidebarToggle||$sidebarToggle.css('display')==='none'){
-      var $sideBar = $('.doc-sidebar');
+    if($sideBar){
     // 指定开关阈值，滚动到top时，将元素固定在顶部，滚动到bottom时，停止固定
       $sideBar.affix({
         offset:{
