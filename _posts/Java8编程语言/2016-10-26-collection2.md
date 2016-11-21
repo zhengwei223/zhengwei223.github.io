@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 集合框架的总和应用
+title: 集合框架的综合应用
 category: 初学者的第一套Java教程
 tags: Java 入门
 keywords: 蓝桥 lanqiao 教程 java Java8 集合框架

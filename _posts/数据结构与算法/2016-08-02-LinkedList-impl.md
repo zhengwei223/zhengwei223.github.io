@@ -1,7 +1,7 @@
 ---
 layout: post
 title: java实现链表简单示例
-category: 数据结构与算法
+category: ref
 tags: 进阶 数据结构与算法
 keywords: 蓝桥 lanqiao 教程 数据结构 算法
 description: 
