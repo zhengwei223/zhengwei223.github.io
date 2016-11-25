@@ -445,9 +445,237 @@ description:
 
 &emsp;&emsp;
 
-# 实验二：CSS绝对定位布局
+# 实验二：制作基于CSS的下拉菜单
 
-# 实验三：CSS流式布局
+目的：把div和ul标签结合起来，借助CSS特效，实现一个简单的两级下拉菜单。
+
+&emsp;&emsp;在实验结束以后，你可以看到下面的一个两级菜单：
+
+ ![css_div_ul_dropdown_menu_01](/public/img/css/css_div_ul_dropdown_menu_01.gif)
+
+## 2.1  组合菜单内容
+
+### 用div充当菜单容器
+
+&emsp;&emsp;在页面上创建一个div，我们会把菜单的所有内容都放进这个容器。
+
+    <!-- 页面内容区域开始 -->
+    <div id="multi_drop_menus">
+      <!-- 这里是菜单的内容区域 -->
+    </div>
+    <!-- 页面内容区域结束 -->
+
+&emsp;&emsp;在页面头部加入下面的内部样式：
+
+      <style>
+        /* 
+         选中容器内部的全部元素
+         设置他们的盒子属性
+        */
+        #multi_drop_menus *{
+	      margin: 0;
+	      padding :0;
+	    }
+
+        /* 
+         设置容器div边框宽度、类型和颜色
+        */
+       #multi_drop_menus{
+	     border: 3px solid green;
+	   }
+      </style>
+
+&emsp;&emsp;这时候div里面还没有内容，刷新页面以后，你应该只看到一条这样的线条：
+
+ ![css_div_ul_dropdown_menu_02](/public/img/css/css_div_ul_dropdown_menu_02.png)
+
+
+### 引入无序列表
+
+&emsp;&emsp;在菜单容器里面加入ul无序列表。代码如下：
+
+    <ul>
+      <li>
+	    <a href="#">菜单一</a>
+	  </li>
+	  <li>
+	    <a href="#">菜单二</a>
+	  </li>
+    </ul>
+
+&emsp;&emsp;在头部追加下面的CSS代码：
+
+      #multi_drop_menus ul{
+	    border: 2px solid red;
+	  }
+
+      #multi_drop_menus ul li{
+	    border: 2px solid blue;
+	    list-style-type:none;
+	  }
+
+&emsp;&emsp;刷新页面以后可以看到下面的页面效果：
+
+ ![css_div_ul_dropdown_menu_03](/public/img/css/css_div_ul_dropdown_menu_03.png)
+
+&emsp;&emsp;通过DevTools查看页面元素，我们可以看到以下几个细节：
+
+1. body元素的外边距（margin）有浏览器默认的CSS定义，是8px
+2. div、ul、a元素都有一个名字是“display”的属性，他们的值都是“block”
+3. li元素也有一个名字是“list-item”
+
+ ![css_div_ul_dropdown_menu_04](/public/img/css/css_div_ul_dropdown_menu_04.gif)
+
+### 让两个菜单横向排列
+
+&emsp;&emsp;根据已有的知识，要想达到这个目的，只需要让li元素全部左浮动。
+
+      #multi_drop_menus ul li{
+	    border: 2px solid blue;
+	    list-style-type:none;
+        float:left; //令li元素横向排列
+	  }
+
+&emsp;&emsp;可以看到，li浮动以后，它的上级元素div和ul的内容区变空了：
+
+ ![css_div_ul_dropdown_menu_05](/public/img/css/css_div_ul_dropdown_menu_05.png)
+
+&emsp;&emsp;想要让div和ul仍然包裹在li外面，就得让它们两个一起左浮动：
+
+      #multi_drop_menus{
+	    border: 2px solid red;
+        float:left; //令div元素左浮动
+	  }
+
+      #multi_drop_menus ul{
+	    border: 2px solid red;
+        float:left; //令ul元素左浮动
+	  }
+
+&emsp;&emsp;刷新页面以后可以看到div、ul浮动以后的效果：
+
+ ![css_div_ul_dropdown_menu_06](/public/img/css/css_div_ul_dropdown_menu_06.png)
+
+### 修改菜单项内容样式
+
+&emsp;&emsp;通过修改a元素内边距，可以达到这个目的。
+
+&emsp;&emsp;使用下面的代码修改a元素的内边距，并且用为类选择器hover设置鼠标悬停效果：
+
+	#multi_drop_menus a {
+	   background:#DDD; //增加背景颜色
+	   padding:1em 25px;//设置内边距
+	}
+
+	#multi_drop_menus a:hover {
+	   background-color:#666; //设置鼠标悬停时的背景颜色
+	   color:#CCC;//设置鼠标悬停时的字体颜色
+	}
+
+&emsp;&emsp;刷新页面以后可以看到：
+
+ ![css_div_ul_dropdown_menu_07](/public/img/css/css_div_ul_dropdown_menu_07.png)
+
+&emsp;&emsp;a元素的内容高出了它的上级元素，修改它的display属性可以让它把上级元素“撑高”起来：
+
+	#multi_drop_menus a {
+	   background:#DDD; //增加背景颜色
+	   padding:1em 25px;//设置内边距，其中左右内边距更新为25px
+       display:block; //显示方式为“块”
+	}
+
+&emsp;&emsp;刷新页面以后，可以看到菜单项文本比以前有了明显的扩张：
+
+ ![css_div_ul_dropdown_menu_08](/public/img/css/css_div_ul_dropdown_menu_08.gif)
+
+
+### 设置一二级菜单的定位方式
+
+&emsp;&emsp;在每一个a标签后面嵌套一层无序列表作为二级菜单，菜单总体代码是这样的：
+
+    <div id="multi_drop_menus">
+      <ul>
+        <li>
+    	<a href="#">菜单一</a>
+    	<ul>
+    	 <li> <a href="#">菜单一.甲</a> </li>
+    	 <li> <a href="#">菜单一.乙</a> </li>
+    	</ul>
+    	</li>
+    	<li>
+    	<a href="#">菜单二</a>
+        <ul>
+    	 <li> <a href="#">菜单二.甲</a> </li>
+    	 <li> <a href="#">菜单二.乙</a> </li>
+    	</ul>
+    	</li>
+      </ul>
+    </div>
+
+&emsp;&emsp;刷新页面以后可以看到：
+
+ ![css_div_ul_dropdown_menu_09](/public/img/css/css_div_ul_dropdown_menu_09.gif)
+
+&emsp;&emsp;用CSS设置菜单项目元素内容的定位方式：
+
+    #multi_drop_menus ul li{
+	  border: 2px solid blue;
+	  list-style-type:none;
+	  float:left;
+	  position:relative;//定位方式为相对定位
+	}	
+
+	#multi_drop_menus ul li ul {
+	   position :absolute;//定位方式为绝对定位
+	   width:14em;
+	}
+
+	#multi_drop_menus ul li ul li {
+	   width:100%;
+	}
+
+&emsp;&emsp;刷新页面以后可以看到：
+
+ ![css_div_ul_dropdown_menu_10](/public/img/css/css_div_ul_dropdown_menu_10.gif)
+
+&emsp;&emsp;特别值得注意的是：在应用了绝对定位的样式后，内层ul元素，被从它名为li的父元素内容区移出来，并且紧贴着这个父级li。
+
+## 2.2  控制二级菜单的显示和隐藏
+
+&emsp;&emsp;结合已经学过的CSS伪类选择器，我们只需要在鼠标悬停的时候让二级子菜单显示出来，鼠标离开的时候隐藏二级子菜单就可以了。
+
+### 使用hover伪类选择器
+
+&emsp;&emsp;根据CSS标准，控制HTML元素的隐藏和显示需要用到display属性。
+
+&emsp;&emsp;继续修改CSS样式，代码如下：
+
+	#multi_drop_menus ul li ul {
+	   position :absolute;//定位方式为绝对定位
+	   width:14em;
+       display:none;  //默认情况下隐藏二级子菜单
+	}
+
+    /* 鼠标悬停到一级菜单的项目上的时候 */
+	#multi_drop_menus ul li:hover ul {
+       display:block;  //显示相应二级子菜单
+	}
+
+&emsp;&emsp;刷新页面可以看到如下效果：
+
+ ![css_div_ul_dropdown_menu_11](/public/img/css/css_div_ul_dropdown_menu_11.gif)
+
+
+&emsp;&emsp;至此，菜单的主体工作已经完成。
+
+&emsp;&emsp;
+
+## 2.3  修理边角效果
+
+
+# 实验二的解读
+
+
 
 
 
