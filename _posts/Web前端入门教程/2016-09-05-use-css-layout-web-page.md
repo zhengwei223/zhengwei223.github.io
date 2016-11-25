@@ -16,15 +16,176 @@ description:
 
 - 用CSS控制DIV及页面元素完成布局
 
-&emsp;&emsp;学完这一章的内容，你将掌握用CSS（级联样式表）配合页面元素做好网页布局的基本技能，并且后完成一个主要内容分为**头部**、**左边导航栏**、**正文内容**、**右边导航栏**和**底部版权信息栏**组成的练习页面，效果如图：
 
-# 实验一：CSS浮动布局
+
+# 实验一：用CSS控制DIV浮动布局网页
+
+目的：用DIV元素给页面划分区域、用CSS定义不同区域的位置关系，完成网页布局。
+
+&emsp;&emsp;在实验结束的时候，同学们会看到一个内容分为**头部**、**左边导航栏**、**正文内容**、**右边导航栏**和**底部版权信息栏**组成的网页布局，效果如图：
+
+ ![html-xhtml-relation](/public/img/html/css-layout-final-image.PNG)
+
+## 2.1 在页面上划分出不同区域
+
+### 使用DIV标签
+
+&emsp;&emsp;为达到把页面划分为5个内容区域的目的，在空白body内容去加入以下代码：
+
+    <!-- 页面内容区域开始 -->
+    <div class="main">
+      
+     <!-- 最上方头部区域 -->
+     <div class="head"></div>
+     <!-- 中间区域第一列 -->  
+     <div class="left"></div>
+     <!-- 中间区域第二列 -->  
+     <div class="content"></div>
+     <!-- 中间区域第三列 --> 
+     <div class="rigth"></div>  
+     <!-- 底部页脚区域 --> 
+     <div class="foot"></div>   
+    </div>
+    <!-- 页面内容区域结束 -->
+
+### 定义区域背景颜色
+
+&emsp;&emsp;在页面头部加入CSS代码，为五个区域设置不同的背景颜色：
+
+    <style>
+
+      div div {
+        //为所有内层div设置默认宽度
+        height:200px; 
+      }
+
+      .head {
+         background-color:#441111;
+      }
+
+      .left {
+         background-color:#ffdd99;
+      }
+
+      .right {
+         background-color:#bb9955; 
+      }
+
+      .foot  {
+         background-color:#bb9955;
+      }
+    </style>
+
+&emsp;&emsp;刷新页面之后可以看到下面的页面效果：
+
+ ![css_div_float_layout_step_01](/public/img/css/css_div_float_layout_step_01.gif)
+
+&emsp;&emsp;可以看到，默认情况下这5个div的宽度会占满浏览器窗口，从上到下依次排列。
+
+
+## 2.2 用CSS定义各区域的位置关系
+
+&emsp;&emsp;完成页面布局的关键是：如何把中间三个div按照从左到右的顺序在浏览器窗口中横向排开。
+
+### 用CSS控制中间三个div左浮动
+
+&emsp;&emsp;想要实现三个div在浏览器窗口里面从左到右排成三列的效果，需要对中间三个div应用新的CSS属性。
+
+&emsp;&emsp;具体代码如下：
+
+
+    .left {
+       background-color:#ffdd99;
+       float:left; //左浮动
+       width:20%;// 宽度占浏览器窗口20%
+    }
+
+    .content {
+       float:left; //左浮动
+       width:60%;  //宽度占浏览器窗口60%
+    }
+
+    .right {
+       background-color:#ffdd99; 
+       float:left; //左浮动
+       width:20%;  //宽度占浏览器窗口20%
+    }
+
+
+&emsp;&emsp;刷新页面之后可以看到下面的页面效果:
+
+ ![css_div_float_layout_step_02](/public/img/css/css_div_float_layout_step_02.gif)
+
+
+### 用CSS控制最后一个div的正确位置
+
+&emsp;&emsp;通过在Chrome DevTools查看元素，反复对比，我们可以做出一个判断：class属性是“.foot”的div元素被应用了“float”属性的三个div遮盖了：
+
+ ![css_div_float_layout_step_03](/public/img/css/css_div_float_layout_step_03.gif)
+
+&emsp;&emsp;我们可以通过在底部div上应用CSS属性，清除它上方的浮动元素。代码如下：
+
+      .foot  {
+         background-color:#bb9955;
+         clear:both; //清除浮在它上方（浏览器窗口左右两边的）的其他元素
+      }
+
+&emsp;&emsp;重新刷新页面，可以看到： 
+
+ ![css_div_float_layout_step_04](/public/img/css/css_div_float_layout_step_04.gif)
+
+## 2.3 处理细节问题
+
+### 设置外边距
+
+&emsp;&emsp;接下来我们还需要给最外层的容器div设置外边距，使用下面代码就可以了：
+
+      * { //选中全部元素
+       margin : 0;  //外边距为0
+	   padding :0;  //内边距为0
+      }
+
+&emsp;&emsp;刷新页面，可以看到下面的效果：
+
+ ![css_div_float_layout_step_05](/public/img/css/css_div_float_layout_step_05.gif)
+
+&emsp;&emsp;围绕在最外层容器（main）div的白色边距消失了。
+
+### 填充头部内容区
+
+&emsp;&emsp;头部内容区有一个img元素和一个大标题元素就够用了。同学们可以用自己掌握的知识尝试实现以下步骤：
+
+ 1. 引用放在与“html”文件夹同一个级别的“imges”目录下的图片
+ 2. 用CSS控制img元素向左浮动，宽90px，高90px，
+ 3. 大标题元素向左浮动，字体颜色为白色，行高（line-height）为80px
+
+&emsp;&emsp;最终你可能得到一个类似下图的页面效果：
+
+ ![css_div_layout_01_head](/public/img/css/css_div_layout_01_head.png){:width="400px" height="400px"}
+
+### 控制img的盒子属性
+
+&emsp;&emsp;对头部区域的图片元素施加以下CSS属性，可以调整这个元素的盒子属性：
+
+    .head img {
+         width:90px;
+	     height:90px;
+	     float:left; 
+	     padding:5px; 
+         margin-right:20px;
+    }
+
+&emsp;&emsp;刷新页面以后可以看到：
+
+ ![css_div_float_layout_step_06](/public/img/css/css_div_float_layout_step_06.gif)
+
+# 实验一的解读
 
 # 实验二：CSS绝对定位布局
 
 # 实验三：CSS流式布局
 
- ![html-xhtml-relation](/public/img/html/css-layout-final-image.PNG)
+
 
 
 # 1.小试牛刀，制作页面头部
