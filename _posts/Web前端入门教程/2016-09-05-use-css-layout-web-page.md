@@ -38,7 +38,7 @@ description:
      <!-- 最上方头部区域 -->
      <div class="head"></div>
      <!-- 中间区域第一列 -->  
-     <div class="left"></div>
+     <div class="nav"></div>
      <!-- 中间区域第二列 -->  
      <div class="content"></div>
      <!-- 中间区域第三列 --> 
@@ -63,7 +63,7 @@ description:
          background-color:#441111;
       }
 
-      .left {
+      .nav {
          background-color:#ffdd99;
       }
 
@@ -94,7 +94,7 @@ description:
 &emsp;&emsp;具体代码如下：
 
 
-    .left {
+    .nav {
        background-color:#ffdd99;
        float:left; //左浮动
        width:20%;// 宽度占浏览器窗口20%
@@ -117,7 +117,7 @@ description:
  ![css_div_float_layout_step_02](/public/img/css/css_div_float_layout_step_02.gif)
 
 
-### 用CSS控制最后一个div的正确位置
+### 用CSS控制(.foot)div的位置
 
 &emsp;&emsp;通过在Chrome DevTools查看元素，反复对比，我们可以做出一个判断：class属性是“.foot”的div元素被应用了“float”属性的三个div遮盖了：
 
@@ -134,289 +134,127 @@ description:
 
  ![css_div_float_layout_step_04](/public/img/css/css_div_float_layout_step_04.gif)
 
-## 2.3 处理细节问题
+## 2.3 使用页面元素的盒子属性
 
-### 设置外边距
+### 重置body元素外边距
 
-&emsp;&emsp;接下来我们还需要给最外层的容器div设置外边距，使用下面代码就可以了：
+&emsp;&emsp;细心的同学肯定注意到：外层容器div（class=".main"）的上边和左右两边都有一条细长的白色边线。
+
+&emsp;&emsp;在Chrome Devtools界面查看body元素的“Styles”详情，大家可以看到应用在它上面的全部CSS规则，其中有一个“margin:8px”的**浏览器默认设置**（*user agent stylesheet*）。
+
+ ![css_div_float_layout_step_05_1](/public/img/css/css_div_float_layout_step_05_1.gif)
+
+
+&emsp;&emsp;我们来自定义一条CSS规则，覆盖浏览器默认的CSS属性。
+
+&emsp;&emsp;代码如下：
 
       * { //选中全部元素
        margin : 0;  //外边距为0
-	   padding :0;  //内边距为0
       }
 
 &emsp;&emsp;刷新页面，可以看到下面的效果：
 
  ![css_div_float_layout_step_05](/public/img/css/css_div_float_layout_step_05.gif)
 
-&emsp;&emsp;围绕在最外层容器（main）div的白色边距消失了。
+&emsp;&emsp;围绕在最外层容器div的三条空白细线消失了。
 
-### 填充头部内容区
+### 头部img元素的盒子属性
 
-&emsp;&emsp;头部内容区有一个img元素和一个大标题元素就够用了。同学们可以用自己掌握的知识尝试实现以下步骤：
+&emsp;&emsp;头部内容区（class=".head"）有一个img元素和一个大标题元素。
+
+&emsp;&emsp;请大家根据已经掌握的HTML知识完成以下步骤：
 
  1. 引用放在与“html”文件夹同一个级别的“imges”目录下的图片
  2. 用CSS控制img元素向左浮动，宽90px，高90px，
- 3. 大标题元素向左浮动，字体颜色为白色，行高（line-height）为80px
+ 3. 用CSS控制大标题元素左浮动，字体颜色为白色，行高（line-height）为80px
 
-&emsp;&emsp;最终你可能得到一个类似下图的页面效果：
+&emsp;&emsp;完成上述三步操作以后，你会看到类似这样的页面效果：
 
  ![css_div_layout_01_head](/public/img/css/css_div_layout_01_head.png){:width="400px" height="400px"}
 
-### 控制img的盒子属性
+&emsp;&emsp;在头部div内，图片左边紧贴div的左边界。
 
-&emsp;&emsp;对头部区域的图片元素施加以下CSS属性，可以调整这个元素的盒子属性：
+&emsp;&emsp;我们可以通过修改img元素的盒子属性，微调它的位置。代码如下：
 
     .head img {
-         width:90px;
-	     height:90px;
-	     float:left; 
-	     padding:5px; 
-         margin-right:20px;
+         /*
+	     此处是省略对元素宽、高、和左浮动的CSS声明......
+         */
+	     padding:5px; //设置内边距5个像素
+         margin-right:20px; //设置右外边距20px
     }
 
 &emsp;&emsp;刷新页面以后可以看到：
 
  ![css_div_float_layout_step_06](/public/img/css/css_div_float_layout_step_06.gif)
 
+
+## 2.4 练习：根据图片效果编写HTML代码
+
+&emsp;&emsp;接下来的工作就是往左边栏、中间内容区、右边栏和底部区域填充内容。这些工作完全可以用已经掌握的的HTML和CSS相关知识来完成。
+
+ ![ccs_div_layout_final_preview](/public/img/css/ccs_div_layout_final_preview.png)
+
+&emsp;&emsp;大家只要做出最后这样的效果就可以了。这是一个很简单的练习，请你务必自己动手完成。
+
+&emsp;&emsp;
+
+&emsp;&emsp;
+
 # 实验一的解读
 
-# 实验二：CSS绝对定位布局
+&emsp;&emsp;实验一我们主要做了下面几件事：
 
-# 实验三：CSS流式布局
+1. 用div划分页面分区
+2. 用CSS的浮动和清除浮动属性控制div的排列方式
+3. 用CSS修改元素的盒子属性，调整div容器内的页面元素显示效果
 
-
-
-
-# 1.小试牛刀，制作页面头部
-
-&emsp;&emsp;首先，我们需要把完整的页面文档内容分别放到五个不同的区域里面来显示。
-
-## 1.0 从这里开始
-
-&emsp;&emsp;我们从一个完整的HTML页面开始：
-
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-    <title>CSS+DIV Layout</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    </head>
-    <body>
-    </body>
-    </html>
-
- [打开编辑器并且复制、运行](/public/tiyEditor.html) 
-
-## 1.1 头部元素
-
-&emsp;&emsp;头部区域里面包含一个图片和一个标题：
-
-       <img src="/public/img/html/i_love_html.jpg" alt="i_love_html" />
-       <h1>Website Name</h1>
-
-&emsp;&emsp;你可以把上面的代码复制到\<body\>元素里：
-
- ![html-xhtml-relation](/public/img/html/header_step_01.PNG)
-
-## 1.2 设置背景颜色
-
-&emsp;&emsp;用一个\<DIV\>把\<IMG\>和\<h1\>装到一起,设置容器背景色：
-
-    <div class="header">
-         <img src="/public/img/html/i_love_html.jpg" alt="i_love_html" />
-         <h1>Website Name</h1>
-    <div>
-
-&emsp;&emsp;在文档头部加入如下样式代码：
-
-    <style> 
-       .header {background-color:#441111;}
-    </style>
-
- ![html-xhtml-relation](/public/img/html/header_step_02.PNG)
-
-## 1.3 设置标题颜色
-
-&emsp;&emsp;在文档头部加入如下样式代码：
-
-     .header  h1 {color : white;}
-
- ![html-xhtml-relation](/public/img/html/header_step_03.PNG)
-
-## 1.4 设置标题高度
-
-&emsp;&emsp;在文章头部更新如下样式代码：
-
-     .header h1 {color:white;line-height:80px;}
-
- ![html-xhtml-relation](/public/img/html/header_step_05.PNG)
-
-## 1.5 把图片和标题放在同一行
-
-&emsp;&emsp;在文章头部加入如下样式代码：
-
-     .header img {float:left;}
-
- ![html-xhtml-relation](/public/img/html/header_step_04.PNG)
-
-
-## 1.6 设置图片宽高
-
-&emsp;&emsp;在文章头部更新如下样式代码：
-
-     .header img { width:100px; height:70px;}
-
- ![html-xhtml-relation](/public/img/html/header_step_06.PNG)
-
-## 1.7 设置图片盒子
-
-### 第一步
-&emsp;&emsp;先在文章头部更新如下样式代码：
-
-     .header img {padding:5px; }
-
- ![html-xhtml-relation](/public/img/html/header_step_07.PNG)
-
----
-
-### 第二步
-
-&emsp;&emsp;然后在文章头部更新如下样式代码：
-
-     .header img {margin-right:20px;}
-
- ![html-xhtml-relation](/public/img/html/header_step_08.PNG)
-
-## 代码实例
-
-&emsp;&emsp;到目前为止，代码是这样的：
-
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-    <head><title>CSS+DIV Layout</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    
-    <style> 
-    .header {background-color:#441111;} 
-    .header  h1 {
-            color : white;
-            line-height:80px;
-            } 
-    .header img {
-                float:left; 
-                width:100px;
-                height:70px;
-                padding:5px; 
-                margin-right:20px;
-                }
-
-    </style>
-    </head>
-    <body> 
-    <div>  
-    <div class="header">  
-     <img src="/public/img/html/i_love_html.jpg" alt="i love html" />  
-     <h1>Website Name</h1> 
-     </div> 
-    </div>
-    </body>
-    </html> 
-
- [打开编辑器并且复制、运行](/public/tiyEditor.html) 
-
-# 2 关于头部，你需要了解什么
-
-## 2.1 div就是个容器（container）
+## 用div给页面内容分块
 
 &emsp;&emsp;div，英文全名是division：
 
 > The division of a large unit into two or more distinct parts is the act of separating it into these parts.
 
-&emsp;&emsp;使用\<div\>\</div\>标签的作用之一就是帮助我们把一个完整的页面划分成几个不同的区域。
+&emsp;&emsp;我们可以用div把一个完整的页面划分成几个不同的区块，然后把每个区块对应的div当成可以容纳其他页面内容的容器（container），最后用CSS来控制这些区块的排列方式和视觉效果。这是一种被广泛应用的网页布局方法。
 
-&emsp;&emsp;我们把头部的全部内容装进\<div\>（开始标签）和\</div\>（结束标签）之间，div就类似一个页面上的容器：头部的内容就放在容器里面，以后凡是页面头部的新元素，都要放往这个容器里放。
+ ![div_plus_css](/public/img/css/div_plus_css.jpg)
 
-### 为DIV内部元素统一定义样式
+&emsp;&emsp;在实验一里面我们就是这么干的。
 
-&emsp;&emsp;下面的例子，最外层是div，div里面有一个标题和两个段落：
+&emsp;&emsp;
 
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-    <title>CSS+DIV Layout</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    </head>
-    <body>
-      <div id="myDiv" name="myDiv">
-        <h5>Subtitle</h5>
-        <p>This paragraph would be your content paragraph...</p>
-        <p>Here's another content article right here.</p>
-      </div>
-    </body>
-    </html>
+## CSS浮动和清除浮动
 
- [打开编辑器并且复制、运行](/public/tiyEditor.html) 
+&emsp;&emsp;清澈的水面上，正浮动着一只小木船。你与没有过坐在船上向水面下面看的经历呢？正如小船一样，在我们布局网站页面的过程中网页元素也可以浮动起来。究竟是怎么回事，我们一起来看！
 
- ![html-xhtml-relation](/public/img/html/pre_css_on_single_div.PNG)
+ ![floating-boat](/public/img/html/floating-boat.jpg)
 
-&emsp;&emsp;为了统一修改标题和段落的显示外观，我们只需要选中外层div，增加相关颜色、字体属性：
+&emsp;&emsp;为了改变中间三个div默认的排列方式，我们用CSS设置三个div的**浮动**属性为左浮动。
 
-    <style>
-       #myDiv { color: #0900C4; font: Helvetica 12pt;}
-    </style>
+&emsp;&emsp;我们一起来看这三个div是如何一步一步离开默认文档流。
 
- ![html-xhtml-relation](/public/img/html/post-css-on-single-div.PNG)
+### 在Chrome DevTools里查看div浮动
 
-&emsp;&emsp;可以看到，位于div标签内部的段落和标题元素获得了应用在外层div标签的外观属性：蓝色的**Helvetica**字体。
+&emsp;&emsp;首先，“.nav”、“.content”、“.right”和“.foot”这几个div的“float”和“clear”属性禁用掉，大家可以看到，在这个情况下这些div的排列方式是什么样的。
 
----
+ ![css_div_float_layout_step_07](/public/img/css/css_div_float_layout_step_07.gif)
 
-### 进一步划分页面
+&emsp;&emsp;接下来我们来重现实验三里用CSS控制div排列的过程：
 
-&emsp;&emsp;只要把几个新div放到已有的div容器里，我们就可以根据需要把容器进一步细分成几个不同区块，这个场景可以想象成大容器里面放小容器。
+ ![css_div_float_layout_step_08](/public/img/css/css_div_float_layout_step_08.gif)
 
-&emsp;&emsp;下面是一个div嵌套例子：
+&emsp;&emsp;这是一个div元素通过浮动离开各自默认位置的过程。借助于Chrome DevTools的元素选择器，我们可以很容易检查到这里面的种种细节。
 
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-    <title>CSS+DIV Layout</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    </head>
-    <body>
-       <div id="myDiv" name="myDiv" style="font-family: Helvetica; font-size: 12pt; border: 1px solid black;">
-         <!--定义border是为了让div就显示出边框，关于这个我们稍后就有更详细的解释-->
-         <div id="subDiv1"  style="color: #FF0000; border: 1px dotted black;">
-           <h5>Section 1</h5>
-           <p>This paragraph would be your content paragraph...</p>
-           <p>Here's another content article right here.</p>
-         </div>
-         <br />
-         <!--定义border是为了让div就显示出边框，关于这个我们稍后就有更详细的解释-->
-         <div id="subDiv2" style="color: #FF00FF;border: 1px dashed black;">
-           <h5>Section 2</h5>
-           <p>This paragraph would be your content paragraph...</p>
-           <p>Here's another content article right here.</p>
-         </div>
-       </div>
-    </body>
-    </html>
+&emsp;&emsp;
 
- ![html-xhtml-relation](/public/img/html/place-div-in-div.PNG)
+&emsp;&emsp;
 
-&emsp;&emsp;我们在最外层的myDiv上应用字体属性，这就定义了这个容器里面所有文本的字体，又在subDiv1和subDiv2上应用了不同的文本颜色。
+## CSS盒子模型
 
-&emsp;&emsp;从效果可以看出两个内部div里它们的字体一样（font-family: Helvetica;），但是文本颜色不同。
+### HTML元素的形状
 
-## 2.3 一切都是盒子
-
-&emsp;&emsp;在上个小节的代码里面，我们在三个div元素（myDiv、subDiv1和subDiv2）上分别设定了不同的border属性。因此，每个div都显示出一个样式不同的边框，每个div元素都是一个长方形盒子。
-
-&emsp;&emsp;这件事绝非偶然：实际上不仅div元素是长方形盒子，一切HTML元素都是长方形盒子！每一个盒子都会有宽（width）,高（height）, 内边距（padding）, 边框（border） 和 外边距（margin）这些盒子属性。
+&emsp;&emsp;不仅div元素是长方形盒子，一切HTML元素都是长方形盒子！每一个盒子都会有宽（width）,高（height）, 内边距（padding）, 边框（border） 和 外边距（margin）这些盒子属性。
 
 &emsp;&emsp;下面以一个DIV元素为例子，形象直观地标示出了盒子的这些属性：
 
@@ -456,38 +294,20 @@ description:
 
 > 长方形盒子的宽度（450px）= div宽度(300px) + 左内边距(25px) + 右内边距(25px) + 左边框(25px) + 右边框(25px) + 左外边距(25px) + 右外边距(25px)
 
+### 通过实例演示盒子属性
 
-## 2.4 嵌套盒子
-
-&emsp;&emsp;继续上一小节的代码示例。既然所有HTML元素都是长方形盒子，我们再来看放在div盒子里面的段落（\<p\>）元素的盒子属性。
-
-### 2.4.1 增加蓝色边框
-
-&emsp;&emsp;在代码中为p标签设置的样式中增加表框属性：
-
-    border : 5px solid blue;
-
-&emsp;&emsp;最后发现效果是这样的：
-
-![html-xhtml-relation](/public/img/html/p_blue_border.PNG)
-
----
-
-### 2.4.2 增加内边距
-
-&emsp;&emsp;在代码中为p标签设置的样式中增加内边距属性：
+&emsp;&emsp;在继续上面的代码，**首先**为p标签设置的样式中增加内边距属性：
 
        padding: 25px;
 
-&emsp;&emsp;可以看到，p标签的蓝色边框和段落文本的距离拉宽了：
+&emsp;&emsp;可以看到，这个时候p标签的蓝色边框和段落文本的距离拉宽了：
 
 ![html-xhtml-relation](/public/img/html/p_padding-demo.PNG)
 
 &emsp;&emsp;还有一个明显的变化是：p标签的显示尺寸变大了，原因就是内边距变大了。
 
-### 2.4.3 增加外边距
 
-&emsp;&emsp;在代码中为p标签设置的样式中增加外边距属性：
+&emsp;&emsp;**第二步**，为p标签设置的样式中增加外边距属性：
 
      margin: 25px;
 
@@ -497,16 +317,15 @@ description:
 
 &emsp;&emsp;你还可以把外边距的像素值设置成更大的数值，看一看页面又会发生什么变化。
 
-### 2.4.4 修改段落的尺寸
 
-&emsp;&emsp;在代码中为p标签设置的样式中增加如下代码：
+&emsp;&emsp;**第三步**，为p标签设置的样式中增加如下代码：
 
        width :150px;
        height :200px;
 
 &emsp;&emsp;作为一个习题，大家可以自己去看看实际效果是什么样的？
 
-### 2.4.5 盒子模型
+### 描述盒子模型
 
 &emsp;&emsp;有一只猫正躺在盒子里睡觉，盒子外面又套一个大盒子。
 
@@ -518,7 +337,7 @@ description:
 
  ![html-xhtml-relation](/public/img/html/w3c_css_box_model.gif)
 
-## 2.5 CSS属性简写
+## CSS属性简写
 
 &emsp;&emsp;每个长方形盒子（rectangle）都有四条边，我们把这四条边所在的方位依次命名为顶部（top）、底部（bottom）、左边（left）和右边（right）。
 
@@ -621,110 +440,53 @@ description:
 
 &emsp;&emsp;关于CSS简写更详细的介绍可以参考以下链接：[CSS Shorthand properties](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Shorthand_properties)，这个网页会让你了解更多关于CSS属性简写的规则。
 
-# 3.再下一城，完成页面主体
 
-## 3.1 快速起步
+&emsp;&emsp;
 
-&emsp;&emsp;页面左边导航栏主要包含以下内容：
+&emsp;&emsp;
 
-       <p><strong>Navigation</strong></p>
-       <ul>
-         <li><a href="one.html">One</a></li>
-         <li><a href="two.html">Two</a></li>
-         <li><a href="three.html">Three</a></li>
-       </ul>
+# 实验二：CSS绝对定位布局
 
-&emsp;&emsp;页面中间内容区包含以下元素：
+# 实验三：CSS流式布局
 
-       <p><strong>Main Content</strong></p>
-       <p>line of text</p>
-       <p>line of text</p>
-       <p>line of text</p>
-       <p>line of text</p>
-       <p>line of text</p>
-       <p>line of text</p>
-       <p>line of text</p>
 
-&emsp;&emsp;页面右边栏包含以下元素：
 
-        <p><strong>Right Side</strong></p>
-        <p><strong>Right Side</strong></p>
-        <p><strong>Right Side</strong></p>
 
-## 3.2 设置背景色
 
-&emsp;&emsp;我们还是先要把它们放到各自容器里面，然后分别设置三块内容的背景色：
 
-      <div class="nav">
-       <p><strong>Navigation</strong></p>
-        <ul>
-         <li><a href="one.html">One</a></li>
-         <li><a href="two.html">Two</a></li>
-         <li><a href="three.html">Three</a></li>
-        </ul>
-      </div>
+---
 
-      <div class="content">
-       <p><strong>Main Content</strong></p>
-       <p>line of text</p>
-       <p>line of text</p>
-       <p>line of text</p>
-       <p>line of text</p>
-       <p>line of text</p>
-       <p>line of text</p>
-       <p>line of text</p>
-      </div>
 
-      <div class="right">
-        <p><strong>Right Side</strong></p>
-        <p><strong>Right Side</strong></p>
-        <p><strong>Right Side</strong></p>
-      </div>
 
-&emsp;&emsp;在文章头部加入如下样式代码：
 
-    .nav {background-color:#ffdd99;}
-    .right {background-color:#bb9955;}
 
-&emsp;&emsp;设置背景颜色颜色之后的效果是这样的
 
- ![html-xhtml-relation](/public/img/html/main-content-demo.PNG)
 
-## 3.3 三个div从左到右一字排开
+## 2.4 嵌套盒子
 
-&emsp;&emsp;在文章头部加入如下样式代码：
+&emsp;&emsp;继续上一小节的代码示例。既然所有HTML元素都是长方形盒子，我们再来看放在div盒子里面的段落（\<p\>）元素的盒子属性。
 
-    .nav {float:left;}
-    .content {float:left;}
-    .right {float:left;}
+### 2.4.1 增加蓝色边框
 
-&emsp;&emsp;三个div在页面上就按照左中右的顺序显示出来了：
+&emsp;&emsp;在代码中为p标签设置的样式中增加表框属性：
 
- ![html-xhtml-relation](/public/img/html/main-content-float-left.PNG)
+    border : 5px solid blue;
 
-## 3.4 去掉a元素的下划线
+&emsp;&emsp;最后发现效果是这样的：
 
-&emsp;&emsp;在文章头部加入如下样式代码：
+![html-xhtml-relation](/public/img/html/p_blue_border.PNG)
 
-    a {text-decoration:none;}
+---
 
-## 3.5 改变li元素显示样式
 
-&emsp;&emsp;在文章头部加入如下样式代码：
 
-    .nav ul {list-style-type:none;}
 
-## 3.6 按百分比分配屏幕宽度
 
-&emsp;&emsp;在html头部更新如下样式代码，使得三个div从左到右按照设定的百分比分配屏幕宽度：
 
-     .content {width:60%;}
-     .nav {width:20%;}
-     .right {width:20%;}
 
- ![html-xhtml-relation](/public/img/html/div_three_col.PNG)
 
-&emsp;&emsp;当你调整浏览器窗口宽度的时候，这三个div所占宽度会按照百分比动态调整。
+
+
 
 # 4. 关于页面布局，你需要了解什么
 
@@ -839,174 +601,6 @@ description:
 
 &emsp;&emsp;你也可以用开发者工具，选中行元素span,查看它的display属性。
 
-
-## 4.2 html默认文档流
-
-&emsp;&emsp;所谓的html默认文档流，就是在浏览器按照默认的CSS规范（每个元素都依照display属性的默认值）显示页面的时候，各个元素所表现出来的位置和顺序。
-
-&emsp;&emsp;我们用例子来说明什么是默认文档流：
-
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-    <html>
-    <head>
-    <style>
-    div {
-        /**
-        注意：这里没有设置div的宽度属性        
-        */
-        height:100px;
-        /**
-        背景色：银灰色        
-        */
-        background-color: lightgrey;
-        /**
-        边框：两像素宽的红色实线        
-        */
-        border: 2px solid red;
-        /**
-        内边距：5px       
-        */
-        padding: 5px;
-        /**
-        外边距是5px 让两个div的边框显示出来       
-        */
-        margin:50px; 
-    }
-    a {
-      margin:10px;
-      padding:10px;
-    }
-    </style>
-    </head>
-    <body> 
-    <h2>演示块级元素</h2>
-    <div><a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a>
-    <a href="http://www.baidu.com">百度搜索</a></div>
-    <div></div>
-    <div></div>
-    </body>
-    </html>
-
-  [打开编辑器并且复制、运行](/public/tiyEditor.html)
-
-&emsp;&emsp;图片中的箭头走向标示出了这个网页内容的默认文档流的走向：
-
- ![html-xhtml-relation](/public/img/html/default-doc-flow-demo.PNG)
-
-&emsp;&emsp;图中绿色箭头标示了**a**（inline）元素的默认文档流走向：它们会在同一行里头尾相连、挨个显示；倘若一行宽度不够用，新的元素会流动到下一行继续显示。
-
-&emsp;&emsp;图中的黑色箭头标示了div（block）元素的默认文档流走向：每个块元素占据一整行，从上单下按照它们出现的先后顺序显示。
-
-
-## 4.3 浮动
-
-&emsp;&emsp;清澈的水面上，正浮动着一只小木船。你与没有过坐在船上向水面下面看的经历呢？正如小船一样，在我们布局网站页面的过程中网页元素也可以浮动起来。究竟是怎么回事，我们一起来看！
-
- ![html-xhtml-relation](/public/img/html/floating-boat.jpg)
-
-&emsp;&emsp;在步骤3.3，为了改变三个div从上到下各占一行、顺序放置的html默认布局，我们用到了下面的代码：
-
-    .nav {float:left;}
-    .content {float:left;}
-    .right {float:left;}
-
-&emsp;&emsp;这里设置了三个div的**浮动**属性为左浮动。
-
-&emsp;&emsp;我们看这三个div是怎么离开默认文档流实现左浮动的。
-
----
-
-### 默认布局
-
-&emsp;&emsp;不设定div左浮动效果是这样的：
-
- ![html-xhtml-relation](/public/img/html/div-in-default-layout.PNG)
-
-
----
-
-### 导航栏左浮动
-
-&emsp;&emsp;设定导航栏左浮动：
-
-    .nav {float:left;}
-
- ![html-xhtml-relation](/public/img/html/div-nav-float-left.PNG)
-
-&emsp;&emsp;在Chrome浏览器开发工具里面查看导航栏div
-
- ![html-xhtml-relation](/public/img/html/nav-float-left-inspect.png)
-
-&emsp;&emsp;在导航栏div左浮动之后，原来在它下面的主内容div也发生了变化：
-
- ![html-xhtml-relation](/public/img/html/div-content-on-doc-flow.png)
-
----
-
-### 主内容左浮动
-
-&emsp;&emsp;设定主内容div左浮动：
-
-    .content {float:left;}
-
- ![html-xhtml-relation](/public/img/html/div-content-float-left.png)
-
-&emsp;&emsp;目前为止，导航栏div和主内容div脱离了默认文档流，实现左浮动。此时右边栏div仍然在默认文档流之上，遵循CSS默认的布局规则。
-
- ![html-xhtml-relation](/public/img/html/div-right-on-doc-flow.png)
-
-
----
-
-### 右边栏左浮动
-
-&emsp;&emsp;设定右边栏div左浮动：
-
-    .right {float:left;}
-
-&emsp;&emsp;用Chrome浏览器查看浮动效果：
-
- ![html-xhtml-relation](/public/img/html/div-right-float-left.png)
-
-&emsp;&emsp;接下来要做的就是分配三列div占据屏幕宽度的百分比了，具体请参考3.6小节代码。
-
----
-
-### 其他浮动方式
-
-&emsp;&emsp;元素float属性有一个默认值none（不浮动）。除了令div左（left）浮动，我们还可以让元素按其他方式浮动，比如右（right）浮动。
-
-&emsp;&emsp;我们来做一个实验，把3.3小节的所有浮动属性修改为右（right）浮动，
-
-    .nav {float:right;}
-    .content {float:right;}
-    .right {float:right;}
-
-&emsp;&emsp;三个div全部右浮动的效果跟原来的情况形成左右对称：
-
- ![html-xhtml-relation](/public/img/html/div-all-float-right.PNG)
-
-
----
-
-### 试一试
-
-&emsp;&emsp;让其中任意两个元素左浮动，一个元素右浮动，或者反过来，请你自己修改代码并仔细观察：这样做会产生什么效果？
 
 
 ## 4.4 定位
