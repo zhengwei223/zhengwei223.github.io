@@ -1,20 +1,24 @@
 ---
 layout: post
-title: 用CSS做好页面布局
+title: CSS+DIV页面布局
 category: Web前端入门教程
 tags: Web前端
 author: 曹小虎
 keywords: lanqiao 蓝桥 全栈 教程 Web前端
-description: 
+description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化，用CSS控制其显示效果；DIV是框架，CSS是样式，用来装饰框架。这就像盖房子，div负责把这栋房子盖起来，而css负责定义框架的尺寸和外观！
 ---
 
 > 本章目标
 
-- 给页面分块
+- 用CSS+DIV布局页面
 
-- CSS布局属性
+- CSS浮动和清除浮动
 
-- 用CSS控制DIV及页面元素完成布局
+- CSS盒子模型
+
+- CSS的display属性
+
+- CSS的position属性
 
 
 
@@ -324,6 +328,18 @@ description:
        height :200px;
 
 &emsp;&emsp;作为一个习题，大家可以自己去看看实际效果是什么样的？
+
+### 嵌套的盒子
+
+&emsp;&emsp;继续上一小节的代码示例。既然所有HTML元素都是长方形盒子，我们再来看放在div盒子里面的段落（\<p\>）元素的盒子属性。
+
+&emsp;&emsp;在代码中为p标签设置的样式中增加表框属性：
+
+    border : 5px solid blue;
+
+&emsp;&emsp;最后发现效果是这样的：
+
+![html-xhtml-relation](/public/img/html/p_blue_border.PNG)
 
 ### 描述盒子模型
 
@@ -670,69 +686,29 @@ description:
 
 &emsp;&emsp;
 
-## 2.3  修理边角效果
-
 
 # 实验二的解读
 
+## 控制渲染元素的盒子类型
+
+&emsp;&emsp;我们在CSS规则里面用display属性控制页面元素的隐藏和显示。
+
+> The display property specifies the type of box used for an HTML element.
+
+&emsp;&emsp;根据CSS规范，页面上的HTML元素可以按照几种不同的类型“盒子”来显示，甚至还有可能直接不显示。
+
+&emsp;&emsp;在HTML中，默认的*display*属性取决于HTML规范所描述的行为或浏览器/用户的默认样式表。
 
 
+### block
 
+&emsp;&emsp;“display”属性默认值是“block”的元素也可以被称为“块级元素”。
 
+&emsp;&emsp;div是最常见的一个块级元素，我们以div为例说明块级元素的特性。
 
+&emsp;&emsp;看代码：
 
-
----
-
-
-
-
-
-
-
-## 2.4 嵌套盒子
-
-&emsp;&emsp;继续上一小节的代码示例。既然所有HTML元素都是长方形盒子，我们再来看放在div盒子里面的段落（\<p\>）元素的盒子属性。
-
-### 2.4.1 增加蓝色边框
-
-&emsp;&emsp;在代码中为p标签设置的样式中增加表框属性：
-
-    border : 5px solid blue;
-
-&emsp;&emsp;最后发现效果是这样的：
-
-![html-xhtml-relation](/public/img/html/p_blue_border.PNG)
-
----
-
-
-
-
-
-
-
-
-
-
-
-# 4. 关于页面布局，你需要了解什么
-
-&emsp;&emsp;这一次，我们把默认从上到下连续显示的三个div区域，改变为同一行里面左、中、右位置展示内容的三列区域。究竟为什么这样做可以，不这样做行不行，有没有别的方法能实现同样效果，这些是值得我们深入了解的问题。
-
-## 4.1 页面元素的显示方式
-
-&emsp;&emsp;用来控制页面布局的最重要的一个CSS属性是**display**，它定义了浏览器显示一个网页元素的方式显。
-
-&emsp;&emsp;所有类型的元素也都有一个默认的**display**属性值。根据W3C规范，大多数元素display属性的默认值是block和inline，前者被称为块（block-level）元素，后者被称为行（inline）元素。
-
-### 块(block-level)元素
-
-&emsp;&emsp;常见的一个块级元素由div，p和form。下面以div为例说明块级元素的特性：
-
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
+    <!DOCTYPE html>
     <html>
     <head>
     <style>
@@ -769,20 +745,22 @@ description:
 
   [打开编辑器并且复制、运行](/public/tiyEditor.html)
 
-&emsp;&emsp;我们可以看到，不只是它的宽度充满了整个页面的宽度 ，而且第二个元素位置换行显示，这也是块元素的主要特征。
+&emsp;&emsp;，两个div各占一行 ，它们的宽度自动自动扩展、直到充满上级（这里是body）元素。
 
  ![html-xhtml-relation](/public/img/html/div-display-as-block-el.PNG)
-
 
 &emsp;&emsp;使用Chrome浏览器开发工具，查看div元素的属性：
 
  ![html-xhtml-relation](/public/img/html/div-display-block-demo.PNG)
 
----
 
-### 行(inline)元素
+### inline
 
-&emsp;&emsp;span和a标签都是标准的行元素，来看一个综合性的例子：
+&emsp;&emsp;“display”属性默认值是“inline”的元素也可以被称为“行级元素”，span和a都是最常见的行级元素。
+
+&emsp;&emsp;通过下面这个综合性的例子，我们来对比一下行级元素与块级元素的最大不同。
+
+&emsp;&emsp;看代码：
 
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -803,7 +781,7 @@ description:
     <h2>演示行级元素</h2>
     <p id="para1">Hello World!</p>
     <p>
-                        <!--这里定义了一个行级元素，元素里的文本字体被设置为红色-->
+     <!--这里定义了一个行级元素，元素里的文本字体被设置为红色-->
      This paragraph is <span style="color:red;">not</span> affected by the style.
      This paragraph is <span style="color:red;">not</span> affected by the style.
      This paragraph is <span style="color:red;">not</span> affected by the style.
@@ -821,151 +799,44 @@ description:
 
  ![html-xhtml-relation](/public/img/html/p-span-a-css-display.PNG)
 
-&emsp;&emsp;请注意，行元素没有让段落里原来同一行上的文字换行，这正是它们和块元素最大的不同：
+&emsp;&emsp;行级元素的宽度取决于其中文字内容的宽度、不会继续扩展，与此同时它也不会引起所在段落发生文字换行。
 
 &emsp;&emsp;使用Chrome浏览器开发工具，查看a元素的属性：
 
  ![html-xhtml-relation](/public/img/html/p-a-display-inline-demo.PNG)
 
-&emsp;&emsp;你也可以用开发者工具，选中行元素span,查看它的display属性。
+&emsp;&emsp;
+
+### none
+
+&emsp;&emsp;选中页面元素并且声明display属性的值是“none” ，可以“关闭”它的显示：
+
+&emsp;&emsp;这种情况下，包括页面元素在内，它的所有的后代元素的显示都会被一起关闭。文档渲染的过程中就好像在文档树中不存在这个元素一样。
+
+&emsp;&emsp;实验里面包含二级菜单内容的无序列表（ul元素）在默认的状态下就不显示。
+
+&emsp;&emsp;还有与页面元素显示有关的盒子类型，可以直接参考[W3School CSS display属性](http://www.w3school.com.cn/cssref/pr_class_display.asp)页面。
+
+
+&emsp;&emsp;
+
+&emsp;&emsp;
+
+## 用CSS定位页面元素
+
+&emsp;&emsp;我们还用到了名称为position的CSS属性为页面元素定义定位规则。
+
+&emsp;&emsp;其中主要用到了两个属性值：relative和absolute，分别是相对定位和绝对定位。
+
+### relative
+
+&emsp;&emsp;相对于默认位置，给页面元素重新定位，此时可以通过top、bottom、left和right为元素设置定位参数。
+
+### absolute
+
+&emsp;&emsp;绝对定位，会把页面元素从默认文档流移动出来。通过top、bottom、left和right为元素设置定位参数。
+
+&emsp;&emsp;关于CSS定位的更去那面系统的解释，大家可以参考MDN的[CSS Position属性页面](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position)。
 
 
 
-## 4.4 定位
-
-&emsp;&emsp;除了float属性，position属性也可以修改默认文档流。
-
-###  相对（relative）定位
-
-&emsp;&emsp;相对定位，根据事先设置好的垂直或水平位置，让这个元素“相对于”它在默认文档流里面的初始位置移动。
-
-&emsp;&emsp;如果将 top 设置为 20px，那么框将在初始位置顶部下面 20 像素的地方。如果 left 设置为 30 像素，那么会在元素左边创建 30 像素的空间，也就是将元素向右移动。
-
- ![html-xhtml-relation](/public/img/html/css-relative-position.png)
-
-&emsp;&emsp;下面的例子中分别对\<h2\>进行了相对定位（**position:relative**）。你可以尝试修改名成为left的属性数值，查看相对定位的显示效果。
-
-    <html>
-    <head>
-    <style type="text/css">
-    h2.pos_left
-    {
-    position:relative;
-    left:-10px
-    }
-    h2.pos_right
-    {
-    position:relative;
-    left:20px
-    }
-    </style>
-    </head>
-    
-    <body>
-    <h2>这是位于正常位置的标题</h2>
-    <h2 class="pos_left">这个标题相对于其正常位置向左移动</h2>
-    <h2 class="pos_right">这个标题相对于其正常位置向右移动</h2>
-    <p>相对定位会按照元素的原始位置对该元素进行移动。</p>
-    <p>样式 "left:-20px" 从元素的原始左侧位置减去 20 像素。</p>
-    <p>样式 "left:20px" 向元素的原始左侧位置增加 20 像素。</p>
-    </body>
-    
-    </html>
-
-  [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
-
-&emsp;&emsp;相对定位的一个特点是：目标元素相对于自己的默认位置移动后，原来的位置仍然会被占据。这个特点可以用下面的例子直接说明：
-
-    <div style=" width:100px; height:100px;">div1</div>
-    <div style=" width:100px; height:100px;">div2</div>
-    <div style=" width:100px; height:100px;">div3</div>
-
-&emsp;&emsp;在对DIV元素进行相对定位之前效果是这样的：
-
- ![html-xhtml-relation](/public/img/html/div-position-relative.jpg)
-
-&emsp;&emsp;当第二个DIV相对于自己的默认位置移动之后，代码应该是这样的：
-
-    <div style=" width:100px; height:100px;">div1</div>
-    <div style=" width:100px; height:100px; position:relative; top:-20px; left:50px;">div2</div>
-    <div style=" width:100px; height:100px;">div3</div>
-
-&emsp;&emsp;效果是这样的：
-
- ![html-xhtml-relation](/public/img/html/div-postion-relative-2.jpg)
-
-&emsp;&emsp;蓝色边框就是div2原来的位置，黑色边框就是通过position:relative相对于原来的位置左移50px; 上移20px得到的。
-
-&emsp;&emsp;我们还看到，div2原来的位置仍然空在那里，div3也没有因为div2移动到别的地方跟着一起向上移动。
-
-### 绝对（absolute）定位
-
-&emsp;&emsp;绝对定位就是把一个元素直接在页面上进行定位。
-
-&emsp;&emsp;这种情况下，元素不会出现在默认的文档流里面，因此不存在可供参考的初始位置。那么，绝对定位参考的是什么呢？请看下面的小例子：
-
-    <html>
-    <head>
-    <style type="text/css">
-    h2.pos_abs
-    {
-    position:absolute;
-    left:100px;
-    top:150px
-    }
-    </style>
-    </head>
-    <body>
-    <h2 class="pos_abs">这是带有绝对定位的标题</h2>
-    <p>通过绝对定位，元素可以放置到页面上的任何位置。下面的标题距离页面左侧 100px，距离页面顶部 150px。</p>
-    </body>
-    </html>
-
-  [点击复制按钮并在打开新窗口粘贴、运行以上代码](/public/tiyEditor.html)  
-
-&emsp;&emsp;绝对定位的一个特点是：元素被直接定位到页面上的位置，比如说，相对于页面左侧100px，距离页面顶部150px。
-
-
-# 5. 收官之作，完成底部区域
-
-## 5.1 快速起步
-
-&emsp;&emsp;页面底部一般用于显示版权信息，我们的这个例子中，这一块内容一个文字段落：
-
-       <p>Footer</p>
-
-&emsp;&emsp;我们仍然需要一个DIV来划分出页面上的一个区域：
-
-    <div class="footer">
-       <p>Footer</p>
-    </div>
-
-## 5.2 设置底部背景色
-
-&emsp;&emsp;在文章头部加入如下样式代码：
-
-      .footer { background-color:#bb9955;}
-
-## 5.3 清除浮动效果
-
-&emsp;&emsp;下面是底部栏设置颜色之后的样子：
-
- ![html-xhtml-relation](/public/img/html/div-footer-not-clear-float.png ) 
-
-&emsp;&emsp;底部（footer）div位于默认文档流上，有三个div在默认文档流的“表面”上浮起来，跑到浏览器窗口的**左边**。为了解决三个div遮挡底部（footer）div的问题，我们可以通过设置CSS的clear属性，“**清除浮动**”:不允许其他元素浮动到底部（footer）div的左侧：
-
-     .footer { clear:left;}
-
- ![html-xhtml-relation](/public/img/html/div-footer-clear-float.PNG) 
-
-&emsp;&emsp;底部区域终于放对位置了！
-
-&emsp;&emsp;元素样式的clear属性默认值是none，其他值还可以是right（清除右侧浮动）、both（清除两侧浮动）。大家可以根据需要在项目实战的时候灵活运用。
-
-# 6. 你还需要了解什么
-
-## 6.6 样式继承
-
-# 7.更多思考
-
-# 8.面试题
