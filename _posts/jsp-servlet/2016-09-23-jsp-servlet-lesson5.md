@@ -2,7 +2,7 @@
 
 layout: post
 
-title: MVC模式
+title: Servlet与MVC设计模式
 
 category: JSP-Servlet教程
 
@@ -12,13 +12,15 @@ description: 本章将系统介绍Servlet与MVC设计模式
 
 author: 颜群
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
-# 5 .1MVC设计模式简介 #
+在学习Servlet之前，我们有必要先了解一下“MVC设计模式”。
 
-MVC模式（Model-View-Controller）是软件工程中的一种软件架构模式，把软件系统（项目）分为三个基本部分：模型（Model）、视图（View）和控制器（Controller）。
+# 4.1MVC设计模式简介 #
+
+MVC模式（Model-View-Controller）是软件工程中常见的一种软件架构模式，该模式把软件系统（项目）分为三个基本部分：模型（Model）、视图（View）和控制器（Controller）。
 
 使用MVC模式有很多优势，比如：
 
@@ -46,19 +48,19 @@ MVC模式（Model-View-Controller）是软件工程中的一种软件架构模�
 
 ![](http://i.imgur.com/N2zETlF.png)
 
-*图5-01*
+*图4-01*
 
 在MVC模式中，视图View可以用JSP/HTML/CSS实现，模型model可以用Java Bean实现，而控制器Control就可以用Servlet来实现。
 
-# 5 .2 Servlet #
+# 4.2 Servlet #
 
 Servlet是基于Java技术的Web组件，运行在服务器端，由Servlet容器所管理，用于生成动态网页的内容。Servlet是一个符合特定规范的Java程序，编写一个Servlet，实际上就是按照Servlet的规范编写一个Java类，Servlet主要用于处理客户端请求并做出响应。
 
-在绝大多数的网络应用中，客户端都是通过HTTP协议来访问服务器端资源。这就要求我们编写的Servlet要使用于HTTP协议的请求和响应。我们本章讲解的Servlet，实际就是在讲解HttpServlet的相关类。
+在绝大多数的网络应用中，客户端都是通过HTTP协议来访问服务器端资源。这就要求我们编写的Servlet要适用于HTTP协议的请求和响应。我们本章讲解的Servlet，实际就是在讲解HttpServlet的相关类。
 
-## 5.2.1开发第一个Servlet程序 ##
+## 4.2.1开发第一个Servlet程序 ##
 
-如果要开发一个能够处理HTTP协议的控制器Servlet，就必须要继承`javax.servlet.http.HttpServlet`，并重写`HttpServlet`类里的`doGet()`方法或`doPost()`方法，用来处理客户端发来的get请求或post请求，方法简介如下，
+如果要开发一个能够处理HTTP协议的控制器Servlet，就必须要继承`javax.servlet.http.HttpServlet`，并重写`HttpServlet`类里的`doGet()`方法或`doPost()`方法，用来处理客户端发来的`get`请求或`post`请求，方法简介如下，
 
 <table>
    <tr>
@@ -81,9 +83,9 @@ Servlet是基于Java技术的Web组件，运行在服务器端，由Servlet容�
 
 ![](http://i.imgur.com/JpnlIt8.png)
 
-*图5-02*
+*图4-02*
 
-之后再将该项目部署到eclipse中的tomcat里，并在WebContent下建index.jsp，代码如下：
+之后再将该项目部署到eclipse中的tomcat里，并在WebContent下建**index.jsp**，代码如下：
 
 **index.jsp**
 
@@ -138,7 +140,7 @@ HttpServletResponse resp) throws ServletException, IOException
 }
 ```
 
-如果现在就执行index.jsp中的submit按钮，是无法通过`action`跳转到WelcomeServlet的。因为，在Dynamic web module version选择为2.5的情况下，要想成功的实现从JSP（或其他Servlet）跳转到某一个特定的Servlet，必须要在web.xml中的`<web-app>`标签里，加入一些servlet配置，具体如下：
+如果现在就执行**index.jsp**中的submit按钮，是无法通过action跳转到WelcomeServlet的。因为，在Dynamic web module version选择为2.5的情况下，要想成功的实现从JSP（或其他Servlet）跳转到某一个特定的Servlet，必须要在**web.xm**l中的`<web-app>`标签里，加入一些servlet配置，具体如下：
 
 **web.xml**
 
@@ -167,19 +169,19 @@ HttpServletResponse resp) throws ServletException, IOException
 </web-app>
 ```
 
-需要注意，每次修改web.xml后，都必须重新启动tomcat服务。
+需要注意，每次修改**web.xml**后，都必须重新启动tomcat服务。
 
-具体的流程是：当用户点击index.jsp中的提交按钮后，程序发现action请求地址是“WelcomeServlet”，然后就会在web.xml中`<servlet-mapping>`内的`<url-pattern>`里匹配“WelcomeServlet”（即，检查action的值是否与`<url-pattern>`中的值一致）。如果匹配成功，就会根据`<servlet-mapping>`中的`<servlet-name>`值“welcome”，再去匹配`<servlet>`中的`<servlet-name>`值（即，检查`<servlet-mapping>`中的`<servlet-name>`值，是否与`<servlet>`中的`<servlet-name>`值一致）。如果仍然匹配成功，就会去执行`<servlet>`	中的`<servlet-class>`里面的Servlet实现类（如`org.lanqiao.servlet.WelcomeServlet`）。最后再根据请求方式，来决定执行Servlet实现类中的`doGet()`或`doPost()`方法。
+具体的流程是：当用户点击**index.jsp**中的提交按钮后，程序发现action请求地址是“WelcomeServlet”，然后就会在**web.xml**中`<servlet-mapping>`内的`<url-pattern>`里匹配“WelcomeServlet”（即，检查action的值是否与`<url-pattern>`中的值一致）。如果匹配成功，就会根据`<servlet-mapping>`中的`<servlet-name>`值“welcome”，再去匹配`<servlet>`中的`<servlet-name>`值（即，检查`<servlet-mapping>`中的`<servlet-name>`值，是否与`<servlet>`中的`<servlet-name>`值一致）。如果仍然匹配成功，就会去执行`<servlet>`中的`<servlet-class>`里面的Servlet实现类（如**org.lanqiao.servlet.WelcomeServlet**）。最后再根据请求方式，来决定执行Servlet实现类中的`doGet()`或`doPost()`方法。
 
 **运行index.jsp，并点击“提交”按钮，得到结果：**
 
 ![](http://i.imgur.com/K8P6O9T.png)
 
-*图5-03*
+*图4-03*
 
 以上就是用纯手写的方式开发的第一个Servlet程序，对于初学者来说可能稍微复杂一些，但上述的原理是必须要搞清楚的。此外，我们还可以借助于Eclipse来帮助我们快速的开发Servlet程序。
 
-## 5.2.2使用Eclipse快速开发Servlet程序 ##
+## 4.2.2使用Eclipse快速开发Servlet程序 ##
 
 用Eclipse开发Servlet，会比手工方式方便很多。我们接下来就用Eclipse来开发一个Servlet（需要确保项目的Dynamic web module version为2.5），步骤如下：
 
@@ -198,7 +200,7 @@ HttpServletResponse resp) throws ServletException, IOException
 
 ![](http://i.imgur.com/Y6QLrXp.png)
 
-*图5-04*
+*图4-04*
 
 点击Finish之后，我们就会得到一个已经继承了HttpServlet，并重写了`doGet()`和`doPost()`方法的类（即Servlet）。我们将注释等无关代码删除之后，得到如以下代码，
 
@@ -233,21 +235,21 @@ throws ServletException, IOException {
 
 上面代码中的serialVersionUID，读者暂时不用理会，可以直接先将其删除。
 
-再观察一下web.xml，会发现Eclipse也已经为我们自动生成了`<servlet>`和`<servlet-mapping>`的相关配置。
+再观察一下**web.xml**，会发现Eclipse也已经为我们自动生成了`<servlet>`和`<servlet-mapping>`的相关配置。
 
-也就是说，如果用Eclipse创建一个servlet，就会得到一个已经继承了HttpServlet，并重写了`doGet()`和`doPost()`方法的类，并且自动完成了web.xml的配置。因此，使用Eclipose开发Servlet，可以提高我们的开发效率。
+也就是说，如果用Eclipse创建一个servlet，就会得到一个已经继承了HttpServlet，并重写了`doGet()`和`doPost()`方法的类，并且自动完成了**web.xml**的配置。因此，使用Eclipose开发Servlet，可以提高我们的开发效率。
 
 以上就是项目的Dynamic web module version为2.5时，开发servlet程序的方法及步骤。
 
-## 5.2.3 Servlet3.0简介 ##
+## 4.2.3 Servlet3.0简介 ##
 
 接下来再重新创建一个Web项目，此次将Dynamic web module version选为3.0，如图，
 
 ![](http://i.imgur.com/Aa8W0TU.png)
 
-*图5-05*
+*图4-05*
 
-再创建一个index.jsp，
+再创建一个**index.jsp**，
 
 **index.jsp**
 
@@ -287,7 +289,7 @@ HttpServletResponse response)
 }
 ```
 
-仔细观察上面代码，会发现本次用Dynamic web module version3.0开发的servlet，比之前用Dynamic web module version为2.5开发的servlet多了一句`@WebServlet("/WelcomeServlet30WithEclipse")`；再观察web.xml，会发现web.xml中,并没有像之前那样自动生成`<servlet>`和`<servlet-mapping>`的配置。但如果我们给`doGet()`方法加入输出语句，如下，
+仔细观察上面代码，会发现本次用Dynamic web module version3.0开发的servlet，比之前用Dynamic web module version为2.5开发的servlet多了一句@WebServlet("/WelcomeServlet30WithEclipse")；再观察**web.xml**，会发现**web.xml**中,并没有像之前那样自动生成`<servlet>`和`<servlet-mapping>`的配置。但如果我们给`doGet()`方法加入输出语句，如下，
 
 ```
 protected void doGet(HttpServletRequest request,
@@ -300,21 +302,21 @@ throws ServletException, IOException
 	}
 ```
 
-然后启动服务，直接运行index.jsp，点击提交后，也能得到正确的结果，如图：
+然后启动服务，直接运行**index.jsp**，点击提交后，也能得到正确的结果，如图：
 
 ![](http://i.imgur.com/FoX23tp.png)
 
-*图5-06*
+*图4-06*
 
-也就是说，Dynamic web module version3.0与Dynamic web module version2.5的区别是（本质是Servlet3.0和Servlet2.5的区别）：不用在web.xml中配置servlet，而是直接使用@WebServlet在创建的Servlet类名前加上映射路径（相当于之前web.xml中的`<url-pattern>`），如`@WebServlet("/WelcomeServlet30WithEclipse")`。
+也就是说，Dynamic web module version3.0与Dynamic web module version2.5的区别是（本质是Servlet3.0和Servlet2.5的区别）：不用在web.xml中配置servlet，而是直接使用@WebServlet在创建的Servlet类名前加上映射路径（相当于之前web.xml中的`<url-pattern>`），如@WebServlet("/WelcomeServlet30WithEclipse")。
 
-## 5.2.4 Servlet生命周期 ##
+## 4.2.4 Servlet生命周期 ##
 
 Servlet是运行在服务器端的一段程序，所以Servlet的生命周期会受Servlet容器的控制。Servlet生命周期包括加载、初始化、服务、销毁、卸载等5个部分，如图，
 
 ![](http://i.imgur.com/PCVb0mX.png)
 
-*图5-07*
+*图4-07*
 
 通常情况，加载和卸载阶段可以由Servlet容器来处理，我们只需要关注初始化、服务、销毁三个阶段。与Servlet生命周期相关的方法，如下表，
 
@@ -352,6 +354,7 @@ Servlet是运行在服务器端的一段程序，所以Servlet的生命周期会
 ### 3.销毁
 
 Servlet实例服务完毕以后，就可以通过`destroy()`方法来指明哪些资源可以被系统回收（注意`destroy()`方法只是“指明”需要被回收的方法，并不会直接进行回收）。
+
 
 下面我们通过一个例子，来看一下Servlet生命周期的执行流程：
 
@@ -396,27 +399,27 @@ throws ServletException, IOException
 
 ![](http://i.imgur.com/CxyycvH.png)
 
-*图5-08*
+*图4-08*
 
 重复执行多次后，运行结果：
 
 ![](http://i.imgur.com/aLkquPu.png)
 
-*图5-09*
+*图4-09*
 
 关闭服务器（注意是在Servers面板中点击红色的关闭按钮，而不是在Console控制台中），可以发现Servlet容器确实执行了`destroy()`方法，运行结果：
 
 ![](http://i.imgur.com/GSCHGvv.png)
 
-*图5-10*
+*图4-10*
 
 不难发现，在Servlet生命周期中，初始化`init()` 方法只在第一次访问时执行一次；而`doGet()`或`doPost()`方法会在服务器每次接收请求时，都执行一次；销毁`destroy()`方法只会在关闭服务时执行一次。
 
-需要说明，初始化`init()`方法默认会在第一次调用`servlet`服务（即调用`doGet()`或`doPost()`）时执行，但也可以通过配置（servlet2.5配置web.xml；servlet3.0配置注解），让初始化`init()`方法在Tomcat容器启动时自动执行。具体的配置方法如下：
+需要说明，初始化方法`init()`默认会在客户端第一次调用servlet服务（即调用`doGet()`或`doPost()`）时执行，但也可以通过配置（servlet2.5通过 web.xml配置；servlet3.0通过注解配置），让初始化`init()`方法在Tomcat容器启动时自动执行。具体的配置方法如下：
 
 **①	如果使用servlet2.5：**
 
-在web.xml中的`<servlet>`标签中加入`<load-on-start-up>`，如下：
+在**web.xml**中的`<servlet>`标签中加入`<load-on-start-up>`，如下：
 
 ```
 <servlet>
@@ -446,11 +449,11 @@ public class LifeCycleServlet extends HttpServlet
 
 ![](http://i.imgur.com/gNNeAvW.jpg)
 
-*图5-11*
+*图4-11*
 
 其中`loadOnStartup=1`，表示如果有多个servlet同时配置了loadOnStartp，则此处servlet的`init()`方法会第1个执行；`<load-on-startup>`同理。
 
-## 5.2.5 Servlet API ##
+## 4.2.5 Servlet API ##
 
 Servlet API由两个软件包组成：一个是对应HTTP的软件包，另一个是不对应HTTP的通用的软件包。这两个软件包的同时存在使得Servlet API能够适应任何请求-响应协议。
 
@@ -458,7 +461,7 @@ Servlet API由两个软件包组成：一个是对应HTTP的软件包，另一�
 
 ![](http://i.imgur.com/uRZzNM1.png)
 
-*图5-12*
+*图4-12*
 
 上面是Servlet的继承实现图，由图可知，我们自己定义的Servlet，会依次继承`HttpServlet`、`GenericServlet`，而GenericServlet会实现`ServletConfig`、`Servlet`和`Serializable`接口。
 
@@ -506,7 +509,7 @@ Servlet API由两个软件包组成：一个是对应HTTP的软件包，另一�
 
 先来看一下`getInitParameter()`在Servlet2.5中的应用：
 
-在之前ServletProject25项目的web.xml中，给Web容器设置一个共享的初始化参数`<context-param>`，再给WelcomeServletWithEclipse这个具体的Servlet也设置一个初始化参数`<init-param>`，如下，
+在之前ServletProject25项目的**web.xml**中，给Web容器设置一个共享的初始化参数`<context-param>`，再给WelcomeServletWithEclipse这个具体的Servlet也设置一个初始化参数`<init-param>`，如下，
 
 **web.xml**
 
@@ -541,8 +544,8 @@ org.lanqiao.servlet.WelcomeServletWithEclipse
 </web-app>
 ```
 
-以上，给Web容器设置了名为globalContenxtParam的初始化参数，给WelcomeServletWithEclipse这个具体的Servlet设置了名为servletContenxtParam的初始化参数。之后，再在具体的Servlet中，将这两个初始化参数的值都取出来，如下，
 
+以上，给Web容器设置了名为globalContenxtParam的初始化参数，给WelcomeServletWithEclipse这个具体的Servlet设置了名为servletContenxtParam的初始化参数。之后，再在具体的Servlet中，将这两个初始化参数的值都取出来，如下，
 **WelcomeServletWithEclipse.java**
 
 ```
@@ -576,10 +579,10 @@ public class WelcomeServletWithEclipse extends HttpServlet
 
 ![](http://i.imgur.com/yPUZD6F.png)
 
-*图5-13*
+*图4-13*
 
 在Servlet3.0中：可以用`@WebServlet`注解来在当前Servlet范围内设置初始值，例如，
-之前Servlet2.5的web.xml中的以下代码，
+之前Servlet2.5的**web.xml**中的以下代码，
 
 ```
 <servlet>
@@ -606,11 +609,11 @@ public class WelcomeServlet30WithEclipse extends HttpServlet
 }
 ```
 
-也就是说，用`@WebServlet`注解里`initParams`属性中的`@WebInitParam`来指定“当前Servlet范围内的初始值”，等价于 web.xml 中 `<servlet>`中的 `<init-param>` 子标签。
+也就是说，用`@WebServlet`注解里`initParams`属性中的`@WebInitParam`来指定“当前Servlet范围内的初始值”，等价于 **web.xml** 中 `<servlet>`中的 `<init-param>` 子标签。
 
 **②`ServletRequest`**
 
-当客户请求时，由Servlet容器会创建一个`ServletRequest`对象，用于封装客户的请求信息。并且这个`ServletRequest`对象会被容器作为`service()`方法的一个参数传递给Servlet。Servlet能利用这个`ServletRequest`对象获取客户端的请求数据。
+当客户端请求服务端的Servlet时，Servlet容器会创建一个`ServletRequest`对象，用于封装客户端的请求信息。并且这个`ServletRequest`对象会被容器作为`service(HttpServletRequest req, HttpServletResponse resp)`方法的第一个参数传递给Servlet。Servlet能利用这个`ServletRequest`对象获取客户端的请求数据。
 
 `ServletRequest`接口提供了我们经常用到的`setAttribute()`、`getAttribute()`、`removeAttribute()`方法。
 
@@ -644,7 +647,7 @@ public class WelcomeServlet30WithEclipse extends HttpServlet
 
 **④`ServletResponse`**
 
-Servlet容器接收到客户请求后，还会创建一个`ServletResponse`对象，用来封装响应数据，并且也会将这个`ServletResponse`对象作为`service()`方法的一个参数传递给Servlet。
+	Servlet容器接收到客户请求后，还会创建一个ServletResponse对象，用来封装响应数据，并且也会将这个ServletResponse对象作为service(HttpServletRequest req, HttpServletResponse resp)方法的第二个参数传递给Servlet。
 
 Servlet可以利用`ServletRequest`对象获取客户端的请求数据，并把处理后的响应数据通过`ServletResponse`对象返回给客户端。
 
@@ -661,11 +664,11 @@ Servlet可以利用`ServletRequest`对象获取客户端的请求数据，并把
    </tr>
    <tr>
       <td>String getCharacterEncoding()</td>
-      <td>获取在响应中，发送的文本所使用的字符编码</td>
+      <td>获取在响应过程中，发送的文本所使用的编码类型</td>
    </tr>
    <tr>
       <td>void setCharacterEncoding()</td>
-      <td>设置响应的字符编码</td>
+      <td>设置响应文本的编码类型</td>
    </tr>
    <tr>
       <td>void setContentType(String type)</td>
@@ -698,7 +701,7 @@ Servlet可以利用`ServletRequest`对象获取客户端的请求数据，并把
 
 ### (2)	Servlet接口
 
-`servlet`接口中，定义了我们之前提到过的带参数的`init()`初始化、`service()`服务、`destroy()`销毁方法，以及提供了`getServletConfig()`方法用于获取`ServletConfig`对象， `getServletInfo()`方法用于获取 Servlet信息。
+在servlet接口中，定义了之前提到过的带参数的`init()`、`service()`、`destroy()`等方法，此外，还提供了`getServletConfig()`方法用于获取`ServletConfig`对象、 `getServletInfo()`方法用于获取 Servlet信息等。
 
 ### (3)	`GenericServlet`抽象类
 
@@ -782,9 +785,9 @@ throws ServletException, IOException{
 }
 ```
 
-仔细阅读上面源代码结构，可以发现HttpServlet提供了两个重载的`service()`方法，其中`service(ServletRequest req, ServletResponse res)`方法，将`ServletRequest`对象，强制转换为`HttpServletRequest`对象；将`ServletResponse`对象，强制转换为`HttpServletResponse`对象；并根据请求方式的不同(`get`、`post`等方式)，调用了不同的处理方法。因此，我们以后在编写具体的Servlet时，只需要先继承`HttpServlet`，然后重写`doGet()`或 `doPost()`方法即可。
 
-# 5.3MVC设计模式案例
+仔细阅读上面源代码结构，可以发现HttpServlet提供了两个重载的`service()`方法，其中`service(ServletRequest req, ServletResponse res)`方法，将ServletRequest对象，强制转换为`HttpServletRequest`对象；将`ServletResponse`对象，强制转换为`HttpServletResponse`对象；并根据请求方式的不同(`get`、`post`等方式)，调用了不同的处理方法。因此，我们以后在编写具体的Servlet时，只需要先继承HttpServlet，然后重写`doGet()`或 `doPost()`方法即可。
+# 4.3MVC设计模式案例
 
 现在，我们通过一个完整的例子，演示一个使用MVC的程序。
 
@@ -948,33 +951,33 @@ throws ServletException, IOException
 
 最后再将`oracle`所需要的驱动包导入`lib`目录。
 
-访问[http://localhost:8080/MVCProject/register.jsp](http://localhost:8080/MVCProject/register.jsp)，如图，
+访问[http://localhost:8888/MVCProject/register.jsp](http://localhost:8888/MVCProject/register.jsp)，如图，
 
 ![](http://i.imgur.com/CtJiUHL.png)
 
-*图5-14*
+*图4-14*
 
 点击注册后，运行结果：
 
 ![](http://i.imgur.com/ERjqNER.png)
 
-*图5-15*
+*图44-15*
 
 查看数据表：
 
 ![](http://i.imgur.com/Igcr2xv.png)
 
-*图5-16*
+*图4-16*
 
 执行的流程，大致如下图，
 
 ![](http://i.imgur.com/JaFYOE8.jpg)
 
-*图5-17*
+*图4-17*
 
 程序中使用到的数据（用户信息），也是通过模型中的JavaBean（User.java）来传递的。
 
-# 5.4练习题 #
+# 4.4练习题 #
 
 **一、选择题**
 
@@ -983,6 +986,7 @@ throws ServletException, IOException
 A．Servlet生命周期依次包括：初始化、加载和实例化、处理请求和销毁
 
 B．默认情况下，在Servlet容器中配置好的Servlet会在Servlet容器启动的时候加载
+并实例化
 并实例化
 
 C．用户访问完一个Servlet，为了节省内存空间，该Servlet实例会立即销毁
