@@ -862,7 +862,10 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
     <!-- 页面内容区域开始 -->
     
     <div class="container">
-    <div class="child"></div>
+     外层容器
+    <div class="child">
+     内层div
+    </div>
     </div>
 
     <!-- 页面内容区域结束 -->
@@ -872,7 +875,6 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
     <style>
     .container{
        border : 6px solid red;
-	   height :300px;
 	   width:600px;
 	   margin-left:auto;
 	   margin-right:auto;
@@ -893,6 +895,8 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
  ![css_div_abs_position_12](/public/img/css/css_div_abs_position_12.gif)
 
 &emsp;&emsp;不用多说，内部div绝对定位的参照物是HTML文档的body元素。试问，能否让绿色边框的div参照它的外部div绝对定位？请提出你的解决方案。
+
+&emsp;&emsp;此外，请你把内层div的定位方式修改成“relative”，然后观察外层div的高度有何变化。解释其中的原因。
 
 &emsp;&emsp;下面是一段来自[英文版W3School的CSS Layout Position Property](http://www.w3schools.com/css/css_positioning.asp)页面的参考文字：
 
