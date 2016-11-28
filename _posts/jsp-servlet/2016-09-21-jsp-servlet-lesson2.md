@@ -8,17 +8,17 @@ category: JSP-Servlet教程
 
 tags: JSP Servlet
 
-description: 本章将系统介绍JSP页面元素以及内置对象
+description: 本章将系统介绍JSP页面元素以及内置对象。
 
 author: 颜群
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
 
 
->本章简介
+>**本章简介**
 
 本章将系统介绍JSP页面元素以及内置对象，其中重点介绍了`out`、`request`、
 `response`、`session`等常用内置对象以及`Cookie`等使用，并且从使用原理上讲
@@ -26,7 +26,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 回顾第一个jsp程序，如下，
 
-index.jsp
+**index.jsp**
 
 ```
 <html>
@@ -41,7 +41,7 @@ index.jsp
 </html>
 ```
 
-其中 `<%  out.print("Hello World”);  %>`称为脚本。可以发现，在JSP文件中，既有HTML标签，又有JAVA代码，因此我们可以把JSP称为“嵌入在HTML中的JAVA代码”。
+其中 `<%  out.print("Hello World”);  %>`称为脚本。可以发现，在JSP文件中，既有HTML标签，又有JAVA代码，因此我们可以把JSP看成“嵌入JAVA的HTML代码”。
 
 但是在Eclipse中生成的Jsp内容，如下
 
@@ -66,15 +66,15 @@ Eclipse生成的JSP文件中，除了典型的html元素外，还有很多其他
 
 ## 2.1.1　脚本Scriptlet
 
-所有嵌入在HTML中的JAVA代码都必须使用`scriptlet`包裹起来。在JSP中共有3种Scriptlet：`<% 代码 %>`，`<% ! 代码%>`和`<% =代码%>`。
+所有嵌入在HTML中的JAVA代码都必须使用`scriptlet`包裹起来。在JSP中共有3种Scriptlet：`<% … %>`，`<% ! …%>`和`<% =…%>`。
 
-Scriptlet一般写在`<body>`标签中。
+**Scriptlet一般写在`<body>`标签中。**
 
-①第一种Scriptlet<%代码%>
+### ①第一种Scriptlet：`<%...%>` ###
 
-`<% %>`主要用来定义局部变量、编写java语句，如下代码所示：
+`<% …%>`主要用来定义局部变量、编写java语句，如下代码所示：
 
-jspDemo1.jsp
+**jspDemo1.jsp**
 
 ```
 <%
@@ -84,7 +84,7 @@ jspDemo1.jsp
 	   %>
 ```
 
-运行结果：
+**运行结果：**
 
 ![](http://i.imgur.com/V7cwAgR.jpg)
 
@@ -92,11 +92,11 @@ jspDemo1.jsp
 
 其中，`out.print();`是JSP页面的输出语句。
 
-②第二种Scriptlet<%!代码%>
+### ②第二种Scriptlet：`<%! … %>` ###
 
-`<% !  %>`主要用来定义全局变量、方法如下代码所示：
+`<% ! … %>`主要用来定义全局变量、定义方法，如下代码所示：
 
-jspDemo2.jsp
+**jspDemo2.jsp**
 
 ```
 <%!
@@ -114,15 +114,14 @@ jspDemo2.jsp
 	  %>
 ```
 
-运行结果：
-与jspDemo1.jsp相同。
+**运行结果：与jspDemo1.jsp相同。**
 
 
-③第三种Scriptlet<%=代码%>
+### ③第三种Scriptlet：`<%=…%>` ###
 
-`<%= %>` 用来输出=后面的表达式的值，功能类似`out.print()`，如下代码所示：
+`<%= … %>` 用来输出=后面的表达式的值，功能类似`out.print()`，如下代码所示：
 
-jspDemo3.jsp
+**jspDemo3.jsp**
 
 ```
 <%
@@ -137,11 +136,11 @@ jspDemo3.jsp
 运行结果：
 与jspDemo1.jsp相同。
 
-从上面代码，可以发现，`out.print()`和`<%= >`不仅能输出变量，还可解析”&lt;br/&gt;”等html代码。需要注意，`<%= >`中没有“;”。
+从上面代码，可以发现，`out.print()`和`<%=… >`不仅能输出变量，还可解析”`&lt;br/&gt;`”等html代码。需要注意，`<%= …>`中没有“;”。
 
 ## 2.1.2　指令
 
-JSP指令写在`<%@  %>`中，如下代码所示：
+JSP指令写在`<%@ …%>`中，如下代码所示：
 
 ```
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
@@ -168,11 +167,11 @@ JSP指令写在`<%@  %>`中，如下代码所示：
    </tr>
    <tr>
       <td>contentType</td>
-      <td>指定服务器发送给客户端时的内容编码，通常与pageEncoding保持一致</td>
+      <td>指定服务器发送给客户端的内容的编码方式，通常与pageEncoding保持一致</td>
    </tr>
 </table>
 
-jspDemo4.jsp
+**jspDemo4.jsp**
 
 ```
 <%@ page language="java" import="java.util.Date" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
@@ -191,7 +190,7 @@ jspDemo4.jsp
 
 以上代码，通过`import`导入了java.util.Date，并指定了编码方式为UTF-8。
 
-运行结果：
+**运行结果：**
 
 ![](http://i.imgur.com/59YEcef.jpg)
 
@@ -201,7 +200,7 @@ jspDemo4.jsp
 
 ## 2.1.3　注释
 
-前面讲过，基本的JSP包含了HTML和JAVA两种代码。因此，JSP的注释既包括HTML的注释，又包含了JAVA的注释，并且拥有JSP自己独有的注释，即JSP共包含了三种注释，如下表所示：
+前面讲过，基本的JSP包含了HTML和JAVA两种代码。因此，JSP的注释既包括HTML的注释，又包含JAVA的注释，此外还拥有JSP自己独有的注释，如下表所示：
 
 <table>
    <tr>
@@ -210,11 +209,11 @@ jspDemo4.jsp
    </tr>
    <tr>
       <td><!--   --></td>
-      <td>HTML注释。可以用来注释HTML代码，但要注意此种注释能通过客户端（浏览器）查看到，因为是不安全的。</td>
+      <td>HTML注释。可以用来注释HTML代码，但要注意此种注释能通过客户端（浏览器）查看到，因此是不安全的。</td>
    </tr>
    <tr>
       <td><%--   --%></td>
-      <td>JSP注释。如果想让HTML的注释不被浏览器所查看到，就可以使用JSP注释。</td>
+      <td>JSP注释。如果想让注释不被浏览器所查看到，就可以使用JSP注释。</td>
    </tr>
    <tr>
       <td><%   //单行注释  %><%   /*多行注释 */   %>  </td>
@@ -222,7 +221,7 @@ jspDemo4.jsp
    </tr>
 </table>
 
-jspDemo5.jsp
+**jspDemo5.jsp**
 
 ```
 …
@@ -243,7 +242,7 @@ jspDemo5.jsp
 </html>
 ```
 
-运行结果：
+**运行结果：**
 
 ![](http://i.imgur.com/tfqL1GM.jpg)
 
@@ -271,7 +270,7 @@ out.print("Hello World");
 %>
 ```
 
-在上面的代码中，像`out`这样，没有定义和实例化`（new）`就可以直接使用的对象，就称为内置对象。除了out`以外，JSP还提供了其他的一些内置对象，共有9个，如下表
+在上面的代码中，像`out`这样，没有定义和实例化`（new）`就可以直接使用的对象，就称为内置对象。除了`out`以外，JSP还提供了其他的一些内置对象，共有9个，如下表
 
 <table>
    <tr>
@@ -287,7 +286,7 @@ out.print("Hello World");
    <tr>
       <td>2.request</td>
       <td>javax.servlet.http.HttpServletRequest</td>
-      <td>用户的请求信息</td>
+      <td>客户端向服务端发送的请求信息</td>
    </tr>
    <tr>
       <td>3.response</td>
@@ -317,7 +316,7 @@ out.print("Hello World");
    <tr>
       <td>8.page</td>
       <td>java.lang.Object</td>
-      <td>当前JSP页面本身，有点像类中的this</td>
+      <td>当前JSP页面本身，类似于Java类中的this关键字</td>
    </tr>
    <tr>
       <td>9.exception</td>
@@ -334,7 +333,7 @@ out.print("Hello World");
 
 `out`用于向客户端输出数据，最常用的是`out.print()`;需要注意的是，`out.println()`或者`out.print(“\n”)`均不能实现在客户端的换行功能，如以下代码
 
-jspDemo6.jsp
+**jspDemo6.jsp**
 
 ```
   <%
@@ -344,15 +343,15 @@ jspDemo6.jsp
 %>
 ```
 
-运行结果：
+**运行结果：**
 
 ![](http://i.imgur.com/pck2qBm.jpg)
 
 *图2.6*
 
-若要实现换行，必须借助于HTML的&lt;br/&gt;标签，
+若要实现换行，必须借助于HTML的`&lt;br/&gt;`标签，
 
-jspDemo7.jsp
+**jspDemo7.jsp**
 
 ```
  <%
@@ -369,9 +368,9 @@ jspDemo7.jsp
 
 ### 2.JSP内置对象request
 
-(1) `request`简介
+### (1) `request`简介 ###
 
-`request`对象主要用来接收客户端发来的请求信息，如图2.8，
+`request`对象主要用于存储“客户端发送给服务端的请求信息”，如图2.8，
 
 ![](http://i.imgur.com/79kI5w2.png)
 
@@ -386,11 +385,11 @@ jspDemo7.jsp
    </tr>
    <tr>
       <td>public String getParameter(String name)</td>
-      <td>获得客户端传送给服务器端的由name指定的参数值</td>
+      <td>获取客户端发送给服务端的参数值（由name指定的唯一参数值，如单选框、密码框的值）</td>
    </tr>
    <tr>
       <td>public String[] getParameterValues(String name)</td>
-      <td>获得有name指定的参数的所有值</td>
+      <td>获取客户端发送给服务端的参数值（由name指定的多个参数值，如复选框的值）</td>
    </tr>
  
    <tr>
@@ -399,7 +398,7 @@ jspDemo7.jsp
    </tr>
    <tr>
       <td>public RequestDispatcher getRequestDispatcher(String path)</td>
-      <td>返回RequestDispatcher对象，该对象的forward方法用于转发请求</td>
+      <td>返回RequestDispatcher对象，该对象的forward()方法用于转发请求</td>
    </tr>
    <tr>
       <td>public HttpSession getSession()</td>
@@ -407,14 +406,14 @@ jspDemo7.jsp
    </tr>
    <tr>
       <td>public ServletContext getServletContext()  </td>
-      <td>得到web应用的servletContext</td>
+      <td>获取web应用的ServletContext对象</td>
    </tr>
 </table>
 
-下面通过一个简单的注册及显示功能，来讲解上述方法：
+下面通过一个简单的注册及显示功能，演示上述部分方法的使用：
 
 注册：
-register.jsp
+**register.jsp**
 
 ```
 …
@@ -434,14 +433,14 @@ register.jsp
 </html>
 ```
 
-运行结果：
+执行程序并输入信息，运行结果：
 
-![](http://i.imgur.com/iLhjb7k.png)
+![](http://i.imgur.com/qJhrWj5.png)
 
 *图2.9*
 
 显示：
-show.jsp
+**show.jsp**
 
 ```
 …
@@ -475,19 +474,19 @@ show.jsp
 </html>
 ```
 
-运行结果：
+**运行结果：**
 
 ![](http://i.imgur.com/E4YPSmz.png)
 
 *图2.10*
 
-上述代码中，通过`request.setCharacterEncoding("UTF-8")`将请求编码设置为了UTF-8，并通过`request.getParameter()`和`request.getParameterValues()`方法获取到了从表单传来的数据。
+上述代码中，通过`request.setCharacterEncoding("UTF-8")`将POST方式的编码设置为UTF-8，，并通过`request.getParameter()`和`request.getParameterValues()`方法获取到了从表单传来的数据。
 
 需要注意的是，客户端的数据不一定必须从表单传递过来，也可以通过URL地址进行传递，格式如下：
 
 页面地址?参数名1=参数内容1&参数名2=参数内容2&…
 
-即通过“?”将页面地址和参数分离，然后按照“参数名=参数内容”的格式来传递数据，并且多个参数之间用“&”分隔。例如，上例中，我们可以不运行注册页register.jsp，而直接在浏览器中输入http://localhost:8080/JspProject/show.jsp?uname=李四&upwd=123&hobby=足球&hobby=篮球
+即通过“?”将页面地址和参数分离，然后按照“参数名=参数内容”的格式来传递数据，并且多个参数之间用“&”分隔。例如，上例中，我们可以不运行注册页**register.jsp**，而直接在浏览器中输入http://localhost:8080/JspProject/show.jsp?uname=李四&upwd=123&hobby=足球&hobby=篮球
 
 也能正常运行程序，并得到结果，如图2.11，
 
@@ -495,14 +494,14 @@ show.jsp
 
 *图2.11*
 
-(2) `Get`与`Post`请求
+### (2) `Get`与`Post`请求 ###
 
-我们仔细观察一下表单提交和URL地址传递两种方式的地址栏，
+我们仔细观察一下表单提交和URL地址提交两种方式的地址栏，
 
 表单提交方式的地址栏：
 http://localhost:8080/JspProject/show.jsp
 
-URL地址传递方式的地址栏：
+URL地址提交方式的地址栏：
 http://localhost:8080/JspProject/show.jsp?uname=李四&upwd=123&hobby=足球&hobby=篮球
 
 这两种地址不同的本质原因，在于表单的的提交方式，在register.jsp中有一行代码
@@ -520,22 +519,22 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 
 *图2.12*
 
-因此，可以发现`get`方式提交表单，实际就是通过URL地址传递的方式，来向服务器端传递数据。
+因此，可以发现用`get`方式提交表单，实际就是通过URL地址提交的方式向服务器端发送数据。
 
 说明：
 
-如果 “URL地址传递”中的值是中文，而JSP页面编码是UTF-8时，则会显示乱码。原因是“URL地址传递”使用的是GET方式传递数据，而GET方式的默认编码是ISO-8859-1，与JSP页面编码UTF-8不统一导致。解决方法就是将GET方式提交的数据，进行统一字符编码，详见后文。
+如果 “URL地址传递”中的值是中文，而JSP页面编码是UTF-8时，则会显示乱码。原因是“URL地址传递”使用的是GET方式传递数据，而GET方式的默认编码是ISO-8859-1，与JSP页面编码UTF-8不一致。解决方法就是将GET方式提交的数据，进行统一字符编码，详见后文。
 
-除了地址栏的不同以外，`get`和`post`方式在提交的数据大小上也有区别。因为`get`请求方式需要在地址栏上显示数据信息，所以信息的长度是有所限制的，一般大小是4-5KB；而`post`因为不会在地址栏显示数据信息，所以能提交更多的数据内容。如果表单中有一些大文本，或者图文、文件、视频等数据，则必须使用`post`的方式提交。
+除了地址栏的不同以外，`get`和`post`方式在提交的数据大小上也有区别。因为get方式会在地址栏上显示数据信息，而地址栏中能容纳的信息长度是有限制的（一般是4-5KB）； 与之不同的是，post方式不会在地址栏中显示数据信息，所以能提交更多的数据内容。因此，如果表单中有一些大文本、图文、文件、视频等数据，就必须使用post的方式提交。
 `request`的其余方法，我们会在后面详细讲述。
 
-(3)统一字符集编码
+### (3)统一字符集编码 ###
 
 了解完`get`方式和`post`方式的区别后，我们再来看看两种方式如何解决字符乱码问题。
 
 解决Web项目乱码问题的基本步骤如下（以将编码统一为UTF-8为例）：
 
-1.将所有JSP文件的编码设置为UTF-8，如下，
+**1.将所有JSP文件的编码设置为UTF-8，如下，**
 
 ```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -547,62 +546,62 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 …
 ```
 
-此步骤，也可通过Eclipse来设置，详细步骤参见本书“1.3.5.使用Eclipse开发Web项目”。
+此步骤，也可通过Eclipse来设置，详细步骤参见本书“1.3.3使用Eclipse开发Web项目”；
 
-(4)对于`GET`或`POST`方式，实施不同的统一编码操作。
+**2.对于`GET`或`POST`方式，实施不同的统一编码操作。**
 
 我们首先要知道tomcat服务器，默认使用的编码方式是ISO-8859-1。
 
-①如果是以`get`方式提交表单（或URL地址传递的方式），则有两种方式处理编码：
+**（1）**如果是以`get`方式提交表单（或URL地址传递的方式），则有两种方式处理编码：
 
-a.分别把每一个变量，都从ISO-8859-1转为UTF-8
+**①**分别把每一个变量的编码方式，从ISO-8859-1转为UTF-8
 
 如以下代码：
 
 ```
- //将name的编码方式，从UTF-8转为ISO-8859-1
+ //将name的编码方式，从ISO-8859-1转为UTF-8
  String name = request.getParameter("uname");
 			name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
-            //将pwd的编码方式，从UTF-8转为ISO-8859-1
+            //将pwd的编码方式，从ISO-8859-1转为UTF-8
 			String pwd = request.getParameter("upwd");
 			pwd = new String(pwd.getBytes("ISO-8859-1"), "UTF-8");
 ```
 
-b.修改tomcat配置，一次性的，将所有通过`get`方式传递的变量编码都设置为UTF-8（推荐）。具体修改如下：打开tomcat的`conf`目录，在server.xml的64行附近的`<Connector>`元素中，加入URIEncoding=”UTF-8”，如下，
+**②**修改tomcat配置，一次性的，将所有通过`get`方式传递的变量编码都设置为UTF-8（推荐）。具体修改如下：打开tomcat的`conf`目录，在server.xml的64行附近的`<Connector>`元素中，加入URIEncoding=”UTF-8”，如下，
 
-server.xml
+**server.xml**
 
 ```
 <Connector connectionTimeout="20000" port="8888" protocol="HTTP/1.1" redirectPort="8443"  URIEncoding="UTF-8" />
 ```
 
-说明：
+**说明：**
 
-要使修改的server.xml生效，必须把Eclipse的tomat服务器设置成本地Tomcat托管模式，设置方法如下：
+要使修改的**server.xml**生效，必须把Eclipse的tomat服务器设置成本地Tomcat托管模式，设置方法如下：
 
-我们使用Eclipse配置完Tomcat后，会在左侧项目导航栏多出一个Servers项目，该项目中就有Tomcat的一些配置文件，如context.xml，server.xml等。为了使Servers项目中的配置文件，与我们本地安装的Tomcat目录中的配置文件保持一致，我们可以双击控制台Servers下的Tomcat V7.0…，如图2.13
+我们使用Eclipse配置完Tomcat后，会在左侧项目导航栏多出一个Servers项目，该项目中就有Tomcat的一些配置文件，如**context.xml**，**server.xml**等。为了使Servers项目中的配置文件，与我们本地安装的Tomcat目录中的配置文件保持一致，我们可以双击控制台Servers下的Tomcat V8.0…，如图2.13
 
-![](http://i.imgur.com/bNe8SGM.png)
+![](http://i.imgur.com/uLDNaLC.png)
 
 *图2.13*
 
 在双击后打开的页面里，将Server Locations指定为第二项，如图2.14，
 
-![](http://i.imgur.com/muClRG1.png)
+![](http://i.imgur.com/UTbuCOS.png)
 
 *图2.14*
 
 之后，我们只需要在Servers项目中修改配置文件，修改结果就会同步到我们本地安装的Tomcat配置文件中。因此，以后如果要对Tomcat进行操作，就只需要对Servers项目进行操作。
 
-注意，如果发现Server Locations中的选项是灰色不可选，则需要将现有的Tomcat从Servers中删除，然后重新创建Tomcat服务后再次选择。
+注意，如果发现Server Locations中的选项是灰色不可选，则需要将现有的Tomcat从Servers面板中删除，然后重新创建Tomcat服务后再选择。
 
-②如果是以`post`方式提交表单，则可以通过在服务器端加入`request.setCharacterEncoding("UTF-8")`，详见前面的show.jsp。
+**（2）**如果是以`post`方式提交表单，可以通过在服务器端加入`request.setCharacterEncoding("UTF-8")`来设置编码，详见前面的show.jsp。
 
 ### 3.JSP内置对象response
 
-(1) `response`简介
+### (1) `response`简介 ###
 
-我们已经知道通过`request`，可以从客户端向服务器发送请求数据，那反过来呢? 当服务器端接收到请求的数据后，如何向客户端响应呢？答案就是`response`，服务器可以通过`response`向客户端做出响应，如图2.15，
+我们已经知道，客户端可以通过request向服务端发送请求数据，那反过来呢? 当服务器端接收到请求的数据后，如何向客户端响应呢？答案就是`response`，即服务端可以通过`response`向客户端做出响应，如图2.15，
 
 ![](http://i.imgur.com/6IqHKCA.png)
 
@@ -617,11 +616,11 @@ server.xml
    </tr>
    <tr>
       <td>public void addCookie(Cookie cookie)</td>
-      <td>向客户端增加Cookie</td>
+      <td>服务端向客户端增加Cookie对象</td>
    </tr>
    <tr>
       <td>public void sendRedirect(String location) throws IOException</td>
-      <td>将客户端发来的请求，重新定位(跳转)到另一个URL上(习惯上称为“重定向”，会被经常用到)</td>
+      <td>将客户端发来的请求，重新定位(跳转)到另一个URL上(习惯上称为“重定向”)</td>
    </tr>
    <tr>
       <td>public void setContentType(String type)</td>
@@ -629,11 +628,11 @@ server.xml
    </tr>
 </table>
 
-我们先来看一下重定向`sendRedirect(String location)`方法的使用，
-这次我们实现一个登陆功能：用户输入用户名和密码，如果验证正确，则跳转到欢迎页。
+我们先来了解一下重定向方法`sendRedirect()`的使用。
+这次我们实现一个登陆功能：用户输入用户名和密码，如果验证正确，则跳转到欢迎页，如下：
 
 登陆页：
-login.jsp
+**login.jsp**
 
 ```
 …
@@ -656,7 +655,7 @@ login.jsp
 *图2.16*
 
 验证页：
-check.jsp
+**check.jsp**
 
 ```
 …
@@ -679,7 +678,7 @@ check.jsp
 ```
 
 若登陆成功，则跳转到成功提示页：
-success.jsp
+**success.jsp**
 
 ```
 …
@@ -702,18 +701,18 @@ success.jsp
 
 *图2.17*
 
-从“运行结果”可以发现两点：
+**从“运行结果”可以发现两点：**
 
-1.如果用户名和密码验证成功，确实跳转到了欢迎页success.jsp，但数据却丢失了，用户名`name`的值为null。
+**1.**如果用户名和密码验证成功，确实跳转到了欢迎页**success.jsp**，但数据却丢失了，用户名`name`的值为null。
 
-2.重定向到success.jsp后，地址栏也变成了success.jsp页面的地址
+**2.**重定向到**success.jsp**后，地址栏也变成了**success.jsp**页面的地址
 
-(2) 请求转发与重定向 
+### (2) 请求转发与重定向 ###
 
 为了解决重定向以后数据丢失的问题，我们先来回忆一下`request`对象中的一个方法：
 `public RequestDispatcher getRequestDispatcher(String path)`
 
-之前说过，此方法的返回值`RequestDispatcher`对象，有一个`forward`方法可以用于转发请求，也就是说，`request`的`getRequestDispatcher()`方法和`response`的`sendRedirect()`方法有相同之处：都可以实现页面之间的跳转。
+之前说过，此方法的返回值`RequestDispatcher`对象，有一个`forward()`方法可以用于转发请求，也就是说，`request`的`getRequestDispatcher()`方法和`response`的`sendRedirect()`方法有相同之处：都可以实现页面之间的跳转。
 
 我们将check.jsp中的`response.sendRedirect("success.jsp")`改为`request.getRequestDispatcher("success.jsp").forward(request, response)`,其他代码均不变，再次运行程序，可以看到success.jsp的结果如图2.18：
 
@@ -724,17 +723,17 @@ success.jsp
 可以发现，
 采用了`request.getRequestDispatcher("success.jsp").forward(request, response)`来跳转页面后：
 
-1.就可以获取到客户端发送的表单数据；
+**1.**就可以获取到客户端发送的表单数据；
 
-2.页面内容确实跳转到了success.jsp中编写的内容，但地址栏却仍然停留在check.jsp，即采用请求转发方式，地址栏不会发生改变。
+**2.**页面内容确实跳转到了**success.jsp**中编写的内容，但地址栏却仍然停留在check.jsp，即采用请求转发方式，地址栏不会发生改变。
 
 关于请求转发`(request.getRequestDispatcher("xx").forward(request, response))`和重定向`response.sendRedirect("xx")`的区别，经常会在面试中被提到，我们在此做一个总结，如下表：
 
 <table>
    <tr>
       <td></td>
-      <td>请求转发(forward)</td>
-      <td>重定向(redirect)</td>
+      <td>请求转发(forward())</td>
+      <td>重定向(redirect())</td>
    </tr>
    <tr>
       <td>请求服务器次数</td>
@@ -753,7 +752,7 @@ success.jsp
    </tr>
 </table>
 
-关于“请求服务器次数”的问题，再做以下详尽分析：
+**关于“请求服务器次数”的问题，再做以下详尽分析：**
 
 请求转发：客户端（浏览器）向服务器的资源A发起一次请求①，服务器的资源A接收到该请求后，将该请求转发到内部的其他资源B②，资源B处理完请求后，最终给客户端做出响应③。如图2.19，
 
@@ -769,21 +768,21 @@ success.jsp
 
 我们可以将“请求转发”和“重定向”想象成以下情景：
 
-请求转发：张三去银行的A窗口办理业务，A窗口的业务员发现该业务自己办不了，就将张三的业务请求转发给其他同事办理，最后将办理完的业务返回给张三。也就是说，张三只是给银行的A窗口发送了一次请求，而该业务办理人员之间的换人工作，是银行内部处理的。即张三只发出了一次请求，更换窗口业务员是银行的行为。
+请求转发：张三去银行的A窗口办理业务，A窗口的业务员发现该业务自己办不了，就将张三的业务请求转发给其他同事办理，最后将办理完的业务返回给张三。也就是说，张三只是给银行的A窗口发送了一次请求，而该业务办理人员之间的换人工作，是银行内部处理的。即张三只发出了一次请求，更换窗口业务员(跳转)是银行的行为。
 
-重定向：张三去银行的A窗口办理业务，A窗口的业务员发现该业务自己办不了，然后告诉张三应该重新去窗口B办理，张三收到该消息后，又重新向银行的窗口B再次请求办理业务，最终银行的窗口B处理完张三的请求，并将办理完的业务返回给张三。也就是说，张三分别向银行的窗口A、窗口B各发送了一次请求（共2次请求），更换窗口业务员是张三的行为。
+重定向：张三去银行的A窗口办理业务，A窗口的业务员发现该业务自己办不了，然后告诉张三应该重新去窗口B办理，张三收到该消息后，又重新向银行的窗口B再次请求办理业务，最终银行的窗口B处理完张三的请求，并将办理完的业务返回给张三。也就是说，张三分别向银行的窗口A、窗口B各发送了一次请求（共2次请求），更换窗口业务员(跳转)是张三的行为。
 
 ### 4.cookie和JSP内置对象session
 
 在学习`session`之前，我们有必要先来了解一下`cookie`。
 
-(1)`cookie` 
+### (1)`cookie` ###
 
-`cookie`是由服务器端产生，再发送给客户端（浏览器）的，并且浏览器会将该`cookie`保存在某个目录下的文件里。该技术能将服务器端的一些数据，保存在用户使用的客户端计算机中，这样一来，用户下次就可以直接通过自己的计算机访问到该数据，而不必再访问服务器。因而`cookie`技术可以提高网页处理的效率，也能减少服务器端的负载。但是由于`cookie`是服务器端保存在客户端的信息，所以其安全性相对较差。
+`cookie`对象是先由服务端产生，再发送给客户端（浏览器）的，并且浏览器会将该cookie保存在客户端的某个文件中。也就是说，cookie技术能将服务器端的一些数据，保存在用户使用的客户端计算机中。这样一来，用户下次就可以直接通过自己的计算机访问到该数据，而不必再访问服务器。因而`cookie`技术可以提高网页处理的效率，也能减少服务器端的负载。但是由于`cookie`是服务器端保存在客户端的信息，所以其安全性相对较差。
 
-①`cookie`的使用
+#### ①`cookie`的使用 ####
 
-一个`Cookie`对象包含一个键值对，即`key=value`。`cookie`不是JSP的内置对象，需要通过JSP提供的`javax.servlet.http.Cookie`类来创建，并且该类的常用方法如下表：
+一个`Cookie`对象包含一个键值对，即`key=value`。`cookie`不是JSP的内置对象，需要通过JSP提供的`javax.servlet.http.Cookie`类来创建，Cookie类提供的常用方法如下表：
 
 <table>
    <tr>
@@ -792,7 +791,7 @@ success.jsp
    </tr>
    <tr>
       <td>public Cookie(String name, String value)</td>
-      <td>构造方法，用来实例化Cookie对象，同时设置名称和内容</td>
+      <td>构造方法，用来实例化Cookie对象，同时设置Cookie对象的属性名和属性值</td>
    </tr>
    <tr>
       <td>public String getName()</td>
@@ -808,9 +807,9 @@ success.jsp
    </tr>
 </table>
 
-服务器端可以通过`response`对象的`public void addCookie(Cookie cookie)`方法，将`Cookie`对象设置到客户端；而客户端也可以通过`request`对象的`public Cookie[] getCookies()`方法来获取全部的`Cookie`对象，如下：
+服务器端可以通过`response`对象的`addCookie()`方法，将`Cookie`对象设置到客户端；而客户端也可以通过`request`对象的`getCookies()`方法来获取全部的`Cookie`对象，如下：
 
-服务器端response_addCookie.jsp
+服务器端**response_addCookie.jsp**
 
 ```
 	<body>	
@@ -827,14 +826,14 @@ success.jsp
 	</body>
 ```
 
-客户端temp.jsp
+客户端**temp.jsp**
 
 ```
 	<body>
-		<a href="request_getCookies.jsp">客户端再次跳转</a>	</body>
+		<a href="response_addCookie.jsp">客户端再次跳转</a>	</body>
 ```
 
-客户端response_addCookie.jsp
+客户端**response_addCookie.jsp**
 
 ```
 	<body>
@@ -879,15 +878,15 @@ success.jsp
 
 *图2.24*
 
-说明：
+**说明：**
 
-1.图中查看“请求头”的方法，是通过firebug插件实现的。firebug的安装及使用，读者可以查阅第11章。
+1.图中查看“请求头”的方法，是通过firebug插件实现的。firebug的安装及使用，读者可以查阅”调试”一章。
 
 2.`Cookie`中尽量不要写入中文，否则必须进行	一些编码处理。有兴趣的读者，可以查阅一下相关资料。
 
 下面通过`Cookie`来实现一个简单的“记住用户名”功能：
 
-登录页login_cookie.jsp
+登录页**login_cookie.jsp**
 
 ```
 <body>
@@ -913,7 +912,7 @@ value="<%=username==null ? "":username%>"/>
 </body>
 ```
 
-登录验证页check_cookie.jsp
+登录验证页**check_cookie.jsp**
 
 ```
 <body>
@@ -930,24 +929,24 @@ value="<%=username==null ? "":username%>"/>
 
 运行结果：
 
-第一次访问登录页login_cookie.jsp：
+第一次访问登录页**login_cookie.jsp**：
 
 ![](http://i.imgur.com/ZOpiHMb.jpg)
 
 *图2.25*
 
 	
-输入用户名“zhangsan”并点击登录，之后如果再次访问登录页login_cookie.jsp，就会看到页面已经保存了用户名，如图2.26：
+输入用户名“zhangsan”及密码并点击登录，之后如果再次访问登录页login_cookie.jsp，就会看到页面已经保存了用户名，如图2.25：
 
 ![](http://i.imgur.com/8AzyPzT.png)
 
 *图2.26*
 
-②`cookie`的有效期
+#### ②`cookie`的有效期 ####
 
 需要注意的是，`Cookie`在客户端保存的时间不是永久性的，它也是有生命周期的，我们可以通过`setMaxAge(int expiry)`方法设置`cookie`的有效期。例如以下代码，我们先通过cookieExpiry.jsp页面设置一个`Cookie`对象，然后再尝试通过cookieExpiryResult.jsp页面来获取该`Cookie`对象，
 
-cookieExpiry.jsp
+**cookieExpiry.jsp**
 
 ```
 	<body>
@@ -960,7 +959,7 @@ cookieExpiry.jsp
 	</body>	
 ```
 
-cookieExpiryResult.jsp
+**cookieExpiryResult.jsp**
 
 ```
 <body>
@@ -986,13 +985,13 @@ cookieExpiryResult.jsp
 	</body>	
 ```
 
-先执行cookieExpiry.jsp来设置`Cookie`对象。之后，如果在60秒以内运行cookieExpiryResult.jsp，则运行结果：
+先执行**cookieExpiry.jsp**来设置`Cookie`对象。之后，如果在60秒以内运行**cookieExpiryResult.jsp**，则运行结果：
 
 ![](http://i.imgur.com/NqUBhdI.jpg)
 
 *图2.27*
 
-如果超过60秒以后，再内运行cookieExpiryResult.jsp，运行结果如图2.28：
+如果超过60秒以后，再次运行cookieExpiryResult.jsp，运行结果如图2.28：
 
 ![](http://i.imgur.com/jMGuUTD.jpg)
 
@@ -1000,18 +999,19 @@ cookieExpiryResult.jsp
 
 即，我们可以通过`setMaxAge`(秒数)来设置`Cookie`对象的有效期。
 
-(2) JSP内置对象`session`
+###(2) JSP内置对象`session` ###
 
-`session`通常被翻译成“会话”。一个会话，就是用户通过浏览器，与服务器之间进行的一系列的交互过程，期间可以包含浏览器与服务器之间的多次请求、响应的过程。以下是3个常见的`session`使用情景：
+`session`通常被翻译成“会话”。一个会话是指：用户通过浏览器（客户端）与服务器之间进行的一系列的交互过程，交互期间可以包含浏览器与服务器之间的多次请求、响应。以下是3个常见的`session`使用情景：
 
-①用户在浏览某个网站时，从进入网站到关闭这个网站所经过的这段时间，也就是用户浏览这个网站的整个过程，就是一个`session`。
+**①**用户在浏览某个网站时，从进入网站到关闭这个网站所经过的这段时间，也就是用户浏览这个网站的整个过程，就是一个`session`。
 
 
-②在电子邮件应用中，从一个客户登录到电子邮件系统开始，经过收信、写信和发信等一系列操作，直至最后退出邮件系统，整个过程为一个`session`。
+**②**在电子邮件应用中，从一个客户登录到电子邮件系统开始，经过收信、写信和发信等一系列操作，直至最后退出邮件系统，整个过程为一个`session`。
 
-③在购物网站应用中，从一个客户开始购物，到浏览商品、结算等，直至最后的结账，整个过程为一个`session`。
+**③**在购物网站应用中，从一个客户开始购物，到浏览商品、结算等，直至最后的结账，整个过程为一个`session`。
 
 **session运行机制：**
+
 当用户（浏览器）向Web应用第一次发送请求时，服务器会创建一个`session`对象并分配给该用户；该`session`对象中包含着一个唯一标识符sessionId，并且服务器会在第一次响应用户时，将此sessionId作为jsessionid保存在浏览器的`Cookie`对象中；这个`session`将一直延续到用户访问结束（浏览器关闭或用户长时间不访问Web应用）。
 
 当Web应用接收到用户的请求时，首先会检查服务器是否已经为这个用户（浏览器）创建过了`session`对象，具体是判断用户的请求中是否包含了一个sessionId，如果包含sessionId，则服务器就会通过这个sessionId找到对应的`session`，以确定是这个用户在访问服务器。而如果用户的请求中没有sessionId，服务器会为该用户创建一个新的`session`，并生成一个与此`session`对应的sessionId，然后将sessionId随着本次响应返回给用户（浏览器的`Cookie`对象中）。如图2.29，
@@ -1022,7 +1022,7 @@ cookieExpiryResult.jsp
 
 说明：如果客户端禁用了`Cookie`，则服务器会自动使用URL-rewriting（URL重写，URL中包含session ID的信息）的技术来保存sessionId。
 
-下面再通过一个例子，来讲解上述的逻辑：
+**下面再通过一个例子，来讲解上述的逻辑：**
 
 假设服务器是一个商场的存包处，客户端是一个顾客。当来了一个顾客时，商场首先判断该顾客是否已经存过包。判断是通过顾客手里的钥匙来实现的，如果顾客手里有钥匙，就说明顾客此前已经存过包，商场就能根据这把钥匙，找到相应的包。否则如果顾客手里没钥匙，商场就给顾客一把新钥匙，并记住该钥匙对应的柜子编号，并把钥匙保存在顾客手里。商场记着的柜子编号就相当于服务器的sessionid,而顾客手里拿的钥匙就相当于客户端的jsessionid。即服务器中的sessionid，是与客户端中的jsessionid一一对应的。
 
@@ -1032,11 +1032,11 @@ cookieExpiryResult.jsp
 
 综上，可以发现：
 
-①`session`是存储在服务端的（在用户第一次请求时，由服务器会创建并用来保存该用户的sessionId等信息）
+**①**`session`是存储在服务端的（在用户第一次请求时，由服务器会创建并用来保存该用户的sessionId等信息）
 
-②`Session`是在多次请求间共享的，但多次请求必须是同一个客户端发起的（例如，同一个用户进行的购物操作）
+**②**`Session`是在多次请求间共享的，但多次请求必须是同一个客户端发起的（例如，同一个用户进行的购物操作）
 
-③`Session`的实现机制需要先发标识给客户端，再通过客户端发来的标识（jsessionid）找到对应的`session`
+**③**`Session`的实现机制需要先发标识给客户端，再通过客户端发来的标识（jsessionid）找到对应的`session`
 
 `session`内置对象是`javax.servlet.ServletContext.HttpSession`接口的实例化对象，常用方法如下表：
 
@@ -1075,9 +1075,9 @@ cookieExpiryResult.jsp
    </tr>
 </table>
 
-我们通过几个例子来讲述上面方法，现在服务器通过createSession.jsp页面设置一个`session`值，然后响应给客户端页面createSessionResult.jsp：
+我们通过几个例子来讲述上面方法，现在服务器通过**createSession.jsp**页面设置一个`session`值，然后响应给客户端页面**createSessionResult.jsp**：
 
-createSession.jsp
+**createSession.jsp**
 
 ```
 	<body>
@@ -1089,7 +1089,7 @@ createSession.jsp
 	</body>
 ```
 
-createSessionResult.jsp
+**createSessionResult.jsp**
 
 ```
 <%
@@ -1103,7 +1103,7 @@ out.print(cookies[0].getName()+
 		%>
 ```
 
-执行createSession.jsp，运行结果：
+执行**createSession.jsp**，运行结果：
 
 ![](http://i.imgur.com/6cXz2gD.jpg)
 
@@ -1123,11 +1123,11 @@ out.print(cookies[0].getName()+
 
 访问该文件夹(Folder)中的jsp时，需要在jsp的地址前加上文件夹名，如http://localhost:8080/JspProject/loginDemo/login.jsp
 
-登录页: loginDemo /login.jsp
+登录页: **loginDemo /login.jsp**
 
-使用`form`表单录入用户`(uname)`名和密码`(upwd)`，代码略。
+使用`form`表单录入用户名`(uname)`和密码`(upwd)`，代码略。
 
-登录判断页: loginDemo /check.jsp
+登录判断页: **loginDemo /check.jsp**
 
 ```
 	<%
@@ -1154,7 +1154,7 @@ request.getRequestDispatcher("welcome.jsp")
 	%>
 ```
 
-登陆成功后的欢迎页: loginDemo /welcome.jsp
+登陆成功后的欢迎页: **loginDemo /welcome.jsp**
 
 ```
 	<%
@@ -1174,7 +1174,7 @@ request.getRequestDispatcher("welcome.jsp")
 	%>
 ```
 
-注销页logout.jsp
+注销页**logout.jsp**
 
 ```
 	<%
@@ -1204,7 +1204,7 @@ getAttribute("loginName");
 
 如果用户名或密码输入有误，则返回登录页。而且，如果用户没有登录，直接访问welcome.jsp或logout.jsp，也会因为session作用域中的“loginName”为null而直接跳转返回登录页，从而实现访问权限的控制。
 
-最后，再说明一下`cookie`和`session`的几点区别：
+**最后，再说明一下`cookie`和`session`的几点区别：**
 
 <table>
    <tr>
@@ -1231,7 +1231,7 @@ getAttribute("loginName");
 
 ### 5.JSP内置对象application
 
-`application`对象是`javax.servlet.ServletContext`接口的实例化对象，代表了整个web服务器，所以`application`对象的数据可以在整个web服务器中共享，用法上类似于“全局变量”的概念。`application`对象的常用方法如下表（其他方法会在 “四种内置对象的作用域”中讲解）：
+`application`对象是`javax.servlet.ServletContext`接口的实例化对象，代表了整个web项目，所以application对象的数据可以在整个web项目中共享，用法上类似于“全局变量”的概念。`application`对象的常用方法如下表（其他方法会在 “四种内置对象的作用域”中讲解）：
 
 <table>
    <tr>
@@ -1250,7 +1250,7 @@ getAttribute("loginName");
 
 我们先直接通过一段代码，看一下运行结果，
 
-applicationDemo.jsp
+**applicationDemo.jsp**
 
 ```
 	<%
@@ -1263,15 +1263,16 @@ applicationDemo.jsp
 
 运行结果：
 
-![](http://i.imgur.com/c1eOMOf.jpg)
+![](http://i.imgur.com/VL7VMtQ.png)
 
 *图2.33*
 
-可以发现，虚拟路径是项目名；而虚拟路径对应的绝对路径，是在工作目录中的某一个文件夹。虚拟路径和绝对路径都是可以修改的，有兴趣的读者可以查阅一下相关资料。
+可以发现，虚拟路径是项目名；而虚拟路径对应的绝对路径，是在工作目录中的某一个文件夹。虚拟路径和绝对路径都是可以修改的，修改方法参见“1.3.1使用Tomcat开发Web项目”。
 
-## 2.2.2四种内置对象的作用域
 
-在JSP的内置对象中，包含着四种范围对象，简介如下
+## 2.2.2四种范围对象的作用域
+
+在JSP的内置对象中，包含着四种范围对象（或称为“域对象”），简介如下
 
 <table>
    <tr>
@@ -1298,9 +1299,9 @@ applicationDemo.jsp
 
 说明：
 
-其他教材中，经常称`pageContext`作用域为`page`作用域。但为了和`page`对象做以区分，本书就仍然称为`pageContext`作用域。
+其他书籍中，经常将`pageContext`作用域称为`page`作用域。但本书为了和`page`对象做以区分，就称其为`pageContext`作用域。
 
-以上的四个内置对象，都存在以下表格中的方法：
+**以上的四个范围对象，都存在以下表格中的方法：**
 
 <table>
    <tr>
@@ -1323,9 +1324,9 @@ applicationDemo.jsp
 
 ### 1.pageContext作用域
 
-我们创建一个页面 pageDemo.jsp，然后通过`pageContext.setAttribute()`添加两个属性（每个属性都由键值对组成），再通过`pageContext.getAttribute()`将属性的值取出，代码如下：
+我们创建一个页面 **pageDemo.jsp**，然后通过`pageContext.setAttribute()`添加两个属性（每个属性都由键值对组成），再通过`pageContext.getAttribute()`将属性的值取出，代码如下：
 
-pageDemo.jsp
+**pageDemo.jsp**
 
 ```
 <body>
@@ -1347,11 +1348,11 @@ pageDemo.jsp
 
 *图2.34*
 
-因为`pageContext`对象的作用域是“在当前自身的页面有效”，而以上属性均在同一个页面中增加和输出，所以能够正常显示。
+因为`pageContext`对象中的属性的作用域是“在当前自身的页面内有效”，而以上属性均是在同一个页面中增加或输出，所以能够正常显示。
 
-但如果将上述页面进行修改，将增加属性放在page_scope_one.jsp中执行，再通过请求转发跳转到page_scope_two.jsp页面，并在page_scope_two.jsp中显示属性的值，如下代码：
+但如果将上述页面进行修改，将增加属性放在**page_scope_one.jsp**中执行，再通过请求转发跳转到**page_scope_two.jsp**页面，并在**page_scope_two.jsp**中显示属性的值，如下代码：
 
-page_scope_one.jsp
+**page_scope_one.jsp**
 
 ```
 	<body>
@@ -1366,7 +1367,7 @@ page_scope_one.jsp
 	</body>
 ```
 
-page_scope_two.jsp
+**page_scope_two.jsp**
 
 ```
 	<body>
@@ -1376,21 +1377,21 @@ page_scope_two.jsp
 	</body>
 ```
 
-再次执行page_scope_one.jsp，运行结果：
+再次执行**page_scope_one.jsp**，运行结果：
 
 ![](http://i.imgur.com/iERTeqf.jpg)
 
 *图2.35*
 
-因为页面从page_scope_one.jsp，通过请求转发跳转到page_scope_two.jsp后，就已经不再是同一个页面了，所以无法再通过`pageContext`对象获取到数据。
+因为页面从**page_scope_one.jsp**，通过请求转发跳转到**page_scope_two.jsp**后，就已经不再是同一个页面了，所以无法再通过`pageContext`对象获取到数据。
 
 ### 2.request作用域
 
-要想在请求转发后的page_scope_two.jsp页面获取到属性值，则可以使用`request`的作用域。
+要想在请求转发后的**page_scope_two.jsp**页面获取到属性值，可以使用`request`的作用域。
 
 `request`的作用域是“在客户端向服务器端，发送的一次请求中有效”。我们将上面的例子修改如下：
 
-request_scope_one.jsp
+**request_scope_one.jsp**
 
 ```
 	<body>
@@ -1404,7 +1405,7 @@ request_scope_one.jsp
 	</body>
 ```
 
-request_scope_two.jsp
+**request_scope_two.jsp**
 
 ```
 	<body>
@@ -1414,17 +1415,17 @@ request_scope_two.jsp
 	</body>
 ```
 
-执行request_scope_one.jsp，运行结果：
+执行**request_scope_one.jsp**，运行结果：
 
 ![](http://i.imgur.com/De4HCE9.jpg)
 
 *图2.36*
 
-因为从request_scope_one.jsp到request_scope_two.jsp的跳转是“请求转发”，即仍然是同一次请求，而`request`的作用范围就是“在一次请求中有效”。
+因为从**request_scope_one.jsp**到**request_scope_two.jsp**的跳转是“请求转发”，即仍然是同一次请求，而`request`的作用范围就是“在一次请求中有效”。
 
 但要注意，如果将上例的“请求转发”，改为“重定向”或超链接形式的跳转，则不会再获取到数据，如下代码：
 
-request_scope_redirect_one.jsp
+**request_scope_redirect_one.jsp**
 
 ```
 <body>
@@ -1441,7 +1442,7 @@ request_scope_redirect_one.jsp
 	</body>
 ```
 
-request_scope_redirect_two.jsp
+**request_scope_redirect_two.jsp**
 
 ```
 	<body>
@@ -1451,13 +1452,13 @@ request_scope_redirect_two.jsp
 	</body>
 ```
 
-执行request_scope_redirect_one.jsp，运行结果：
+执行**request_scope_redirect_one.jsp**，运行结果：
 
 ![](http://i.imgur.com/nKCHBBf.jpg)
 
 *图2.37*
 
-因为`request`的作用范围是“在一次请求中有效”，而“重定向”或超链接形式的跳转，都是在跳转时重新发送了一次新的请求（重新去请求request_scope_redirect_two.jsp），因此是获取不到数据的。
+因为`request`的作用范围是“在一次请求中有效”，而“重定向”或超链接形式的跳转，都是在跳转时重新发送了一次新的请求（重新去请求**request_scope_redirect_two.jsp**），因此是获取不到数据的。
 
 ### 3.session作用域
 
@@ -1465,7 +1466,7 @@ request_scope_redirect_two.jsp
 
 现在将上例的作用域从`request`改为`session`，如以下代码：
 
-session_scope_redirect_one.jsp
+**session_scope_redirect_one.jsp**
 
 ```
 	<body>
@@ -1482,7 +1483,7 @@ session_scope_redirect_one.jsp
 	</body>
 ```
 
-session_scope_redirect_two.jsp
+**session_scope_redirect_two.jsp**
 
 ```
 	<body>
@@ -1492,13 +1493,13 @@ session_scope_redirect_two.jsp
 	</body>
 ```
 
-执行session_scope_redirect_one.jsp，运行结果：
+执行**session_scope_redirect_one.jsp**，运行结果：
 
 ![](http://i.imgur.com/l6ij0X2.jpg)
 
 *图2.38*
 
-从结果中可以看到，虽然“重定向”或超链接形式的跳转，会重新向服务器发送一次请求（重新去请求request_scope_redirect_two.jsp），但仍然可以从`session`的作用域中获取到属性值。当然，如果是通过请求转发实现的跳转，也是能通过`session`中获取到属性值的。
+从结果中可以看到，虽然“重定向”或超链接形式的跳转，会重新向服务器发送一次请求（重新去请求**request_scope_redirect_two.jsp**），但仍然可以从`session`的作用域中获取到属性值。当然，如果是通过请求转发实现的跳转，也是能通过`session`中获取到属性值的。
 
 此外，如果我们重新打开一个浏览器标签（相同浏览器），如图2.39
 
@@ -1506,15 +1507,15 @@ session_scope_redirect_two.jsp
 
 *图2.39*
 
-然后再新标签里直接输入request_scope_redirect_two.jsp，也能获取到数据。
+然后在新标签里直接输入**request_scope_redirect_two.jsp**，也能获取到数据。
 
-但是，如果我们换一个其他浏览器（比如从火狐换成IE），再次直接输入request_scope_redirect_two.jsp，就无法再获取到数据了，如图是IE浏览器直接运行[http://localhost:8888/JspProject/session_scope_redirect_two.jsp](http://localhost:8888/JspProject/session_scope_redirect_two.jsp)的结果：
+但是，如果我们换一个其他浏览器（比如从火狐换成IE），再次直接输入**request_scope_redirect_two.jsp**，就无法再获取到数据了，如图是IE浏览器直接运行[http://localhost:8888/JspProject/session_scope_redirect_two.jsp](http://localhost:8888/JspProject/session_scope_redirect_two.jsp)的结果：
 
 ![](http://i.imgur.com/EU7YddI.jpg)
 
 *图2.40*
 
-也就是说，只要在session_scope_redirect_one.jsp中，将属性(如`bookName`和`author`)增加到了`session`中以后，凡是同一个浏览器，就都可以获取到`session`中的该属性值；但如果换成其他浏览器，则就不能再在`session`中获取到该属性值了。我们可以联想一下平日的网购经验，如果通过火狐浏览器登录淘宝，那么只要登录一次以后，在短时间内即使我们重新开启一个火狐标签，也会以“已登录”的身份访问淘宝；但如果换成IE浏览器，则又需要我们重新登录了。所以网站中的登录功能，就可以通过`session`来实现。
+也就是说，只要在**session_scope_redirect_one.jsp**中，将属性(如`bookName`和`author`)增加到了`session`中以后，凡是同一个浏览器，就都可以获取到`session`中的该属性值；但如果换成其他浏览器，则就不能再在`session`中获取到该属性值了。我们可以联想一下平日的网购经验，如果通过火狐浏览器登录淘宝，那么只要登录一次以后，在短时间内即使我们重新开启一个火狐标签，也会以“已登录”的身份访问淘宝；但如果换成IE浏览器，则又需要我们重新登录了。所以网站中的登录功能，就可以通过`session`来实现。
 
 ### 4.application作用域
 
@@ -1522,7 +1523,7 @@ session_scope_redirect_two.jsp
 
 我们再将上例中的作用域，从`session`改为`application`，如以下代码：
 
-application_scope_redirect_one.jsp
+**application_scope_redirect_one.jsp**
 
 ```
 	<body>
@@ -1539,7 +1540,7 @@ application_scope_redirect_one.jsp
 	</body>
 ```
 
-application_scope_redirect_two.jsp
+**application_scope_redirect_two.jsp**
 
 ```
 		<body>
@@ -1549,13 +1550,13 @@ application_scope_redirect_two.jsp
 	</body>
 ```
 
-执行application_scope_redirect_one.jsp，运行结果：
+执行**application_scope_redirect_one.jsp**，运行结果：
 
 ![](http://i.imgur.com/CA5pf0b.jpg)
 
 *图2.41*
 
-此外，读者可以发现，只要运行过一次application_scope_redirect_one.jsp以后，无论是新开一个浏览器标签，或者是更换新的浏览器，直接再运行application_scope_redirect_two.jsp，也都能获取到数据。如图是火狐上执行了application_scope_redirect_one.jsp以后，在IE浏览器直接运行application_scope_redirect_two.jsp的运行结果：
+此外，读者可以发现，只要运行过一次**application_scope_redirect_one.jsp**以后，无论是新开一个浏览器标签，或者是更换新的浏览器，直接再运行**application_scope_redirect_two.jsp**，也都能获取到数据。如图是火狐上执行了**application_scope_redirect_one.jsp**以后，在IE浏览器直接运行**application_scope_redirect_two.jsp**的运行结果：
 
 ![](http://i.imgur.com/TFCPNsi.png)
 
@@ -1565,7 +1566,7 @@ application_scope_redirect_two.jsp
 
 我们可以利用`applicatoin`作用域的这一特性，来实现一个网页计数器功能：
 
-webCounterDemo.jsp
+**webCounterDemo.jsp**
 
 ```
 	<body>
@@ -1595,7 +1596,7 @@ webCounterDemo.jsp
 
 之后，无论是刷新当前页，还是新开一个浏览器标签，或者打开一个其他浏览器再次访问，每访问一次，访问次数就会累加一次。
 
-需要说明的是，虽然四种作用域的大小依次是`pageContext`<`request`<`session`<`application`，但我们不能因为方便就随时使用大范围的范围对象，范围越大造成的性能损耗就越大。因此，如果多个作用域都能完成相同的功能，我们一般会使用范围小的那个对象。
+需要说明的是，虽然四种作用域的大小依次是`pageContext`<`request`<`session`<`application`，但我们不能为了方便就随便使用范围较大的范围对象，因为范围越大造成的性能损耗就越大。因此，如果多个作用域都能完成相同的功能，我们一般会使用范围小的那个对象。
 
 # 2.3本章练习
 
@@ -1672,7 +1673,7 @@ D．`session`对象
 
 4.简述`pageContext`、`request`、`session`、`application`等四个内置对象的作用域范围（难度★★）。
 
-5.在index.jsp中编写两个输入框，用于接收用户输入的两个数，然后通过表单提交跳转到result.jsp。再在result.jsp中比较判断出较大的数字，并显示（难度★★）。
+5.在**index.jsp**中编写两个输入框，用于接收用户输入的两个数，然后通过表单提交跳转到**result.jsp**。再在**result.jsp**中比较判断出较大的数字，并显示（难度★★）。
 
 6.简述请求转发与重定向的区别（难度★★★）。
 
