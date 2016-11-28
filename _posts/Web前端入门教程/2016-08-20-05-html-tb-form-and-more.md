@@ -1,6 +1,6 @@
 ---
 layout: post
-title: HTML表格和表单
+title: 使用HTML表格和表单
 category: Web前端入门教程
 tags: Web前端
 author: 曹小虎

@@ -12,13 +12,13 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 - 用CSS+DIV布局页面
 
-- CSS浮动和清除浮动
+- CSS浮动和清除
 
 - CSS盒子模型
 
-- CSS的display属性
+- CSS简写规则
 
-- CSS的position属性
+- CSS相对定位和绝对定位
 
 
 
@@ -797,13 +797,13 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;块元素像个容器，它里面的内容可以是其他块元素或者行元素。
 
- ![html-xhtml-relation](/public/img/html/p-span-a-css-display.PNG)
+ ![p-span-a-css-display](/public/img/html/p-span-a-css-display.PNG)
 
 &emsp;&emsp;行级元素的宽度取决于其中文字内容的宽度、不会继续扩展，与此同时它也不会引起所在段落发生文字换行。
 
 &emsp;&emsp;使用Chrome浏览器开发工具，查看a元素的属性：
 
- ![html-xhtml-relation](/public/img/html/p-a-display-inline-demo.PNG)
+ ![p-a-display-inline-demo](/public/img/html/p-a-display-inline-demo.PNG)
 
 &emsp;&emsp;
 
@@ -838,5 +838,65 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;关于CSS定位的更去那面系统的解释，大家可以参考MDN的[CSS Position属性页面](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position)。
 
+
+# 习题：
+
+ 1.在W3School提供的display属性值列表里面，有一组以“table”打头的属性值。据此，我们可以可以用嵌套的div元素做出HTML表格：
+
+&emsp;&emsp;你只需要把原来表格里的table、tr、th、td元素等等替换成div，并且根据div容器的类型应用不同的display属性值就可以了。
+
+ ![css_display_value_4_table](/public/img/css/css_display_value_4_table.png)
+
+
+&emsp;&emsp;请你尝试用这个方法改造上一章的*唐诗排行前十名*的表格。
+
+
+ 2.我们在上网的时候经常会看到一个固定在浏览器右下角的广告窗口：不管你怎么滚动页面，它会始终“固定”在那个地方。你想知道他是怎么实现的吗？
+
+&emsp;&emsp;恰好，CSS的position属性规定了一种固定（fixed）定位法。借助“固定定位”，你可以把一个div始终固定在浏览器窗口的右下角，请尝试实现一个这样的div窗口。
+
+ 3.看下面的代码。
+
+&emsp;&emsp;HTML代码：
+
+    <!-- 页面内容区域开始 -->
+    
+    <div class="container">
+    <div class="child"></div>
+    </div>
+
+    <!-- 页面内容区域结束 -->
+
+&emsp;&emsp;CSS代码：
+
+    <style>
+    .container{
+       border : 6px solid red;
+	   height :300px;
+	   width:600px;
+	   margin-left:auto;
+	   margin-right:auto;
+    }
+  
+    .child{
+       border : 6px solid green;
+	   height :50px;
+	   width:50px;
+	   position :absolute;//内部div应用绝对定位法
+	   top:20px; //自顶部下移20px
+	   left:20px;//自左边移动20px
+     }
+     </style>
+
+&emsp;&emsp;定位效果：
+
+ ![css_div_abs_position_12](/public/img/css/css_div_abs_position_12.gif)
+
+&emsp;&emsp;不用多说，内部div绝对定位的参照物是HTML文档的body元素。试问，能否让绿色边框的div参照它的外部div绝对定位？请提出你的解决方案。
+
+&emsp;&emsp;下面是一段来自[英文版W3School的CSS Layout Position Property](http://www.w3schools.com/css/css_positioning.asp)页面的参考文字：
+
+>An element with *position: absolute;* is positioned **relative to the nearest positioned ancestor**.However, if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling.<br/>
+**Note**: A "positioned" element is one whose position is **anything except static**.
 
 
