@@ -2,31 +2,31 @@
 
 layout: post
 
-title: 数据库访问和JavaBean
+title: 数据库访问与JavaBean
 
 category: JSP-Servlet教程
 
 tags: JSP Servlet
 
-description: 本章主要学习JDBC访问数据库的相关知识
+description: 本章主要学习JDBC访问数据库的相关知识。
 
 author: 颜群
  
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
-# 3.1JDBC
+# 3.1JDBC #
 
-## 3.1.1JDBC简介
+## 3.1.1JDBC简介 ##
 
-JDBC（Java DataBase Connectivity）是由一组使用Java语言编写的类和接口组成，可以为多种关系数据库提供统一的访问方式，从而实现用JAVA代码来操作数据库。
+JDBC（Java DataBase Connectivity），由一组使用Java语言编写的类和接口组成，可以为多种关系数据库提供统一的访问方式，从而实现用JAVA代码来操作数据库。
 
 ![](http://i.imgur.com/OFXzU95.jpg)
 
 *图3-01*
 
-JDBC的原理如上图所示，最顶层是我们自己编写的Java应用程序，Java应用程序可以使用集成在JDK中的java.sql和javax.sql包中的JDBC API来连接和操作数据库。下面我们来依次讲解图中出现的JDBC组成元素。
+JDBC的原理如上图所示，最顶层是我们自己编写的Java应用程序，Java应用程序可以通过使用集成在JDK中的java.sql及javax.sql包中的JDBC API来连接和操作数据库。下面我们来依次讲解图中出现的JDBC组成元素。
 
 **(1)JDBC API**
 
@@ -40,7 +40,7 @@ JDBC Driver Manager也是由SUN公司提供，负责管理各种不同数据库�
 
 JDBC驱动由各个数据库厂商或第三方厂商提供，负责连接各种不同的数据库。比如上图中，应用程序访问MySql和Oracle时，就需要不同的JDBC驱动。这些JDBC驱动都各自实现了JDBC API中定义的各种接口。在使用JDBC连接数据库时，我们只需要正确加载JDBC驱动，然后就可以通过调用JDBC API来操作数据库。
 
-## 3.1.2JDBC API
+## 3.1.2JDBC API ##
 
 JDBC API主要可以完成三件事：**①与数据库建立连接**、**②发送SQL语句**、**③返回处理结果**，如图：
 
@@ -48,7 +48,7 @@ JDBC API主要可以完成三件事：**①与数据库建立连接**、**②发
 
 *图3-02*
 
-JDBC API中常用接口、类的介绍如下：
+**JDBC API中常用接口、类的介绍如下：**
 
 <table>
    <tr>
@@ -61,15 +61,19 @@ JDBC API中常用接口、类的介绍如下：
    </tr>
    <tr>
       <td>Connection接口</td>
-      <td>由DriverManager产生，负责连接数据库并传递数据。</td>
+      <td>由DriverManager产生，用于连接数据库并传递数据。</td>
    </tr>
    <tr>
       <td>Statement接口</td>
-      <td>由Connection产生，负责执行增删改查等SQL语句。</td>
+      <td>由Connection产生，用于执行增删改查等SQL语句。</td>
    </tr>
    <tr>
       <td>PreparedStatement接口</td>
-      <td>Statement的子接口（public interface PreparedStatement extends Statement{…}），同样是由Connection产生，同样负责执行增删改查等SQL语句。与Statement接口相比，具有高安全性（可以防止SQL注入等安全隐患）、高性能、高可读性和高可维护性的优点</td>
+      <td>Statement的子接口（public interface PreparedStatement extends Statement{…}），同样是由Connection产生，同样用于执行增删改查等SQL语句。与Statement接口相比，具有高安全性（可以防止SQL注入等安全隐患）、高性能、高可读性和高可维护性的优点</td>
+   </tr>
+   <tr>
+      <td>CallableStatement接口</td>
+      <td>PreparedStatement的子接口（public interface CallableStatement extends PreparedStatement {…}），同样是由Connection产生，用于调用并执行SQL存储过程或存储函数。</td>
    </tr>
    <tr>
       <td>ResultSet接口</td>
@@ -77,11 +81,11 @@ JDBC API中常用接口、类的介绍如下：
    </tr>
 </table>
 
-## 3.1.3JDBC访问数据库的步骤
+## 3.1.3JDBC访问数据库的步骤 ##
 
 开发一个JDBC程序，有以下四个基本步骤：
 
-**(1)导入JDBC驱动包，并加载驱动类**
+#### (1)导入JDBC驱动包，并加载驱动类 ####
 
 使用JDBC访问数据库前，需要先导入相应的驱动包（如oracle数据库的驱动包是ojdbc版本号.jar），之后再使用`Class.forName()`方法将具体的JDBC驱动类加载到Java虚拟机中，代码如下
 
@@ -122,7 +126,7 @@ Class.forName("JDBC驱动类名");
 
 其中“连接字符串”中的1521、3306和1433分别是各个数据库的默认端口号。
 
-**(2)与数据库建立连接**
+#### (2)与数据库建立连接 ####
 
 JDBC使用DriverManager类来管理驱动程序，并通过`getConnection()`方法在数据库和相应的驱动程序之间建立起连接，如下，
 
@@ -140,15 +144,15 @@ Connection connection = DriverManager
    </tr>
    <tr>
       <td>Statement createStatement() throws SQLException</td>
-      <td>获取Statement对象。</td>
+      <td>创建Statement对象。</td>
    </tr>
    <tr>
       <td>PreparedStatement prepareStatement(String sql)</td>
-      <td>获取PreparedStatement对象。</td>
+      <td>创建PreparedStatement对象。</td>
    </tr>
 </table>
 
-**(3)发送SQL语句，并获取执行结果**
+#### (3)发送SQL语句，并获取执行结果 #### 
 
 获得了`Connection`连接后，就可以通过`Connection`对象来获得`Statement`或`PreparedStatement`对象，并通过该对象向数据库发送SQL语句。如果SQL语句是增、删、改操作，则返回一个`int`型结果，表示多少行受到了影响，即增、删、改了几条数据；如果SQL语句是查询操作，则返回一个`ResultSet`结果集，该结果集包含了SQL查询的所有结果。如下，
 
@@ -225,9 +229,9 @@ PreparedStatement pstmt = connection
    </tr>
 </table>
 
-**(4)处理返回结果集**
+#### (4)处理返回结果集 ####
 
-如果是查询操作，可以通过循环来取出结果集中的所有数据，如下：
+如果是查询操作，可以通过循环取出结果集中的所有数据：先通过`rs.next()`获取每一行的数据，再通过`rs.getXxx()`获取行内的每一列数据，如下：
 
 ```
 while(rs.next)
@@ -247,7 +251,7 @@ while(rs.next)
    </tr>
    <tr>
       <td>boolean next()</td>
-      <td>将光标从当前位置向下移动一行。通常用来判断查询到的结果集中是否还有数据。如果有，则返回true，否则返回false。</td>
+      <td>将光标从当前位置向下移动一行，指向结果集中的下一行的数据。通常用来判断查询到的结果集中是否还有数据。如果有，则返回true，否则返回false。</td>
    </tr>
    <tr>
       <td>boolean previous()</td>
@@ -255,7 +259,7 @@ while(rs.next)
    </tr>
    <tr>
       <td>int getInt(int columnIndex)</td>
-      <td>获取当前结果集中指定列号的字段值，该指定列必须是整数类型的字段。例如，学生表中number类型的学号stuNo字段如果在第一列，就可以使用getInt(1)来获取值。除此之外，还有getFloat()、getString()、getDate()等多个类似方法，用于获取不同类型的字段。</td>
+      <td>获取当前结果集中指定列号的字段值，该指定列必须是整数类型的字段。例如，学生表中number类型的学号stuNo字段如果在第一列，就可以使用getInt(1)来获取值。除此之外，还有getFloat()、getString()、getDate()、getBinaryStream()等多个类似方法，用于获取不同类型的字段。</td>
    </tr>
    <tr>
       <td>int getInt(String columnLabel)</td>
@@ -296,7 +300,7 @@ while(rs.next)
    </tr>
 </table>
 
-**(1)使用`Statement`访问数据库**
+#### (1)使用`Statement`访问数据库 ####
 
 **①实现“增删改”操作。**
 
@@ -469,7 +473,7 @@ String querySql = "select stuNo,stuName,stuAge from student";
 
 执行`executeQuery()`方法，即可查询出`student`表中所有的`stuNo`、`stuName`和`stuAge`字段值，如图
 
-![](http://i.imgur.com/nMyhvUB.jpg)
+![](http://i.imgur.com/foA0Pcy.png)
 
 *图3-03*
 
@@ -479,7 +483,9 @@ String querySql = "select stuNo,stuName,stuAge from student";
 "select stuNo,stuName,stuAge from student where stuName like '%"+name + "%'"
 ```
 
-**(2)使用`PreparedStatement`访问数据库**
+**注意name两边的单引号。**
+
+#### (2)使用`PreparedStatement`访问数据库 ####
 
 **①实现“增删改”操作。**
 
@@ -516,7 +522,7 @@ public class JDBUpdateByPreparedStatement
 }
 ```
 
-使用`PreparedStatement`执行“增删改”操作，唯一不同的就是`prepareStatement()`方法中的SQL参数。
+	与Statement相比，使用PreparedStatement执行“增删改”操作，唯一不同的就是prepareStatement()方法中的SQL参数。
 
 **②实现“查询”操作。**
 
@@ -562,7 +568,7 @@ username = ? and password = ?" ;
 }
 ```
 
-使用`PreparedStatement`进行模糊查询时，可以在`setXxx()`方法中加入通配符，如下是根据`String`类型的`name`变量的模糊查询：
+	使用PreparedStatement进行模糊查询时，可以在setXxx()方法中加入通配符。例如，以下是根据String类型的name变量的模糊查询：
 
 ```
 PreparedStatement pstmt = ... ;
@@ -573,9 +579,12 @@ pstmt.setString(1, "%" +name +"%");
 rs = pstmt.executeQuery();
 ```
 
-**(3)JDBC中的异常处理及资源关闭**
+需要注意，如果使用的是Statement，当需要给SQL语句拼接String类型变量时，必须加上单引号，例如"`select … from … where stuName like '%"+name + "%'"`；但如果使用的是PreparedStatement，则不需要加，例如：`pstmt.setString(1, "%" +name +"%")`。
 
-在JDBC中，会抛出异常的常见方法如下：
+
+#### (3)JDBC中的异常处理及资源关闭 ####
+
+在JDBC中，会抛出异常的常用方法如下：
 
 <table border="1">
    <tr>
@@ -626,7 +635,7 @@ rs = pstmt.executeQuery();
    </tr>
 </table>
 
-并且，为了及时的释放使用完毕的资源，就需要在数据库访问结束时，调用各个对象的`close()`方法。
+并且，为了及时的释放使用完毕的资源，需要在数据库访问结束时，调用各个对象的`close()`方法。
 
 <table>
    <tr>
@@ -647,11 +656,11 @@ rs = pstmt.executeQuery();
    </tr>
 </table>
 
-因此在编码时，释放资源的顺序应该写为：`ResultSet`的`close()`(查询操作)→`Statement`的`close()`→`Connection`的`close()`。也就是说，在JDBC代码中，先释放范围小的资源，再释放范围大的资源。
+可以发现，三个资源之间存在包含关系，所以在编码时，释放资源的顺序应该写为：ResultSet对象的close()(查询操作)Statement的对象close()Connection对象的close()。也就是说，在JDBC代码中，先释放范围小的资源，再释放范围大的资源。
 
 值得注意的是，因为`PreparedStatement`继承自`Statement`，所以`Statement`接口的`close()`方法代表了`PreparedStatement`对象`.close()`和`Statement`对象`.close()`两个方法。
 
-此外，如果不及时的通过`close()`方法释放资源，已创建的`Connection`对象、`Statement`对象、`ResultSet`对象也会在JVM执行垃圾回收时自动释放。但此种方式会造成资源的释放不及时，故不推荐。
+此外，如果不及时的通过close()方法释放资源，已创建的Connection对象、Statement对象、ResultSet对象也会在GC执行垃圾回收时自动释放。但自动释放的方式会造成资源的释放不及时（必须等待GC回收），故不推荐。
 
 综上，JDBC的代码结构如下：
 
@@ -683,7 +692,7 @@ catch (Exception e)
 		}
 ```
 
-**(4)使用`PreparedStatement`的优势**
+**说明：使用PreparedStatement的优势**
 
 现在我们知道，`Statement`和`PreparedStatement`都可以实现数据库的增删改查等操作。二者相比，`PreparedStatement`有如下优势：
 
@@ -733,7 +742,7 @@ SQL语句中，用`“or 1=1”` 使`where`条件永远成立，并且用“--�
 
 
 
-**(4)使用`CallableStatement`调用存储过程或存储函数**
+#### (4)使用`CallableStatement`调用存储过程或存储函数 ####
 
 除了使用SQL语句外，我们还可以通过存储过程或存储函数来访问数据库。在Java程序中，就可以通过`CallableStatement`对象来调用数据库中的存储过程或存储函数。
 
@@ -828,6 +837,7 @@ public class TestJDBCOperateByCallableStatement
 
 ![](http://i.imgur.com/M2C5nh1.png)
 
+*图3-04*
 
 **②调用存储函数（有返回值）**
 
@@ -904,11 +914,11 @@ public class TestJDBCOperateByCallableStatement
 
 ![](http://i.imgur.com/iVTyxVA.png)
 
+*图3-05*
 
+#### (5)处理CLOB/BLOB数据 ####
 
-**(5)处理CLOB/BLOB数据**
-
-实际开发中，经常会处理一些大文本数据（CLOB）或二进制数据（BLOB）。要想在数据库中读写CLOB及BLOB，就必须使用PreparedStatement和IO流。
+	实际开发中，经常会处理一些大文本数据（CLOB）或二进制数据（BLOB）。要想在数据库中读写CLOB或BLOB类型的数据，就必须使用PreparedStatement和IO流。
 
 
 **①读写CLOB数据**
@@ -977,9 +987,13 @@ new FileInputStream(file),"GBK");
 
 ![](http://i.imgur.com/PZYy3hM.png)
 
+*图3-06*
+
 此时的myNovel表（CLOB类型的数据，无法直接观察）：
 
 ![](http://i.imgur.com/UM1bT7U.png)
+
+*图3-07*
 
 
 **<3>读取数据库中的小说**
@@ -1037,9 +1051,13 @@ URL, USERNAME, PASSWORD);
 
 ![](http://i.imgur.com/ii8kdm8.png)
 
+*图3-08*
+
 刷新项目，可以在`src`下看到读取出的小说，如图:
 
 ![](http://i.imgur.com/QjYFVct.png)
+
+*图3-09*
 
 
 **说明：**
@@ -1114,10 +1132,13 @@ URL, USERNAME, PASSWORD);
 
 ![](http://i.imgur.com/Peq2Gto.png)
 
+*图3-10*
+
 此时的myPicture表（BLOB类型的数据，无法直接观察）：
 
-
 ![](http://i.imgur.com/w9Hk19m.png)
+
+*图3-11*
 
 
 **<3>读取数据库中的图片**
@@ -1180,10 +1201,13 @@ public class WriteAndReadImg
 
 ![](http://i.imgur.com/wQqiGQa.png)
 
+*图3-12*
+
 刷新项目，可以在`src`下看到读取出的图片，如图:
 
 ![](http://i.imgur.com/3icU1T2.png)
 
+*图3-13*
 
 # 3.2 元数据 #
 
@@ -1292,6 +1316,7 @@ dbMetaData.getUserName(), "student") ;
 
 ![](http://i.imgur.com/eIX0MIV.png)
 
+*图3-14*
 
 ## 3.2.2 参数元数据 ##
 
@@ -1379,6 +1404,7 @@ URL, USERNAME, PASSWORD);
 
 ![](http://i.imgur.com/sJE4EnT.png)
 
+*图3-15*
 
 ## 3.2.3 结果集元数据 ##
 
@@ -1463,14 +1489,16 @@ USERNAME, PASSWORD);
 
 ![](http://i.imgur.com/HQzFNaD.png)
 
+*图3-16*
+
 运行时，数据库中stuent表的数据如下：
 
 ![](http://i.imgur.com/46eCb7D.png)
 
+*图3-17*
 
 
-
-# 3.2JSP访问数据库
+# 3.3 JSP访问数据库 #
 
 我们之前讲过，可以在JSP中通过`<% %>`来编写JAVA代码。也就是说，JAVA代码能实现的功能，也就可以借助`<% %>`在JSP中实现。我们接下来，就在JSP中实现一个“用户注册”的功能。该功能写在`WebContent`下的jspJDBC目录中。
 
@@ -1524,13 +1552,15 @@ USERNAME, PASSWORD);
 
 运行以上代码，就能实现用户注册功能，并将注册信息写入数据库。
 
-需要注意，必须在`page`指令里导入`Connection`、`PreparedStatement`等的包名，如[%@page import="java.sql.Connection"%](%@page import="java.sql.Connection"%)；并将数据库的驱动包加入Web工程，导入方法如下：将数据库驱动包（ojdbc5.jar）直接复制在WEB-INF下的lib文件夹中即可，如图：
+需要注意，必须在`page`指令里导入`Connection`、`PreparedStatement`等的包名，如`%@page import="java.sql.Connection"%`；并将数据库的驱动包加入Web工程，导入方法如下：将数据库驱动包（ojdbc6.jar）直接复制在WEB-INF下的lib文件夹中即可，如图：
 
-![](http://i.imgur.com/eWSMNvL.png)
+![](http://i.imgur.com/I5XmQLL.png)
+
+*图3-18*
 
 不难发现，上面registerJDBC.jsp中的代码既包含了业务逻辑、数据库操作，还负责了显示功能，导致JSP文件非常混乱、复杂，给后期的维护和修改上，带来了非常大的困难。因此，我们需要将JSP中的JAVA代码按功能进行划分，将每个功能分别封装成一个类；最后直接将需要的JAVA类导入到JSP中，组装成最终的JAVA代码即可。这里所提到的“类”，就是指我们即将要学习的JavaBean。
 
-# 3.4 Java Bean
+# 3.4 Java Bean #
 Java Bean是一种JAVA语言写成的可重用组件，从而使开发者在IDE工具中可以很方便的使用该组件。在开发过程中，如果能发现一些已存在的Java Bean组件，我们就可以直接使用该Java Bean组件进行开发，从而避免从零开始编写所有代码，提高开发效率。对于Java开发人员来说，不仅要会使用Java API，还要掌握Java Bean这种组件的使用。
 
 Java Bean组件实际上就是一个遵循以下规范的Java类：
@@ -1560,17 +1590,17 @@ public boolean getSex()
 
 **②封装业务逻辑。**
 
-# 4.1使用Java Bean封装数据
+## 3.4.1 使用Java Bean封装数据 ##
 
 通常情况，一个封装数据的JavaBean（也可以称为“实体类”），对应着数据库内的一张表（或视图），并且与该表（或视图）中的字段一一对应。
 
 例如，在registerJDBC.jsp中，涉及一张登录表`(login)`，该表中有两个字段：用户名`(name)`和密码`(password)`。下面，创建一个与该登录表相对应的封装数据的JavaBean（用于封装用户名、密码）：
 
-在项目的`src`目录下新建一个`LoginInfo`类，如图，
+在项目的`src`下新建一个`LoginInfo`类，如图，
 
 ![](http://i.imgur.com/7O3Y3jm.png)
 
-*图4-01*
+*图3-19*
 
 代码如下：
 
@@ -1624,7 +1654,7 @@ public class LoginInfo
 
 可以发现，封装数据的Java Bean可以将许多零散的数据封装到一个对象之中。例如，可以将`name`、`Password`等属性数据封装到一个`login`对象之中。这样做非常利于数据在项目中的传递。
 
-# 4.2使用Java Bean封装业务
+## 3.4.2 使用Java Bean封装业务 ##
 
 一个封装数据的JavaBean，对应着数据库内的一张表（或视图）；而一个封装业务的JavaBean，通常用来对封装数据的JavaBean进行控制操作，或相关的业务逻辑操作。例如，下面就来创建一个封装业务的JavaBean（LoginControl.java），用来对之前封装数据的JavaBean（LoginInfo.java）进行控制操作：
 
@@ -1708,7 +1738,7 @@ getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE"
 上面registerJDBCWithJavaBean.jsp中的代码，可以实现与registerJDBC.jsp相同的功能。不难发现，使用了JavaBean之后，可以大大简化JSP页面的代码量，并且能将某个特定的模型（数据模型或业务模型）封装到一个JAVA类中，从而提高代码的重用性。
 
 
-# 3.5练习题
+# 3.5 练习题 #
 
 **一、选择题**
 
@@ -1746,16 +1776,19 @@ D．`executeResultSet(String sql)`
 
 1.简述JDBC的基本步骤。（难度★）
 
-2.简述`Statement`和`PreparedStatement`两种方式的区别。（难度★★）
+2.JavaBean有几种类型，各有什么作用？（难度★★）
 
-3.描述什么是SQL注入，请用一个例子加以说明。（难度★）
+3.简述Statement和PreparedStatement两种方式的区别。（难度★★）
 
-4.请描述如何在Eclipse中更改新建的JSP页面默认的字符集编码。（难度★）
+4.描述什么是SQL注入，请用一个例子加以说明。（难度★）
 
-5.请描述JDBC连接数据库的步骤，并写出JDBC连接Oracle的示例代码。（难度★★★）
+5.请描述如何在Eclipse中更改新建的JSP页面默认的字符集编码。（难度★）
 
-6.使用`PreparedStatement`的方式，实现一个“部门管理系统”：包括增加部门、修改部门、删除部门、根据部门编号查询一个部门、根据部门名称模糊查询相关部门、查询全部部门等功能。（难度★★★★）
+6.请描述JDBC连接数据库的步骤，并写出JDBC连接Oracle的示例代码。（难度★★★）
 
+7.使用PreparedStatement的方式，实现一个“部门管理系统”：包括增加部门、修改部门、删除部门、根据部门编号查询一个部门、根据部门名称模糊查询相关部门、查询全部部门等功能。（难度★★★★）
+
+8.将上题“部门管理系统”用JavaBean进行优化。（难度★★★）
 
 
 
