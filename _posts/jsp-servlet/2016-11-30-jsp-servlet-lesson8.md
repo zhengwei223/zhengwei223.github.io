@@ -27,7 +27,9 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 ## 8.1.1 过滤器原理 ##
 
 过滤器（Filter）的基本功能是对Servlet的调用过程进行拦截，从而在Servlet处理请求及响应的过程中增加一些特定的功能。
+
 常见用Filter实现的功能有：URL级别的权限访问控制、过滤敏感词汇、压缩响应信息、设置POST方式的统一编码等。
+
 程序中的过滤器就好比生活中的自来水过滤器，可以将水中的杂质、有害物质等进行过滤，从而使水变得更加有利于我们使用。
 
 ![](http://i.imgur.com/wTRPGUq.gif)
@@ -59,7 +61,9 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 与Servlet类似，Filter的`init()`和`destroy()`方法各自只会被调用一次，而`doFilter()`方法会在每次客户端发出请求时被调用。
 
-其中`init()`方法里的FilterConfig参数，主要为过滤器提供初始化参数。FilterConfig是一个接口，常用的方法如下：
+其中`init()`方法里的FilterConfig参数，主要为过滤器提供初始化参数。
+
+**FilterConfig是一个接口，常用的方法如下：**
 
 <table>
    <tr>
@@ -179,7 +183,7 @@ org.lanqiao.filter. MyFirstFilter
 
 Filter的配置方法和Servlet的配置方法相类似：先通过`<url-pattern>`匹配需要拦截的请求，再根据`<filter-name>`找到对应的过滤器处理类`<filter-class>`,最后执行过滤器处理类中的`init()`、`doFilter()`、`destroy()`等方法。
 
-**(4)**部署并启动项目，访问index.jsp中的超链接，可以在控制台看到以下输出：
+**(4)**部署并启动项目，访问**index.jsp**中的超链接，可以在控制台看到以下输出：
 
 ![](http://i.imgur.com/6DrHIo6.png)
 
@@ -297,7 +301,11 @@ Filter通过**web.xml**中的`<url-pattern>`元素来配置需要拦截的请求
 </table>
 
 
-如下，表示此过滤器会拦截所有：①通过地址栏访问方式的请求，②通过请求转发方式的请求：
+如下，表示此过滤器会拦截所有：
+
+**①**通过地址栏访问方式的请求，
+
+**②**通过请求转发方式的请求：
 
 ```
 <filter-mapping>
@@ -385,9 +393,10 @@ org.lanqiao.filter.MySecondFilter
 ```
 
 MyFirstFilter 的`< filter-mapping >`写在MySecondFilter的`< filter-mapping >`前面，因此拦截的顺序是:
-拦截请求：请求先被MyFirstFilter拦截，再被MySecondFilter拦截；
 
-拦截响应：与拦截请求的顺序正好相反：即响应先被MySecondFilter拦截，再被MyFirstFilter拦截。
+**拦截请求：**请求先被MyFirstFilter拦截，再被MySecondFilter拦截；
+
+**拦截响应：**与拦截请求的顺序正好相反：即响应先被MySecondFilter拦截，再被MyFirstFilter拦截。
 
 重启服务，再次通过**index.jsp**中的超链接，向服务器的MyServlet资源发出请求，运行结果如下：
 
@@ -409,7 +418,7 @@ Servlet API提供了`ServletContextListener`、`HttpSessionListener`、`ServletR
 
 例如，`ServletContextListener`接口可以用来监听`ServletContext`域对象的创建、销毁过程。当在Web应用程序中注册了一个或多个实现了`ServletContextListener`接口的事件监听器时，Web容器就会在创建、销毁每个`ServletContext`对象时都产生一个相应的事件对象，然后依次调用每个`ServletContext`事件监听器中的处理方法，并将产生的事件对象传递给这些方法来完成事件的处理工作。
 
-`ServletContextListener`接口定义了以下两个事件处理方法：
+**`ServletContextListener`接口定义了以下两个事件处理方法：**
 
 <table>
    <tr>
@@ -428,7 +437,7 @@ Servlet API提供了`ServletContextListener`、`HttpSessionListener`、`ServletR
 
 类似的，`HttpSessionListener`和`ServletRequestListener`接口也都提供了各自的事件处理方法，如下：
 
-`HttpSessionListener`接口定义的事件处理方法：
+**`HttpSessionListener`接口定义的事件处理方法：**
 
 <table>
    <tr>
@@ -445,7 +454,7 @@ Servlet API提供了`ServletContextListener`、`HttpSessionListener`、`ServletR
    </tr>
 </table>
 
-`ServletRequestListener`接口定义的事件处理方法：
+**`ServletRequestListener`接口定义的事件处理方法：**
 
 <table>
    <tr>
