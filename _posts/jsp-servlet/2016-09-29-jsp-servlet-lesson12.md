@@ -16,15 +16,15 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
-# 9.1 jQuery简介及环境搭建 #
+# 12.1 jQuery简介及环境搭建 #
 
-## 9.1.1 jQuery简介 ##
+## 12.1.1 jQuery简介 ##
 
 jQuery是目前最流行的JavaScript程序库，它是对JavaScript对象及函数的封装。jQuery凭借其简洁的语法和跨平台的兼容性，极大的简化了JavaScript开发人员遍历HTML、操作DOM、控制页面样式、处理事件、执行动画、扩展新的jQuery插件和开发Ajax等操作。
 
 jQuery的设计思想是write less do more（写的少，做的多）。一般情况下，jQuery能做的JavaScript也都能做，但使用jQuery既能减少代码量，又能大幅提高开发效率。
 
-## 9.1.2 jQuery环境搭建 ##
+## 12.1.2 jQuery环境搭建 ##
 
 **(1)获取jQuery库**
 
@@ -32,13 +32,13 @@ jQuery的设计思想是write less do more（写的少，做的多）。一般�
 
 ![](http://i.imgur.com/LIQB5fJ.png)
 
-*图9-01*
+*图12-01*
 
 下载开发版或发布版的jQuery库，如下
 
 ![](http://i.imgur.com/bBfvRGe.png)
 
-*图9-02*
+*图12-02*
 
 **开发版和发布版的区别如下：**
 
@@ -63,7 +63,7 @@ jQuery的设计思想是write less do more（写的少，做的多）。一般�
    </tr>
 </table>
 
-通常在开发时使用开发版；而在开发完毕后，进行项目发布时，再将开发版替换成发布版。
+一般建议：在开发时使用开发版；开发完毕后，进行项目发布时，再将开发版替换成发布版。
 
 本书使用的jQuery库是jquery-1.12.3.js。
 
@@ -75,7 +75,7 @@ jQuery的设计思想是write less do more（写的少，做的多）。一般�
 
 ![](http://i.imgur.com/8W00OLf.png)
 
-*图9-03*
+*图12-03*
 
 **②**在**index.jsp**中引入js库，如下，
 
@@ -96,7 +96,7 @@ jQuery的设计思想是write less do more（写的少，做的多）。一般�
 </html>
 ```
 
-## 9.1.3 开发第一个jQuery程序 ##
+## 12.1.3 开发第一个jQuery程序 ##
 
 **index.jsp**
 
@@ -122,7 +122,7 @@ jQuery的设计思想是write less do more（写的少，做的多）。一般�
 
 ![](http://i.imgur.com/g0ceFle.png)
 
-*图9-04*
+*图12-04*
 
 其中
 
@@ -165,9 +165,9 @@ jQuery(document).ready(function() {
 });
 ```
 
-## 9.1.4 DOM对象和jQuery对象 ##
+## 12.1.4 DOM对象和jQuery对象 ##
 
-**(1)DOM模型**
+#### (1)DOM模型 ####
 
 在学习DOM对象之前，我们有必要先学习一下DOM模型。
 
@@ -203,13 +203,13 @@ content="text/html; charset=UTF-8">
 
 ![](http://i.imgur.com/NSkNuQS.png)
 
-*图9-05*
+*图12-05*
 
 可以把上面的HTML结构描述成一颗DOM树，如下图，
 
 ![](http://i.imgur.com/WmEdz0n.png)
 
-*图9-06*
+*图12-06*
 
 **`DOM`中的节点通常分为三种类型：元素节点、属性节点和文本节点。**
 
@@ -229,30 +229,32 @@ HTML文档的内容都是由文本节点提供的，文本节点就是指HTML中
 
 文本节点总包含在元素节点的内部，例如`<li>`紫色`</li>`。但并不是所有元素节点都一定包含文本节点，例如`<img>`元素节点就没有包含文本节点。
 
-**(2)`DOM`对象**
+#### (2)`DOM`对象 ####
 
-在JavaScript中，可以使用`getElementById()`或`getElementsByName()`等方法获取DOM元素节点。通过该方式得到的`DOM`元素就称之为`DOM`对象，`DOM`对象可以使用JavaScript中的方法或属性，如下：
+在JavaScript中，可以使用`getElementById()`或`getElementsByName()`等方法获取DOM元素节点。通过该方式得到的`DOM`元素就称之为`DOM`对象，`DOM`对象可以使用JavaScript定义的方法或属性，如下：
 
 ```
 var dom = document.getElementById("myId") ;//获取DOM对象
 var html = dom.innerHTML ;//DOM对象使用JavaScript中的属性
 ```
 
-**(3)`jQuery`对象**
+#### (3)`jQuery`对象 ####
+	
+通过jQuery选择器选中的HTML元素，就是jQuery对象，例如：
 
-通过`$()`将`DOM`对象包装后产生的对象，就是jQuery对象，例如：
 
 ```
 //使用jQuery对象的html()方法，等价于document.getElementById("#myId ").innerHTML;
-$("#myId").html();
+var myHtml = $("#myId").html();
 ```
+	
+以上代码，通过选择器$(“#myId”)选择了id=”myId”的HTML元素，返回的myHtml就是jQuery对象。jQuery选择器会在后文详细介绍。
 
-以上代码将`id=”myId”`的`DOM`对象通过`$()`转为了`jQuery`对象，并且调用了`jQuery`对象的`html()`方法。
 
 值得注意的是，`DOM`对象的方法/属性和`jQuery`对象的方法/属性是彼此独立的，即`DOM`对象只能使用`DOM`对象的方法/属性，而`jQuery`对象只能使用`jQuery`对象的方法/属性。例如`DOM`对象可以使用`DOM`对象拥有的`innerHTML`属性，但不能使用`jQuery`对象拥有的`html()`方法。
 
 
-**(4)`DOM`和`jQuery`对象之间的相互转换**
+#### (4)`DOM`和`jQuery`对象之间的相互转换 ####
 
 刚才提到，`DOM`对象的方法/属性和`jQuery`对象的方法/属性是彼此独立的，但是在某些情况下，如果一定需要用`DOM`对象来调用`jQuery`对象的属性/方法；或者要用`jQuery`对象来调用`DOM`对象的属性/方法，就必须进行`DOM`对象与`jQuery`对象之间的类型转换。
 
@@ -264,6 +266,8 @@ $("#myId").html();
 var domObject = document.getElementById("myId");//获取一个DOM对象
 var $jQueryObject = $(domObject); //通过$()将DOM对象转为jQuery对象
 ```
+	
+其中$()称为jQuery工厂。
 
 **②将`jQuery`对象转为`DOM`对象**
 
@@ -289,17 +293,17 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 
 **说明：**
 
- 在JavaScript对象和jQuery对象的变量命名上，一般习惯给jQuery对象的变量名前加上$，以表示区分。例如，var $variable = jQuery对象; varvariable=DOM对象。
+在Dom对象和jQuery对象的变量命名上，一般习惯给jQuery对象的变量名前加上$，表示区分。例如，`var $variable = jQuery对象`; `var variable=DOM对象`。
 
-# 9.2 jQuery选择器 #
+# 12.2 jQuery选择器 #
 
 选择器是jQuery的根基，jQuery的大部分功能都依赖于选择器。jQuery选择器的语法规则类似于CSS选择器，可以用来选取网页中的元素，并且有着良好的浏览器兼容性。jQuery选择器的种类有很多，大体上可以分为类CSS选择器和过滤选择器。
 
-## 9.2.1 类CSS选择器 ##
+## 12.2.1 类CSS选择器 ##
 
 顾名思义，类CSS选择器的构成规则与CSS选择器完全相同，常用的类CSS选择器有jQuery基本选择器、层次选择器、属性选择器。
 
-**(1) 基本选择器**
+#### (1) 基本选择器 ####
 
 常见的基本选择器及简介如下表：
 
@@ -359,7 +363,7 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 		…
 		<script type="text/javascript">
 		    $(document).ready(function() {
-		          //选择h3标签元素和class="content"元素的并集，将背景色设置为yellow
+		          //选择h3标签元素和class="content"元素的并集，将其背景色设置为yellow
 		        $("h3,.content").css("background","yellow");
 		    });
 		</script>
@@ -376,9 +380,9 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 
 ![](http://i.imgur.com/EqVPiOX.png)
 
-*图9-07*
+*图12-07*
 
-**(2) 层次选择器**
+#### (2) 层次选择器 ####
 
 层次选择器通过`DOM`元素之间的层次关系来获取元素，如获取相邻关系、同辈关系、后代关系、父子关系的元素等，如下。
 
@@ -405,12 +409,12 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
       <td>后代选择器</td>
       <td>$("选择器1 选择器2" )</td>
       <td>选取选择器1所选元素内的选择器2（后代）所选的所有元素</td>
-      <td>$("#titleId span" )选取# titleId下的所有&lt;span&gt;元素</td>
+      <td>$("#titleId span" )选取# titleId中的所有&lt;span&gt;元素</td>
    </tr>
    <tr>
       <td>子选择器</td>
       <td>$("选择器1&gt;选择器2" )</td>
-      <td>选取选择器1所选元素内的选择器2（子）所选的元素</td>
+      <td>选取选择器1所选元素内的（子代）选择器2所选的元素</td>
       <td>$(" # titleId&gt;span" )选取# titleId的子元素&lt;span&gt;</td>
    </tr>
 </table>
@@ -449,9 +453,9 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 
 ![](http://i.imgur.com/heN3NZX.png)
 
-*图9-08*
+*图12-08*
 
-**(3) 属性选择器**
+#### (3) 属性选择器 ####
 
 属性选择器是通过HTML元素的属性来选择元素。
 
@@ -521,13 +525,13 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 
 ![](http://i.imgur.com/CHyUXYq.png)
 
-*图9-09*
+*图12-09*
 
-## 9.2.2 过滤选择器 ##
+## 12.2.2 过滤选择器 ##
 
-过滤选择器是通过一些过滤规则来筛选元素，语法特点是使用“:”作为过滤选择器的标识符，如使用`$(“li:first”)`来过滤出第一个`li`元素。常见的过滤选择器有基本选择器、可见性选择器、表单对象选择器、内容选择器、子元素选择器等。
+过滤选择器是通过一些过滤规则来筛选元素，语法特点是使用“:”作为过滤选择器的标识符，如使用`$(“li:first”)`来过滤出第一个`li`元素。常见的过滤选择器有基本过滤选择器、可见性过滤选择器、表单对象过滤选择器、内容过滤选择器等。
 
-**(1)基本选择器**
+#### (1)基本过滤选择器 ####
 
 基本过滤选择器可以选取第一个元素、最后一个元素、索引为偶数或奇数的元素、或根据索引选取元素，如下：
 
@@ -575,7 +579,7 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
    <tr>
       <td>:not(选择器)</td>
       <td>选取除指定选择器选中以外的元素</td>
-      <td>$("li:not(#myTile)")选取id值不是myTile的元素</td>
+      <td>$("li:not(#myTile)")选取id值不是myTile的li元素</td>
    </tr>
    <tr>
       <td>:header</td>
@@ -618,9 +622,9 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 
 ![](http://i.imgur.com/TlG0g5m.png)
 
-*图9-10*
+*图12-10*
 
-**(2)可见性选择器**
+#### (2)可见性过滤选择器 ####
 
 可见性过滤选择器可以根据元素显示状态来选取元素，如下：
 
@@ -644,19 +648,20 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 
 例如`$("p:hidden").show()`表示将所有隐藏的`<p>`元素的状态变为显示; `$("p:visible").hide()`表示将所有显示的`<p>`元素的状态变为隐藏。`show()`的功能是显示，`hide()`的功能是隐藏，会在后续章节详解。
 
-# 9.3 事件 #
+# 12.3 事件 #
 
-事件是指可以被控件识别的操作。例如按下确定按钮，选择某个单选按钮或者复选框。每一种控件有自己可以识别的事件，如窗体能识别加载、单击、双击等事件，文本框能识别文本改变等事件……
+事件是指可以被控件识别的操作。例如按下确定按钮，选择某个单选按钮或者复选框。每一种控件都有自己可以识别的事件，如窗体能识别加载、单击、双击等事件，文本框能识别文本改变等事件……
 
 **jQuery事件是对JavaScript事件的封装，大体上可以分为基础事件和复合事件。**
 
 
 **事件方法的语法格式如下：**
 
-
-**事件方法名(function(){
+```
+		jQuery对象.事件方法 (function(){
 …
 });**
+```
 
 例如：文档就绪事件
 
@@ -666,15 +671,15 @@ $(document).ready(function() {
 });
 ```
 
-## 9.3.1 基础事件 ##
+## 12.3.1 基础事件 ##
 
 基础事件可以分为window事件、鼠标事件、键盘事件、表单事件等。
 
-**(1) window事件**
+#### (1) window事件 ####
 
 所谓window事件，就是指当用户执行某些会影响浏览器的操作时而产生的事件。例如，第一次打开网页时的加载页面、关闭窗口、移动窗口、调节窗口大小等操作引发的事件。在jQuery中，最常用的window事件是文档就绪事件，即当页面中的`DOM`元素全部加载完毕时所触发的事件，该事件对应的方法是`ready()`。
 
-**(2)鼠标事件**
+#### (2)鼠标事件 ####
 
 鼠标事件是指当用户在文档中移动或单击鼠标时而产生的事件，常用鼠标事件的方法有：
 
@@ -727,19 +732,19 @@ $(document).ready(function() {
 ```
 
 运行结果：
-当鼠标悬浮在边框上面时：
+当鼠标悬浮在边框以内时：
 
 ![](http://i.imgur.com/FGwyIMf.png)
 
-*图9-11*
+*图12-11*
 
 当鼠标移出边框时：
 
 ![](http://i.imgur.com/4jibxV5.png)
 
-*图9-12*
+*图12-12*
 
-**(3)键盘事件**
+#### (3)键盘事件 ####
 
 键盘事件是指每次按下或者释放键盘上的按键时所产生的事件，常用键盘事件的方法有：
 
@@ -785,7 +790,7 @@ $(document).ready(function() {
 </html>
 ```
 
-通过`$(document).keydown(function (event) { … })`;给整个文档注册了`keydown`事件，当按下键盘时，就会触发`keydown`中的`function()`。并且通过event.keyCode判断当按下回车键时，执行`alert()`方法。常见`keyCode`所对应的按键如下：
+通过`$(document).keydown(function (event) { … })`;给整个文档注册了`keydown`事件，当按下键盘时，就会触发`keydown`中的`function()`。并且通过event.keyCode判断当按下回车键时，执行`alert()`方法。常见按键与keyCode的对照表如下：
 
 **字母和数字键的键码值`(keyCode)`**
 
@@ -1120,7 +1125,7 @@ $(document).ready(function() {
    </tr>
 </table>
 
-**(4)表单事件**
+#### (4)表单事件 ####
 
 表单事件是指在HTML表单内的动作所触发的事件，常用表单事件的方法如下：
 
@@ -1177,19 +1182,19 @@ $(document).ready(function() {
 
 ![](http://i.imgur.com/HOe6ab1.png)
 
-*图9-13*
+*图12-13*
 
 当鼠标光标离开用户名的输入框时，背景色恢复为白色，如图：
 
 ![](http://i.imgur.com/o7kECEl.png)
 
-*图9-14*
+*图12-14*
 
-## 9.3.2绑定事件与移除事件 ##
+## 12.3.2绑定事件与移除事件 ##
 
 如果需要为匹配的元素绑定或移除一个或多个事件，可以使用绑定事件方法`bind()`或移除事件方法`unbind()`。
 
-**(1)绑定事件**
+#### (1)绑定事件 ####
 
 **语法：**
 
@@ -1254,7 +1259,7 @@ $(document).ready(function() {
 
 ![](http://i.imgur.com/NINgWsd.png)
 
-*图9-15*
+*图12-15*
 
 **②同时绑定多个事件**
 
@@ -1294,15 +1299,15 @@ $(document).ready(function() {
 
 ![](http://i.imgur.com/UuTNOKQ.png)
 
-*图9-16*
+*图12-16*
 
 当鼠标离开div后，div背景色恢复为白色，如图：
 
 ![](http://i.imgur.com/EA1JW8c.png)
 
-*图9-17*
+*图12-17*
 
-**(2)移除事件**
+#### (2)移除事件 ####
 
 在jQuery中，可以使用`unbind()`方法为元素移除一个或多个事件。
 
@@ -1318,22 +1323,22 @@ $(document).ready(function() {
       <td>简介</td>
    </tr>
    <tr>
-      <td>[type]</td>
+      <td>type</td>
       <td>事件类型，如click、focus、mouseover等，还可以是自定义事件。</td>
    </tr>
    <tr>
-      <td>[fn]</td>
-      <td>处理函数，用来解除绑定的处理函数。</td>
+      <td>fn</td>
+      <td>处理函数，用于解除绑定的事件函数。</td>
    </tr>
 </table>
 
 当`unbind()`不带参数时，表示移除绑定的全部事件。
 
-## 9.3.3复合事件 ##
+## 12.3.3复合事件 ##
 
 jQuery提供了两个复合事件方法：`hover()`和`toggle()`方法。
 
-**(1)hover()**
+#### (1)hover() ####
 
 `hover()`方法相当于`mouseover()`和`mouseout()`方法的组合
 
@@ -1358,7 +1363,7 @@ $(this).css("background-color","white");
 
 当鼠标悬浮到`id=” textId”`的`div`时，背景色变为黄色；鼠标移出时，背景色变为白色。
 
-**(2)toggle()**
+#### (2)toggle() ####
 
 **语法**（适用于jQuery1.9以前版本）：
 
@@ -1384,11 +1389,11 @@ $("body").toggle(
 
 当在body中连续单击鼠标时，背景色会在红、黄、蓝之间切换。但从jQuery1.9版本开始，jQuery去掉了`toggle()`方法的此功能。`toggle`方法还可以用来切换元素的显示与隐藏，会在后续讲解。
 
-# 9.4 显示效果 #
+# 12.4 显示效果 #
 
 **还可以使用jQuery来控制网页元素的显示、隐藏、改变透明度等显示效果。**
 
-## 9.4.1 控制元素的隐藏与显示 ##
+## 12.4.1 控制元素的隐藏与显示 ##
 
 jQuery中，控制元素隐藏与显示的方法如下：
 
@@ -1414,7 +1419,7 @@ jQuery中，控制元素隐藏与显示的方法如下：
 其中`speed`和`callback`都是可选参数。
 
 
-`speed`：元素显示或隐藏的时间（单位是毫秒；默认值是0，表示会立刻显示或隐藏）。如`hide(1000)`，表示在1秒中内隐藏某元素；此外还可以使用`show`、`normal`、`fast`来控制隐藏或显示的时间，如`hide(“fast”)`。需要注意，如果`speed`使用数字来表示，是不需要双引号的；但如果使用的是`show`等关键字，则需要加上双引号。
+`speed`：元素显示或隐藏的时间（单位是毫秒；默认值是0，表示会立刻显示或隐藏）。如`hide(1000)`，表示在1秒中内隐藏某元素；此外还可以使用`show`、`normal`、`fast`来控制隐藏或显示的时间，如`hide(“fast”)`。需要注意，如果`speed`使用数字来表示，是不需要引号的；但如果使用的是`show`等关键字，则需要加上引号。
 
 `callback`：隐藏或显示后，会执行的方法（回调方法）。
 
@@ -1431,7 +1436,7 @@ $(document).ready(function() {
 当在body中单击鼠标时，`id=”textId”`的`div`会在1秒中内切换显示或隐藏状态。
 
 
-## 9.4.2 控制元素的透明度 ##
+## 12.4.2 控制元素的透明度 ##
 
 `fadeIn()`和`fadeOut()`可以改变元素的透明度，从而实现淡入淡出效果。
 
@@ -1450,7 +1455,7 @@ $(document).ready(function() {
    </tr>
 </table>
 
-## 9.4.3 控制元素的高度 ##
+## 12.4.3 控制元素的高度 ##
 
 可以使用`slideUp()`和`slideDown()`方法来控制元素的高度。
 
@@ -1472,15 +1477,15 @@ $(document).ready(function() {
 
 从效果上看，`hide()`、`fadeOut()`、`slideUp()`都可以将显示的元素隐藏；`show()`、`slideDown()`、`fadeIn()`都可以将隐藏的元素显示。
 
-# 9.5 操作DOM #
+# 12.5 操作DOM #
 
 jQuery对JavaScript操作`DOM`的方法进行了封装，使用起来也更加简便。
 
-## 9.5.1 样式操作 ##
+## 12.5.1 样式操作 ##
 
-**在jQuery中，对元素样式的操作可以分为直接设置样式、追加样式、移除样式、切换样式等。**
+在jQuery中，可以通过以下几种方式来设置元素的样式：直接设置样式、追加样式、移除样式、切换样式。
 
-**(1) 直接设置样式**
+#### (1) 直接设置样式 ####
 
 jQuery使用`css()`方法为指定的元素直接设置样式值。
 
@@ -1542,15 +1547,15 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
 
 ![](http://i.imgur.com/EK6EQcX.png)
 
-*图9-18*
+*图12-18*
 
 当鼠标离开图片时：
 
 ![](http://i.imgur.com/TssTtCS.png)
 
-*图9-19*
+*图12-19*
 
-**(2)追加或移出类样式**
+#### (2)追加或移除类样式 ####
 
 **①追加类样式**
 
@@ -1596,11 +1601,11 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
 
 ![](http://i.imgur.com/9ef7UnA.png)
 
-*图9-20*
+*图12-20*
 
 **②移除类样式**
 
-`addClass()`可以为元素追加类样式；与之相反，可以使用`removeClass()`为元素移除类样式。
+`addClass()`可以为元素追加类样式；与之相反，`removeClass()`可以为元素删除类样式。
 
 **语法：**
 
@@ -1610,7 +1615,7 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
 
 移除全部类样式：	`jQuery对象.removeClass()`
 
-**②切换类样式**
+#### (3)切换类样式 ####
 
 `toggle()`方法可以切换元素的显示与隐藏状态；类似的，`toggleClass()`方法可以切换（增加或删除）元素的类样式。
 
@@ -1651,11 +1656,11 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
 
 当连续点击`<p>`元素的内容时，`<p>`元素就会不断的追加或移除`.myStyle1`和`.myStyle2`两个类样式。
 
-## 9.5.2 内容操作 ##
+## 12.5.2 内容操作 ##
 
 jQuery还提供了对元素内容（HTML代码、文本内容、属性值）的操作方法。
 
-**(1)对HTML代码的操作**
+#### (1)对HTML代码的操作 ####
 
 jQuery可以使用`html()`方法对元素的HTML代码进行操作，该方法类似于JavaScript中的innerHTML。
 
@@ -1692,16 +1697,16 @@ hello</h1>");
 
 ![](http://i.imgur.com/SIAjkmE.png)
 
-*图9-21*
+*图12-21*
 
-**(2)对文本内容的操作**
+#### (2)对文本内容的操作 ####
 
 jQuery还可以使用`text()`方法获取或设置元素的文本内容。
 
 语法：
 `jQuery对象.text([content]);`
 
-如果存在参数`content`，表示将选中的元素赋上新的文本内容`content`；如果不存在参数`content`，表示获取被选中元素的文本内容。
+如果存在参数`content`，表示给选中的元素赋上新的文本内容`content`；如果不存在参数`content`，表示获取被选中元素的文本内容。
 
 **示例：textDemo.jsp**
 
@@ -1734,18 +1739,18 @@ jQuery还可以使用`text()`方法获取或设置元素的文本内容。
 
 ![](http://i.imgur.com/nCph7Tq.png)
 
-*图9-22*
+*图12-22*
 
-可以发现`html(content)`会将渲染后的效果赋值给元素，而`text(content)`只是简单的将内容以文本形式赋值给元素；`html()`会将渲染内容和文本内容一起返回，而`text()`只会返回文本内容。
+可以发现`html(content)`会将内容先渲染成html/css样式，然后再赋值给元素；而`text(content)`只是简单的将内容以文本形式赋值给元素。`html()`会将渲染样式和文本内容一起返回，而`text()`只返回文本内容。
 
-**(3)对属性值的操作**
+#### (3)对属性值的操作 ####
 
 jQuery还可以通过`val()`方法来获取或设置元素的`value`属性值。
 
 语法：
 `jQuery对象.val([v])`
 
-如果存在参数`value`，表示将选中元素的`value`值设置为v；如果不存在参数v，表示获取被选中元素的`value`值。
+如果存在参数v，表示将选中元素的`value`值设置为v；如果不存在参数v，表示获取被选中元素的`value`值。
 
 **示例：valDemo.jsp**
 
@@ -1787,25 +1792,25 @@ jQuery还可以通过`val()`方法来获取或设置元素的`value`属性值。
 
 ![](http://i.imgur.com/mjViqGl.png)
 
-*图9-23*
+*图12-23*
 
 当鼠标光标离开搜索框中时，`value`值为“搜索”，如图
 
 ![](http://i.imgur.com/OjvPw5d.png)
 
-*图9-24*
+*图12-24*
 
-## 9.5.3 节点与属性操作 ##
+## 12.5.3 节点与属性操作 ##
 
 jQuery对节点的操作主要有两种：对节点本身的操作，以及对节点中属性的操作。
 
-**(1)节点操作**
+#### (1)节点操作 ####
 
 节点操作主要包括查找节点、创建节点、插入节点、删除节点、替换节点和复制节点等六种操作。
 
 **①查找节点**
 
-查找节点是通过jQuery选择器实现，详见“9.2jQuery选择器”。
+查找节点是通过jQuery选择器实现，详见“12.2jQuery选择器”一节。
 
 **②创建节点**
 
@@ -1844,13 +1849,13 @@ jQuery对节点的操作主要有两种：对节点本身的操作，以及对�
 
 ![](http://i.imgur.com/ZYaeS5i.png)
 
-*图9-25*
+*图12-25*
 
 以插入`$node`节点为例，插入节点的方法如下：
 
 ![](http://i.imgur.com/PNcBdFY.png)
 
-
+*图12-26*
 
 **④替换节点**
 
@@ -1858,7 +1863,7 @@ jQuery对节点的操作主要有两种：对节点本身的操作，以及对�
 
 ![](http://i.imgur.com/WbgFKRc.png)
 
-
+*图12-27*
 
 **⑤删除节点**
 
@@ -1897,7 +1902,7 @@ jQuery提供的`clone()`方法，可以对节点进行复制操作（包含复�
 
 `$("<p></p>").append($(A).clone()).html();`
 
-**(2)属性操作**
+#### (2)属性操作 ####
 
 jQuery主要是通过`attr()`和`removeAttr()`方法来对节点的属性进行操作。
 
@@ -1968,13 +1973,13 @@ jQuery主要是通过`attr()`和`removeAttr()`方法来对节点的属性进行�
 
 ![](http://i.imgur.com/Gf1nb2u.png)
 
-*图9-25*
+*图12-28*
 
 ![](http://i.imgur.com/djoeNFQ.png)
 
-*图9-26*
+*图12-29*
 
-## 9.5.4 获取节点集合与遍历节点集合 ##
+## 12.5.4 获取节点集合与遍历节点集合 ##
 
 jQuery还提供了获取子节点集合、同辈节点集合、父节点集合，以及遍历节点集合的方法。
 
@@ -1997,7 +2002,7 @@ jQuery还提供了获取子节点集合、同辈节点集合、父节点集合�
 
 可知，`<li>`是`<ul>`的子节点。
 
-**(1)获取子节点集合**
+#### (1)获取子节点集合 ####
 
 在jQuery中，使用`children()`来获取子节点集合，如下
 
@@ -2008,7 +2013,7 @@ jQuery还提供了获取子节点集合、同辈节点集合、父节点集合�
    </tr>
    <tr>
       <td>$(选择器A).children(选择器B)</td>
-      <td>获取子节点集合。如， $("ul").children()会获取&lt;ul&gt;的所有子节点(即全部的&lt;li&gt;)</td>
+      <td>获取子节点集合。如， $("ul").children()会获取&lt;ul&gt;的所有子节点</td>
    </tr>
    <tr>
       <td>$(选择器A).find(选择器B)</td>
@@ -2016,7 +2021,7 @@ jQuery还提供了获取子节点集合、同辈节点集合、父节点集合�
    </tr>
 </table>
 
-**(2)获取同辈节点集合**
+#### (2)获取同辈节点集合 ####
 
 在jQuery中，使用`next()`、`prev()`、`siblings()`来获取同辈节点集合，如下：
 
@@ -2039,7 +2044,7 @@ jQuery还提供了获取子节点集合、同辈节点集合、父节点集合�
    </tr>
 </table>
 
-**(3)获取前辈节点集合**
+#### (3)获取前辈节点集合 ####
 
 在jQuery中，使用`parent()`、`parents()`来获取前辈节点集合，如下：
 
@@ -2058,7 +2063,7 @@ jQuery还提供了获取子节点集合、同辈节点集合、父节点集合�
    </tr>
 </table>
 
-**(4)过滤与遍历节点集合**
+#### (4)过滤与遍历节点集合 ####
 
 **①过滤节点集合**
 
@@ -2112,17 +2117,17 @@ jQuery还提供了获取子节点集合、同辈节点集合、父节点集合�
 
 ![](http://i.imgur.com/i7tgLkH.png)
 
-*图9-27*
+*图12-30*
 
 ![](http://i.imgur.com/SdN7uG5.png)
 
-*图9-28*
+*图12-31*
 
 ![](http://i.imgur.com/6FQh54Y.png)
 
-*图9-29*
+*图12-32*
 
-## 9.5.5 CSS-DOM操作 ##
+## 12.5.5 CSS-DOM操作 ##
 
 除了使用之前讲过的`css()`方法获取或设置CSS样式以外，还可以使用jQuery提供的CSS-DOM操作方法，如下：
 
@@ -2205,13 +2210,13 @@ jQuery还提供了获取子节点集合、同辈节点集合、父节点集合�
 
 ![](http://i.imgur.com/7ZF33ep.png)
 
-*图9-30*
+*图12-33*
 
 再单击确定后，“橘子”向右下角偏移（向右、向下各偏移100px）：
 
 ![](http://i.imgur.com/KbSxYQx.png)
 
-*图9-31*
+*图12-34*
 
 **offsetParent()示例：cssDom.jsp**
 
@@ -2246,27 +2251,27 @@ position:absolute;left:10px;top:200px；">
 
 ![](http://i.imgur.com/Y6LVMcz.png)
 
-*图9-32*
+*图12-35*
 
 单击`<button>`后，父元素`<div>`的背景变色：
 
 ![](http://i.imgur.com/Q1Y0ABC.png)
 
-*图9-33*
+*图12-36*
 
-# 9.6 表单校验 #
+# 12.6 表单校验 #
 
 如果所有的数据校验都留给后台服务器完成，那么服务器的压力会非常大。一个解决方案，就是把表单数据的校验放到前台完成，也就是我们即将学习的表单校验。
 
-使用jQuery或Javascript实现前台表单校验的总体步骤如下：
+**使用jQuery或Javascript实现前台表单校验的总体步骤如下：**
 
-①获取需要校验的表单元素的值，一般都是字符串类型的值
+**①**获取需要校验的表单元素的值，一般都是字符串类型的值
 
-②使用JQuery或JavaScript的相关字符串处理方法，对获取的表单元素值进行校验
+**②**使用JQuery或JavaScript的相关字符串处理方法，对获取的表单元素值进行校验
 
-③当提交`form`表单时，触发`onsubmit`事件，对获取的数据进行验证
+**③**当提交`form`表单时，触发`onsubmit`事件，对获取的数据进行验证
 
-## 9.6.1 使用字符串处理方法，对表单元素值校验 ##
+## 12.6.1 使用字符串处理方法，对表单元素值校验 ##
 
 下面的`check()`方法，是一种常见校验方法的形式：
 
@@ -2301,9 +2306,9 @@ position:absolute;left:10px;top:200px；">
 
 经验：做表单校验时，只需要校验消极、负面、失败的情况，并返回`false`；最后在校验方法的最后一行返回`true`。
 
-## 9.6.2 校验事件和方法 ##
+## 12.6.2 校验事件和方法 ##
 
-校验方法`check()`写完以后，就需要被校验事件或校验方法调用，如下：
+`check()`写完以后，就需要被校验事件或校验方法调用，如下：
 
 <table>
    <tr>
@@ -2374,7 +2379,7 @@ position:absolute;left:10px;top:200px；">
 
 ![](http://i.imgur.com/gNhAT7T.png)
 
-*图9-34*
+*图12-37*
 
 而如果输入的表单数据全部合法，才会执行`action`跳转。
 以上使用`onsubmit`实现的表单校验，等价于以下使用`submit()`方法：
@@ -2412,11 +2417,11 @@ position:absolute;left:10px;top:200px；">
 </html>
 ```
 
-## 9.6.3 正则表达式 ##
+## 12.6.3 正则表达式 ##
 
 之前，我们是使用字符串处理方法或属性（如`length`、`indexOf()`）对表单元素进行校验。除此以外，对于一些复杂的校验，我们可以使用正则表达式来完成。
 
-正则表达式所定义的校验规则，是写在/^…$/之中，其中具体的校验规则是通过以下符号来指定：
+正则表达式所定义的校验规则，是写在`/^…$/`之中，其中具体的校验规则是通过以下符号来指定：
 
 <table>
    <tr>
@@ -2473,11 +2478,11 @@ position:absolute;left:10px;top:200px；">
    </tr>
    <tr>
       <td>{n,}</td>
-      <td>匹配前一项n次，或者多次</td>
+      <td>匹配前一项n次或n次以上</td>
    </tr>
    <tr>
       <td>{n,m}</td>
-      <td>匹配前一项至少n次，但是不能超过m次</td>
+      <td>匹配前一项至少n次，至多m次</td>
    </tr>
    <tr>
       <td>*</td>
@@ -2535,15 +2540,15 @@ position:absolute;left:10px;top:200px；">
 
 ![](http://i.imgur.com/4aZdI1H.png)
 
-*图9-35*
+*图12-38*
 
 如果符合规则：
 
 ![](http://i.imgur.com/Q7yDjE9.png)
 
-*图9-36*
+*图12-39*
 
-## 9.6.4 表单选择器 ##
+## 12.6.4 表单选择器 ##
 
 jQuery专门提供了表单选择器，便于我们快速的获取`form`表单的元素值。表单选择器是过滤选择器的一种，具体如下：
 
@@ -2610,7 +2615,7 @@ jQuery专门提供了表单选择器，便于我们快速的获取`form`表单�
    </tr>
 </table>
 
-# 9.7 练习题 #
+# 12.7 练习题 #
 
 1.在JQuery中，`“$("tr:even").css("background-color", "red");”`代码的含义是（    ）。（选择一项）（难度★）
 

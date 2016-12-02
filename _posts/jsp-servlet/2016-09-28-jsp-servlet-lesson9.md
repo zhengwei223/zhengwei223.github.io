@@ -12,7 +12,7 @@ description: 本章将系统介绍EL和JSTL。EL表达式和JSTL标签库不仅�
 
 author: 颜群
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
@@ -110,7 +110,7 @@ throws ServletException, IOException
 …
 ```
 
-如上，程序会在InitServlet中给`student`对象的各个属性赋值，然后请求转发到index.jsp中。我们先用传统的Scriptlet接收对象，并将对象的属性显示到前台，如下，
+如上，程序会在InitServlet中给`student`对象的各个属性赋值，然后请求转发到**index.jsp**中。我们先用传统的Scriptlet接收对象，并将对象的属性显示到前台，如下，
 
 **index.jsp**
 

@@ -3,7 +3,7 @@
 layout: post
 
 
-title: JSP自定义标签
+title: 自定义标签
 
 
 category: JSP-Servlet教程
@@ -12,29 +12,39 @@ category: JSP-Servlet教程
 tags: JSP Servlet
 
 
-description: 
+description: 除了JSTL标签库以外，JSP还支持用户开发自己的标签（自定义标签）。
 
 
 author: 颜群
 
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
 
-# 9.1 自定义标签 #
+# 11.1 自定义标签 #
 
-除了JSTL标签库以外，JSP还支持用户开发自己的标签（自定义标签）。用于开发自定义标签的类和接口都位于**javax.servlet.jsp.tagext**包中，这些类和接口的继承关系如图：
+除了JSTL标签库以外，JSP还支持用户开发自己的标签（自定义标签）。用于开发自定义标签的类和接口都位于**javax.servlet.jsp.tagext**包中，这些类和接口的继承及实现关系如图：
 
 
 ![](http://i.imgur.com/OwiHRaH.png)
 
-# 9.2 自定义标签开发步骤 #
+*图11-01*
 
-开发一个自定义标签需要经过编写标签处理类、编写标签库描述符、导入并使用标签等三个步骤，具体如下：
+# 11.2 自定义标签开发步骤 #
 
-**①编写标签处理类**
+开发一个自定义标签需要经过
+
+**a.**编写标签处理类、
+
+**b.**编写标签库描述符、
+
+**c.**导入并使用标签等三个步骤，
+
+具体如下：
+
+#### ①编写标签处理类 ####
 
 编写标签处理类有两种方式：传统方式和简单方式。
 
@@ -42,11 +52,11 @@ keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
 
 简单方式（JSP2.0规范）：需要实现**javax.servlet.jsp.SimpleTag**接口
 
-如果JSP在编译阶段发现自定义标签，传统方式将会调用标签处理类的`doStartTag()`方法，简单方式将会调用标签处理类的`doTat()`方法。
+如果JSP在编译阶段发现自定义标签，传统方式将会调用标签处理类的`doStartTag()`方法，简单方式将会调用标签处理类的`doTag()`方法。
 
-**②编写标签库描述符**
+#### ②编写标签库描述符 ####
 
-标签库描述符（Tag Library Descriptor，TLD）文件可以在JSP编译时，找到对应的标签处理类。一个标签处理类必须先在TLD文件中注册，之后才能被JSP容器识别并调用。一个TLD文件中可以注册多个标签处理类，多个标签处理类就形成了一个自定义标签库。可以发现，标签处理类和TLD文件之间的关系，类似于Servlet和**web.xml**文件之间的关系。TLD文件实质是一个XML文件，示例如下：
+JSP在编译时，可以通过标签库描述符文件（Tag Library Descriptor，TLD）找到对应的标签处理类。一个标签处理类必须先在TLD文件中注册，之后才能被JSP容器识别并调用。一个TLD文件中可以注册多个标签处理类，多个标签处理类就形成了一个自定义标签库。可以发现，标签处理类和TLD文件之间的关系，类似于Servlet和**web.xml**文件之间的关系。TLD文件实质是一个XML文件，如下：
 
 **WEB-INF\myTag.tld**
 
@@ -71,7 +81,7 @@ http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
     <description>标签的描述信息</description>
     <name>标签名</name>
     <tag-class>自定义标签处理类</tag-class>
-    <body-content>标签体的类型(empty表示空)</body-content>
+    <body-content>标签体的类型</body-content>
   </tag>
 </taglib>
 ```
@@ -85,15 +95,15 @@ http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
    </tr>
    <tr>
       <td>empty</td>
-      <td>表示在使用自定义标签时，不能设置标签体</td>
+      <td>表示在使用自定义标签时，不能设置标签体。</td>
    </tr>
    <tr>
       <td>JSP</td>
-      <td>表示标签体可以是任意的JSP元素。JSP必须大写</td>
+      <td>表示标签体可以是任意的JSP元素。JSP必须大写。</td>
    </tr>
    <tr>
       <td>scriptless</td>
-      <td>表示标签体可以包含任意的JSP元素（除了scriptlet以外）</td>
+      <td>表示标签体可以包含除scriptlet以外的任意JSP元素。</td>
    </tr>
    <tr>
       <td>tagdependent</td>
@@ -101,7 +111,7 @@ http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
    </tr>
 </table>
 
-TLD文件编写完毕后，需要放在**WEB-INF**或其子目录下（**WEB-IN\lib**和**WEB-INF\classes**除外）。
+TLD文件编写完毕后，需要放在**WEB-INF**或其子目录下（**WEB-INF\lib**和**WEB-INF\classes**除外）。
 
 **说明：**
 
@@ -111,9 +121,9 @@ TLD文件编写完毕后，需要放在**WEB-INF**或其子目录下（**WEB-IN\
 
 
 
-**③导入并使用标签**
+#### ③导入并使用标签 ####
 
-在使用自定义标签以前，需要先用taglib指定导入TLD文件，如下，
+在使用自定义标签以前，需要先用taglib指定导入的TLD文件，如下，
 
 `<%@ taglib uri="…" prefix="…" %>`
 
@@ -157,7 +167,7 @@ TLD文件编写完毕后，需要放在**WEB-INF**或其子目录下（**WEB-IN\
 
 `<prefix: tagname>标签体</prefix: tagname>`
 
-其中，标签体同行为JSP的页面元素（普通文本、scriptlet、EL表达式等）。
+	其中，标签体可以是JSP的页面元素（普通文本、scriptlet、EL表达式等）。
 
 
 **<3>带属性的标签**
@@ -171,7 +181,7 @@ TLD文件编写完毕后，需要放在**WEB-INF**或其子目录下（**WEB-IN\
 </prefix: tagname>
 ```
 
-空标签和带标签体的标签都可以有属性，并且一个标签中可以定义多个属性。
+	空标签和带标签体的标签都可以含有属性，并且一个标签中可以定义多个属性。
 
 
 **<4>嵌套标签**
@@ -186,9 +196,9 @@ TLD文件编写完毕后，需要放在**WEB-INF**或其子目录下（**WEB-IN\
 </prefix: tagname1>
 ```
 
-# 9.3 传统标签 #
+# 11.3 传统标签 #
 
-## 9.3.1 Tag接口 ##
+## 11.3.1 Tag接口 ##
 
 Tag是所有传统标签的父接口，该接口的源代码如下：
 
@@ -228,11 +238,11 @@ public interface Tag extends JspTag {
    </tr>
    <tr>
       <td>SKIP_PAGE</td>
-      <td>doStartTag()方法的返回值，表示标签后面的JSP页面不被执行</td>
+      <td>doStartTag()方法的返回值，表示标签后面的JSP页面内容不被执行</td>
    </tr>
    <tr>
       <td>EVAL_PAGE</td>
-      <td>doStartTag()方法的返回值，表示标签后面的JSP页面继续执行</td>
+      <td>doStartTag()方法的返回值，表示标签后面的JSP页面内容继续执行</td>
    </tr>
 </table>
 
@@ -270,10 +280,10 @@ public interface Tag extends JspTag {
 </table>
 
 
-当JSP容器将JSP文件(.jsp)翻译成Servlet(.java)时，如果遇到JSP标签，就会创建标签处理类的实例对象，然后依次调用该对象的`setPageContext()`、`setParent()`、`doStartTag()`、`doEndTag()`和`release()`方法。
+通过以上简介可知，当JSP容器将JSP文件(.jsp)翻译成Servlet(.java)时，如果遇到JSP标签，就会创建标签处理类的实例对象，然后依次调用该对象的`setPageContext()`、`setParent()`、`doStartTag()`、`doEndTag()`和`release()`方法。
 
 
-## 9.3.2 IterationTag接口 ##
+## 11.3.2 IterationTag接口 ##
 
 如果需要对标签体的内容进行重复处理，就可以使用IterationTag接口，该接口的定义如下：
 
@@ -308,10 +318,10 @@ public interface IterationTag extends Tag {
 **以下，是一个使用IterationTag接口实现重复执行标签体的具体步骤。**
 
 
-**①编写标签处理类**
+#### ①编写标签处理类 ####
 
 
-JSP容器提供了一个`TagSupport`类，该类实现了IterationTag接口。因此，我们在编写自定义标签类时，可以直接继承`TagSupport`类，如下：
+JSP容器提供了一个`TagSupport`类，该类实现了IterationTag接口。因此，我们在编写自定义标签处理类时，可以直接继承`TagSupport`类，如下：
 
 **org.lanqiao.tag.MyIterator.java**
 
@@ -340,7 +350,7 @@ public class MyIterator extends TagSupport
 在MyIterator类中，可以通过`setNum()`设置循环次数，然后通过`doStartTag()`方法执行一次标签体，最后再通过`doAfterBody()`方法控制标签体的循环次数。
 
 
-**②在TLD文件中注册标签处理类**
+#### ②在TLD文件中注册标签处理类 ####
 
 **在WEB-INF/myTag.tld**中，注册标签处理类MyIterator，如下：
 
@@ -378,7 +388,7 @@ http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
 以上代码中，我们在`myTagLib`标签库中定义了一个`myIterator`标签。
 
 
-**③编写JSP页面**
+#### ③编写JSP页面 ####
 
 现在，就来使用之前已经创建并注册过的`myIterator`标签，如下，
 
@@ -403,12 +413,14 @@ http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
 
 ![](http://i.imgur.com/2dR2kuM.png)
 
+*图11-02*
+
 以上，就是使用传统方式开发自定义标签的基本步骤。
 
 
-## 9.3.3 BodyTag接口 ##
+## 11.3.3 BodyTag接口 ##
 
-除了上面的“基本步骤”外，我们还可以在标签体的内容被显示之前进行一些处理，例如，可以先将小写英文字母转为大写字母之后再让其显示。要想实现这样的功能，就可以使用BodyTag接口，BodyTag的源代码如下：
+除了上面的“基本步骤”外，我们还可以在标签体的内容被显示之前进行一些处理，例如，可以先将英文字母全部转为小写字母之后再显示。要想实现这样的功能，就可以使用BodyTag接口，BodyTag的源代码如下：
 
 
 ```
@@ -510,12 +522,14 @@ JSP容器在执行标签处理类时，除了会用到`BodyContent`类以外，�
 
 ![](http://i.imgur.com/CKoOoIl.png)
 
+*图11-03*
+
 其中，`release()`方法只有在标签处理类对象被当作垃圾回收前，才被调用。传统方式的标签处理类是单例的，只会被创建和销毁一次。
 
 
 **以下，通过编写&lt;lanqiao:toLowerCase&gt;演示自定义标签的使用步骤**
 
-**①编写标签处理类**
+#### ①编写标签处理类 ####
 
 编写`ToLowerCase`类并继承BodyTagSupport，使之成为一个标签处理类，如下：
 
@@ -528,7 +542,7 @@ public class ToLowerCase extends BodyTagSupport
     /*
 	 	父类BodyTagSupport的doStartTag()方法默认返回EVAL_BODY_BUFFERED。
 	当返回EVAL_BODY_BUFFERED时，JSP容器就会将标签体的内容通过
-setBodyContent()方法设置给父类的BodyContent对象。之后就可以
+setBodyContent()方法设置到父类的BodyContent对象（缓冲区对象）。之后就可以
 在BodyContent对象中获取需要的数据
 	 */
 	//当JSP容器解析到自定义标签的结束标签时，会自动调用doEndTag()方法
@@ -554,7 +568,7 @@ setBodyContent()方法设置给父类的BodyContent对象。之后就可以
 JSP容器在调用`doStartTag()`方法时，会将标签体的内容赋值到缓冲区`BodyContent`对象中，之后就可以在`doEndTag()`方法中通过`getBodyContent().getString()`获取`BodyContent`中的缓冲区数据，之后再将缓冲区数据转为小写并输出。
 
 
-**②注册标签处理类**
+#### ②注册标签处理类 ####
 
 在**myTag.tld**中注册标签处理类，如下：
 
@@ -573,7 +587,7 @@ JSP容器在调用`doStartTag()`方法时，会将标签体的内容赋值到缓
 </taglib>
 ```
 
-**③编写JSP页面，使用自定义标签**
+#### ③编写JSP页面，使用自定义标签 ####
 
 
 **myToLowerCase.jsp**
@@ -596,17 +610,19 @@ JSP容器在调用`doStartTag()`方法时，会将标签体的内容赋值到缓
 
 ![](http://i.imgur.com/hFm3Odr.png)
 
+*图11-04*
+
 可以发现，`<lanqiao:toLowerCase>`成功的将HELLO LANQIAO转为了小写。
 
 
-# 9.4 简单标签 #
+# 11.4 简单标签 #
 
 由于传统标签使用繁琐，因此，从JSP2.0开始产生了一个新的标签：简单标签。简单标签的上级接口是SimpleTag。
 
 
-简单标签接口SimpleTag与传统标签接口Tag的最大区别是：SimpleTag接口中只定义了一个用于处理标签逻辑的`doTag()`方法，该方法就替代Tag接口中的`doStartTag()`、`doEndTag()`和`doAfterBody()`等方法。`doTag()`方法在JSP容器执行自定义标签时会被调用，并且只会被调用一次。
+简单标签接口SimpleTag与传统标签接口Tag的最大区别是：SimpleTag接口中只定义了一个用于处理标签逻辑的`doTag()`方法，该方法就替代了Tag接口中的`doStartTag()`、`doEndTag()`和`doAfterBody()`等方法。`doTag()`方法会在JSP容器执行自定义标签时被调用，并且只会被调用一次。
 
-## 9.4.1 SimpleTag接口 ##
+## 11.4.1 SimpleTag接口 ##
 
 **SimpleTag接口中的方法简介如下：**
 
@@ -621,7 +637,7 @@ JSP容器在调用`doStartTag()`方法时，会将标签体的内容赋值到缓
    </tr>
    <tr>
       <td>public void setParent( JspTag parent )</td>
-      <td>用于将当前标签的父标签处理类对象传递给当前标签处理类。如果当前标签没有父标签，JSP就会忽略执行此方法。</td>
+      <td>用于将当前标签的父标签处理类对象传递给当前标签处理类。如果当前标签没有父标签，JSP容器会忽略执行此方法。</td>
    </tr>
    <tr>
       <td>public JspTag getParent()</td>
@@ -642,10 +658,12 @@ JSP容器在调用`doStartTag()`方法时，会将标签体的内容赋值到缓
 
 ![](http://i.imgur.com/0p8j0vP.png)
 
-JSP容器在每次处理JSP页面中的简单标签时，都会创建一个独立的标签处理类对象，而不会像传统标签那样对标签处理类对象进行缓存，因此简单标签是线程安全的。
+*图11-05*
+
+JSP容器会在每次处理JSP页面中的简单标签时，创建一个独立的标签处理类对象，而不会像传统标签那样对标签处理类对象进行缓存，因此简单标签是线程安全的。
 
 
-## 9.4.2 `JspFragment`类 ##
+## 11.4.2 `JspFragment`类 ##
 
 `JspFragment`类的源代码如下：
 
@@ -661,7 +679,7 @@ public abstract class JspFragment {
 }
 ```
 
-`JspFragment`对象表示JSP页面中的一段JSP片段，但该片段中不能包含JSP脚本元素。JSP容器在处理简单标签的标签体时，会把标签体内容用一个`JspFragment`对象表示，并调用标签处理类对象的`setJspBody()`方法将`JspFragment`对象传递给标签处理类对象。之后，我们就可以调用`JspFragment`对象的方法来决定是否循环、输出标签体等操作。`JspFragment`中定义的方法简介如下：
+`JspFragment`对象表示JSP页面中的一个JSP片段，但该片段中不能包含scriptlet（JSP脚本元素）。JSP容器在处理简单标签的标签体时，会把标签体内容用一个`JspFragment`对象表示，并调用标签处理类对象的`setJspBody()`方法将`JspFragment`对象传递给标签处理类对象。之后，我们就可以调用`JspFragment`对象的方法来决定是否循环、输出标签体等操作。`JspFragment`中定义的方法简介如下：
 
 <table>
    <tr>
@@ -681,7 +699,7 @@ public abstract class JspFragment {
 值得注意的是，`JspFragment`没有提供像`BodyContent`那样的缓冲区，也没有定义`getString()`之类的方法获取标签体的内容。如果要对标签体的内容进行修改，只需要在`invoke()`方法中传入一个输出流对象，然后把标签体的执行结果输出到该输出流对象中，再从输出流中获取数据、修改并显示。
 
 
-## 9.4.3 `SimpleTagSupport`类 ##
+## 11.4.3 `SimpleTagSupport`类 ##
 
 `SimpleTagSupport`的定义如下：
 
@@ -719,8 +737,7 @@ public class SimpleTagSupport implements SimpleTag
 
 以下，通过一个示例来演示使用简单标签的具体步骤（实现循环功能，与之前传统标签方式开发的`<lanqiao:myIterator>`功能相同）：
 
-
-**①编写标签处理类**
+#### ①编写标签处理类 ####
 
 编写`MySimpleIterator`类，并继承`SimpleTagSupport`类，如下：
 
@@ -747,7 +764,7 @@ public class MySimpleIterator extends SimpleTagSupport
 }
 ```
 
-**②在TLD文件中注册标签处理类**
+#### ②在TLD文件中注册标签处理类 ####
 
 模仿传统方式的**myTag.tld**，编写注册简单标签的TLD文件**mySimpleTag.tld**，如下，
 
@@ -786,7 +803,7 @@ http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
 需要注意的是，简单标签的`<body-content>`元素值只能是scriptless(默认)、empty和tagdependent。
 
 
-**③编写JSP页面**
+#### ③编写JSP页面 ####
 
 导入自定义简单标签并使用，如下：
 
@@ -809,15 +826,17 @@ http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
 
 ![](http://i.imgur.com/XoAKs1C.png)
 
-
-## 9.4.4 标签体内容的执行条件 ##
-
-有时候，我们要判断标签体是否需要执行。例如，如果登录成功，则执行某个标签体；否则就不执行。对于传统标签，可以通过`doEndTag()`的返回值来判断。而对于简单标签，就可以使用`doTag()`方法：如果登录成功，则显示欢迎信息，否则抛出SkipPageException异常，用于通知JSP容器不再执行标签体的内容。
-
-以下，通过一个示例来演示此登录判断的具体步骤：
+*图11-06*
 
 
-**①编写标签处理类**
+## 11.4.4 标签体内容的执行条件 ##
+
+有时候，我们要判断标签体是否需要执行。例如，如果登录成功，则执行某个标签体；否则就不执行。对于传统标签，可以通过`doEndTag()`的返回值来判断。而对于简单标签，就可以使用`doTag()`方法：如果登录成功，则显示欢迎信息；如果登录失败，`doTag()`会抛出SkipPageException异常，用于通知JSP容器不再执行标签体的内容。
+
+以下，通过一个示例来演示此登录验证的具体步骤：
+
+
+#### ①编写标签处理类 ####
 	
 通过`doTag()`方法接收`session`域中的`username`属性值，如果属性值不为空就执行标签体的内容，如下：
 
@@ -843,7 +862,7 @@ public class Login extends SimpleTagSupport
 }
 ```
 
-**②在TLD文件中注册标签处理类**
+#### ②在TLD文件中注册标签处理类 ####
 
 **WEB-INF\mySimpleTag.tld**
 
@@ -860,7 +879,7 @@ public class Login extends SimpleTagSupport
 …
 ```
 
-**③编写JSP页面，导入并使用自定义标签**
+#### ③编写JSP页面，导入并使用自定义标签 ####
 
 **index.jsp**
 
@@ -880,8 +899,7 @@ public class Login extends SimpleTagSupport
 
 `<lq:login>`标签会根据`session`域中是否有`username`属性来判断标签体的内容是否执行。
 
-
-**④编写Servlet，接收用户的访问请求**
+#### ④编写Servlet，接收用户的访问请求 ####
 
 
 将用户请求中的`uname`属性设置到`session`域的`username`对象中，如下，
@@ -910,17 +928,20 @@ HttpServletResponse response) throws ServletException, IOException {
 }
 ```
 
-**④通过URL访问Servlet，测试用户的访问请求**
+#### ⑤通过URL访问Servlet，测试用户的访问请求 ####
 
 
 如果访问的URL中带有`uname`参数，如[http://localhost:8888/JspTagProject/loginServlet?uname=zhangsan](http://localhost:8888/JspTagProject/loginServlet?uname=zhangsan)，运行结果：
 
 ![](http://i.imgur.com/Tnl3phn.png)
 
+*图11-07*
 
 如果访问的URL中不带`uname`参数，如[http://localhost:8888/JspTagProject/loginServlet](http://localhost:8888/JspTagProject/loginServlet)，运行结果：
 
 ![](http://i.imgur.com/wvq9sJP.png)
+
+*图11-08*
 
 可以发现，如果访问请求中带有`uname`属性，则Servlet会接收`uname`属性值，并将其放入`session`域中的`username`对象中，之后，标签处理类的`doTag()`方法再根据`session`域中是否有`username`对象来判断标签体是否执行。
 
