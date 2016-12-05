@@ -16,7 +16,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 ---
 
-# 13.1 `properties`属性 #
+# 15.1 `properties`属性 #
 
 我们之前是把数据库信息，直接写在MyBatis配置文件**conf.xml**中，如下，
 
@@ -37,7 +37,7 @@ value="jdbc:oracle:thin:@127.0.0.1:1521:XE" />
 ![](http://i.imgur.com/H0GVrOe.png)
 
 
-*图13-01*
+*图15-01*
 
 然后将数据库信息以`“key=value”`的形式，写在该属性文件中，如下，
 
@@ -76,7 +76,7 @@ password=sa
 </configuration>
 ```
 
-# 13.2 settings全局参数配置 #
+# 15.2 settings全局参数配置 #
 
 `<configuration>`标签下有一个`<settings>`子标签，可以用来设置mybatis框架的运行参数，比如设置二级缓存、延迟加载等。修改这些配置，会影响到MyBatis整体的运行行为，因此需要谨慎操作。常见的配置参数介绍如下表，
 
@@ -93,7 +93,7 @@ password=sa
    </tr>
    <tr>
       <td>lazyLoadingEnabled</td>
-      <td>在全局范围内启用或禁用延迟加载。当禁用时，所有相关联的对象都将即使加载（热加载）。</td>
+      <td>在全局范围内启用或禁用延迟加载。当禁用时，所有相关联的对象都将立即加载（热加载）。</td>
       <td>true（默认）、false</td>
    </tr>
    <tr>
@@ -103,7 +103,7 @@ password=sa
    </tr>
    <tr>
       <td>multipleResultSetsEnabled</td>
-      <td>允许（或禁止）从一个单独的语句中返回多种结果集（需要驱动程序的支持）</td>
+      <td>允许或禁止执行一条单独的SQL语句后返回多条结果（结果集）；需要驱动程序的支持</td>
       <td>true（默认）、false</td>
    </tr>
    <tr>
@@ -123,7 +123,7 @@ password=sa
    </tr>
    <tr>
       <td>safeRowBoundsEnabled</td>
-      <td>允许（或禁止）使用嵌套的语句</td>
+      <td>允许或禁止使用嵌套的语句</td>
       <td>true、false（默认）</td>
    </tr>
    <tr>
@@ -159,7 +159,7 @@ value="equals,clone,hashCode,toString"/>
 </configuration>
 ```
 
-# 13.3 为实体类自定义别名 #
+# 15.3 为实体类自定义别名 #
 
 之前在SQL映射文件中，如果`parameterType`或`resultType`为实体类的对象类型，我们可以通过全类名的形式指定的（即“包名+类名”）。此外，我们还可以在MyBatis配置文件**conf.xml**中为实体类设置别名，然后再在SQL映射文件中使用该别名。
 
@@ -178,9 +178,9 @@ value="equals,clone,hashCode,toString"/>
 
 下面再通过定义别名的方式来指定`resultType`的值。
 
-## 13.3.1 单个别名定义 ##
+## 15.3.1 单个别名定义 ##
 
-(1)在MyBatis配置文件中，为实体类定义别名
+**(1)**在MyBatis配置文件中，为实体类定义别名
 
 **conf.xml**
 
@@ -202,7 +202,7 @@ value="equals,clone,hashCode,toString"/>
 
 以上，就给“`org.lanqiao.entity.Student`”类型定义了别名“`student`（不分区大小写）”。以后任何“`org.lanqiao.entity.Student`”出现的地方，都可以用“`student`、`Student`、`sTUdent`、或`STUDENT`等”来替代。
 
- (2) 在SQL映射文件中引用别名
+**(2)**在SQL映射文件中引用别名
 
 **org/lanqiao/mapper/studentMapper.xml**
 
@@ -214,11 +214,11 @@ value="equals,clone,hashCode,toString"/>
 …
 ```
 
-## 13.3.2 批量定义别名 ##
+## 15.3.2 批量定义别名 ##
 
 如果用上面的方法，当要定义多个别名时，就必须配置多个`<typeAlias>`。我们还可以一次性的，定义一批别名。具体如下，
 
-(1)在MyBatis配置文件中，给一个`packge`中的所有实体类定义别名
+**(1)**在MyBatis配置文件中，给一个`package`中的所有实体类定义别名
 
 **conf.xml**
 
@@ -231,7 +231,7 @@ value="equals,clone,hashCode,toString"/>
 
 以上，就给`“org.lanqiao.entity”`包中的所有实体类都自动定义了别名，别名就是“不带包名的类名（不区分大小写）”。例如，以上就将 `org.lanqiao.entity.Student`类的别名定义为`Student`、`student`、`sTUdent`或`STUDENT`等。
 
-(2) 在SQL映射文件中引用别名
+**(2)**在SQL映射文件中引用别名
 
 与“单个别名定义”中的方法相同，即直接使用`student`（或`Student`等）作为`resultType`的属性值。本书后面使用到的类型，都采用的是批量定义的别名。
 
@@ -330,7 +330,7 @@ value="equals,clone,hashCode,toString"/>
    </tr>
 </table>
 
-# 13.4 typeHandlers类型处理器 #
+# 15.4 typeHandlers类型处理器 #
 
 类型处理器用于**java**类型和**jdbc**类型之间的映射。例如，之前在SQL映射文件中有如下配置，
 
@@ -346,7 +346,7 @@ value="equals,clone,hashCode,toString"/>
 
 MyBatis内置了一些常用类型处理器，可以将`parameterType`中传入的类型，自动转为JDBC需要的类型。例如，当给SQL映射文件传入一个`int`型的数字31时，`…where stuNo=#{stuNo}`就会变为`…where stuNo=31`；而如果SQL语句是`…where stuName=#{stuName}`，当传入一个`String`类型的“张三”时，则就会变为`…where stuName='张三'`，即自动为`String`类型加上了引号。
 
-## 13.4.1 内置的类型处理器 ##
+## 15.4.1 内置的类型处理器 ##
 
 Mybatis内置的类型处理器如下，
 
@@ -468,7 +468,7 @@ Mybatis内置的类型处理器如下，
    </tr>
 </table>
 
-## 13.4.1 自定义类型处理器 ##
+## 15.4.1 自定义类型处理器 ##
 
 除了MyBatis内置的处理器以外，我们还可以自定义类型处理器，来实现特定的**java**类型与**jdbc**类型之间的映射。
 
@@ -482,11 +482,11 @@ Mybatis内置的类型处理器如下，
 
 **开发并使用自定义类型处理器的具体步骤如下：**
 
-**(1)创建自定义类型处理器**
+#### (1)创建自定义类型处理器 ####
 
 使用MyBatis开发自定义类型处理器，需要实现`TypeHandler`接口（或继承`BaseTypeHandler`抽象类）。
 
-`TypeHandler`是实现自定义类型转换器最原始的接口，但为了便于开发，MyBatis还提供了`BaseTypeHandler`抽象类。`BaseTypeHandler`底层实现了`TypeHandler`接口，并对接口中的方法做了简单处理以方便我们使用，所以我们可以直接继承`BaseTypeHandler`抽象类。如下，自定义的类型处理器BooleanAndIntConverter，用于将java中`Boolean`类型与jdbc中`NUMBER`类型之间的相互转换：
+TypeHandler是开发自定义类型转换器必须实现的接口，但为了便于开发，MyBatis还提供了BaseTypeHandler抽象类。BaseTypeHandler底层实现了TypeHandler接口，并对接口中的方法做了简单处理以方便我们使用，所以我们可以直接继承BaseTypeHandler抽象类。如下，自定义的类型处理器BooleanAndIntConverter，用于将java中Boolean类型与jdbc中NUMBER类型之间的相互转换：
 
 **org.lanqiao.converter.BooleanAndIntConverter.java**
 
@@ -507,7 +507,7 @@ public class BooleanAndIntConverter extends BaseTypeHandler<Boolean>
 	public void setNonNullParameter(PreparedStatement ps, int i, Boolean parameter, JdbcType jdbcType)
 			throws SQLException
 	{
-		/**
+		/*
 		 * 如果Java类型的parameter==true，则在数据库中存储jdbc类型的数字1；
 		 * 如果Java类型的parameter==false，则在数据库中存储jdbc类型的数字0；
 		 */
@@ -527,11 +527,11 @@ public class BooleanAndIntConverter extends BaseTypeHandler<Boolean>
 	@Override
 	public Boolean getNullableResult(ResultSet rs, String columnName) throws SQLException
 	{
-		/**
+		/*
 		 *  通过字段名获取值
 		 */
 		int sexNum = rs.getInt(columnName);
-		/**
+		/*
 		 * 如果数据库中的jdbc变量sexNum == 1，则返回java类型的true； 如果数据库中的jdbc变量sexNum ==
 		 * 0，则返回java类型的false；
 		 */
@@ -551,7 +551,7 @@ public class BooleanAndIntConverter extends BaseTypeHandler<Boolean>
 	@Override
 	public Boolean getNullableResult(ResultSet rs, int columnIndex) throws SQLException
 	{
-		/**
+		/*
 		 *  通过字段的索引获取值
 		 */
 		int sexNum = rs.getInt(columnIndex);
@@ -571,7 +571,7 @@ public class BooleanAndIntConverter extends BaseTypeHandler<Boolean>
 	@Override
 	public Boolean getNullableResult(CallableStatement cs, int columnIndex) throws SQLException
 	{
-		/**
+		/*
 		 *  通过调用存储过程获取值
 		 */
 		int sexNum = cs.getInt(columnIndex);
@@ -587,7 +587,7 @@ public class BooleanAndIntConverter extends BaseTypeHandler<Boolean>
 }
 ```
 
-**(2)配置自定义类型处理器**
+#### (2)配置自定义类型处理器 ####
 
 自定义类型处理器BooleanAndIntConverter开发完毕后，还需要将它注册到配置文件中，如下：
 
@@ -612,13 +612,13 @@ javaType="java.lang.Boolean" jdbcType="INTEGER"/>
 </configuration>
 ```
 
-**(3)使用自定义类型处理器**
+#### (3)使用自定义类型处理器 ####
 
 程序运行之前，数据库中`student`表的数据如下：
 
 ![](http://i.imgur.com/vU0Xq1j.png)
 
-*图13-02*
+*图15-02*
 
 学生类`Student`的属性如下：
 
@@ -688,7 +688,7 @@ public static void testQueryStudentByStuNoWithConverter() throws IOException
 
 ![](http://i.imgur.com/Mwyd8sy.png)
 
-*图13-03*
+*图15-03*
 
 **②增/删/改时，使用自定义类型处理器（java类型的`Boolean`→ jdbc类型的`NUMBER`）**
 
@@ -697,12 +697,12 @@ public static void testQueryStudentByStuNoWithConverter() throws IOException
 ```
 <insert id="addStudentWithConverter" 
 parameterType="org.lanqiao.entity.Student" >  
-   insert into student(stuNo,stuName,stuSex) values(#{stuNo},'${stuName}'
+   insert into student(stuNo,stuName,stuSex) values(#{stuNo},#{stuName}
 ,#{stuSex, javaType=java.lang.Boolean, jdbcType=INTEGER}) 
 </insert>
 ```
 
-通过`#{stuSex, javaType=java.lang.Boolean, jdbcType=INTEGER}`指定当执行增加时，会把JAVA中`Boolean`类型的`stuSex`值转为JDBC中`INTEGER`类型的值并存储到数据库中。
+	通过#{stuSex, javaType=java.lang.Boolean, jdbcType=INTEGER}指定：当执行增加操作时，MyBatis就会把JAVA中Boolean类型的stuSex值转为JDBC中INTEGER类型的值并存储到数据库中。
 
 **动态代理接口：IStudentMapper.java**
 
@@ -736,11 +736,11 @@ public static void testAddStudentWithConverter() throws IOException
 
 ![](http://i.imgur.com/8dER5wj.png)
 
-*图13-04*
+*图15-04*
 
-即实现了从JAVA类型的`boolean`值true，到JDBC类型的`NUMBER`值1的类型转换处理。
+即实现了从JAVA类型的boolean值true，到JDBC类型的INTEGER值1的类型转换处理。
 
-# 13.5 练习题 #
+# 15.5 练习题 #
 
 1.将数据库信息写在properties文件后，如何在MyBatis主配置文件中引用？（难度★）
 
