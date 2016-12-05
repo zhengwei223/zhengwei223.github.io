@@ -16,9 +16,9 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 ---
 
-# 14.1 输入参数 #
+# 16.1 输入参数 #
 
-## 14.1.1 输入参数为简单类型 ##
+## 16.1.1 输入参数为简单类型 ##
 
 ```
 …
@@ -29,9 +29,9 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 </mapper>
 ```
 
-如上，`parameterType`用于指定输入的参数类型，并且可以通过`#{stuNo}`来获取到该参数值。
+如上，`parameterType`用于指定输入参数的类型，并且可以通过`#{stuNo}`来获取到该参数值。
 
-实际上，“#{变量名}”就表示一个“占位符”，相当于`PreparedStatement`中的占位符“？”。如果输入参数是简单类型（即8个基本类型和`String`类型），那么“参数”的名字也是可以任意的（如`#{studentNo}`、`#{abc}`等”）。此外，“#{参数}”还可以防止SQL注入，并且会为传入`String`类型的参数值自动加上引号，例如，若在查询语句中传入一个`String`类型的值，如下，
+实际上，“#{参数}”就表示一个“占位符”，相当于`PreparedStatement`中的占位符“？”。如果输入参数是简单类型（即8个基本类型或`String`类型），那么“参数”的名字也是可以任意的（如`#{studentNo}`、`#{abc}`等”）。此外，“#{参数}”还可以防止SQL注入，并且会为传入`String`类型的参数值自动加上引号，例如，若在查询语句中传入一个`String`类型的值，如下，
 
 **SQL映射文件：studentMapper.xml**
 
@@ -73,7 +73,7 @@ public static void testQueryByName() throws IOException
 
 在通过`queryStudentByName("张三")`将`String`类型的"张三"传入studentMapper.xml中的`#{stuName}`时，`< select >`元素中的SQL为：`select * from student where stuName= '张三 '`，即`#{stuName}`自动为字符串类型的值加上了引号。
 
-但如果查询语句中传入一个`int`类型的值，则“#{参数}”不会为其加双引号，如下
+但如果查询语句中传入一个`int`类型的值，则“#{参数}”不会为其加引号，如下
 
 **SQL映射文件：studentMapper.xml**
 
@@ -116,14 +116,14 @@ public interface IStudentMapper
 
 在通过`queryStudentByNo(32)`将`int`类型的32传入**studentMapper.xml**中的`#{stuNo}`时，`< select >`元素中的SQL为：`select * from student where stuNo=32`，即#`{stuNo}`没有为非`String`类型的参数加上双引号。
 
-除了“#{参数}”以外，还可以使用“`${value}`”来获取输入的参数值。`${value}`的作用就是输出变量的值。但在解析简单类型的参数值时，“`#{ value }`”中的参数名“`value`”是独一无二的，不能改成其他名字。并且这种方式不能防止SQL注意，有很大的安全隐患。“`${ value }`”主要用于动态排序（Order By）。因为“`${ value }`”仅仅是输出变量值，因此不会像#{参数}那样为字符串类型的值加上引号。例如，如果需要按照“学号”排序，如下：
+除了“`#{参数}`”以外，还可以使用“`${value}`”来获取输入的参数值。`${value}`的作用就是输出变量的值。但在解析简单类型的参数值时，“`#{ value }`”中的参数名“`value`”是独一无二的，不能改成其他名字。并且这种方式不能防止SQL注意，有很大的安全隐患。“`${ value }`”主要用于动态排序（Order By）。因为“`${ value }`”仅仅是输出变量值，因此不会像#{参数}那样为字符串类型的值加上引号。例如，如果需要按照“学号”排序，如下：
 
 **SQL映射文件：studentMapper.xml**
 
 ```
 …
 	<!-- 查询全部学生，并按学号升序排列 -->
-<select id="queryAllStudentsOrderByStuNo"  
+<select id="queryAllStudentsOrderByStuNo"  parameterType="string"
 resultType="student">
 		select * from student order by ${value} asc
 </select>
@@ -149,25 +149,25 @@ public static void testQueryAllOrderByStuNo() throws IOException
 
 执行时的SQL语句为：**select * from student order by stuNo asc**，即可正常运行。
 
-但如果使用“#{参数}”接收传入需要排序的列名，如下：
+但如果使用“`#{参数}`”接收传入需要排序的列名，如下：
 
 **studentMapper.xml**
 
 ```
 …
 	<!-- 查询全部学生，并按学号升序排列 -->
-	<select id=" queryAllStudentsOrderByStuNo " 
+<select id=" queryAllStudentsOrderByStuNo" parameterType="string"
 resultType="student">
 		select * from student order by #{stuNo} asc
 	</select>
 …
 ```
 
-执行时的SQL语句为：**select * from student order by 'stuNo ' asc**，即“#{参数}”方式给传入的`String`类型的列名加上了引号，导致了SQL语法的错误。因此，要想实现`orderby` 动态参数排序，必须使用“`${value}`”。
+执行时的SQL语句为：`select * from student order by 'stuNo ' asc`，即“`#{参数}`”方式给传入的`String`类型的列名加上了引号，导致了SQL语法的错误。因此，要想实现`orderby` 动态参数排序，必须使用“`${value}`”。
 
-此外，两种方式都支持级联属性的获取。例如，若输入参数类型是一个实体类对象（如`Student`对象），则可以通过“#{对象名的属性名}”或“${对象名的属性名}”来获取属性值，如`#{student.stuNo}`、`${ student.stuNo }`。
+此外，两种方式都支持级联属性的获取。例如，若输入参数类型是一个实体类对象（如`Student`对象），则可以通过“#{对象名.属性名}”或“${对象名.属性名}”来获取属性值，如`#{student.stuNo}`、`${ student.stuNo }`。
 
-为了便于记忆，将两种方式的区别列以下表格，
+**为了便于记忆，将两种方式的区别列以下表格，**
 
 <table>
    <tr>
@@ -192,7 +192,7 @@ resultType="student">
    </tr>
 </table>
 
-## 14.1.2 输入参数为实体类的对象 ##
+## 16.1.2 输入参数为实体类的对象 ##
 
 Mybatis使用`ognl`来解析对象类型的属性值，例如，
 
@@ -214,7 +214,7 @@ resultType="student">
 ```
 public interface IStudentMapper
 {
-	List<Student> queryStudentsByNameAndAge(Student student);
+	Student queryStudentsByNameAndAge(Student student);
 	…
 }
 ```
@@ -232,7 +232,7 @@ public static void testQueryStudentsByNameAndAge()
 	student.setStuName("张三");
 	student.setStuAge(23);
 	// 执行查询，输入一个实体对象类型的参数
-	List<Student> students 
+	Student student 
 = studentMapper.queryStudentsByNameAndAge(student);
 …
 }
@@ -245,9 +245,9 @@ org.apache.ibatis.reflection.ReflectionException:
 There is no getter for property named 'age' in 'class org.lanqiao.entity.Student'
 ```
 
-因此，如果传入的参数是一个实体类对象，则在SQL配置文件中解析时，一定要确保${}或#{}中的参数名必须是实体类的属性名。
+因此，如果传入的参数是一个实体类对象，则在SQL配置文件中解析时，一定要确保`${}`或`#{}`中的参数名必须是实体类的属性名。
 
-## 14.1.3 输入参数为嵌套对象 ##
+## 16.1.3 输入参数为嵌套对象 ##
 
 在`Student`类中新增一个`Address`类型的属性，如下：
 
@@ -275,7 +275,7 @@ public class Address
 }
 ```
 
-我们可以在SQL配置文件中，通过#{}或${}来获取传入对象的所有嵌套属性，如下：
+我们可以在SQL配置文件中，通过`#{}`或`${}`来获取传入对象的所有嵌套属性，如下：
 
 **SQL映射文件：studentMapper.xml**
 
@@ -327,9 +327,9 @@ public static void testQueryStudentsIncludeCascadeProperties()
 }
 ```
 
-通过`queryStudentsIncludeCascadeProperties()`传入一个`Student`对象，并且`Student`对象中包含了一个`Address`类型的属性，SQL配置文件中仍然可以使用#{}或${}来获取传入的`Student`对象的嵌套属性`address.homeAddress`和`address.schoolAddress`。
+通过`queryStudentsIncludeCascadeProperties()`传入一个`Student`对象，并且`Student`对象中包含了一个`Address`类型的属性，SQL配置文件中仍然可以使用`#{}`或`${}`来获取传入的`Student`对象的嵌套属性`address.homeAddress`和`address.schoolAddress`。
 
-## 14.1.4 输入参数为HashMap对象 ##
+## 16.1.4 输入参数为HashMap对象 ##
 
 还可以给SQL配置文件传入一个`HashMap`类型的参数，并通过`${key值}`或`#{ key值}`获取对应的`value`值，如下，
 
@@ -376,11 +376,11 @@ throws IOException
 
 通过`queryStudentsWithHashMap()`传入一个`HaspMap`对象，再在SQL配置文件中通过`${}`或`#{}`获取`key`对应的`value`值。
 
-# 14.2 输出参数 #
+# 16.2 输出参数 #
 
-## 14.2.1 输出简单类型或实体对象类型 ##
+## 16.2.1 输出参数为简单类型或实体对象类型 ##
 
-**(1) 输出简单类型**
+#### (1) 输出参数为简单类型 ####
 
 在SQL配置文件中，使用`resultType`指定输出的参数类型。
 
@@ -420,15 +420,15 @@ public static void testQueryStudentCount()throws IOException
 }
 ```
 
-**(2) 输出实体对象类型**
+#### (2) 输出参数为实体对象类型 ####
 
-与输出简单类型的步骤相似，详见“9.5使用Mapper动态代理优化程序”。
+与输出简单类型的步骤相似，详见“使用Mapper动态代理优化程序”一节。
 
-**(3) 输出实体对象类型的集合**
+#### (3) 输出参数为实体对象类型的集合 ####
 
-与输出简单类型的步骤相似，详见“11.1.1输入简单类型”中的`testQueryAllOrderByStuNo()`方法，及其相关的SQL配置文件和接口。
+与输出简单类型的步骤相似，详见“输入简单类型”一节中的`testQueryAllOrderByStuNo()`方法，及其相关的SQL配置文件和接口。
 
-## 14.2.2 输出HashMap类型 ##
+## 16.2.2 输出HashMap类型 ##
 
 指定输出类型为HashMap，并给每个字段都起上别名，如下：
 
@@ -478,9 +478,9 @@ public static void queryStudentOutByHashMap() throws IOException
 
 ![](http://i.imgur.com/lOIwlBv.png)
 
-*图14-01*
+*图16-01*
 
-## 14.2.3 使用resultMap指定输出类型及映射关系 ##
+## 16.2.3 使用resultMap指定输出类型及映射关系 ##
 
 我们先来看一个返回实体类型的例子：根据学号查询一个学生
 
@@ -497,9 +497,9 @@ from student where stuNo=#{stuNo}
 </mapper>
 ```
 
-其中SQL语句使用的字段名必须和`resultType`指定的实体类中的属性名一致，例如`stuNo`、`stuName`等必须即是数据表的字段名、又同时是`Student`类的属性名，否则就会产生异常。
+其中SQL语句使用的字段名必须和`resultType`指定的实体类中的属性名一致，例如`stuNo`、`stuName`等必须既是数据表的字段名、又同时是`Student`类的属性名，否则就会产生异常。
 
-为了解决这种由于字段名与属性名不一致而引发的问题，我们可以使用以下两种方法(将数据表中字段改名依次改为：no,name,age,gname，而实体类中的属性仍然使用`stuNo`,`stuName`,`stuAge`,`graName`)：
+为了解决这种由于字段名与属性名不一致而引发的问题，我们可以使用以下两种方法(先将数据表中的字段依次改名为：no,name,age,gname，而实体类中的属性仍然使用`stuNo`,`stuName`,`stuAge`,`graName`)：
 
 **(1)在SQL语句中定义别名**
 
@@ -538,11 +538,11 @@ where no=#{stuNo}
 
 为了和其他章节的示例保持一致，我们在讲完本节后将数据表的字段恢复成了`stuNo`、`stuName`、`stuAge`、`graName`。
 
-# 14.3 动态SQL #
+# 16.3 动态SQL #
 
 MyBatis提供了`<if>`、`<where>`、`<foreach>`等标签来实现SQL语句的动态拼接。
 
-## 14.3.1 <if>标签 ##
+## 16.3.1 <if>标签 ##
 
 我们可以将SQL映射文件写成以下形式：
 
@@ -595,7 +595,7 @@ throws IOException
 
 通过`testQueryStudentByNoWithOGNL()`方法，向SQL映射文件传入一个`Student`对象，SQL映射文件就会在`<if>`等标签中解析出该对象中的属性值。例如`<if>`标签中的`graName`、`stuAge`就是`Student`对象的属性。
 
-## 14.3.2 &lt;where&gt;标签 ##
+## 16.3.2 &lt;where&gt;标签 ##
 
 上例中的SQL配置文件，可以使用`<where>`标签改成以下的等价写法：
 
@@ -618,7 +618,7 @@ parameterType="student" resultType="student">
 
 即使用`<where>`标签来替代SQL中的`where`关键字，并且`<where>`标签可以根据情况自动帮我们处理`<if>`开头的“and”关键字。
 
-## 14.3.3 &lt;foreach&gt;标签 ##
+## 16.3.3 &lt;foreach&gt;标签 ##
 
 我们已经知道，SQL映射文件是通过`parameterType`来指定输入的参数类型。如果输入参数是简单类型或一般对象类型（除集合数组外），可以直接指定，如`parameterType=”int”`、 `parameterType=”student”`等；但如果输入参数是集合或数组类型，就需要使用`<foreach>`标签来完成输入参数的处理。
 
@@ -628,9 +628,9 @@ parameterType="student" resultType="student">
 select * from student  where stuNo in(第一个学号, 第二个学号, 第三个学号)
 ```
 
-就必须将包含学号的数组或集合，传入并替代“第一个学号, 第二个学号, 第三个学号”等占位符。
+就必须将包含学号的数组或集合，传入SQL并替代“第一个学号, 第二个学号, 第三个学号”等占位符。
 
-**(1)将集合或数组以对象属性的形式传入**
+#### (1)将集合或数组以对象属性的形式传入 ####
 
 可以定义一个集合（或数组）类型的属性，然后将该集合属性传入到SQL映射文件中。例如，新建一个年级`Grade`类，该类包含一个`List`集合类型的属性`stuNos`，存放着该年级中所有学生的学号，如下：
 
@@ -666,9 +666,9 @@ close=")" item="stuNo" separator=",">
 </select>
 ```
 
-通过`parameterType`传入`Grade`对象，该对象包含了集合类型的属性`stuNos`（假定`stuNos`集合属性包含31,32,33三个元素）。之后通过`<foreach>`处理`stuNos`集合中的数据，拼接出完整的SQL语句：**select * from student where  stuNo in (31,32,33)**。
+通过`parameterType`传入`Grade`对象，该对象包含了集合类型的属性`stuNos`（假定`stuNos`集合属性包含31,32,33三个元素）。之后通过`<foreach>`处理`stuNos`集合中的数据，拼接出完整的SQL语句：`select * from student where  stuNo in (31,32,33)`。
 
-以此SQL配置文件为例，具体的拼接过程如下：
+**以此SQL映射文件为例，具体的拼接过程如下：**
 
 **①**首先是主体的SQL语句：`select * from student` 
 
@@ -754,7 +754,7 @@ public static void queryStudentWithForeach() throws IOException
 
 至此，就从数据库里查出了学号为31、32、33三位学生的信息，并封装到了`studnets`集合对象里。
 
-**(2)传入`List`类型的集合**
+#### (2)传入`List`类型的集合 ####
 
 此种方式与“将集合或数组以对象属性的形式传入”的方法基本相同，只是需要将`parameterType`指定为`List`，并且必须用 `“list”`名字来接收传来的`List`集合，如下：
 
@@ -806,7 +806,7 @@ throws IOException
 }
 ```
 
-**(3)传入简单类型的数组**
+#### (3)传入简单类型的数组 ####
 
 传入数组与传入`List`集合的方法基本相同，只是需要将`parameterType`指定为数组类型，并且必须用 `“array”`名字来接收传来的数组，以传入`int[]`数组为例：
 
@@ -829,7 +829,7 @@ parameterType="int[]" resultType="student">
 
 动态代理接口与测试方法略。
 
-**(4)传入对象数组**
+#### (4)传入对象数组 ####
 
 传入对象数组与“传入简单类型数组”的方法基本相同，只是需要将`parameterType`的值固定写成“`Object[]`”，并且可以通过OGNL获取迭代对象的属性，如`#{student.stuNo}`。以传入`Student[]`数组为例：
 
@@ -852,11 +852,12 @@ close=")" item="student" separator=",">
 
 动态代理接口与测试方法略。
 
-## 14.3.4 SQL片段 ##
+## 16.3.4 SQL片段 ##
 
 为了达到复用的目的，我们可以通过“方法”将重复的JAVA代码提取出来，通过“存储过程”将重复的SQL语句提取出来；同样的，我们也可以使用“SQL片段”，来将SQL映射文件中的重复代码提取出来。
 
-例如以下配置：
+例如以下SQL映射文件：
+
 
 ```
 <select id="testQueryStudentByNoWithOGNL" 
@@ -902,7 +903,7 @@ parameterType="student"  resultType="student">
 **说明：**
 如果`<include>`导入的是其它SQL映射文件中的SQL片段，则需要在引用时加上`namespace`，如：`<include refid="namespace值.sql片段的id值”/>`。
 
-# 14.4 练习题 #
+# 16.4 练习题 #
 
 1.SQL映射文件中，如果`parameterType`的值是实体类对象，`<select>`等标签中的SQL语句如何使用对象的属性值？
 
