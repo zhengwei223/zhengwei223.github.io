@@ -20,17 +20,17 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 查询缓存，就是在内存或外存上建立一个存储空间，用来保存上次查询结果，下次再进行同样的查询时，就可以直接从内存或外存中读取，而不用再从数据库中查找，可以大大的提高查询效率。
 
-# 16.1 一级缓存 #
+# 18.1 一级缓存 #
 
 MyBatis中常用的查询缓存分为一级缓存和二级缓存。
 
-一级缓存的范围是一个`SqlSession`，在同一个`SqlSession`中多次执行相同的查询SQL语句时，第一次执行完毕会就将数据库的查询结果写到缓存（内存）中，以后如果再次执行该查询时就会直接从缓存中读取查询结果。但是，如果执行了增删改时需要使用的`commit()`方法，则`SqlSession`一级缓存就会被清理（清理表示将缓存中的数据全部写入数据库，从而使缓存变空），下次再次查询时（无论是否第一次查询），都会重新从数据库里查询，并将查询结果写入`SqlSession`，如图，
+一级缓存的范围是一个SqlSession对象：在同一个SqlSession对象中多次执行相同的查询SQL语句时，第一次执行完毕会就将数据库的查询结果写到内存（缓存）中，以后如果再次执行该查询时就会直接从内存中读取查询结果。但是，如果执行了增删改所需的`commit()`方法，那么SqlSession对象的一级缓存就会被清理（清理是指“将缓存中的数据全部写入数据库，从而使缓存变空”），下次再次查询时，都会重新从数据库中查询，并将查询后的结果写入SqlSession对象，如图，
 
 ![](http://i.imgur.com/GXJblMj.gif)
 
-*图16-01*
+*图18-01*
 
-当一个`SqlSession`关闭后，该`SqlSession`中的一级缓存也就随之销毁。Mybatis默认开启一级缓存。
+当一个SqlSession对象关闭后，该SqlSession对象中的一级缓存也就随之销毁。Mybatis默认开启一级缓存。
 
 现在执行两次相同的查询操作，如下：
 
@@ -56,7 +56,7 @@ public static void queryStudentByNoTwice() throws IOException
 
 ![](http://i.imgur.com/7ng1QXT.png)
 
-*图16-02*
+*图18-02*
 
 可以发现，虽然测试方法中查询了两次学号为32的学生，但只发送了一次查询SQL，即第二次没有通过SQL查询数据库，而是直接从缓存中获取的查询结果。
 
@@ -91,23 +91,23 @@ public static void queryStudentByNoTwiceWithUpdate() throws IOException
 
 ![](http://i.imgur.com/PSEz3Yw.jpg)
 
-*图16-03*
+*图8-03*
 
-# 16.2 二级缓存 #
+# 18.2 二级缓存 #
 
-Mybatis一级缓存的范围是同一个`SqlSession`内；而二级缓存则是可以被多个`SqlSession`共享的，范围是同一个`namespace`下SQL映射文件生成的动态代理`mapper`对象，例如我们使用的`studentMapper`对象。与一级缓存相同，当执行增删改时的`commit()`方法时，二级缓存也会被清理。
+Mybatis一级缓存的范围是同一个`SqlSession`对象内；而二级缓存则是可以被多个`SqlSession`对象共享的，范围是同一个`namespace`下SQL映射文件生成的动态代理`mapper`对象，例如我们使用的`studentMapper`对象。与一级缓存相同，当执行增删改时的`commit()`方法时，二级缓存也会被清理。
 
 值得注意的是，如果两个不同的SQL映射文件有相同的`namespace`值，那么这两个`namespace`的SQL映射文件共用同一个`mapper`对象，如图，
 
 ![](http://i.imgur.com/h2uaLOI.gif)
 
-*图16-04*
+*图18-04*
 
 二级缓存中，只要是使用`namespace`相同的`mapper`对象，就只会在第一次查询时访问数据库并将结果写入二级缓存，以后再次查询时就可以直接从二级缓存中获取。
 
-# 16.2.1 使用二级缓存 #
+# 18.2.1 使用二级缓存 #
 
-**(1)开启二级缓存**
+#### (1)开启二级缓存 ####
 
 MyBatis没有默认开启二级缓存，使用时需要在`setting`全局参数中开启，如下：
 
@@ -125,7 +125,7 @@ MyBatis没有默认开启二级缓存，使用时需要在`setting`全局参数�
 </configuration>
 ```
 
-此外，还要在SQL映射文件中添加一行：  `<cache />` ，表示给此SQL映射文件的`mapper`动态代理对象开启二级缓存，如下：
+此外，还要在SQL映射文件中添加一行：  `<cache />` ，表示把此SQL映射文件的`mapper`对象的二级缓存功能打开，如下：
 
 **studentMapper.xml**
 
@@ -136,9 +136,9 @@ MyBatis没有默认开启二级缓存，使用时需要在`setting`全局参数�
 </mapper>
 ```
 
-**(2)实现序列化**
+#### (2)实现序列化 ####
 
-二级缓存需要给实体类实现`java.io.Serializable`接口，以实现序列化和反序列化操作。注意，如果实体类有父类、或实体类的某个属性成员也是实体类对象类型的，则也都需要实现`java.io.Serializable`接口，如下，
+二级缓存需要将实体类实现`java.io.Serializable`接口，以实现序列化和反序列化操作。注意，如果实体类有父类、或实体类的某个属性成员也是实体类对象类型的，则也都需要实现`java.io.Serializable`接口，如下，
 
 **Student.java**
 
@@ -160,7 +160,7 @@ public class Student implements Serializable
 }
 ```
 
-`Student`类中的实体类属性成员`card`所属的实体类，也需要实现序列化接口：
+`Student`类中的属性`card`所属的实体类，也需要实现Serializable接口：
 
 **StudentCard.java**
 
@@ -177,7 +177,7 @@ public class StudentCard  implements Serializable
 }
 ```
 
-**(3)测试二级缓存**
+#### (3)测试二级缓存 ####
 
 前面讲了，二级缓存的范围是相同`namespace`生成的`mapper`对象下的所有`SqlSession`对象，现在我们进行以下测试：
 
@@ -209,13 +209,13 @@ public static void queryStudentByNoWithSecondCache() throws IOException
 
 ![](http://i.imgur.com/z2MYGeR.png)
 
-*图16-05*
+*图18-05*
 
-通过日志可以发现，虽然两次查询是通过不同的`SqlSession`对象执行的，但这些`SqlSession`对象都是由同一个`namespace`的`mapper`对象生成的，因此这两个`SqlSession`可以共享二级缓存，即只需要在第一次向数据库发送SQL语句并将查询结果写入二级缓存，而第二次就可以直接从二级缓存中获取。
+通过日志可以发现，虽然两次查询操作是通过不同的`SqlSession`对象执行的，但这些`SqlSession`对象都是由同一个`namespace`的`mapper`对象生成的，因此这两个`SqlSession`对象可以共享二级缓存，即只需要在第一次向数据库发送SQL语句并将查询结果写入二级缓存，而第二次就可以直接从二级缓存中获取。
 
 日志中的“0.0”和“0.5”表示缓存的命中率：第一次查询时，缓存中没有数据，所以命中率为0.0；第二次查询相同数据时，可以从缓存中查询到，所以命中率为0.5(一共查了两次，只有第二次命中，所以命中率为50%，即0.5)。
 
-## 16.2.2 禁用二级缓存 ##
+## 18.2.2 禁用二级缓存 ##
 
 还可以给某一个具体的SQL标签设置成禁用二级缓存，如下：
 
@@ -235,11 +235,11 @@ where stuNo=#{stuNo}
 
 ![](http://i.imgur.com/hYXyuLk.png)
 
-*图16-06*
+*图18-06*
 
-可以发现，给`<select>`标签设置了`useCache="false"`，就可以禁用二级缓存，即发送了两次SQL语句。默认情况下，`useCache="true"`表示开启二级缓存。
+可以发现，给`<select>`标签设置了`useCache="false"`，就可以禁用二级缓存：发送了两次SQL语句。默认情况下，`useCache="true"`表示开启二级缓存。
 
-## 16.2.2 清理二级缓存 ##
+## 18.2.2 清理二级缓存 ##
 
 如果执行增删改的`commit()`方法，二级缓存也会随之被清理。例如，我们先将之前的`useCache`改回`true`，表示使用二级缓存，再进行如下测试：
 
@@ -283,9 +283,7 @@ public static void queryStudentByNoWithSecondCacheAndUpdate() throws IOException
 
 从日志可以得知，因为在两次查询中间执行了`commit()`方法，二级缓存被清理，因此向数据库发送了两条查询SQL。
 
-我们现在分析一下`commit()`清理缓存的原因：因为对数据库进行增删改操作，如果不及时清理缓存，就会丢失数据的实时性，可能导致数据的脏读。
-
-例如，假设存在一条数据“姓名：张三，年龄：23岁，年级：初级”，第一次从数据库查询到此数据时，会将查询结果放入缓存，而如果再进行修改操作，假设修改为“姓名：张三，年龄：24岁，年级：中级”，此时，之前存放在缓存中的数据就已经与数据库中修改后的数据不一致，因此如果再从缓存中读数据就会导致脏读的发生。因此每次执行增删改操作并调用`commit()`方法时，就会及时的清理缓存，保证数据的实时性。
+我们现在分析一下`commit()`清理缓存的原因：因为对数据库进行增删改操作，如果不及时清理缓存，就会丢失数据的实时性，可能导致数据的脏读。例如，假设存在一条数据“姓名：张三，年龄：23岁，年级：初级”，第一次从数据库查询到此数据时，会将查询结果放入缓存，而如果再进行修改操作，假设修改为“姓名：张三，年龄：24岁，年级：中级”，此时，之前存放在缓存中的数据就已经与数据库中修改后的数据不一致，因此如果再从缓存中读数据就会导致脏读的发生。因此每次执行增删改操作并调用`commit()`方法时，就会及时的清理缓存，保证数据的实时性。
 
 如果有特殊情况，想让执行`commit()`方法时并不清理缓存，可以在增删改的SQL标签里设置`flushCache="false"`，如下：
 
@@ -305,19 +303,19 @@ graName=#{graName}  where stuNo=#{stuNo}
 
 ![](http://i.imgur.com/OfzESdz.png)
 
-*图16-08*
+*图18-08*
 
 虽然两次查询之间存在`commit()`方法，但因为使用`flushCache`属性禁止清理缓存，所以仍然只向数据库发送了一次SQL，第二次是直接从缓存中获取的数据。两次查询缓存的命中率分别为0.0和0.5。
 
-# 16.3 整合第三方提供的二级缓存 #
+# 18.3 整合第三方提供的二级缓存 #
 
-MyBatis还可以整合Ehcache、OSCache、MEMcache等由第三方厂商提供的二级缓存。本书以使用较多的Ehcache进行讲解。
+MyBatis还可以整合Ehcache、OSCache、MEMcache等由第三方厂商提供的二级缓存。本书以使用较多的Ehcache为例进行讲解。
 
 MyBatis提供了用于整合二级缓存的接口Cache以及默认的实现类`PerpetualCache.`，如图：
 
 ![](http://i.imgur.com/KDVDEQj.png)
 
-*图16-09*
+*图18-09*
 
 MyBatis整合Ehcache的具体步骤如下：
 
@@ -406,9 +404,9 @@ Ehcache配置文件中的各元素/属性介绍如下：
 
 ![](http://i.imgur.com/KlvgmSm.png)
 
-*图16-10*
+*图18-10*
 
-修改**studentMapper.xml**中的二级缓存配置，如下：
+修改**studentMapper.xml**，将MyBatis内置的二级缓存`<cache/>`更换为Ehcache的相关配置，如下：
 
 **studentMapper.xml**
 
@@ -439,12 +437,12 @@ Ehcache配置文件中的各元素/属性介绍如下：
 
 ![](http://i.imgur.com/caiNymj.png)
 
-*图16-11*
+*图18-11*
 
 可知，两次相同的查询操作只发送了一条SQL语句，即Ehcache二级缓存确实得到了使用。
 
 
-# 16.4 练习题 #
+# 18.4 练习题 #
 
 1.MyBatis中支持几级缓存？
 
