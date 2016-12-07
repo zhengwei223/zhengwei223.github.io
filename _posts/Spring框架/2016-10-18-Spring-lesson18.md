@@ -16,13 +16,17 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE Spring框架
 
 ---
 
->本章简介
+>**本章简介**
 
-Spring是于2003 年兴起的一个轻量级的Java 开源框架，是由Rod Johnson 在其2002年的著作《Expert One-On-One J2EE Development and Design》中阐述的部分理念和原型衍生而来。它是为了解决企业应用开发的复杂性而创建的。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。Spring有两个核心，分别是控制反转（IOC）和面向切面（AOP）。简单来说，Spring是一个分层的JavaSE/EEfull-stack(一站式) 轻量级开源框架。
+Spring是于2003 年兴起的一个轻量级的Java开源框架，是由Rod Johnson 在其2002年的著作《Expert One-On-One J2EE Development and Design》中阐述的部分理念和原型衍生而来。它是为了解决企业应用开发的复杂性而创建的。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。
 
-# 18.1 搭建 Spring开发环境 #
+发布十余年来，Spring已经从单一的IoC与AOP框架发展为一站式、多项目的基础平台系统。从Spring Framework、Spring Data、Spring Social到Spring Boot、Spring Cloud等，Spring已经成为面向全领域的一体化解决方案。
 
-**(1)获取资源文件**
+本书作为基础教材，主要讲解Spring的2个核心基础：控制反转（IoC）和面向切面（AOP）。
+
+# 20.1 搭建 Spring开发环境 #
+
+#### (1)获取资源文件 ####
 
 我们可以从Spring的官网[http://spring.io](http://spring.io)中找到Spring的完全资源包（本书所用的是spring-framework-4.2.5.RELEASE-dist.zip，下载地址[http://repo.spring.io/release/org/springframework/spring/](http://repo.spring.io/release/org/springframework/spring/)），将其解压，其中的`libs`目录就存放了spring框架所依赖的`jar`包，具体如下：
 
@@ -50,7 +54,7 @@ Spring是于2003 年兴起的一个轻量级的Java 开源框架，是由Rod Joh
    <tr>
       <td>4</td>
       <td>spring-core-4.xx.RELEASE.jar</td>
-      <td>Spring框架基本的核心类库，Spring其它组件要都要使用到这个包里的类</td>
+      <td>Spring框架的核心类库，Spring各个组件要都要使用到这个包里的类</td>
    </tr>
    <tr>
       <td>5</td>
@@ -59,11 +63,11 @@ Spring是于2003 年兴起的一个轻量级的Java 开源框架，是由Rod Joh
    </tr>
 </table>
 
-除此之外，为了支持Spring处理日志，我们还需要`commons-logging-x.x.x.jar`。
+除此之外，为了支持Spring处理日志，还需要用到**commons-logging-x.x.x.jar**。
 
 以上6个`jar`包，就是我们使用Spring时需要导入的包。
 
-**(2)搭建Spring项目结构**
+#### (2)搭建Spring项目结构 ####
 
 **①**为了更方便的使用Eclipse开发Spring，我们需要给Eclipse安装Spring Tool Suite，安装方法参见附录1。
 
@@ -71,15 +75,15 @@ Spring是于2003 年兴起的一个轻量级的Java 开源框架，是由Rod Joh
 
 ![](http://i.imgur.com/by0rgWg.png)
 
-*图18-01*
+*图20-01*
 
-**③**在`src`目录下创建Spring的配置文件：鼠标右键src →new →other →选择Spring Bean Configuration File →起名为applicationContext.xml →Finish 
+**③**在`src`目录下创建Spring的配置文件：鼠标右键src →new →other →选择Spring Bean Configuration File →命名为applicationContext.xml →Finish 
 
-# 18.2 开发第一个Spring IOC程序 #
+# 20.2 开发第一个Spring IOC程序 #
 
 Spring的一个核心机制就是控制反转（IOC），下面我们就来开发一个基于SpringIOC的程序。
 
-**(1)开发Spring程序**
+**开发Spring程序**
 
 **①**创建一个学生实体类
 
@@ -116,7 +120,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 可以发现，主要是通过`<bean>`标签完成了对象的赋值，`<bean>`标签中最基本属性、子元素的含义如下：
 
-为了便于理解，我们在Spring中引入一个新的词“简单类型”，本书中使用“简单类型”代指“基本数据类型和String类型”。
+为了便于理解，在本书所讲Spring中仍然使用“简单类型”代指“基本数据类型和String类型”。
 
 <table>
    <tr>
@@ -145,7 +149,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
    </tr>
 </table>
 
-以上applicationContext.xml中的配置，就是将一个`Student`对象的`stuNo`属性赋值为“1”，将`stuName`属性赋值为“张三”，将`stuAge`属性赋值为“23”，并将该对象的id标识为`“student”`（用于区分其他对象）。赋值完成后，该对象就会自动被加入Spring的IOC容器之中(IOC容器会在后面讲解)。
+以上**applicationContext.xml**中的配置，就是将一个`Student`对象的`stuNo`属性赋值为“1”，将`stuName`属性赋值为“张三”，将`stuAge`属性赋值为“23”，并将该`<bean>`的id标识为`“student”`（用于区分其他对象）。赋值完成后，该对象就会自动被加入Spring的IOC容器之中(IOC容器会在后面讲解)。
 
 **③**从Spring的IOC容器之中获取对象，并在测试类中使用，如下，
 
@@ -176,7 +180,7 @@ Student stu =(Student)context.getBean("student");
 
 ![](http://i.imgur.com/NqGTeNj.png)
 
-*图18-02*
+*图20-02*
 
 目前可以发现，
 
@@ -185,7 +189,7 @@ Student stu =(Student)context.getBean("student");
 **②**对象的赋值，也是SpringIOC容器帮我们完成的。
 
 
-# 18.3 练习题 #
+# 20.3 练习题 #
 
 1.如何搭建Spring环境？
 
