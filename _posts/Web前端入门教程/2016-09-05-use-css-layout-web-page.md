@@ -841,7 +841,11 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 # 习题：
 
- 1.在W3School提供的display属性值列表里面，有一组以“table”打头的属性值。据此，我们可以可以用嵌套的div元素做出HTML表格：
+ 1.在HTML默认文档流理面，每个块级元素的宽度会自动延伸到它的父级元素所允许的最大宽度，从而独占一行，行级元素的宽度会正好足够展示其内容、并且可以跟其他行级元素同处一行。
+
+&emsp;&emsp;CSS浮动和定位如何让页面元素脱离默认文档流的？各自有什么特征？
+
+ 2.在W3School提供的display属性值列表里面，有一组以“table”打头的属性值。据此，我们可以可以用嵌套的div元素做出HTML表格：
 
 &emsp;&emsp;你只需要把原来表格里的table、tr、th、td元素等等替换成div，并且根据div容器的类型应用不同的display属性值就可以了。
 
@@ -851,11 +855,11 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 &emsp;&emsp;请你尝试用这个方法改造上一章的*唐诗排行前十名*的表格。
 
 
- 2.我们在上网的时候经常会看到一个固定在浏览器右下角的广告窗口：不管你怎么滚动页面，它会始终“固定”在那个地方。你想知道他是怎么实现的吗？
+ 3.我们在上网的时候经常会看到一个固定在浏览器右下角的广告窗口：不管你怎么滚动页面，它会始终“固定”在那个地方。你想知道他是怎么实现的吗？
 
 &emsp;&emsp;恰好，CSS的position属性规定了一种固定（fixed）定位法。借助“固定定位”，你可以把一个div始终固定在浏览器窗口的右下角，请尝试实现一个这样的div窗口。
 
- 3.看下面的代码。
+ 4.看下面的代码。
 
 &emsp;&emsp;HTML代码：
 
@@ -875,6 +879,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
     <style>
     .container{
        border : 6px solid red;
+       height :300px;
 	   width:600px;
 	   margin-left:auto;
 	   margin-right:auto;
@@ -896,7 +901,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;不用多说，内部div绝对定位的参照物是HTML文档的body元素。试问，能否让绿色边框的div参照它的外部div绝对定位？请提出你的解决方案。
 
-&emsp;&emsp;此外，请你把内层div的定位方式修改成“relative”，然后观察外层div的高度有何变化。解释其中的原因。
+&emsp;&emsp;此外，请你把内层div的定位方式修改成“relative”，注释掉外层容器的高度，然后观察外层div的高度有何变化。解释其中的原因。
 
 &emsp;&emsp;下面是一段来自[英文版W3School的CSS Layout Position Property](http://www.w3schools.com/css/css_positioning.asp)页面的参考文字：
 
