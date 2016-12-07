@@ -22,46 +22,46 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 除此之外，我们还可以只设计并创建数据库表，然后利用MyBatis提供的工具来自动生成其他三个（实体类、SQL映射文件和动态代理接口），以下是具体的步骤：
 
-# 17.1 准备工作 #
+# 19.1 准备工作 #
 
-准备数据库：学生表(student)、学生证表(studentCard)、班级表(studentClass)，如图
+准备数据表：学生表(student)、学生证表(studentCard)、班级表(studentClass)，如图
 
 ![](http://i.imgur.com/kY4IvVF.png)
 
-*图17-01*
+*图19-01*
 学生表(student)
 
 ![](http://i.imgur.com/himo2Ud.png)
 
-*图17-02*
+*图19-02*
 学生证表(studentCard)
 
 ![](http://i.imgur.com/weSYl00.jpg)
 
-*图17-03*
+*图19-03*
 班级表(studentClass)
 
 创建JAVA项目：**MyBatis_Generator**
 
 
-# 17.2 下载工具 #
+# 19.2 下载工具 #
 
-要想根据数据表生成实体类及SQL映射文件，必须先下载MyBatis官方提供的工具：**mybatis-generator-core-1.3.2-bundle.zip**。下载解压后，可以得到以下目录：
+要想根据数据表生成实体类、接口及SQL映射文件，必须先下载MyBatis官方提供的工具：mybatis-generator-core-1.3.2-bundle.zip。下载解压后，可以得到以下目录：
 
 ![](http://i.imgur.com/DMBaKBL.png)
 
-*图17-04*
+*图19-04*
 
 
 将`lib`目录中的**mybatis-generator-core-1.3.2.jar**，以及数据库驱动**ojdbc.jar**和MyBatis所依赖的**mybatis-3.3.1.jar**加入项目的构建目录(Build Path)，如图，
 
 ![](http://i.imgur.com/ef2SFan.png)
 
-*图17-05*
+*图19-05*
 
 读者还可以打开docs中的**index.html**来详细学习自动生成的相关知识。
 
-# 17.3 创建并编写配置文件 #
+# 19.3 创建并编写配置文件 #
 
 在`src`下创建并编写配置文件，如下，
 
@@ -136,7 +136,7 @@ targetProject=".\src">
 
 生成工具**mybatis-generator-core-1.3.2.jar**可以根据以上的配置细节，来生成实体类、SQL映射文件以及动态代理接口。
 
-# 17.4 编写生成代码 #
+# 19.4 编写生成代码 #
 
 有了自动生成需要的配置文件**generator.xml**，就可以编写自动生成的相关代码，如下：
 
@@ -168,12 +168,12 @@ public class MyBatis_Generator
 
 ![](http://i.imgur.com/p7DQx0k.png)
 
-*图17-06*
+*图19-06*
 
 执行**MyBatis_Generator.java**并刷新项目，可得到以下项目截图:
 
 ![](http://i.imgur.com/qMxZEnx.png)
 
-*图17-07*
+*图19-07*
 
-即只需要导入相关JAR文件，并编写**generator.xml**配置文件以及生成代码**MyBatis_Generator.java**，就可以根据数据表生成实体类、SQL映射文件以及动态代理接口。**org.lanqiao.entity**包中的**“XxxExample.java”**是一些操作的示例代码。
+即只需要导入相关JAR文件，并编写**generator.xml**配置文件以及生成代码**MyBatis_Generator.java**，就可以根据数据表生成实体类、SQL映射文件以及动态代理接口。**org.lanqiao.entity**包中的**“XxxExample.java”**是一些操作的示例代码，可以将其删除。
