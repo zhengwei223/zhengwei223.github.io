@@ -7,9 +7,9 @@ category: lanqiaoEE
 
 tags: 文档说明
 
-description:SVN项目检出部署到eclipse步骤说明
+description: SVN项目检出部署到eclipse步骤说明
 
-author:丁彦涛
+author: 丁彦涛
 
 keywords:  SVN  部署     eclipse
 
