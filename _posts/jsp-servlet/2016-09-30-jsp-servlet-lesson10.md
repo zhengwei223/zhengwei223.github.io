@@ -12,7 +12,7 @@ description: 本章将系统介绍AJAX。Ajax是一种用于创建快速动态�
 
 author: 颜群
 
-keywords: lanqiao 蓝桥 培训 教程 javaweb JSP Servlet
+keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
@@ -22,7 +22,7 @@ AJAX（Asynchronous Javascript And XML，异步JavaScript和XML），是一种�
 
 # 10.1 Ajax的作用 #
 
-Ajax 通过在后台与服务器交换少量数据的方式，使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的局部进行更新，例如：我们在网页观看电影时，如果点击了左下角的“赞”图标，那么“赞”的数量会从5353增加到5354，而当前网页并不会被刷新，如图，
+Ajax 通过在后台与服务器之间交换少量数据的方式，实现网页的异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的局部内容进行更新，例如：我们在网页中观看电影时，如果点击了左下角的“赞”图标，那么“赞”的数量会从5353增加到5354（即局部内容进行了更新），而当前网页并不会被刷新，如图，
 
 ![](http://i.imgur.com/MIV2Y5t.png)
 
@@ -46,7 +46,7 @@ AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，�
 
 **(1) open(methodName,URL,isAsync)**
 
-建立与服务器连接。`methodName`指定请求的方法名；URL指定请求地址；`isAsync`是一个`boolean`值，代表是否采用异步方式（默认true；若无特殊需求，此值一般都填true）。
+与服务器连接建立。`methodName`指定请求的方法名；URL指定请求地址；`isAsync`是一个`boolean`值，代表是否采用异步方式（默认true；若无特殊需求，此值一般都填true）。
 
 **(2) send(content)**
 
@@ -54,17 +54,23 @@ AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，�
 
 **(3) setRequestHeader(header,value)**
 
-在HTTP请求头中设置`key`/`value`对。`GET`请求方式下不用设置，但若在`POST`方式下一般设置为：
+在HTTP请求头中设置key/value对：
 
-`XMLHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");`
+**①**若为`GET`请求方式：则不用设置；
 
-如果用来上传文件，则应设置为：
+**②**若为`POST`方式，
 
-`XMLHttpRequest.setRequestHeader("Content-Type", "mulipart/form-data");`
+**a.**当请求中包含文件上传元素时，设置为：
+
+**XMLHttpRequest.setRequestHeader("Content-Type", "mulipart/form-data");**
+
+**b.**当请求中不包含文件上传元素时，设置为：
+
+**XMLHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");**
 
 ## 10.2.2 `XMLHttpRequest`对象的常用属性 ##
 
-**(1)`readystate`**
+#### (1)`readystate` ####
 
 `readystate`表示`XMLHttpRequest` 对象发送的HTTP请求状态，共有以下五种状态：
 
@@ -75,27 +81,27 @@ AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，�
    </tr>
    <tr>
       <td>0</td>
-      <td>XMLHttpRequest 对象没有初始化</td>
+      <td>表示XMLHttpRequest 对象没有初始化</td>
    </tr>
    <tr>
       <td>1</td>
-      <td>XMLHttpRequest 对象开始发送请求：已经执行了open()方法并完成了相关资源的准备。</td>
+      <td>表示XMLHttpRequest 对象开始发送请求：已经执行了open()方法并完成了相关资源的准备。</td>
    </tr>
    <tr>
       <td>2</td>
-      <td>XMLHttpRequest 对象已将请求发送完毕：已经执行了send()方法来发送请求，但是还没有收到响应。</td>
+      <td>表示XMLHttpRequest 对象已将请求发送完毕：已经执行了send()方法来发送请求，但是还没有收到响应。</td>
    </tr>
    <tr>
       <td>3</td>
-      <td>XMLHttpRequest 对象开始读取响应信息：已经接收到HTTP响应的头部信息，但是还没有将响应体接收完毕。</td>
+      <td>表示XMLHttpRequest 对象开始读取响应信息：已经接收到HTTP响应的头部信息，但是还没有将响应体接收完毕。</td>
    </tr>
    <tr>
       <td>4</td>
-      <td>XMLHttpRequest 对象将响应信息全部读取完毕</td>
+      <td>表示XMLHttpRequest 对象将响应信息全部读取完毕</td>
    </tr>
 </table>
 
-**(2) `status`**
+#### (2) `status` ####
 
 `status`表示HTTP响应中的状态码，各状态码的含义如下：
 
@@ -126,29 +132,29 @@ AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，�
    </tr>
 </table>
 
-可以发现，状态码为200时才表示响应成功；如果不是200，则说明HTTP响应不正常。
+可以发现，只有当状态码为200时才表示响应成功；否则，说明HTTP响应不正常。
 
-**(3) `onreadystatechange`**
+#### (3) `onreadystatechange` ####
 
-指定`XMLHttpRequest`对象的回调函数。每当`readyState`属性值改变时，就会调用一次此回调函数。
+指定`XMLHttpRequest`对象的回调函数。每当`readyState`的属性值改变时，此回调函数就会被调用一次。
 
-**(4) `responseText`**
+#### (4) `responseText` ####
 
 从服务器端返回的`string`格式的响应内容。
 
-**(5) `responseXML`**
+#### (5) `responseXML` ####
 
 从服务器端返回的XML格式的数据，可以直接被当作`DOM`对象使用。
 
 ## 10.2.3 使用Ajax实现异步请求 ##
 
-使用JavaScript实现Ajax，分为`POST`或`GET`两种方式，但大体的步骤都相同，如下：
+**使用JavaScript实现Ajax，分为`POST`或`GET`两种方式，但大体的步骤都相同，如下：**
 
 **①**创建`XMLHttpRequest`对象，即创建一个异步调用对象
 
 **②**设置并编写回调函数
 
-**③**初始化`XMLHttpRequest`对象的参数值（若是`POST`方式，则还需要设置“请求头”）
+**③**初始化`XMLHttpRequest`对象的参数值（若是`POST`方式，还需要设置“请求头”）
 
 **④**发送HTTP请求
 
@@ -178,7 +184,7 @@ public class MobileServlet extends HttpServlet
                                HttpServletResponse response) 
 throws ServletException, IOException 
 {
-	//设置发送到客户端的响应的内容类型
+	//设置发送到客户端响应的内容类型
 response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		String mobile = request.getParameter("mobile");
@@ -203,8 +209,8 @@ response.setContentType("text/html;charset=UTF-8");
 <script type="text/javascript">
 	function isExist() 
 	{
-		var mobile = $("#mobile").val();
-		if (mobile == null || mobile.length != 11) 
+		var $mobile = $("#mobile").val();
+		if ($mobile == null || $mobile.length != 11) 
 		{
 			$("#tip").html("请输入正确的手机号码！");
 		} else 
@@ -221,7 +227,7 @@ response.setContentType("text/html;charset=UTF-8");
 			xmlHttpRequest.setRequestHeader("Content-Type",
 "application/x-www-form-urlencoded");
 			//4.发送HTTP请求
-			var data = "mobile=" + mobile;
+			var data = "mobile=" + $mobile;
 			xmlHttpRequest.send(data);
 		}
 	}
@@ -303,7 +309,7 @@ xmlHttpRequest.status == 200)
 	function isExist() 
 	{
           	var url = "MobileServlet";
-			var data = "mobile=" + mobile;
+			var data = "mobile=" + $mobile;
 			xmlHttpRequest.open("get", url+"?"+data, true);
 			//xmlHttpRequest.setRequestHeader("Content-Type",
 "application/x-www-form-urlencoded");
@@ -319,11 +325,11 @@ xmlHttpRequest.status == 200)
 
 # 10.3 使用JQuery实现Ajax #
 
-除了使用JavaScript以外，我们还可以使用JQuery来实现Ajax，而且更加简洁、方便。主要是通过JQuery的`$.ajax()`、`$.get()`、`$.post()`、`load()`等方法来实现的。
+除了使用JavaScript以外，我们还可以使用JQuery来实现Ajax，而且更加简洁、方便。JQuery方式的Ajax，主要是通过JQuery提供的`$.ajax()`、`$.get()`、`$.post()`、`load()`等方法来实现的。
 
 ## 10.3.1 `$.ajax()`方法 ##
 
-语法：
+**语法：**
 
 ```
 	$.ajax({
@@ -332,10 +338,10 @@ xmlHttpRequest.status == 200)
 		data:请求数据,
          … ,
 		success:function(result, textStatus){ 
-			请求成功后执行的函数
+			请求成功后执行的函数体
 		},
 		error:function(xhr,errorMessage,e){
-			请求失败后执行的函数
+			请求失败后执行的函数体
 		},
          dataType:预期服务器返回的数据类型
 	});
@@ -352,7 +358,7 @@ xmlHttpRequest.status == 200)
    </tr>
    <tr>
       <td>String url</td>
-      <td>发送请求的地址，默认是当前页（即$.ajax()方法所在的页面地址）</td>
+      <td>发送请求的地址，默认是当前页地址）</td>
    </tr>
    <tr>
       <td>String type</td>
@@ -368,7 +374,7 @@ xmlHttpRequest.status == 200)
    </tr>
    <tr>
       <td>String dataType</td>
-      <td>预期服务器返回的数据类型，可用类型有XML、HTML、JSON、Text等。如果不指定，JQuery将自动根据HTTP包MIME信息返回responseXML或responseText。</td>
+      <td>预期服务器返回的数据类型，可用类型有XML、HTML、JSON、Text等。如果不指定，JQuery会自动根据HTTP中的MIME信息返回responseXML或responseText。</td>
    </tr>
    <tr>
       <td>function success(Object result,String textStatus)</td>
@@ -380,7 +386,7 @@ xmlHttpRequest.status == 200)
    </tr>
 </table>
 
-除了表中介绍的以外，还有`cache`、`async`、`beforeSend`、`complete`、`contentType`等其他参数，读者可以上网学习[http://www.w3school.com.cn/jquery/ajax_ajax.asp](http://www.w3school.com.cn/jquery/ajax_ajax.asp) 。
+除了表中介绍的以外，还有`cache`、`async`、`beforeSend`、`complete`、`contentType`等其他参数，读者可以访问[http://www.w3school.com.cn/jquery/ajax_ajax.asp](http://www.w3school.com.cn/jquery/ajax_ajax.asp)进行学习 。
 
 现在用jQuery提供的`$.ajax()`方法，来实现“检测手机号码是否已绑定”的客户端函数（服务器端及客户端其他代码，与之前的完全一致）：
 
@@ -391,8 +397,8 @@ xmlHttpRequest.status == 200)
 	<script type="text/javascript">
 	function isExist() 
 	{
-		var mobile = $("#mobile").val();
-		if (mobile == null || mobile.length != 11) 
+		var $mobile = $("#mobile").val();
+		if ($mobile == null || $mobile.length != 11) 
 		{
 			$("#tip").html("请输入正确的手机号码！");
 		} else 
@@ -400,7 +406,7 @@ xmlHttpRequest.status == 200)
 			$.ajax({
 				url:"MobileServlet",
 				type:"get" ,
-				data:"mobile=" + mobile,
+				data:"mobile=" + $mobile,
 				success:function(result)
 { 
 					if ($.trim(result) == "true") 
@@ -423,7 +429,7 @@ xmlHttpRequest.status == 200)
 
 ## 10.3.2 `$.get()`方法 ##
 
-`$.get()`方法指定以`GET`方式发送Ajax请求。与`$.ajax()`相比，是将参数值按照一定的顺序书写，并省略了参数名、`type`参数、以及`error()`函数。
+`$.get(…)`方法指定以GET方式发送请求，与`$.ajax({…})`方法在语法上的区别是：①参数值必须按照一定的顺序书写；②省略了参数名、`type`参数、以及`error()`函数；③`$.ajax({…})`的各个参数是用大括号{}括起来的，而`$.get(…)`没有大括号。
 
 **语法（各参数顺序不可变）：**
 
@@ -433,7 +439,7 @@ xmlHttpRequest.status == 200)
 		请求数据,
         	function(result, textStatus,xhr)
 { 
-			请求成功后执行的函数
+			请求成功后执行的函数体
 		},
         预期服务器返回的数据类型
 	);
@@ -448,11 +454,11 @@ xmlHttpRequest.status == 200)
         	type: "GET" ,
 		success:function(result, textStatus)
 { 
-			请求成功后执行的函数
+			请求成功后执行的函数体
 		},
 		error:function(xhr,errorMessage,e)
 {
-			请求失败后执行的函数
+			请求失败后执行的函数体
 		},
         dataType:预期服务器返回的数据类型
 	});
@@ -470,7 +476,7 @@ xmlHttpRequest.status == 200)
 		请求数据,
         	function(result, textStatus,xhr)
 { 
-			请求成功后执行的函数
+			请求成功后执行的函数体
 		},
         预期服务器返回的数据类型
 	);
@@ -491,7 +497,7 @@ xmlHttpRequest.status == 200)
 		请求数据,
         	function(result, textStatus,xhr)
 { 
-			请求成功后执行的函数
+			请求成功后执行的函数体
 		},
         预期服务器返回的数据类型
 	);
@@ -499,7 +505,7 @@ xmlHttpRequest.status == 200)
 
 因为`load()`方法会直接将响应结果放入指定元素，所以通常可以省略`load()`中的`function()`函数。
 
-我们再用`load`方法，实现一下“检测手机号码是否已绑定”：
+我们再用`load()`方法，实现一下“检测手机号码是否已绑定”：
 
 **服务器端jQuery_load.jsp**
 
@@ -543,15 +549,15 @@ throws ServletException, IOException
 <script type="text/javascript">
 	function isExist() 
 	{
-		var mobile = $("#mobile").val();
-		if (mobile == null || mobile.length != 11) 
+		var $mobile = $("#mobile").val();
+		if ($mobile == null || $mobile.length != 11) 
 		{
 			$("#tip").html("请输入正确的手机号码！");
 		} else 
 		{
 			$("#tip").load(
 				"MobileLoadServlet",
-				"mobile=" + mobile
+				"mobile=" + $mobile
 			);
 		}
 	}
@@ -572,13 +578,11 @@ throws ServletException, IOException
 
 # 10. 4  JSON #
 
-JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。在使用Ajax时，我们经常会使用JSON来传递数据。本小节，重点学习JSON对象和JSON数组。
+JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。在使用Ajax时，我们经常会使用JSON来传递数据。本小节，将重点学习JSON对象、JSON数组以及如何在Ajax中传递JSON数据。
 
 ## 10.4.1 JSON简介 ##
 
-**(1)定义JSON对象和JSON数组**
-
-**① JSON对象**
+#### ① JSON对象 ####
 
 **a.定义JSON对象**
 
@@ -614,13 +618,13 @@ alert("姓名："+name+",年龄："+age	);
 
 *图10-06*
 
-**② JSON数组**
+#### ② JSON数组 ####
 
 **a.定义JSON数组**
 
 **语法：**
 
-`var JSON数组名 = {JSON对象, JSON对象,…, JSON对象};`
+ var JSON数组名 = [JSON对象, JSON对象,…, JSON对象] ;
 
 在JavaScript中，JSON数组是用中括号括起来，包含了多个JSON对象，多个对象之间用逗号隔开，如下：
 
@@ -659,28 +663,26 @@ var students = [{"name":"张三","age":23},
 		 JSON格式的请求数据,
         	function(result, textStatus,xhr)
 { 
-			请求成功后执行的函数
+			请求成功后执行的函数体
 		}
 	);
 ```
 
-示例：
-
-**客户端：json.jsp**
+示例：**客户端：json.jsp**
 
 ```
 …
 <script type="text/javascript">
 	function isExist() 
 	{
-		var mobile = $("#mobile").val();
-		if (mobile == null || mobile.length != 11) 
+		var $mobile = $("#mobile").val();
+		if ($mobile == null || $mobile.length != 11) 
 		{
 			$("#tip").html("请输入正确的手机号码！");
 		} else 
 		{
 		    $.getJSON('MobileJSONServlet',
-{mobileNum:mobile},
+{mobileNum: $mobile},
 function(result)
 {
 				           	$("#tip").html(result.msg);
@@ -733,7 +735,7 @@ public class MobileJSONServlet extends HttpServlet
 }
 ```
 
-客户端使用`$.getJSON`向服务器端MobileJSONServlet发送JSON数据`{mobileNum:mobile}`，服务器端接收到mobileNum的值后再以JSON对象的格式返回给客户端，如{"msg":"绑定成功！"}。最后，客户端再解析服务器端返回的JSON值，如`result.msg`。
+	客户端使用$.getJSON向服务器端MobileJSONServlet发送JSON数据{mobileNum: $mobile}，服务器端接收到mobileNum的值后再以JSON对象的格式返回给客户端，如{"msg":"绑定成功！"}。最后，客户端再解析服务器端返回的JSON值，如result.msg。
 
 上述的服务器端代码MobileJSONServlet中，是通过字符串拼接的形式向客户端返回了JSON形式的结果，如{"msg":"绑定成功！"}。除此之外，我们还可以在服务器端中使用`JSONObject`类来产生JSON对象，并返回给客户端，如下：
 
