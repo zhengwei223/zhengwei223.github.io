@@ -16,7 +16,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 ---
 
-# 15.1 一对一查询 #
+# 17.1 一对一查询 #
 
 一个学生对应于一个学生证，反过来一个学生证也只能对应于一个学生。所以学生和学生证的关系是“一对一”。
 
@@ -26,15 +26,15 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 ![](http://i.imgur.com/s4BULDq.png)
 
-*图15-01*
+*图17-01*
 
 并且在学生表中增加一个表示学生证的外键，用于将学生表和学生证表关联起来，如下：
 
 ![](http://i.imgur.com/udaXFl3.png)
 
-*图15-02*
+*图17-02*
 
-## 15.1.1 使用扩展类实现一对一查询 ##
+## 17.1.1 使用扩展类实现一对一查询 ##
 
 此种方式的本质，就是将学生和学生证的所有属性放到一个类中，然后通过SQL内连接语句查询。为了同时拥有学生和学生证两个类的属性，我们可以创建一个学生的扩展类（即继承于学生的类）：
 
@@ -100,7 +100,7 @@ throws IOException
 
 以上就可以通过内连接的SQL语句，将`stuNo`为32的学生以及该学生的学生证信息，全部查询出来并保存到`StudentAndCardBusiness`对象中。即通过扩展类`StudentAndCardBusiness`，实现了学生以及学生证的一对一关联查询。
 
-## 15.1.2 使用resultMap实现一对一查询 ##
+## 17.1.2 使用resultMap实现一对一查询 ##
 
 要实现学生和学生证之间的一对一查询，还可以将学生和学生证分别放于不同的类中。如果要通过学生中信息查询到相关的学生证中的信息（例如根据学生的学号属性，查询该学生的学生证信息），就需要在学生类中增加一个学生证类型的属性，如下：
 
@@ -166,7 +166,7 @@ id="student_card_map">
 </resultMap>	
 ```
 
-通过`<resultMap>`元素将学生表的字段与类中简单类型的属性绑定起来，并通过`<association>`将学生类中的学生证成员`card`中的各个属性与字段绑定起来。其中，对于简单类型的属性来说，`<id>`映射主键列，`<result>`映射其他列；而对于非简单类型的属性（`card`属性），需要用`<association>`来来映射，并用javaType来指定该属性的类型。
+通过`<resultMap>`元素将学生表的字段与类中简单类型的属性绑定起来，并通过`<association>`将学生类中的学生证成员`card`中的各个属性与字段绑定起来。其中，对于简单类型的属性来说，`<id>`映射主键列，`<result>`映射其他列；而对于非简单类型的属性（`card`属性），需要用`<association>`来映射，并用javaType来指定该属性的类型。
 
 动态代理接口：
 
@@ -201,7 +201,7 @@ public static void queryStudentAndCardByStuNoWithResultMap()
 以上，就是使用`<resultMap>`中的`association`实现一对一关联查询。
 
 
-# 15.2 一对多查询 #
+# 17.2 一对多查询 #
 
 一个班级有多个学生，因此班级和学生之间的关系是“一对多”。
 
@@ -222,7 +222,7 @@ public class StudentClass
 
 ![](http://i.imgur.com/I773Og1.png)
 
-*图15-03*
+*图17-03*
 
 为了在“类”中体现班级与学生之间的“一对多”关系，需要在班级类中增加`List`类型的学生属性，如下
 
@@ -242,7 +242,7 @@ private List<Student> students ;
 
 ![](http://i.imgur.com/uWP7r0j.png)
 
-*图15-04*
+*图17-04*
 
 以上的准备工作完成以后，我们就来具体的实现班级与学生的一对多查询：
 
@@ -252,7 +252,7 @@ SQL映射文件：
 
 ```
 <select id="queryClassAndStudnetsByClassId" 
-parameterType="int" resultMap="classAndstudentMap"> 
+parameterType="int" resultMap="classAndStudentMap"> 
 		select s.*,sc.* from student s
 				inner join studentClass sc
 				on s.classid=sc.classid
@@ -260,7 +260,7 @@ parameterType="int" resultMap="classAndstudentMap">
 
 </select> 
 	
-<resultMap type="studentClass" id="classAndstudentMap">
+<resultMap type="studentClass" id="classAndStudentMap">
 		<id property="classId" column="classId" />
 		<result property="className" column="className" />
 		<collection property="students" ofType="student">
@@ -271,7 +271,7 @@ parameterType="int" resultMap="classAndstudentMap">
 </resultMap>
 ```
 
-通过`<select>`执行一对一的查询SQL，并将查询结果通过`<resultMap>`映射到`StudentClass`类中的各个属性中：普通类型通过`<id>`、`<property>`映射，`List`类型的属性`students`通过`<collection>`映射，并通过`ofType`指定`List`中元素的类型。即`List`类型的属性，需要通过`<resultMap>`中的`<collection>`元素来映射到数据表中的各个列。
+通过`<select>`执行一对一的查询SQL，并将查询结果通过`<resultMap>`映射到`StudentClass`类中的各个属性中：普通类型通过`<id>`、`<result>`映射，`List`类型的属性`students`通过`<collection>`映射，并通过`ofType`指定`List`中元素的类型。即`List`类型的属性，需要通过`<resultMap>`中的`<collection>`元素来映射到数据表中的各个列。
 
 动态代理接口：
 
@@ -304,13 +304,13 @@ throws IOException
 
 以上就可以查询编号为1的班级的所有信息，以及该班级中所有学生的信息。
 
-# 15.3 多对一查询与多对多查询 #
+# 17.3 多对一查询与多对多查询 #
 
-## 15.3.1 多对一查询 ##
+## 17.3.1 多对一查询 ##
 
 一个班级和多个学生之间的关系是“一对多”，反过来看，多个学生和一个班级之间的关系就是“多对一”。因此，一对多和多对一的本质是一样的，只是参照的对象不同。
 
-## 15.3.2 多对多查询 ##
+## 17.3.2 多对多查询 ##
 
 一个学生可以选择多门课程，即一个学生和多门课程之间的关系是“一对多”；反过来看，一个门课程也可以被多个学生所选，即一门课程和多个学生之间的关系也是“一对多”。因此，多个学生和多门课程之间的关系是“多对多”。
 
@@ -318,22 +318,22 @@ throws IOException
 
 **小结：关联查询主要是在`<resultMap>`元素中，用`<association>`配置一对一、用`<collection>`配置一对多。**
 
-# 15.4 延迟加载 #
+# 17.4 延迟加载 #
 
-## 15.4.1 日志输出 ##
+## 17.4.1 日志输出 ##
 
-现在给MyBatis加入日志输出功能，来观察MyBatis执行时的SQL语句，便于我们之后更好的理解延迟加载。
+现在先给MyBatis加入日志输出功能，用于观察MyBatis执行时的SQL语句，便于我们以后更好的理解延迟加载。
 
-MyBatis可以集成多种日志输出的功能，现在以log4j为例讲解日志输出功能的步骤：
+MyBatis可以集成多种日志输出的功能，现在以log4j为例讲解日志输出功能的基本步骤。
 
 
-**(1)加入log4j驱动包**
+#### (1)加入log4j驱动包 ####
 
-将log4j的驱动包**log4j-1.2.15.jar**加入项目的构建目录（Build Path）
+将log4j的驱动包**log4j-1.2.15.jar**加入项目的构建目录（Build Path）。
 
-**(2)指定日志输出**
+#### (2)指定日志输出 ####
 
-在配置文件的`<settings>`中，指定MyBatis的日志输出功能用log4j来实现，如下：
+在配置文件的`<settings>`元素中，指定用log4j来实现MyBatis的日志输出功能，如下：
 
 **conf.xml**
 
@@ -349,11 +349,11 @@ MyBatis可以集成多种日志输出的功能，现在以log4j为例讲解日�
 </configuration>
 ```
 
-如果不进行此项设置，MyBatis就会按照SLF4J →Apache Commons Logging →Log4j 2 →    Log4j →JDK logging的顺序进行查找，查找项目中是否集成了相应的日志功能，如果都没找到则就会禁用日志功能。
+如果不进行此项设置，MyBatis就会按照SLF4J →Apache Commons Logging →Log4j 2 →    Log4j →JDK logging的顺序进行查找，查找项目中是否集成了相应的日志功能，如果都没找到就会禁用日志功能。
 
-**(3)配置日志输出文件**
+#### (3)配置日志输出文件 ####
 
-最后，在`src`下新建一个**log4j.properties**文件，用来配置日志输出的级别、格式等信息，如下
+最后，在`src`下新建一个**log4j.properties**文件，用于配置日志输出的级别、格式等，如下
 
 **log4j.properties.java**
 
@@ -364,21 +364,21 @@ log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
 log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
 ```
 
-**需要注意：在开发、调试程序期间，要把日志级别设置为DEBUG。**
+一般来讲，在开发、调试程序期间，建议把日志级别设置为DEBUG。
 
 至此，我们就给MyBatis加入了日志功能，以后再执行MyBatis时，就可以在控制台看到MyBatis执行时的SQL语句。例如，运行之前编写的`queryClassAndStudnetsByClassId ()`，可以在控制台看到：
 
 ![](http://i.imgur.com/3cnOKoF.jpg)
 
-*图15-05*
+*图17-05*
 
-## 15.4.2 延迟加载详解 ##
+## 17.4.2 延迟加载详解 ##
 
 在关联查询时，经常会使用到延迟加载。
 
 **下面以“一对多”为例，讲解延迟加载的意义：**
 
-在使用“一对多”查询的时，很多时候我们只需要“一”的一方，而并不需要立即将“多”的一方查询出来。例如，班级是“一”，学生是“多”，有时候我们只需要查询出班级中的信息，而并没必要立即查询出班级中的所有学生。也就是说，最好能够将查询“多”的操作进行延迟，即首次查询只查询主要信息（例如“一”的一方），关联信息（例如“多”的一方）等需要时再加载，以减少不必要的数据库查询开销，从而提升了程序的效率，这就称为“延迟加载”。
+在使用“一对多”查询时，很多时候我们只需要“一”的一方，而并不需要立即将“多”的一方查询出来。例如，班级是“一”，学生是“多”，有时候我们只需要查询出班级中的信息，而并没必要立即查询出班级中的所有学生。也就是说，最好能够将查询“多”的操作进行延迟，即首次查询只查询主要信息（例如“一”的一方），关联信息（例如“多”的一方）等需要时再加载，以减少不必要的数据库查询开销，从而提升了程序的效率，这就称为“延迟加载”。
 
 同理，在“一对一”、“多对一”、“多对多”等关联查询时，也可以使用延迟加载来提高效率。
 
@@ -401,7 +401,7 @@ MyBatis配置文件：
 </configuration>
 ```
 
-**(1)一对一延迟加载**
+#### (1)一对一延迟加载 ####
 
 学生和学生证之间是“一对一”的关系，现在通过延迟加载来实现：学生表一对一关联查询学生证表，要求默认只查学生表，学生证表只有当需要时再查询，即按需查询学生证表。
 
@@ -503,15 +503,15 @@ public static void queryStudentLazyLoadCard() throws IOException
 
 ![](http://i.imgur.com/ylIaXds.jpg)
 
-*图15-06*
+*图17-06*
 
 从输出结果可知，当程序执行到`studentMapper.queryStudentLazyLoadCard()`（即查询学生信息的方法）时，MyBatis只发出了查询学生的SQL语句`“select * from student”`；但当程序执行到`student.getCard()`（即查询学生对象关联的学生证信息）时，才会发出查询学生证的SQL语句`“select * from studentCard where cardId=?”`。这就是使用了延迟加载的效果：首次查询时，只查询目前需要的信息，其他信息等到需要时再去查询。
 
-**(2)一对多延迟加载**
+#### (2)一对多延迟加载 ####
 
-一对多延迟加载的配置方法与一对一基本相同，只是将`<association>`换成了`<collection>`元素，即一对多延迟加载是在`<collection>`元素中配置`select`属性。读者可以自行尝试。
+一对多延迟加载的配置方法与一对一基本相同，不同的是将`<association>`换成了`<collection>`元素，即一对多延迟加载是在`<collection>`元素中配置`select`属性。读者可以自行尝试。
 
-# 15.5 练习题 #
+# 17.5 练习题 #
 
 1.“一对一查询”有几种实现方式？
 
