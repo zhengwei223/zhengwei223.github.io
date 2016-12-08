@@ -7,9 +7,9 @@ category: lanqiaoEE
 
 tags: 文档说明
 
-description:GIT项目检出部署到eclipse一般步骤说明
+description: GIT项目检出部署到eclipse一般步骤说明
 
-author:丁彦涛
+author: 丁彦涛
 
 keywords: GIT 部署
 

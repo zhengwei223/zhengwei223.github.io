@@ -52,7 +52,7 @@ cat 1.txt #内容还是111，没变化
 
 ## 解读
 
-使用 `git reset -- files`等效于`git reset HEAD -- files`取消自上次提交以来的对该文件的所有add，也可以理解为用最后一次提交来重置暂存区。
+使用 `git reset -- files`等效于`git reset HEAD -- files`取消自上次提交以来的对该文件的所有add，也可以理解为**用最后一次提交来重置暂存区**。
 
 ![2.3](/public/img/git/2.3.svg)
 
