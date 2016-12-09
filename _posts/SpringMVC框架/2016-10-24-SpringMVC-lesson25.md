@@ -17,14 +17,13 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 ---
 
 
-# 25.1 `@RequestMapping` #
+# 27.1 `@RequestMapping` #
 
-## 25.1.1 `@RequestMapping`使用 ##
+## 27.1.1 `@RequestMapping`使用 ##
 
 之前，我们是把`@RequestMapping`注解放在方法之上，用来给方法绑定一个请求映射。除此以外，`@RequestMapping`注解还可以放在类的上面。例如，我们给之前的请求处理类（`FirstSpringDemo.java`）的类名上也加一个`@RequestMapping`注解，如下，
 
 **FirstSpringDemo.java**
-
 
 ```
 …
@@ -63,7 +62,7 @@ My First SpringMVC Demo
 ，再通过“ `firstSpringMVC`”匹配方法前的`@RequestMapping("/firstSpringMVC")`。
 
 
-## 25.1.2 `@RequestMapping`属性 ##
+## 27.1.2 `@RequestMapping`属性 ##
 
 
 `@RequestMapping`注解的常用属性如下，
@@ -79,7 +78,7 @@ My First SpringMVC Demo
    </tr>
    <tr>
       <td>method</td>
-      <td>指定请求的method类型，包含 GET（默认）、POST、PUT、DELETE等。请求方式可以通过枚举类RequestMethod获取，如RequestMethod.POST。</td>
+      <td>指定请求方式，包含 GET（默认）、POST、PUT、DELETE等；可以通过枚举类RequestMethod设置，如method=RequestMethod.POST。</td>
    </tr>
    <tr>
       <td>params</td>
@@ -87,11 +86,11 @@ My First SpringMVC Demo
    </tr>
    <tr>
       <td>headers</td>
-      <td>规定请求中的请求头（header），必须满足一定的条件</td>
+      <td>规定请求中的请求头（header）必须满足一定的条件。</td>
    </tr>
 </table>
 
-**(1)`method`属性**
+#### (1)`method`属性 ####
 
 例如，因为超链接本身是采用`GET`方式提交请求。因此，若前台仍然是通过`<a href="FirstSpringDemo/firstSpringMVC">...</a>`发送请求，则处理类必须使用`GET`方式才能接受到此请求。如果使用“`POST`”等其他方式，是无法获取到该请求的，如下，
 
@@ -118,12 +117,9 @@ public class FirstSpringDemo
 
 ![](http://i.imgur.com/sR9MPgK.png)
 
-
-*图25-01*
-
+*图27-01*
 
 提示我们“请求方法不支持`GET`方式”。
-
 
 如果把超链接，替换成以下`POST`方式的表单提交，
 
@@ -142,7 +138,7 @@ public class FirstSpringDemo
 
 点击“`POST`方式提交”后，就又会正常运行。
 
-**(2)`params`属性**
+#### (2)`params`属性 ####
 
 例如，我们通过超链接加入两个请求参数，如下，
 
@@ -179,7 +175,7 @@ public class FirstSpringDemo
 …
 ```
 
-以上请求通过`params`规定请求参数必须包含“`name`”参数，并且“`age!=23`”，我们之前发来的请求“`…?name=zhangsan&age=20`”符合要求，因此可以被该方法接收并处理。如果发送的请求参数是“`…?name=zhangsan&age=23`”或“`…? age=23`”等不符合`params`规定，就会引发我们所熟悉 “404”异常
+以上请求通过`params`规定请求参数必须包含“`name`”参数，并且“`age!=23`”，我们之前发来的请求“`…?name=zhangsan&age=20`”符合要求，因此可以被该方法接收并处理。如果发送的请求参数是“`…?name=zhangsan&age=23`”或“`…? age=23`”等不符合`params`规定，就会引发我们所熟悉 “404”异常。
 
 `params`支持以下表达式：
 
@@ -190,26 +186,26 @@ public class FirstSpringDemo
    </tr>
    <tr>
       <td>paramName</td>
-      <td>表示必须包含参数名为“paramName”的参数</td>
+      <td>必须包含参数名为“paramName”的参数。</td>
    </tr>
    <tr>
       <td>!paramName</td>
-      <td>表示不能包含参数名为“paramName”的参数</td>
+      <td>不能包含参数名为“paramName”的参数。</td>
    </tr>
    <tr>
       <td>paramName！=paramValue</td>
-      <td>表示必须包含参数名为“paramName”的参数，但参数值不能是“paramValue”</td>
+      <td>必须包含参数名为“paramName”的参数，但参数值不能是“paramValue”。</td>
    </tr>
 </table>
 
 
-**(3)`headers`属性**
+#### (3)`headers`属性 ####
 
-SpringMVC中用`headers`来约束“参数”，用`headers`来约束“请求头”。例如，我们可以在火狐浏览器里打开“firebug”查看每一次请求的“请求头”，如下，
+SpringMVC用`headers`来约束“参数”，用`headers`来约束“请求头”。我们可以在火狐浏览器里打开“firebug”查看每一次请求的“请求头”，如下，
 
 ![](http://i.imgur.com/wFr29ka.png)
 
-*图25-02*
+*图27-02*
 
 “请求头”指明了请求所携带的`MIME`类型、字符集等信息。
 
@@ -235,16 +231,13 @@ q=0.8,en-US;q=0.5,en;q=0.3",
 关于“请求头”的知识，读者可以查阅相关资料，本书不作为重点讲解。
 
 
-# 25.2 基于`@RequestMapping`的配置 #
+# 27.2 基于`@RequestMapping`的配置 #
 
-## 25.2.1 Ant风格的请求路径 ##
+## 27.2.1 Ant风格的请求路径 ##
 
-SpringMVC除了支持传统方式的请求路径外，还支持Ant风格的资源地址。
+SpringMVC除了支持传统方式的请求外，还支持Ant风格的请求路径。
 
-
-
-
-**Ant风格的资源地址支持以下3种通配符：**
+**Ant风格的请求路径支持以下3种通配符：**
 
 <table>
    <tr>
@@ -285,7 +278,7 @@ public class FirstSpringDemo
 }
 ```
 
-如果前段发送以下请求，是可以匹配到`requestWithAntPath()`方法的。
+如果前端发送以下请求，是可以匹配到`requestWithAntPath()`方法的。
 
 
 **index.jsp**
@@ -318,12 +311,12 @@ requestWithAntPath...
    </tr>
 </table>
 
-## 25.2.2 使用`@PathVariable`获取动态参数 ##
+## 27.2.2 使用`@PathVariable`获取动态参数 ##
 
 在SpringMVC中，可以使用`@PathVariable`来获得请求路径中的动态参数。
 
 
-如下，通过前段传入一个参数“9527”，
+如下，通过前端传入一个参数“9527”，
 
 **index.jsp**
 
@@ -338,7 +331,6 @@ requestWithPathVariable...
 ```
 
 处理方法就可以通过`@PathVariable`来获取此参数值，如下
-
 
 **FirstSpringDemo.java**
 
@@ -358,22 +350,20 @@ requestWithPathVariable(@PathVariable("id") Integer id)
 …
 ```
 
-具体是通过`@RequestMapping(value="/requestWithPathVariable/{id}")`中的占位符“`{id}`”接收到参数值“9527”，再把参数值传给`@PathVariable("id")`中的“`id`”，最后再把值赋值给方法的参数`id`。最后`requestWithPathVariable（）`方法的打印结果为：“id:9527”。
+具体是通过`@RequestMapping(value="/requestWithPathVariable/{id}")`中的占位符“`{id}`”接收到参数值“9527”，再把参数值传给`@PathVariable("id")`中的“`id`”，最后再把值赋值给方法的参数`id`。
 
 
-## 25.2.3 REST风格 ##
+## 27.2.3 REST风格 ##
 
-REST(Representational State Transfer)是一种编程风格，可以显著降低开发的复杂性，是一种目前流行的互联网软件架构。
+REST(Representational State Transfer)是一种编程风格，可以显著降低开发的复杂性，是当前非常流行的一种互联网软件架构。
 
 
-在应用REST之前，我们首先要了解到，在HTTP协议里面有很多请求方式，其中`GET`、`POST`、`PUT`、`DELETE`等四个方式，可以分别用来对应四种操作。即`POST`对应“增”，`DELETE`对应“删”、`PUT`对应“改”，`GET`对应“查”。
 
-而普通浏览器中的`form`表单，支持`GET`和`POST`两种请求方式。为了支持`PUT`和`DELETE`方式，必须使用Spring提供的“`HiddenHttpMethodFilter`”过滤器，此过滤器可以通过一定的规则，来实现`PUT`及`DELETE`请求。`HiddenHttpMethodFilter`的实现原理，读者可以查看`spring-web-x.x.xRELEASE.jar`包中`HiddenHttpMethodFilter`类里的`doFilterInternal()`方法。
+在学习REST之前，我们首先要知道，在HTTP协议里面有多种请求方式，并且其中的`POST`、`DELETE`、`PUT`、`GET`等四个方式，分别对应增删改查四种操作，具体是：`POST`对应“增”，`DELETE`对应“删”、`PUT`对应“改”，`GET`对应“查”。但是普通浏览器中的form表单，只支持`GET`和`POST`两种请求方式。为了使普通浏览器支持`PUT`和`DELETE`方式，可以使用Spring提供的过滤器HiddenHttpMethodFilter，此过滤器可以通过一定的规则，将部分`POST`请求转换为`PUT`或`DELETE`请求。如果读者想了解HiddenHttpMethodFilter的底层代码，可以阅读**spring-web-x.x.xRELEASE.jar**包中HiddenHttpMethodFilter类里的`doFilterInternal()`方法。
 
-实现`PUT`或`DELETE`请求步骤如下：
+实现`PUT`或`DELETE`请求方式的步骤如下：
 
 **1.**在**web.xml**中配置`HiddenHttpMethodFilter`过滤器，如下，
-
 
 **web.xml**
 
@@ -394,9 +384,9 @@ org.springframework.web.filter.HiddenHttpMethodFilter
 </web-app>
 ```
 
-**2.**在`form`表中单使用“`POST`”请求方式，并在表单中增加一个`hidden`隐藏域，并设置该隐藏域的`name`为“`_method`”、`value`值为“`PUT`”或“`DELETE`”。
+**2.**在`form`表单中指定请求方式为`method="post"`；并在表单中增加一个`hidden`隐藏域，且设置隐藏域的`name`及`value`属性：`name="_method"`、`value="PUT"`或`value="DELETE"`。
 
-**3.**在处理方法的`@RequestMapping`注解中，用`method`属性指定请求类型（如`RequestMethod.DELETE`、`RequestMethod.PUT`等）。
+**3.**在处理方法的`@RequestMapping`注解中，用`method`属性指定请求方式（如`method=RequestMethod.DELETE、method=RequestMethod.PUT`等）。
 
 例如，在**web.xml**中配置了`HiddenHttpMethodFilter`以后，就可以使用下面的方式发送并处理增、删、改、查的请求：
 
@@ -485,15 +475,15 @@ method=RequestMethod.GET)
 
 ![](http://i.imgur.com/lzU1XLY.png)
 
-*图25-03*
+*图27-03*
 
 依次点击删除、修改、增加、查看按钮，可在控制台得到以下结果：
 
 ![](http://i.imgur.com/wMzKCkq.png)
 
-*图25-04*
+*图27-04*
 
-## 25.2.4 使用`@RequestParam`获取请求参数 ##
+## 27.2.4 使用`@RequestParam`获取请求参数 ##
 
 
 Spring MVC可以通过`@RequestParam`来接收请求中的参数值，该注解有三个常用的属性：
@@ -509,7 +499,7 @@ Spring MVC可以通过`@RequestParam`来接收请求中的参数值，该注解�
    </tr>
    <tr>
       <td>required</td>
-      <td>标识请示参数中是否必须存在某个具体的参数。   true（默认）：必须存在；若不存在，将抛出异常。   false：不必须。</td>
+      <td>标识请求参数中是否必须存在某个具体的参数。  true（默认）：必须存在；若不存在，将抛出异常。   false：不必须。</td>
    </tr>
    <tr>
       <td>defaultValue</td>
@@ -546,7 +536,7 @@ public class FirstSpringDemo
 }…
 ```
 
-`@RequestParam`通过`value`值与传入的参数名匹配，并将参数值赋值给`@RequestParam`后面的变量。例如，通过`@RequestParam(value="name")`接收**index.jsp**传来的`name`参数值(即zhangsan)，并将参数值（zhangsan）赋值给`@RequestParam`后面的String name，即`String name="zhangsan"`。	
+`@RequestParam`通过`value`值与传入的参数名匹配，并将参数值赋值给`@RequestParam`后面的变量。例如，通过`@RequestParam(value="name")`接收**index.jsp**传来的`name`参数值(即zhangsan)，并将参数值（zhangsan）赋值给`@RequestParam`后面的String name，类似于`String name="zhangsan"`。	
 
 若将请求中的`age`参数删除，如下
 
@@ -564,9 +554,9 @@ TestRequestParam
 ![](http://i.imgur.com/sYNDjC0.png)
 
 
-*图25-05*
+*图27-05*
 
-解决此异常的方法，就是给`age`参数的`@RequestParam`中加入`required=false`，如下：
+为了解决此异常，就可以给`age`参数的`@RequestParam`加入`required=false`，如下：
 
 
 **FirstSpringDemo.java**
@@ -600,14 +590,14 @@ required=false,defaultValue="23") Integer age)
 
 通过`defaultValue="23"`将`age`的默认值设置为"23"，即如果前端发送的请求中没有携带age参数，则`age`的值就是23。
 
-## 25.2.5 `@RequestHeader`注解 ##
+## 27.2.5 `@RequestHeader`注解 ##
 
 在HTTP协议中，每一次请求都会携带相关的“头信息”，例如可以在fireBug中观察到以下头信息：
 
 ![](http://i.imgur.com/1iAtbJk.png)
 
 
-*图25-06*
+*图27-06*
 
 SpringMVC也提供了`@RequestHeader`注解来帮助我们获取请求中的“头信息”，如下：
 
@@ -642,11 +632,11 @@ String al){
 ![](http://i.imgur.com/VYXZOKf.png)
 
 
-*图25-07*
+*图27-07*
 
-## 25.2.6 `@CookieValue`注解 ##
+## 27.2.6 `@CookieValue`注解 ##
 
-`@CookieValue`可以给处理方法入参绑定某个`Cookie`值，例如服务器与客户端之间有一个名为JSESSIONID的`Cookie`，我们下面就通过`@CookieValue`来获取JSESSIONID的值：
+`@CookieValue`可以给处理方法入参绑定某个`Cookie`值。例如，客户端有一个名为JSESSIONID的`Cookie`对象，服务端可以通过`@CookieValue`来获取此JSESSIONID的值：
 
 
 **index.jsp**
@@ -675,9 +665,9 @@ String sessionid){
 
 ![](http://i.imgur.com/MA2T5NY.png)
 
-*图25-08*
+*图27-08*
 
-## 25.2.7 使用实体类对象接收请求参数值 ##
+## 27.2.7 使用实体类对象接收请求参数值 ##
 
 如果处理方法的参数是一个实体类对象，那么SpringMVC会将请求的参数名与实体类对象的属性进行匹配，为实体类对象的属性赋值，并且支持级联属性的赋值。以下是具体的示例：
 
@@ -749,16 +739,16 @@ public class FirstSpringDemo
 
 ![](http://i.imgur.com/yubbPg5.png)
 
-*图25-09*
+*图27-09*
 
 点击提交后，控制台的输出结果：
 
 ![](http://i.imgur.com/pLT7hQR.png)
 
-*图25-10*
+*图27-10*
 
 
-## 25.2.8 使用Servlet API作为参数 ##
+## 27.2.8 使用Servlet API作为参数 ##
 
 如果想使用原生的Servlet API进行开发，只需要将Servlet API放入方法的参数中，如下：
 
@@ -766,24 +756,24 @@ public class FirstSpringDemo
 …
 //使用Servlet API开发
 @RequestMapping("/developWithServletAPI")
-public String entityProperties(HttpServletRequest requst,
+public String developWithServletAPI(HttpServletRequest requst,
 HttpServletResponse response, HttpSession session)
 {
-		//...
+		//使用request和response参数处理请求或响应...
 		return "success";
 }
 …
 ```
 
 
-# 25.3 处理模型数据 #
+# 27.3 处理模型数据 #
 
-假设需要从数据库查询数据：在MVC设计模式中，用户从视图页面（V）发起一个请求到控制器（C），控制器调用`DAO`等处理数据，并从数据库中返回数据（M）。控制器拿到数据后加以处理，并返回到视图页面。
+假设需要从数据库查询数据：在MVC设计模式中，用户从视图页面（V）发起一个请求到控制器（C），控制器调用Service/Dao等处理数据，并从数据库中返回数据（M）。之后，控制器（C）拿到数据（M）后加以处理，并返回到视图页面（V）。
 
 
-SpringMVC提供了四种途径来处理带数据的视图（M和V）：`ModelAndView`、`Map`及`Model`、`@SessionAttributes`、`@ModelAttribute`。
+SpringMVC提供了四种途径来处理带数据的视图（M和V）：`ModelAndView`，`ModelMap`、`Map`及`Model`，`@SessionAttributes`，`@ModelAttribute`
 
-## 25.3.1 ModelAndView ##
+## 27.3.1 ModelAndView ##
 
 `ModelAndView`包含了Model（M）和View（V）两部分。用法如下：
 
@@ -817,7 +807,7 @@ public class FirstSpringDemo
 }
 ```
 
-通过`ModelAndView`的构造方法将视图页面的名称`”success”`放入`mav`对象，再通过`addObject()`方法将数据放入`mav`对象，最后返回`mav`。之后，程序会跳转到`mav`中包含的视图页面（即**success.jsp**），并将`mav`中的数据放入`request`作用于之中。
+通过ModelAndView的构造方法将视图页面的名称”success”放入`mav`对象，再通过`addObject()`方法将数据放入`mav`对象，最后返回`mav`。之后，程序就会跳转到`mav`指定的视图页面views/success.jsp（仍然会被视图解析器加上了前缀和后缀），并将`mav`中的数据`student`放入`request`作用于之中。
 
 **返回的视图页面：success.jsp**
 
@@ -831,9 +821,9 @@ ${requestScope.student.stuName }
 
 ![](http://i.imgur.com/15adCzf.png)
 
-*图25-11*
+*图27-11*
 
-## 25.3.2 使用`Map`、`ModelMap`、`Model`作为方法的参数处理数据 ##
+## 27.3.2 使用`Map`、`ModelMap`、`Model`作为方法的参数处理数据 ##
 
 可以给SpringMVC的请求处理方法增加一个`Map`类型的参数。如果向此`Map`中增加数据，那么该数据也会被放入`request`作用域中。
 
@@ -864,7 +854,7 @@ public class FirstSpringDemo
 
 返回的视图页面**success.jsp**及运行结果同上例。
 
-除了`Map`以外，还可以给请求处理的方法增加`ModelMap`或`Model`类型的参数，效果完全一样，如下：
+除了Map以外，还可以给请求处理方法增加一个`ModelMap`或`Model`类型的参数，效果完全一样，如下：
 
 **使用ModelMap类型的参数**
 
@@ -882,7 +872,7 @@ public String testMap(ModelMap map)
 
 ```
 @RequestMapping("/testModel")
-public String testMap(Model map)
+public String testModel(Model map)
 {
 	Student student = new Student("张三", 23);
 	map.addAttribute("student", student);
@@ -890,7 +880,7 @@ public String testMap(Model map)
 }
 ```
 
-## 25.3.3 使用`@SessionAttributes`处理数据 ##
+## 27.3.3 使用`@SessionAttributes`处理数据 ##
 
 我们已经知道，向`ModelAndView`以及`Map`、`ModelMap`、`Model`参数中增加数据时，数据会同时被放到`request`作用域中。如果还要把数据放到`session`作用域中，就需要使用`@SessionAttributes`注解，如下：
 
@@ -938,7 +928,7 @@ public class FirstSpringDemo
 ![](http://i.imgur.com/tNI0TpU.png)
 
 
-*图25-12*
+*图27-12*
 
 
 `@SessionAttributes`除了可以使用`value`将指定的对象名加入到`session`范围，还可以使用`types`将某一个类型的对象都加入到`session`范围，如下：
@@ -968,14 +958,14 @@ public class FirstSpringDemo
 
 
 
-## 25.3.4 使用`@ModelAttribute`注解处理数据 ##
+## 27.3.4 使用`@ModelAttribute`注解处理数据 ##
 
 假设数据库中存在一条学生信息，如下：
 
 
 ![](http://i.imgur.com/sCEUpp1.png)
 
-*图25-13*
+*图27-13*
 
 
 现在我们需要修改学生的年龄（姓名等其他信息不变），先尝试用以下方式完成：
@@ -1002,6 +992,7 @@ public class FirstSpringDemo
 {
 	@RequestMapping("/testModelAttribute")
 	public String testModelAttribute(Student student){
+        //省略数据库的更新操作：将数据表中stuNo=31的学生信息，更新为参数student中的各属性值
 		System.out.println("更新后的学生信息：姓名： " 
 + student.getStuName()+",年龄："+student.getStuAge());
 		return "success";
@@ -1014,13 +1005,13 @@ public class FirstSpringDemo
 
 ![](http://i.imgur.com/BwYANTB.png)
 
-*图25-14*
+*图27-14*
 
 点击修改，控制台的输出结果如下：
 
 ![](http://i.imgur.com/ZtDiQy7.png)
 
-*图25-15*
+*图27-15*
 
 可以发现，年龄确实成功修改了，但是姓名却变成了`null`。这是因为在**index.jsp**的`form`表单中，只提交了`stuAge`字段的属性，而不存在stuName等其他字段的属性，因此`stuAge`属性会从输入框中获取，而其他属性值会使用相应类型的默认值（如`String`类型的`stuName`默认值就是`null`）。
 
@@ -1054,6 +1045,7 @@ public class FirstSpringDemo
 
 	@RequestMapping("/testModelAttribute")
 	public String testModelAttribute(Student student){
+         //省略数据库的更新操作
 		System.out.println("更新后的学生信息：姓名： " + student.getStuName()+",年龄："+student.getStuAge());
 		return "success";
 	}
@@ -1064,20 +1056,16 @@ public class FirstSpringDemo
 
 ![](http://i.imgur.com/s3A5X88.png)
 
-*图25-16*
+*图27-16*
 
 可以发现，不但`stuAge`得到了修改，并且`stuName`也保留了原来的值。
 
-**`@ModelAttribute`的应用逻辑是：**
 
-`@ModelAttribute`修饰的方法（如`queryStudentBeforeUpdate()`）会在请求处理方法（如`testModelAttribute()`）调用之前被执行：具体是，如果请求处理方法有输入参数（如`student`），则程序会在`@ModelAttribute`修饰的方法中的`map`对象里，寻找`map`中的`key`值是否与请求处理方法的参数名①一致，如果一致（如`map`中有名为`”student”`的`key`，`testModelAttribute()`方法也有名为`”student”`的参数）就会用参数`student`中不为`null`的属性值(如`stuNo=31`，`stuAge=66`)去覆盖`map`中的`student`对象值，最后使用的是覆盖后的`student`对象。
+**@ModelAttribute的应用逻辑是：**
 
-
-例如，`map`中的`student`对象值是：“学号：31，姓名：张三，年龄23”，参数中`student`的对象值是：“学号31，姓名null，年龄66”，因此用参数`student`不为`null`的属性值（`stuNo=31，stuAge=66`）去覆盖`map`中`student`属性值的结果就是：“学号31，姓名：张三，年龄66”。即`form`表单传来的`stuNo`和`stuAge`属性得到了修改，而`form`表单中不存在的`stuName`属性则保持不变。如果`map`中的`key`值与请求处理方法的参数名不一致，则需要在参数前使用`@ModelAttribute`标识出`map`中对应的`key`值，如下：
-
+`@ModelAttribute`修饰的方法（如`queryStudentBeforeUpdate()`）会在请求处理方法（如`testModelAttribute()`）调用之前被执行：具体是，如果请求处理方法有输入参数（如`student`），则程序会在`@ModelAttribute`修饰的方法中的`map`对象里，寻找`map`中的`key`值是否与请求处理方法的参数名①一致，如果一致（如map中有名为”student”的key，`testModelAttribute()`方法也有名为”student”的参数）就会用参数`student`中不为null的属性值(如stuNo=31，stuAge=66)去覆盖map中的student对象值，最后使用的是覆盖后的`student`对象。例如，map中的student对象值是：“学号：31，姓名：张三，年龄23”，参数中student的对象值是：“学号31，姓名null，年龄66”，因此用参数student不为null的属性值（stuNo=31，stuAge=66）去覆盖`map`中student属性值的结果就是：“学号31，姓名：张三，年龄66”。即form表单传来的`stuNo`和`stuAge`属性得到了修改，而form表单中不存在的stuName属性则保持不变。如果map中的key值与请求处理方法的参数名不一致，则需要在参数前使用`@ModelAttribute`标识出`map`中对应的`key`值，如下：
 
 **请求处理类：FirstSpringDemo.java**
-
 
 ```
 …
@@ -1100,14 +1088,14 @@ public class FirstSpringDemo
 
 `map`中的`key`是`”stu”`，与方法的参数名`”student”`不一致，就需要在参数名前使用`@ModelAttribute("stu")`来进行标识。
 
-**①参数名：***实际是判断是否与“首字母小写的参数类型”一致。如参数的类型是`Student`，则会判断是否与首字母小写的参数类型（即`”student”`）一致。此段落中，用“参数名”来代替“首字母小写的参数类型”仅仅是为了便于读者阅读。*
+***①参数名：**实际是判断是否与“首字母小写的参数类型”一致。如参数的类型是`Student`，则会判断是否与首字母小写的参数类型（即`”student”`）一致。此段落中，用“参数名”来代替“首字母小写的参数类型”仅仅是为了便于读者阅读。*
 
 
 **说明：**
 
 标有`@ModelAttribute`注解的方法，会在请求处理类中的每一个方法执行前，都执行一次，因此需要谨慎使用。
 
-# 25.4 练习题 #
+# 27.4 练习题 #
 
 1.`@RequestMapping`的常用属性有哪些？
 
