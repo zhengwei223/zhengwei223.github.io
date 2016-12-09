@@ -88,8 +88,8 @@ CSS代码如下：
 
 HTML代码如下：
 
-```
-<body style="background:#fafafa;">
+```  
+  <body style="background:#fafafa;">
 	<h1>Panel</h1>
 	<div class="easyui-panel" title="Complex Panel Layout"
 		iconCls="icon-search" collapsible="true"
@@ -116,7 +116,8 @@ HTML代码如下：
 			</div>
 		</div>
 	</div>
-</body>
+  </body>
+
 ```  
 
 **参考代码:[10/layout05.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/10/layout05.html)**

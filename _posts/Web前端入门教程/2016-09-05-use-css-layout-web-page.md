@@ -28,7 +28,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;在实验结束的时候，同学们会看到一个内容分为**头部**、**左边导航栏**、**正文内容**、**右边导航栏**和**底部版权信息栏**组成的网页布局，效果如图：
 
- ![html-xhtml-relation](/public/img/html/css-layout-final-image.PNG)
+ ![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/css-layout-final-image.PNG)
 
 ## 2.1 在页面上划分出不同区域
 
@@ -82,7 +82,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面之后可以看到下面的页面效果：
 
- ![css_div_float_layout_step_01](/public/img/css/css_div_float_layout_step_01.gif)
+ ![css_div_float_layout_step_01](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_float_layout_step_01.gif)
 
 &emsp;&emsp;可以看到，默认情况下这5个div的宽度会占满浏览器窗口，从上到下依次排列。
 
@@ -118,14 +118,14 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面之后可以看到下面的页面效果:
 
- ![css_div_float_layout_step_02](/public/img/css/css_div_float_layout_step_02.gif)
+ ![css_div_float_layout_step_02](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_float_layout_step_02.gif)
 
 
 ### 用CSS控制(.foot)div的位置
 
 &emsp;&emsp;通过在Chrome DevTools查看元素，反复对比，我们可以做出一个判断：class属性是“.foot”的div元素被应用了“float”属性的三个div遮盖了：
 
- ![css_div_float_layout_step_03](/public/img/css/css_div_float_layout_step_03.gif)
+ ![css_div_float_layout_step_03](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_float_layout_step_03.gif)
 
 &emsp;&emsp;我们可以通过在底部div上应用CSS属性，清除它上方的浮动元素。代码如下：
 
@@ -136,7 +136,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;重新刷新页面，可以看到： 
 
- ![css_div_float_layout_step_04](/public/img/css/css_div_float_layout_step_04.gif)
+ ![css_div_float_layout_step_04](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_float_layout_step_04.gif)
 
 ## 2.3 使用页面元素的盒子属性
 
@@ -146,7 +146,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;在Chrome Devtools界面查看body元素的“Styles”详情，大家可以看到应用在它上面的全部CSS规则，其中有一个“margin:8px”的**浏览器默认设置**（*user agent stylesheet*）。
 
- ![css_div_float_layout_step_05_1](/public/img/css/css_div_float_layout_step_05_1.gif)
+ ![css_div_float_layout_step_05_1](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_float_layout_step_05_1.gif)
 
 
 &emsp;&emsp;我们来自定义一条CSS规则，覆盖浏览器默认的CSS属性。
@@ -159,7 +159,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面，可以看到下面的效果：
 
- ![css_div_float_layout_step_05](/public/img/css/css_div_float_layout_step_05.gif)
+ ![css_div_float_layout_step_05](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_float_layout_step_05.gif)
 
 &emsp;&emsp;围绕在最外层容器div的三条空白细线消失了。
 
@@ -175,7 +175,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;完成上述三步操作以后，你会看到类似这样的页面效果：
 
- ![css_div_layout_01_head](/public/img/css/css_div_layout_01_head.png){:width="400px" height="400px"}
+ ![css_div_layout_01_head](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_layout_01_head.png){:width="400px" height="400px"}
 
 &emsp;&emsp;在头部div内，图片左边紧贴div的左边界。
 
@@ -191,14 +191,14 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面以后可以看到：
 
- ![css_div_float_layout_step_06](/public/img/css/css_div_float_layout_step_06.gif)
+ ![css_div_float_layout_step_06](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_float_layout_step_06.gif)
 
 
 ## 2.4 练习：根据图片效果编写HTML代码
 
 &emsp;&emsp;接下来的工作就是往左边栏、中间内容区、右边栏和底部区域填充内容。这些工作完全可以用已经掌握的的HTML和CSS相关知识来完成。
 
- ![ccs_div_layout_final_preview](/public/img/css/ccs_div_layout_final_preview.png)
+ ![ccs_div_layout_final_preview](http://lemon.lanqiao.org:8082/teaching/img/css/ccs_div_layout_final_preview.png)
 
 &emsp;&emsp;大家只要做出最后这样的效果就可以了。这是一个很简单的练习，请你务必自己动手完成。
 
@@ -222,7 +222,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;我们可以用div把一个完整的页面划分成几个不同的区块，然后把每个区块对应的div当成可以容纳其他页面内容的容器（container），最后用CSS来控制这些区块的排列方式和视觉效果。这是一种被广泛应用的网页布局方法。
 
- ![div_plus_css](/public/img/css/div_plus_css.jpg)
+ ![div_plus_css](http://lemon.lanqiao.org:8082/teaching/img/css/div_plus_css.jpg)
 
 &emsp;&emsp;在实验一里面我们就是这么干的。
 
@@ -232,7 +232,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;清澈的水面上，正浮动着一只小木船。你与没有过坐在船上向水面下面看的经历呢？正如小船一样，在我们布局网站页面的过程中网页元素也可以浮动起来。究竟是怎么回事，我们一起来看！
 
- ![floating-boat](/public/img/html/floating-boat.jpg)
+ ![floating-boat](http://lemon.lanqiao.org:8082/teaching/img/html/floating-boat.jpg)
 
 &emsp;&emsp;为了改变中间三个div默认的排列方式，我们用CSS设置三个div的**浮动**属性为左浮动。
 
@@ -242,11 +242,11 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;首先，“.nav”、“.content”、“.right”和“.foot”这几个div的“float”和“clear”属性禁用掉，大家可以看到，在这个情况下这些div的排列方式是什么样的。
 
- ![css_div_float_layout_step_07](/public/img/css/css_div_float_layout_step_07.gif)
+ ![css_div_float_layout_step_07](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_float_layout_step_07.gif)
 
 &emsp;&emsp;接下来我们来重现实验三里用CSS控制div排列的过程：
 
- ![css_div_float_layout_step_08](/public/img/css/css_div_float_layout_step_08.gif)
+ ![css_div_float_layout_step_08](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_float_layout_step_08.gif)
 
 &emsp;&emsp;这是一个div元素通过浮动离开各自默认位置的过程。借助于Chrome DevTools的元素选择器，我们可以很容易检查到这里面的种种细节。
 
@@ -262,7 +262,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;下面以一个DIV元素为例子，形象直观地标示出了盒子的这些属性：
 
-![html-xhtml-relation](/public/img/html/css-box-model-demo.PNG)
+![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/css-box-model-demo.PNG)
 
 &emsp;&emsp;你可以在代码上，修改它们的像素数值，看看div元素的长方形盒子显示的样式有什么变化：
 
@@ -306,7 +306,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;可以看到，这个时候p标签的蓝色边框和段落文本的距离拉宽了：
 
-![html-xhtml-relation](/public/img/html/p_padding-demo.PNG)
+![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/p_padding-demo.PNG)
 
 &emsp;&emsp;还有一个明显的变化是：p标签的显示尺寸变大了，原因就是内边距变大了。
 
@@ -317,7 +317,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;可以看到，银灰色区域所对应的外边距区域增大了：
 
-![html-xhtml-relation](/public/img/html/p_margin_demo.PNG)
+![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/p_margin_demo.PNG)
 
 &emsp;&emsp;你还可以把外边距的像素值设置成更大的数值，看一看页面又会发生什么变化。
 
@@ -339,7 +339,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;最后发现效果是这样的：
 
-![html-xhtml-relation](/public/img/html/p_blue_border.PNG)
+![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/p_blue_border.PNG)
 
 ### 描述盒子模型
 
@@ -347,11 +347,11 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;以猫睡觉的盒子作比喻形象地说，猫是盒子里面的内容（content），盒子四面和猫之间的距离是内边距（padding），四面的纸板是盒子边框，小盒子与大盒子之间的距离是外边距（margin）。
 
- ![html-xhtml-relation](/public/img/html/css-model-cat-in-box.jpg)
+ ![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/css-model-cat-in-box.jpg)
 
 &emsp;&emsp;基于感性的直观认识之上，下面是盒子模型的概念图：
 
- ![html-xhtml-relation](/public/img/html/w3c_css_box_model.gif)
+ ![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/w3c_css_box_model.gif)
 
 ## CSS属性简写
 
@@ -391,7 +391,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;结果如我所愿，四个边框依照定义分别显示出不同色彩，并且有宽度不同：
 
- ![html-xhtml-relation](/public/img/html/css-four-border-color.PNG)
+ ![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/css-four-border-color.PNG)
 
 
 ---
@@ -448,7 +448,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
   [打开编辑器并且复制、运行](/public/tiyEditor.html)
 
- ![html-xhtml-relation](/public/img/html/css-border-short-hand.PNG)
+ ![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/css-border-short-hand.PNG)
 
 ### 试一试
 
@@ -467,7 +467,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;在实验结束以后，你可以看到下面的一个两级菜单：
 
- ![css_div_ul_dropdown_menu_01](/public/img/css/css_div_ul_dropdown_menu_01.gif)
+ ![css_div_ul_dropdown_menu_01](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_01.gif)
 
 ## 2.1  组合菜单内容
 
@@ -503,7 +503,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;这时候div里面还没有内容，刷新页面以后，你应该只看到一条这样的线条：
 
- ![css_div_ul_dropdown_menu_02](/public/img/css/css_div_ul_dropdown_menu_02.png)
+ ![css_div_ul_dropdown_menu_02](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_02.png)
 
 
 ### 引入无序列表
@@ -532,7 +532,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面以后可以看到下面的页面效果：
 
- ![css_div_ul_dropdown_menu_03](/public/img/css/css_div_ul_dropdown_menu_03.png)
+ ![css_div_ul_dropdown_menu_03](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_03.png)
 
 &emsp;&emsp;通过DevTools查看页面元素，我们可以看到以下几个细节：
 
@@ -540,7 +540,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 2. div、ul、a元素都有一个名字是“display”的属性，他们的值都是“block”
 3. li元素也有一个名字是“list-item”
 
- ![css_div_ul_dropdown_menu_04](/public/img/css/css_div_ul_dropdown_menu_04.gif)
+ ![css_div_ul_dropdown_menu_04](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_04.gif)
 
 ### 让两个菜单横向排列
 
@@ -554,7 +554,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;可以看到，li浮动以后，它的上级元素div和ul的内容区变空了：
 
- ![css_div_ul_dropdown_menu_05](/public/img/css/css_div_ul_dropdown_menu_05.png)
+ ![css_div_ul_dropdown_menu_05](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_05.png)
 
 &emsp;&emsp;想要让div和ul仍然包裹在li外面，就得让它们两个一起左浮动：
 
@@ -570,7 +570,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面以后可以看到div、ul浮动以后的效果：
 
- ![css_div_ul_dropdown_menu_06](/public/img/css/css_div_ul_dropdown_menu_06.png)
+ ![css_div_ul_dropdown_menu_06](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_06.png)
 
 ### 修改菜单项内容样式
 
@@ -590,7 +590,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面以后可以看到：
 
- ![css_div_ul_dropdown_menu_07](/public/img/css/css_div_ul_dropdown_menu_07.png)
+ ![css_div_ul_dropdown_menu_07](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_07.png)
 
 &emsp;&emsp;a元素的内容高出了它的上级元素，修改它的display属性可以让它把上级元素“撑高”起来：
 
@@ -602,7 +602,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面以后，可以看到菜单项文本比以前有了明显的扩张：
 
- ![css_div_ul_dropdown_menu_08](/public/img/css/css_div_ul_dropdown_menu_08.gif)
+ ![css_div_ul_dropdown_menu_08](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_08.gif)
 
 
 ### 设置一二级菜单的定位方式
@@ -630,7 +630,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面以后可以看到：
 
- ![css_div_ul_dropdown_menu_09](/public/img/css/css_div_ul_dropdown_menu_09.gif)
+ ![css_div_ul_dropdown_menu_09](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_09.gif)
 
 &emsp;&emsp;用CSS设置菜单项目元素内容的定位方式：
 
@@ -652,7 +652,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面以后可以看到：
 
- ![css_div_ul_dropdown_menu_10](/public/img/css/css_div_ul_dropdown_menu_10.gif)
+ ![css_div_ul_dropdown_menu_10](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_10.gif)
 
 &emsp;&emsp;特别值得注意的是：在应用了绝对定位的样式后，内层ul元素，被从它名为li的父元素内容区移出来，并且紧贴着这个父级li。
 
@@ -679,7 +679,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;刷新页面可以看到如下效果：
 
- ![css_div_ul_dropdown_menu_11](/public/img/css/css_div_ul_dropdown_menu_11.gif)
+ ![css_div_ul_dropdown_menu_11](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_ul_dropdown_menu_11.gif)
 
 
 &emsp;&emsp;至此，菜单的主体工作已经完成。
@@ -747,11 +747,11 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;，两个div各占一行 ，它们的宽度自动自动扩展、直到充满上级（这里是body）元素。
 
- ![html-xhtml-relation](/public/img/html/div-display-as-block-el.PNG)
+ ![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/div-display-as-block-el.PNG)
 
 &emsp;&emsp;使用Chrome浏览器开发工具，查看div元素的属性：
 
- ![html-xhtml-relation](/public/img/html/div-display-block-demo.PNG)
+ ![html-xhtml-relation](http://lemon.lanqiao.org:8082/teaching/img/html/div-display-block-demo.PNG)
 
 
 ### inline
@@ -797,13 +797,13 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;块元素像个容器，它里面的内容可以是其他块元素或者行元素。
 
- ![p-span-a-css-display](/public/img/html/p-span-a-css-display.PNG)
+ ![p-span-a-css-display](http://lemon.lanqiao.org:8082/teaching/img/html/p-span-a-css-display.PNG)
 
 &emsp;&emsp;行级元素的宽度取决于其中文字内容的宽度、不会继续扩展，与此同时它也不会引起所在段落发生文字换行。
 
 &emsp;&emsp;使用Chrome浏览器开发工具，查看a元素的属性：
 
- ![p-a-display-inline-demo](/public/img/html/p-a-display-inline-demo.PNG)
+ ![p-a-display-inline-demo](http://lemon.lanqiao.org:8082/teaching/img/html/p-a-display-inline-demo.PNG)
 
 &emsp;&emsp;
 
@@ -849,7 +849,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;你只需要把原来表格里的table、tr、th、td元素等等替换成div，并且根据div容器的类型应用不同的display属性值就可以了。
 
- ![css_display_value_4_table](/public/img/css/css_display_value_4_table.png)
+ ![css_display_value_4_table](http://lemon.lanqiao.org:8082/teaching/img/css/css_display_value_4_table.png)
 
 
 &emsp;&emsp;请你尝试用这个方法改造上一章的*唐诗排行前十名*的表格。
@@ -897,7 +897,7 @@ description: DIV+CSS就是，网页HTML代码主要使用DIV将内容模块化�
 
 &emsp;&emsp;定位效果：
 
- ![css_div_abs_position_12](/public/img/css/css_div_abs_position_12.gif)
+ ![css_div_abs_position_12](http://lemon.lanqiao.org:8082/teaching/img/css/css_div_abs_position_12.gif)
 
 &emsp;&emsp;不用多说，内部div绝对定位的参照物是HTML文档的body元素。试问，能否让绿色边框的div参照它的外部div绝对定位？请提出你的解决方案。
 

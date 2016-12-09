@@ -37,7 +37,7 @@ b.表明在最坏情况下如何在Θ(nlg(n/k))时间内合并这些子表。
 
 *某层的每个子数组有序时，单层的合并需要n个时间单位（每个元素都要抓一次），那么有多少层呢？可以考虑递归树的叶子节点个数为n/k因此层数为lg(n/k)+1，所以整体的复杂度为n(lg(n/k)+1)∈Θ(nlg(n/k))*
 
-![Alt text](/public/img/algorithm/summary-1-1)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/summary-1-1)
 
 这是标准的归并算法的merge的过程。最后求出标准归并算法的时间复杂度时，是用层高 乘以 每层的代价。 
 其实本题所求代价也用层高 乘以 每层的代价，只是层高没有那么高，因为当到子数组的规模到了n/k的时候，此时的层高应为log(n/k) + 1。故总代价为：(lg(n/k)+1) * n ，即为：θ(nlg(n/k))
@@ -181,7 +181,7 @@ a[j+1]往前面的子数组a[0...j]插入时，a[0...j]已经有序，可否使�
 
 求解斐波那契数列当中的n=5时的值这个问题的递归树如下图所示：
 
-![Alt text](/public/img/algorithm/summary-1-2.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/summary-1-2.png)
 
 可见递归算法由于会多次计算同样的子问题而出现效率低下的问题
 
