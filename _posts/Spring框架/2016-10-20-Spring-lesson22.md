@@ -23,15 +23,15 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE Spring框架
 ---
 
 
-# 22.1 Quartz框架 #
+# 24.1 Quartz框架 #
 
-如果希望程序执行一个“计划任务”，即任务调度，例如在将来的某个时间去执行一段程序、或在某个时间点循环的执行，就可以使用Quartz框架。
-
-
-Quartz框架是一个开源的企业级任务调度服务，它可以单独使用，也可以整合进JAVA应用中。Quartz框架提供了强大的任务调度机制，使用起来也非常简单。Spring也专门为Quartz提供了相关的工具类，帮助我们便捷地配置计划任务。
+如果希望程序执行一个“计划任务”（或称为“任务调度”），就可以使用Quartz框架。例如在将来的某个时间去执行一段程序，或在某个时间段内循环的执行等。
 
 
-## 22.1.1 Quartz框架基本概念 ##
+Quartz框架是一个开源的企业级任务调度服务，它可以单独使用，也可以整合在JAVA应用中。Spring也专门为Quartz提供了相关的工具类，帮助我们便捷的配置计划任务。
+
+
+## 24.1.1 Quartz框架基本概念 ##
 
 
 使用Quartz框架之前，需要先下载Quartz的相关`JAR`包。可以在其官方网站进行下载[http://www.quartz-scheduler.org/downloads](http://www.quartz-scheduler.org/downloads)。本书是基于Quartz的2.2.2版本，下载的Quartz文件名是quartz-2.2.2-distribution.tar.gz。
@@ -40,7 +40,7 @@ Quartz框架是一个开源的企业级任务调度服务，它可以单独使�
 要想实现任务调度，首先需要明确3个概念：任务、触发器、调度器。
 
 
-**(1)任务**
+#### (1)任务 ####
 
 指在固定时间需要执行的工作内容。Quartz提供了`Job`接口，来帮助我们定义一个任务。该接口如下：
 
@@ -56,33 +56,33 @@ throws JobExecutionException;
 }
 ```
 
-其中`execute()`方法用来执行具体的任务，交给该接口的实现类去实现此方法。`JobExecutionContext`对象可以获取调度对象的上下文信息，如任务名称等。
+其中`execute()`方法用于执行具体的任务，需要由Job的实现类去实现。JobExecutionContext对象可以获取调度对象的上下文信息，如任务名称等。
 
 **`Job`接口有一个常用实现类：`JobDetail`。**
 
 
-**(2)触发器**
+#### (2)触发器 ####
 
-“任务”要在什么时间执行呢？就是需要依靠触发器来指定特定的时间。Quartz提供了`Trigger`接口，用来定义时间规则，例如每月的最后一天、每天早上8点、每周五下午6点……
+ “任务”会在什么时间执行呢？就需要依靠触发器来指定。Quartz提供了Trigger接口，用于定义执行“任务”的时间规则，例如每月的最后一天、每天早上8点、每周五下午6点……
 
 **`Trigger`接口有两个实现类：`SimpleTrigger`和`CronTrigger`。**
 
 
-**(3)调度器**
+#### (3)调度器 ####
 
 
 有了“任务”和“触发器（即时间规则）”后，我们还需要“调度器”来将二者关联起来，从而实现“在规定的时间执行特定的任务”。Quartz提供了`Scheduler`类来实现调度器，我们可以将任务（`Job`）对象和触发器（`Trigger`）对象注册到调度器（`Scheduler`）中，由调度器来决定任务和触发器的对应关系，即`Scheduler`可以将`Trigger`绑定到一个`Job`上。换句话说，调度器决定了哪个触发器定时执行哪个任务。
 
 
-## 22.1.2 Quartz框架入门程序 ##
+## 24.1.2 Quartz框架入门程序 ##
 
 
-下面介绍使用Quartz框架的基本步骤：
+**下面介绍使用Quartz框架的基本步骤：**
 
 
-1.导入Quartz的`Jar`包
+#### 1.导入Quartz的`Jar`包 ####
 
-将之前下载的quartz-2.2.2-distribution.tar.gz解压，再把解压后的`lib`目录中的以下4个JAR文件导入项目：
+将之前下载的quartz-2.2.2-distribution.tar.gz解压，再把lib目录中的以下4个JAR和log4j.jar导入项目：
 
 <table>
    <tr>
@@ -97,7 +97,7 @@ throws JobExecutionException;
    </tr>
 </table>
 
-**2.创建业务**
+#### 2.创建业务 ####
 
 创建普通的业务，本次采用一个模拟业务，如下，
 
@@ -113,7 +113,7 @@ public class RemindService
 }
 ```
 
-**3.创建计划任务**
+#### 3.创建计划任务 ####
 
 创建需要执行的“计划任务”。需要实现Quartz框架提供的`Job`接口，如下，
 
@@ -138,7 +138,7 @@ throws JobExecutionException
 在接口定义的`execute()`方法中，调用业务中的`callClassMeeting()`方法。
 
 
-**4.通过调度器和触发器，实现“计划任务”**
+#### 4.通过任务、触发器和调度器，实现“计划任务” ####
 
 使用Quartz API进行配置及调度操作，如下，
 
@@ -178,7 +178,7 @@ throws SchedulerException, InterruptedException
 		scheduleBuilder = scheduleBuilder
 .withIntervalInMilliseconds(1000);
 		//设置额外重复执行的次数。例如，设置为5，
-表示一共要执行6此（正常执行1次+额外重复5次）
+表示一共要执行6次（正常执行1次+额外重复5次）
 		scheduleBuilder.withRepeatCount(5);
 
 		//根据TriggerBuilder对象和SimpleScheduleBuilder对象,
@@ -190,7 +190,7 @@ throws SchedulerException, InterruptedException
 		SchedulerFactory sfc = new StdSchedulerFactory();
 		// 创建一个调度器
 		Scheduler sched = sfc.getScheduler();
-		// 注册任务和触发器
+		// 在调度器中，注册任务和触发器
 		sched.scheduleJob(job, simpleTrigger);
 
 		//执行调度
@@ -213,9 +213,9 @@ throws SchedulerException, InterruptedException
 
 ![](http://i.imgur.com/35qBhOy.png)
 
-*图21-01*
+*图24-01*
 
-首先通过`JobBuilder`来创建`Job`对象，并指定任务是“`PlanJob`”类中的`execute()`方法、任务名称为“PlanJob”、任务所在组名为“group1”。再通过`TriggerBuilder`对象设置触发器Builder的名字、所在组、以及触发器的开始执行时间。之后再使用`SimpleScheduleBuilder`对象设置调度的配置信息：重复执行的时间间隔、额外重复执行的次数。之后，再根据触发器Builder和调度Builder来创建一个简单触发器`SimpleTrigger`对象。最后通过调度器工厂获取一个调度器sched，用调度器sched的`scheduleJob()`方法将任务job和触发器simpleTrigger注册绑定在一起，最后使用调度器sched的`start()`方法执行调度（即“计划任务”），再通过`shutdown()`方法关闭调度。
+首先通过JobBuilder来创建Job对象，并指定任务是“PlanJob”类中的execute()方法、任务名称为“PlanJob”、任务组名为“group1”，再通过TriggerBuilder对象设置触发器对象的名字、所在组、以及触发器的开始执行时间。之后再使用SimpleScheduleBuilder对象设置调度的配置信息：重复执行的时间间隔、额外重复执行的次数。之后，再根据触发器Builder和调度Builder来创建一个简单触发器SimpleTrigger对象。最后通过调度器工厂获取一个调度器sched，用调度器sched的scheduleJob()方法将任务job和触发器simpleTrigger注册绑定在一起，最后使用调度器sched的start()方法执行调度（即“计划任务”），再通过shutdown()方法关闭调度。
 
 
 `shutdown`方法具有两个重载的方法，具体如下：
@@ -274,7 +274,7 @@ InterruptedException, ParseException
 }
 ```
 
-## 22.1.3 JobExecutionContext ##
+## 24.1.3 JobExecutionContext ##
 
 
 可以通过`Job`接口的`execute()`方法中的参数`JobExecutionContext`对象，来获取调度需要的各种信息。如下，
@@ -304,12 +304,12 @@ throws JobExecutionException
 ![](http://i.imgur.com/87hNn8N.png)
 
 
-*图21-02*
+*图24-02*
 
-此外，还可以通过`getJobDetail`对象获取一个`JobDataMap`对象。`JobDataMap`对象可以用来设置并获取数据。例如，使用`JobDataMap`对象来传递学生集合的信息，
+此外，还可以通过getJobDetail对象获取一个JobDataMap对象。JobDataMap对象可以用来增加并获取数据。例如，可以使用JobDataMap对象来传递学生的集合对象，如下，
 
-如下：
-先在测试类中向`JobDataMap`对象放入数据
+
+先在测试类中向JobDataMap对象增加数据。
 
 
 **TestJob.java**
@@ -330,7 +330,7 @@ throws SchedulerException, InterruptedException
 		List<String> students = new ArrayList<String>();
 		students.add("张三");
 		students.add("李四");
-		//将学生信息放入JobDataMap对象中
+		//将学生信息增加到JobDataMap对象中
 		dataMap.put("students",students);
 		…
 	}
@@ -362,7 +362,7 @@ throws JobExecutionException
 }
 ```
 
-## 22.1.4 SechduleBuilder ##
+## 24.1.4 SechduleBuilder ##
 
 在1.x版本的Quartz中，触发器分为`SimpleTrigger`、`CronTrigger`等。但是在2.x版本，这些具体的`Trigger`类都被废弃了，取而代之的是`TriggerBuilder`中的`withSchedule()`方法。该方法需要传入一个`SechduleBuilder`对象作为参数，通过该对象来实现触发器的逻辑。本书使用的Quartz2.2版本中的`ScheduleBuilder`有以下三种:
 
@@ -373,7 +373,7 @@ throws JobExecutionException
    </tr>
    <tr>
       <td>SimpleScheduleBuilder</td>
-      <td>指定触发的间隔时间，和执行次数；</td>
+      <td>指定触发的间隔时间和执行次数；</td>
    </tr>
    <tr>
       <td>CronScheduleBuilder</td>
@@ -455,7 +455,7 @@ throws JobExecutionException
    </tr>
    <tr>
       <td>,</td>
-      <td>表示列出枚举值值。例如，在“分钟”元素使用“5,20”，表示在“第5分钟、第20分钟”各触发一次。</td>
+      <td>表示列出枚举值。例如，在“分钟”元素使用“5,20”，表示在“第5分钟、第20分钟”各触发一次。</td>
    </tr>
    <tr>
       <td>-</td>
@@ -463,7 +463,7 @@ throws JobExecutionException
    </tr>
    <tr>
       <td>*</td>
-      <td>表示匹配该元素的所有值。例如，在“分钟”元素使用“*”，表示每分钟都会触发事件。</td>
+      <td>表示匹配该元素的所有值。例如，在“分钟”元素使用“*”，表示每分钟都会触发一次。</td>
    </tr>
    <tr>
       <td>/</td>
@@ -475,7 +475,7 @@ throws JobExecutionException
    </tr>
    <tr>
       <td>L</td>
-      <td>“Last”的简称，表示最后。只能用于“月份中的第几天”和“星期几”两个元素。需要注意的是，在西方国家，“星期”的最后一天是“星期六SAT（或用数字7表示）”。例如，“0 0 8 ? * L”表示“每个月的每周六8:00”。并且，当用于“星期几”时，“L”前面可以加一个数字（用X代替），表示“月份中的最后一个星期X”，例如“0 0 0 ? * 1L”中“1L”表示“当月的最后一个星期天”（1指星期天）。</td>
+      <td>“Last”的简称，表示最后。只能用于“月份中的第几天”和“星期几”两个元素。需要注意的是，在西方国家，“星期”的最后一天是“星期六SAT（或用数字7表示）”。例如，“0 0 8 ? * L”表示“每个月的每周六8:00”。并且，当用于“星期几”时，“L”前面可以加一个数字（假定数字是n），表示“月份中的最后一个星期n”，例如“0 0 0 ? * 1L”中“1L”表示“当月的最后一个星期天”（1指星期天）。</td>
    </tr>
    <tr>
       <td>#</td>
@@ -615,7 +615,7 @@ InterruptedException, ParseException
 通过`CronScheduleBuilder.cronSchedule("5 * * * * ?")`创建一个`CronScheduleBuilder`对象，并将`Cron`表达式`“5 * * * * ?”`作为方法的参数，用来指定执行的时间为“每分钟的第5秒”。最后再将`CronScheduleBuilder`对象放入`TriggerBuilder`对象的`withSchedule()`方法中。
 
 
-# 22.2 在Spring中集成Quartz #
+# 24.2 在Spring中集成Quartz #
 
 
 Spring提供了对Quartz的支持，它对Quartz的核心类进行了封装，使开发人员可以更便捷的实现“计划任务”。在Spring中使用Quartz的步骤如下：
@@ -793,7 +793,7 @@ public class TestJobWithSpring
 
 ![](http://i.imgur.com/XPf8snK.png)
 
-*图21-03*
+*图24-03*
 
 
 以上是在Spring中使用了`CornTrigger`类型的触发器，如果要使用`SimpleTriggerBean`类型的触发器，可做如下配置：
@@ -834,7 +834,7 @@ quartz.SchedulerFactoryBean" >
 </beans>
 ```
 
-# 22.3 练习题 #
+# 24.3 练习题 #
 
 1使用Spring整合Quartz的步骤是什么？
 

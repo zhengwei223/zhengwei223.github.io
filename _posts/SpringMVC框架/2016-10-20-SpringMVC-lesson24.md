@@ -30,13 +30,13 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 本书中的SpringMVC是基于Spring4.x版本、基于注解的形式。
 
 
-SpringMVC通过实现Model-View-Controller模式，来很好地将数据、业务与展现进行分离。从这样一个角度来说，SpringMVC和Struts2非常类似，但SpringMVC采用了可插拔的组件结构，更加具有可扩展性和灵活性。自Spring3.0版本以后，SpringMVC已经全面超越了Struts2，成为目前最流行的MVC框架。
+SpringMVC通过实现MVC模式，很好地将数据、业务与展现进行了分离。从MVC的角度来说，SpringMVC和Struts2非常类似，但SpringMVC采用了可插拔的组件结构，更加具有可扩展性和灵活性。自Spring3.0版本以后，SpringMVC已经全面超越了Struts2，成为目前最流行的MVC框架。
 
 
 使用SpringMVC有“基于XML配置文件”和“基于注解”两种形式，本书采用了目前使用较为广泛的“基于注解”形式。
 
 
-# 24.1 SpringMVC的获取 #
+# 26.1 SpringMVC的获取 #
 
 Spring MVC属于Spring FrameWork的后续产品。我们可以找到开发Spring所使用的**spring-framework-4.2.5.RELEASE-dist.zip**，将其解压，其中的`libs`目录也包含了开发SpringMVC框架所依赖的`jar`包，具体如下：
 
@@ -80,17 +80,17 @@ Spring MVC属于Spring FrameWork的后续产品。我们可以找到开发Spring
 以上8个`jar`包是开发SpringMVC的基础，但随着学习的深入，以后可能会逐步导入更多的`jar`包。若项目因为缺少`jar`包而运行失败，Eclipse等开发工具都会给出错误提示，读者可以根据提示内容，查找并加入所需的`jar`包。
 
 
-# 24.2 开发第一个SpringMVC程序 #
+# 26.2 开发第一个SpringMVC程序 #
 
 我们先通过一个简单的示例，演示一下使用SpringMVC的基本流程。
 
 **(1)**创建一个Web项目（项目名SpingMVCDemo），并导入上述8个`jar`包；
 
-**(2)**在`src`目录下创建SpringMVC的配置文件：**springmvc.xml**。（使用安装了Spring Tool Suite的Eclipse的步骤：鼠标右键`src` →`new` →Spring Bean Configuration File →输入配置文件名“**springmvc.xml**” →finish，然后再在`Namespaces`中选择“beans”、“context”及“mvc”，如图）
+**(2)**在`src`目录下创建SpringMVC的配置文件：**springmvc.xml**。（在使用安装了Spring Tool Suite的Eclipse中，具体的创建步骤：鼠标右键`src` →`new` →Spring Bean Configuration File →输入配置文件名“**springmvc.xml**” →finish，然后再在`Namespaces`中选择“beans”、“context”及“mvc”，如图）
 
-![](http://i.imgur.com/2EFAoFi.png)
+![](http://i.imgur.com/A8Xx7Gk.png)
 
-*图24-01*
+*图26-01*
 
 **(3)**在**web.xml**中配置前置控制器`DispatcherServlet`，用于拦截与`<url-pattern>`相匹配的请求，如下，
 
@@ -121,7 +121,7 @@ org.springframework.web.servlet.DispatcherServlet
 
 **①**通过`<url-pattern>`指定了`DispatcherServlet`拦截的请求是：所有请求（“/”）。拦截后即交给SpringMVC处理。
 
-SpringMVC中常见的`<url-pattern>`值如下表，
+**SpringMVC中常见的`<url-pattern>`值如下表，**
 
 
 <table>
@@ -142,7 +142,7 @@ SpringMVC中常见的`<url-pattern>`值如下表，
 
 **②**通过`<load-on-startup>`设置让`DispatcherServlet`随着服务(如Tomcat)的启动而同时启动。
 
-**③**通过`contextConfigLocation`的`<param-value>`值，指定了SpringMVC配置文件的路径是：资源路径(如`src`目录)中的**springmvc.xml**文件。若不设置此`<init-param>`，则会根据SpringMVC的“默认约定”，自动加载认加WEB-INF目录中的**<servlet-name>-servlet.xml**。
+**③**通过`contextConfigLocation`的`<param-value>`值，指定了SpringMVC配置文件的路径是：资源路径(如`src`目录)中的**springmvc.xml**文件。若不设置此`<init-param>`，则会根据SpringMVC的“默认约定”，自动加载认加WEB-INF目录中的**&lt;servlet-name&gt;-servlet.xml**。
 
  
 例如，本**web.xml**中配置`DispatcherServlet`的`<servlet-name>`是“springDispatcherServlet”，则默认路径就是**WEB-INF/springDispatcherServlet-servlet.xml**。
@@ -168,8 +168,6 @@ SpringMVC中常见的`<url-pattern>`值如下表，
 如上，我们使用超链接向**web.xml**中的`<url-pattern>`发送一个可以被拦截的请求，然后交由SpringMVC处理。
 
 
-
-
 **(5)**开发请求处理类
 
 
@@ -192,7 +190,7 @@ public class FirstSpringDemo
 }
 ```
 
-如上，使用`@Controller`注解来标识本类是一个就是一个`SpringMVC Controller` 对象；
+如上，使用`@Controller`注解来标识本类是一个`SpringMVC Controller` 对象；
 使用`@RequestMapping`注解来映射请求的URL。
 
 
@@ -239,7 +237,7 @@ view.InternalResourceViewResolver">
 **②**通过`<bean>`指定视图解析器为“`InternalResourceViewResolver`”类型。
 此解析器会把“请求处理类中处理方法的返回值”按照“前缀+方法返回值+后缀”的形式进行加工，并把加工后的返回值作为目的路径进行跳转。
 
-此解析器的常见`<property>`属性值如下表，
+**此解析器的常见`<property>`属性值如下表，**
 
 
 <table>
@@ -249,7 +247,7 @@ view.InternalResourceViewResolver">
    </tr>
    <tr>
       <td>prefix</td>
-      <td>给“请求处理类中处理方法的返回值”加上前缀，前缀就是该&lt;propert&gt;的value值</td>
+      <td>给“请求处理类中处理方法的返回值”加上前缀，前缀就是该&lt;property&gt;的value值</td>
    </tr>
    <tr>
       <td>suffix</td>
@@ -257,7 +255,7 @@ view.InternalResourceViewResolver">
    </tr>
 </table>
 
-例如，请求处理类`FirstSpringDemo.java` 的处理方法`welcomeToSpringMVC()`的返回值是“`success`”，则就会给“`success`”加上前缀“`/views/`”，再加上后缀“.jsp”，即加工后的返回值是“**/views/success.jsp**”。最后就会跳转到“**/views/success.jsp**”页面。
+例如，请求处理类`FirstSpringDemo.java` 的处理方法`welcomeToSpringMVC()`的返回值是“`success`”，就会给“`success`”加上前缀“`/views/`”和后缀“.jsp”，即加工后的返回值是“**/views/success.jsp**”。最后就会跳转到“**/views/success.jsp**”页面。
 
 **(7)**开发前端结果显示页面
 
@@ -274,20 +272,20 @@ view.InternalResourceViewResolver">
 
 部署项目并执行**index.jsp**，结果如下，
 
-![](http://i.imgur.com/TmTDs4P.png)
+![](http://i.imgur.com/jBcoZ9H.png)
 
-*图24-02*
+*图26-02*
 
 点击超链接<a href="firstSpringMVC">My First SpringMVC Demo</a>，结果如下，
 
-![](http://i.imgur.com/jgVPbJq.png)
+![](http://i.imgur.com/pcdgo3I.png)
 
-*图24-03*
+*图26-03*
 
-通过路径可以发现，该请求跳转到了超链接所指向的“firstSpingMVC”路径，
-被通过“请求转发”跳转到了结果页**/views/success.jsp**。
+可以发现，该请求跳转到了超链接所指向的“firstSpingMVC”路径，
+再通过“请求转发”跳转到了结果页**/views/success.jsp**。
 
-# 24.3 练习题 #
+# 26.3 练习题 #
 
 1.使用SpringMVC有什么优势？
 

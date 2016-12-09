@@ -24,9 +24,9 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE Spring框架
 
 ---
 
-Spring整合MyBatis，主要是通过把MyBatis的`sqlsessionfactory`交给Spring来管理。以下是详细的整合步骤：
+MyBatis主要是通过SqlSessionFactory产生`SqlSession`对象，进而通过`SqlSession`对象访问数据库；而Spring整合MyBatis的本质就是把MyBatis的`SqlSessionFactory`对象交给Spring管理。以下是详细的整合步骤：
 
-**(1) 准备工作**
+#### (1) 准备工作 ####
 
 **a.导入Spring整合MyBatis所需要的JAR包**
 
@@ -89,9 +89,9 @@ public class Student
 
 ![](http://i.imgur.com/Vrgbp2j.png)
 
-*图23-01*
+*图25-01*
 
-**(2)创建MyBatis配置文件**
+#### (2)创建MyBatis配置文件 ####
 
 在`src`下创建MyBatis配置文件
 
@@ -106,7 +106,7 @@ public class Student
 </configuration>
 ```
 
-**(3)创建Spring配置文件**
+#### (3)创建Spring配置文件 ####
 
 在`src`下创建Spring配置文件
 
@@ -140,7 +140,7 @@ destroy-method="close">
 			<property name="maxActive" value="10"/>
 			<property name="maxIdle" value="5"/>
 	</bean>	
-		<!-- 将MyBatis使用的sqlsessionfactory,交给Spring来管理 -->
+		<!-- 将MyBatis使用的SqlSessionFactory对象,交给Spring来管理 -->
 		<bean id="sqlSessionFactory" 
 class="org.mybatis.spring.SqlSessionFactoryBean">
 			<!--数据库连接池 -->
@@ -153,7 +153,7 @@ value="classpath:conf.xml"/>
 ```
 
 
-在Spring配置文件中，配置了DBCP连接池和MyBatis需要使用的`sqlsessionfactory`。
+在Spring配置文件中，配置了DBCP连接池和MyBatis需要使用的`sqlsessionfactory`对象。
 
 
 Spring配置文件中用到的`db.properties`：
@@ -165,14 +165,14 @@ username=system
 password=sa
 ```
 
-**(4)创建Mapper动态代理对象**
+#### (4)创建Mapper动态代理对象 ####
 
 如果有了`Mapper`动态代理对象(如`studentMapper`)，就可以直接进行MyBatis操作了，例如`studentMapper.queryStudentByNo(31)`。
 
 
-使用Spring整合MyBatis时，共有三种方法来创建`Mapper`动态代理对象：`DAO`层实现类继承`SqlSessionDaoSupport`、使用`MapperFactoryBean`、使用`mapper`扫描器。
+使用Spring整合MyBatis时，共有三种方式来创建`Mapper`动态代理对象：①`DAO`层实现类继承`SqlSessionDaoSupport`、②使用`MapperFactoryBean`、③使用`mapper`扫描器。
 
-**①`DAO`层实现类继承`SqlSessionDaoSupport`**
+**方式①：`DAO`层实现类继承`SqlSessionDaoSupport`**
 
 
 先编写MyBatis的SQL映射文件：
@@ -299,8 +299,9 @@ ref="sqlSessionFactory">
 </beans>
 ```
 
+至此就完成了第一种方式的整合，即：通过SqlSessionDaoSupport类的`getSqlSession()`方法产生了`sqlSession`对象，再通过`sqlSession`对象得到了代理对象`studentDao`。
 
-至此就完成了第一种方式的整合，
+
 
 测试类**Test.java**
 
@@ -326,7 +327,7 @@ public class Test
 ![](http://i.imgur.com/Rru9zCQ.png)
 
 
-*图23-02*
+*图25-02*
 
 
 **说明：**
@@ -348,11 +349,11 @@ value="classpath:org/lanqiao/mapper/*.xml">
 ```
 
 
-**②使用`MapperFactoryBean`**
+**方式②：使用`MapperFactoryBean`**
 
-在“①`DAO`层实现类继承`SqlSessionDaoSupport`”的基础上，使用`MapperFactoryBean`可以省略`DAO`层实现类（如**StudentDaoImpl.java**）的创建和编写。
+在方式①的基础上，使用`MapperFactoryBean`可以省略`DAO`层实现类（如**StudentDaoImpl.java**）的创建和编写。具体如下，
 
-具体如下，
+
 在`mybatis-spring-1.2.3.jar`中，存在一个`MapperFactoryBean`类，可以通过给此类配置`mapperInterface`和`sqlSessionFactory`属性，来产生`mapperInterface`属性所指定接口的`Mapper`动态代理对象。如下，
 
 Spring配置文件：**applicationContext.xml**
@@ -379,13 +380,13 @@ ref="sqlSessionFactory">
 ```
 
 
-即给`mapperInterface`属性配置了动态代理的接口(即`DAO`层接口`IStudentDao`)，给`sqlSessionFactory`属性配置了`SqlSessionFactory`对象。此时，`MapperFactoryBean` 就会产生一个`IStudentDao`接口对应的动态代理对象，也就无需再去创建`DAO`实现类了。
+即给`mapperInterface`属性配置了动态代理的接口(即`DAO`层接口IStudentDao)，给sqlSessionFactory属性配置了`SqlSessionFactory`对象。此时，MapperFactoryBean就会产生一个IStudentDao接口对应的动态代理对象studentDao，之后就可以直接使用studentDao来操作数据库，也就无需再去创建DAO实现类了。也就是说，方式①与方式②的区别是：方式①需要编写DAO实现类**StudentDaoImpl.java**；方式②需要配置MapperFactoryBean。
 
-也就是说，有了以上配置以后，就可以删除掉之前编写的`DAO`实现类**StudentDaoImpl.java**。
 
-**③使用mapper扫描器**
 
-此种方式，实际上是对“②使用`MapperFactoryBean`”方式的优化。使用`MapperFactoryBean`需要在Spring配置文件中，给每一个`DAO`对象都配置一个`MapperFactoryBean`，如
+**方式③：使用mapper扫描器**
+
+此种方式，实际上是对方式②的进一步优化。方式②需要在Spring配置文件中，给每一个`DAO`对象都配置一个MapperFactoryBean，如
 
 ```
 …
@@ -396,7 +397,7 @@ ref="sqlSessionFactory">
 …
 ```
 
-可见，如果有多个`DAO`对象，就需要多次配置`MapperFactoryBean`，这样就会使得Spring配置文件变多，带来一定的编码量。
+可见，如果有多个`DAO`对象，就需要多次配置`MapperFactoryBean`，这样就会使得Spring配置文件的内容变多，会增加一定的编码量。
 
 对于这一点，`mybatis-spring-1.2.3.jar`提供了一个`MapperScannerConfigurer`类，用来帮我们将`basePackage`属性所指定的包中的`DAO`接口，根据SQL映射文件，一次性全部生成各`DAO`层接口对应的`Mapper`动态代理对象，如下，
 
@@ -425,7 +426,7 @@ value="sqlSessionFactory">
 </beans>
 ```
 
-通过`basePackage`属性指定`DAO`接口所在包，并批量将其生成为`Mapper`动态代理对象，并且`Mapper`动态代理对象在Spring中的id值就是该`DAO`接口（**IStudentDao.java**）的文件名（如`id=” IStudentDao” `）。如果需要在`basePackage`中指定多个包，则可以在多个包之间用逗号隔开，如下，
+通过`basePackage`属性指定DAO接口所在包，并批量将其生成为`Mapper`动态代理对象；并且将各个DAO接口的文件名（如**IStudentDao.java**），作为对应生成的`Mapper`动态代理对象在Spring中的id值（如`id=” IStudentDao”` ）。如果需要在`basePackage`中指定多个包，则可以在多个包之间用逗号隔开，如下，
 
 
 ```
@@ -459,5 +460,5 @@ public class Test
 
 *图23-03*
 
-可见，使用mapper扫描器的方式进行Spring与MyBatis的整合时，就不用再使用`<bean id="studentDao"…>`这样显示的方式在SpringIOC中显示的配置`DAO`层了。
+可见，在使用mapper扫描器的方式进行Spring与MyBatis的整合时，就不用再使用`<bean id="studentDao"…>`这样显示的方式在SpringIOC中显示的配置`DAO`层了。
 
