@@ -31,7 +31,7 @@ git branch -a
 
 当克隆一个仓库时，它通常会自动地创建一个跟踪 `origin/master` 的 `master` 分支。一开始是这样的：
 
- ![2.11](/public/img/git/2.11.png)
+ ![2.11](http://lemon.lanqiao.org:8082/teaching/img/git/2.11.png)
 
 在master上我们做了很多工作：
 
@@ -44,7 +44,7 @@ git branch -vv
 
 通过`-vv`选项我们看到dev并未跟踪一个远程分支，而`master`跟踪了`origin/master`而且比远程分支多6次提交（相对于上次提交）。情况就变成了这样：
 
-![2.12](/public/img/git/2.12.png)
+![2.12](http://lemon.lanqiao.org:8082/teaching/img/git/2.12.png)
 
 现在`master`分支前进了6个版本，而`origin/master`还留在原地。现在我们需要进行一次推送，和远程仓库通信并让`origin/master`分支前进到`master`分支所在位置：
 

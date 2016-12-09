@@ -23,11 +23,11 @@ Bootstrap is the most popular HTML, CSS, and JS framework for developing respons
 
 **下载源码**，以后要用到less。
 
-![image](/public/img/h5/boot-download.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/boot-download.png)
 
 解压后能看到这些文件夹和文件：
 
-![image](/public/img/h5/boot-files.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/boot-files.png)
 
 - dist是编译整合后的js、css和字体
 - docs是文档，但就这样的话是看不了的，看离线文档需要安装jekyll，因为
@@ -56,7 +56,7 @@ git clone https://github.com/h5bp/html5-boilerplate.git
 
 clone好之后，能看到这样的目录结构：
 
-![image](/public/img/h5/h5bp-files.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/h5bp-files.png)
 
 dist下就是我们所需要的东西。
 
@@ -101,7 +101,7 @@ favicon.ico
 
   至此，整合告一段落，如图
 
-![image](/public/img/h5/bb-files.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/bb-files.png)
 
   fonts来自bootstrap
 

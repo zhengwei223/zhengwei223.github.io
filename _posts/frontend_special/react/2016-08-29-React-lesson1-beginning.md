@@ -71,7 +71,7 @@ ReactDOM.render(
 
 上面代码将一个 h1 标题，插入 example 节点（查看 [index.html](https://coding.net/u/lanqiao/p/reactDemo/git/blob/master/index.html)）。
 
-![Alt text](/public/img/react/1.1.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/react/1.1.png)
 
 # 3.JSX 语法
 
@@ -93,7 +93,7 @@ ReactDOM.render(
 ```  
 上面代码,render函数的第一个参数体现了 JSX 的基本语法规则：遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用 JavaScript 规则解析。 上面代码的运行结果如下。
 
- ![Alt text](/public/img/react/1.2.png)
+ ![Alt text](http://lemon.lanqiao.org:8082/teaching/img/react/1.2.png)
 
 JSX 允许直接在模板中插入 JavaScript 变量。如果这个变量是一个数组，则会展开这个数组的所有成员:
 
@@ -110,7 +110,7 @@ ReactDOM.render(
 
 上面代码的arr变量是一个数组，结果 JSX 会把它的所有成员，添加到模板，运行结果如下。
 
- ![Alt text](/public/img/react/1.3.png)
+ ![Alt text](http://lemon.lanqiao.org:8082/teaching/img/react/1.3.png)
 
 # 4.组件
 
@@ -152,7 +152,7 @@ var HelloMessage = React.createClass({
 
 组件的用法与原生的 HTML 标签完全一致，可以任意加入属性，比如 `<HelloMessage name="John"> `，就是 `HelloMessage` 组件加入一个 `name` 属性，值为 `John`。组件的属性可以在组件类的 `this.props `对象上获取，比如 name 属性就可以通过 `this.props.name `读取。上面代码的运行结果如下。
 
-![Alt text](/public/img/react/1.4.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/react/1.4.png)
 
 添加组件属性，有一个地方需要注意，就是 `class` 属性需要写成 `className` ，`for `属性需要写成 `htmlFor` ，这是因为 `class` 和 `for` 是 `JavaScript` 的保留字。
 
@@ -187,7 +187,7 @@ var HelloMessage = React.createClass({
 
 上面代码的 NoteList 组件有两个 span 子节点，它们都可以通过 this.props.children 读取，运行结果如下。
 
-![Alt text](/public/img/react/1.5.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/react/1.5.png)
 
 这里需要注意， `this.props.children` 的值有三种可能：如果当前组件没有子节点，它就是 `undefined` ;如果有一个子节点，数据类型是 `object` ；如果有多个子节点，数据类型就是 `array` 。所以，处理 `this.props.children` 的时候要小心。
 

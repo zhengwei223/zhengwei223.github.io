@@ -24,7 +24,7 @@ author: 郑未
 - f(n)=Θ(g(n))，表示这个算法是有一个渐近确界的，这个渐近确界为g(n)，算法的运行时间f(n)趋近g(n)。
 - f(n)=O(g(n))，表示这个算法是有一个渐近上界的，这个渐近上界为g(n)，算法的运行时间f(n)趋近并小于等于这个g(n)。
 
-![Alt text](/public/img/algorithm/growth-of-fun-1.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/growth-of-fun-1.png)
 
 *这种图比较直观，也比较重要*
 
@@ -34,7 +34,7 @@ author: 郑未
 
 # 函数增长速度的对比
 
-![Alt text](/public/img/algorithm/growth-of-fun-2.jpg)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/growth-of-fun-2.jpg)
 
 *（运行时间的比较）确定时间t内求解的问题的最大规模。*
 
@@ -53,6 +53,6 @@ author: 郑未
 - lgn就是很优秀的算法了，比如二分查找法，但是这种算法往往对输入数据的格式是有要求的，二分查找要求输入数据有序
 - 还有一种是常量，无论规模怎么扩大，都花固定时间，这是为数极少的效率最高的算法了。
 
-![Alt text](/public/img/algorithm/growth-of-fun-3.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/growth-of-fun-3.png)
 
 *函数增长速度的直观图示*

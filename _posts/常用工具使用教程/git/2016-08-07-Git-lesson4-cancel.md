@@ -54,7 +54,7 @@ cat 1.txt #内容还是111，没变化
 
 使用 `git reset -- files`等效于`git reset HEAD -- files`取消自上次提交以来的对该文件的所有add，也可以理解为**用最后一次提交来重置暂存区**。
 
-![2.3](/public/img/git/2.3.svg)
+![2.3](http://lemon.lanqiao.org:8082/teaching/img/git/2.3.svg)
 
 HEAD也可以被替换为历史上的任意`commit_id`，如 `git reset HEAD^1 -- files`用倒数第二次提交历史重置暂存区。**通常我们使用HEAD而不是某个特定的提交。**
 
@@ -97,11 +97,11 @@ cat 1.txt       #第二行不见了
 
 `git checkout -- files` 用**暂存区**重置**工作区**，用来丢弃本地修改，即上次add以来对文件的任何修改都会丢失。
 
-![4.3](/public/img/git/4.3.png)
+![4.3](http://lemon.lanqiao.org:8082/teaching/img/git/4.3.png)
 
 带上HEAD或者历史commit_id，用**提交历史来重置工作区**，即便add了，只要没提交，都会丢失。
 
-![4.4](/public/img/git/4.4.png)
+![4.4](http://lemon.lanqiao.org:8082/teaching/img/git/4.4.png)
 
 <p class="bg-warning">
 你需要知道 `git checkout [commit_id] [--] file` 是一个危险的命令， 你对那个文件做的任何修改都会消失 - 你只是拷贝了另一个文件来覆盖它。 
@@ -163,7 +163,7 @@ cat 1.txt
 
 第一次，我们回退了两个历史版本，dev分支末端的两个提交变成了悬挂提交。也就是说，下次Git执行垃圾回收(`git gc --auto`)的时候，这两个提交会被删除。
 
-![4.1](/public/img/git/4.1.png)
+![4.1](http://lemon.lanqiao.org:8082/teaching/img/git/4.1.png)
 
 **但这一切都限于仓库区和暂存区**，工作区内容不会有任何变化，通过`add`和`commit`我们可以立即取消这次`reset`带来的影响。
 
@@ -175,7 +175,7 @@ cat 1.txt
 
 把这些标记想成定义`git reset`操作的作用域就容易理解多了。
 
-![2.6](/public/img/git/2.6.svg)
+![2.6](http://lemon.lanqiao.org:8082/teaching/img/git/2.6.svg)
 
 ## 小结
 
@@ -195,7 +195,7 @@ git checkout HEAD~2
   You are in 'detached HEAD' state...  
 ```
 
-![4.2](/public/img/git/4.2.png)
+![4.2](http://lemon.lanqiao.org:8082/teaching/img/git/4.2.png)
 
 *checkout将HEAD移动到任意提交*
 

@@ -26,13 +26,13 @@ description: 本章介绍如何获取bootstrap，并提供一个基础的嵌入�
 
 **选择下载用于生产环境的成品或者源码都可以**，稍微想自定义一下的，最好下载源码。
 
-![image](/public/img/h5/boot-download.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/boot-download.png)
 
 *图1.1*
 
 解压后能看到这些文件夹和文件：
 
-![image](/public/img/h5/boot-files.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/boot-files.png)
 
 - dist是编译整合后的js、css和字体
 - 其他目录暂时不要管
@@ -95,7 +95,7 @@ HBuilder下载安装比较简单，此处不表。
 
 然后你就可以直接在hb（HBuilder简写）里面运行这个页面了，效果如下：
 
-![Alt text](/public/img/boots/1.1.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/boots/1.1.png)
 
 因为index.html的`body`中只有一个一级标题，所以我们只能看到这样的效果。
 
