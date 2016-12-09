@@ -2,1110 +2,1384 @@
 
 layout: post
 
-
-title: SpringAOP
-
+title: 深入Spring IOC/DI
 
 category: Spring框架
 
-
 tags: Spring框架
 
-
-description: 本章将系统介绍SpringAOP。
-
+description: 本章我们会深入的分析SpringIOC的原理和思想。SpringIOC可以帮我们完成对象的创建(new)，以及对象的赋值。
 
 author: 颜群
-
 
 keywords: lanqiao 蓝桥 培训 教程 javaEE Spring框架
 
 ---
 
-# 20.1 AOP原理 #
+>**本章简介**
 
-AOP（Aspect-OrientedProgramming，面向方面编程）是一种不同于OOP(Object-Oriented Programing，面向对象编程)的编程模式，它不是OOP的替代，而是对OOP的一种有益补充。
+我们已经知道，SpringIOC可以帮我们完成对象的创建`(new)`，以及给对象的属性赋值。本章我们会深入的分析SpringIOC的原理和思想。
 
-假设项目中有多个业务都包含了一些相同的代码，我们可以使用OOP的思想，将这些“相同的代码”封装到一个方法`aMethod()`之中，然后在不同的业务中调用该方法即可，如下图，
+在实际的项目开发中，我们需要尽量避免或降低对象之间的依赖关系（即降低耦合度），来提高代码的可重用性和可移植性。但通常情况，多个业务对象之间、业务对象与持久层对象等都存在着一定的依赖关系。如何才能最大化的降低对象之间的关系？这就是SpringIOC的设计初衷。
 
-![](http://i.imgur.com/TGRorG0.png)
+IOC是Inversion of Control(控制反转)的简称，它是程序设计中一种非常重要的思想。我们以往会使用`new`来创建对象，并通过`setter`方法设置对象与对象之间的依赖关系（例如有一个学生对象`student`和一个老师对象`teacher`，我们可以通过`student.setTeacher(teacher)`绑定老师和学生对象之间的关系），但这样做就会使得对象和类（或接口）、对象和对象之间产生强烈的耦合关系。而IOC就很好地解决了该问题，它将对象的创建及赋值都放到外部的IOC容器中进行，并通过IOC容器来管理各种对象之间的依赖关系。如果程序中要使用某一个对象，可以直接从IOC容器索取。从以上过程可以发现，IOC本质就是把对象的创建、赋值都放到了IOC容器中，并在IOC容器中进行对象之间依赖关系的绑定（注入），因此Spring中IOC又可以更具体的成为“依赖注入（DI）” 
 
-*图20-01*
+# 22.1 IOC的发展 #
 
-但可以发现，在各个业务之中，仍然保留着对该方法的调用，即`xx.aMethod()`。如果业务代码发生改变，仍然需要维护`xx.aMethod()`在业务中的调用位置。
+Spring IOC的发展，本质就是“解耦和”方式的发展。
 
-而从AOP的角度来看，我们可以把`aMethod()`看作是一种“横切逻辑”，即指贯穿在各个业务之中、渗透到系统各处的代码，也称为“切面”。使用AOP就可以不用再在各个业务之中显示的调用`xx.aMethod()`，而是通过配置给各个业务标识一些“切入点（Pointcut）”，例如可以将`add()`方法标识为一个切入点。当以后某个业务执行到该“切入点”时，就会根据“通知（Advice）类型”自动去执行`aMethod()`这个“切面”，如下图，
+**关于对象和类（或接口）之间的耦合关系，我们经历了以下三种的方式：**
 
-![](http://i.imgur.com/gcsCuZ0.png)
+**①**通过`new`创建。
 
-*图20-02*
+**②**通过工厂模式获取不同的实例对象（需要自己写工厂）。
 
-如果“通知类型”是“前置通知”，就会在每次执行`add()`方法前先执行`aMethod()`方法。这就好比将`add()`方法给增强了，如下，
+**③**通过IOC容器获取不同的实例对象（只需要配置）。
 
-![](http://i.imgur.com/00Zu7L3.png)
+下面分别通过示例来解析。
 
-*图20-03*
+我们先定义1个接口（课程），和两个实现类（JAVA课程和ORACLE课程），如下，
 
-可见，使用AOP的方式可以在完全不修改业务代码的前提下，给业务增加新功能，即实现了业务逻辑和“横切逻辑”的彻底解耦合。
-
-
-以下是AOP的一些基本概念，
-
-<table>
-   <tr>
-      <td>概念</td>
-      <td colspan="2">简介</td>
-   </tr>
-   <tr>
-      <td>切面（Aspect）</td>
-      <td colspan="2">一个横切功能的模块化，这个功能可能会横切多个对象（业务）。例如，aMethod()方法就是一个“切面”，它横切到了多个业务之中。</td>
-   </tr>
-   <tr>
-      <td>切入点（Pointcut）</td>
-      <td colspan="2">可以插入“横切逻辑（如aMethod()）”的方法。例如，“调用add()”就是一个切点。</td>
-   </tr>
-   <tr>
-      <td rowspan="5">通知（Advice）</td>
-      <td>前置通知（Before Advice）</td>
-      <td>在切入点add()方法执行之前，插入的通知</td>
-   </tr>
-   <tr>
-      <td>后置通知（After Returning Advice）</td>
-      <td>在切入点add()方法执行之后，插入的通知</td>
-   </tr>
-   <tr>
-      <td>异常通知（After Throwing Advice）</td>
-      <td>当切入点add()方法抛出异常时，插入的通知</td>
-   </tr>
-   <tr>
-      <td>最终通知FinallyAdvice）</td>
-      <td>当切入点add()方法执行完毕时，插入的通知（不论是正常返回还是异常退出）</td>
-   </tr>
-   <tr>
-      <td>环绕通知（Around Advice）</td>
-      <td>可以贯穿切入点add()方法执行的整个过程。</td>
-   </tr>
-</table>
-
-# 20.2 AOP的应用 #
-
-## 20.2.1 基于XML配置文件 ##
-
-常见通知的实现介绍如下：
-
-<table>
-   <tr>
-      <td>通知类型</td>
-      <td>需要实现的接口</td>
-      <td>接口中的方法</td>
-      <td>执行时机</td>
-   </tr>
-   <tr>
-      <td>前置通知</td>
-      <td>org.springframework.aop.MethodBeforeAdvice</td>
-      <td>before()</td>
-      <td>目标方法执行前。</td>
-   </tr>
-   <tr>
-      <td>后置通知</td>
-      <td>org.springframework.aop.AfterReturningAdvice</td>
-      <td>afterReturning()</td>
-      <td>目标方法执行后。</td>
-   </tr>
-   <tr>
-      <td>异常通知</td>
-      <td>org.springframework.aop.ThrowsAdvice</td>
-      <td>无</td>
-      <td>目标方法发生异常时</td>
-   </tr>
-   <tr>
-      <td>环绕通知</td>
-      <td>org.aopalliance.intercept.MethodInterceptor</td>
-      <td>invoke()</td>
-      <td>拦截对目标方法调用，即调用目标方法的整个过程</td>
-   </tr>
-</table>
-
-**(1)后置通知**
-
-我们现在以“使用SpringAOP实现日志输出”为例，采用“后置通知”的形式，讲解应用SpringAOP的基本步骤：
-
-**1.导入相关jar包**
-
-除了需要之前介绍`spring-aop-4.xx.RELEASE.jar`等包以外，还需要额外导入`aopalliance.jar`和`aspectjweaver.jar`。
-
-**2.编写除了“日志输出”以外的其他代码**
-
-即将“日志输出”留给Spring AOP去处理。如下是学生信息的增删改查相关代码，
-
-
-业务逻辑层接口**IStudentService.java**
+**ICourse.java**
 
 ```
-public interface IStudentService
+package org.lanqiao.newinstance;
+public interface ICourse
 {
-	//增加学生
-	boolean addStudent(Student student);
-	//删除学生
-	boolean deleteStudentByNo(int stuNO);
-	…
+	public abstract void learn();
 }
 ```
 
-业务逻辑层实现类**StudentServiceImpl.java**
-
-
-```
-…
-
-public class StudentServiceImpl implements IStudentService
-{
-IStudentDao stuDao;
-	//为“setter方式的设置注入”提供的setter方法
-	public void setStuDao(IStudentDao stuDao)
-	{
-		this.stuDao = stuDao;
-	}
-
-	@Override
-	public boolean addStudent(Student student)
-	{
-		stuDao.addStudent(student);
-        boolean true;
-	}
-
-	@Override
-	public void deleteStudentByNo(int stuNO)
-	{
-		stuDao.deleteStudentByNo(stuNO);
-        boolean true;
-	}
-}
-```
-
- 省略数据库访问层（`DAO`）的相关代码。
-
-
- 我们知道，业务逻辑层的作用就是将多个功能进行“组装”（详见“三层架构”一章）。我们现在就把“日志输出”作为一个功能组装（织入）到业务逻辑层的增加`addStudent()`、删除`deleteStudentByNo()`方法中，并且使用SpringAOP的方式完成。
-
-**3.编写后置通知（After Returning Advice）代码，用于实现“日志输出”功能**
-
-后置通知：会在目标方法执行完毕后自动执行，后置通知写在`AfterReturningAdvice`（接口）的实现类中的`afterReturning()`方法中。
-我们计划给业务逻辑层的增加、删除方法，加入“后置通知”，用来实现“日志输出”。如下：
-
-
-**LoggerAfterReturning.java**
-
+**JavaCourse.java**
 
 ```
-package org.lanqiao.aop;
-
-import java.lang.reflect.Method;
-import org.springframework.aop.AfterReturningAdvice;
-
-public class LoggerAfterReturning implements AfterReturningAdvice
+package org.lanqiao.newinstance;
+public class JavaCourse implements ICourse
 {
 	@Override
-	public void afterReturning(Object returnValue, Method method,
- Object[] args, Object target) throws Throwable
+	public void learn()
 	{
-		System.out.println("调用了"+target+"的"+method.getName()
-+"()方法；返回值是："+returnValue+"；参数个数是"+args.length);
+		System.out.println("学习JAVA课程");
 	}
 }
 ```
 
-其中`afterReturning()`方法的参数含义如下表，
-
-<table>
-   <tr>
-      <td>参数名</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>method</td>
-      <td>被代理的目标方法（如addStudent()和deleteStudentByNo()方法）</td>
-   </tr>
-   <tr>
-      <td>returnValue</td>
-      <td>目标方法的返回值</td>
-   </tr>
-   <tr>
-      <td>args</td>
-      <td>目标方法的参数</td>
-   </tr>
-   <tr>
-      <td>target</td>
-      <td>被代理的目标对象</td>
-   </tr>
-</table>
-
-**4.配置AOP，将“日志输出”等功能织入业务逻辑层**
-
-在applicationContext.xml的`Namespaces`标签中增加“aop”命名空间，如图，
-
-![](http://i.imgur.com/xwZJ1v0.png)
-
-*图20-04*
-
-然后通过配置文件，将增加`addStudent()`、删除`deleteStudentByNo()`方法，与后置通知方法`afterReturning()`组装在一起，如下`<aop:config>`中的相关代码，
-
-
-**applicationContext.xml**
+**OracleCourse.java**
 
 ```
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="…"
-	xmlns:xsi="…"
-	xmlns:p="…"
-	xmlns:context="…"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation=
-"http://www.springframework.org/schema/aop 
-http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
-	…">
-	<bean id="studentDao" 
-class="org.lanqiao.dao.impl.StudentDaoImpl">
-</bean>
-	<bean id="studentService" 
-class="org.lanqiao.service.impl.StudentServiceImpl">
-		   <property  name="stuDao" ref="studentDao"></property>
-	</bean>
-	<bean id="loggerAfterReturning" 
-class="org.lanqiao.aop.LoggerAfterReturning">
-</bean>
-	
-	<aop:config>
-	   <aop:pointcut id="pointcut" 
-expression="execution(public boolean 
-addStudent(org.lanqiao.entity.Student)) 
-or execution
-(public boolean deleteStudentByNo(int))" />
-	   <aop:advisor pointcut-ref="pointcut" 
-advice-ref="loggerAfterReturning" />
-	</aop:config>
-</beans>
-```
-
-以上通过配置文件，将业务逻辑层、数据库访问层、以及后置通知的实现类，都以`<bean>`的形式，加入了Spring容器，并且通过`<aop:config>`将“后置通知”织入到了增加`addStudent()`删除`deleteStudentByNo()`方法。
-
-
-`<aop:config>`标签的相关子元素、属性含义如下：
-
-<table>
-   <tr>
-      <td>子元素/属性</td>
-      <td>含义</td>
-   </tr>
-   <tr>
-      <td>&lt;aop:pointcut&gt;</td>
-      <td>切入点。当执行到该“切入点”标识的方法时，就会自动执行“通知”</td>
-   </tr>
-   <tr>
-      <td>id</td>
-      <td>切入点的唯一标示符</td>
-   </tr>
-   <tr>
-      <td>expression</td>
-      <td>切入点表达式。只要是符合该“表达式”的方法，都会被当作“切入点”，即定义了什么样的方法算是“切入点”。常见的表达式见后表。</td>
-   </tr>
-   <tr>
-      <td>&lt;aop:advisor&gt;</td>
-      <td>通知。</td>
-   </tr>
-   <tr>
-      <td>pointcut-ref</td>
-      <td>指定“通知”所关联的“切入点”</td>
-   </tr>
-   <tr>
-      <td>advice-ref</td>
-      <td>指定“通知”的具体实现类</td>
-   </tr>
-</table>
-
-表达式`expression`的常见示例如下：
-
-
-<table>
-   <tr>
-      <td>举例</td>
-      <td>含义</td>
-   </tr>
-   <tr>
-      <td>public boolean addStudent(org.lanqiao.entity.Student))</td>
-      <td>所有返回类型为boolean、参数类型为org.lanqiao.entity.Student的addStudent()方法。若在多个类中，均存在此方法，则都满足。</td>
-   </tr>
-   <tr>
-      <td>public boolean org.lanqiao.service.IStudentService.addStudent(org.lanqiao.entity.Student)</td>
-      <td>org.lanqiao.service.IStudentService类（或接口）中的addStudent()方法，并且返回类型是boolean、参数类型是org.lanqiao.entity.Student</td>
-   </tr>
-   <tr>
-      <td>public * addStudent(org.lanqiao.entity.Student)</td>
-      <td>“*”代表任意返回类型</td>
-   </tr>
-   <tr>
-      <td>public void *( org.lanqiao.entity.Student)</td>
-      <td>“*”代表任意方法名</td>
-   </tr>
-   <tr>
-      <td>public void addStudent(..)</td>
-      <td>“..”代表任意参数列表</td>
-   </tr>
-   <tr>
-      <td>* org.lanqiao.service.IStudentService.*.*(..)</td>
-      <td>org.lanqiao.service.IStudentService包中，包含的所有方法（不包含子包中的方法）</td>
-   </tr>
-   <tr>
-      <td>* org.lanqiao.service.IStudentService..*.*(..)</td>
-      <td>org.lanqiao.service.IStudentService包中，包含的所有方法（包含子包中的方法）</td>
-   </tr>
-</table>
-
-
-表达式必须写在`execution()`中，多个`execution()`可以用`or`连接起来。例如，配置文件中就将`addStudent()`和`deleteStudentByNo()`方法匹配为“切入点”，当程序执行这两个方法时，就会自动执行后置通知“loggerAfterReturning”。
-
-**5.编写测试类**
-
-**TestStudentDao.java**
-
-
-```
-public class TestStudentDao
+package org.lanqiao.newinstance;
+public class OracleCourse implements ICourse
 {
-public static void main(String[] args)
-{
-	ApplicationContext ctx = new 
-ClassPathXmlApplicationContext("applicationContext.xml");
-	IStudentService studentService 
-= (IStudentService) ctx.getBean("studentService");
-
-	Student student = new Student(7, "张三", 23);
-//增加
-	studentService.addStudent(student);
-//删除
-	studentService.deleteStudentByNo(7);
-}
-}
-```
-
-运行结果：
-
-![](http://i.imgur.com/mzza5uJ.png)
-
-*图20-04*
-
-
-以上就是使用SpringAOP的基本步骤。
-
-
-“前置通知”与“后置通知”的方法基本相同，这里不再赘述。
-
-
-**(2)异常通知**
-
-“异常通知”就是在目标方法抛出异常时，织入方法。
-
-要使用“异常通知”，就必须实现`org.springframework.aop.ThrowsAdvice`接口。该接口中没有定义任何方法，但实现该接口的类必须遵循如下形式的方法签名：
-
-`void afterThrowing ( [Method method, Object[] arguments, Object target,] Throwable ex )`
-
-即：**①**方法名必须是`afterThrowing`；
-
-**②**方法的最后一个参数必须存在，可以是`Throwable`或其子类的类型；
-
-**③**方法的前三个参数，要么都存在，要么一个也不存在。
-
-
-实现步骤及配置方法与“后置通知”相同，这里仅演示“异常通知”的实现类：
-
-**LoggerThrowsAdvice.java**
-
-```
-package org.lanqiao.aop;
-import java.lang.reflect.Method;
-import org.springframework.aop.ThrowsAdvice;
-public class LoggerThrowsAdvice implements ThrowsAdvice
-{
-	public void afterThrowing(Method method, 
-Object[] arguments, Object target, Throwable ex)
+	@Override
+	public void learn()
 	{
-		System.out.println(target+"对象的"+method.getName()
-+"()方法发生了异常："+ex.getMessage()
-+"\n方法参数的个数是:"+arguments.length);
+		System.out.println("学习Oracle课程");
 	}
-	/*
-	或
-	public void afterThrowing(Throwable ex)
-	{
-		System.out.println("发生了异常："+ex.getMessage());
-	}
-	*/
 }
 ```
 
-**(3)环绕通知**
+#### (1)通过new自己创建。 ####
+
+学生Student要想学习Java课程，就得定义一个学习Java课程的方法，并在该方法里自己创建`JavaCourse`对象来调用学习JAVA的方法。如下，
 
 
-环绕通知在目标方法的前后都可以织入方法，是功能最强大的“通知”。Spring把目标方法的控制权全部交给了“环绕通知”。
-
-
-在环绕通知中，可以获取或修改目标方法的参数、返回值，也可以对目标方法进行异常处理，甚至可以决定目标方法是否执行。
-
-
-环绕通知的实现类举例如下：
-
-**LoggerAround.java**
-
+**Student.java**
 
 ```
-package org.lanqiao.aop;
-
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-
-// 通过MethodInterceptor接口实现环绕通知
-public class LoggerAround implements MethodInterceptor
+package org.lanqiao.newinstance;
+public class Student
 {
-	public Object invoke(MethodInvocation invoke)
+    //学习JAVA课程
+	public void learnJavaCourse()
 	{
-		// 获取被代理对象
-		Object target = invoke.getThis();
-		// 获取被代理方法
-		Method method = invoke.getMethod();
-		// 获取方法参数
-		Object[] args = invoke.getArguments();
-		System.out.println("调用 " + target + " 的 " 
-+ method.getName() + "()方法。方法的入参是：" 
-+ Arrays.toString(args));
-		Object result = null;
-		try
-		{
-			// 调用目标方法，获取目标方法返回值
-			result = invoke.proceed();
-			System.out.println("调用 " + target + " 的 " 
-+ method.getName() + "()方法。方法的返回值是：" 
-+ result);
-		}
-		catch (Throwable e)
-		{
-			System.out.println(method.getName() + " 方法发生异常：" 
-+ e);
-		}
-		return result;
+        //自己创建JavaCourse对象
+		ICourse course = new JavaCourse();
+		course.learn();
 	}
 }
 ```
 
-环绕通知必须实现`MethodInterceptor`接口中的`invoke()`方法，其参数`invoke`包含了目标方法及目标对象的所有内容，通过`invoke.proceed()`可以调用目标方法，从而实现对目标方法的完全控制。
+试想，如果现在Stuent想去学习Oracle课程，那么就必须再重写一个学习Oracle方法，并在方法里自己创建`OracleCourse`对象来调用学习Oracle的方法，如下
 
 
-## 20.2.2 基于注解 ##
-
-除了使用配置XML方式实现AOP以外，Spring还支持以注解的方式定义“通知”，从而实现AOP。
-
-**(1)使用注解实现“前置/后置通知”**
-
-
-我们现在用注解的方式来实现“基于SpringAOP的日志输出”，步骤如下：
-
-**1.导入相关JAR包**
-
-与XML方式需要的JAR相同
-
-**说明：**
-
-
-**若使用的Spring是3.2之前的版本，则在使用注解时需要导入spring-asm-x.x.x.RELEASE.jar。**
-
-
-**2.使用注解定义“通知”**
-
-本例采用“前置通知”和“后置通知”进行演示，“通知”类的代码如下：
-
-
-**LoggerBeforeAndAfterReturning.java**
-
+**Student.java**
 
 ```
-package org.lanqiao.aop.annotation;
-
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-@Aspect
-public class LoggerBeforeAndAfterReturning
-{
-	@Before("execution(public boolean 
-org.lanqiao.service.IStudentService
-.addStudent(org.lanqiao.entity.Student)) ")
-	public void before() {
-		System.out.println("方法执行前...");
-	}
-	
-	@AfterReturning("execution(public boolean 
-org.lanqiao.service.IStudentService
-.addStudent(org.lanqiao.entity.Student)) ")
-	public void afterReturning() {
-		System.out.println("方法执行后...");
-	}
-}
-```
-
-
-即在类定义前加上“@Aspect”，然后在方法前加上“通知”，类型如下：
-
-
-<table>
-   <tr>
-      <td>通知类型</td>
-      <td>注解</td>
-   </tr>
-   <tr>
-      <td>前置通知</td>
-      <td>@Before</td>
-   </tr>
-   <tr>
-      <td>后置通知</td>
-      <td>@AfterReturning</td>
-   </tr>
-   <tr>
-      <td>最终通知</td>
-      <td>@After</td>
-   </tr>
-   <tr>
-      <td>异常通知</td>
-      <td>@AfterThrowing</td>
-   </tr>
-   <tr>
-      <td>环绕通知</td>
-      <td>@Around</td>
-   </tr>
-</table>
-
-
-其中“最终通知”是在目标方法执行之后执行的通知，并且无论目标方法是否发生了异常，都会执行“后置通知”。
-
-
-注解后面的小括号是表达式语言，用来指定织入的目标方法。表达式的书写规范和XML方式中的完全相同。
-
-
-**3.编写Spring配置文件**
-
-需要执行三步操作：
-
-
-**①**在配置文件的`Namespaces`标签中增加“aop”命名空间（详见XML方式）
-
-**②**启用对注解的支持
-
-只需要加入以下一条语句：
-
-`<aop:aspectj-autoproxy></aop:aspectj-autoproxy>`
-
-
-**③**将“通知”类加入SpringIOC容器。
-
-
-
-**applicationContext.xml**
-
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="…"
-	xmlns:xsi="…"
-	xmlns:p="…"
-	xmlns:context="…"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation=
-"http://www.springframework.org/schema/aop 
-http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
-	…">
-	…
-    <!-- 启用对注解的支持 -->
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-    <!-- 将“通知”类加入SpringIOC容器 -->
-	<bean class="org.lanqiao.aop.annotation
-.LoggerBeforeAndAfterReturning">
-</bean>
-</beans>
-```
-
-
-以上就是使用注解实现了“前置/后置通知”，但“通知”的内容只是一句简单的输出语句，如System.out.println("方法执行后...")。如果想要像“XML方式”那样得到目标对象及方法的相关信息，就需要使用JoinPoint类型的参数。
-
-`JoinPoint`:称为“连接点”，是一个接口；该接口包含的常用方法如下表：
-
-
-<table>
-   <tr>
-      <td>方法名</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>getTarget()</td>
-      <td>获取目标对象</td>
-   </tr>
-   <tr>
-      <td>getSignature()</td>
-      <td>获取目标方法的Signature对象，可以通过该对象的getName()方法获取到目标方法的名称。</td>
-   </tr>
-   <tr>
-      <td>jp.getArgs()</td>
-      <td>获取目标方法的参数列表</td>
-   </tr>
-</table>
-
-
-此外，对于后置通知，可以用`pointcut`属性指定`execution`表达式；用`returning`属性指定存储目标方法返回值的变量，再将该变量放入后置通知方法的参数列表中，如下：
-
-
-修改之前的“通知”类**LoggerBeforeAndAfterReturning.java**
-
-
-```
-package org.lanqiao.aop.annotation;
-…
-import org.aspectj.lang.JoinPoint;
-@Aspect
-public class LoggerBeforeAndAfterReturning
+package org.lanqiao.newinstance;
+public class Student
 {
 	…
-	@AfterReturning( pointcut="execution(public boolean 
-org.lanqiao.service.IStudentService
-.addStudent(org.lanqiao.entity.Student)) ,
-returning="returningValue")
-	public void afterReturning(JoinPoint jp,Object returningValue)
- {
-		System.out.println("对象:"+jp.getTarget()
-+",方法名："+jp.getSignature().getName()
-+"()\n参数列表："+Arrays.toString(jp.getArgs())
-+",返回值："+returningValue);
-		System.out.println("方法执行后...");
+	//学习Oracle课程
+	public void learnOracleCourse()
+	{
+		ICourse course = new OracleCourse();
+		course.learn();
 	}
 }
 ```
 
-执行符合`execution` 表达式的`addStudent()`方法，运行结果：
+可以发现，此种通过`new`创建对象的方式存在很大的缺点：
 
-![](http://i.imgur.com/t31yWXm.png)
-
-
-*图20-05*
+创建的对象和类强烈的耦合在了一起。如果需要Java课程对象，就必须执行`ICourse course = new JavaCourse()`；而如果需要Oracle课程对象，就必须执行`ICourse course = new OracleCourse()`。并且，这样做会使创建的对象到处分散，给后期维护造成很大困难。
 
 
-**(2)使用注解实现 “异常通知”**
+如图，`Student`类中的方法，通过`new`的方式分别创建`JavaCourse`和`OracleCourse`两个对象，并负责这两个对象的整个生命周期。
 
-当目标方法发生异常时执行的“通知”，就称为“异常通知”。“异常通知类”的代码如下，
+![](http://i.imgur.com/nMiK9wJ.png)
+
+*图22-01*
+
+#### (2)通过工厂模式获取。 ####
+
+为了避免创建的对象到处分散、对象和类强烈的耦合在一起、每一次使用新对象前都得先实例化`(new)`一次，我们可以将“创建对象”这一过程提取出来，由一个工厂`Factory`来统一创建，以后如果需要新的对象，就可以直接从工厂中索取。
 
 
-**LoggerWhenException.java**
-
+**CourseFactory.java**
 
 ```
-…
-@Aspect
-public class LoggerWhenException
+public class CourseFactory
 {
-	@AfterThrowing( pointcut="execution(public boolean 
-org.lanqiao.service.IStudentService
-.addStudent(org.lanqiao.entity.Student)) ", 
-throwing = "e")
-public void afterThrowing(JoinPoint jp, NullPointerException e) {
-		System.out.println(jp.getSignature().getName() 
-+ " ()方法发生了异常：" + e);
+	public static ICourse getCourse(String courseName)
+	{
+		if (courseName.equals("java"))
+			return new JavaCourse();
+		else
+			return new OracleCourse();
 	}
 }
 ```
 
-异常通知的方法通过`@AfterThrowing`注解标识，并通过`throwing`属性指定了异常变量名，再将该变量名放入异常通知方法的参数列表中。需要注意的是，参数中指定异常的类型是`NullPointerException`，就表名此异常通知只能在发生`NullPointerException`异常时自动执行；如果目标方法产生了其他类型的异常，是不会触发此异常通知的。
+有了课程工厂之后，学生`Student`如果要学习JAVA课程，只需要给工厂的`getCourse()`方法传入”java”参数，就会得到一个`JavaCourse`对象；同理，如果要学习Oracle课程，只需要给工厂的`getCourse()`方法传入`”oracle”`参数，就会得到一个`OracleCourse`对象。如下，
 
 
-我们再将此异常通知类加入SpringIOC容器，如下，
+**Student.java**
+
+```
+package org.lanqiao.factoryinstance;
+public class Student
+{
+	// 学习JAVA或Oracle课程
+	public void learnCourse()
+	{
+		ICourse course = CourseFactory.getCourse("java");
+		course.learn();	
+}
+}
+```
+
+即不论学生需要JavaCourse或OracleCourse对象，都可以从课程工厂CourseFactory这个中间仓库中获取。例如，上面代码中`course`代表一个JavaCourse对象；如果想把`course`变为Oracle对象，只需要将`getCourse (String courseName)`方法的参数值改为“oracle”即可。工厂模式的原理如图，
+
+![](http://i.imgur.com/Bv7M7lJ.png)
 
 
-**applicationContext.xml**
+*图22-02*
+
+这样做在一定程度降低了对象`（coure）`与类(`JavaCourse`或`OracleCourse`)之间的耦合度，并且将对象的创建进行了集中管理，便于以后的维护。但是这样做，对象的产生仍然依赖于工厂（即把实例化`new`的过程统一放在了工厂中进行），并且中间又多了一道工序。
+
+
+#### (3)通过IOC容器获取。 ####
+
+“通过`new`自己创建对象”依赖于具体的类，“过工厂模式获取对象”依赖于工厂，都存在着一定的依赖性。为了彻底的解决依赖性问题，我们不用`new`也不用工厂，而是把对象的创建放到Spring配置文件（applicatoinContext.xml）中进行。如果需要使用对象，只需要先在Spring中配置此对象（SpringIOC容器会帮助我们自动创建对象），然后直接从SpringIOC容器中获取即可。
+
+例如，我们通过applicatoinContext.xml配置了两个课程对象（Java课程对象和Orace课程对象），并通过id值来区分。如下，
+
+**applicatoinContext.xml**
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans …>
 	…
-  <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-<bean class="org.lanqiao.aop.annotation.LoggerWhenException">
-</bean>
+	<bean id="javaCourse" class="org.lanqiao.iocinstance.JavaCourse">
+	</bean>
+	
+	<bean id="oracleCourse" 
+class="org.lanqiao.iocinstance.OracleCourse">
+	</bean>
 </beans>
 ```
 
-并将`execution`表达式所代表的`addStudent()`方法进行修改，让其产生一个`NullPointerException`异常，如下，
+配置完后， SpringIOC容器就会替我们自动创建这两个对象（根据`class`值所代表的类型，创建相应的对象，并用id来标识该对象）。以后要使用这两个对象时，就可以通过`ApplicationContext`对象的`getBean()`方法，根据标识符id，直接从SpringIOC容器中获取，如下，
+
+
+**Student.java**
+
+```
+package org.lanqiao.iocinstance;
+//省略import
+public class Student
+{
+	// 通过参数给getBean()方法传入不同的id值 来获取不同的课程对象
+	public void learnCourse()
+	{
+		ApplicationContext context 
+= new ClassPathXmlApplicationContext("applicatoinContext.xml");
+		ICourse course =(ICourse)context.getBean("oracleCourse");
+		course.learn();
+	}
+}
+```
+
+如果需要Oracle课程对象，只需要给`getBean()`方法中传入Oracle课程的id值`” oracleCourse”`，即可从SpringIOC容器中获取Oracle课程的对象。
+
+
+可以发现，所谓的SpringIOC容器本质就是一个非常大的“工厂”，只是这个工厂不用我们自己维护，而是交给Spring去帮我们管理。我们需要做的，只是在Spring配置文件中进行对象的配置，然后就可以直接通过`getBean()`方法从SpringIOC容器中获取。
+
+
+我们也可以从中体会到“控制反转”的思想：Student不再依靠自身的代码去创建具体的课程对象，而是把这一工作交给了“SpringIOC容器”，从而避免了课程对象和课程类之间的耦合关系。即对于“如何获取课程对象”这件事上，“控制权”发生了反转--从`Student`类转移到了“SpringIOC”容器，即所谓的“控制反转”。
+
+# 22.2 依赖注入DI #
+
+## 22.2.1 依赖注入简介 ##
+
+从另一个角度来看，IOC(控制反转)也可以称为DI(依赖注入)。DI是指：将SpringIOC容器中的资源，注入到某些对象之中。例如以下示例：
+
+* 有一个老师`Teacher`类，有姓名`name`和年龄`age`两个属性；
+
+* 有一个课程`Course`类，有课程名`courseName`、课时数`courseHours`、老师`teacher`三个属性，和一个介绍课程的`showInfo()`方法；
+
+
+* 以及测试`Test`类。
+
+**Teacher.java**
+
+```
+package org.lanqiao.iocinstance;
+public class Teacher
+{
+	private String name ;
+	private int age ;
+	//省略setter、getter
+}
+```
+
+**Course.java**
+
+```
+package org.lanqiao.diinstance;
+public class Course
+{
+	private String courseName; //课程名
+	private int courseHours; //课时
+	private Teacher teacher; //授课老师
+	//省略setter、getter
+	public void showInfo()
+	{
+		System.out.println("课程名："+courseName+"\t课时：
+"+courseHours+"\t\t授课老师："+teacher.getName());
+	}
+}
+```
+
+`Teacher`类和`Course`类创建好以后，我们通过Sping配置文件，在SpringIOC中创建id为`“teacher”`和`“course”`的两个对象，并赋值，如下，
+
+
+**applicatoinContext.xml**
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans …>
+	<bean id="teacher" class="org.lanqiao.dicinstance.Teacher">
+		<property name="name" value="颜群"></property>
+		<property name="age" value="28"></property>
+	</bean>
+	<bean id="course" class="org.lanqiao.diinstance.Course">
+		<property name="courseName" value="JAVA"></property>
+		<property name="courseHours" value="100"></property>
+		<property name="teacher" ref="teacher"></property>
+	</bean>	
+</beans>
+```
+
+其中`<property>`元素的`value`和`ref`属性的简介如下，
+
+<table>
+   <tr>
+      <td>属性</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>value </td>
+      <td>给name所表示的“简单类型”的属性赋值（如String、int）</td>
+   </tr>
+   <tr>
+      <td>ref </td>
+      <td>给name所表示的“自定义类型”的对象属性赋值（如Teacher类型的属性）。ref的值是另一个&lt;bean&gt;的id值，从而实现多个&lt;bean&gt;之间相互引用、相互依赖的关系。</td>
+   </tr>
+</table>
+
+
+通过以上配置文件可以发现：对于`Course`对象来说，SpringIOC容器不仅通过`<property>`的`value`属性，给`String courseName`、`int courseHours`这些“简单类型”的属性赋了值；还可以通过`<property>`的`ref`属性，给`Teacher teacher`这种对象类型也赋了值。也就是说，对象的值都是通过SpringIOC容器给注入进去的，所以也被称为“依赖注入（DI）”。
+
+
+换句话说，对象与对象之间的依赖关系（如`Course`对象和`Teacher`对象）、对象和类之间的依赖关系（如id为`”course”`的`Course`对象，和`Course`类）都是由SpringIOC容器注入的。
+
+
+通过以上配置，SpringIOC容器就帮我们创建好类`Teahcer`对象和`Course`对象，并赋了值。我们接下来，只需要从SpringIOC中获取这些赋了值的对象，直接使用即可，如下，
+
+
+测试类**Test.java**
+
+```
+package org.lanqiao.diinstance;
+//import…
+public class Test
+{
+	public static void main(String[] args)
+	{
+		ApplicationContext context 
+= new ClassPathXmlApplicationContext("applicatoinContext.xml");
+//直接从SpringIOC容器中,根据id值获取属性值已经赋值完毕的对象
+		Course course =(Course)context.getBean("course");
+		course.showInfo();
+	}
+}
+```
+
+执行Test.java，运行结果：
+
+![](http://i.imgur.com/c000gsY.png)
+
+
+*图22-03*
+
+
+## 22.2.2 三种方式的依赖注入 ##
+
+Spring提供了多种方式的依赖注入，常见的有三种：setter设值注入、构造器注入、p命名空间注入。
+
+
+#### (1) setter设置注入 ####
+
+之前，我们是通过以下方式给对象中的属性赋值的，
+
+```
+<property name="属性名" value="属性值"></property>
+或
+<property name="属性名" ref="引用对象的id值"></property>
+```
+
+这种方式称为“`setter`设置注入”，本质是通过反射机制，调用了对象的`setter`方法，对属性进行的赋值操作。例如，
+
+
+```
+<bean id="course" class="org.lanqiao.diinstance.Course">
+		<property name="courseName" value="JAVA"></property>
+		<property name="teacher" ref="teacher"></property>
+        …
+</bean>	
+```
+
+给`Course`对象的属性赋值的过程是：在`Course`对象中寻找`setCourseName()`方法，如果存在，则再将`<property>`中的`value`的值“JAVA”传入到参数中，即调用了对象的`setter`方法进行赋值。如果我们手动将`Course`类中的`setCourseName()`方法改为`setCourseName2()`，Spring就会产生一个异常，如下，
+
+
+**Course.java**
+
+```
+…
+public class Course
+{
+    …
+	public void setCourseName2(String courseName)
+	{
+		this.courseName = courseName;
+	}
+}
+```
+
+执行测试类**Test.java**，会抛出以下异常：
+
+```
+Caused by: org.springframework.beans.NotWritablePropertyException: Invalid property 'courseName' of bean class [org.lanqiao.diinstance.Course]: Bean property 'courseName' is not writable or has an invalid setter method. Did you mean 'courseName2'?
+```
+
+从我们修改后的`Course`类和异常提示可以知道，Spring根据
+
+```
+<bean id="course" class="org.lanqiao.diinstance.Course">
+		<property name="courseName" value="JAVA"></property>
+		<property name="courseHours" value="100"></property>
+		<property name="teacher" ref="teacher"></property>
+</bean>	
+```
+
+中的`name`值`”courseName”`去在`org.lanqiao.diinstance.Course`类里面寻找`setCourseName()`方法，结果没找到，所以抛出了异常。这也告诉我们，如果采用`value`（或`ref`）这种`setter`方式给属性赋值，就一定得有相应的`setter`方法。
+
+#### (2)构造器注入 ####
+
+我们还可以使用构造器（即构造方法），给对象中的属性赋值的。
+
+
+顾名思义，“构造器注入”就是通过对象的构造方法对属性赋值，因此我们在使用“构造器注入”之前，必须先在类中创建相应的构造方法，如下分别在`Teacher`类和`Curse`类中创建了含参和无参的构造方法。
+
+
+**说明：**
+
+**如果手工编写了含参构造方法后，Java虚拟机就不再提供默认的无参构造方法。因此，我们又手工编写了一个无参构造方法，供以后使用。**
+
+**Teacher.java**
+
+```
+package org.lanqiao.diinstance;
+public class Teacher
+{
+	private String name;
+	private int age;
+	public Teacher()
+	{
+	}
+	public Teacher(String name, int age)
+	{
+		this.name = name;
+		this.age = age;
+	}
+    //省略setter、getter
+ }
+```
+
+**Course.java**
+
+```
+package org.lanqiao.diinstance;
+public class Course
+{
+	private String courseName;
+	private int courseHours;
+	private Teacher teacher;
+	public Course()
+	{
+	}
+	public Course(String courseName, int courseHours, Teacher teacher)
+	{
+		this.courseName = courseName;
+		this.courseHours = courseHours;
+		this.teacher = teacher;
+	}
+    //省略setter、getter及showInfo()方法
+}
+```
+
+注意到，`Teacher`类的含参构造方法中，第0个参数是`name`属性，第1个参数是`age`属性，因此，我们可以通过“构造器注入”按参数顺序依次给`name`、`age`属性赋值，如下，
+
+
+**applicationContext.xml**
+
+```
+	<bean id="teacher" class="org.lanqiao.diinstance.Teacher">
+         <!—-给构造方法的第0个参数赋值-->
+		<constructor-arg value="颜群"></constructor-arg>
+         <!—-给构造方法的第1个参数赋值-->
+		<constructor-arg value="28"></constructor-arg>
+	</bean>
+```
+
+以上， `<constructor-arg>`顺序和构造方法中参数的顺序一致，即可保证第一个`<constructor-arg>`的`value`值赋值给构造方法的第一个参数，第二个`<constructor-arg>`的`value`值赋值给构造方法的第二个参数。
+
+如果不能保证`<constructor-arg>`的顺序和构造方法中参数的顺序一致，则可以使用`index`或`name`属性指定，如下，
+
+**①使用index来指定参数的位置索引**
+
+**applicationContext.xml**
+
+```
+<bean id="teacher" class="org.lanqiao.diinstance.Teacher">
+    <!—-通过index属性，指定给构造方法中的第1个参数赋值-->
+	<constructor-arg value="28" index="1"></constructor-arg>
+    <!—-通过index属性，指定给构造方法中的第0个参数赋值-->
+	<constructor-arg value="颜群" index="0"></constructor-arg>
+</bean>
+```
+
+**②使用name属性来指定参数的属性名**
+
+**applicationContext.xml**
+
+```
+<bean id="teacher" class="org.lanqiao.diinstance.Teacher">
+    <!—-通过name属性，指定给构造方法中的“age”参数赋值-->
+	<constructor-arg value="28" name="age"></constructor-arg>
+    <!—-通过name属性，指定给构造方法中的“name”参数赋值-->
+	<constructor-arg value="颜群" name="name"></constructor-arg>
+</bean>
+```
+
+现在，试想一下这个问题:
+
+如果A类有`String str`和`int num`两个属性，并且只有以下两个构造方法，`public A(String str){…}`和`public A(int num) {…}`，该如何通过构造方法赋值呢？
+
+如果写成下面这样：
+
+```
+<bean id="a" class="A">
+	<constructor-arg value="123" ></constructor-arg>
+</bean>
+```
+
+则Spring将无法知道”123”是`String`类型的还是`int`类型的（因为Spring会将所有“简单类型”的变量值，都写在`value`值的双引号中）。为了解决这个问题，可以使用`<constructor-arg>`标签的`name`或`type`属性解决，如下
+
+
+**①**使用`name`属性来指定参数的属性名。
+与上一个示例的使用方法相同
+
+
+**②**使用`type`属性来指定参数值的类型。如下，
+
+```
+<bean id="a" class="A">
+	<constructor-arg  value="123"  type="java.lang.String">
+</constructor-arg>
+</bean>
+```
+
+表示调用了`public A(String str){…}`构造方法；而如果改为`type="int"`，则就表示调用的是
+`public A(int num) {…}`
+
+
+因此，通过“构造器注入”给`Teacher`对象的属性赋值的完整写法如下：
+
+**applicationContext.xml**
+
+```
+<bean id="teacher" class="org.lanqiao.diinstance.Teacher">
+		<constructor-arg name="name"  value="颜群"  index="0" 
+type="java.lang.String" >
+</constructor-arg>
+
+		<constructor-arg  name="age"  value="28"  index="1" 
+type="int">
+</constructor-arg>
+</bean>
+```
+
+除了给“简单类型”的属性赋值以外，“构造器注入”还可以通过`“ref”`给对象类型的属性赋值。给对象类型的属性赋值时，只需要把`value`换成`ref`即可，如下，
+
+**applicatoinContext.xml**
+
+```
+<bean id="course" class="org.lanqiao.diinstance.Course">
+		<constructor-arg value="JAVA"></constructor-arg>
+		<constructor-arg value="680"></constructor-arg>
+		<constructor-arg  ref="teacher"></constructor-arg>
+</bean>
+```
+
+再次强调，使用“构造器注入“之前，一定要保证类中提供了相应的构造方法。
+
+
+#### (3) p命名空间注入 ####
+
+使用“p命名空间注入”方式之前，我们必须先在Spring配置文件applicationContext.xml
+中，引入“p命名空间 ”，即 `xmlns:p="http://www.springframework.org/schema/p"`，如下，
+
+
+**applicationContext.xml**
+
+```
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="…" …>
+</beans>
+```
+
+如果使用的Eclipse安装了Spring Tool Suite，就可以直接在Namespaces标签中选中“p命名空间”，如图，
+
+![](http://i.imgur.com/0ffj7hE.jpg)
+
+
+*图22-04*
+
+使用“p命名空间注入”的特点是，直接使用“p”给对象的属性赋值（而不用再使用“`name`”、“`value`”、“`type`”等属性），从而简化了配置代码，如下，
+
+
+**applicationContext.xml**
+
+```
+<bean id="teacher" class="org.lanqiao.diinstance.Teacher" 
+p:name="颜群" p:age="28">
+</bean>
+
+<bean id="course" class="org.lanqiao.diinstance.Course" 
+	    p:courseName="JAVA" 
+		p:courseHours="680" p:teacher-ref="teacher"> 
+</bean>
+```
+
+即通过“p:属性名”给“简单类型”的属性赋值，通过“p:属性名-ref”给对象类型的属性赋值。
+
+
+## 22.2.3 注入各种数据类型的属性 ##
+
+Spring提供了不同的标签，来实现不同类型参数的注入。
+
+#### (1) 使用“setter设置注入”方式，注入各种类型的属性 ####
+
+##### ①注入“简单类型”的属性值 #####
+
+除了使用之前的`value`属性以外，还可以使用`<value>`子元素，如下，
+
+
+**applicationContext.xml**
+
+```
+<bean id="teacher" class="org.lanqiao.diinstance.Teacher">
+		<!-- 使用子元素<value>注入 -->
+		<property name="name">
+			<value type="java.lang.String">颜群</value>	
+		</property>
+
+		<!-- 使用value属性注入 -->
+		<property name="age" value="28"></property>
+</bean>
+```
+
+两种注入参数值方式的区别如下：
+
+<table>
+   <tr>
+      <td></td>
+      <td>使用子元素&lt;value&gt;注入</td>
+      <td>而使用value属性注入</td>
+   </tr>
+   <tr>
+      <td>参数值位置</td>
+      <td>写在首尾标签（&lt;value&gt;&lt;/value&gt;）的中间(不加双引号)</td>
+      <td>写在value的属性值中（必须加双引号）</td>
+   </tr>
+   <tr>
+      <td>type属性</td>
+      <td>有（可选） 可以通过type属性指定数据类型</td>
+      <td>无</td>
+   </tr>
+   <tr>
+      <td>参数值包含特殊字符（&lt;， &）时的处理方法</td>
+      <td>两种处理方法。   一、使用&lt;![CDATA[　　]]&gt;标记   二、使用XML预定义的实体引用</td>
+      <td>一种处理方法。即使用XML预定义的实体引用</td>
+   </tr>
+</table>
+
+其中，XML预定义的实体引用，如下表，
+
+<table>
+   <tr>
+      <td>实体引用</td>
+      <td>表示的符号</td>
+   </tr>
+   <tr>
+      <td>&lt；</td>
+      <td>&lt;</td>
+   </tr>
+   <tr>
+      <td>&amp;</td>
+      <td>&</td>
+   </tr>
+</table>
+
+**使用示例如下，**
+
+```
+<bean id="student" class="org.lanqiao.entity.Student">
+	<property name="stuName">
+		<value><![CDATA[张&三]]></value>
+</property>
+</bean>
+```
+
+或
+
+
+```
+<bean id="student" class="org.lanqiao.entity.Student">
+	<property name="stuName">
+			<value>张&amp;三</value>
+		</property>
+</bean>
+```
+
+或
+
+
+```
+<bean id="student" class="org.lanqiao.entity.Student">
+	<property name="stuName" value="张&amp;三"></property>
+</bean>
+```
+
+均表示给`Student`对象的`stuName`属性赋值为“张&三”。
+
+
+##### ②输入对象类型的属性值 #####
+
+除了使用之前的`ref`属性以外，还可以使用`<ref>`子元素，如下，
+
+
+**applicationContext.xml**
+
+
+```
+<bean id="course" class="org.lanqiao.diinstance.Course">
+…
+		<property name="teacher" >
+			 <ref bean="teacher"/>
+		</property>
+</bean>
+```
+
+通过`<ref>`子元素的`bean`属性，来指定需要引用的`<bean>`的id值（即需要引用的对象）。
+
+
+**特殊情况**：如果需要引用的对象仅仅只需要使用一次，则可以使用“内部Bean”的方式来引用（类似于JAVA中的“内部类”），如下
+
+```
+<bean id="course" class="org.lanqiao.diinstance.Course">
+		…
+		<property name="teacher" >
+			<bean class="org.lanqiao.diinstance.Teacher">
+				<property name="name" value="颜群"></property>
+				<property name="age" value="28" ></property>
+			</bean>
+		</property>
+</bean>
+```
+
+
+以上，就是使用“内部Bean”的方式，给`Course`对象注入了一个`Teacher`类型的属性。注意到“内部Bean”`Teacher`类所在的`<bean>`中并没有“id”属性，这是因为“内部Bean”只会被所属的“外部<Bean>”（本例是Course对象）使用，而不会被其他`<bean>`所引用，所以此处的“id”值可省。
+
+
+##### ③注入集合类型的属性值 #####
+
+对于集合或数组类型的属性，我们可以使用如下标签来注入属性值，
+
+<table>
+   <tr>
+      <td>类型</td>
+      <td>使用的标签</td>
+   </tr>
+   <tr>
+      <td>List或数组</td>
+      <td>外层用&lt;list&gt;；内层用&lt;value&gt;或&lt;ref&gt;</td>
+   </tr>
+   <tr>
+      <td>Set</td>
+      <td>外层用&lt;set&gt;；内层用&lt;value&gt;或&lt;ref&gt;</td>
+   </tr>
+   <tr>
+      <td>Map</td>
+      <td>外层用&lt;map&gt;；中间层用&lt;entry&gt;；内层中键用&lt;key&gt;&lt;value&gt;…&lt;/value&gt;&lt;/key&gt;，值用&lt;value&gt;…&lt;/value&gt;或&lt;ref&gt;…&lt;/ref&gt;</td>
+   </tr>
+   <tr>
+      <td>Properties</td>
+      <td>外层用&lt;props&gt;；内层中键写在&lt;prop key=”..”&gt;..&lt;/prop&gt;的key值中，值写在&lt;prop&gt;..&lt;/prop&gt;中间。Properties中的键和值通常都是字符串类型。</td>
+   </tr>
+</table>
+
+具体示例如下，
+
+**AllConnectionType.java**：包含各种集合类型的属性
+
+```
+package org.lanqiao.test;
+//省略import
+public class AllConnectionType
+{
+	private List<String> list;
+	private String[] array;
+	private Set<String> set;
+	private Map<String, String> map;
+	private Properties props;
+//省略setter、getter	
+//输出所有属性值
+public void showInfo()
+	{
+		System.out.println("List属性：" + this.list);
+		System.out.print("数组属性：");
+		for (String arr : this.array)
+		{
+			System.out.print(arr+"\t");
+		}	
+		System.out.println("\nSet属性：" + this.set);
+		System.out.println("Map属性：" + this.map);
+		System.out.println("Properties属性：" + this.props);
+	}
+}
+```
+
+通过配置文件，注入全部的属性值，如下，
+
+
+**applicationContext.xml**
+
+
+```
+<bean id="connType" class="org.lanqiao.test.AllConnectionType" >
+		<!-- 注入List类型 -->
+		<property name="list">
+			<list>
+				<!-- 定义List中的元素 -->
+				<value>苹果</value>
+				<value>橘子</value>
+			</list>
+		</property>
+
+		<!-- 注入数组类型 -->
+		<property name="array">
+			<list>
+				<!-- 定义数组中的元素 -->
+				<value>苹果</value>
+				<value>橘子</value>
+			</list>
+		</property>
+
+		<!-- 注入Set类型 -->
+		<property name="set">
+			<list>
+				<!-- 定义Set或数组中的元素 -->
+				<value>苹果</value>
+				<value>橘子</value>
+			</list>
+		</property>
+
+		<!-- 注入Map类型 -->
+		<property name="map">
+			<map>
+				<!-- 定义Map中的键值对 -->
+				<entry>
+					<key>
+						<value>apple</value>
+					</key>
+					<value>苹果</value>
+				</entry>
+
+				<entry>
+					<key>
+						<value>orange</value>
+					</key>
+					<value>橘子</value>
+				</entry>
+			</map>
+		</property>
+
+		<!-- 注入Properties类型 -->
+		<property name="props">
+			<props>
+				<!-- 定义Properties中的键值对 -->
+				<prop key="apple">苹果</prop>
+				<prop key="orange">橘子</prop>
+			</props>
+		</property>
+
+	</bean>
+```
+
+如果集合的属性值包含对象类型，只需要把`<value>`改成`<ref bean=""/>`。
+
+
+测试类**TestAllConnection.java**
+
+
+```
+…
+public static void main(String[] args)
+{
+ApplicationContext context = 
+new ClassPathXmlApplicationContext("applicatoinContext.xml");
+
+AllConnectionType connType 
+=(AllConnectionType)context.getBean("connType");
+connType.showInfo();
+}
+```
+
+执行测试类，运行结果：
+
+![](http://i.imgur.com/DlFZ8M6.png)
+
+*图22-05*
+
+
+##### ④注入null和空字符串 #####
+
+<table>
+   <tr>
+      <td>注入的值</td>
+      <td>使用的标签</td>
+   </tr>
+   <tr>
+      <td>空字符串(如String comment = “”)</td>
+      <td>&lt;value&gt;&lt;/value&gt;，即在&lt;value&gt;标签中不写任何值</td>
+   </tr>
+   <tr>
+      <td>null(如Teacher =null)</td>
+      <td>&lt;null&gt;</td>
+   </tr>
+</table>
+
+如下，表示给`Course`对象的`courseName`属性赋值为空字符串，给`teacher`属性赋值为`null`，
+
+
+**applicationContext.xml**
+
+
+```
+<bean id="course" class="org.lanqiao.diinstance.Course">
+	   <property name="courseName">
+			<value></value>
+		</property>
+		
+		<property name="teacher" ><null/></property>
+</bean>
+```
+
+#### (2) 使用“构造器注入”方式，注入各种类型的属性 ####
+
+与 “setter设置注入”方式类似，只需要把上述`<list>`、`<map>`、`< props >`等标签放入`<constructor-age>`和`</constructor-age>`中间即可。
+
+# 22.3 自动装配 #
+
+使用了IOC/DI以后，对象与对象之间的关系是通过配置文件(`ref`属性)组织在一起，而不再是通过硬编码的方式耦合在一起了。但这样做也有一定的弊端：需要额外编写大量的配置文件。为了简化配置，我们可以借用MyBatis中讲过的“约定优于配置”原则，即如果对象(`<Bean>`)的配置符合一定的“约定”，则可以省去相应的配置，也就是我们本章要讲的“自动装配”。
+需要注意的是，“自动装配”只适用于对象类型（引用类型）的属性（即通过`ref`属性注入的`<Bean>`与`<Bean>`之间的关系），而不适用于简单类型（基本类型和String类型）。
+
+例如，以下是我们之前通过“setter设值注入”方式，为课程`Course`对象注入了属性值，
+
+
+**applicationContext.xml**
+
+```
+	<bean id="teacher" class="org.lanqiao.diinstance.Teacher" >
+		…
+	</bean>
+
+	<bean id="course" class="org.lanqiao.diinstance.Course">
+		 … 
+		 <property name="courseHours" value="680"></property>
+		 <property name="teacher" ref="teacher"></property>
+	</bean>	
+```
+
+具体就是通过`value`为“简单类型”赋值，通过`ref`为对象类型赋值。而如果事先遵循一定的“约定”，就可以省略id为“`course`”的`<bean>`中，使用`<property>`为对象类型(`Teacher`对象)赋值的过程。
+
+## 22.3.1 根据属性名自动装配 ##
+
+如下，
+
+
+**applicationContext.xml**
+
+```
+<bean id="teacher" class="org.lanqiao.diinstance.Teacher" >
+	…
+</bean>
+
+<bean id="course" class="org.lanqiao.diinstance.Course" 
+autowire="byName" />
+```
+
+给`id="course"`的`<bean>`中，加上 `autowire="byName"`，就是为了告诉Spring这个`<bean>`符合一定的“约定”，可以自动为对象类型的属性（即`teacher`）赋值。之后，Spring就会自动在其他`<bean>`中，寻找id值与属性名“teacher”一致的`<bean>`。如果找到，就会将找到的`<bean>`注入到teacher属性之中，这就是根据“属性名”自动装配的约定。
+
+
+除了按照“属性名”自动装配的约定以外，还有以下几种自动装配的方式，并且是通过`autowire`属性值来指定具体方式的。
+
+<table>
+   <tr>
+      <td>autowire属性值</td>
+      <td>自动装配方式</td>
+   </tr>
+   <tr>
+      <td>no</td>
+      <td>不使用自动装配。必须通过&lt;property&gt;的ref属性来指定对象之间的依赖关系。</td>
+   </tr>
+   <tr>
+      <td>byName</td>
+      <td>根据属性名自动装配。如果某一个&lt;bean&gt;的id值，与当前&lt;bean&gt;的某一个属性名相同，则自动注入；如果没有找到，则什么也不做。（本质是寻找属性名的setter方法）</td>
+   </tr>
+   <tr>
+      <td>byType</td>
+      <td>根据属性类型自动装配。如果某一个&lt;bean&gt;的类型，恰好与当前&lt;bean&gt;的某一个属性的类型相同，则主动注入；如果有多个 &lt;bean&gt;的类型都与当前&lt;bean&gt;的某一个属性的类型相同，则Spring将无法决定注入哪一个&lt;bean&gt;，就会抛出一个异常；如果没有找到，则什么也不做。</td>
+   </tr>
+   <tr>
+      <td>constructor</td>
+      <td>根据构造器自动装配。与byType类似，区别是它需要使用构造方法。如果Spring没有找到与构造方法参数列表一致的&lt;bean&gt;，则会抛出异常。</td>
+   </tr>
+</table>
+
+## 22.3.2 根据属性类型自动装配 ##
+
+**applicationContext.xml**
+
+```
+<bean id="teacher" class="org.lanqiao.diinstance.Teacher" >
+	…
+</bean>
+
+<bean id="course" class="org.lanqiao.diinstance.Course" 
+autowire="byType" />
+```
+
+autowire设置为“byType”以后，Spring就会在其他所有`<bean>`中，寻找与Course中的`teacher`属性类型相同的`<bean>`（即找`Teacher`类型的`<bean>`），找到之后就会自动注入给`teacher`属性。
+
+
+## 22.3.3 根据构造器自动装配 ##
+
+**applicationContext.xml**
+
+```
+<bean id="teacher" class="org.lanqiao.diinstance.Teacher" >
+	…
+</bean>
+
+<bean id="course" class="org.lanqiao.diinstance.Course" 
+autowire="constructor" />
+```
+
+使用构造器自动装配，必须在`Course`类中先提供相应的构造方法。比如，本例是想通过构造方法，给`Course`类中的`teacher`属性赋值，则就必须在`Course`类中提供以下构造方法，
+
+
+**Course.java**
+
+```
+…
+public class Course
+{
+    …
+	private Teacher teacher;
+	public Course(Teacher teacher)
+	{
+		this.teacher = teacher;
+	}
+…
+}
+```
+
+**说明：**
+
+1.如果配置文件中所有的`<bean>`都要使用自动装配，则除了在每一个`<bean>`中设置`autowire`属性以外，还可以设置一个全局的“`default-autowire`”，用于给所有的`<bean>`都注册一个默认的自动装配类型。设置方法是在配置文件里，`<beans>`的属性中加入“`default-autowire`”属性，如下，
+
+```
+<beans xmlns="…"
+	 xmlns:xsi="…" 
+    	xmlns:p="…"
+	     xsi:schemaLocation="…"
+	     default-autowire="byName">
+         <bean …> …</bean>
+          …
+</beans>
+```
+
+表示给所有的`<bean>`都设置成了“根据属性名自动装配”。当然，设置全局的“`default-autowire`”以后，还可以在单独的`<bean>`中再次设置自己的“`autowire`”用来覆盖全局设置。
+
+
+2．我们虽然可以通过自动装配，来减少Spring的配置编码。但是过多的自动装配，会降低程序的可读性。因此，对于大型的项目来说，并不鼓励使用自动装配。
+
+**三种自动装配的可读性为：`byName`>`byType`>`constructor`**
+
+
+# 22.4 基于注解形式IoC配置 #
+
+之前，我们所有的Spring IoC配置都是基于XML形式的。除此以外，对于`DAO`层、`Service`层、`Controller`层中的类，还可通过注解的形式来实现Spring IoC。
+
+## 22.4.1 使用注解定义bean ##
+
+**StudentDaoImpl.java**
+
+```
+import org.springframework.stereotype.Component;
+@Component("studentDao")
+public class StudentDaoImpl implements IStudentDao
+{
+	@Override
+	public void addStudent(Student student)
+	{
+		System.out.println("模拟增加学生操作...");
+	}
+}
+```
+
+以上通过`@Component`定义了一个名为`studentDao`的`Bean`，`@Component("studentDao")`的作用等价于XML形式的`<bean id="studentDao" class="org.lanqiao.dao.StudentDaoImpl" />`。
+
+
+`@Component`可以作用在`DAO`层、`Service`层、`Controller`层等任一层的类中，范围较广。此外，还可以使用以下3个细化的注解：
+
+
+<table>
+   <tr>
+      <td>注解</td>
+      <td>范围</td>
+   </tr>
+   <tr>
+      <td>@Repository</td>
+      <td>用于标注DAO层的类</td>
+   </tr>
+   <tr>
+      <td>@Service</td>
+      <td>用于标注Service层的类</td>
+   </tr>
+   <tr>
+      <td>@Controller</td>
+      <td>用于标注Controller层的类（如某一个具体的Servlet）</td>
+   </tr>
+</table>
+
+**为了使各类的用途更加清晰、层次分明，一般推荐使用细化的注解来标识具体的类。**
+
+
+## 22.4.2 使用注解实现自动装配 ##
+
+可以使用`@Autowired`注解实现多个`Bean`之间的自动装配，如下：
+
+
+**StudentServiceImpl.java**
+
+```
+@Service("studentService")
+public class StudentServiceImpl implements IStudentService
+{
+    //@Autowired标识的属性，默认会按“属性类型”自动装配
+	@Autowired
+	private IStudentDao studentDao ;
+	
+	public void setStudentDao(IStudentDao studentDao)
+	{
+		this.studentDao = studentDao;
+	}
+
+	@Override
+	public void addStudent(Student student)
+	{
+		studentDao.addStudent(student);
+	}
+}
+```
+
+通过`@Service`标识了一个业务`Bean`，并且使用`@Autowired`为`studentDao`属性自动装配。`@Autowired`默认采用按“属性类型”自动装配，可以通过`@Qualifier`设置为按“属性名”自动装配，如下：
 
 
 **StudentServiceImpl.java**
 
 
 ```
-package org.lanqiao.service.impl;
-…
+@Service("studentService")
 public class StudentServiceImpl implements IStudentService
 {
-	private IStudentDao stuDao;
+     //指定@Autowired标识的属性，按“属性名”自动装配
+	@Autowired
+	@Qualifier("studentDao")
+	private IStudentDao studentDao ;
 	…
+}
+```
+
+`@Autowired`除了可以对属性标识以外，还可以对`setter`方法进行标识，作用与对属性标识是相同的，如下：
+
+
+**StudentServiceImpl.java**
+
+
+```
+@Service("studentService")
+public class StudentServiceImpl implements IStudentService
+{
+	private IStudentDao studentDao ;
+	@Autowired
+	public void setStudentDao(IStudentDao studentDao)
+	{
+		this.studentDao = studentDao;
+	}
+   …
+}
+```
+
+## 22.4.3 扫描注解定义的Bean ##
+
+使用`@Controller`、`@Service`、`@Repository`、`@Component`等标识完类`(Bean)`以后，还需要将这些类所在的包通过component-scan扫描后才能加载到Spring IoC容器之中，如下：
+
+
+**applicationContext.xml**
+
+
+```
+<beans…>
+<context:component-scan base-package="org.lanqiao.dao,
+org.lanqiao.service">
+</context:component-scan>
+</beans>
+```
+
+通过`base-package`属性指定需要扫描的基准包是`org.lanqiao.dao`和`org.lanqiao.service`，之后Spring就会扫描这两个包中的所有类（含子包中的类），将其中用`@Service`等标识的类加入到SpringIoC容器之中。此处在定义扫描包时用到了`context`，所以在使用前需要导入`context`命名空间，如下：
+
+![](http://i.imgur.com/uSKC7gM.jpg)
+
+
+*图22-06*
+
+
+## 22.4.2 使用注解实现事务 ##
+
+我们还可以使用`@Transactional`注解在Spring中配置声明式事务。使用前，需要再额外导入以下JAR包：
+
+<table>
+   <tr>
+      <td>spring-tx-4.2.5.RELEASE.jar</td>
+      <td>ojdbc6.jar</td>
+      <td>commons-dbcp-1.4.jar</td>
+   </tr>
+   <tr>
+      <td>commons-pool-1.6.jar</td>
+      <td>spring-jdbc-4.2.5.RELEASE.jar</td>
+      <td>aopalliance.jar</td>
+   </tr>
+</table>
+
+并在Spring配置文件中配置数据源、事务管理类，以及添加对注解配置事务的支持，如下，
+
+
+**applicationContext.xml**
+
+```
+<beans…>
+    …
+	<!-- 配置数据源 -->
+	<bean id="dataSource" 
+class="org.apache.commons.dbcp.BasicDataSource" 
+destroy-method="close">
+			<property name="driverClassName" 
+value="oracle.jdbc.OracleDriver"/>
+			<property name="url" 
+value="jdbc:oracle:thin:@127.0.0.1:1521:XE"/>
+			<property name="username" value="system"/>
+			<property name="password" value="sa"/>
+			<property name="maxActive" value="10"/>
+			<property name="maxIdle" value="5"/>
+	</bean>	
+	<!-- 配置事务管理类 -->
+	<bean id="txManager" 
+class="org.springframework.jdbc.datasource
+.DataSourceTransactionManager">
+		  <property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 增加对注解配置事务的支持 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+</beans>
+```
+
+经过以上配置后，就可以在程序中使用`@Transactional`来配置事务了，如下，
+
+
+**StudentServiceImpl.java**
+
+```
+//import…
+@Service("studentService")
+public class StudentServiceImpl implements IStudentService
+{
+	…
+	@Transactional(readOnly=false,
+propagation=Propagation.REQUIRES_NEW)
 	@Override
-	public boolean addStudent(Student student)
+	public void addStudent(Student student)
 	{
-        //测试NullPointerException所增加的语句
-		stuDao= null;
-		stuDao.addNewStudent(student);
-		return true;
+		studentDao.addStudent(student);
 	}
 }
 ```
 
-再执行`addStudent()`，运行结果：
-
-![](http://i.imgur.com/2MDxHpH.png)
-
-*图20-06*
-
-
-**(3)使用注解实现 “环绕通知”**
-
-示例代码如下：
-
-
-**LoggerAround.java**
-
-
-```
-@Aspect
-public class LoggerAround
-{
-	@Around("execution(public boolean 
-org.lanqiao.service.IStudentService
-.addStudent(org.lanqiao.entity.Student)) ")
-	public Object aroundLogger(ProceedingJoinPoint jp) 
-throws Throwable
-	{
-		try
-		{
-			Object result = jp.proceed();
-			System.out.println("对象：" + jp.getTarget()
-                   + ",方法名 " + jp.getSignature().getName() 
-+"()，参数列表："+ Arrays.toString(jp.getArgs()) 
-+"()，返回值：" + result);
-			return result;
-		}
-		catch (Throwable e)
-		{
-			System.out.println(jp.getSignature().getName() 
-+ "方法发生异常：" + e);
-			throw e;
-		}
-	}
-}
-```
-
-
-环绕通知的方法通过`@ Around`注解标识。`ProceedingJoinPoint`是`JoinPoint`的子接口，它的`procceed()`方法可以调用真正的目标方法。
-
-
-
-**(4)使用注解实现 “最终通知”**
-
-注解方式还可以实现“最终通知”，使用`@after`标识。特点是无论目标方法是否发生异常，都会执行最终通知，类似于异常机制中finally的作用。
-
-最终通知的示例代码如下：
-
-**LoggerAfter.java**
-
-```
-@Aspect
-public class LoggerAfter {
-	@After("execution(public boolean 
-org.lanqiao.service.IStudentService
-.addStudent(org.lanqiao.entity.Student)) ")
-	public void afterLogger(JoinPoint jp) {
-		System.out.println(jp.getSignature().getName() 
-+ " 方法执行完毕");
-	}
-}
-```
-
-## 20.2.3 基于Schema配置 ##
-
-**(1)使用Schema配置实现 “前置/后置通知”**
-
-
-要想实现SpingAOP，除了“基于XML配置文件”和“基于注解”的方式外，还可以采用“基于Schema配置”的方式。
-
-此方式主要是利用了Spring配置文件中的aop命名空间，如下，
-
-
-**applicationContext.xml**
-
-```
-<beans 
-…
-xmlns:aop="http://www.springframework.org/schema/aop"
-xsi:schemaLocation="http://www.springframework.org/schema/aop
- http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
-…>
-…
-</beans>
-```
-
-此方式可以将一个普通JavaBean中的方法标识为“通知方法”。例如，现在有一个普通的JavaBean，如下，
-
-
-**LoggerBeforeAndAfterReturning.java**
-
-```
-package org.lanqiao.aop.schema;
-…
-public class LoggerBeforeAndAfterReturning
-{
-	public void before()
-	{
-		System.out.println("方法执行前...");
-	}
-
-	public void afterReturning(JoinPoint jp
-, Object returningValue)
-	{
-		System.out.println("对象:" + jp.getTarget() + ",方法名："
- + jp.getSignature().getName() + "()\n参数列表："
-				  + Arrays.toString(jp.getArgs()) + ",返回值：" 
-+ returningValue);
-		System.out.println("方法执行后...");
-	}
-}
-```
-
-我们可以通过aop命名空间（`xmlns`）中的元素，将此JavaBean中的`before()`方法定义为“前置通知”，将`afterReturning()`方法定义为“后置通知”，并指定切入点，如下，
-
-
-**applicationContext.xml**
-
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<beans …>
-	…
-	<!-- 声明通知方法所在的Bean -->
-	<bean id="loggerBeforeAndAfterReturning"  
-class="org.lanqiao.aop
-.schema.LoggerBeforeAndAfterReturning">
-</bean>
-	<!-- 配置切面 -->
-	<aop:config>
-		<!-- 定义切入点 -->
-		<aop:pointcut id="pointcut" 
-expression="execution(public boolean org.lanqiao
-.service.IStudentService
-.addStudent(org.lanqiao.entity.Student))" />
-		<!-- 引用包含通知方法的Bean -->
-		<aop:aspect ref="loggerBeforeAndAfterReturning">
-			<!-- 将before()方法定义为前置通知并引用pointcut切入点 -->
-			<aop:before method="before" pointcut-ref="pointcut">
-</aop:before>
-			<!--将afterReturning()方法定义为后置通知
-并引用pointcut切入点 -->
-			<!-- 通过returning属性指定为名为result的参数注入返回值 -->
-			<aop:after-returning method="afterReturning" 
-pointcut-ref="pointcut" returning="returningValue"/>
-		</aop:aspect>
-	</aop:config>
-</beans>
-```
-
-
-即只需要将`LoggerBeforeAndAfterReturning`这个普通的JavaBean放入SpringIOC容器，然后通过`<aop:aspect>`的`ref`属性指定将该JavaBean变为“通知”。再通过`<aop:before>`标签将该JavaBean的`before()`方法标识为“前置通知”，并织入`pointcut-ref`值所指向的切入点。`<aop:after>`用来设置“后置通知”，其中的`returning`属性用来指定返回值的变量名，可以将该变量名作为方法的参数名来接收返回值。
-
-**(2)使用Schema配置实现 “异常通知”**
-
-**LoggerWhenException.java**
-
-
-```
-public class LoggerWhenException
-{	
-	public void whenException(JoinPoint jp,NullPointerException e)
-	{
-		System.out.println(jp.getSignature().getName()
-+"()方法发生了异常："+e);
-	}
-}
-```
-
-
-**applicationContext.xml**
-
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<beans …>
-	…
-	<!-- 声明通知方法所在的Bean -->
-	<bean id="loggerWhenException" 
-class="org.lanqiao.aop.schema.LoggerWhenException">
-</bean>
-	<!-- 配置切面 -->
-	<aop:config>
-		<!-- 定义切入点 -->
-		<aop:pointcut id="pointcut" 
-expression="execution(public boolean 
-org.lanqiao.service.IStudentService
-.addStudent(org.lanqiao.entity.Student))" 
-/>
-		<!-- 引用包含通知方法的Bean -->
-		<aop:aspect ref="loggerWhenException">
-			<!-- 将afterThrowing()方法定义为异常抛出通知，
-并引用pointcut切入点 -->
-			<!-- 通过throwing属性指定保存异常的变量名，
-可以将该变量名作为方法的参数名来处理异常-->
-			<aop:after-throwing method="afterThrowing"
-				pointcut-ref="pointcut" throwing="e" />
-		</aop:aspect>
-	</aop:config>
-</beans>
-```
-
-
-**(3)使用Schema配置实现 “环绕通知”**
-
-
-**LoggerAround.java**
-
-
-```
-public class LoggerAround {
-	public Object around(ProceedingJoinPoint jp) throws Throwable {
-		try {
-			Object result = jp.proceed();
-			System.out.println("对象名： " + jp.getTarget() 
-+ " ，方法名：" + jp.getSignature().getName()
-					+ "()，参数列表：" + Arrays.toString(jp.getArgs())
-+"返回值：" + result);
-			return result;
-		} catch (Throwable e) {
-			System.out.println(jp.getSignature().getName() 
-+ " 方法发生异常：" + e);
-			throw e;
-		}
-	}
-}
-```
-
-
-**applicationContext.xml**
-
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<beans …>
-	…
-	<!-- 声明通知方法所在的Bean -->
-	<bean id="loggerAround" 
-class="org.lanqiao.aop.schema.LoggerAround">
-</bean>
-	<!-- 配置切面 -->
-	<aop:config>
-		<!-- 定义切入点 -->
-		<aop:pointcut id="pointcut" 
-expression="execution(public boolean 
-org.lanqiao.service.IStudentService
-.addStudent(org.lanqiao.entity.Student))"
- />
-		<!-- 引用包含通知方法的Bean -->
-		<aop:aspect ref="loggerAround">
-			<!-- 将aroundLogger()方法定义为环绕通知,
-并引用pointcut切入点 -->
-			<aop:around method="around" pointcut-ref="pointcut"/>
-		</aop:aspect>
-	</aop:config>
-</beans>
-```
-
-
-**(4)使用Schema配置实现 “最终通知”**
-
-
-**LoggerAfter.java**
-
-
-```
-public class LoggerAfter {
-	public void after (JoinPoint jp) {
-		System.out.println(jp.getSignature().getName() 
-+ " 方法执行完毕");
-	}
-}
-```
-
-
-**applicationContext.xml**
-
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<beans …>
-	…
-		<!-- 声明通知方法所在的Bean -->
-	<bean id="loggerAfter" class="org.lanqiao.aop.schema
-.LoggerAfter">
-</bean>
-	<!-- 配置切面 -->
-	<aop:config>
-		<!-- 定义切入点 -->
-		<aop:pointcut id="pointcut" 
-expression="execution(public boolean 
-org.lanqiao.service.IStudentService
-.addStudent(org.lanqiao.entity.Student))"
- />
-		<!-- 引用包含通知方法的Bean -->
-		<aop:aspect ref="loggerAfter">
-			<!-- 将after()方法定义为最终通知，并引用pointcut切入点 -->
-			<aop:after method="after" pointcut-ref="pointcut"/>
-		</aop:aspect>
-	</aop:config>
-</beans>
-```
-
-
-# 20.3 练习题 #
+在业务方法上标识`@Transactional`注解，就为该方法增加了事务处理。`@Transactional`的常用属性的介绍如下，
+
+<table>
+   <tr>
+      <td>属性</td>
+      <td>类型</td>
+      <td>说明</td>
+   </tr>
+   <tr>
+      <td>propagation</td>
+      <td>枚举型：Propagation</td>
+      <td>（可选）事务传播行为。例如：propagation=Propagation.REQUIRES_NEW</td>
+   </tr>
+   <tr>
+      <td>readOnly</td>
+      <td>布尔型</td>
+      <td>是否为只读型事务。例如：readOnly=false</td>
+   </tr>
+   <tr>
+      <td>isolation</td>
+      <td>枚举型：isolation</td>
+      <td>（可选）事务隔离级别。例如：isolation=Isolation.READ_COMMITTED</td>
+   </tr>
+   <tr>
+      <td>timeout</td>
+      <td>int型（单位：秒） </td>
+      <td>事务超时时间。例如：timeout=20</td>
+   </tr>
+   <tr>
+      <td>rollbackFor</td>
+      <td>一组Class类的实例，必须继承自Throwable</td>
+      <td>一组异常类，遇到时必须进行回滚。例如：rollbackFor={SQLException.class,ArithmeticException.class}</td>
+   </tr>
+   <tr>
+      <td>rollbackForClassName</td>
+      <td>一组Class类的名称，必须继承自Throwable</td>
+      <td>一组异常类名，遇到时必须进行回滚。例如：rollbackForClassName={"SQLException","ArithmeticException"}</td>
+   </tr>
+   <tr>
+      <td>noRollbackFor</td>
+      <td>一组Class类的实例，必须继承自Throwable</td>
+      <td>一组异常类，遇到时必须不回滚</td>
+   </tr>
+   <tr>
+      <td>noRollbackForClassName</td>
+      <td>一组Class类的名称，必须继承自Throwable</td>
+      <td>一组异常类名，遇到时必须不回滚</td>
+   </tr>
+</table>
+
+
+# 22.5 练习题 #
 
 **一、选择题**
 
-1  下列关于AOP核心概念的描述中，不正确的是（    ）。（选择一项）
 
-A．切面（Aspect）是横切关注点的另一种表达方式
+1  在IOC容器的配置文件中，通过定义（    ）元素对应于在应用程序中创建对象。（选择一项）
 
-B．在Spring中，连接点（Joinpoint）可以是方法，也可以是其他特定的点
+A．`bean`	
 
-C．切入点（Pointcut）通常是一个表达式，有专门的语法，用于指明在哪里嵌入横切逻辑
+B．`beans`	
 
-D．通知（Advice）是在切面的某个特定的连接点上执行的动作
+C．`id`	
 
-2  对下面切入点表达式的描述，正确的是（    ）。（选择一项）
+D．`class`
 
-**`execution(* com.bd.service..*.*(..))`**
+2  IOC容器有三种注入方式，它们分别是（    ）。（选择两项）
 
-A．选择在`com.bd.service`包中定义的所有方法
+A．构造器注入	
 
-B．选择名字以`service`开始的所有方法
+B．`Setter`注入
 
-C．选择在`com.bd.service`包及其子包中定义的所有方法
-
-D．选择`service`接口定义的所有方法
-
+C．p命名空间注入	
+	
+D．方法注入
 
 **二、简答题**
 
-1什么是AOP？AOP对OOP做了哪些补充？分别有什么作用？
+1 Spring自动装配功能有几种模式？ 
+ 
+2什么是IOC和DI？请简述IOC容器产生对象的基本原理。
 
-2基于XML、注解、Schema配置形式的Spring AOP的优缺点各是什么？
+3请描述Spring自动装配中byName模式和byType模式的区别。
 
-3AOP中的通知有哪些类型？请描述各类型通知的区别。
+4基于注解形式，与基于XML形式的IoC配置的优缺点各是什么？
 
-4使用Spring进行声明式事务管理，请描述配置文件中各个`bean`之间的关系。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
