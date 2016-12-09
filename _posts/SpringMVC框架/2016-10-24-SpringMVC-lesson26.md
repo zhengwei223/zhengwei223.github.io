@@ -21,26 +21,26 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 视图（View）和视图解析器（ViewResolver）的工作流程：
 
 
-当请求处理方法处理完请求之后，会返回字符串、`ModelAndView`或`View`对象（如`return “success”`），但最终都会被SpringMVC转为`ModelAndView`对象并返回。随后Spring就会用`ViewResolver`，把`ModelAndView`中的`View`渲染给用户看（即返回给浏览器），如图,
+当请求处理方法处理完请求之后，会返回String、ModelAndView或View对象，如return “success”；但返回值最终都会被SpringMVC统一转为ModelAndView对象并返回；随后Spring就会用ViewResolver，把返回的ModelAndView对象中的View渲染给用户看（即返回给浏览器），如图,
 
 ![](http://i.imgur.com/DTELRwZ.png)
 
-*图26-01*
+*图28-01*
 
 
-# 26.1 视图View #
+# 28.1 视图View #
 
-视图View的作用是渲染数据，将数据以JSP、PDF、EXCEL等实行呈现给用户。SpringMVC通过View接口来支持视图，该接口提供了各种各样的视图，并且可以让用户自定义视图。
-、
-
-视图View对象是通过试图解析器ViewResolver完成实例化的，并且每一次请求都会产生一个新的视图View对象。
+视图View的作用是渲染数据，将数据以JSP、PDF、EXCEL等形式呈现给用户。SpringMVC通过View接口来支持视图，该接口提供了各种各样的视图，并且可以让用户自定义视图。
 
 
-视图View接口的实现类及部分简介如下，
+在客户端的每一次请求时，视图解析器ViewResolver都会产生一个新的视图View对象。
+
+
+**视图View接口的实现类及部分简介如下**
 
 ![](http://i.imgur.com/T613ROJ.png)
 
-*图26-02*
+*图28-02*
 
 <table>
    <tr>
@@ -54,7 +54,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
    </tr>
    <tr>
       <td>JstlView</td>
-      <td>InternalResourceView的子类。如果JSP中使用了JSTL的国际化标签功能，则需要使用该视图类。</td>
+      <td>InternalResourceView的子类。如果JSP中使用了JSTL的国际化标签，就需要使用该视图类。</td>
    </tr>
    <tr>
       <td rowspan="2">文档视图</td>
@@ -87,9 +87,12 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 </table>
 
 
-# 26.2 视图解析器ViewResolver #
+# 28.2 视图解析器ViewResolver #
 
-SpringMVC提供了一个视图解析器的上级接口ViewResolver，所有具体的视图解析器必须实现该接口。常用的视图解析器实现类及简介如下，
+SpringMVC提供了一个视图解析器的上级接口ViewResolver，所有具体的视图解析器必须实现该接口。
+
+**常用的视图解析器实现类及简介如下**
+
 
 ![](http://i.imgur.com/lir2s2Z.png)
 
@@ -103,25 +106,25 @@ SpringMVC提供了一个视图解析器的上级接口ViewResolver，所有具�
    <tr>
       <td>解析为bean</td>
       <td>BeanNameViewResolver</td>
-      <td>将视图解析后，映射一个bean，视图的名字就是bean的id</td>
+      <td>将视图解析后，映射成一个bean，视图的名字就是bean的id。</td>
    </tr>
    <tr>
       <td rowspan="2">解析为映射文件</td>
       <td>InternalResourceViewResolver</td>
-      <td>将视图解析后，映射一个资源文件。例如将一个视图名为字符串“success.jsp”的视图解析后，映射一个名为success的JSP文件。</td>
+      <td>将视图解析后，映射成一个资源文件。例如将一个视图名为字符串“success.jsp”的视图解析后，映射成一个名为success的JSP文件。</td>
    </tr>
    <tr>
       <td>JasperReportsViewResolver</td>
-      <td>将视图解析后，映射一个报表文件。</td>
+      <td>将视图解析后，映射成一个报表文件。</td>
    </tr>
    <tr>
       <td rowspan="3">解析为模板文件</td>
       <td>FreeMarkerViewResolver</td>
-      <td>将视图解析后，映射一个FreeMarker模板文件。</td>
+      <td>将视图解析后，映射成一个FreeMarker模板文件。</td>
    </tr>
    <tr>
       <td>VelocityViewResolver</td>
-      <td rowspan="2">将视图解析后，映射一个Velocity模板文件。</td>
+      <td rowspan="2">将视图解析后，映射成一个Velocity模板文件。</td>
    </tr>
    <tr>
       <td>VelocityLayoutViewResolver</td>
@@ -135,7 +138,7 @@ InternalResourceViewResolver是JSP最常用的视图解析器，可以通过`pre
 ```
 <beans …>
 	…
-	<!-- 配置试图解析器：把handler处理类的返回值，加工成最终的视图路径-->
+	<!-- 配置视图解析器：把handler处理类的返回值，加工成最终的视图路径-->
 	<bean class="org.springframework.web.servlet.view
 .InternalResourceViewResolver">
 		<property name="prefix" value="/views/"></property>
@@ -144,20 +147,21 @@ InternalResourceViewResolver是JSP最常用的视图解析器，可以通过`pre
 </beans>
 ```
 
+此外，视图解析器还可以通过解析JstlView进而实现国际化、通过解析`<mvc:view-controller>`进而指定请求的跳转路径、通过“redirect:”和“forward:”指定跳转方式等等。
+
 **(1)通过解析`JstlView`实现国际化**
 
 `JstlView`是`InternalResourceView`的子类。如果在JSP中使用了JSTL，那么InternalResourceViewResolver就会自动将默认使用的`InternalResourceView`视图类型转变为`JstlView`类型。
 
-以下使用JSTL的`fmt`标签来实现国际化：
+以下，在SpringMVC中使用JSTL的fmt标签来实现国际化：
 
 
-所谓“国际化”，就是指同一个程序，对于不同地区/国家的访问，提供相应的、符合来访者阅读习惯的页面或数据。例如，同一个用JSP开发的欢迎页面，中国地区访问时显示“欢迎您”，而美国地区访问时则显示“Welcome”。以下是用SpringMVC实现国际化的具体步骤：
-
+所谓“国际化”，就是指同一个程序，对于不同地区/国家的访问，提供相应的、符合来访者阅读习惯的页面或数据。例如，同一个用JSP开发的欢迎页面，中国地区访问时显示“欢迎您”，而美国地区访问时则显示“Welcome”。以下是实现国际化的具体步骤：
 
 
 **①对于不同地区/国家，创建不同的资源文件**
 
-将程序中的提示信息、错误信息等放在资源文件中，为不同地区/国家编写对应资源文件。这些资源文件使用共同的基名，通过在基名后面添加语言代码、国家和地区代码来进行区分，如下是一些常用的资源文件命名方式及简介：
+将程序中的提示信息、错误信息等放在资源文件中，为不同地区/国家编写对应资源文件。这些资源文件使用共同的基名，通过在基名后面添加语言代码、国家及地区代码来区分不同地域的访问者。如下是一些常见的资源文件命名方式及简介：
 
 
 <table>
@@ -187,12 +191,12 @@ InternalResourceViewResolver是JSP最常用的视图解析器，可以通过`pre
    </tr>
    <tr>
       <td>基名.properties</td>
-      <td>默认资源文件。如果请求的资源文件不存在，将使用此资源文件</td>
+      <td>默认资源文件。如果请求相应语言的资源文件不存在，将使用此资源文件。例如，若是中国大陆地区用户，应该访问“基名_zh_CN.properties”，而如果不存在此文件，就会去访问默认的“基名.properties”。</td>
    </tr>
 </table>
 
-例如，如果访问此项目的用户来自美国和中国两个国家，就需要创建美国和中国两个地区的资源文件：在项目的`src`目录中，新建美国地区的资源文件**i18n_en_US.properties**，和中国内地的资源文件**i18n_ zh_CN.properties**，如下：
 
+例如，如果访问此项目的用户来自美国和中国两个国家，就需要创建美国和中国两个地区的资源文件：在项目的src目录中，新建美国地区的资源文件i18n_en_US.properties，和中国内地的资源文件i18n_ zh_CN.properties，如下：
 
 **美国地区的资源文件：i18n_en_US.properties**
 
@@ -210,7 +214,7 @@ resource.exist=\u9000\u51FA
 
 **说明：**
 
-中文使用的**i18n_ zh_CN.properties**中，用户输入的原文是：
+在中文使用的**i18n_ zh_CN.properties**中，用户输入的原文是：
 
 
 **resource.welcome=欢迎您**
@@ -218,14 +222,14 @@ resource.exist=\u9000\u51FA
 **resource.exist=退出**
 
 
-但Eclise会自动将“欢迎您”等汉字自动转为相应的ASCII，供属性文件使用。
-如果读者使用的Eclipse版本不支持自动将汉字转为ASCII，则可以使用JDK安装目录中`bin`目录中的native2ascii.exe工具进行转换。
+但Eclipse会自动将“欢迎您”等汉字自动转为相应的ASCII，供属性文件使用。
+如果读者使用的Eclipse版本不能自动的将汉字转为ASCII，也可以使用JDK安装目录中bin中的native2ascii.exe工具进行转换。
 
 
-不同资源文件的基名必须保持一致（如i18n），并且资源文件是由很多`key-value`对组成，`key`保持不变（如`resource.welcome`），`value`随国家/语言不同而不同（如美国是“WELCOME”，中国是“欢迎您”）。
+不同资源文件的基名必须保持一致（如i18n），并且资源文件的内容是由很多`key-value`对组成，`key`必须一致（如resource.welcome），`value`随语言/国家地区不同而不同（如美国是“WELCOME”，中国是“欢迎您”）。
 
 
-本例使用的基名`i18n`是internationalization（国际化）的缩写。internationalization首尾字母i和n中间有18个单词，所以简称`i18n`。
+本例使用的基名i18n是internationalization（国际化）的缩写。internationalization的首尾字母i和n中间有18个字母，所以简称i18n。
 
 
 **②在SpringMVC的配置文件中，加载国际化资源文件**
@@ -248,7 +252,7 @@ Spring容器在初始化时，会自动加载`id`为`“messageSource”`，且�
 
 **③使用JSTL标签实现国际化显示**
 
-先导入JSTL依赖的2个JAR：`jstl.jar`和`standard.jar`，再在显示页**success.jsp**中导入JSTL用于支持国际化的库`fmt`，并实现国际化显示，如下：
+先导入JSTL依赖的2个JAR：`jstl.jar`和`standard.jar`，再在显示页**success.jsp**中导入JSTL用于支持国际化的库，并使用`<fmt:message …>`实现国际化显示，如下：
 
 
 **显示页success.jsp**
@@ -268,9 +272,8 @@ Spring容器在初始化时，会自动加载`id`为`“messageSource”`，且�
 …
 ```
 
-`fmt`标签的`key`值会匹配根据浏览器的语言环境去匹配资源文件中的`key`，若匹配则会显示资源文件中`key`对应的`value`值。
 
-例如，中国内陆地区下载的火狐浏览器默认的语言是中文，所以会在**i18n_zh_CN.properties**中寻找`key`为`“resource.welcome”`、`“resource.exist”`的`value`值，并显示到页面上，如下：
+`fmt`标签的`key`值会根据浏览器的语言环境去匹配资源文件中的`key`，若匹配则会显示相应资源文件中`key`对应的`value`值。例如，中国内陆地区下载的火狐浏览器默认的语言是中文，所以会在i18n_zh_CN.properties中寻找`key`为“resource.welcome”、“resource.exist”的`value`值，并显示到页面上，如下：
 
 
 **发送请求页index.jsp**
@@ -311,14 +314,14 @@ public class FirstSpringDemo
 ![](http://i.imgur.com/To3G7Kz.png)
 
 
-*图26-04*
+*图28-04*
 
 
 如果将火狐浏览器的语言切换为英文，如下：
 
 ![](http://i.imgur.com/6iUTEFG.png)
 
-*图26-05*
+*图28-05*
 
 
 再次执行**index.jsp**中的超链接，运行结果：
@@ -326,15 +329,14 @@ public class FirstSpringDemo
 ![](http://i.imgur.com/sQzjVX9.png)
 
 
-*图26-06*
+*图28-06*
 
 以上就实现了国际化的显示操作，JSP页面会根据浏览器的语言环境自动寻找相应的资源文件，并依据`key`值进行显示。
 
 
-注意：就本例来说，国际化显示标签`<fmt >`必须在**success.jsp**中才会起作用，而如果将`<fmt>`放在**index.jsp**中则无法实现国际化。这是因为在**springmvc.xml**中配置的`MessageSource`（具体是`ResourceBundleMessageSource`实现类）是用来处理响应的，也就是说只有在请求处理方法返回`String`、`View`或`ModelAndView`对象以后执行响应时，才会通过`MessageSource`来执行国际化操作。
+注意：就本例来说，国际化显示标签<fmt >必须在success.jsp中才会起作用，而如果将<fmt>放在index.jsp中则无法实现国际化。这是因为在springmvc.xml中配置的MessageSource（具体是ResourceBundleMessageSource实现类）是用来处理响应的，也就是说只有在请求处理方法返回String、View或ModelAndView对象以后执行响应时，才会通过MessageSource来执行国际化操作。而如果直接在index.jsp中执行<fmt:message ..>，因为此时还没有“处理响应”这一过程，所以就不会涉及到MessageSource，也就不会根据basename属性来指定的资源文件基名，因此本例的index.jsp中不能直接实现国际化显示。
 
 
-而如果直接在**index.jsp**中执行`<fmt>`，因为此时还没有“处理响应”这一过程，所以还不会涉及到`MessageSource`，也就不根据`basename`属性来指定的资源文件基名，因此本例的**index.jsp**中不能直接实现国际化显示。
 
 
 **(2)&lt;mvc:view-controller&gt;**
@@ -344,7 +346,7 @@ public class FirstSpringDemo
 **①**请求页**index.jsp**—>**②**使用`@RequestMapping`标识的请求处理类`FirstSpringDemo.java`中的方法-->**③**结果显示页**success.jsp**。
 
 
-除此以外，我们还可以省略②，让流程变为①—>③，即省略请求处理方法，如下：
+除此以外，我们还可以省略②，让流程简化为①—>③，即省略请求处理方法。简化的方法是在springmvc.xml中配置`<mvc:view-controller…/>`，如下：
 
 **springmvc.xml**
 
@@ -355,15 +357,14 @@ view-name="success"/>
 </beans>
 ```
 
-在**springmvc.xml**中配置`<mvc:view-controller…/>`，其中`path`用来匹配请求路径（类似于`@RequestMapping`的`value`值），`view-name`用来指定响应跳转的页面（类似于请求处理方法的字符串类型的返回值）。
 
-以上配置，就表示凡是请求路径为`“testViewController”`的，就会被直接跳转到`“success”`页面（`“success”`会加上`InternalResourceViewResolver`中设置的前缀和后缀）。如下：
+其中path用来匹配请求路径（类似于`@RequestMapping`的`value`值），`view-name`用来指定响应跳转的页面（类似于请求处理方法中的return "success"）。以上配置，就表示凡是请求路径为“testViewController”的，就会被直接跳转到“success”页面（“success”会加上InternalResourceViewResolver中设置的前缀和后缀）。如下：
 
-**index.jsp（请求路径是：`path`指定的`testViewController`）**
+index.jsp（请求路径是：`<mvc:view-controller…/>`中`path`指定的testViewController）
 
 `<a href="testViewController">testViewController</a><br/>`
 
-点击此超链接后，就会直接跳转到`view-name`指定的`success`页面（**/view/success.jsp**），即并没有经过`@RequestMapping`标识的请求处理方法。
+点击此超链接后，就会直接跳转到view-name指定的success页面（/view/success.jsp），即略过了`@RequestMapping`标识的请求处理方法。
 
 
 但是，此时如果我们再点击**index.jsp**中之前编写的其他超链接，就都会报“HTTP Status 404”异常。解决办法就是再在**springmvc.xml**中加入`<mvc:annotation-driven></mvc:annotation-driven>`，如下：
@@ -381,7 +382,7 @@ view-name="success"/>
 </beans>
 ```
 
-也就是说，在使用`<mvc:view-controller…/>`的同时，也需要加入`<mvc:annotation-driven…/>`标签。
+一般情况，在使用`<mvc:view-controller…/>`的同时，也需要加入`<mvc:annotation-driven…/>`标签。
 
 
 **(3)页面跳转方式**
@@ -411,16 +412,16 @@ view-name="success"/>
 需要注意，加上`“forward:”`或`“redirect:”`后，视图解析器将不会再给返回值加上前缀、后缀，需要我们自己写上完整的响应地址。
 
 
-# 26.3 处理静态资源 #
+# 28.3 处理静态资源 #
 
 如果我们在项目的WebContent目录下新建`imgs`目录，并存放一张图片logo.png，如图，
 
 ![](http://i.imgur.com/AS0RCvj.png)
 
-*图26-07*
+*图28-07*
 
 
-然后启动tomcat服务来访问此图片http://localhost:8888/SpringMVCDemo/imgs/logo.png，就会看到浏览器显示“HTTP Status 404”异常。这是因为我们之前在`web.xml`中配置了一个`DispatcherServlet`，如下：
+然后启动tomcat服务来访问此图片http://localhost:8888/SpringMVCDemo/imgs/logo.png，就会看到浏览器显示“HTTP Status 404”异常。这是因为我们之前在`web.xml`中配置了`DispatcherServlet`，如下：
 
 
 **web.xml**
@@ -446,7 +447,7 @@ org.springframework.web.servlet.DispatcherServlet
 …
 ```
 
-`DispatcherServlet`的`url-pattern`是“/”，会拦截所有请求。因此，当访问图片、js文件、视频等静态资源时，也会被`DispatcherServlet`所拦截并去尝试匹配相应的`@RequestMapping`，而静态资源一般不会有相应的`@RequestMapping`，因此会报404异常。为了解决此异常，以便能够访问静态资源，可以在**springmvc.xml**中加上`<mvc:default-servlet-handler/>`和`<mvc:annotation-driven></mvc:annotation-driven>`，如下：
+DispatcherServlet的url-pattern是“/”，表示会拦截所有请求。因此，当访问图片、js文件、视频等静态资源时，也会被DispatcherServlet所拦截并去尝试匹配相应的`@RequestMapping`方法，但静态资源一般不会有相应的`@RequestMapping`，因此会报404异常。为了解决此异常，以便能够访问静态资源，可以在springmvc.xml中加上`<mvc:default-servlet-handler/>`和`<mvc:annotation-driven></mvc:annotation-driven>`，如下：
 
 
 **springmvc.xml**
@@ -479,9 +480,9 @@ org.apache.catalina.servlets.DefaultServlet
     </servlet>
 ```
 
-配置了`<mvc:default-servlet-handler/>`之后，就可以解决访问静态资源的异常。而加入`<mvc:annotation-driven></mvc:annotation-driven>`的目的是为了在访问静态资源的同时，也能正常的访问其他非静态资源（如果只加`<mvc:default-servlet-handler/>`而不加`<mvc:annotation-driven></mvc:annotation-driven>`，就会造成只能访问静态资源，而无法访问非静态资源）。
+配置了`<mvc:default-servlet-handler/>`之后，就可以解决访问静态资源时产生的异常。而加入`<mvc:annotation-driven></mvc:annotation-driven>`的目的是为了在访问静态资源的同时，也能正常的访问其他非静态资源。如果只加`<mvc:default-servlet-handler/>`而不加`<mvc:annotation-driven></mvc:annotation-driven>`，就会造成只能访问静态资源，而无法访问非静态资源。
 
-# 26.4 练习题 #
+# 28.4 练习题 #
 
 1.视图和视图解析器的大致工作流程是什么？
 
