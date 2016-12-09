@@ -22,9 +22,9 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE Spring框架
 
 ---
 
-# 21.1 拆分思路 #
+# 23.1 拆分思路 #
 
-我们之前是将所有的配置内容，都放在了一个applicationContext.xml之中，这样会造成配置内容的可读性、可维护性变差。而且，如果多个开发人员同时使用同一个配置文件，将很容易引起并发性的冲突。因此，我们通常需要把applicationContext.xml分解成多个比较细粒度的配置文件，每个配置文件只配置某一个模块。
+我们之前是将所有的配置内容，都放在了一个applicationContext.xml之中，这样会造成配置内容的可读性、可维护性变差。而且，如果多个开发人员同时使用同一个配置文件，将很容易引起并发性的冲突。因此，我们通常需要把applicationContext.xml分解成多个细粒度的配置文件，在每个配置文件中只配置某一个模块。
 
 
 通常有两种分解的思路：
@@ -32,19 +32,19 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE Spring框架
 
 **(1)借用“三层架构”的分层模式：**
 
-`DAO`、`Service`、`controller`(或`action`、`servlet`)，以及公用配置（如数据源、事务）各写在一个单独的配置文件中。
+将`DAO`、`Service`、`controller`(或`action`、`servlet`)层，以及公用配置（如数据源、事务）各写在一个单独的配置文件中。
 
 **(2)将每一个模块功能，单独写在一个配置文件之中。**
 
 
-例如将“学生管理”模块和“部门管理模块”各写在一个配置文件之中。其次，再将公用配置（如数据源、事务）单独写在一个配置文件中。
+例如将“学生管理”模块和“部门管理模块”各写在一个配置文件之中。其次，再将公用配置单独写在一个配置文件中。
 
 
 # 21.2 Spring配置文件的路径 #
 
 在讲解配置文件的拆分方法之前，我们有必要先来了解一下Spring配置文件的路径。
 
-我们通常是用Spring来开发Web项目。而在Web项目中，一般需要在Web服务启动时，就自动启动Spring容器，然后让Spring容器来为其他框架提供服务。但是在Web项目中，无法像普通应用那样在`main()`方法里，通过创建`ApplicationContext`对象来启动Spring容器；而是需要通过在web.xml中配置一个监听器`Listener`，使得在Web容器初始化时，自动启动Spring容器。
+我们通常是用Spring来开发Web项目。而在Web项目中，一般需要在Web服务启动时，就自动启动Spring容器，然后让Spring容器来为其他框架提供服务。但是在Web项目中，无法像普通应用那样在`main()`方法里，通过创建`ApplicationContext`对象来启动Spring容器；而是通过在web.xml中配置一个用于监听Web容器的监听器（Listener），从而使Sping容器在Web容器初始化时自动启动。
 
 
 Spring就提供了这样一个`Listener`：**`org.springframework.web.context.ContextLoaderListener`**。
@@ -95,9 +95,9 @@ org.springframework.web.context.ContextLoaderListener
 有了以上配置之后，当启动服务器(如Tomcat)时，就会自动的初始化Spring容器了。
 
 
-# 21.3 配置文件拆分后的整合方法 #
+# 23.3 配置文件拆分后的整合方法 #
 
-现在，我们已经知道，可以在web.xml里，通过contextConfigLocation的<param-value>来指定Spring配置文件的路径。
+现在，我们已经知道，可以在web.xml里，通过contextConfigLocation的`<param-value>`来指定Spring配置文件的路径。
 
 因此，如果我们将Spring配置文件拆分成了多个，我们就可以通过以下方法来将它们组装在一起：将拆分后的配置文件全部写在`<param-value>`中，并用英文逗号分隔开。如下，
 
@@ -158,7 +158,7 @@ xmlns:p="…"
 </beans>
 ```
 
-# 21.4 练习题 #
+# 23.4 练习题 #
 
 1.拆分配置文件的优点是什么？
 
