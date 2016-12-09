@@ -22,7 +22,7 @@ description:
 
 # 知识的分类
 
-![Alt text](/public/img/toStudent/searchskill-1.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/toStudent/searchskill-1.png)
 
 *知识的分类，以及知识是如何在程序员的大脑中形成的*
  
@@ -41,7 +41,7 @@ description:
   - 用途：利用自己的专长、经验及直觉来实现最佳解决方案。
   - 收获：开发软件并总结。
  
-![Alt text](/public/img/toStudent/searchskill-2.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/toStudent/searchskill-2.png)
 
 设计模式（还有架构、领域及其他）都是结合了多种类型知识的有趣的例子：都是“如何做”的示例，这些例子背后的“概念知识”和实现它们的经验。这种知识的体现形式，正是设计模式成功并广泛应用的原因之一。
 
@@ -49,7 +49,7 @@ description:
 
 **因此，在软件开发过程中，概念知识和隐性知识仍然是非常重要的。在使用搜索技术时，我们应该去努力的扩展各种知识，而不是仅仅为了解决某个具体问题。随着解决高层次问题能力的提高，你将会成功的成为一位更高效的程序员。**
 
-![Alt text](/public/img/toStudent/searchskill-3.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/toStudent/searchskill-3.png)
 
 # 用于解决实际问题的高效搜索
 

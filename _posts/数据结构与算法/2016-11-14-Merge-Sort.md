@@ -10,11 +10,11 @@ author: 郑未
 ---
 # 分治
 
-![Alt text](/public/img/algorithm/merge-1.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/merge-1.png)
 
 # 关键算法
 
-![Alt text](/public/img/algorithm/merge-2.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/merge-2.png)
 
 伪代码及算例见《算法导论》
 

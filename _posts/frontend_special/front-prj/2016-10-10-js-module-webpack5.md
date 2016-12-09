@@ -56,7 +56,7 @@ CommonsChunkPlugin是webpack的内置插件，因此无需安装。
 
 请修改package.json中的`--config webpack.config-comm.js`选项并编译——`npm run build`，产出物如下:
 
-![4.4](/public/img/front-advance/4.4.png)
+![4.4](http://lemon.lanqiao.org:8082/teaching/img/front-advance/4.4.png)
 
 对比上次编译，多出了common.js(主要内容为jquery)和common.css(主要包含main.css)，而且现在todo-mpa.js大小仅为661 bytes，之前为88.6kb，这是因为todo-mpa.js不再包含公共代码。由于common.js会被多页面复用，浏览器可以将其缓存起来，这样可以大大减少网络传输数据量。
 

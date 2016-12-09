@@ -70,7 +70,7 @@ $ ll  #查看目录结构
 
 创建一个`testing`分支,这会在当前所在的提交对象上创建一个指针（名字叫`testing`）。
 
-![3.2](/public/img/git/3.2.png)
+![3.2](http://lemon.lanqiao.org:8082/teaching/img/git/3.2.png)
 
 *两个指向相同提交历史的分支*
 
@@ -78,7 +78,7 @@ $ ll  #查看目录结构
 
 切换分支之前，示意图是这样的：
 
-![3.3](/public/img/git/3.3.png)
+![3.3](http://lemon.lanqiao.org:8082/teaching/img/git/3.3.png)
 
 *HEAD指向当前所在的分支*
 
@@ -101,7 +101,7 @@ $ git commit -m 'dev上第一次提交test.rb'  # 提交
 
 我们说过，每个分支都可以独立地向前推进，现在的示意图是这个样子：
 
-![3.5](/public/img/git/3.5.png)
+![3.5](http://lemon.lanqiao.org:8082/teaching/img/git/3.5.png)
 
 *HEAD和分支随着提交操作自动向前移动*
 
@@ -110,7 +110,7 @@ $ git commit -m 'dev上第一次提交test.rb'  # 提交
 ```
 $ git checkout master  # 切换分支
 ```
-![3.6](/public/img/git/3.6.png)
+![3.6](http://lemon.lanqiao.org:8082/teaching/img/git/3.6.png)
 
 *检出时 HEAD 随之移动*
 
@@ -135,7 +135,7 @@ $ git commit -m 'master上新建test1.rb'  # 提交
 
 现在，这个项目的提交历史已经产生了分叉。因为刚才你创建了一个新分支，并切换过去进行了一些工作，随后又切换回 master 分支进行了另外一些工作。 上述两次改动针对的是不同分支：你可以在不同分支间不断地来回切换和工作，并在时机成熟时将它们合并起来。 
 
-![3.7](/public/img/git/3.7.png)
+![3.7](http://lemon.lanqiao.org:8082/teaching/img/git/3.7.png)
 
 *项目分叉历史*
 
@@ -151,7 +151,7 @@ git config --global alias.ll 'log --oneline --decorate --graph --all --abbrev-co
 
 以后你执行`git ll`就可以得到一样的效果了。
 
- ![2.9](/public/img/git/2.9.png)
+ ![2.9](http://lemon.lanqiao.org:8082/teaching/img/git/2.9.png)
 
  可以清晰地看到，我们在`0f52632 (origin/master) 首次提交3.txt`处分叉，testing提交了一次`61a659c (testing) dev上第一次提交test.rb`，master上也提交了一次`ca74ba1 (HEAD -> master) master上新建test1.rb`。
 
@@ -272,7 +272,7 @@ git commit -m "合并dev"
 
 现在我们执行`git ll`可以看到：
 
- ![2.10](/public/img/git/2.10.png)
+ ![2.10](http://lemon.lanqiao.org:8082/teaching/img/git/2.10.png)
 
 # 10.总结（面试题）
 

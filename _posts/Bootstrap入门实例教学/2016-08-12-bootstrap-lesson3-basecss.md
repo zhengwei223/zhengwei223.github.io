@@ -29,7 +29,7 @@ description: Bootstrap提供了关于排版、代码、表格、表单、按钮�
 
 我们先看一个使用[button的例子](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/04/buttons.html)，它来自boots中文网，效果如下：
 
-![Alt text](/public/img/boots/4.2.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/boots/4.2.png)
 
 现在我们自定义一份样式表，来让按钮更加圆滑：
 
@@ -41,7 +41,7 @@ description: Bootstrap提供了关于排版、代码、表格、表单、按钮�
 
 在buttons.html中引入后，效果如下：
 
-![Alt text](/public/img/boots/4.3.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/boots/4.3.png)
 
 可以看到，按钮更加圆润了。
 
@@ -232,7 +232,7 @@ LESS提供了便利的混合，比如说`lighten()`与`darken()`。Bootstrap在m
 
 * 刷新页面查看效果
 
-![Alt text](/public/img/boots/4.1.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/boots/4.1.png)
 
 *字体变了，链接红了*
 
@@ -249,7 +249,7 @@ LESS提供了便利的混合，比如说`lighten()`与`darken()`。Bootstrap在m
 
 　　效果：
 
-![Alt text](/public/img/boots/4.4.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/boots/4.4.png)
 
 *default和primary都有变化*
 

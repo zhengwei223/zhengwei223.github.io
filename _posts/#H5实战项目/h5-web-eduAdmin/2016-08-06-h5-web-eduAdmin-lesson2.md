@@ -117,7 +117,7 @@ importance: 2
 
 在HBuilder-浏览器运行后可显示这样的页面效果
 
-![image](/public/img/h5/boot-nav1.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/boot-nav1.png)
 
 
 可以看到这并不是我们心目中的导航条，这是因为我们现在还没有链接css样式表
@@ -143,13 +143,13 @@ importance: 2
 - 双击该文件，找到编译输出的方式，Crunch的输出按钮在最右侧一列功能按钮的最上面一个
 - 点击输出，设置输出的路径和文件名，我们需要将输出文件名改为main.css（因为index.html中我们链接了这个文件），输出路径选择为和less平级的css文件夹（如果没有，请新建一个）：
 
-![image](/public/img/h5/crunch-outputcss.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/crunch-outputcss.png)
 
 - 点击save，检查下css目录下是否有main.css文件，如果有，这时可以到HBuider中重新运行index.html
 
 经过上述步骤，应该可以看到index.html的运行效果，和之前不一样了，导航条的样式已经出来了：
 
-![image](/public/img/h5/boot-nav2.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/boot-nav2.png)
 
 # 代码解读
 
@@ -173,7 +173,7 @@ importance: 2
 
 下面主要是两个部分，第一部分是一个**响应式按钮**，在宽屏情况下不显示，在窄屏情况下显示，且这个按钮上的点击事件已经被定义，即展开或收缩导航菜单。现在大家可以把浏览器横向拉窄以了解其效果：
 
-![image](/public/img/h5/navbar-header.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/navbar-header.png)
 
 button的效果得益于`type="button" class="navbar-toggle collapsed"`
 
@@ -281,7 +281,7 @@ data-toggle说明按钮的**预期行为**为下拉抽屉式菜单。
 
 效果如下：
 
-![image](/public/img/h5/eduAdmin-nav.png)
+![image](http://lemon.lanqiao.org:8082/teaching/img/h5/eduAdmin-nav.png)
 
 # 支持IE8
 

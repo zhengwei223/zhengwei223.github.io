@@ -95,7 +95,7 @@ HtmlWebpackPlugin这个插件可以帮助生成 HTML 文件，自动插入编译
 
     webpack --config webpack.config-plugins.js --progress --colors
 
-![4.1](/public/img/front-advance/4.1.png)
+![4.1](http://lemon.lanqiao.org:8082/teaching/img/front-advance/4.1.png)
 
 可以看到dist目录重新生成了todo.html，其body的最后一部分，引入script的部分有些变化：
 
