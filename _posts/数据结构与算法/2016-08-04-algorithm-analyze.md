@@ -21,11 +21,11 @@ author: 郑未
 
 我们首先给出过程INSERTION-SORT中，每条语句的执行时间和执行次数。对j=2，3，…，n，其中n=A.length，假设tj表示对那个值j第5行执行while循环测试的次数。当一个for或while循环按通常的方式（即由于循环头中的测试）退出时，执行测试的次数比执行循环体的次数多1。我们假定注释是不可执行的语句，所以它们不需要时间。
 
-![Alt text](/public/img/algorithm/algorithm-analyze-1.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/algorithm-analyze-1.png)
 
 该算法的运行时间是执行每条语句的运行时间之和。需要执行ci步且执行n次的一条语句将贡献cin给总运行时间。为计算在具有n个值的输入上INSERTION-SORT的运行时间Tn］，我们将代价与次数列对应元素之积求和，得：
 
-![Alt text](/public/img/algorithm/algorithm-analyze-2.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/algorithm-analyze-2.png)
 
 即使对给定规模的输入，一个算法的运行时间也可能依赖于给定的是该规模下的哪个输入。例如，在INSERTION-SORT中，若输入数组已排好序，则出现最佳情况。这时，对每个j=2，3，…，n，我们发现在第5行，当i取其初值j-1时，有Ai］≤key。从而对j=2，3，…，n，有tj=1，该最佳情况的运行时间为：
 
