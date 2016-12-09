@@ -57,7 +57,7 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 **学语言写helloworld，学前端写todo.**我们只做最简单的功能（输入姓名和内容提交，上方会新增一个条目，不做任务完成和移除等功能），因为功能不是重点，重点是模块化开发和webpack的使用：
 
-![2.1](/public/img/front-advance/2.1.png)
+![2.1](http://lemon.lanqiao.org:8082/teaching/img/front-advance/2.1.png)
 
 ## todo.html
 
@@ -186,13 +186,13 @@ $ webpack -d                # 生成map映射文件，告知哪些模块被最�
 
 拷贝todo.html至dist目录，用浏览器打开，就能看到我们预期的功能都实现了。
 
-![2.3](/public/img/front-advance/2.3.png)
+![2.3](http://lemon.lanqiao.org:8082/teaching/img/front-advance/2.3.png)
 
 # 7.你必须知道的概念
 
 ## 关于webpack
 
-![2.2](/public/img/front-advance/2.2.jpg)
+![2.2](http://lemon.lanqiao.org:8082/teaching/img/front-advance/2.2.jpg)
 
 可以看到Webpack的目标就是对项目中的静态资源进行统一管理，为产品的最终发布提供最优的打包部署方案。
 

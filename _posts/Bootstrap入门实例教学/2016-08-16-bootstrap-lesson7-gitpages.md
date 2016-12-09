@@ -39,17 +39,17 @@ GitHub Pages是免费的静态站点，三个特点：免费托管、自带主�
 让我们的账户保持登录状态，点击右上角--用户名--"your profile"，这时出来我们托管过的项目，选中"Repositories"选项卡，下一行看到"New" ，点击新建我们的项目。
 **注意，你的仓库名不能随便取，这样会导致github混乱，取名的格式应该为“用户名.github.io”**
 
-![创建仓库](/public/img/boots/gh-pages1.png)
+![创建仓库](http://lemon.lanqiao.org:8082/teaching/img/boots/gh-pages1.png)
 
 ## 3.2 配置仓库、自动生成页面
 
 建完仓库后，在当前页面右边选择Settings，进入设置页面：
 
-![配置仓库](/public/img/boots/gh-pages2.png)
+![配置仓库](http://lemon.lanqiao.org:8082/teaching/img/boots/gh-pages2.png)
 
 在设置页面往下拉，在github pages那一栏点击“launch automatic page generator”：
 
-![launch](/public/img/boots/gh-pages3.png)
+![launch](http://lemon.lanqiao.org:8082/teaching/img/boots/gh-pages3.png)
 
 ## 3.3 编辑用户界面、模板
 
@@ -63,7 +63,7 @@ title是页面的标题；tagline是页面宣传词（这么理解吧）；body�
 
 等待一定时间（10多分钟吧），访问"用户名.github.io"应该能看到上一步自动生成的用户页面。
 
-![博客页面](/public/img/boots/gh-pages4.png)
+![博客页面](http://lemon.lanqiao.org:8082/teaching/img/boots/gh-pages4.png)
 
 # 4 准备主题
 
@@ -94,14 +94,14 @@ Mac： [https://mac.github.com/](https://mac.github.com/)
 我就以这套模板为范例来进行教程，因为这个极其精简，可塑性（后期更改性）极强，推荐一下
 [http://jekyllthemes.org/themes/cool-concise-high-end/](http://jekyllthemes.org/themes/cool-concise-high-end/)
 
-![cool-concise-high-end](/public/img/boots/gh-pages5.png)
+![cool-concise-high-end](http://lemon.lanqiao.org:8082/teaching/img/boots/gh-pages5.png)
 
 
 # 5 应用主题
 
 打开存放你克隆下来仓库的文件夹，除了隐藏文件夹“.git”不要删，其余文件全部都删了（没错），然后把下载的模板解压缩后的东西全部拖到你的原博客仓库里：
 
-![cool-concise-high-end](/public/img/boots/gh-pages6.png)
+![cool-concise-high-end](http://lemon.lanqiao.org:8082/teaching/img/boots/gh-pages6.png)
 
 在这个目录下：
 

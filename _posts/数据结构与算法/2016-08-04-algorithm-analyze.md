@@ -36,7 +36,7 @@ T(n)=c1n+c2(n-1)+c4(n-1)+c5(n-1)+c8(n-1)
 
 若输入数组已反向排序，即按递减序排好序，则导致最坏情况。我们必须将每个元素A［j］与整个已排序子数组A［1..j-1］中的每个元素进行比较，所以对j=2，3，…，n，有tj=j。我们发现在最坏情况下，INSERTION-SORT的运行时间为：
 
-![Alt text](/public/img/algorithm/algorithm-analyze-3.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/algorithm-analyze-3.png)
 
 我们可以把该最坏情况运行时间表示为an²+bn+c，其中常量a、b和c又依赖于语句代价ci。因此，它是n的二次函数。……**我们往往集中于只求最坏情况运行时间**……
 
@@ -64,7 +64,7 @@ T(n)=c1n+c2(n-1)+c4(n-1)+c5(n-1)+c8(n-1)
 
 伪代码：
 
-![Alt text](/public/img/algorithm/algorithm-analyze-4.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/algorithm-analyze-4.png)
 
 
 选择排序算法正确性的证明

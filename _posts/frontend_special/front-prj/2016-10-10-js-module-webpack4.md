@@ -238,7 +238,7 @@ npm中有一个用于文件名匹配的glob模块，通过glob很容易遍历出
 请修改package.json中build和dev命令的`--config webpack.config-mpa.js`选项并编译——`npm run build`。
 产出物如下：
 
-![4.3](/public/img/front-advance/4.3.png)
+![4.3](http://lemon.lanqiao.org:8082/teaching/img/front-advance/4.3.png)
 
 ## 问题
 

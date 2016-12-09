@@ -132,7 +132,7 @@ description: 本篇为大家提供一个基于webpack进行前端开发的项目
 
 示例功能是首页+todo：
 
-![5.1](/public/img/front-advance/5.1.png)
+![5.1](http://lemon.lanqiao.org:8082/teaching/img/front-advance/5.1.png)
 
 我们使用了bootstrap的样式（见less目录），在index和todo中都使用了`require('../../less/bootstrap.less')`
 

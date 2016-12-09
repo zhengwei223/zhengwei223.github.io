@@ -19,7 +19,7 @@ author: 郑未
 
 插入排序的工作方式像许多人排序一手扑克牌。开始时，我们的左手为空并且桌子上的牌面向下。然后，我们每次从桌子上拿走一张牌并将它插入左手中正确的位置。为了找到一张牌的正确位置，我们从右到左将它与已在手中的每张牌进行比较，如图所示。拿在左手上的牌总是排序好的，原来这些牌是桌子上牌堆中顶部的牌。
 
-![Alt text](/public/img/algorithm/insertion-1.png)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/insertion-1.png)
 
 #伪代码
 
@@ -93,7 +93,7 @@ author: 郑未
 
 以图 2-2 为模型,说明 INSERTION-SORT 在数组 A=<31,41,59,26,41,58>上的 执行过程。
 
-![Alt text](/public/img/algorithm/insertion-2.jpg)
+![Alt text](http://lemon.lanqiao.org:8082/teaching/img/algorithm/insertion-2.jpg)
 
 ## 2.1-2　
 

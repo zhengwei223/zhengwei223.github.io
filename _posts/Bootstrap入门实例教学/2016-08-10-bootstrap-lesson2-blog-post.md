@@ -11,7 +11,7 @@ description: 本章用一个简单页面实例来示范boots的网格布局系�
 
 >我们需要做出一个有标题、正文、文章目录的博客文章页面：
 
-![文章页](/public/img/boots/3.1.png "文章页")
+![文章页](http://lemon.lanqiao.org:8082/teaching/img/boots/3.1.png "文章页")
 
 # 一 文档结构
 

@@ -21,17 +21,17 @@ description: 主要向大家介绍Web前端入门课程的学习内容和需要�
 
 &emsp;&emsp;人们用Web客户端（前端）发起请求，获取到存储在Web站点的服务器（后端）上的网页（Web Page）文件，由客户端负责把它读取、展示成外观不一、并且可以让用户与之互动的图形界面。
 
- ![www_mechanism](/public/img/html/www_mechanism.jpg)
+ ![www_mechanism](http://lemon.lanqiao.org:8082/teaching/img/html/www_mechanism.jpg)
 
 &emsp;&emsp;位于多个服务器上的网页文件，通过某种办法相互连接，共同组成一个庞大的网状结构。
 
- ![www_web_structure](/public/img/html/www_web_structure.jpg)
+ ![www_web_structure](http://lemon.lanqiao.org:8082/teaching/img/html/www_web_structure.jpg)
 
 &emsp;&emsp;Web前端入门这个课程，主要目的就是告诉大家，如何新建、调试Web浏览器可以展示的网页（Web page）文件。
 
 &emsp;&emsp;HTML、CSS和JavaScript，这三种是最重要的Web前端技术。
 
- ![web-frontend-content](/public/img/html/html_css_js.jpg) 
+ ![web-frontend-content](http://lemon.lanqiao.org:8082/teaching/img/html/html_css_js.jpg) 
 
 # 2.Web前端技术标准
 
@@ -39,14 +39,14 @@ description: 主要向大家介绍Web前端入门课程的学习内容和需要�
 
 &emsp;&emsp;[W3C](https://www.w3.org/)，英文全名“World Wide Web Consortium”，中文名字“万维网联盟”。它是Web技术领域最具权威和影响力的国际中立性技术标准机构。它的主要工作就是发布、并且指导业界实施包括HTML标准、CSS标准在内的多项Web技术标准。
 
- ![w3c_logo](/public/img/html/w3c_logo.jpg) 
+ ![w3c_logo](http://lemon.lanqiao.org:8082/teaching/img/html/w3c_logo.jpg) 
 
 
 ## ECMA
 
 &emsp;&emsp;[ECMA](http://www.ecma-international.org/),英文全名“European Computer Manufactures Association”，中文名字“欧洲计算机制造商联合会”。它整理和发布了Web前端技术的JavaScript标准（内部代号ECMA-262）。
 
- ![ecma_logo](/public/img/html/ecma_logo.gif) 
+ ![ecma_logo](http://lemon.lanqiao.org:8082/teaching/img/html/ecma_logo.gif) 
 
 ## W3学院(英文名W3School)
 
@@ -60,7 +60,7 @@ description: 主要向大家介绍Web前端入门课程的学习内容和需要�
 
 &emsp;&emsp;Web浏览器是最常用的Web客户端程序，它一般都安装在用户的电脑桌面上。
 
- ![web_browser_logo_grid](/public/img/html/web_browser_logo_grid.jpg)
+ ![web_browser_logo_grid](http://lemon.lanqiao.org:8082/teaching/img/html/web_browser_logo_grid.jpg)
 
 &emsp;&emsp;现在所有的浏览器厂商都在努力支持最新的Web技术标准，因此，无论你选择哪一种浏览器作为打开工具，同一个网页的界面内容，还有外观样式，应该都没有差别。
 
@@ -76,7 +76,7 @@ description: 主要向大家介绍Web前端入门课程的学习内容和需要�
 
 &emsp;&emsp;给大家推荐一款windows平台下的文本编辑软件Notepad++,大家可以直接在百度搜索“Notepad++”下载安装。
 
- ![notepad_plus_plus_from_baidu](/public/img/html/notepad_plus_plus_from_baidu.png)
+ ![notepad_plus_plus_from_baidu](http://lemon.lanqiao.org:8082/teaching/img/html/notepad_plus_plus_from_baidu.png)
 
 
 

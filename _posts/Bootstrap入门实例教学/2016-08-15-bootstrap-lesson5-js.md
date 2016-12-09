@@ -78,7 +78,7 @@ js直接调用collapse插件：
 
 具体示例代码很长，这里不贴出，可移步[post.html](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/blog/post.html)去查看。同时我们对右侧目录列表样式做了优化，可查看[custom.less](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/assets/less/__custom.less)`doc-sidebar`部分。
 
-![文章页正文和侧边栏](/public/img/boots/5.1.png)   
+![文章页正文和侧边栏](http://lemon.lanqiao.org:8082/teaching/img/boots/5.1.png)   
 
 现在我们的需求是，将右侧导航固定下来，因为文章很长，往下滚动之后右侧导航就不见了。这时我们就要用到affix插件。我们可以用`data-*`或者手工使用js来使用affix，无论哪种方式，都要指定我们想要固定部分的css位置和宽度属性。下面用`data-*`的方式：
 
@@ -98,13 +98,13 @@ js直接调用collapse插件：
 
 效果如下：
 
-![](/public/img/boots/5.2.gif)   
+![](http://lemon.lanqiao.org:8082/teaching/img/boots/5.2.gif)   
 
 # 三 使用ScrollSpy插件：监听页面滚动，自动高亮右侧目录
 
 现在我们想要这样一个效果，当页面滚动到某个标题区域内时，右侧目录它对应的超链接自动高亮：
 
-![](/public/img/boots/5.3.gif)   
+![](http://lemon.lanqiao.org:8082/teaching/img/boots/5.3.gif)   
 
 很简单，步骤只有两个：
 
@@ -117,7 +117,7 @@ js直接调用collapse插件：
 
 我们想要这样一种效果：页面往下滚动时自动隐藏顶部导航条，页面往上滚动时恢复它：
 
-![](/public/img/boots/5.4.gif) 
+![](http://lemon.lanqiao.org:8082/teaching/img/boots/5.4.gif) 
 
 现在我们模仿boots内置插件来写一个自己的插件并规定只要`.navbar`附加了`.navbar-slide`样式，我们就添加这样的效果。jQuery的插件编写有一定的套路，jQuery 插件一般可以总结为以下[模板](https://github.com/geetarista/jquery-plugin-template/blob/master/jquery.plugin-template.js)：
 

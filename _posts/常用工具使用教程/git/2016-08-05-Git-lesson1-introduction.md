@@ -92,7 +92,7 @@ $ git clone [url]
 git clone https://git.coding.net/lanqiao/gitdemo.git
 ```
 
-![1.0](/public/img/git/1.0.png)
+![1.0](http://lemon.lanqiao.org:8082/teaching/img/git/1.0.png)
 
 我们会在当前目录下得到一个gitdemo目录，查看其内的文件，只有一个.git隐藏文件夹，别的什么也没有（读者在阅读时，情况有些变化，里面可能已经有很多内容了）。
 
@@ -161,7 +161,7 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
 
 要查看哪些文件处于什么状态，可以用 `git status` 命令。我们现在有1.txt，可以新增一个2.txt，然后运行`git status`，可以看到：
 
-![1.4](/public/img/git/1.4.png)
+![1.4](http://lemon.lanqiao.org:8082/teaching/img/git/1.4.png)
 
 `status`命令不仅列出了文件状态，还对下一步应该使用的命令给出了提示，很棒！
 
@@ -200,7 +200,7 @@ Git 有三种状态，你的文件可能处于其中之一：**已修改（modif
 
 由此引入 Git 项目的三个工作区域的概念：**工作目录**、**暂存区域**以及**Git仓库**。
 
-![1.1](/public/img/git/1.1.png)
+![1.1](http://lemon.lanqiao.org:8082/teaching/img/git/1.1.png)
 
 *工作目录、暂存区域以及 Git 仓库.*
 
@@ -214,7 +214,7 @@ Git 有三种状态，你的文件可能处于其中之一：**已修改（modif
 2. 暂存文件（`git add`），将文件的快照放入暂存区域。
 3. 提交更新(`git commit`)，找到暂存区域的文件，将快照永久性存储到 Git 仓库。
 
-![1.2](/public/img/git/1.2.png)
+![1.2](http://lemon.lanqiao.org:8082/teaching/img/git/1.2.png)
 
 需要注意的是，文件快照**必须先经过暂存区，才能到仓库区**。盘点之前的操作，1.txt经过暂存并提交，现在进入了本地仓库，但是2.txt未进行`add`操作，因此本地仓库里面其实没有2.txt的记录。
 
@@ -250,7 +250,7 @@ ll  #查看文件列表，1.txt回来了
 
 在gitdemo目录下运行 `git log`，可以看到：
 
-![1.5](/public/img/git/1.5.png)
+![1.5](http://lemon.lanqiao.org:8082/teaching/img/git/1.5.png)
 
 默认不用任何参数的话，`git log` 会按提交时间列出所有的更新，最近的更新排在最上面。 正如你所看到的，这个命令会列出每个提交的 SHA-1 校验和、作者的名字和电子邮件地址、提交时间以及提交说明。
 
@@ -276,7 +276,7 @@ git diff -- 2.txt #比对工作区和暂存区（上次暂存）的区别
 
 得到如下提示：
 
-![1.6](/public/img/git/1.6.png)
+![1.6](http://lemon.lanqiao.org:8082/teaching/img/git/1.6.png)
 
 前面是一些基本信息，文件对比细节在@@之后，+表示新增，-表示删除，行前无符号表示未改变。
 
@@ -328,7 +328,7 @@ git diff 976ea66c 2abf7fb7
 
 注意，这里我们使用了简写的commit_id，因为只要简写能完全标识一次提交，没有必要使用完整的commit_id，结果如下：
 
-![1.6](/public/img/git/1.6.png)
+![1.6](http://lemon.lanqiao.org:8082/teaching/img/git/1.6.png)
 
 第二次提交相对于第一次提交来说，增加了一个文件，文件里面增加了内容。
 
@@ -383,7 +383,7 @@ Q：你所熟知的git命令有哪些？分别是什么含义？
 A：
 使用git最常用的命令，就6个：
 
-![1.3](/public/img/git/1.3.png)
+![1.3](http://lemon.lanqiao.org:8082/teaching/img/git/1.3.png)
 
 我们已经见过这些，现在稍加总结：
 

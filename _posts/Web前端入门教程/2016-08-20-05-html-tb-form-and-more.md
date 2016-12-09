@@ -23,7 +23,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 实验结束的时候，你将得到一个内容如下，而显示外观略有不同的数据表格:
 
- ![tangshi_top10_table](/public/img/html/tangshi_top10_table.png){:width="500px" height="400px"}
+ ![tangshi_top10_table](http://lemon.lanqiao.org:8082/teaching/img/html/tangshi_top10_table.png){:width="500px" height="400px"}
 
 ## 1.1 搭建表格结构
 
@@ -80,7 +80,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;用Chrome浏览器打开页面，你会看到：
 
- ![tangshi_top10_th_effect](/public/img/html/tangshi_top10_th_effect.png){:width="500px" height="400px"}
+ ![tangshi_top10_th_effect](http://lemon.lanqiao.org:8082/teaching/img/html/tangshi_top10_th_effect.png){:width="500px" height="400px"}
 
 ### 插入第一行数据
 
@@ -112,7 +112,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，可以看到第一条数据的显示效果：
 
- ![tangshi_top10_1strow_data](/public/img/html/tangshi_top10_1strow_data.png){:width="500px" height="400px"}
+ ![tangshi_top10_1strow_data](http://lemon.lanqiao.org:8082/teaching/img/html/tangshi_top10_1strow_data.png){:width="500px" height="400px"}
 
 ### 录入其余数据
 
@@ -120,7 +120,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;具体代码同学们可以依照图片内容自己动手填充，最终刷新页面你会看到样子如下的一个表格：
 
- ![tangshi_top10_full](/public/img/html/tangshi_top10_full.png){:width="500px" height="400px"}
+ ![tangshi_top10_full](http://lemon.lanqiao.org:8082/teaching/img/html/tangshi_top10_full.png){:width="500px" height="400px"}
 
 ## 1.2 修改表格属性
 
@@ -136,7 +136,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，可以看到：
 
- ![tangshi_taop10_border](/public/img/html/tangshi_taop10_border.png){:width="500px" height="400px"}
+ ![tangshi_taop10_border](http://lemon.lanqiao.org:8082/teaching/img/html/tangshi_taop10_border.png){:width="500px" height="400px"}
 
 ### cellspacing
 
@@ -148,7 +148,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，可以看到：
 
- ![tangshi_top10_cellspacing_0](/public/img/html/tangshi_top10_cellspacing_0.png){:width="500px" height="400px"}
+ ![tangshi_top10_cellspacing_0](http://lemon.lanqiao.org:8082/teaching/img/html/tangshi_top10_cellspacing_0.png){:width="500px" height="400px"}
 
 ### cellpadding
 
@@ -160,7 +160,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，可以看到：
 
- ![tangshi_top10_cell_padding_5](/public/img/html/tangshi_top10_cell_padding_5.png){:width="500px" height="400px"}
+ ![tangshi_top10_cell_padding_5](http://lemon.lanqiao.org:8082/teaching/img/html/tangshi_top10_cell_padding_5.png){:width="500px" height="400px"}
 
 ## 1.3 给table元素内容分组
 
@@ -223,7 +223,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;因此此次刷新页面，我们会看到在表格地步新增了一个页脚的显示内容：
 
- ![tangshi_top10_tb_foot](/public/img/html/tangshi_top10_tb_foot.png){:width="500px" height="400px"}
+ ![tangshi_top10_tb_foot](http://lemon.lanqiao.org:8082/teaching/img/html/tangshi_top10_tb_foot.png){:width="500px" height="400px"}
 
 ## 1.4 增加表格标题
 
@@ -239,7 +239,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，可以看到表格标题出现在表格的顶部正中央：
 
- ![tangshi_top10_tb_head](/public/img/html/tangshi_top10_tb_head.png){:width="500px" height="400px"}
+ ![tangshi_top10_tb_head](http://lemon.lanqiao.org:8082/teaching/img/html/tangshi_top10_tb_head.png){:width="500px" height="400px"}
 
 ---
 
@@ -300,7 +300,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面之后，你会在tbody区域看到一个垂直滚动条，用鼠标选中垂直滚动条，上下拖动。
 
- ![tangshi_top10_tbody_scroll](/public/img/html/tangshi_top10_tbody_scroll.png){:width="500px" height="400px"}
+ ![tangshi_top10_tbody_scroll](http://lemon.lanqiao.org:8082/teaching/img/html/tangshi_top10_tbody_scroll.png){:width="500px" height="400px"}
 
 &emsp;&emsp;这里我们提前用到了一些样式（style）代码，只是为了演示tbody单独滚动的情况，以后的CSS章节会深入讲解怎么把表格数据行里的单元格宽度控制好。
 
@@ -313,7 +313,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 这个实验将制作一个网站新用户的注册表单。 
 
- ![user_register_form](/public/img/html/user_register_form.png){:width="300px" height="300px"} 
+ ![user_register_form](http://lemon.lanqiao.org:8082/teaching/img/html/user_register_form.png){:width="300px" height="300px"} 
 
 ## 2.1 插入表单元素
 
@@ -350,7 +350,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，可以看到下面的页面效果：
 
- ![userRegister_form_step_01](/public/img/html/userRegister_form_step_01.png){:width="300px" height="300px"} 
+ ![userRegister_form_step_01](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_01.png){:width="300px" height="300px"} 
 
 ## 2.2 定义“联系方式”输入区
 
@@ -382,7 +382,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，可以看到页面上出现了两个文本框：
 
- ![userRegister_form_step_02](/public/img/html/userRegister_form_step_02.png){:width="300px" height="300px"} 
+ ![userRegister_form_step_02](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_02.png){:width="300px" height="300px"} 
 
 ### 使用内容分区和无序列表
 
@@ -412,7 +412,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;把之前的两个label元素分别移动到“区域一”和“区域二”内，刷新页面之后可以看到：
 
- ![userRegister_form_step_03](/public/img/html/userRegister_form_step_03.png){:width="300px" height="300px"} 
+ ![userRegister_form_step_03](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_03.png){:width="300px" height="300px"} 
 
 ## 2.3 定义“个人信息”输入区
 
@@ -443,7 +443,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，页面上可以看到新增的“个人信息”分区，还有输入“称呼”信息的元素：
 
- ![userRegister_form_step_04](/public/img/html/userRegister_form_step_04.png){:width="300px" height="300px"} 
+ ![userRegister_form_step_04](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_04.png){:width="300px" height="300px"} 
 
 ### 插入头像文件输入元素
 
@@ -460,11 +460,11 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，页面上就多了一个可以选择文件的input控件。
 
- ![userRegister_form_step_05](/public/img/html/userRegister_form_step_05.png){:width="300px" height="300px"} 
+ ![userRegister_form_step_05](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_05.png){:width="300px" height="300px"} 
 
 &emsp;&emsp;你只需要点击“选择文件”的按钮，然后找到并且打开自己的头像文件就可以了。
 
- ![userRegister_form_step_06](/public/img/html/userRegister_form_step_06.png){:width="400px" height="400px"} 
+ ![userRegister_form_step_06](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_06.png){:width="400px" height="400px"} 
 
 ### 插入“名称”和“密码”输入元素
 
@@ -496,7 +496,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;完成之后刷新页面，可以看到页面新增了三个输入控件：
 
- ![userRegister_form_step_07](/public/img/html/userRegister_form_step_07.png){:width="400px" height="400px"} 
+ ![userRegister_form_step_07](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_07.png){:width="400px" height="400px"} 
 
 ### 使用下拉列表、多选框和多行文本控件
 
@@ -543,7 +543,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，在页面上可以看到新增的组件。经过测试，下拉列表有默认值 多选框也能正常工作：
 
- ![userRegister_form_step_08](/public/img/html/userRegister_form_step_08.png){:width="400px" height="400px"} 
+ ![userRegister_form_step_08](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_08.png){:width="400px" height="400px"} 
 
 &emsp;&emsp;使用下面的代码在表单里插入多行文本控件：
 
@@ -559,7 +559,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;再次刷新页面，页面上就可以看到一个多行文本框组件了：
 
- ![userRegister_form_step_09](/public/img/html/userRegister_form_step_09.png){:width="400px" height="400px"} 
+ ![userRegister_form_step_09](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_09.png){:width="400px" height="400px"} 
 
 
 ## 2.4 提交表单
@@ -593,7 +593,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;最后，刷新页面，我们可以看到一个最终完成的表单：
 
- ![userRegister_form_step_10](/public/img/html/userRegister_form_step_10.png){:width="400px" height="400px"} 
+ ![userRegister_form_step_10](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_10.png){:width="400px" height="400px"} 
 
 &emsp;&emsp;你可以尝试输入自己的信息来提交表单了！
 
@@ -604,7 +604,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;表单的功能就是把用户在页面上输入的各种信息发送到网站服务器。
 
- ![when-you-submit-form](/public/img/html/when-you-submit-form.png){:width="400px" height="400px"}
+ ![when-you-submit-form](http://lemon.lanqiao.org:8082/teaching/img/html/when-you-submit-form.png){:width="400px" height="400px"}
 
 ## input元素
 
@@ -640,11 +640,11 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;比如说，可以这样输入：
 
- ![userRegister_form_step_11](/public/img/html/userRegister_form_step_11.png){:width="400px" height="400px"} 
+ ![userRegister_form_step_11](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_11.png){:width="400px" height="400px"} 
 
 &emsp;&emsp;提交之后，页面会显示找不到相关服务器地址：
 
- ![userRegister_form_step_12](/public/img/html/userRegister_form_step_12.png){:width="500px" height="500px"}
+ ![userRegister_form_step_12](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_12.png){:width="500px" height="500px"}
 
 &emsp;&emsp;这是因为我们在action属性里面里定义了一个不存在的网站服务器地址。
 
@@ -665,7 +665,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;再提交表单，就不一样了：
 
- ![userRegister_form_step_13](/public/img/html/userRegister_form_step_13.png){:width="500px" height="500px"}
+ ![userRegister_form_step_13](http://lemon.lanqiao.org:8082/teaching/img/html/userRegister_form_step_13.png){:width="500px" height="500px"}
 
 &emsp;&emsp;post提交表单，数据不会显示在地址栏上面，而是先经过某种形式的加密再传送给服务器。
 
@@ -674,11 +674,11 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
  1.下面有一个来源于国家统计局网站的数据表，请你根据学到的表格知识制作一个网页表格，显示外观可以略有不同：
 
- ![data_table_01](/public/img/html/data_table_01.png){:width="500px" height="500px"}
+ ![data_table_01](http://lemon.lanqiao.org:8082/teaching/img/html/data_table_01.png){:width="500px" height="500px"}
 
  2.使用thead给数据表格分区，可以实现对行多列的复杂表头。请你运用学到的知识，特别是“th”元素的“rowspan”、“colspan”属性，制作出有下面结构的多行表头：
 
- ![multi_row_thead](/public/img/html/multi_row_thead.png){:width="500px" height="500px"}
+ ![multi_row_thead](http://lemon.lanqiao.org:8082/teaching/img/html/multi_row_thead.png){:width="500px" height="500px"}
 
  3.请你根据W3School的input标签页面的描述，给用户注册表单换一个显示成图片的提交按钮。
 
