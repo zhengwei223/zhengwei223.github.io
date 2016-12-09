@@ -96,7 +96,7 @@ SpringMVC提供了一个视图解析器的上级接口ViewResolver，所有具�
 
 ![](http://i.imgur.com/lir2s2Z.png)
 
-*图26-03*
+*图28-03*
 
 <table>
    <tr>
