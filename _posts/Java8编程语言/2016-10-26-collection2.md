@@ -189,7 +189,7 @@ order: 10
 
 `ArrayList`还有一个好兄弟`LinkedList`,它与`ArrayList`同属一个父接口，使用方法也完全相同，不过在实现思路上不同。
 
-![](http://lemon.lanqiao.org:8082/teaching/img/Java8/arrayAndLink.png)
+![](/public/img/arrayAndLink.png)
 
 `ArrayList`的内部存储结构为数组，在获取指定下标元素时（查询）比较快，反思我们实现的`ArrayPro`类，实现`add`和`remove`方法时，给我们带来了不少的麻烦，我们要始终保证每个数组元素的索引连续性，从而在**删除**和**添加**时，带来了时间可空间上的开销。
 
