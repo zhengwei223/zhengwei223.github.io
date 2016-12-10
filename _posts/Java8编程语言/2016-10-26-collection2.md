@@ -189,7 +189,7 @@ order: 10
 
 `ArrayList`还有一个好兄弟`LinkedList`,它与`ArrayList`同属一个父接口，使用方法也完全相同，不过在实现思路上不同。
 
-![](http://arrayAndLinked)
+![](http://lemon.lanqiao.org:8082/teaching/img/Java8/arrayAndLinked.png)
 
 `ArrayList`的内部存储结构为数组，在获取指定下标元素时（查询）比较快，反思我们实现的`ArrayPro`类，实现`add`和`remove`方法时，给我们带来了不少的麻烦，我们要始终保证每个数组元素的索引连续性，从而在**删除**和**添加**时，带来了时间可空间上的开销。
 
@@ -306,7 +306,7 @@ HashSet类的对象中无重复对象，当add一个已存在的对象时，则�
 
 ## 5 集合的族谱
 
-![](http://collection)
+![](http://lemon.lanqiao.org:8082/teaching/img/Java8/collection.png)
 
 `Set`和`List`接口都拥有共同的祖先接口`Collection`，在选择集合实现类时，需要考虑每个集合实现的特点，上图中列举了几个最常用的集合实现。更多集合实现请参考API。
 
@@ -448,7 +448,7 @@ foreach语法
 
 本章通过几个实验学习了Java的集合框架，其中关系参考下图
 
-![](http://collection-all)
+![](http://lemon.lanqiao.org:8082/teaching/img/Java8/collection-all.png)
 
 每种集合实现都有各自的优缺点，需要大家掌握这些实现类的特点，我们学习了几种最常见的集合类型，JDK中还提供了很多的实现类型，大家可以参照API了解自己需要的集合对象类型。
 
