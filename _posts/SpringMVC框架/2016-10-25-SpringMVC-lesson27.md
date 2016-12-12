@@ -16,7 +16,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 ---
 
-# 27.1 类型转换 #
+# 29.1 类型转换 #
 
 `form`表单提交的数据都是`String`类型，例如在Servlet中我们是通过`String filedName=request.getParameter(“…”)`方法来获取相应的字段值。如果需要的是`int`类型，在 Servlet中我们也必须进行类型转换，如`int age =Integer.parseInt(…)`。但是在SpringMVC中，我们并不需要关心类型的转换，例如：
 
@@ -36,14 +36,14 @@ SpringMVC可以直接将`form`表单中的`id`字段值转为`Integer`类型，�
 除此以外，我们还可以根据需求来自定义类型转换器。例如，现在需要将`form`表单传来的字符串`“1-张三-23”`解析成学号为1、姓名为张三、年龄为23，并将这些值封装到一个学生对象之中，也就是说需要将字符串`“1-张三-23”`转换为`Student`对象类型。
 
 
-**以下是根据需求来自定义类型转换器的具体实现步骤：**
+**以下是具体的实现步骤：**
 
 
-**①自定义类型转换器**
+#### ①创建自定义类型转换器 ####
 
-使用SpringMVC实现自定义类型转换器，需要实现SpringMVC提供的`Converter`接口，如下，
+创建基于SpringMVC的自定义类型转换器，需要新建一个类，并实现SpringMVC提供的Converter接口，如下，
 
-**将字符串转换为`Student`类型的转换器: StudentConverter.java**
+**自定义类型转换器，用于将字符串转换为Student类型 : StudentConverter.java**
 
 ```
 …
@@ -54,7 +54,7 @@ implements Converter<String, Student>
 	@Override
 	public Student convert(String source)
 	{
-		//source值就是前端传来的"1-张三-23"
+		//source值就是前端form传来的"1-张三-23"
 		if (source != null)
 		{
 			//解析出source中的学号、姓名、年龄
@@ -74,17 +74,17 @@ implements Converter<String, Student>
 }
 ```
 
-**②注册自定义类型转换器**
+#### ②注册自定义类型转换器 ####
 
-**将自定义的类型转换器注册到SpringMVC之中：springmvc.xml**
+**springmvc.xml：将自定义的类型转换器注册到SpringMVC之中，共三步**
 
 ```
 <beans …>
 …
-<!-- 将自定义的类型转换器加入SpringIOC容器 -->
+<!-- ①将自定义的类型转换器加入SpringIOC容器 -->
 <bean id="studentConverter" 
 class="org.lanqiao.converter.StudentConverter"></bean>
-<!-- 将自定义的类型转换器注册到 SpringMVC提供的
+<!-- ②将自定义的类型转换器注册到 SpringMVC提供的
 ConversionServiceFactoryBean中-->
 <bean id="conversionService"		 
 class="org.springframework.context
@@ -95,7 +95,7 @@ class="org.springframework.context
 		   </set>
 	   </property>	
 </bean>
-<!-- 将自定义的类型转换器所在的ConversionServiceFactoryBean，
+<!--③ 将自定义的类型转换器所在的ConversionServiceFactoryBean，
 注册到annotation-driven之中 -->
 <mvc:annotation-driven
  conversion-service="conversionService">
@@ -103,9 +103,9 @@ class="org.springframework.context
 </beans>
 ```
 
-至此就完成了自定义类型转化器的编写及配置工作。以下是通过发送请求，以及通过请求处理方法来测试。
+至此就完成了自定义类型转化器的编写及配置工作。以下，对配置完成的类型转换器StudentConverter进行测试。
 
-**③请求处理方法**
+#### ③请求处理方法 ####
 
 **FirstSpringDemo.java**
 
@@ -127,7 +127,7 @@ public String testConversionServiceConverer
 }
 ```
 
-**④测试**
+#### ④测试 ####
 
 **index.jsp**
 
@@ -142,27 +142,26 @@ public String testConversionServiceConverer
 
 ![](http://i.imgur.com/2GCwgC0.png)
 
-
-*图27-01*
+*图29-01*
 
 点击“增加”后，可在控制台得到以下结果：
 
 ![](http://i.imgur.com/vPiRxXa.png)
 
-*图27-02*
+*图29-02*
 
-通过我们的自定义类型转换器`StudentConverter`，成功的将前端传来的字符串`“1-张三-23”`转为了请求处理方法参数中的`Student`类型。
+通过自定义类型转换器`StudentConverter`，成功的将前端传来的字符串`“1-张三-23”`转为了请求处理方法参数中的`Student`类型。
 
 
-# 27.2 格式化数据 #
+# 29.2 格式化数据 #
 
-有时候需要对于日期、数字等类型进行格式化操作，例如指定日期的格式为yyyy-MM-dd。
+有时候需要对于日期、数字等类型进行格式化操作，例如：规定日期的格式必须为yyyy-MM-dd。
 
-使用SpringMVC实现数据的格式化，只需要简单的两步操作：
+**使用SpringMVC实现数据的格式化，只需要简单的两步操作：**
 
-**①**在需要格式化的属性前加上注解，
+**①**在需要格式化的属性前加上格式化注解，如@DateTimeFormat；
 
-**②**在**springmvc.xml**中加入`<mvc:annotation-driven></mvc:annotation-driven>`和SpringMVC提供的`FormattingConversionServiceFactoryBean`，如下：
+**②**在springmvc.xml中加入`<mvc:annotation-driven></mvc:annotation-driven>`和SpringMVC提供的FormattingConversionServiceFactoryBean，如下：
 
 
 **springmvc.xml**
@@ -195,7 +194,7 @@ format.support.FormattingConversionServiceFactoryBean">
 </bean>
 ```
 
-例如，以下是指定`Date`类型的`birthday`属性的格式必须为yyyy-MM-dd。
+例如，以下指定`Date`类型的`birthday`属性的输入格式必须为yyyy-MM-dd。
 
 **Student.java**
 
@@ -245,20 +244,20 @@ public class FirstSpringDemo
 
 ![](http://i.imgur.com/BFHVEei.png)
 
-*图27-03*
+*图29-03*
 
 就会将日期赋值给`birthday`属性，并可以在控制台得到输出结果：
 
 ![](http://i.imgur.com/jO8e8i3.png)
 
-*图27-04*
+*图29-04*
 
 而如果输入的日期格式不符合“yyyy-MM-dd”格式，如输入“2015年05月16日”，点击“提交”后JSP页面就会显示HTTP Status 400，如图，
 
 
 ![](http://i.imgur.com/uy8mYUL.png)
 
-*图27-05*
+*图29-05*
 
 但控制台并没有任何异常信息的输出，很不利于开发人员排查错误。为此，我们可以给请求处理方法加入一个`BindingResult`类型的参数，此参数就包含了格式化数据失败时的异常信息，如下：
 
@@ -316,11 +315,11 @@ public class ClassName
 通过`form`表单中的`input`字段来映射`count`属性时，合法输入：如1,234；不合法的输入：如12,34。
 
 
-# 27.3 数据校验 #
+# 29.3 数据校验 #
 
-除了使用JS、正则表达式以外，还可以使用JSR 303-Bean Validation（简称JSR 303）来实现数据的校验。例如：用户名不能为空，email必须是一个合法地址，某个日期时间必须在当前时间之前等众多校验，都可以使用JSR 303-Bean Validation非常方便地实现。
+除了使用JS、正则表达式以外，还可以使用JSR 303-Bean Validation（简称JSR 303）来实现数据的校验。例如：用户名不能为空，email必须是一个合法地址，某个日期时间必须在当前时间之前等众多校验，都可以使用JSR 303-Bean Validation非常方便的实现。
 
-JSR 303通过在实体类的属性上标注类`@NotNull`、`@Max`等注解指定校验规则，再通过与注解相对应的验证接口对属性值进行验证。
+JSR 303通过在实体类的属性上标注类@NotNull、@Max等注解指定校验规则，并通过与注解相对应的验证接口（JSR303内置提供）对属性值进行验证。
 
 JSR 303提供的标准注解如下：
 
@@ -331,55 +330,55 @@ JSR 303提供的标准注解如下：
    </tr>
    <tr>
       <td>@Null</td>
-      <td>被注释的元素必须为 null</td>
+      <td>被注释的元素必须为 null。</td>
    </tr>
    <tr>
       <td>@NotNull</td>
-      <td>被注释的元素必须不为 null</td>
+      <td>被注释的元素必须不为 null。</td>
    </tr>
    <tr>
       <td>@AssertTrue</td>
-      <td>被注释的元素必须为 true</td>
+      <td>被注释的元素必须为 true。</td>
    </tr>
    <tr>
       <td>@AssertFalse</td>
-      <td>被注释的元素必须为 false</td>
+      <td>被注释的元素必须为 false。</td>
    </tr>
    <tr>
       <td>@Min(value)</td>
-      <td>被注释的元素必须是一个数字，其值必须大于等于指定的最小值</td>
+      <td>被注释的元素必须是一个数字，其值必须大于或等于value。</td>
    </tr>
    <tr>
       <td>@Max(value)</td>
-      <td>被注释的元素必须是一个数字，其值必须小于等于指定的最大值</td>
+      <td>被注释的元素必须是一个数字，其值必须小于或等于value。</td>
    </tr>
    <tr>
       <td>@DecimalMin(value)</td>
-      <td>被注释的元素必须是一个数字，其值必须大于等于指定的最小值</td>
+      <td>被注释的元素必须是一个数字，其值必须大于或等于value。</td>
    </tr>
    <tr>
       <td>@DecimalMax(value)</td>
-      <td>被注释的元素必须是一个数字，其值必须小于等于指定的最大值</td>
+      <td>被注释的元素必须是一个数字，其值必须小于或等于value。</td>
    </tr>
    <tr>
       <td>@Size(max, min)</td>
-      <td>被注释的元素的大小必须在指定的范围内</td>
+      <td>被注释的元素的取值范围必须是介于min和max之间。</td>
    </tr>
    <tr>
       <td>@Digits (integer, fraction)</td>
-      <td>被注释的元素必须是一个数字，其值必须在可接受的范围内</td>
+      <td>被注释的元素必须是一个数字，其值必须在可接受的范围内。</td>
    </tr>
    <tr>
       <td>@Past</td>
-      <td>被注释的元素必须是一个过去的日期</td>
+      <td>被注释的元素必须是一个过去的日期。</td>
    </tr>
    <tr>
       <td>@Future</td>
-      <td>被注释的元素必须是一个将来的日期</td>
+      <td>被注释的元素必须是一个将来的日期。</td>
    </tr>
    <tr>
       <td>@Pattern(value)</td>
-      <td>被注释的元素必须符合指定的正则表达式</td>
+      <td>被注释的元素必须符合指定的正则表达式。</td>
    </tr>
 </table>
 
@@ -392,19 +391,19 @@ Hibernate Validator 是JSR 303的扩展。Hibernate Validator 提供了 JSR 303�
    </tr>
    <tr>
       <td>@Email</td>
-      <td>被注释的元素必须是电子邮箱地址</td>
+      <td>被注释的元素值必须是合法的电子邮箱地址。</td>
    </tr>
    <tr>
       <td>@Length</td>
-      <td>被注释的字符串的大小必须在指定的范围内</td>
+      <td>被注释的字符串的长度必须在指定的范围内。</td>
    </tr>
    <tr>
       <td>@NotEmpty</td>
-      <td>被注释的字符串的必须非空</td>
+      <td>被注释的字符串的必须非空。</td>
    </tr>
    <tr>
       <td>@Range</td>
-      <td>被注释的元素必须在合适的范围内</td>
+      <td>被注释的元素必须在合适的范围内。</td>
    </tr>
 </table>
 
@@ -429,12 +428,12 @@ Hibernate Validator 是JSR 303的扩展。Hibernate Validator 提供了 JSR 303�
 
 **②加入&lt;mvc:annotation-driven/&gt;**
 
-Spring提供了一个`LocalValidatorFactoryBean`类，这个类既实现了Spring的校验接口，也实现了JSR303的校验接口。因此，Spring整合Hibernate Validator时，需要在Spring容器中定义了一个`LocalValidatorFactoryBean`。而`<mvc:annotation-driven/>`则会自动给Spring容器装配一个`LocalValidatorFactoryBean`，因此只需要在**springmvc.xml**中配置上`<mvc:annotation-driven/>`即可。
+Spring提供了一个`LocalValidatorFactoryBean`类，这个类既实现了Spring的校验接口，也实现了JSR303的校验接口。因此，Spring整合Hibernate Validator时，需要在Spring容器中定义了一个`LocalValidatorFactoryBean`。方便的是，`<mvc:annotation-driven/>`就会自动给Spring容器装配一个`LocalValidatorFactoryBean`，因此只需要在**springmvc.xml**中配置上`<mvc:annotation-driven/>`即可。
 
 
 **③使用JSR303或Hibernate Validator校验注解，标识实体类的属性：**
 
-本次使用JSR303提供的`@Past`，以及Hibernate Validator提供的`@Email`，如下：
+本次使用JSR303提供的@Past注解，以及Hibernate Validator提供的@Email注解进行输入校验，如下：
 
 **Student.java**
 
@@ -451,13 +450,13 @@ public class Student
 }
 ```
 
-即要求`birthday`必须在当天之前、email必须符合格式。
+规定birthday必须在当天之前、email必须符合邮箱格式。
 
 
 **④在请求处理方法对应的实体类参数前，增加`@Valid`注解**
 
 
-SpringMVC会对标有`@Valid`注解的实体类参数进行校验，并且可以通过`BindingResult`来存储校验失败时的信息，如下：
+SpringMVC会对标有`@Valid`注解的实体类参数进行校验，并且可以通过`BindingResult`类型的参数来存储校验失败时的信息，如下：
 
 **请求处理类：FirstSpringDemo.java**
 
@@ -504,13 +503,13 @@ BindingResult result)
 
 ![](http://i.imgur.com/0lxBkyL.png)
 
-*图27-06*
+*图29-06*
 
 点击提交后，就会在控制台得到校验失败的信息（错误信息是JSR303/Hibernate Validator框架提供的，无需开发人员编写）：
 
 ![](http://i.imgur.com/xYlSs8n.png)
 
-*图27-07*
+*图29-07*
 
 
 如果希望校验失败后，跳转到错误提示页面（**error.jsp**），可以通过以下方式实现：
@@ -550,7 +549,7 @@ BindingResult result, Map<String, Object> map)
 
 ![](http://i.imgur.com/aW2m7kX.png)
 
-*图27-08*
+*图29-08*
 
 **说明：**
 
@@ -568,7 +567,7 @@ public String testValid(@Valid Student student, BindingResult result, Map<String
 public String testValid(@Valid Student student, Map<String, Object> map, BindingResult result)
 ```
 
-# 27.4 练习题 #
+# 29.4 练习题 #
 
 1.使用SpringMVC实现类型转换的基本步骤是什么？
 
