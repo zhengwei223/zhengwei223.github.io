@@ -31,7 +31,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 
 
-# 28.1 `form`标签 #
+# 30.1 `form`标签 #
 
 `form`标签主要有两个作用：
 
@@ -40,7 +40,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 **②**支持所有的表单提交方式（`GET`、`POST`、`DELETE`、`PUT`等）。
 
 
-## 28.1.1 绑定表单对象 ##
+## 30.1.1 绑定表单对象 ##
 
 `form`标签可以将`request`域中的属性值，自动绑定到`form`对应的`JavaBean`对象中；默认会使用`request`域中，名为`command`、类型为`JavaBean`的属性值。
 
@@ -97,13 +97,13 @@ public class FormDemo
 
 ![](http://i.imgur.com/1utnzdV.png)
 
-*图28-01*
+*图30-01*
 
 通过浏览器，查看此时**springForm.jsp**的源代码，如图，
 
 ![](http://i.imgur.com/1pCUcw1.png)
 
-*图28-02*
+*图30-02*
 
 查看到的**springForm.jsp**源代码
 
@@ -186,7 +186,7 @@ public class FormDemo
 
 ![](http://i.imgur.com/NSie6d3.png)
 
-*图28-03*
+*图30-03*
 
 查看此时页面的源代码，如下：
 
@@ -200,12 +200,11 @@ public class FormDemo
 …
 ```
 
-不难发现，SpringMVC表单标签通过`commandName=”person”`，与`request`域中的`person`属性进行了绑定（通过`person`对象的属性名和表单元素的`path`值匹配绑定关系），并且`id`值也自动设为了`commandName`指定的`“person”`。
+不难发现，SpringMVC表单标签通过`commandName=”person”`，与`request`域中的`person`属性进行了绑定（通过`person`对象的属性名和表单元素的`path`值匹配绑定关系），并且`id`值也自动设置成了`commandName`属性所指定的`“person”`。
 
 
-## 28.1.2 支持所有的表单提交方式 ##
+## 30.1.2 支持所有的表单提交方式 ##
 
-**Jsp代码**
 
 ```
 …
@@ -231,9 +230,9 @@ public class FormDemo
 ```
 
 从生成的代码可以看出，SpringMVC的表单标签在处理除`GET`和`POST`之外的请求方式时，依旧是使用“POST+隐藏域”的方法进行处理；此外，依然需要配置`HiddenHttpMethodFilter`。
-**详见25.2.3REST风格一节。**
+**详见“REST风格”一小节。**
 
-`HiddenHttpMethodFilter`默认拦截的是`name=”_method”`的`hidden`元素；如果想把`“_method”`改成其他值，就可以通过SpringMVC表单标签的`methodParam`属性来指定，然后再显示的编写`hidden`元素。
+`HiddenHttpMethodFilter`默认拦截的是`name=”_method”`的`hidden`元素；如果想把`“_method”`改成其他值，就可以通过`< form:form …>`中的`methodParam`属性来指定，然后再显示的编写`hidden`元素。
 
 如下，通过`methodParam`属性让`HiddenHttpMethodFilter`去拦截`name=” otherMethod”`的`hidden`元素（而不再去默认的拦截`name=”_method”`的`hidden`元素）：
 
@@ -276,16 +275,16 @@ org.springframework.web.filter.HiddenHttpMethodFilter
 </web-app>
 ```
 
-# 28.2 表单元素 #
+# 30.2 表单元素 #
 
 除了`<form:form …>`以外，SpringMVC还提供了`<form:input path=”” .../>`、`<form:hidden path=””.../>`、`<form:checkbox path=””.../>`等标签。
 
 其中`path`的属性值，会被渲染为 `<标签名 id=””  name=”” />`中`id`和`name`的值。例如，`<form:hidden path=”stuId” />`，渲染后的html代码为`<input type=”hidden” name=”stuId” id=”stuId”/>`。
 
 
-## 28.2.1 `input`标签、`hidden`标签、`password`标签和`textarea`标签 ##
+## 30.2.1 `input`标签、`hidden`标签、`password`标签和`textarea`标签 ##
 
-`<form:input path=””.../>`会被渲染为一个`type="text"`的普通Html `input`标签。好处就是，`<form:input.../>`能绑定表单数据，详见28.1.1绑定表单对象。
+`<form:input path=””.../>`会被渲染为一个`type="text"`的普通Html `input`标签。好处就是，`<form:input.../>`能绑定表单数据，详见本章的“绑定表单对象”部分内容。
 
 `<form:hidden path=””.../>`会被渲染为一个`type="hidden"`的普通Html `input`标签，`<form:password.../>`会被渲染为一个`type="password"`的普通HTML `input`标签，并能绑定表单数据。
 
@@ -306,7 +305,7 @@ org.springframework.web.filter.HiddenHttpMethodFilter
 …
 ```
 
-## 28.2.2 `checkbox`标签和`checkboxes`标签 ##
+## 30.2.2 `checkbox`标签和`checkboxes`标签 ##
 
 **①`checkbox`标签**
 
@@ -383,7 +382,7 @@ public class FormDemo
 
 ![](http://i.imgur.com/8nxJyhG.png)
 
-*图28-04*
+*图30-04*
 
 
 **b.绑定集合/数组数据**
@@ -457,7 +456,7 @@ public class FormDemo
 
 ![](http://i.imgur.com/kiXMVye.png)
 
-*图28-05*
+*图30-05*
 
 因为足球与篮球`checkbox`的`value`值都存在于`hobbies`属性中，所以足球和篮球的复选框会被选中；而hobbies属性中没有乒乓球的`value`值“pingpang”，因此乒乓球的复选框不会被选中。
 
@@ -548,7 +547,7 @@ public class FormDemo
 
 ![](http://i.imgur.com/AchnYDK.png)
 
-*图28-06*
+*图30-06*
 
 因为`address`对象的`toString()`值是”beijing”，与北京复选框的`value`值一致，所以北京复选框会被选中。
 
@@ -556,9 +555,9 @@ public class FormDemo
 
 一个`checkbox`标签只能生成一个对应的复选框，而一个`checkboxes`标签可以根据其绑定的数据生成多个复选框。
 	
-`<form:checkboxes .../>`绑定的数据可以是数组、`List`或`Set`对象。使用时，必须指定两个属性: `path`和`items`。其中，`Items`表示所有要显示的`checkbox`项（包含选中和不选中），指定的是`request`域中的集合对象；`path`表示选中状态的`checkbox`项，指定的是`form`表单所绑定对象的属性。
+`<form:checkboxes .../>`绑定的数据可以是数组、`List`或`Set`对象。使用时，必须指定两个属性: `path和items`。其中，Items通过指定`request`域中的集合对象，表示所有要显示的checkbox项（包含选中和不选中）；`path`通过指定form表单所绑定对象的属性，表示选中状态的checkbox项。
 
-**控制器：org.lanqiao.handler.FormDemo**
+**控制器：org.lanqiao.handler.FormDemo.java**
 
 ```
 //package、import
@@ -581,7 +580,7 @@ public class FormDemo
 		allHobbiesList.add("football");
 		allHobbiesList.add("basketball");
 		allHobbiesList.add("pingpang");
-          //在request域中增加allhobbiesList对象，包含了football、basketball和pingpang三项，用于表示所有的checkbox项（选中及不选中两种状态）
+          //在request域中增加allhobbiesList对象，包含了football、basketball和pingpang三项，用于表示所有的checkbox项（选中和不选中两种状态）
 		map.put("allHobbiesList",allHobbiesList);
 		
 		return "forward:/views/checkboxes.jsp";
@@ -610,13 +609,13 @@ public class FormDemo
 
 ![](http://i.imgur.com/TMVSaRw.jpg)
 
-*图28-07*
+*图30-07*
 
 查看此时网页的源代码，如下：
 
 ![](http://i.imgur.com/1F4ouhZ.png)
 
-*图28-08*
+*图30-08*
 
 
 **源代码：**
@@ -637,8 +636,9 @@ type="checkbox" value="football" checked="checked"/>
 </body>
 …
 ```
-从源代码中可以发现，`<form:checkboxes … />`生成了很多`checkbox`标签以及对应的`lable`标签，并且`label`显示的值与`checkbox`的`value`值相同。以上是`<form:checkboxes .../>`绑定`List`对象的示例，`<form:checkboxes .../>`绑定数组或`Set`对象的用法与之相同。
+从源代码中可以发现，`<form:checkboxes … />`生成了很多checkbox标签以及对应的lable标签，并且label显示的值与checkbox的value值相同。
 
+以上是`<form:checkboxes .../>`绑定`List`对象的示例，绑定数组或`Set`对象的用法与之相同，读者可以自行尝试。
 
 如果想让`label`显示的值与`checkbox`的`value`值不同，就需要用`items`绑定一个`Map`对象（不能再绑定数组、`List`或`Set`对象）。`Map`的`key`指定`checkbox`的`value`值，`Map`的`value`指定`label`显示的值，如下：
 
@@ -690,7 +690,7 @@ public class FormDemo
 
 ![](http://i.imgur.com/NSxsO8c.png)
 
-*图28-09*
+*图30-09*
 
 查看此时网页的源代码，如下：
 
@@ -713,7 +713,7 @@ value="basketball"  checked="checked"/>
 
 可以发现，`checkbox`的`value`值就是`Map`对象的`key`值（如“basketball”），而`label`标签显示的值就是`Map`对象的`value`值（如“篮球”）。
 
-## 28.2.3 `radiobutton`标签和`radiobuttons`标签 ##
+## 30.2.3 `radiobutton`标签和`radiobuttons`标签 ##
 
 **①`radiobutton`标签**
 
@@ -730,14 +730,15 @@ value="basketball"  checked="checked"/>
 </body>
 ```
 
-以上，`<form:radiobutton…/>`标签就绑定了`request`域中`person`对象的`country`属性，当`country`属性为“China”的时候，上面国籍为“中国”的那一行就会被选中；当`country`属性为“other”的时候，下面国籍为“外国”的那一行就会被选中。
+以上，`<form:radiobutton…/>`标签就绑定了`request`域中`person`对象的`country`属性。当`country`属性为“China”的时候，上面国籍为“中国”的那一行就会被选中；当`country`属性为“other”的时候，下面国籍为“外国”的那一行就会被选中。
 
 
 **②`radiobuttons`标签**
 
 `<form:radiobuttons…/>`与`<form:radiobutton…/>`的区别如同`<form:checkbox…/>`与`<form:checkboxes…/>`的区别。
 
-使用`<form:radiobuttons…/>`的时候将生成多个单选按钮。并且，`<form:radiobuttons…/>`也有两个必须指定的属性：`path`和`items`。`Items`表示所有要显示的`radiobutton`项（包含选中和不选中），指定的是`request`域中的集合对象；`path`表示选中状态的`radiobutton`项，指定的是`form`表单所绑定对象的属性。与`<form:checkboxes…/>`中`items`和`path`的含义非常类似，并且`items`和`path`属性都可以是数组、`List`/`Set`或者是`Map`对象。
+使用`<form:radiobuttons…/>`的时候将生成多个单选按钮。并且，`<form:radiobuttons…/>`也有两个必须指定的属性：`path`和`items`。Items通过指定`request`域中的集合对象，表示所有要显示的radiobutton项（包含选中和不选中）；`path`通过指定form表单所绑定对象的属性，表示选中状态的radiobutton项。此外，`items`和`path`属性都可以是数组、`List`/`Set`或者是`Map`对象。
+可以发现，`<form:radiobuttons…/>`与`<form:checkboxes…/>`的使用方法非常类似。`<form:radiobuttons…/>`的应用示例如下：
 
 **JavaBean：org.lanqiao.entity.Person.java**
 
@@ -802,12 +803,12 @@ items="${allBallMap}" delimiter="、"/>
 
 ![](http://i.imgur.com/ybk2Aiy.png)
 
-*图28-10*
+*图30-10*
 
-从运行结果可以发现，各个`radiobutton`之间是通过“、”间隔的，而间隔符是通过`<form:radiobuttons…/>`标签中的`delimiter`属性指定的。
+从运行结果可以发现，各个`radiobutton`之间是通过“、”间隔的，而间隔符“、”就是通过`<form:radiobuttons…/>`标签中的`delimiter`属性指定的。
 
 
-## 28.2.4 `select`标签 ##
+## 30.2.4 `select`标签 ##
 
 `<form:select …/>`标签会被渲染为一个普通的HTML `select`标签，，并且也可以绑定`request`域的数据。`<form:select …/>`与`<form:radiobuttons…/>`标签的使用方法非常相似，如下是以`<form:select …/>`的形式选择最喜欢的球类：
 
@@ -824,8 +825,8 @@ public class FormDemo
 	@RequestMapping(value="/testSelectWithMap")
 	public String testSelectWithMap(Map<String,Object> map){
 		Person per = new Person();
-		//最爱的球类设置为1（足球）
-		per.setFavoriteBall(1);
+		//最爱的球类设置为2（篮球）
+		per.setFavoriteBall(2);
 		map.put("person", per);
 		
 		Map<Integer,String> allBallMap = new HashMap<Integer,String>();
@@ -862,13 +863,13 @@ allBallMap.put(1,"足球");
 
 ![](http://i.imgur.com/kRzFDqn.png)
 
-*图28-11*
+*图30-11*
 
-## 28.2.5 `option`标签和`options`标签 ##
+## 30.2.5 `option`标签和`options`标签 ##
 
 **①`option`标签**
 
-`<form:option.../>`标签会被渲染为一个普通的HTML `option`标签。当一个`<form:select …/>`标签没有通过`items`属性绑定数据源的时候，就可以在`<form:select …/>`标签中通过普通HTML `option`标签或者`<form:option.../>`标签来指定可供选择的项。
+`<form:option.../>`标签会被渲染为一个普通的HTML `option`标签。当一个`<form:select …/>`标签没有通过`items`属性绑定数据源的时候，就可以在`<form:select …/>`标签中通过普通HTML `option`标签或者`<form:option.../>`标签来设置可供选择的项。
 
 
 **控制器：org.lanqiao.handler.FormDemo.java**
@@ -927,7 +928,7 @@ public class FormDemo
 **②**从上面的运行结果可以发现，`<form:option…/>`标签与普通的HTML `option`标签的显示效果无异，那么二者的区别究竟在哪里？
 
 
-**先来解释第一个问题：**
+**先来解释第①个问题：**
 
 在控制器中设置`Person`对象的`favoriteBall`属性值（即被选中的`option`），并设置用于显示的所有`option`集合`allBallMap`（即所有的`option`，用于绑定`select`的数据源），如下：
 
@@ -986,7 +987,7 @@ public class FormDemo
 
 通过结果发现，当用`items`绑定数据源和手写`option`两种方式同时设置可选项时，`items`绑定数据源方式的优先级高，会覆盖掉手写`option`方式的效果。
 
-**对于第二个问题：**
+**对于第②个问题：**
 
 通过`Person`对象的`favoriteBall`属性，来设置最喜欢的球类为2（在后续JSP中，数字2对应的选项是“篮球-A”），如下：
 
@@ -1035,7 +1036,7 @@ public class FormDemo
 
 ![](http://i.imgur.com/2i60Og5.jpg)
 
-*图28-14*
+*图30-14*
 
 可以发现，`HTML option`标签和`<form:option…>`标签的区别就在于：普通`HTML option`标签不具备数据绑定功能；而`<form:option…>`标签具有数据绑定功能，它能把与表单对象属性值（favoriteBall=2）相对应的`option`（`<option value="2"..>`）设置为选中状态。
 
@@ -1092,7 +1093,7 @@ public class FormDemo
 
 可以发现，`<form:options…>`标签与`<form:select…>`标签的使用方法非常相似。
 
-## 28.2.6 `errors`标签 ##
+## 30.2.6 `errors`标签 ##
 
 在上一章中，我们使用了JSR303进行数据校验，并将错误信息存储到了`BindingResult`对象中。
 
@@ -1105,7 +1106,7 @@ public interface BindingResult extends Errors
 
 可以发现`BindingResult`继承自`Errors`接口。
 
-`<form:errors…>`标签可以显示`Errors`对象中的错误信息，可以通过`path`属性来绑定两种类型的错误信息，
+`<form:errors…>`标签可以显示`Errors`对象中的错误信息，可以通过`path`属性来指定两种类型的错误信息，
 
 **①**用`<form:errors path="*"/>`显示所有的错误信息
 
@@ -1223,19 +1224,19 @@ BindingResult result, Map<String, Object> map)
 
 ![](http://i.imgur.com/iZ3DS0p.png)
 
-*图28-16*
+*图30-16*
 
 输入以下不合法内容，并提交
 
 ![](http://i.imgur.com/Y4wVWja.png)
 
-*图28-17*
+*图30-17*
 
 提交后结果：
 
 ![](http://i.imgur.com/6Py436q.png)
 
-*图28-18*
+*图30-18*
 
 可见，`<form:errors path="*"></form:errors>`可以显示`request`域中的所有错误信息。如果想只显示某一指定元素的错误信息，就需要使用`<form:errors path="绑定对象的属性名"/>`。对**index.jsp**进行修改，如下：
 
@@ -1260,7 +1261,7 @@ BindingResult result, Map<String, Object> map)
 
 ![](http://i.imgur.com/UGDE7CS.png)
 
-*图28-19*
+*图30-19*
 
 我们再思考：“不能为空”、“需要一个过去的时间”……这些都是校验框架内置的错误信息。我们能否自定义错误信息呢？可以！需要在资源文件中配置错误信息，方法如下：
 
@@ -1298,4 +1299,4 @@ Email.student.email=\u90AE\u7BB1\u683C\u5F0F\u6709\u8BEF
 
 ![](http://i.imgur.com/efeHssN.png)
 
-*图28-20*
+*图30-20*
