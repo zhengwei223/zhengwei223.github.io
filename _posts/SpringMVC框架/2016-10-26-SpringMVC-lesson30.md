@@ -16,15 +16,15 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 ---
 
-# 30.1 文件上传 #
+# 32.1 文件上传 #
 
-SpringMVC提供了一个`MultipartResolver`接口用来实现文件上传，并使用Commons FileUpload技术实现了一个该接口的实现类`CommonsMultipartResolver`。如果要在SpringMVC中实现文件上传功能，就需要在**springmvc.xml**中配置`MultipartResolver`接口的实现类。
+SpringMVC提供了一个`MultipartResolver`接口用来实现文件上传，并使用Commons FileUpload技术实现了一个该接口的实现类`CommonsMultipartResolver`。如果要在SpringMVC中实现文件上传功能，就可以在**springmvc.xml**中配置`MultipartResolver`接口的实现类。
 
 **以下是使用SpringMVC实现文件上传的具体步骤：**
 
 **①导入`JAR`包：**
 
-使用SpringMVC实现文件上传，共需要导入以下2个`JAR`包：
+使用SpringMVC实现文件上传，需要额外导入以下2个`JAR`包：
 
 
 <table>
@@ -49,7 +49,7 @@ commons.CommonsMultipartResolver">
 </bean>	
 ```
 
-需要注意，这个`bean`的`id`值必须是`multipartResolver`。`DispatcherServlet`会自动查找`id`为`multipartResolver`的`Bean`，并对其进行解析。如果`id`值不是`multipartResolver`，那么`DispatcherServlet`就会忽略对此`Bean`的解析，也就无法加入文件上传的支持。
+需要注意，这个`bean`的id值必须是multipartResolver。DispatcherServlet在Web服务启动时，会自动查找id=”multipartResolver”的Bean，并对其进行解析。如果id值不是multipartResolver， DispatcherServlet就会忽略对此Bean的解析，也就无法加入SpringMVC对文件上传的支持。
 
 
 **`CommonsMultipartResolver`中属性的介绍如下：**
@@ -61,15 +61,15 @@ commons.CommonsMultipartResolver">
    </tr>
    <tr>
       <td>defaultEncoding</td>
-      <td>指定解析request请求的编码格式。设置上传</td>
+      <td>指定解析request请求的编码格式。</td>
    </tr>
    <tr>
       <td>uploadTempDir</td>
-      <td>指定上传文件时的临时目录，默认是Servlet容器的临时目录。</td>
+      <td>指定上传文件时的临时目录，默认是Servlet容器的临时目录。文件上传完毕时，临时目录中的临时文件会被自动清除。</td>
    </tr>
    <tr>
       <td>maxUploadSize</td>
-      <td>设置上传文件的最大值，单位是字节。-1时表示无限制，默认是-1。</td>
+      <td>设置上传文件的最大值，单位是字节。默认是-1，表示无限制。</td>
    </tr>
    <tr>
       <td>maxInMemorySize</td>
@@ -130,9 +130,9 @@ public class SecondSpringDemo
 在JSP页面中使用文件上传时，除了文件的字段要使用`type="file"`外，还需要注意设置表单的提交方式以及编码类型，即`method="POST" enctype="multipart/form-data"`。
 
 
-# 30.2 拦截器 #
+# 32.2 拦截器 #
 
-## 30.2.1 拦截器简介 ##
+## 32.2.1 拦截器简介 ##
 
 拦截器的实现原理和过滤器相似，都可以对用户发出的请求或者对服务器做出的响应进行拦截。SpringMVC也提供了一个用于支持拦截器的`HandlerInterceptor`接口，此接口的实现类就是一个拦截器。
 
@@ -162,9 +162,9 @@ public class SecondSpringDemo
 
 ![](http://i.imgur.com/XaHMmok.png)
 
-*图30-01*
+*图32-01*
 
-## 30.2.2 拦截器使用步骤 ##
+## 32.2.2 拦截器使用步骤 ##
 
 **以下是在SpringMVC中创建并使用拦截器的具体步骤：**
 
@@ -182,7 +182,7 @@ public class FirstInterceptor implements HandlerInterceptor
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
 	{
-		System.out.println("第一个拦截器preHandle()方法...");
+		System.out.println("第一个拦截器的preHandle()方法...");
 		return true;// 将请求放行
 	}
 
@@ -191,7 +191,7 @@ public class FirstInterceptor implements HandlerInterceptor
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception
 	{
-		System.out.println("第一个拦截器postHandle()方法...");
+		System.out.println("第一个拦截器的postHandle()方法...");
 	}
 
 	// 视图渲染完毕之后被调用
@@ -199,7 +199,7 @@ public class FirstInterceptor implements HandlerInterceptor
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception
 	{
-		System.out.println("第一个拦截器afterCompletion()方法...");
+		System.out.println("第一个拦截器的afterCompletion()方法...");
 	}
 }
 ```
@@ -221,7 +221,7 @@ public class FirstInterceptor implements HandlerInterceptor
 
 **③测试**
 	
-默认的拦截器会拦截所有向达服务器发送的请求，如下：
+默认的拦截器会拦截所有向服务器发送的请求，如下：
 
 **请求处理类：SecondSpringDemo.java**
 
@@ -250,10 +250,10 @@ public class SecondSpringDemo
 
 ![](http://i.imgur.com/v9NaBPF.png)
 
-*图30-02*
+*图32-02*
 
 
-## 30.2.3 拦截器的拦截配置 ##
+## 32.2.3 拦截器的拦截配置 ##
 
 以上方法实现的拦截器会拦截所有请求，此外我们还可以通过配置，使得拦截器只拦截或不拦截某些特定请求。为此，只需要将SpringMVC中对拦截器的配置修改如下：
 
@@ -297,11 +297,11 @@ path="/SecondSpringDemo/testFileUpload"/>
 最终拦截的请求路径是`mapping`与`exclude-mapping`的交集。例如，上述**springmvc.xml**中配置的`FirstInterceptor`拦截器：会拦截除了请求路径是/`SecondSpringDemo`/`testFileUpload`以外的所有请求。
 
 
-本例中只涉及到了一个拦截器，如果配置了多个拦截器，则多个拦截器拦截请求/响应的顺序与使用多个过滤器拦截请求/响应的顺序是完全相同的，读者可以参见*“7.4过滤器”*。
+本例中只涉及到了一个拦截器，如果配置了多个拦截器，则多个拦截器拦截请求/响应的顺序与使用多个过滤器拦截请求/响应的顺序是完全相同的，读者可以参见“过滤器与监听器”一节。
 
 
 
-# 30.3 练习题 #
+# 32.3 练习题 #
 
 1.SpringMVC提供了哪个类用来支持文件上传？
 
