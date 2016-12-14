@@ -435,14 +435,36 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;然后刷新页面，你将会看到：
 
- ![jq_adv_letter_game_08](/public/img/js/jq_adv_letter_game_08.gif)
+ ![jq_adv_letter_game_09](/public/img/js/jq_adv_letter_game_09.gif)
 
+### 使用开源的jQuery UI进度条插件
+
+&emsp;&emsp;知名的开源类库jQuery UI里面有一款专业而且强大的进度条组件。大家可以从[菜鸟教程 jQuery UI Progressbar 实例](http://www.runoob.com/jqueryui/example-progressbar.html)直接查看使用方法。
+
+&emsp;&emsp;下图仅仅演示了这个进度条组件的最简单用法：
+
+ ![jq_adv_letter_game_10](/public/img/js/jq_adv_letter_game_10.gif)
+
+&emsp;&emsp;其他个更多内容可以直接查询[jQuery UI 中文网 ProgressBar](http://www.css88.com/jquery-ui-api/progressbar/)页面。
+
+&emsp;&emsp;
+
+&emsp;&emsp;
 
 # 实验一的解读
 
+&emsp;&emsp;
 
-#实验二
+&emsp;&emsp;
 
+# 实验二： 了解jQuery核心类库的其他特性
 
+&emsp;&emsp;
+
+&emsp;&emsp;
 
 # 实验二的解读
+
+&emsp;&emsp;
+
+&emsp;&emsp;
