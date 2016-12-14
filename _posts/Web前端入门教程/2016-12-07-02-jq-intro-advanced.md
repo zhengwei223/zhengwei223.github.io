@@ -457,13 +457,185 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;
 
-# 实验二： 了解jQuery核心类库的其他特性
+# 实验二： 学习jQuery核心类库源码
+
+## 2.1 jQuery全局方法
+
+### 准备工作
+
+&emsp;&emsp;新建文件夹“jq_source_nav”。
+
+&emsp;&emsp;在文件夹内部新建名字是“js”的文件夹，一个名字是“index.html”的空白网页文件。
+
+&emsp;&emsp;在“js”目录下放入“jquery-3.1.1.js”的jQuery类库文件，同时新建一个名字是“jQuerySourceTest.js”的文件。
+
+&emsp;&emsp;在页面底部引入外部js文件，同时把网页标题定义成“学习jQuery类库源码”。
+
+&emsp;&emsp;至此，你将会得到下面样子的一个文件夹：
+
+ ![jq_adv_jq_source_nav_01](/public/img/js/jq_adv_jq_source_nav_01.gif) 
+
+### 全局方法$.each
+
+&emsp;&emsp;打开jQuery中文网，在搜索框里输入each，可以得到“jQuery.each”的搜索结果：
+
+ ![jq_adv_jq_source_nav_01](/public/img/js/jq_adv_jq_source_nav_03.gif) 
+
+&emsp;&emsp;这是一个既可以循环遍历数组，也可以循环遍历对象内部属性的jQuery全局函数。
+
+&emsp;&emsp;根据文档最下方的实例，我们在“index.html”页面的内容区增加如下代码：
+
+    <div id="one"></div>
+    <div id="two"></div>
+    <div id="three"></div>
+    <div id="four"></div>
+    <div id="five"></div>
+
+&emsp;&emsp;在页面头部的“style”元素内增加如下代码：
+
+	  div {
+	    color: blue;
+	  }
+	  div#five {
+	    color: red;
+	  }
+
+&emsp;&emsp;在控制台直接运行下面的代码：
+
+	var arr = [ "one", "two", "three", "four", "five" ];
+	var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
+	 
+	//遍历数组
+	jQuery.each( arr, function( i, val ) {
+	  //设定多个div的内部文字
+	  $( "#" + val ).text( "Mine is " + val + "." );
+	 
+	/*
+		当遍历到val值为"three"的时候这个表达式就会返回false
+		在回调函数中返回false，就意味着each函数整体上结束遍历的过程	
+	 */
+	  return ( val !== "three" );
+	});
+	 
+	jQuery.each( obj, function( i, val ) {
+	  $( "#" + i ).append( document.createTextNode( " - " + val ) );
+	});
+
+&emsp;&emsp;控制台显示结果是这样的：
+
+ ![jq_adv_jq_source_nav_04](/public/img/js/jq_adv_jq_source_nav_04.gif) 
+
+### 全局函数$.trim
+
+&emsp;&emsp;打开jQuery中文网，在搜索框里输入each，可以得到“jQuery.trim”的搜索结果：
+
+ ![jq_adv_jq_source_nav_05](/public/img/js/jq_adv_jq_source_nav_05.gif) 
+
+&emsp;&emsp;根据文档，$.trim会把字符串开头和结尾的连续空格、换行符、制表符统统去除。
+
+&emsp;&emsp;我们在控制台做几个实验：
+
+	//输入末尾没有任何特殊符号的字符串
+	var s0 = "hello world";
+	//输入开头和末尾含有换行符号的字符串
+	var s1 = "\nhello world\n";
+	//使用trim函数去除字符串开头和结尾部分的换行符
+	var s2 = $.trim(s0);
+	//在控制台测试几个字符串内容的等性
+	s0 === s1
+	s0 === s2
+	//输入开头和末尾含有制表符号的字符串
+	var s3 = "\thello world\t";
+	//使用trim函数去除字符串开头和结尾部分的制表符
+	var s4 = $.trim(s0);
+	//在控制台测试几个字符串内容的等性
+	s0 === s3
+	s0 === s4
+
+&emsp;&emsp;在控制台执行上述代码。有图有真相：
+
+ ![jq_adv_jq_source_nav_06](/public/img/js/jq_adv_jq_source_nav_06.gif) 
+	
+
+### 自定义全局方法$.sum
+
+&emsp;&emsp;jQuery类库的全局方法就是位于名称“jQuery”或者“$”可以直接调用的方法。
+
+&emsp;&emsp;在jQuery类库加载到页面以后，我们也可以给类库增加自定义的全局方法。
+
+&emsp;&emsp;在“./js/jQuerySourceNav.js”文件里面加入以下代码：
+
+    (function($) {
+		$.sum = function(array) {
+    	var total = 0;//定义一个表示总和的变量
+		$.each(array, function(index, value) {//调用jQuery类库名称是each的全局函数
+			value = $.trim(value);//调用jQuery类库名称是trim的全局函数
+			 /*
+				使用JS标准库函数把字符串转化为浮点数
+				“||”运算符的意思就是：如果parseFloat转换过程失败，就给当前值赋予默认值0
+			 */
+			value = parseFloat(value) || 0;
+			total += value;
+		});
+			return total;
+      };
+    }(jQuery));//定义一个立即执行的匿名函数，传入参数是jQuery
+
+&emsp;&emsp;打开页面控制台，在里面查看新增全局函数：
+
+	$.sum //函数名
+
+&emsp;&emsp;定义一个数字数组,调用这个全局函数：
+
+	var arr = [57,89,61,55,33,29.1,97.4,-8];
+	var result = $.sum(arr);
+
+&emsp;&emsp;在控制台上完成操作：
+
+ ![jq_adv_jq_source_nav_02](/public/img/js/jq_adv_jq_source_nav_02.gif) 
+
+### 自定义命名空间
+
+&emsp;&emsp;现在我们已经在 jQuery 命名空间中创建了一个新的全局函数，但这样写有可能会污染命名空间，例如当其他插件也使用 sum 命名时就会出现冲突，为了避免冲突的发生，我们可以使用命名空间来隔离函数，即将函数封装到一个对象中。
+
+&emsp;&emsp;用下面代码替换之前“./js/jQuerySourceNav.js”文件里的sum函数定义：
+    
+    (function($) {
+      $.lanqiao = {//在jQuery上新增名称为“lanqiao”的对象作为命名空间
+    		sum: function(array) {
+      			var total = 0;
+      			$.each(array, function(index, value) {
+    				value = $.trim(value);
+    				value = parseFloat(value) || 0;
+    				total += value;
+      			});
+      		return total;
+    		},
+      }//lanqiao命名空间结束
+    }(jQuery));
+
+&emsp;&emsp;定义一个数字数组,在控制台上调用这个全局函数：
+
+	var arr = [57,89,61,55,33,29.1,97.4,-8];
+	var result = $.lanqiao.sum(arr);
+
+&emsp;&emsp;下面是控制台操作的全部过程以及输出结果：
+
+ ![jq_adv_jq_source_nav_07](/public/img/js/jq_adv_jq_source_nav_07.gif) 
+
+## 2.2 jQuery对象上的方法：自定jq义插件
+
+
 
 &emsp;&emsp;
 
 &emsp;&emsp;
 
 # 实验二的解读
+
+&emsp;&emsp;要知道，在JavaScript还接里面，“$”符号很受追捧
+
+关于JS语言字符串的换行符、制表符还有其他,大家可以参考[w3School JavaScript 特殊字符](http://www.w3school.com.cn/js/js_special_characters.asp)
 
 &emsp;&emsp;
 
