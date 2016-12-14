@@ -28,7 +28,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;在页面底部引入外部js文件，同时把网页标题定义成“字母游戏”。
 
-&emsp;&emsp;用Chrome浏览器打开“index.html”，你将会得到下面样子的一个文件夹：
+&emsp;&emsp;至此，你将会得到下面样子的一个文件夹：
 
  ![jq_adv_letter_game_01](/public/img/js/jq_adv_letter_game_01.gif) 
 
@@ -348,6 +348,94 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 
 ## 1.2 制作简单的进度条
+
+### 准备工作
+
+&emsp;&emsp;新建文件夹“jq_progress_bar”。
+
+&emsp;&emsp;在文件夹内部新建名字是“js”的文件夹，一个名字是“index.html”的空白网页文件。
+
+&emsp;&emsp;在“js”目录下放入“jquery-3.1.1.js”的jQuery类库文件，同时新建一个“progressBar.js”文件。
+
+&emsp;&emsp;在页面底部引入外部js文件，同时把网页标题定义成“自定义进度条”。
+
+&emsp;&emsp;打开“index.html”文件，在修改body元素的开始标签为：
+
+    <body style="font-family:Arial;">
+
+&emsp;&emsp;至此，你将会得到下面样子的一个文件夹：
+
+ ![jq_adv_letter_game_07](/public/img/js/jq_adv_letter_game_07.gif)
+
+### 自定义进度条
+
+&emsp;&emsp;在页面内容区加入如下HTML代码：
+
+      请选择进度百分比：
+      <select id="percent4pb">
+       <option value="10">10</option>
+       <option value="20">20</option>
+       <option value="30">30</option>
+       <option value="40">40</option>
+       <option value="50">50</option>
+       <option value="60">60</option>
+       <option value="70">70</option>
+       <option value="80">80</option>
+       <option value="90">90</option>
+      </select>
+      <br/>
+		<!-- 使用按钮启动进度条动画 -->
+      <input type="button" id="myButton" value="启动进度条动画" />
+      <br/>
+      <br/>
+		<!-- 自定义进度条的容器 -->
+      <div id="outter" style="background-color:#eeeeee;height:20px;width:500px;padding:5px;">
+    	<div id="inner" style="background-color:red;height:19px;width:0px;color:white;text-align:center;"></div>
+      </div>
+
+&emsp;&emsp;在“./js/progressBar.js”文件里面创建如下函数：
+
+    function bindClick4Button(){
+    	$("#myButton").click(function(e){
+    		var percent = $("#percent4pb").val();
+    		animateCustomProgressBar(percent);
+    	});
+    }
+
+    function animateCustomProgressBar(percent){
+		$("#inner").animate({
+			'width' : (500 * percent)/100// 修改对象的width属性
+		},
+		3000 // 定义动画的运行时长3000毫秒
+		);
+    }
+
+&emsp;&emsp;在网页文件下方*jQuery的ready事件的等价写法*的匿名函数里面追加下面代码：
+
+    bindClick4Button();
+
+&emsp;&emsp;刷新页面，你将会看到：
+
+ ![jq_adv_letter_game_08](/public/img/js/jq_adv_letter_game_08.gif)
+
+### 在进度条上显示百分比
+
+&emsp;&emsp;在“./js/progressBar.js”文件里面的animateCustomProgressBar函数内追加下面的代码：
+
+	//对一个普通的js对象运行动画
+	$({counter : 1}).animate({ 
+		counter : percent // 修改对象的counter属性
+	}, 
+	{
+		duration : 3000,//与上一个动画的时长匹配
+		step : function(){//单步回调函数
+			$("#inner").text(Math.floor(this.counter) + '%');
+		}
+	});
+
+&emsp;&emsp;然后刷新页面，你将会看到：
+
+ ![jq_adv_letter_game_08](/public/img/js/jq_adv_letter_game_08.gif)
 
 
 # 实验一的解读
