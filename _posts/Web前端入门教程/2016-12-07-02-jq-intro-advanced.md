@@ -623,9 +623,40 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
  ![jq_adv_jq_source_nav_07](/public/img/js/jq_adv_jq_source_nav_07.gif) 
 
-## 2.2 jQuery对象上的方法：自定jq义插件
+## 2.2 自定jq义插件
 
+&emsp;&emsp;为什么要定义jQuery插件？
 
+&emsp;&emsp;一个词就足以表达：那就是“重用”！
+
+&emsp;&emsp;通过扩展jQuery类库，你将会创造一个可以在多个页面上反复使用的Web组件：有关HTML、CSS和JS的代码会被一起封装在组件内部。
+
+&emsp;&emsp;这样做顺带的一个好处是，插件内外可以使用相同的变量名。换就话说就是，组件内部的变量名和方法名不会对全局作用域造成干扰。
+
+ ![jquey_plugin_logo](/public/img/js/jquey_plugin_logo.png) 
+
+### 在$.fn新增方法
+
+&emsp;&emsp;在页面内容区上增加两个h1标签。
+
+	<h1></h1>
+	<h1></h1>
+
+&emsp;&emsp;在控制台查看jQuery方法选中的对象的“\__proto__”属性。
+
+ ![jq_adv_jq_source_nav_08](/public/img/js/jq_adv_jq_source_nav_08.gif)
+
+&emsp;&emsp;所有jQuery方法选中的对象有一个共同的“__proto__”属性。
+
+&emsp;&emsp;由于“$”符号是jQuery的别名，在“$.fn”上定义新方法，就相当于在“jQuery.fn”上定义新方法，也就是相当于在以后所jQuery对象上定义新方法。
+
+&emsp;&emsp;在“./js/jQuerySourceNav.js”文件里面加入以下代码：
+
+    (function($){
+    $.fn.helloWorld = function(){
+       console.log('Hello jQuery Plugin World!');
+    }
+    })(jQuery);
 
 &emsp;&emsp;
 
