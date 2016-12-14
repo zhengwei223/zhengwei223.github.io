@@ -17,11 +17,11 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 ---
 
 
-在完成了“Spring整合MyBatis（详见第23章）”的基础上，按以下步骤整合：
+在“Spring整合MyBatis”一章的基础上，按以下步骤整合：
 
-**①准备工作**
+#### ①准备工作 ####
 
-**a、在第23章的基础上，新建并编写以下文件(控制器类和业务逻辑层)**
+**a、新增以下文件(控制器类和业务逻辑层)**
 
 以“根据学号，查询学生信息”为例，相关代码如下，
 
@@ -31,7 +31,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 package org.lanqiao.handler;
 //import…
 @Controller
-public class StudentHandlder
+public class StudentHandler
 {
 	private IStudentService studentService  ; 
 	public IStudentService getStudentService()
@@ -121,7 +121,7 @@ public class StudentServiceImpl implements IStudentService
    </tr>
 </table>
 
-**②在web.xml集成spring和springMVC**
+#### ②在web.xml集成spring和springMVC ####
 
 为了能在Web应用中使用Spring和SpringMVC，需要在**web.xml**中做如下配置：
 
@@ -168,7 +168,7 @@ org.springframework.web.servlet.DispatcherServlet
 </web-app>
 ```
 
-**③创建并编写springMVC配置文件**
+#### ③创建并编写springMVC配置文件 ####
 
 在SpringMVC配置文件中配置扫描包、视图解析器和控制器Handler，如下
 
@@ -177,7 +177,7 @@ org.springframework.web.servlet.DispatcherServlet
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans …>
-	<!-- 配置需要扫描的包 (SpringMVC用到的註解所在包,如@RequestMapping)-->
+	<!-- 配置需要扫描的包 ，即配置使用了SpringMVC注解的包。例如，StudentHandler类使用了SpringMVC提供的@RequestMapping注解，则就需要把StudentHandler类的所在包org.lanqiao.handler 加入扫描-->
 	<context:component-scan base-package="org.lanqiao.handler">
 	</context:component-scan>
 
@@ -189,8 +189,8 @@ org.springframework.web.servlet.DispatcherServlet
 	</bean>
 	
 	<!-- 给控制器Handler注入业务逻辑层对象 -->
-	<bean id="studentHandlder" class="org.lanqiao.handler
-.StudentHandlder" >
+	<bean id="StudentHandler" class="org.lanqiao.handler
+.StudentHandler" >
 		<property name="studentService" ref="studentService">
 </property>
 	</bean>
@@ -200,7 +200,7 @@ org.springframework.web.servlet.DispatcherServlet
 
 SpringMVC主要是实现了控制器的功能，而在三层架构中控制器主要是用来调用业务逻辑层，因此需要在springMVC配置文件中给控制器Handler注入业务逻辑层对象。
 
-**④配置Spring配置文件**
+#### ④配置Spring配置文件 ####
 
 在Spring配置文件中，配置数据库连接池、`sqlSessionFactory`、`dao`、`service`，如下
 
@@ -253,7 +253,7 @@ SpringMVC主要是实现了控制器的功能，而在三层架构中控制器�
 </beans>
 ```
 
-**⑤测试**
+#### ⑤测试 ####
 
 最后，通过前段JSP页面进行测试，如下
 
@@ -278,4 +278,4 @@ ${student.stuAge}、${student.graName}
 
 ![](http://i.imgur.com/50rPcWp.png)
 
-*图32-01*
+*图34-01*
