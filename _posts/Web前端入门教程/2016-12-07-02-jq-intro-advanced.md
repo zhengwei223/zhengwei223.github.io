@@ -445,7 +445,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
  ![jq_adv_letter_game_10](/public/img/js/jq_adv_letter_game_10.gif)
 
-&emsp;&emsp;其他个更多内容可以直接查询[jQuery UI 中文网 ProgressBar](http://www.css88.com/jquery-ui-api/progressbar/)页面。
+&emsp;&emsp;想要了解有关这款进度条插件的更多信息，请直接查询[jQuery UI 中文网 ProgressBar](http://www.css88.com/jquery-ui-api/progressbar/)页面。
 
 &emsp;&emsp;
 
