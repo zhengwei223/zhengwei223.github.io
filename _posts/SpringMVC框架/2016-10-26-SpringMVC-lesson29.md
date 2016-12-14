@@ -2,7 +2,7 @@
 
 layout: post
 
-title: 整合JSON
+title: SpringMVC整合JSON
 
 category: SpringMVC框架
 
@@ -98,21 +98,21 @@ public class SecondSpringDemo
 
 ![](http://i.imgur.com/4c49j3U.png)
 
-*图29-01*
+*图31-01*
 
 ![](http://i.imgur.com/4uunjMU.png)
 
-*图29-02*
+*图31-02*
 
 ![](http://i.imgur.com/cyWCSe8.png)
 
-*图29-03*
+*图31-03*
 
 也可以在`firebug`中看到AJAX的响应结果确实是JSON格式的数据，如图：
 
 ![](http://i.imgur.com/tQ132ES.png)
 
-*图29-04*
+*图31-04*
 
 
 可以发现，SpringMVC能通过`@ResponseBody`将返回的数组或集合转为JSON格式的数据供前端处理。
