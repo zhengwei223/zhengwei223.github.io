@@ -18,15 +18,15 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 > **本章简介**
 
-SpringMVC提供了`HandlerExceptionResolver`接口来处理异常，并且会被`DispatcherServlet`默认加载，该接口的实现类如下图：
+SpringMVC提供了HandlerExceptionResolver接口来处理异常，并且会在Web容器初始化时被DispatcherServlet自动加载，该接口的实现类如下图：
 
 ![](http://i.imgur.com/SdbCRMI.png)
 
-*图31-01*
+*图33-01*
 
 每一个实现类都提供了一种不同的异常处理方式，本书重点讲解`ExceptionHandlerExceptionResolver`、`ResponseStatusExceptionResolver`、`DefaultHandlerExceptionResolver`、`SimpleMappingExceptionResolver`等四种实现类处理异常的方式。
 
-# 31.1 `ExceptionHandlerExceptionResolver` #
+# 33.1 `ExceptionHandlerExceptionResolver` #
 
 `ExceptionHandlerExceptionResolver`是`HandlerExceptionResolver`接口的一个实现类，该类提供了`@ExceptionHandler`注解用来捕获指定类型的异常。我们下面通过一个示例来了解一下`ExceptionHandlerExceptionResolver`处理异常的基本流程：
 
@@ -70,15 +70,15 @@ testExceptionHandlerExceptionResolver
 
 ![](http://i.imgur.com/xW8xXPG.png)
 
-*图31-02*
+*图33-02*
 
 ![](http://i.imgur.com/ixWQZwR.png)
 
-*图31-03*
+*图33-03*
 
-可以发现，`@ExceptionHandler({ArithmeticException.class})`修饰的方法会捕获当前类中抛出的`ArithmeticException`类型的异常。也就是说，在某一个类中产生的异常，可以在该类中定义一个`@ExceptionHandler`({异常类型.class})修饰的方法来捕获此异常。此外，异常对象会被保存在`Exception`类型的参数中。
+可以发现，`@ExceptionHandler({ArithmeticException.class})`标识的方法会捕获当前类中抛出的`ArithmeticException`类型的异常。也就是说，在某一个类中产生的异常，可以通过在该类中定义一个被`@ExceptionHandler`({异常类型.class})标识的方法来捕获此异常。并且，异常对象会被保存在`Exception`类型的参数中。
 
-我们知道`ArithmeticException`是`RuntimeException`的子类，如果在一个类中抛出一个`ArithmeticException`异常，而该类中既存在`@ExceptionHandler({ArithmeticException.class})`修饰的方法，又存在`@ExceptionHandler({RuntimeException.class})`修饰的方法，那么异常只会被`@ExceptionHandler({ArithmeticException.class})`修饰的方法所捕获。只有当本类中不存在`@ExceptionHandler({ArithmeticException.class})`修饰的方法时，此异常才会被`@ExceptionHandler({RuntimeException.class})`修饰的方法所捕获。也就是说，如果有多个`@ExceptionHandler`修饰的方法可以捕获同一个异常时，异常只会被最精确的处理方法所捕获。
+我们知道`ArithmeticException`是`RuntimeException`的子类，如果在一个类中抛出一个`ArithmeticException`类型的异常，而该类中既存在`@ExceptionHandler({ArithmeticException.class})`修饰的方法，又存在`@ExceptionHandler({RuntimeException.class})`修饰的方法，那么异常只会被`@ExceptionHandler({ArithmeticException.class})`修饰的方法所捕获。只有当本类中不存在`@ExceptionHandler({ArithmeticException.class})`修饰的方法时，此异常才会被`@ExceptionHandler({RuntimeException.class})`修饰的方法所捕获。也就是说，如果有多个`@ExceptionHandler`修饰的方法可以捕获同一个异常时，异常只会被最精确的处理方法所捕获。
 
 还需要注意的是，使用`@ExceptionHandler`修饰的方法的参数，只能是`Throwable或`其子类类型，并且不能再有其他参数存在，
 
@@ -111,10 +111,9 @@ public String handleArithmeticException(String message)
 {…}
 ```
 
-因此，如果要在**error.jsp**中显示异常信息，就必须将视图和异常信息封装到`ModelAndView`对象之中并返回。
 
 	
-已经知道，使用`@ExceptionHandler`修饰的方法可以捕获同一个类中的异常。但如果`@ExceptionHandler`修饰的方法与产生异常的方法不在同一个类之中，那么异常就无法被捕获。为此，我们可以新建一个类，并且使用`@ControllerAdvice`注解修饰此类，如下：
+已经知道，使用`@ExceptionHandler`修饰的方法可以捕获同一个类中的异常。但如果`@ExceptionHandler`修饰的方法与产生异常的方法不在同一个类之中，那么产生的异常就不会被捕获。为此，我们可以新建一个类，并且使用`@ControllerAdvice`注解修饰此类，如下：
 
 **MyExceptionHandler.java**
 
@@ -136,13 +135,13 @@ public class MyExceptionHandler
 `@ControllerAdvice`修饰的类可以理解为“异常处理类”，此异常处理类就可以捕获项目中所有类中方法产生的`ArithmeticException`异常。如果同一个异常既可以被同一个类中`@ExceptionHandler`修饰的方法所捕获，又可以被异常处理类中`@ExceptionHandler`修饰的方法所捕获，那么根据“就近原则”只会被同一个类中`@ExceptionHandler`修饰的方法所捕获。
 
 
-# 31.2 `ResponseStatusExceptionResolver` #
+# 33.2 `ResponseStatusExceptionResolver` #
 
 在开发过程中，我们经常能看到类似以下的异常页面：
 
 ![](http://i.imgur.com/QojIdBW.png)
 
-*图31-04*
+*图33-04*
 
 页面中的异常信息都是服务器预先设置好的，除此之外，我们还可以自己定制这些页面中的异常信息，这就可以通过`ResponseStatusExceptionResolver`类提供的`@ResponseStatus`注解来实现，可以通过`@ResponseStatus`注解的`value`属性指定异常的状态码（如404等）、`reason`属性指定具体的异常信息，如下新建一个异常的实现类并用`@ResponseStatus`自定义异常信息：
 
@@ -194,11 +193,11 @@ testResponseStatus
 
 ![](http://i.imgur.com/Kh7P9da.png)
 
-*图31-05*
+*图33-05*
 
-即可以通过`@ResponseStatus`注解修饰异常类，从而自定义异常提示页面。
+即可以通过@ResponseStatus注解标识异常类，来定制发生异常时的提示内容。
 	
-`@ResponseStatus`注解除了能标识在异常类上以外，还可以标识在方法上，使得访问此方法的请求直接显示`@ResponseStatus`定制的异常信息，如下：
+@ResponseStatus注解除了能标识在异常类上以外，还可以标识在方法上。@ResponseStatus标识在方法上时，就会使访问此方法的请求直接显示@ResponseStatus指定的异常信息，如下：
 
 
 **SecondSpringDemo.java**
@@ -230,9 +229,9 @@ testResponseStatusWithMethod
 
 ![](http://i.imgur.com/swZeRjc.png)
 
-*图31-06*
+*图33-06*
 
-# 31.3 `DefaultHandlerExceptionResolver` #
+# 33.3 `DefaultHandlerExceptionResolver` #
 
 Springmvc默认装配了`DefaultHandlerExceptionResolver`异常解析器 ,会对一些特殊的异常，如`NoSuchRequestHandlingMethodException`、`HttpRequestMethodNotSupportedException`、`HttpMediaTypeNotSupportedException`、`HttpMediaTypeNotAcceptableException`等进行处理。以下，我们以`NoSuchRequestHandlingMethodException`为例进行测试：
 	
@@ -268,10 +267,10 @@ testNoSuchRequestHandlingMethodException
 
 ![](http://i.imgur.com/anR9YuA.png)
 
-*图31-07*
+*图33-07*
 
 
-# 31.4 `SimpleMappingExceptionResolver` #
+# 33.4 `SimpleMappingExceptionResolver` #
 
 
 SpringMVC还提供了`SimpleMappingExceptionResolver`，来让我们通过配置的方式处理异常。例如，先通过以下代码产生一个`NumberFormatException`异常：
@@ -348,10 +347,10 @@ error.jsp页面<br/>
 
 ![](http://i.imgur.com/Nz72N4J.png)
 
-*图31-08*
+*图33-08*
 
 
-# 31.5 练习题 #
+# 33.5 练习题 #
 
 1.`DispatcherServlet`默认会加载哪个接口，用来处理异常？
 
