@@ -26,7 +26,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 我们给之前的项目（StudentManagerBy3TierAndInterface）存入10条数据并显示，如图，
 
-![](http://i.imgur.com/1KTETX5.png)
+![](/public/img/jsp-servlet-zq/6.1.png)
 
 *图6-01*
 
@@ -487,7 +487,7 @@ org.lanqiao.servlet.QueryAllStudentsServlet
 
 至此，就可以将分页SQL需要的两个参数“当前页的页码”及“页面大小”全部得到，也就完整的实现类分页功能。分页示例的完整代码在StudentManagerWithPage项目中，运行结果：
 
-![](http://i.imgur.com/UGrTXtl.png)
+![](/public/img/jsp-servlet-zq/6.2.png)
 
 *图6-02*
 
@@ -540,7 +540,7 @@ enctype="multipart/form-data" method="post">
 
 运行结果：
 
-![](http://i.imgur.com/oJ2fEZe.jpg)
+![](/public/img/jsp-servlet-zq/6.3.png)
 
 *图6-03*
 
@@ -729,13 +729,13 @@ studentName, studentAge, gradeName);
 
 在运行项目前，我们先在tomcat服务器的项目部署目录中新建一个upload文件夹，用于接收上传的文件，如图，
 
-![](http://i.imgur.com/WnWRWU8.png)
+![](/public/img/jsp-servlet-zq/6.4.png)
 
 *图6-04*
 
 然后执行addStudent.jsp，输入学生信息并上传一个名为abc.png的图片，如下：
 
-![](http://i.imgur.com/n2A9GYl.png)
+![](/public/img/jsp-servlet-zq/6.5.png)
 
 *图6-05*
 
@@ -927,7 +927,7 @@ throws ServletException, IOException
 
 假定需要下载的文件是**downloadResources**目录中的“花朵.png”文件，如下：
 
-![](http://i.imgur.com/XWJqe1J.png)
+![](/public/img/jsp-servlet-zq/6.6.png)
 
 *图6-06*
 
@@ -970,7 +970,7 @@ throws ServletException, IOException {
 部署项目、启动服务，执行[http://localhost:8888/DownloadProject/](http://localhost:8888/DownloadProject/)，单击“文件下载”，运行结果：
 （IE、FireFox等浏览器，效果类似）
 
-![](http://i.imgur.com/bbcyRdD.png)
+![](/public/img/jsp-servlet-zq/6.7.png)
 
 *图6-07*
 
@@ -992,7 +992,7 @@ response.addHeader("Content-Disposition", "attachment;filename="+URLEncoder.enco
 
 重新下载，运行结果：
 
-![](http://i.imgur.com/AmIzxyQ.png)
+![](/public/img/jsp-servlet-zq/6.8.png)
 
 *图6-08*
 
@@ -1016,7 +1016,7 @@ response.addHeader("Content-Disposition", "attachment;filename="
 
 重新下载，运行结果：
 
-![](http://i.imgur.com/CFGTyu6.png)
+![](/public/img/jsp-servlet-zq/6.9.png)
 
 *图6-09*
 
