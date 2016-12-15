@@ -28,7 +28,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 除了JSTL标签库以外，JSP还支持用户开发自己的标签（自定义标签）。用于开发自定义标签的类和接口都位于**javax.servlet.jsp.tagext**包中，这些类和接口的继承及实现关系如图：
 
 
-![](http://i.imgur.com/OwiHRaH.png)
+![](/public/img/jsp-servlet-zq/11.1.png)
 
 *图11-01*
 
@@ -167,7 +167,7 @@ TLD文件编写完毕后，需要放在**WEB-INF**或其子目录下（**WEB-INF
 
 `<prefix: tagname>标签体</prefix: tagname>`
 
-	其中，标签体可以是JSP的页面元素（普通文本、scriptlet、EL表达式等）。
+其中，标签体可以是JSP的页面元素（普通文本、scriptlet、EL表达式等）。
 
 
 **<3>带属性的标签**
@@ -181,7 +181,7 @@ TLD文件编写完毕后，需要放在**WEB-INF**或其子目录下（**WEB-INF
 </prefix: tagname>
 ```
 
-	空标签和带标签体的标签都可以含有属性，并且一个标签中可以定义多个属性。
+空标签和带标签体的标签都可以含有属性，并且一个标签中可以定义多个属性。
 
 
 **<4>嵌套标签**
@@ -411,7 +411,7 @@ http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
 
 部署项目，启动服务，在浏览器中执行http://localhost:8888/JspTagProject/myIterator.jsp，运行结果：
 
-![](http://i.imgur.com/2dR2kuM.png)
+![](/public/img/jsp-servlet-zq/11.2.png)
 
 *图11-02*
 
@@ -520,7 +520,7 @@ private char[] cb;
 
 JSP容器在执行标签处理类时，除了会用到`BodyContent`类以外，还会涉及很多的方法或属性，具体流程如下：
 
-![](http://i.imgur.com/CKoOoIl.png)
+![](/public/img/jsp-servlet-zq/11.3.png)
 
 *图11-03*
 
@@ -608,7 +608,7 @@ JSP容器在调用`doStartTag()`方法时，会将标签体的内容赋值到缓
 
 运行结果：
 
-![](http://i.imgur.com/hFm3Odr.png)
+![](/public/img/jsp-servlet-zq/11.4.png)
 
 *图11-04*
 
@@ -656,7 +656,7 @@ JSP容器在调用`doStartTag()`方法时，会将标签体的内容赋值到缓
 
 **简单方式标签处理类的执行流程如下：**
 
-![](http://i.imgur.com/0p8j0vP.png)
+![](/public/img/jsp-servlet-zq/11.5.png)
 
 *图11-05*
 
@@ -824,7 +824,7 @@ http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
 
 执行[http://localhost:8888/JspTagProject/mySimpleIterator.jsp](http://localhost:8888/JspTagProject/mySimpleIterator.jsp)，运行结果：
 
-![](http://i.imgur.com/XoAKs1C.png)
+![](/public/img/jsp-servlet-zq/11.6.png)
 
 *图11-06*
 
@@ -933,13 +933,13 @@ HttpServletResponse response) throws ServletException, IOException {
 
 如果访问的URL中带有`uname`参数，如[http://localhost:8888/JspTagProject/loginServlet?uname=zhangsan](http://localhost:8888/JspTagProject/loginServlet?uname=zhangsan)，运行结果：
 
-![](http://i.imgur.com/Tnl3phn.png)
+![](/public/img/jsp-servlet-zq/11.7.png)
 
 *图11-07*
 
 如果访问的URL中不带`uname`参数，如[http://localhost:8888/JspTagProject/loginServlet](http://localhost:8888/JspTagProject/loginServlet)，运行结果：
 
-![](http://i.imgur.com/wvq9sJP.png)
+![](/public/img/jsp-servlet-zq/11.8.png)
 
 *图11-08*
 
