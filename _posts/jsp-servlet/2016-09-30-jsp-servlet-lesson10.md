@@ -2,13 +2,13 @@
 
 layout: post
 
-title: AJAX
+title: EL和JSTL
 
 category: JSP-Servlet教程
 
 tags: JSP Servlet
 
-description: 本章将系统介绍AJAX。Ajax是一种用于创建快速动态网页的技术，而且整合了JavaScript和XML等现有技术。
+description: 本章将系统介绍EL和JSTL。EL表达式和JSTL标签库不仅能替换到JSP中的JAVA代码，而且还能使代码更加简洁。
 
 author: 颜群
 
@@ -16,838 +16,1016 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
->**本章简介**
+> **本章简介**
 
-AJAX（Asynchronous Javascript And XML，异步JavaScript和XML），是一种用于创建快速动态网页的技术。从名字可以发现，Ajax并不是一种全新的技术，而是整合了JavaScript和XML等现有技术。
+通过之前学习的三层架构，我们已经可以将表示层、业务逻辑层和数据访问层相互分离，从而实现程序的解耦合，以及提高系统的可维护性和可扩展性等。但在之前的代码中，表示层JSP的代码里仍然嵌套了很多JAVA代码，从而造成了表示层一定程度的混乱。
 
-# 10.1 Ajax的作用 #
+能否彻底的从表示层中消除JAVA代码呢？可以使用 EL表达式和JSTL标签库。EL表达式和JSTL标签库不仅能替换JSP中的JAVA代码，而且还能使代码更加简洁。
 
-Ajax 通过在后台与服务器之间交换少量数据的方式，实现网页的异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的局部内容进行更新，例如：我们在网页中观看电影时，如果点击了左下角的“赞”图标，那么“赞”的数量会从5353增加到5354（即局部内容进行了更新），而当前网页并不会被刷新，如图，
+本章演示的项目名为ELAndJSTLDemo，因为本章只是在讲三层中的表示层，因此为了使读者清晰的掌握EL及JSTL，本章项目并没有采用标准的三层架构，而是以一个个简单的JSP示例来诠释。
 
-![](http://i.imgur.com/MIV2Y5t.png)
+# 9.1 EL表达式 #
 
-*图10-01*
+EL的全称是Expression Language，可以用来替代JSP页面中的JAVA代码，从而能让即使不懂JAVA的开发人员也能写出JSP代码。EL还可以实现自动转换类型，使用起来非常简单。
 
-而传统的网页（不使用 AJAX）如果需要更新内容，就必须重新加载整个网页，试想如果点击一下“赞”网页就刷新、视频就得从头开始看，肯定是非常不方便的。
+## 9.1.1 EL表达式语法 ##
 
-AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，搜索框会自动查询并显示列表，但搜索框以外的网页不会发生变化，如图，
+**语法：**
 
-![](http://i.imgur.com/ULah79t.png)
+**${EL表达式}**
 
-*图10-02*
+**EL表达式通常由两部分组成：对象和属性。可以使用“点操作符”或“中括号[]操作符”来操作对象的属性。**
 
-还有百度地图、微博等，都大量使用到了AJAX技术。
+讲解之前，我们先通过一个简单例子来回忆一下之前不用EL的使用情景。先创建两个封装数据的JavaBean，如下，
 
-## 10.2 使用JavaScript实现Ajax ##
+**地址信息类 Address.java**
 
-使用JavaScript来实现Ajax，主要是借助`XMLHttpRequest`对象向服务器发送请求，并获取返回结果。
+```
+package org.lanqiao.entity;
+public class Address
+{
+	//家庭地址
+	private String homeAddress ; 
+	//学校地址
+	private String schoolAddress ;
+	//省略setter、getter
+}
+```
 
-## 10.2.1 `XMLHttpRequest`对象的常用方法 ##
+**学生信息类 Student.java**
 
-**(1) open(methodName,URL,isAsync)**
+```
+package org.lanqiao.entity;
+public class Student
+{
+	private int studentNo ;
+	private String studentName;
+    //地址属性
+	private Address address ;
+	//省略setter、getter
+}
+```
 
-与服务器连接建立。`methodName`指定请求的方法名；URL指定请求地址；`isAsync`是一个`boolean`值，代表是否采用异步方式（默认true；若无特殊需求，此值一般都填true）。
+再创建一个Servlet用于初始化一些数据，并将此Servlet设置为项目的默认访问程序：
 
-**(2) send(content)**
+**InitServlet.java**
 
-发送HTTP请求。`content`是可选项，用来指定请求参数，将请求参数作为请求体的一部分一起发送给服务器。通常只在POST方式下才使用`content`参数（`GET`请求方式不携带请求体）。
+```
+package org.lanqiao.servlet;
+//省略import
+public class InitServlet extends HttpServlet
+{
+protected void doGet(…)…
+	{
+		this.doPost(request, response);
+	}
 
-**(3) setRequestHeader(header,value)**
+	protected void doPost(HttpServletRequest request,
+ HttpServletResponse response) 
+throws ServletException, IOException
+	{
+			Address address = new Address();
+			address.setHomeAddress("北京朝阳区");
+			address.setSchoolAddress("北京大兴区大族企业广域网#6F2");
+			
+			Student student = new Student();
+			student.setStudentNo(27);
+			student.setStudentName("颜群");
+			student.setAddress(address);
+			
+			request.setAttribute("student", student);
+			request.getRequestDispatcher("index.jsp")
+.forward(request, response);
+	}
+}
+```
 
-在HTTP请求头中设置key/value对：
+**web.xml**
 
-**①**若为`GET`请求方式：则不用设置；
+```
+…
+ <welcome-file-list>
+    <welcome-file>InitServlet</welcome-file>
+  </welcome-file-list>
+…
+```
 
-**②**若为`POST`方式，
+如上，程序会在InitServlet中给`student`对象的各个属性赋值，然后请求转发到**index.jsp**中。我们先用传统的Scriptlet接收对象，并将对象的属性显示到前台，如下，
 
-**a.**当请求中包含文件上传元素时，设置为：
+**index.jsp**
 
-**XMLHttpRequest.setRequestHeader("Content-Type", "mulipart/form-data");**
+```
+…
+<body>
+	<%
+		Student student = (Student)request.getAttribute("student");
+		int studentNo = student.getStudentNo();
+		String studentName = student.getStudentName();
+		Address address = student.getAddress();
+		String homeAddress = address.getHomeAddress();
+		String schoolAddress = address.getSchoolAddress();
+		
+		out.print("学号："+studentNo +"<br/>");
+		out.print("姓名："+studentName +"<br/>");
+		out.print("家庭地址："+homeAddress +"<br/>");
+		out.print("学校地址："+schoolAddress +"<br/>");
+	%>
+</body>
+…
+```
 
-**b.**当请求中不包含文件上传元素时，设置为：
+部署并执行此项目[http://localhost:8888/ELAndJSTLDemo/](http://localhost:8888/ELAndJSTLDemo/)，运行结果如图，
 
-**XMLHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");**
+![](http://i.imgur.com/7vIAPwW.png)
 
-## 10.2.2 `XMLHttpRequest`对象的常用属性 ##
+*图9-01*
 
-#### (1)`readystate` ####
+可以发现，程序的确能够正常的显示。但如果将**index.jsp**中的代码用EL表达式来实现，就会简单许多。如下是使用EL修改后的**index.jsp**，功能与之前的Scriptlet代码相同，
 
-`readystate`表示`XMLHttpRequest` 对象发送的HTTP请求状态，共有以下五种状态：
+```
+…
+<body>
+         <%-- 使用EL表达式 --%>
+        学生对象：${requestScope.student}<br/>
+	 	学号：${requestScope.student.studentNo } <br/>
+	 	姓名：${requestScope.student.studentName } <br/>
+	 	家庭地址：${requestScope.student.address.homeAddress } <br/>
+	 	学校地址：${requestScope.student.address.schoolAddress } <br/>
+</body>
+…	
+```
+
+运行[http://localhost:8080/ELAndJSTLDemo/](http://localhost:8080/ELAndJSTLDemo/)，结果如图,
+
+![](http://i.imgur.com/fatK7dR.png)
+
+*图9-02*
+
+综上，使用EL可以将JSP中的JAVA代码彻底消除，并且不用再做强制的类型转换，整体的JSP代码就会简单很多。
+
+## 9.1.2 EL表达式操作符 ##
+
+#### (1)点操作符 ####
+
+`${requestScope.student}`，表示在`request`作用域内查找`student`对象；`${requestScope.student.studentNo }`，表示在`request`作用域内查找`student`对象的`studentNo`属性。点操作符“.”的用法和在JAVA中的用法相同，都是直接用来调用对象的属性。此外，通过`${requestScope.student.address.homeAddress }`可以发现，EL表达式能够级联获取对象的属性，即先在`request`作用域内找到`student`对象后，可以再次使用点操作符“.”来获取`student`内部的`address`对象……
+
+
+#### (2)中括号[]操作符 ####
+
+除了点操作符以外，还可以使用中括号操作符来访问某个对象的属性，例如`${requestScope.student.studentNo }`可以等价写成`${requestScope.student["studentNo"] }`或`${requestScope["student"]["studentNo"]` }。除此之外，中括号[]操作符还有一些其他独有功能：
+
+**<1>**如果属性名称中包含一些特殊字符，如“.”、“?”、“-”等，就必须使用中括号操作符，而不能用点操作符。例如，如果在之前的InitServlet中写了`request.setAttribute("school-name", "LanQiao")`;那么在**index.jsp**中就不能用`${requestScope. school-name }`，而必须改为`${requestScope ["school-name "]` }。
+
+**<2>**如果要动态取值时，也必须使用中括号操作符，而不能用点操作符。例如，`String data=”school”`（即`data`是一个变量），那么就只能用`${ requestScope [data]}`。需要注意中括号里面的值：如果加了双引号则表示一个常量，如`${requestScope ["school-name "] }`，表示获取`"school-name "`的属性值；而如果不加上双引号，则表示一个变量，如`${ requestScope [data]}`，表示获取`data`所表示的`”school”`的属性值，即等价于`${ requestScope [”school”]}`。所以在使用中括号获取属性值时，一定要注意是否加引号。此外，中括号中的值，除了双引号以外，也可以使用单引号，作用是一样的。
+
+**<3>**访问数组。如果要访问`request`作用域内的一个对象名为`names`的数组，就可以通过中括号来表示索引，如`${ requestScope .array[0]}`、`${ requestScope .array[1]}`等。
+
+点操作符和中括号操作符还可以用来获取`Map`中的属性值，如下，
+
+**InitServlet.java**
+
+```
+package org.lanqiao.servlet;
+//省略import
+public class InitServlet extends HttpServlet
+{
+…
+	protected void doPost(HttpServletRequest request, 
+HttpServletResponse response) 
+throws ServletException, IOException
+	{
+		…
+		Map<String,String> countries = new HashMap<String,String>();
+		countries.put("cn", "中国");
+		countries.put("us", "美国");
+		request.setAttribute("countries", countries);
+		request.getRequestDispatcher("index.jsp")
+.forward(request, response);
+	}
+}
+```
+
+**index.jsp**
+
+```
+<body>
+      …
+	------------------Map------------------<br/>
+	cn:${requestScope.countries.cn }<br/>
+	us:${requestScope.countries["us"] }<br/>
+</body>
+```
+
+打开浏览器执行[http://localhost:8080/ELAndJSTLDemo/](http://localhost:8080/ELAndJSTLDemo/)，运行结果如图，
+
+![](http://i.imgur.com/t7CPyCa.jpg)
+
+*图9-03*
+
+
+#### (3)关系运算符 ####
+
+EL表达式还能够进行一些简单的运算。
 
 <table>
    <tr>
-      <td>状态值</td>
-      <td>简介</td>
+      <td> </td>
+      <td>关系运算符</td>
+      <td>示例</td>
+      <td>结果</td>
    </tr>
    <tr>
-      <td>0</td>
-      <td>表示XMLHttpRequest 对象没有初始化</td>
+      <td>大于</td>
+      <td>>(或gt)</td>
+      <td>${2>1}或${2 gt 1}</td>
+      <td>true</td>
    </tr>
    <tr>
-      <td>1</td>
-      <td>表示XMLHttpRequest 对象开始发送请求：已经执行了open()方法并完成了相关资源的准备。</td>
+      <td>大于或等于</td>
+      <td>>=(或ge)</td>
+      <td>${2>=1}或${2 ge 1}</td>
+      <td>true</td>
    </tr>
    <tr>
-      <td>2</td>
-      <td>表示XMLHttpRequest 对象已将请求发送完毕：已经执行了send()方法来发送请求，但是还没有收到响应。</td>
+      <td>等于</td>
+      <td>==(或eq)</td>
+      <td>${2==1}或${2 eq 1}</td>
+      <td>false</td>
    </tr>
    <tr>
-      <td>3</td>
-      <td>表示XMLHttpRequest 对象开始读取响应信息：已经接收到HTTP响应的头部信息，但是还没有将响应体接收完毕。</td>
+      <td>小于或等于</td>
+      <td><=(或le)</td>
+      <td>${2<=1}或${2 le 1}</td>
+      <td>false</td>
    </tr>
    <tr>
-      <td>4</td>
-      <td>表示XMLHttpRequest 对象将响应信息全部读取完毕</td>
+      <td>小于</td>
+      <td><(或lt)</td>
+      <td>${2<1}或${2 lt 1}</td>
+      <td>false</td>
+   </tr>
+   <tr>
+      <td>不等于</td>
+      <td>!=(或ne)</td>
+      <td>${2!=1}或${2 ne 1}</td>
+      <td>true</td>
    </tr>
 </table>
 
-#### (2) `status` ####
 
-`status`表示HTTP响应中的状态码，各状态码的含义如下：
+#### (4)逻辑运算符 ####
 
 <table>
    <tr>
-      <td>状态码</td>
-      <td>含义</td>
+      <td> </td>
+      <td>关系运算符</td>
+      <td>示例</td>
+      <td>结果</td>
    </tr>
    <tr>
-      <td>200</td>
-      <td>服务器正常响应。</td>
+      <td>逻辑或</td>
+      <td>||(或or)</td>
+      <td>true||false(或 true or false)</td>
+      <td>true</td>
    </tr>
    <tr>
-      <td>400</td>
-      <td>无法找到请求的资源。</td>
+      <td>逻辑与</td>
+      <td>&&(或and)</td>
+      <td>true&&false(或 true and false)</td>
+      <td>false</td>
    </tr>
    <tr>
-      <td>403</td>
-      <td>没有访问权限。</td>
-   </tr>
-   <tr>
-      <td>404</td>
-      <td>访问的资源不存在。</td>
-   </tr>
-   <tr>
-      <td>500</td>
-      <td>服务器内部错误，很可能是服务器代码有错。</td>
+      <td>逻辑非</td>
+      <td>!(或not)</td>
+      <td>!true (或 not true)</td>
+      <td>false</td>
    </tr>
 </table>
 
-可以发现，只有当状态码为200时才表示响应成功；否则，说明HTTP响应不正常。
 
-#### (3) `onreadystatechange` ####
+#### (5)Empty操作符 ####
 
-指定`XMLHttpRequest`对象的回调函数。每当`readyState`的属性值改变时，此回调函数就会被调用一次。
+Empty操作符用来判断一个值是否为`null`或不存在。我们在InitServlet中给`request`的作用域内增加两个变量，如下，
 
-#### (4) `responseText` ####
+**InitServlet.java**
 
-从服务器端返回的`string`格式的响应内容。
+```
+package org.lanqiao.servlet;
+//省略import
+public class InitServlet extends HttpServlet
+{
+	…
+	protected void doPost(HttpServletRequest request,
+                               HttpServletResponse response) 
+throws ServletException, IOException
+	{
+			…
+			request.setAttribute("test","test");
+			request.setAttribute("nullVar",null);
+			request.getRequestDispatcher("index.jsp")
+.forward(request, response);
+	}
+}
+```
 
-#### (5) `responseXML` ####
+在`request`作用域内增加了`“test”`和`“nullVar”`两个变量，并且`“nullVar”`的值是`null`。然后再在**index.jsp**中获取，如下，
 
-从服务器端返回的XML格式的数据，可以直接被当作`DOM`对象使用。
 
-## 10.2.3 使用Ajax实现异步请求 ##
+**index.jsp**
 
-**使用JavaScript实现Ajax，分为`POST`或`GET`两种方式，但大体的步骤都相同，如下：**
+```
+<body>
+    …
+	 <%-- Empty操作符 --%>
+	 		之前不存在temp变量：${empty temp }<br/>
+	 		变量nullVar的值为null：${empty nullVar }<br/>
+	 		变量test已被赋值：${empty test }<br/>
+	 		
+</body>
+```
 
-**①**创建`XMLHttpRequest`对象，即创建一个异步调用对象
+运行结果：
 
-**②**设置并编写回调函数
+![](http://i.imgur.com/ZVuNlTy.png)
 
-**③**初始化`XMLHttpRequest`对象的参数值（若是`POST`方式，还需要设置“请求头”）
+*图9-04*
 
-**④**发送HTTP请求
+可以发现，之前不存在的变量`“temp”`和值为`null`的变量`“nullVar”`，用`empty`操作符运算出的结果为true，而之前存在值的变量`“test”`用`empty`运算的结果为false。
 
-再在回调函数中编写：
+## 9.1.3 EL表达式隐式对象 ##
 
-**⑤**获取异步调用返回的数据
+“隐式对象”又称“内置对象”。我们之前在JSP里曾提到过，像`request`、`session`、`application`等都是JSP的隐式对象，这些“隐式对象”可以不用实例化就直接使用。同样的，在EL表达式中也存在一些隐式对象。按照使用的途径不同，EL隐式对象分为了作用域访问对象、参数访问对象和JSP隐式对象，如图，
 
-**⑥**使用JavaScript或Jquery等实现局部刷新
+![](http://i.imgur.com/yih07uS.png)
+
+*图9-05*
+
+
+#### (1)四个作用域访问对象 ####
+
+`${requestScope.student.studentNo }`中的`requestScope`表示`request`作用域。即在使用EL表达式来获取一个变量的同时，可以指定该变量的作用域。EL表达式为我们提供了四个可选的作用域对象，如下表，
+
+<table>
+   <tr>
+      <td>对象名</td>
+      <td>作用域</td>
+   </tr>
+   <tr>
+      <td>pageScope</td>
+      <td>把pageContext作用域中的数据映射为一个Map类的对象</td>
+   </tr>
+   <tr>
+      <td>requestScope</td>
+      <td>把request作用域中的数据映射为一个Map类的对象  </td>
+   </tr>
+   <tr>
+      <td>sessionScope</td>
+      <td>把session作用域中的数据映射为一个Map类的对象</td>
+   </tr>
+   <tr>
+      <td>applicationScope</td>
+      <td>把application作用域中的数据映射为一个Map类的对象</td>
+   </tr>
+</table>
+
+pageScope, requestScope, sessionScope和appliationScope都可以看作是Map型变量，要获取其中的数据就可以使用点操作符或中括号操作符。如${requestScope.student}可以获取request作用域中的student属性值，${sessionScope["user"]}可以获取session作用域中的user属性值。另外，如果不指定作用域，EL表达式就会依次从pageContextrequestsessionapplication的范围内寻找。例如，EL表达式在解析${student}时，就会先在pageContext作用域中查找是否有student属性，如果有则直接获取，如果没有则再会去request作用域中查找是否有student属性……
+
+#### (2)参数访问对象 ####
+
+在JSP中，可以使用`request.getParameter()`和`request.getParameterValues()`来获取表单中的值（或地址栏、超链接中附带的值）。对应的，EL表达式可以通过`param`、`paramValues`来获取这些值。
+
+<table>
+   <tr>
+      <td>对象名</td>
+      <td>示例</td>
+      <td>作用</td>
+   </tr>
+   <tr>
+      <td>param</td>
+      <td>${param.usename}</td>
+      <td>等价于request.getParameter("username")</td>
+   </tr>
+   <tr>
+      <td>paramValues</td>
+      <td>${param.hobbies}</td>
+      <td>等价于request. getParameterValues ("hobbies")</td>
+   </tr>
+</table>
+
+#### (3)JSP隐式对象 ####
+
+`pageContext`是JSP的一个隐式对象，同时也是EL表达式的隐式对象。因此，`pageContext`是EL表达式与JSP之间的一个桥梁。
+
+在EL表达式中，可以通过`pageContext`来获取JSP的内置对象和`ServletContext`对象，如下表：
+
+<table>
+   <tr>
+      <td>El表达式</td>
+      <td>获取的对象</td>
+   </tr>
+   <tr>
+      <td>${pageContext.page}</td>
+      <td>获取page对象</td>
+   </tr>
+   <tr>
+      <td>${pageContext.request}</td>
+      <td>获取request对象</td>
+   </tr>
+   <tr>
+      <td>${pageContext.response}</td>
+      <td>获取response对象</td>
+   </tr>
+   <tr>
+      <td>${pageContext.session}</td>
+      <td>获取session对象</td>
+   </tr>
+   <tr>
+      <td>${pageContext.out}</td>
+      <td>获取out对象</td>
+   </tr>
+   <tr>
+      <td>${pageContext.exception}</td>
+      <td>获取exception对象</td>
+   </tr>
+   <tr>
+      <td>${pageContext.servletContext}</td>
+      <td>获取servletContext对象</td>
+   </tr>
+</table>
+
+还可以获取这些对象的`getXxx()`方法：例如，`${pageContext.request.serverPort}`就表示访问`request`对象的`getServerPort()`方法。可以发现，在使用时EL去掉了方法中的get和“()”，并将首字母改为了小写。
+
+**小结：**
+
+语法： ${EL表达式}
+
+其中${ }中的“EL表达式”可以是四个作用域访问对象、参数访问对象或JSP隐式对象`pageContext`三者之一。并且EL表达式可以像HTML一样直接写在JSP页面中，而不用被“<%... %>”括起来。
+
+
+
+# 9.2 JSTL标签及核心标签库 #
+
+JSTL（JSP Standard Tag Library，JSP标准标签库），是一个不断完善的开源JSP标签库，包含了开发JSP时经常用到的一组标准标签。使用JSTL，可以像EL表达式那样不用编写JAVA代码就能开发出复杂的JSP页面。JSTL一般要结合EL表达式一起使用。
+
+## 9.2.1 JSTL使用前准备 ##
+
+使用JSTL标签库以前，必须先在Web项目的lib目录中加入两个jar包：jstl.jar和standard.jar，然后再在需要使用JSTL的JSP页面，加入支持JSTL的taglib指令，如下，
+
+`<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>`
+
+其中prefix="c"表示在当前页面中，JSTL标签库是通过标签<c: >使用的。
+
+## 9.2.2 JSTL核心标签库 ##
+
+JSTL核心标签库主要包含三类：通用标签库、条件标签库和迭代标签库，如图，
+
+
+
+![](http://i.imgur.com/z8n12pM.jpg)
+
+*图9-06*
+
+
+#### (1)通用标签库 ####
+
+通用标签库包含了3个标签：赋值标签`<c:set>`、显示标签`<c:out>`、删除标签`<c:remove>`
+
+**①赋值标签&lt;c:set&gt;**
+
+`<c:set>`标签的作用，是给变量在某个作用域内赋值，有两个版本：`“var”`版和`“target”`版。
+
+**<1>var版**
+
+用于给`page`、`request`、`session`或`application`作用域内的变量赋值
+
+**语法：**
+
+`<c:set var="elementVar" value=" elementValue"  scope="scope" />`
+
+`var`：需要赋值的变量名
+
+`value`：被赋予的变量值
+
+`scope`：此变量的作用域，有4个可填项，即`page`，`request`，`session`和`application`。
+
+示例：
+
+`<c:set var="addError" value="error" scope="request"/>`
+
+表示在`request`作用域内，设置一个addError变量，并将变量值赋值为`“error”`，等价于
+
+`request.setAttribute("addError", "error");`
+
+
+**<2> target版**
+
+用于给`JavaBean`对象的属性或`Map`对象赋值。
+
+**a.给`JavaBean`对象的属性赋值**
+
+**语法：**
+
+```
+<c:set target="objectName"  property="propertyName" 
+value="propertyValue"  scope="scope"/>
+```
+
+**`target`**：需要操作的`JavaBean`对象，通常使用EL表达式来表示。
+
+**`property`**：对象的属性名。
+
+**`value`**：对象的属性值。
+
+**`scope`**：此属性值的作用域，有4个可填项，即`page`，`request`，`session`和`application`。
+
+示例：
+先通过Servlet给`JavaBean`对象的属性赋值，
+
+**InitJSTLDataServlet.java**
+
+```
+package org.lanqiao.servlet;
+//省略import
+public class InitJSTLDataServlet extends HttpServlet
+{
+	…
+	protected void doPost(HttpServletRequest request,
+                               HttpServletResponse response) 
+throws ServletException, IOException
+	{
+//将一个Address对象赋值后，加入request作用域，并请求转发到Jsp
+		Address address = new Address();
+		address.setHomeAddress("北京朝阳区");
+		address.setSchoolAddress("北京大兴区大族企业广域网#6F2");
+		request.setAttribute("address", address);
+		request.getRequestDispatcher("JSTLDemo.jsp")
+.forward(request, response);
+	}
+}
+```
+
+**JSTLDemo.jsp**
+
+```
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+…
+<body>
+		使用JSTL赋值之前：${requestScope.address.schoolAddress }
+		<br/>
+		<c:set target="${requestScope.address }" 
+property="schoolAddress" value="广东东莞蓝桥基地" />
+		<br/>
+		使用JSTL赋值之后：${requestScope.address.schoolAddress }
+</body>	
+```
+
+运行InitJSTLDataServlet，结果如图，
+
+![](http://i.imgur.com/6snhwmv.png)
+
+*图9-07*
+
+**b.给`Map`对象赋值**
+
+**语法：**
+
+```
+<c:set target="mapName"  property="mapKey" 
+value="mapValue"  scope="scope"/>
+```
+
+**`target`**：需要操作的`Map`对象，通常使用EL表达式来表示。
+
+**`property`**：表示`Map`对象的`key`。
+
+**`value`**：表示`Map`对象的`value`。
+
+**`scope`**：此`Map`对象的作用域，有4个可填项，即`page`，`request`，`session`和`application`。
+
+示例：
+先通过Servlet给`Map`对象的属性赋值，如下
+
+
+**InitJSTLDataServlet.java**
+
+
+```
+package org.lanqiao.servlet;
+//省略import
+public class InitJSTLDataServlet extends HttpServlet
+{
+…
+	protected void doPost(HttpServletRequest request, 
+HttpServletResponse response) 
+throws ServletException, IOException
+	{
+		…
+		//将一个Map对象赋值后，加入request作用域，并请求转发到JSTLDemo.jsp
+		Map<String,String> countries = new HashMap<String,String>();
+		countries.put("cn", "中国");
+		countries.put("us", "美国");
+		request.setAttribute("countries", countries);
+		request.getRequestDispatcher("JSTLDemo.jsp")
+.forward(request, response);
+	}
+}
+```
+
+再使用`<c:set…/>`对`Map`对象的属性赋值，如下，
+
+**JSTLDemo.jsp**
+
+```
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+…
+<body>
+		使用JSTL赋值之前：${requestScope.countries.cn }、
+${requestScope.countries.us }
+		<br/>
+		<c:set target="${requestScope.countries }" property="cn" 
+value="中国人民共和国" />
+		<br/>
+		使用JSTL赋值之后：${requestScope.countries.cn }、
+${requestScope.countries.us }<br/>
+		<br/>
+</body>
+```
+
+运行InitJSTLDataServlet，结果如图，
+
+![](http://i.imgur.com/gPA0w4L.png)
+
+*图9-08*
+
+需要注意的是，`<c:set>`标签不仅能对已有变量赋值；如果需要赋值的变量并不存在， `<c:set>`也会自动产生该对象，如下，
+
+**index.jsp**
+
+```
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<body>
+        	在request作用域内，并不存在temp变量：${requestScope.temp } <br/>
+		使用c:set直接给temp赋值为LanQiao
+		<c:set var="temp" value="LanQiao" scope="request"/> <br/>
+		再次观察temp变量：${requestScope.temp } <br/>
+</body>
+```
+
+运行结果：
+
+![](http://i.imgur.com/2aLJabw.jpg)
+
+*图9-09*
+
+**②输出标签&lt;c:out&gt;**
+
+输出标签`<c:out>`类似于JSP中的`<%= %>`，但功能更加强大。
+
+**语法：**
+
+`<c:out value="value" default="defaultValue" escapeXml="isEscape"/>`
+
+**`value`**：输出显示结果，可以使用EL表达式。
+
+**`default`**：可选项。当`value`表示的对象不存在或为空时，默认的输出值。
+
+**`escapeXml`**：可选项，值为true或false。为true时（默认情况），将`value`中的值以字符串的形式原封不动的显示出来；为false时，会将内容以HTML渲染后的结果显示。
 
 **示例：**
 
-很多手机软件、网站都会要求我们绑定手机号码，并且一个手机号码只能绑定一个账号。因此，我们在绑定手机号码之前，程序会先检验此号码是否已经被绑定：若已经被绑定，则提示“此号码已经被绑定，请尝试其他号码”；否则提示“绑定成功”。 现在我们就用Ajax作为前端技术，来实现此功能。
 
-**(1)采用POST方式**
+先在`InitJSTLDataServlet`中创建`address`对象，然后给`address`中的schoolAddress属性赋值，再把`address`对象放入`request`作用域，之后请求转发到index.jsp，如下，
 
-**服务器端MobileServlet.java**
 
-```
-//省略import
-public class MobileServlet extends HttpServlet 
-{
-	protected void doGet(…)…
-{
-		this.doPost(request, response);
-	}
-	protected void doPost(HttpServletRequest request,
-                               HttpServletResponse response) 
-throws ServletException, IOException 
-{
-	//设置发送到客户端响应的内容类型
-response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		String mobile = request.getParameter("mobile");
-		//假设已经存在号码为18888888888的电话
-		if("18888888888".equals(mobile))
-{
-			out.print("true");
-		}else{
-			out.print("false");
-		}
-		out.close();
-	}
-}
-```
-
-**客户端index.jsp**
+**InitJSTLDataServlet.java**
 
 ```
 …
-<head>
-<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
-<script type="text/javascript">
-	function isExist() 
+protected void doPost(HttpServletRequest request, 
+HttpServletResponse response) 
+throws ServletException, IOException
 	{
-		var $mobile = $("#mobile").val();
-		if ($mobile == null || $mobile.length != 11) 
-		{
-			$("#tip").html("请输入正确的手机号码！");
-		} else 
-		{
-			//1.创建XMLHttpRequest对象
-(注意：xmlHttpRequest前没有var，所以是一个全局变量)
-			xmlHttpRequest = new XMLHttpRequest();
-			//2.设置回调函数(注意:回调函数的名字后面没有小括号"()")
-			xmlHttpRequest.onreadystatechange = callBack;
-			//3.初始化XMLHttpRequest对象的参数值及请求头
-			var url = "MobileServlet";
-			xmlHttpRequest.open("post", url, true);
-            //POST方式需要设置“请求头”
-			xmlHttpRequest.setRequestHeader("Content-Type",
-"application/x-www-form-urlencoded");
-			//4.发送HTTP请求
-			var data = "mobile=" + $mobile;
-			xmlHttpRequest.send(data);
-		}
+		Address address = new Address();
+		address.setSchoolAddress("北京大兴区大族企业广域网#6F2");
+		request.setAttribute("address", address);
+		request.getRequestDispatcher("JSTLDemo.jsp")
+.forward(request, response);
 	}
-	//Ajax回调函数
-	function callBack() 
-	{
-		if (xmlHttpRequest.readyState == 4 && 
-xmlHttpRequest.status == 200) 
-		{
-			 //获取异步调用返回的数据
-			var data = xmlHttpRequest.responseText;
-			 //使用JavaScript或Jquery等实现局部刷新
-			if ($.trim(data) == "true") 
-			{
-				$("#tip").html("此号码已经被绑定，请尝试其他号码!");
-			} else {
-				$("#tip").html("绑定成功!");
-			}
-		}
-	}</script>
-</head>
+…
+```
+
+**index.jsp**
+
+```
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+…
 <body>
-	<form action="">
-		<input type="text" id="mobile" />
- <font color="red" id="tip"></font>
-		<br /> 
-<input type="button" value="绑定" onclick="isExist()" />
-	</form>
+    request作用域中，存放了address对象及schoolAddress属性值：
+<c:out value="${requestScope.address.schoolAddress}" /> 
+<br/>
+	request作用域中，不存在student对象：
+<c:out value="${requestScope.student}"  
+default="student对象为空"/>
+ <br/>
+	当escapeXml="true"时：
+<c:out value="<a href='https://www.baidu.com/'>百度主页</a>"  
+escapeXml="true"/><br/>
+	 当escapeXml="false"时：
+<c:out value="<a href='https://www.baidu.com/'>百度主页</a>"  
+escapeXml="false"/>
 </body>
-…	
 ```
 
-可以发现，服务器端是通过`PrintWriter`对象`out`，将结果以字符串的形式，传递给客户端；而客户端通过`XMLHttpRequest`对象的`responseText`属性，来获取该结果；此外，客户端中`responseText`属性的返回值是`string`类型，所以在服务器端也应该传递`String`类型的结果。
+执行`InitJSTLDataServlet`，运行结果：
 
-**运行结果：**
+![](http://i.imgur.com/mPXuOLn.png)
 
-①输入已存在的号码18888888888：
+*图9-10*
 
-![](http://i.imgur.com/xVAN3eo.png)
+从结果可以发现，当`value`中输出的对象不存在或为空，会输出`default`指定的默认值；当`escapeXml`为false时，会将`value`中的内容先渲染成HTML样式再输出显示。
 
-*图10-03*
+**③移除标签&lt;c:remove&gt;**
 
-②输入暂不存在的号码：
-
-![](http://i.imgur.com/RfGUktR.png)
-
-*图10-04*
-
-③输入错误格式的电话：
-
-![](http://i.imgur.com/GyEXEsd.png)
-
-*图10-05*
-
-**(2)采用GET方式**
-
-如果将上例改为`GET`方式的Ajax，则只需要做四处更改，具体如下：
-
-**①**将`XMLHttpRequest`对象的`open()`方法中的`method`参数值改为`”get”`；
-
-**②**给`XMLHttpRequest`对象的`send()`方法中的`url`参数，加上需要传递的参数值（即把`url`的值，从"请求地址"改为"请求地址?参数名1=参数值1&参数名2=参数值2&..."）
-
-**③**删除设置`XMLHttpRequest`对象头信息的代码
-
-**④**将`XMLHttpRequest`对象的`send(data)`方法中的`data`，改为`null`（即将`data`的值，转移到了`send()`方法的`url`参数中）。
-
-可以发现，将`POST`方式改为`GET`方式后，把需要发送的参数从`send()`方法转移到`open`方法中的`url`参数中，并且不需要再设置头信息。
-
-具体如代码下：
-
-**服务器端MobileServlet.java**与`POST`方式完全相同
-
-**客户端index_get.jsp**与`POST`方式的不同之处如下：
-
-```
-…
-<head>
-…
-	function isExist() 
-	{
-          	var url = "MobileServlet";
-			var data = "mobile=" + $mobile;
-			xmlHttpRequest.open("get", url+"?"+data, true);
-			//xmlHttpRequest.setRequestHeader("Content-Type",
-"application/x-www-form-urlencoded");
-			xmlHttpRequest.send(null);		
-	}
-	…
-	</script>
-</head>
-…	
-```
-
-读者可以结合`POST`方式`（index.jsp）`和`GET`方式`（index_get.jsp）`中的源代码，仔细对比。
-
-# 10.3 使用JQuery实现Ajax #
-
-除了使用JavaScript以外，我们还可以使用JQuery来实现Ajax，而且更加简洁、方便。JQuery方式的Ajax，主要是通过JQuery提供的`$.ajax()`、`$.get()`、`$.post()`、`load()`等方法来实现的。
-
-## 10.3.1 `$.ajax()`方法 ##
+`<c:set>`标签的作用，是给变量在某个作用域内赋值。与之相反，`<c:remove>`标签的作用，是移除某个作用域内的变量。
 
 **语法：**
 
-```
-	$.ajax({
-		url:请求路径 ,
-		type:请求方式 ,
-		data:请求数据,
-         … ,
-		success:function(result, textStatus){ 
-			请求成功后执行的函数体
-		},
-		error:function(xhr,errorMessage,e){
-			请求失败后执行的函数体
-		},
-         dataType:预期服务器返回的数据类型
-	});
-```
+`<c:remove var="variableName" scope="scope"/>`
 
-基本格式是：所有参数写在`$.ajax({…})`中，不同参数之间用逗号隔开，每个参数以“参数名：参数值”的方式书写。
+**`var`**：等待被移除的变量名
 
-本质就是将JavaScript中`XMLHttpRequest`的属性和方法，以参数化的形式集中管理，详见下表：
+**`scope`**：变量被移除的作用域，有4个可填项：`page`，`request`，`session`和`application`。
 
-<table>
-   <tr>
-      <td>参数</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>String url</td>
-      <td>发送请求的地址，默认是当前页地址）</td>
-   </tr>
-   <tr>
-      <td>String type</td>
-      <td>请求方式（即POST或GET），默认为GET</td>
-   </tr>
-   <tr>
-      <td>number timeout</td>
-      <td>设置请求超时的时间（单位是毫秒）</td>
-   </tr>
-   <tr>
-      <td>String data或Object data</td>
-      <td>发送到服务器的数据。若是GET方式的请求，data值将以地址重写的方式附加在url后；若是POST方式，data值将作为请求体的一部分。</td>
-   </tr>
-   <tr>
-      <td>String dataType</td>
-      <td>预期服务器返回的数据类型，可用类型有XML、HTML、JSON、Text等。如果不指定，JQuery会自动根据HTTP中的MIME信息返回responseXML或responseText。</td>
-   </tr>
-   <tr>
-      <td>function success(Object result,String textStatus)</td>
-      <td>请求成功后调用的函数 result：可选项，由服务器返回的数据  textStatus：可选项，描述请求类型</td>
-   </tr>
-   <tr>
-      <td>function error(XMLHttpRequest xhr,String errorMessage, Exception e)</td>
-      <td>请求失败后调用的函数 xhr：可选项，XMLHttpRequest对象 errorMessage：可选项，错误信息 e：可选项，引发的异常对象</td>
-   </tr>
-</table>
+示例：
 
-除了表中介绍的以外，还有`cache`、`async`、`beforeSend`、`complete`、`contentType`等其他参数，读者可以访问[http://www.w3school.com.cn/jquery/ajax_ajax.asp](http://www.w3school.com.cn/jquery/ajax_ajax.asp)进行学习 。
-
-现在用jQuery提供的`$.ajax()`方法，来实现“检测手机号码是否已绑定”的客户端函数（服务器端及客户端其他代码，与之前的完全一致）：
-
-
-**客户端jQuery_ajax.jsp**
+**index.jsp**
 
 ```
-	<script type="text/javascript">
-	function isExist() 
-	{
-		var $mobile = $("#mobile").val();
-		if ($mobile == null || $mobile.length != 11) 
-		{
-			$("#tip").html("请输入正确的手机号码！");
-		} else 
-		{
-			$.ajax({
-				url:"MobileServlet",
-				type:"get" ,
-				data:"mobile=" + $mobile,
-				success:function(result)
-{ 
-					if ($.trim(result) == "true") 
-					{
-						$("#tip").html("此号码已经被绑定，请尝试其他号码!");
-					} else {
-						$("#tip").html("绑定成功!");
-					}
-				 },
-				 error:function(){
-					$("#tip").html("检测失败!");
-				 }
-			});
-		}
-	}
-</script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+…
+<body>	
+         …		
+		并不存在的一个变量varDemo: 
+<c:out value="${varDemo }"  default="不存在"/><br/>
+		在request作用域内，给varDemo赋值 为LanQiao
+<c:set var="varDemo" value="LanQiao" scope="request"/><br/>
+		再次观察varDemo:
+ <c:out value="${varDemo }"  default="不存在"/><br/>
+		在request作用域内，将varDemo移除：
+<c:remove var="varDemo" scope="request"/> <br/>
+		再次观察varDemo:
+ <c:out value="${varDemo }"  default="不存在"/><br/></body>
 ```
 
-运行结果与之前的完全相同。
+运行结果：
 
-## 10.3.2 `$.get()`方法 ##
+![](http://i.imgur.com/UdAkb4F.png)
 
-`$.get(…)`方法指定以GET方式发送请求，与`$.ajax({…})`方法在语法上的区别是：①参数值必须按照一定的顺序书写；②省略了参数名、`type`参数、以及`error()`函数；③`$.ajax({…})`的各个参数是用大括号{}括起来的，而`$.get(…)`没有大括号。
+*图9-11*
 
-**语法（各参数顺序不可变）：**
 
-```
-	$.get(
-请求路径 ,
-		请求数据,
-        	function(result, textStatus,xhr)
-{ 
-			请求成功后执行的函数体
-		},
-        预期服务器返回的数据类型
-	);
-```
+#### (2)条件标签库 ####
 
-即，等价于:
+JSTL的条件标签库，包含单重选择标签`<c:if>`和多重选择标签`<c:choose>`、`<c:when>`、 `<c:otherwise>`。
 
-```
-	$.ajax({
-		url:请求路径 ,
-		data:请求数据,
-        	type: "GET" ,
-		success:function(result, textStatus)
-{ 
-			请求成功后执行的函数体
-		},
-		error:function(xhr,errorMessage,e)
-{
-			请求失败后执行的函数体
-		},
-        dataType:预期服务器返回的数据类型
-	});
-```
+**①单重选择标签&lt;c:if&gt;**
 
-## 10.3.3 `$.post()`方法 ##
-
-`$.get()`方法指定以`POST`方式发送请求，也是将参数值按照一定的顺序书写。
-
-**语法（各参数顺序不可变）：**
-
-```
-	$.post(
-请求路径 ,
-		请求数据,
-        	function(result, textStatus,xhr)
-{ 
-			请求成功后执行的函数体
-		},
-        预期服务器返回的数据类型
-	);
-```
-
-即语法上，只是将方法名`$.get()`变为了`$.post()`，其他语法完全一致。
-
-## 10.3.4 `$(selector).load ()`方法 ##
-
-`$(selector).load ()`方法是在`$.get()`（或`$.post()`）方法的基础上进一步优化，不但会发送请求，还会将响应的数据放入指定的元素。其中`$(selector)`是指jQuery选择器指定的元素。
+类似于Java中的`if`选择语句。
 
 
 **语法：**
 
 ```
-	$(selector).load(
-请求路径 ,
-		请求数据,
-        	function(result, textStatus,xhr)
-{ 
-			请求成功后执行的函数体
-		},
-        预期服务器返回的数据类型
-	);
+	<c:if test="condition"  var="variableName" scope="scope">
+		代码块
+	</c:if>
 ```
 
-因为`load()`方法会直接将响应结果放入指定元素，所以通常可以省略`load()`中的`function()`函数。
+`test`：判断条件，值为`true`或`false`，通常用EL表达式表示。当值为`true`时才会执行代码块中的内容。
 
-我们再用`load()`方法，实现一下“检测手机号码是否已绑定”：
+`var`：可选项。保存`test`的判断结果（true或false）。
 
-**服务器端jQuery_load.jsp**
+`scope`：可选项。设置此变量的作用域，有4个可填项：`page`，`request`，`session`和`application`。
 
-**MobileLoadServlet.java**
+示例：
+
+**JSTLDemo02.jsp**
 
 ```
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+…
+<body>
+     …
+	<c:if test="${3>2 }"  var="result" scope="request">
+		 3>2结果是：${result }
+	</c:if>
+</body>
+```
+
+运行结果：
+
+![](http://i.imgur.com/IuZWwWC.png)
+
+*图9-12*
+
+**②多重选择标签**`<c:choose>`
+
+&lt;c:choose&gt;的功能类似于Java中的多重if。
+
+**语法：**
+
+```
+	<c:choose>
+		<c:when test="">
+				代码块1
+		</c:when>
+		<c:when test="">
+				代码块2
+		</c:when>
+		...
+		<c:otherwise>
+				代码块n
+		</c:otherwise>
+	</c:choose>
+```
+
+其中，`<c:when test="">`类似于Java中的判断语句：`if()`和`else if()`；`<c:otherwise>`类似于多重if中最后的else。具体的流程是：当`<c:when>`中的test为true时，执行当前`<c:when>`标签中的代码块；如果所有when中的test都为false，则才会执行`<c:otherwise>`中的代码块。
+
+示例：
+
+
+**JSTLDemo02.jsp**
+
+```
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+…
+<body>
+    …
+	<c:set var="role" value="学生" />
+	<c:choose>
+		<c:when test="${role eq '老师' }">
+				老师相关代码
+		</c:when>
+		
+		<c:when test="${role eq '学生' }">
+				学生相关代码
+		</c:when>
+		<c:otherwise>
+				管理员相关代码
+		</c:otherwise>
+	</c:choose>
+</body>
+```
+
+运行结果：
+
+![](http://i.imgur.com/Ao2uIyj.png)
+
+*图9-13*
+
+#### (3)迭代`<c:forEach>`标签库 ####
+
+在Java之中有两种`for`循环，一种是传统的`for`循环，形式如`for(int i=0;i<10;i++)`；另一种是增强的`for`循环，形式如`for(String name : names)` ，此处的`names`是字符串数组。类似的，在JSTL中也提供了两种`<c:forEach>`标签与之相对应，一种用于遍历集合对象的成员，另一种用于让代码重复的循环执行。
+
+**①遍历集合对象的成员**
+
+**语法：**
+
+```
+<c:forEach var="variableName" items="collectionName" 
+varStatus="variableStatusInfo" begin="beginIndex" 
+end="endIndex" step="step">
+			迭代集合对象的相关代码
+</c:forEach>
+```
+
+**`var`**：当前对象的引用，即表示循环正在遍历的那个对象。例如，当循环遍历到第一个成员时，`var` 就代表第一个成员；当循环遍历到第二个成员时，`var` 就代表第二个成员……
+
+**`items`**：当前循环的集合名。
+
+**`varStatus`**：可选项。存放`var`所引用成员的相关信息，如索引号(index)等。
+
+**`begin`**：可选项。遍历集合的开始位置，从0开始。
+
+**`end`**：可选项。遍历集合的结束位置。
+
+**`step`**：可选项，默认为1。遍历集合的步长，比如当`step`为1时，会依次遍历第0个、第1个、第2个……；当`step`为2时，会依次遍历第0个、第2个、第4个……。
+
+示例：
+先通过Servlet给集合中加入数据，再用`<c:forEach>`遍历输出。
+
+**InitJSTLForeachDataServlet.java**
+
+```
+package org.lanqiao.servlet;
 //省略import
-public class MobileLoadServlet extends HttpServlet 
-{
-	protected void doGet(…)…
-{
-		this.doPost(request, response);
-	}
+public class InitJSTLForeachDataServlet extends HttpServlet {
+	…
 	protected void doPost(HttpServletRequest request, 
 HttpServletResponse response) 
-throws ServletException, IOException 
-{
-		//设置发送到客户端的响应的内容类型
-		response.setContentType("text/html;charset=UTF-8"); 
-		PrintWriter out = response.getWriter();
-		String mobile = request.getParameter("mobile");
-		//假设已经存在号码为18888888888的电话
-		if("18888888888".equals(mobile))
-{
-			out.print("此号码已经被绑定，请尝试其他号码!");
-		}else
-{
-			out.print("绑定成功!");
-		}
-		out.close();
+throws ServletException, IOException {
+		//Address类包含家庭地址和学校地址两个属性
+		Address add1 =new Address("北京朝阳区","北京大兴区");
+		Address add2 =new Address("陕西西安","广州东莞");
+		List<Address> addresses = new ArrayList<Address>();
+		addresses.add(add1);
+		addresses.add(add2);
+		//强addresses集合放入request作用域内
+		request.setAttribute("addresses", addresses);
+		request.getRequestDispatcher("JSTLDemo02.jsp")
+.forward(request, response);
 	}
 }
 ```
 
-仔细观察，客户端用`load()`方法时，服务器端直接将结果字符串返回。
-
-**客户端jQuery_load.jsp**
+**JSTLDemo02.jsp**
 
 ```
-…
-<script type="text/javascript">
-	function isExist() 
-	{
-		var $mobile = $("#mobile").val();
-		if ($mobile == null || $mobile.length != 11) 
-		{
-			$("#tip").html("请输入正确的手机号码！");
-		} else 
-		{
-			$("#tip").load(
-				"MobileLoadServlet",
-				"mobile=" + $mobile
-			);
-		}
-	}
-</script>
-…
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <body>
-	<body>
-		<form action="">
-			<input type="text" id="mobile" /> 
-<font color="red" id="tip"></font>
-			<br />
- <input type="button" value="绑定" onclick="isExist()" />
-		</form>
+	…
+		<c:forEach var="add" items="${addresses }" varStatus="status" >
+				${status.index}：
+家庭地址：${add.homeAddress } – 
+学校地址：${add.schoolAddress }<br/>
+		</c:forEach>
 </body>
 ```
 
-运行结果仍然与之前的完全一样。
+执行http://localhost:8888/ELAndJSTLDemo/InitJSTLForeachDataServlet，运行结果：
 
-# 10. 4  JSON #
+![](http://i.imgur.com/FRiASwM.png)
 
-JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。在使用Ajax时，我们经常会使用JSON来传递数据。本小节，将重点学习JSON对象、JSON数组以及如何在Ajax中传递JSON数据。
+*图9-14*
 
-## 10.4.1 JSON简介 ##
-
-#### ① JSON对象 ####
-
-**a.定义JSON对象**
-
-**语法：**
-
-`var JSON对象名 = {key:value ,  key:value , … , key:value};`
-
-在JavaScript中，JSON对象是用大括号括起来，包含了多组属性。每个属性名和属性值之间用冒号隔开，多个属性之间用逗号隔开，并且属性名必须是字符串，如下：
-
-```
-var student = {"name":"张三","age":23};
-var stu = {"name":"张三"};
-```
-
-**b.使用JSON对象**
-
-可以通过“JSON对象名.key”获取对应的`value`值，如下：
-
-**json.jsp**
-
-```
-…
-var student = {"name":"张三","age":23};
-var name = student.name;
-var age = student.age ;
-alert("姓名："+name+",年龄："+age	);
-…
-```
-
-运行结果：
-
-![](http://i.imgur.com/skl4u5s.png)
-
-*图10-06*
-
-#### ② JSON数组 ####
-
-**a.定义JSON数组**
-
-**语法：**
-
- var JSON数组名 = [JSON对象, JSON对象,…, JSON对象] ;
-
-在JavaScript中，JSON数组是用中括号括起来，包含了多个JSON对象，多个对象之间用逗号隔开，如下：
-
-```
-var students = [{"name":"张三","age":23},
-{"name":"李四","age":24}];
-```
-
-**b.使用JSON数组**
-
-可以通过“JSON对象名[索引].key”获取对应的`value`值，如下：
-
-```
-…
-		var students = [{"name":"张三","age":23},
-		                   {"name":"李四","age":24}];
-		alert(students[1].name+","+students[1].age);
-…
-```
-
-运行结果：
-
-![](http://i.imgur.com/vRyDtCU.png)
-
-*图10-07*
-
-## 10.4.2 AJAX使用JSON传递数据 ##
-
-使用jQuery实现AJAX时，客户端可以使用`$.getJSON()`向服务器端发送JSON格式的数据，服务器端也可以向客户端返回JSON格式的数据。
+**②迭代指定的次数**
 
 **语法：**
 
 ```
-	$.getJSON (
-请求路径 ,
-		 JSON格式的请求数据,
-        	function(result, textStatus,xhr)
-{ 
-			请求成功后执行的函数体
-		}
-	);
+<c:forEach var="variableName" varStatus="variableStatusInfo" 
+begin="beginIndex" end="endIndex" step="step">  
+		循环体  
+</c:forEach>	
 ```
 
-示例：**客户端：json.jsp**
+其中`var`、`varStatus`、`begin`、`end`、`step`属性的含义，与“遍历集合对象的成员”中对应的属性含义相同，并且能发现此种方式的`<c:forEach>`缺少了`“items”`属性。此种方式的`<c:forEach>`主要用来让循环体执行固定的次数。
+
+**示例：**
+
+**JSTLDemo02.jsp**
 
 ```
-…
-<script type="text/javascript">
-	function isExist() 
-	{
-		var $mobile = $("#mobile").val();
-		if ($mobile == null || $mobile.length != 11) 
-		{
-			$("#tip").html("请输入正确的手机号码！");
-		} else 
-		{
-		    $.getJSON('MobileJSONServlet',
-{mobileNum: $mobile},
-function(result)
-{
-				           	$("#tip").html(result.msg);
-			              });
-			}
-		}
-    …
-</head>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <body>
-	<form action="">
-		<input type="text" id="mobile" /> 
-<font color="red" id="tip"></font><br />
-		<input type="button" value="绑定" onclick="isExist()" />
-	</form>
+	…
+		<c:forEach  begin="0" end="2"  step="1">
+		          LanQiao<br>
+		</c:forEach>
 </body>
-…
 ```
 
-**服务器端：MobileJSONServlet.java**
+以上代码中的`<c:forEach>`类似于Java中的`for(int i=0;i<2;i++)`，运行结果：
 
-```
-//import…
-public class MobileJSONServlet extends HttpServlet
-{
-	protected void doGet(…) throws ServletException, IOException
-	{
-		this.doPost(request, response);
-	}
+![](http://i.imgur.com/mjERMhX.png)
 
-	protected void doPost(…) throws ServletException, IOException
-	{
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		String mobile = request.getParameter("mobileNum");
-		// 假设已经存在号码为18888888888的电话
-		if ("18888888888".equals(mobile))
-		{
-		//返回JSON格式的数据： {"msg":"此号码已经被绑定，请尝试其他号码!"}
-			out.print("{\"msg\":\"此号码已经被绑定，
-请尝试其他号码!\"}");
-		}
-		else
-		{
-			//返回JSON格式的数据：  {"msg":"绑定成功！"}
-			out.print("{\"msg\":\"绑定成功！\"}");
-		}
-		out.close();
-	}
+*图9-15*
 
-}
-```
+至此我们就学完了EL表达式和JSTL标签库的相关内容，读者可以使用它们来替换以前JSP页面中的Scriptlet。
 
-	客户端使用$.getJSON向服务器端MobileJSONServlet发送JSON数据{mobileNum: $mobile}，服务器端接收到mobileNum的值后再以JSON对象的格式返回给客户端，如{"msg":"绑定成功！"}。最后，客户端再解析服务器端返回的JSON值，如result.msg。
-
-上述的服务器端代码MobileJSONServlet中，是通过字符串拼接的形式向客户端返回了JSON形式的结果，如{"msg":"绑定成功！"}。除此之外，我们还可以在服务器端中使用`JSONObject`类来产生JSON对象，并返回给客户端，如下：
-
-**客户端：json.jsp**
-
-```
-…
-<script type="text/javascript">
-	function jsonObjectTest() 
-	{
-		var stuName = $("#stuName").val();
-		var stuAge = $("#stuAge").val();
-		$.getJSON('JSONObjectServlet',
-{name:stuName,age:stuAge},
-function(result)
-{
-				       var student =  eval(result.stu);  
-				       alert(student.name+","+student.age);
-			         }
-);
-	}
-	</script>
-</head>
-<body>
-	<form action="">
-	姓名：<input type="text" name="stuName" id="stuName"><br/>
-	年龄：<input type="text" name="stuAge" id="stuAge"><br/>
-<input type="button" value="绑定" 
-onclick="jsonObjectTest()" />
-	</form>
-</body>
-…
-```
-
-**服务器端**：在使用JSONObject之前，需要给项目导入以下JAR文件：
-
-<table>
-   <tr>
-      <td>commons-beanutils.jar</td>
-      <td>commons-collections-3.2.1.jar</td>
-      <td>commons-lang-2.6.jar</td>
-   </tr>
-   <tr>
-      <td>commons-logging-1.1.1.jar</td>
-      <td>ezmorph-1.0.6.jar</td>
-      <td>json-lib-2.3-jdk15.jar</td>
-   </tr>
-</table>
-
-**JSONObjectServlet.java**
-
-```
-…
-import net.sf.json.JSONObject;
-public class JSONObjectServlet extends HttpServlet {
-	protected void doGet(…) throws ServletException, IOException
-  {
-		this.doPost(request, response);
-}
-	protected void doPost(…) throws ServletException, IOException
- {
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-
-		String name =  request.getParameter("name");
-		int age =Integer.parseInt( request.getParameter("age"));
-		Student student = new Student();
-		student.setName(name);
-		student.setAge(age);
-		
-		JSONObject json = new JSONObject();
-		//将student对象放入json对象中
-		json.put("stu", student); //类似于{"stu":student}
-		out.print(json);
-	}
-}
-```
-
-客户端通过`$.getJSON()`向服务器端JSONObjectServlet发送请求，并传递JSON格式的数据`{name:stuName,age:stuAge}`。服务器端将客户端的数据接收后封装到`Student`对象之中，之后再将`Student`对象加入到`JSONObject`对象之中，并把`JSONObject`对象返回给客户端。最后，客户端通过回调函数的参数`result`接收到`JSONObject`对象，并通过`eval(result.stu)`将`JSONObject`对象之中的`stu`转义成JSON字符串格式，再用`student.name`等拿到需要使用的值。
-
-# 10. 5 练习题 #
+# 9.3 练习题 #
 
 **一、选择题**
 
-1.（    ）是操作AJAX的核心对象。（选择一项）（难度★）
+1.下面（    ）不是与范围有关的EL隐式对象。（选择一项）（难度★）
 
-A．`XMLHttpRequest`
+A．`cookieScope`		
+		
+B．`pageScope`
 
-B．`status`
+C．`sessionScope	`	
+			
+D．`applicationScope`
 
-C．`statusText`
 
-D．`responseText`
+2.如果`session`中已经有属性名为`user`的对象，则EL表达式`${not empty sessionScope.user}`的值为（    ）。（选择一项）（难度★）
 
-2.`XMLHttpRequest`对象的`onreadystatechange`属性的含义是（    ）。（选择一项）（难度★）
+A．true							
 
-A．表示`XMLHttpRequest`对象的状态
+B．false
 
-B．服务器返回的HTTP协议状态码
+C．null							
 
-C．指定当`XMLHttpRequest`对象状态改变时会调用哪个JavaScript函数进行处理
-
-D．服务器响应的文本内容
+D．user
 
 **二、简答题**
 
-1.什么是AJAX？请描述AJAX的技术原理和好处。（难度★★）
+1.在使用EL表达式时，如果不显式指定对象的作用域范围，则系统会按照什么顺序依次查找？（难度★）
 
-2.哪些情况需要使用到AJAX? （难度★★）
+2.使用JSTL标签`<c: ... >`之前，需要进行哪些准备工作？（难度★）
 
-3.用JS实现AJAX，需要使用到了哪个对象？该对象有哪些常用属性和方法？（难度★★★）
+3.请问`<c:set>`标签有哪几种？各如何使用？（难度★★）
 
-4.请描述JQuery中`load()`方法的三个回调函数参数分别代表什么含义。（难度★★）
+4.请介绍JSTL中的for Each迭代标签有哪些属性，并简要描述各属性的含义。（难度★★★）
 
-5.使用JQuery方式的AJAX继续优化第八章练习题中的“部门管理系统”。（难度★★★★）
+5.使用EL和JSTL继续优化第七章练习题中的“部门管理系统”。（难度★★★）

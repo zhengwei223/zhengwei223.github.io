@@ -2,1127 +2,462 @@
 
 layout: post
 
-
-title: 过滤器与监听器
-
+title: 调试
 
 category: JSP-Servlet教程
 
-
 tags: JSP Servlet
 
-
-description: 本章将系统介绍过滤器与监听器。
-
+description: 使用Eclipse的调试功能，可以帮助开发人员更好的了解程序的运行情况、快速的发现bug、及时的处理错误。
 
 author: 颜群
-
 
 keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
-# 8.1 过滤器 #
-
-## 8.1.1 过滤器原理 ##
-
-过滤器（Filter）的基本功能是对Servlet的调用过程进行拦截，从而在Servlet处理请求及响应的过程中增加一些特定的功能。
-
-常见用Filter实现的功能有：URL级别的权限访问控制、过滤敏感词汇、压缩响应信息、设置POST方式的统一编码等。
-
-程序中的过滤器就好比生活中的自来水过滤器，可以将水中的杂质、有害物质等进行过滤，从而使水变得更加有利于我们使用。
-
-![](http://i.imgur.com/wTRPGUq.gif)
-
-*图8-01*
-
-如上图，当客户端向服务器中的资源发出请求时，会先被过滤器Filter进行拦截处理，之后再将处理后的请求转发给真正的服务器资源。此外，当服务器接收到请求并对其做出响应后，响应结果也会先被过滤器拦截处理，之后再将处理后的响应转发给客户端。即在请求、响应的过程前，都会先被过滤器进行拦截处理。
+# 13.1 使用Eclipse调试 #
 
-程序中的过滤器，实际就是一个实现了`javax.servlet.Filter`接口的类，`javax.servlet.Filter`接口中定义了以下3个方法：
+使用Eclipse的调试功能，可以帮助开发人员更好的了解程序的运行情况、快速的发现bug、及时的处理错误。
 
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>void init(FilterConfig conf)</td>
-      <td>用于执行过滤器的初始化工作。Web容器会在Web项目启动前，自动调用该方法。该方法类似于Servlet中的init()。</td>
-   </tr>
-   <tr>
-      <td>void doFilter(ServletRequest request,  ServletResponse response,  FilterChain chain)</td>
-      <td>当请求和响应被过滤器拦截后，就通过doFilter()方法来处理：request参数就是拦截的请求对象，response参数就是拦截的响应对象，可以使用FilterChain参数的doFilter()方法来将拦截的请求和释放。类似于Servlet中的doGet()、doPost()。</td>
-   </tr>
-   <tr>
-      <td>void destroy()</td>
-      <td>用于释放或关闭被Filter对象打开的资源，例如关闭数据库、关闭IO流等操作。在Web项目关闭时，由Web容器自动调用该方法。类似于Servlet中的destroy()。</td>
-   </tr>
-</table>
-
-与Servlet类似，Filter的`init()`和`destroy()`方法各自只会被调用一次，而`doFilter()`方法会在每次客户端发出请求时被调用。
-
-其中`init()`方法里的FilterConfig参数，主要为过滤器提供初始化参数。
-
-**FilterConfig是一个接口，常用的方法如下：**
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>String getFilterName()</td>
-      <td>获取web.xml中的过滤器的名称</td>
-   </tr>
-   <tr>
-      <td>String getInitParameter(String param)</td>
-      <td>获取web.xml中参数名对应的参数值</td>
-   </tr>
-   <tr>
-      <td>ServletContext getServletContext()</td>
-      <td>获取web应用程序的ServletContext</td>
-   </tr>
-</table>
-
-## 8.1.2开发第一个Filter程序 ##
-
-本示例采用Servlet2.5版本。
-
-**步骤：**
-
-**(1)**新建Web项目（项目名是FilterProject）；再在WebContext下新建`jsp`，在`src`下新建Servlet。如下：
-
-
-
-发送请求的客户端JSP：**index.jsp**
-
-```…
-<a href="MyServlet">访问MyServlet...</a>
-…
-```
-
-处理请求的控制器**Servlet：MyServlet.java**
-
-```
-…
-public class MyServlet extends HttpServlet {
-	protected void doGet(HttpServletRequest request,
- HttpServletResponse response) 
-throws ServletException, IOException {
-		System.out.println("doGet…");
-	}
-	…
-}
-```
-
-在**web.xml**中配置此Servlet:
-
-```
-<servlet>
-    <servlet-name>MyServlet</servlet-name>
-    <servlet-class>
-org.lanqiao.servlet.MyServlet
-</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>MyServlet</servlet-name>
-    <url-pattern>/MyServlet</url-pattern>
-</servlet-mapping>
-```
-
-**(2)**开发过滤器，拦截Servlet程序。
-
-新建一个过滤器（即实现了`javax.servlet.Filter`接口的类）。
-
-**MyFirstFilter.java**
-
-```
-package org.lanqiao.servlet;
-
-import java.io.IOException;
-import javax.servlet.*;
-
-public class MyFirstFilter implements Filter
-{
-	@Override
-	public void init(FilterConfig arg0) throws ServletException
-	{
-		System.out.println("过滤器01的初始化init()方法...");
-	}
-	
-	@Override
-	public void doFilter(ServletRequest request, 
-ServletResponse response, FilterChain chain)
-			throws IOException, ServletException
-	{
-		System.out.println("过滤器01的执行方法:doFilter()方法...");
-	}
-	
-	@Override
-	public void destroy()
-	{
-		System.out.println("过滤器01的销毁destory()方法...");
-	}
-}
-```
+## 13.1.1 使用Eclipse调试JAVA程序 ##
 
-在**web.xml** 中配置此Filter：
+**调试JAVA程序的步骤如下：**
 
-```
-<filter>
-  	<filter-name>MyFirstFilter</filter-name>
-  	<filter-class>
-org.lanqiao.filter. MyFirstFilter
-</filter-class>
- </filter>
- <filter-mapping>
-  	<filter-name>MyFirstFilter</filter-name>
-  	<url-pattern>/MyServlet</url-pattern>
-</filter-mapping>
-```
-
-Filter的配置方法和Servlet的配置方法相类似：先通过`<url-pattern>`匹配需要拦截的请求，再根据`<filter-name>`找到对应的过滤器处理类`<filter-class>`,最后执行过滤器处理类中的`init()`、`doFilter()`、`destroy()`等方法。
-
-**(4)**部署并启动项目，访问**index.jsp**中的超链接，可以在控制台看到以下输出：
-
-![](http://i.imgur.com/6DrHIo6.png)
-
-*图8-02*
-
-可以发现，**index.jsp**通过超链接向Servlet发出的请求确实被Filter拦截了，甚至只执行了Filter中的`doFilter()`方法，而没有执行Servlet中的`doGet()`方法。如果想让请求被Filter拦截之后，仍然能正常访问到当初所请求的Servlet，则需要在Filter的`doFilter()`方法里加上`chain.doFilter()`方法，表示拦截完毕、释放请求及响应，如下：
-
-**MyFirstFilter.java**
-
-```
-…
-public class MyFirstFilterimplements Filter
-{
-    
-	@Override
-	public void doFilter(ServletRequest request, 
-ServletResponse response, FilterChain chain)
-		        	throws IOException, ServletException
-	{
-		System.out.println("过滤器01的执行方法:doFilter()方法...");
-		chain.doFilter(request, response);
-	}
-}
-```
-
- 修改**MyFirstFilter.java**以后，重启服务，再次运行并访问**index.jsp**中的超链接，可在控制台看到以下输出：
-
-![](http://i.imgur.com/PKdBcOe.png)
-
-*图8-03*
-
-从输出结果可以得知，**index.jsp**发出的请求确实先被Filter进行了拦截处理，然后再执行了Servlet中的`doGet()`方法。
-
-之前讲过，Filter能对请求和响应都进行拦截。实际上在Filter中，`chain.doFilter()`之前的代码就是拦截请求时所执行得代码，`chain.doFilter()`之后的代码就是拦截响应时所执行得代码，将过滤器修改如下：
-
-**MyFirstFilter.java**
-
-```
-…
-public class MyFirstFilter implements Filter
-{
-	…
-	@Override
-	public void doFilter(ServletRequest request, 
-ServletResponse response, FilterChain chain)
-			throws IOException, ServletException
-	{
-		System.out.println("拦截请求01...");
-		chain.doFilter(request, response);
-		System.out.println("拦截响应01...");
-	}
-}
-```
+#### ① 打断点 ####
 
-再次重启服务并执行**index.jsp**中的超链接，得到以下输出：
+用鼠标双击需要观察的代码左侧（双击后，会出现一个小圆点），如图：
 
-![](http://i.imgur.com/Nss3RWj.png)
+![](http://i.imgur.com/F67Rft4.png)
 
-*图8-04*
+*图13-01*
 
-即Filter会先拦截请求（即执行`chain.doFilter()`之前的代码），然后通过`chain.doFilter()`释放请求（去执行Servlet中的`doGet()`/`doPost()`），最后再拦截响应（即执行`chain.doFilter()`之后的代码）。
+以上，需要观察第21行中num1的值，所以就在第21行左边打了一个断点。
 
-## 8.1.3 Filter映射 ##
+#### ② 进入调试状态 ####
 
-Filter通过**web.xml**中的`<url-pattern>`元素来配置需要拦截的请求。例如，之前编写的
+打了断点以后，就可以启动调试：鼠标右击代码编辑界面→Debug As→Java Application，如图
 
-`<url-pattern>/MyServlet</url-pattern>`
-
-表示拦截请求路径为“`/MyServlet`”的请求。如果想拦截项目中的所有请求，可以使用通配符“*”，如下：
-
-`<url-pattern>/*</url-pattern>`
-
-其中“/”表示当前项目的根路径，相当于[http://localhost:8888/FilterProject/](http://localhost:8888/FilterProject/)。
-
-还可以给通配符加上自定义后缀，如下，
-
-`<url-pattern>/*.do</url-pattern>`
-
-表示拦截所有以“`.do`”结尾的请求，如http://localhost:8888/ProjectName/ServletName.do。
-
-此外，还可以通过`<filter-mapping>`的子元素`<dispatcher>`来指定拦截特定方式的请求，如下：
-
-```
-<filter-mapping>
-     …
-  	<dispatcher>拦截方式1</dispatcher>
-<dispatcher>拦截方式2</dispatcher>
-<dispatcher>…</dispatcher>
-</filter-mapping>
-```
-
-**常见拦截方式的值有以下四个：**
-
-<table>
-   <tr>
-      <td>拦截方式的值</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>REQUEST</td>
-      <td>只会拦截通过地址栏直接访问方式发出的请求。</td>
-   </tr>
-   <tr>
-      <td>INCLUDE</td>
-      <td>只会拦截通过RequestDispatcher的include()方式发出的请求。</td>
-   </tr>
-   <tr>
-      <td>FORWARD</td>
-      <td>只会拦截通过RequestDispatcher的forward()方式发出的请求（即请求转发方式）。</td>
-   </tr>
-   <tr>
-      <td>ERROR</td>
-      <td>只会拦截通过&lt;error-page&gt;方式发出的请求，此方式使用较少。</td>
-   </tr>
-</table>
-
-
-如下，表示此过滤器会拦截所有：
-
-**①**通过地址栏访问方式的请求，
-
-**②**通过请求转发方式的请求：
+![](http://i.imgur.com/fdZs3I7.png)
 
-```
-<filter-mapping>
-     …
-  	<dispatcher> REQUEST</dispatcher>
-<dispatcher> FORWARD</dispatcher>
-</filter-mapping>
-```
+*图13-02*
 
-## 8.1.4 Filter链 ##
+之后，会弹出调试界面，如图：
 
-**(1)原理**
+![](http://i.imgur.com/Zzlazd9.png)
 
-我们还可以为Web应用程序注册多个Filter，对某一请求/响应进行多次拦截。拦截的过程如下图：
+*图13-03*
 
-![](http://i.imgur.com/WnqQVHf.gif)
+调试界面的右上角有Variables和BreakPoints两个功能面板，BreakPoints面板中会显示之前所打断点的位置，如图，
 
-*图8-05*
+![](http://i.imgur.com/CKc7aIW.png)
 
-如果对某一个请求配置了多个Filter，则每个Fiter都会对该请求及响应进行拦截。拦截的顺序是按照过滤器的`<filter-mapping>`在web.xml中的配置顺序。像这样，多个Filter拦截同一个请求时，这些Filter就会组成一个Filter链，并且每一个Filter都是通过FilterChain的`doFilter()`方法，将当前Filter拦截的请求放行，使请求进入下一个Filter。
+*图13-04*
 
-上图中，客户端发出的请求会先被过滤器1所拦截，过滤器1处理完请求后可以通过调用`doFilter()`方法将请求放行；随后请求会被过滤器2拦截，过滤器2处理完请求后同样可以调用`doFilter()`方法将请求放行，最终请求到达服务器资源。同理，当服务器向客户端发出响应时，也会依次被过滤器所拦截，只是拦截响应的顺序与拦截请求的顺序完全相反。
+而Variables面板中存放了当前行的变量值，如图，
 
-**(2)示例**
+![](http://i.imgur.com/oHzlBhI.png)
 
-我们在之前的FilterProject项目基础上，开发一个使用Filter链的程序。
+*图13-05*
 
-之前的过滤器MyFirstFilter拦截的是MyServlet资源，我们再建一个过滤器MySecondFilter同样来拦截MyServlet资源，如下：
+此外，我们还可以新增加一个`Expressions`功能面板：依次点击Window→Show View→Expressions，如图，
 
-**MySecondFilter.java**
+![](http://i.imgur.com/ITrCIpV.png)
 
-```
-…
-public class MySecondFilter implements Filter
-{
-	@Override
-	public void init(FilterConfig arg0) throws ServletException
-	{
-		System.out.println("过滤器02的初始化init()方法...");
-	}
+*图13-06*
 
-	@Override
-	public void doFilter(ServletRequest request, 
-ServletResponse response, FilterChain chain)
-			throws IOException, ServletException
-	{
-		System.out.println("拦截请求02...");
- 		chain.doFilter(request, response);
-		System.out.println("拦截响应02...");
-	}
-
-	@Override
-	public void destroy()
-	{	System.out.println("过滤器02的销毁destory()方法...");
-	}
-}
-```
-
-对过滤器MySecondFilter进行配置，使其和MyFirstFilter一样都拦截MyServlet资源，如下：
-
-**web.xml**
-
-```
-<filter>
-  	<filter-name>MyFirstFilter</filter-name>
-  	<filter-class>
-org.lanqiao.filter.MyFirstFilter
-</filter-class>
- </filter>
- <filter-mapping>
-  	<filter-name>MyFirstFilter</filter-name>
-  	<url-pattern>/MyServlet</url-pattern>
- </filter-mapping>
-
- <filter>
-  	<filter-name>MySecondFilter</filter-name>
-  	<filter-class>
-org.lanqiao.filter.MySecondFilter
-</filter-class>
- </filter>
- <filter-mapping>
-  	<filter-name>MySecondFilter</filter-name>
-  	<url-pattern>/MyServlet</url-pattern>
- </filter-mapping>
-```
-
-MyFirstFilter 的`< filter-mapping >`写在MySecondFilter的`< filter-mapping >`前面，因此拦截的顺序是:
-
-**拦截请求：**请求先被MyFirstFilter拦截，再被MySecondFilter拦截；
-
-**拦截响应：**与拦截请求的顺序正好相反：即响应先被MySecondFilter拦截，再被MyFirstFilter拦截。
-
-重启服务，再次通过**index.jsp**中的超链接，向服务器的MyServlet资源发出请求，运行结果如下：
-
-![](http://i.imgur.com/PrEF5XR.png)
-
-
-*图8-06*
-
-
-# 8.2 监听器 #
-
-在Web应用程序的运行期间，Web容器会创建和销毁四个对象：`ServletContext`、`HttpSession`、`ServletRequest`、`PageContext`，这些对象被称为“域对象”（即在JSP中提到的“范围对象”）。除了`PageContext`以外，Servlet API为其他三个域对象都提供了各自的监听器，用来监听它们的行为。
-
-## 8.2.1监听域对象的生命周期 ##
-
-**(1)原理**
-
-Servlet API提供了`ServletContextListener`、`HttpSessionListener`、`ServletRequestListener`三个监听器接口，用来分别监听`ServletContext`、`HttpSession`、`ServletRequest`三个域对象。当这三个域对象创建或销毁时，就会自动触发相应的监听器接口。
-
-例如，`ServletContextListener`接口可以用来监听`ServletContext`域对象的创建、销毁过程。当在Web应用程序中注册了一个或多个实现了`ServletContextListener`接口的事件监听器时，Web容器就会在创建、销毁每个`ServletContext`对象时都产生一个相应的事件对象，然后依次调用每个`ServletContext`事件监听器中的处理方法，并将产生的事件对象传递给这些方法来完成事件的处理工作。
-
-**`ServletContextListener`接口定义了以下两个事件处理方法：**
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>public void contextInitialized(ServletContextEvent sce)</td>
-      <td>当ServletContext对象被创建时， Web容器会自动触发此方法。并且可以通过参数ServletContextEvent来获取创建的ServletContext对象</td>
-   </tr>
-   <tr>
-      <td>public void contextDestroyed(ServletContextEvent sce)</td>
-      <td>当ServletContext对象被销毁时， Web容器会自动触发此方法。并且会将之前的ServletContextEvent对象传递到此方法的参数中。</td>
-   </tr>
-</table>
-
-类似的，`HttpSessionListener`和`ServletRequestListener`接口也都提供了各自的事件处理方法，如下：
-
-**`HttpSessionListener`接口定义的事件处理方法：**
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>public void sessionCreated(HttpSessionEvent se)</td>
-      <td>当HttpSession对象被创建时， Web容器会自动触发此方法。并且可以通过参数HttpSessionEvent来获取创建的HttpSession对象</td>
-   </tr>
-   <tr>
-      <td>public void sessionDestroyed(HttpSessionEvent se)</td>
-      <td>当HttpSession对象被销毁时， Web容器会自动触发此方法。并且会将之前的HttpSessionEvent对象传递到此方法的参数中。</td>
-   </tr>
-</table>
-
-**`ServletRequestListener`接口定义的事件处理方法：**
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>public void requestInitialized(ServletRequestEvent sre)</td>
-      <td>当ServletRequest对象被创建时， Web容器会自动触发此方法。并且可以通过参数ServletRequestEvent来获取创建的ServletRequest对象</td>
-   </tr>
-   <tr>
-      <td>public void requestDestroyed(ServletRequestEvent sre)</td>
-      <td>当ServletRequest对象被销毁时， Web容器会自动触发此方法。并且会将之前的ServletRequestEvent对象传递到此方法的参数中。</td>
-   </tr>
-</table>
-
-**(2)案例**
-
-我们用一个类来同时实现`ServletContextListener`、`HttpSessionListener`、`ServletRequestListener`三个接口，即同时具有三个监听器的功能。
-
-**ContextSessionRequestListener.java**
-
-```
-package org.lanqiao.listener;
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-public class ContextSessionRequestListener 
-implements ServletContextListener,
-HttpSessionListener,ServletRequestListener
-{
-	@Override
-	public void requestInitialized(ServletRequestEvent sre)
-	{
-		System.out.println("监听ServletRequest：
-[ServletRequest]对象[创建]完成");
-	}
-	@Override
-	public void requestDestroyed(ServletRequestEvent sre)
-	{
-		System.out.println("监听ServletRequest：
-[ServletRequest]对象[销毁]完成");
-	}
-	@Override
-	public void sessionCreated(HttpSessionEvent se)
-	{
-		System.out.println("监听HttpSession：
-[HttpSession]对象[创建]完成");		
-	}
-	@Override
-	public void sessionDestroyed(HttpSessionEvent se)
-	{
-		System.out.println("监听HttpSession：
-[HttpSession]对象[销毁]完成");		
-	}
-	@Override
-	public void contextInitialized(ServletContextEvent sce)
-	{
-		System.out.println("监听ServletContext：
-[ServletContext]对象[创建]完成");	
-	}
-	@Override
-	public void contextDestroyed(ServletContextEvent sce)
-	{
-		System.out.println("监听ServletContext：
-[ServletContext]对象[销毁]建完成");	
-	}
-}
-```
-
-再在**web.xml**中部署ContextSessionRequestListener监听器，如下：
-
-**web.xml**
-
-```
-…
-<listener>
-  	<listener-class>
-  		org.lanqiao.listener.ContextSessionRequestListener
-  	</listener-class>
-</listener>
-…
-```
-
-一个完整的监听器需要编写`Listener`类和配置`<Listener>`。如果Web应用程序有多个监听器，则会按照`<listener>`在web.xml中的配置顺序依次触发。
-
-最后新建**index.jsp**和**sessionInvalidate.jsp**用来测试监听器：
+再观察调试界面，会发现多了一个`Expressions`功能面板，如图，
+
+![](http://i.imgur.com/kiI4fFN.png)
+
+*图13-07*
+
+我们可以将变量或自定义表达式（如num1*num2）输入到`Expressions`面板中观察，如图，
+
+![](http://i.imgur.com/7Mjb92h.png)
+
+*图13-08*
+
+#### ③ 执行调试 ####
+
+**a.单行调试（单步调试）**
+
+之后就可以开始调试：单击F6进行单行调试，即可以让程序一行一行的执行。例如，目前程序停留在第21行，单击F6后就会执行到第22行，如图，
+
+![](http://i.imgur.com/7MAxsQH.png)
+
+*图13-09*
+
+并且可以随时在Expressions面板中观察自定义表达式或变量在此时的值。
+
+值得注意的是：在单击F6执行单行调试时，绿色背景条所在那一行表示的是“即将”执行的那一行，而不是已经执行过的那一行。
+
+**b.进入方法**
+
+如果即将执行那一行是一个方法，可以单击F6直接跳到下一行（即将该方法执行完毕，跳到第23行），也可以单击F5进入到该方法的内部，如图是在第22行单击F5之后的效果，
+
+![](http://i.imgur.com/7wMHWUI.png)
+
+*图13-10*
+
+进入方法后，可以单击F6执行单行调试，也可以单击F7跳出该方法，恢复到该方法调用处的下一行（即第23行），如图（在第7行单击F7之后）：
+
+![](http://i.imgur.com/hNYdpCN.png)
+
+*图13-11*
+
+**c.释放断点和停止调试**
+
+如果通过调试，成功的找到了bug或已将问题分析完毕，就可以点击ctrl+F2终止调试。如果程序中打了多个断点，也可以单击F8将程序释放到下一个断点所在处。
+
+除了使用F5、F6、F7、F8、ctrl+F2等快捷键外，还可以使用Eclipse提供的调试按钮，如图：
+
+![](http://i.imgur.com/4wiLedH.png)
+
+*图13-12*
+
+如果在调试模式下，想暂时忽略所有断点、像正常执行程序一样，可以单击Skip All BreakPoints按钮，如图：
+
+![](http://i.imgur.com/0ROrrJ6.png)
+
+*图13-13*
+
+如果想恢复被忽略的断点，只需要再次单击Skip All BreakPoints按钮。
+
+**d.恢复编辑视图**
+
+调试完毕后，点击右上角的“Java EE”就可以恢复到普通的JAVA编辑视图，如图：
+
+![](http://i.imgur.com/vkdD9Hg.png)
+
+*图13-14*
+
+## 13.1.2 使用Eclipse调试本地JAVA Web程序 ##
+
+调试Java Web程序与调试JAVA程序的方法基本相同，唯一区别就在于如何进入调试模式。
+
+在打了断点以后，JAVA程序是通过单击Debug As→Java Application进入调试模式；而Web程序进入调试模式的步骤是：
+
+**① 先以Debug模式启动Web服务**
+
+如图：
+
+![](http://i.imgur.com/ozel75G.png)
+
+*图13-15*
+
+**② 在运行Web应用时，如果执行的代码中存在断点，则Eclipse会自动进入调试模式，并将程序停留在该断点处**
+
+例如，有一个前端页面，如下
 
 **index.jsp**
 
 ```
 …
-<body>
-	index.jsp页面<br/>
-	<a href="sessionInvalidate.jsp">销毁session</a>
-</body>
+<a href="DebugServlet">测试Java Web调试</a>
 …
 ```
 
-**sessionInvalidate.jsp**
+该页面中超链接所访问的Servlet中存在断点，如图：
+
+![](http://i.imgur.com/Y1DSrD9.png)
+
+*图13-16*
+
+如果执行**index.jsp**中的超链接，则程序会自动停留在Servlet中的断点处，如图：
+
+![](http://i.imgur.com/W9wFgwI.png)
+
+*图13-17*
+
+其他调试Java Web程序的步骤，与调试Java程序的步骤完全一致。
+
+## 13.1.3 使用Eclipse远程调试JAVA Web程序 ##
+
+在实际的项目开发中，开发人员需要先在本机完成项目开发，然后将最终的项目放到测试人员的服务器上以供测试。在此过程中，经常会遇到这样一个问题：项目代码在开发人员的电脑上能够成功运行，但在测试人员的服务器上运行时却有异常出现。此时，开发人员就可以在自己的电脑上，远程调试测试服务器上的Java Web程序。
+
+远程调试的具体步骤如下：
+
+#### (1) 调试准备 ####
+
+**①** 远程的Tomcat服务器上部署了Java Web程序，并且本机的Eclipse中有该Java Web的源代码。
+
+**②** 在本机的环境变量中，配置CATALINA_HOME和JRE_HOME
+
+其中CATALINA_HOME是Tomcat的根目录；JRE_HOME是JRE的根目录。
+
+#### (2)在远程服务器配置Tomcat ####
+
+**a. 如果远程服务器是Windows环境**
+
+在`%CATALINE_HOME%\bin`下建立**debug.bat**文件，并编写以下内容：
+
+**debug.bat**
 
 ```
-<%@ page language="java" contentType="text/html; 
-charset=UTF-8"    pageEncoding="UTF-8"%>
-<%
-	System.out
-.println("========sessionInvalidate.jsp页面=========");
-	session.invalidate();
-%>
+set JPDA_ADDRESS=9090 
+set JPDA_TRANSPORT=dt_socket 
+set CATALINA_OPTS=-server -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9090 
+startup
 ```
 
-部署并启动项目，在启动时可以发现执行了`contextInitialized()`方法：
+其中的9090表示将要开启的远程端口号（任何未被使用的端口都可以）。
 
-![](http://i.imgur.com/Lkae0p0.jpg)
+JPDA_TRANSPORT表示连接方式，可以设置为`dt_shmem`或`dt_socket`，分别表示本机调试和远程调试。
 
-*图8-07*
+**b. 如果远程服务器是Linux/Unix环境**
 
-这是因为Web容器在启动时会自动加载部署过的项目，并为该项目创建对应的`ServletContext`对象，而web.xml中配置了用于监听`ServletContext`对象创建、销毁的监听器ContextSessionRequestListener，所以会调用监听器中的`contextInitialized()`方法，从而输出相应的语句。
+打开`%CATALINE_HOME%/bin/startup.sh`，找到其中最后一行，将
+`exec "$PRGDIR"/"$EXECUTABLE" start "$@" `
+改为
+`exec "$PRGDIR"/"$EXECUTABLE" jpda start "$@"`
 
-再访问**index.jsp**，又会得到以下结果：
+默认的远程调试端口是8000，如果8000被占用，可以打开`%CATALINE_HOME%/bin/catalina.sh`文件，将
+`JPDA_ADDRESS="8000"`
+改为
+`JPDA_ADDRESS="9090"`
 
-![](http://i.imgur.com/XM06gXH.jpg)
+配置完成后，在Windows下运行`debug.bat`（或 在Linux下运行 `startup.sh`）来启动Tomcat。如果在启动日志中出现**Listening for transport dt_socket at address: 9090**，则说明远程调试端口监听成功。
 
-*图8-08*
+#### (3)在本地Eclipse中关联源代码 ####
 
-这是因为访问**index.jsp**时，就会向Web容器发送一次请求（创建了一个请求），所以执行了用于监听ServletRequest 被创建的`requestInitialized()`方法，即输出“监听`ServletRequest`：`[ServletRequest]`对象[创建]完成”;
+在远程调试模式中，关联项目源代码，方法如下：
 
-同时，第一次访问index.jsp时，Web容器还为浏览器创建了对应的`HttpSession`对象，所以还会执行用于监听`HttpSession`被创建的`sessionCreated()`方法，即输出“监听`HttpSession`：`[HttpSession]`对象[创建]完成”.
+**①** 在Eclipse的Package Explorer视图中，右键点击项目，选中Debug As…中的Debug Configurations…，如下：
 
-当请求发送完毕后，`ServletRequest`对象随之被销毁，所以又会执行用于监听`ServletRequest`被销毁的`requestDestroyed()`方法，即输出“监听`ServletRequest`：`[ServletRequest]`对象[销毁]完成”。
+![](http://i.imgur.com/a9l2Z0S.png)
 
-点击**index.jsp**中的超链接“销毁`session`”，如图
+*图13-18*
 
-![](http://i.imgur.com/fOn6IG2.jpg)
+**②** 在弹出的对话框中，右键点击Remote Java Application左键单击New，如图
 
-*图8-09*
+![](http://i.imgur.com/cUjUSme.png)
 
-控制台又会再输出以下黑色方框中的内容：
+*图13-19*
 
-![](http://i.imgur.com/aForTJK.png)
+在右侧Connect面板中，输入项目名、远程调试的端口号等，如图，
 
-*图8-10*
+![](http://i.imgur.com/v2RakUd.png)
 
-这是因为点击超链接后，会跳转到一个新的页面，即发送了一个新的请求，所以会再次触发用于监听`ServletRequest` 被创建的`requestInitialized()`方法；随后，进入sessionInvalidate.jsp页面,执行该JSP里面的输出语句，并执行`session.invalidate()`销毁`session`，所以会触发用于监听`HttpSession`被销毁的`sessionDestroyed()`方法，即输出“监听`HttpSession`：`[HttpSession]`对象[销毁]完成”。之后，请求执行完毕从而被销毁，再次触发用于监听`ServletRequest`被销毁的`requestDestroyed()`方法。
+*图13-20*
 
-最后，手动停止Web服务，又会触发用于监听`ServletContext`对象被销毁的`contextDestroyed()`方法，即输出“监听`ServletContext`：`[ServletContext]`对象[销毁]建完成”，如图：
+在右侧Source面板中，Add项目代码，便于Eclipse在远程调试阶段查找代码，如图，
 
-![](http://i.imgur.com/TPulMuT.png)
+![](http://i.imgur.com/kKaiyaC.png)
 
-*图8-11*
+*图13-21*
 
-## 8.2.2监听域对象中属性的变更 ##
+增加之后的界面，如图，
 
-**(1)原理**
+![](http://i.imgur.com/fFN8l1H.png)
 
-`ServletContext`、`HttpSession`、`ServletRequest`三个域对象都可以通过`setAttribute()`和`removeAtribute()`等方法进行属性的增加、替换（修改）、删除。Servlet API也提供了ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口，用来监测这三个域对象中属性的变更。
+*图13-22*
 
-例如，当向`ServletRequest`对象中增加、替换（修改）、删除某个属性时，Web容器就会自动调用**ServletRequestAttributeListener监听器接口中的相应方法**，如下：
+最后点击Debug按钮，即开启远程调试，如图
 
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>public void attributeAdded (ServletRequestAttributeEvent srae)</td>
-      <td>当向ServletRequest对象中增加一个属性时，Web容器就会自动调用该方法。</td>
-   </tr>
-   <tr>
-      <td>public void attributeRemoved (ServletRequestAttributeEvent srae)</td>
-      <td>当ServletRequest对象中的某个属被替换（修改）时，Web容器就会自动调用该方法。</td>
-   </tr>
-   <tr>
-      <td>public void attributeReplaced (ServletRequestAttributeEvent srae)</td>
-      <td>当从ServletRequest对象中删除一个属性时，Web容器就会自动调用该方法。</td>
-   </tr>
-</table>
+![](http://i.imgur.com/zZTyj09.png)
 
-其中方法的参数是一个`ServletRequestAttributeEvent`对象，监听器可以通过这个参数来获取正在增加、替换（修改）、删除属性的域对象。
+*图13-23*
 
-类似的，**ServletContextAttributeListener接口中的方法如下：**
+#### (4) 执行远程调试 ####
 
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>public void attributeAdded (ServletContextAttributeEvent srae)</td>
-      <td>当向ServletContext对象中增加一个属性时，Web容器就会自动调用该方法。</td>
-   </tr>
-   <tr>
-      <td>public void attributeRemoved (ServletContextAttributeEvent srae)</td>
-      <td>当ServletContext对象中的某个属被替换（修改）时，Web容器就会自动调用该方法。</td>
-   </tr>
-   <tr>
-      <td>public void attributeReplaced (ServletContextAttributeEvent srae)</td>
-      <td>当从ServletContext对象中删除一个属性时，Web容器就会自动调用该方法。</td>
-   </tr>
-</table>
+在本地的项目中打上断点，再通过浏览器远程访问服务器部署的项目，如[http://192.168.1.123:9090/DebugDemo](http://192.168.1.123:9090/DebugDemo)。此时，就会在本地的Eclipse中进入调试模式，而调试的就是远程服务器中的项目代码。调试的方法和本地调试完全相同。
 
-**HttpSessionAttributeListener接口中的方法如下：**
+# 13.2 使用firebug调试 #
 
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>public void attributeAdded (HttpSessionBindingEvent srae)</td>
-      <td>当向HttpSession对象中增加一个属性时，Web容器就会自动调用该方法。</td>
-   </tr>
-   <tr>
-      <td>public void attributeRemoved (HttpSessionBindingEvent srae)</td>
-      <td>当HttpSession对象中的某个属被替换（修改）时，Web容器就会自动调用该方法。</td>
-   </tr>
-   <tr>
-      <td>public void attributeReplaced (HttpSessionBindingEvent srae)</td>
-      <td>当从HttpSession对象中删除一个属性时，Web容器就会自动调用该方法。</td>
-   </tr>
-</table>
+Firebug是Firefox浏览器下的一款扩展插件，可以用来调试HTML、CSS、JavaScript和Ajax等脚本或语言。Firebug可以从各个不同的角度剖析Web页面内部的细节，是Web开发人员的必备利器。
 
-可以发现，ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口中的方法名完全一致，只是方法的参数类型不相同。
+## 13.2.1 安装Firebug ##
 
-**(2)案例**
+**①** 打开firefox浏览器，并打开工具中的附加组件，如图：
 
-**①**新建**attributeListener.jsp**，用于增加、替换、删除属性，从而触发域对象的属性监听器
+![](http://i.imgur.com/xkfn7wd.png)
 
-**attributeListener.jsp**
+*图13-24*
+
+**②** 在弹出的页面中，搜索firebug，再点击安装，如图
+
+![](http://i.imgur.com/WfQGluF.png)
+
+*图13-25*
+
+**③** 重新打开浏览器，点击功能键F12，就可以在浏览器下方看到firebug，如图
+
+![](http://i.imgur.com/jj0Nz2A.png)
+
+*图13-26*
+
+## 13.2.2 使用Firebug调试web前端 ##
+
+可以使用firebug调试前端中的HTML、CSS、JavaScript、网络、Cookies等。现在以调试CSS和JavaScript为例，进行讲解。
+
+#### (1) 调试CSS ####
+
+先编写以下源码文件：
+**ul.css**
 
 ```
-…
-<body>
-	<%
-		getServletContext().setAttribute("school","北京蓝桥");
-		getServletContext().setAttribute("school","东莞蓝桥");
-		getServletContext().removeAttribute("school");
-		
-		session.setAttribute("school","北京蓝桥");
-		session.setAttribute("school","东莞蓝桥");
-		session.removeAttribute("school");
-		
-		request.setAttribute("school","北京蓝桥");
-		request.setAttribute("school","东莞蓝桥");
-		request.removeAttribute("school");
-	%>
-</body>
-…
-```
-
-**②**创建用于监听域对象属性变更的监听器，即创建一个类并实现ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口
-
-**AttributeListener.java**
-
-```
-package org.lanqiao.listener;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-public class AttributeListener implements ServletContextAttributeListener,HttpSessionAttributeListener,ServletRequestAttributeListener
+ul li:first-child
 {
-
-	@Override
-	public void attributeAdded(ServletRequestAttributeEvent srae)
-	{
-		String attributeName  = srae.getName();
-		Object attrubiteValue = srae.getServletRequest()
-.getAttribute(attributeName);
-		System.out.println("[ServletRequest][增加]属性,"
-+attributeName+":"+attrubiteValue);
-	}
-	@Override
-	public void attributeRemoved(ServletRequestAttributeEvent srae)
-	{
-		String attributeName  = srae.getName();
-		System.out.println("[ServletRequest][删除]属性,"
-+attributeName);				
-	}
-
-	@Override
-	public void attributeReplaced(ServletRequestAttributeEvent srae)
-	{
-		String attributeName  = srae.getName();
-		Object attrubiteValue = srae.getServletRequest()
-.getAttribute(attributeName);
-		System.out.println("[ServletRequest][替换]属性,"
-+attributeName+":"+attrubiteValue);
-	}
-	@Override
-	public void attributeAdded(HttpSessionBindingEvent sbe)
-	{
-		String attributeName  = sbe.getName();
-		Object attrubiteValue =  sbe.getSession()
-.getAttribute(attributeName);
-		System.out.println("[HttpSession][增加]属性,"
-+attributeName+":"+attrubiteValue);	
-	}
-	@Override
-	public void attributeRemoved(HttpSessionBindingEvent sbe)
-	{
-		String attributeName  = sbe.getName();
-		System.out.println("[HttpSession][删除]属性,"
-+attributeName);	 		
-	}
-	@Override
-	public void attributeReplaced(HttpSessionBindingEvent sbe)
-	{
-		String attributeName  = sbe.getName();
-		Object attrubiteValue =  sbe.getSession()
-.getAttribute(attributeName) ;
-		System.out.println("[HttpSession][替换]属性,"
-+attributeName+":"+attrubiteValue);	
-	}
-	@Override
-	public void attributeAdded(ServletContextAttributeEvent scae)
-	{
-		String attributeName  = scae.getName();
-		Object attrubiteValue =  scae.getServletContext()
-.getAttribute(attributeName);
-		System.out.println( "[ServletContext][增加]属性,"
-+attributeName+":"+attrubiteValue);	
-	}
-	@Override
-	public void attributeRemoved(ServletContextAttributeEvent scae)
-	{
-		String attributeName  = scae.getName();
-		System.out.println("[ServletContext][删除]属性,"
-+attributeName);
-	}
-	@Override
-	public void attributeReplaced(ServletContextAttributeEvent scae)
-	{
-		String attributeName  = scae.getName();
-		Object attrubiteValue =  scae.getServletContext()
-.getAttribute(attributeName);
-		System.out.println("[ServletContext][替换]属性,"
-+attributeName+":"+attrubiteValue);	
-	}
+	background-color:yellow;
+	font-size:20px;
 }
 ```
 
-**③**配置监听器
-
-**web.xml**
+**firebugCss.jsp**
 
 ```
-…
-  <listener>
-  	<listener-class>
-  		org.lanqiao.listener.AttributeListener
-  	</listener-class>
-  </listener>
-…
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="ul.css" /> 
+    …
+</head>
+<body>
+	<ul> 
+		<li>橘子...</li>
+		<li>苹果...</li>
+		<li>香蕉...</li>
+	</ul>
+</body>
+</html>
 ```
 
-部署并启动项目，通过浏览器地址栏访问[http://localhost:8888/ListenerProject/attributeListener.jsp](http://localhost:8888/ListenerProject/attributeListener.jsp)，在控制台可以看到以下输出：
+通过firebug就可以直接在浏览器中查看JSP页面的各种CSS样式，步骤如下：
 
-![](http://i.imgur.com/5Y7vVxY.jpg)
+**① 单击firebug中的选择按钮，如图**
 
-*图8-12*
+![](http://i.imgur.com/gfkS3wc.png)
 
-当三个域对象进行增加、替换、删除属性时，都会触发相应的监听方法。
+*图13-27*
 
+**② 单击需要观察的网页元素**
 
-
-## 8.2.3 感知被HttpSession绑定的事件监听器 ##
-
-
-**在`session`域中保存的对象，可能会经历四种状态：**
-
-**①**将对象保存（绑定）到`session`域中；
-
-**②**从`session`域中删除（解除绑定）该对象；
-
-**③**对象随着`session`持久化到硬盘等存储设备中，即将对象和`session`一起从内存写入硬盘等存储设备（钝化）；
-
-**④**对象随着`session`从存储设备中恢复到内存中（活化）。
 	
-Servlet API提供了`HttpSessionBindingListener和HttpSessionActivationListener这两个监听器（接口），专门用于监听`session`域中对象的这四种状态。
+例如，现在想要观察网页中“橘子”的相关样式，就要用鼠标点击“橘子”，如图
 
+![](http://i.imgur.com/GMGzJjx.png)
 
-**(1) HttpSessionBindingListener接口**
+*图13-28*
 
-HttpSessionBindingListener接口提供了`valueBound()`和`valueUnbound()`两个方法，分别用于监听`Java`对象绑定到`HttpSession`对象中，以及从`HttpSession`对象中解绑`Java`对象的两个事件。
+单击以后，“橘子”的相关样式就会显示在firebug右下角的“样式”标签中：“橘子”的样式在`ul.css`的第1行，具体是`ul li:first-child{ background-color:yellow;…}` 。
 
+**③ 调试CSS样式**
 
-**HttpSessionBindingListener接口的完整定义如下：**
+还可以直接在firebug中对网页的样式进行修改、新增、删除等调试操作。
+
+**a.在firebug中修改样式**
+
+直接单击CSS样式的属性值，修改即可，如图
+
+![](http://i.imgur.com/e2OAgkk.png)
+
+*图13-29*
+
+**b.在firebug中新增样式**
+
+选中样式的最后一个属性值（即选中`font-size`的属性值20px），然后按下回车键，之后依次输入属性名和属性值，如图
+
+![](http://i.imgur.com/SBDtPSu.png)
+
+*图13-30*
+
+**c.在firebug中删除样式**
+
+如果要删除某个样式，只需要点击样式前面的禁止符号，如图
+
+![](http://i.imgur.com/82BfbK1.png)
+
+*图13-31*
+
+值得注意的是：在firebug中修改的样式，会立刻反映到当前的网页中，但这些修改只是“临时”的，一旦刷新页面就会恢复原来的样式。因此，如果在firebug中修改完了样式，一定要将修改后的代码复制到真实的源代码文件中。
+
+#### (2) 调试JavaScript ####
+
+使用firebug调试JavaScript的步骤如下：
+
+**① 点击“脚本”标签，并选择JavaScript所在文件**
+
+![](http://i.imgur.com/bGEZQnC.png)
+
+*图13-32*
+
+**② 在JavaScript代码中打断点**
+
+找到需要观察的JavaScript代码，并打断点，如图
+
+![](http://i.imgur.com/nPMjRLa.png)
+
+*图13-33*
+
+**③ 监控变量或表达式**
+
+点击右侧的“新建监控表达式”，并输入需要观察的变量或表达式，如图
+
+![](http://i.imgur.com/INsH2WB.png)
+
+*图13-34*
+
+**④ 调试**
+
+	之后的调试方法，就和使用Eclipse调试时基本相同，调试的相关按键如下：
+
+![](http://i.imgur.com/VmALlD0.png)
+
+*图13-35*
+
+#### (3) JavaScript错误提示 ####
+
+如果JavaScript代码有误，Firebug也会给出错误提示。例如，以下代码存在三处错误：未引入jQuery库（或jQuery库地址错误）、缺少右括号“)”、单击button按钮时触发了一个不存在的函数`showInfo()`。
+
+**firebugJsp.jsp**
 
 ```
-package javax.servlet.http;
-import java.util.EventListener;
-public interface HttpSessionBindingListener extends EventListener 
-{
-public void valueBound(HttpSessionBindingEvent event);
-public void valueUnbound(HttpSessionBindingEvent event);
-}
-```
-
-如果一个类实现了HttpSessionBindingListener接口，那么
-
-**①**当该类产生的对象被绑定到`HttpSession`对象中时，Web容器就会自动调用该对象的`valueBound()`方法；
-
-**②**当该类产生的对象从`HttpSession`对象中解绑时，Web容器就会自动调用该对象的`valueUnbound()`方法。
-
-此外，这两个方法都有一个共同的参数：`HttpSessionBindingEvent`类型的事件对象，我们可以通过这个参数来获取当前的`HttpSession`对象。
-
-
-下面通过一个示例来演示**HttpSessionBindingListener**接口的使用：
-
-**org.lanqiao.listener.BeanDemo.java**
-
-```
-package org.lanqiao.listener;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-public class BeanDemo implements HttpSessionBindingListener
-{
-	//BeanDemo对象被绑定到HttpSession对象中时，Web容器会自动调用此方法
-	@Override
-	public void valueBound(HttpSessionBindingEvent event)
-	{
-		System.out.println("绑定：\nBeanDemo对象被增加
-到了session域中\n当前的BeanDemo对象："
-+this+"\n"+event.getSession().getId());
-	}
-	//BeanDemo对象从HttpSession对象中解绑时，调用此方法
-	@Override
-	public void valueUnbound(HttpSessionBindingEvent event)
-	{
-		System.out.println("移除：\nBeanDemo对象从session域
-中被移除\n当前的BeanDemo对象："
-+this+"\n"+event.getSession().getId());
-	}
-}
-```
-
-**httpSessionBindingListner.jsp**
-
-```
+<html>
+<head>
+	<!-- 未引入jQuery库 -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var num1 = 10,num2 = 20;
+			var temp = num1 ;
+			num1 = num2 ; 
+			num2 = temp ;
+          }	<!-- 缺少右括号) -->
+	</script>
 …
+</head>
 <body>
-	<%
-		BeanDemo beanDemo = new BeanDemo();
-		session.setAttribute("beanDemo", beanDemo);
-	%>
+	<!—并不存在showInfo()函数 -->
+	<button onclick="showInfo();">测试</button>
 </body>
-…
+</html>
 ```
 
-执行[http://localhost:8888/ListenerProject/httpSessionBindingListner.jsp](http://localhost:8888/ListenerProject/httpSessionBindingListner.jsp)，运行结果：
+运行**firebugJsp.jsp**后，因为错误的提示存在优先级，所以会先提示找不到右括号“)”：如图
 
-![](http://i.imgur.com/dkA71Fj.png)
+![](http://i.imgur.com/7Bko7m3.png)
 
-*图8-13*
+*图13-36*
 
-刷新页面，运行结果：
+此外，当发现错误时，firebug还会在图标旁显示此时刻发生的错误数量，以及错误的具体行号，如图：
 
-![](http://i.imgur.com/SevzdFS.png)
+![](http://i.imgur.com/xb6ZFt3.png)
 
-*图8-14*
+*图13-37*
 
-从运行结果可以发现：第一次访问**httpSessionBindingListner.jsp**时，`BeanDemo`对象会被增加到`session`域中；刷新浏览器，另一个`BeanDemo`对象被增加到了`session`域中，与此同时，第一个`BeanDemo`对象从`session`域中被移除了，也就是说，第二个`BeanDemo`对象覆盖了第一个对象。此外，因为是同一次会话，因此sessionId都是相同的。
+修复此错误，即在源码第13行中加入“)”后，再次运行**firebugJsp.jsp**时，又会提示“$未定义”，如图，
 
+![](http://i.imgur.com/RptieXH.png)
 
-**(2) HttpSessionActivationListener接口**
+*图13-38*
 
+分析可知，$是jQuery的标识，提示“$未定义”可能的原因就是jQuery库引入有误，因此检查后可以发现是没有引入jQuery库。
 
-如果要把`HttpSession`对象从内存转移到硬盘等存储设备（钝化），或者相反，从存储设备中恢复到内存中（活化），就需要使用HttpSessionActivationListener接口的`sessionWillPassivate()`和`sessionDidActivate()`方法。
+将jQuery库引入后，再次运行**firebugJsp.jsp**并单击button，又能发现firebug提示“`showInfo()`为定义”，如图，
 
-需要注意，HttpSession对象的钝化（也称为持久化）过程是由Servlet容器完成的。在此过程中，为了确保session域内的所有共享数据不会丢失，Servlet容器不仅会持久化HttpSession对象，还会对该对象的所有可序列化的属性进行持久化。其中，可序列化的属性是指：属性所在的类实现了Serializable接口；例如String继承了Serializable接口，因此String类型的属性也会被持久化）。
+![](http://i.imgur.com/1nLGbD9.png)
 
+*图13-39*
 
-至于HttpSession对象的活化过程，通常是指：在客户端向Web服务发出Http请求时，相应在硬盘中的HttpSession对象会被激活。
+根据提示可以发现：在JSP页面中没有编写`showInfo()`方法，或者方法名字有误。
 
-**HttpSessionActivationListener接口的完整定义如下：**
 
-```
-package javax.servlet.http;
-import java.util.EventListener;
-public interface HttpSessionActivationListener extends EventListener 
-{
-    //钝化之前
-public void sessionWillPassivate(HttpSessionEvent se);
-//活化之后
-    public void sessionDidActivate(HttpSessionEvent se);
-}
-```
-
-当绑定到`HttpSession`对象中的对象即将随`HttpSession`对象被钝化之前，Web容器会调用`sessionWillPassivate()`方法，并传递一个HttpSessionEvent类型的事件对象作为参数；当绑定到`HttpSession`对象中的对象刚刚随`HttpSession`对象被活化之后，Web容器会调用`sessionDidActivate ()`方法，并传递一个HttpSessionEvent类型的事件对象作为参数。
-	
-
-**下面通过一个示例来演示HttpSessionActivationListener接口的使用：**
-
-**①配置会话管理器**
-
-在执行session的持久化（钝化）时，需要使用到PersistentManager（会话管理器），PersistentManager的作用是当某个Web应用被终止（或整个Web服务器被终止）时，会对被终止的Web应用的HttpSession对象进行持久化。PersistentManager需要在Tomcat的context.xml文件中配置<Manager>元素，如下：
-
-
-**&lt;Tomcat安装目录&gt;/conf/context.xml**
-
-```
-<Context>
-	<Manager className="org.apache.catalina.session.PersistentManager"
- maxIdleSwap="1" > 
-		<Store className="org.apache.catalina.session.FileStore" 
-directory="lanqiao" />
-	</Manager>	
-     <!-- 其他配置 … -->
-</Context>
-```
-
-**Manager及其子元素的简介如下：**
-
-<table>
-   <tr>
-      <td>元素/属性</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>Manager元素</td>
-      <td>用于配置会话管理器.     className属性：指定负责创建、销毁、持久化Session对象的类。     maxIdleSwap属性：指定Session对象被钝化前的最大空闲时间（单位是秒）。如果超过这个时间，管理Session对象的类就会把Session对象持久化到存储设备中（硬盘等）。</td>
-   </tr>
-   <tr>
-      <td>Store元素</td>
-      <td>用于指定负责完成具体持久化任务的类。    directory属性：指定保存持久化文件的目录，可以使用相对目录或绝对目录。如果使用相对目录（如lanqiao），它是相对于以下目录：&lt;Tomcat安装目录&gt;\work\Catalina\localhost\项目名\lanqiao</td>
-   </tr>
-</table>
-
-
-**②编写类，并实现HttpSessionActivationListener接口**
-
-
-**org.lanqiao.listener.BeanDemo2.java**
-
-```
-package org.lanqiao.listener;
-import javax.servlet.http.HttpSessionActivationListener;
-import javax.servlet.http.HttpSessionEvent;
-public class BeanDemo2 implements HttpSessionActivationListener
-{
-	private String name ;
-	private int age ; 
-	//setter、geter
-	//钝化之前
-	@Override
-	public void sessionWillPassivate(HttpSessionEvent se)
-	{
-		System.out.println("即将钝化之前：BeanDemo2对象即将随着HttpSession对象被钝化…");
-	}
-	//活化之后
-	@Override
-	public void sessionDidActivate(HttpSessionEvent se)
-	{
-		System.out.println("活化之后：BeanDemo2对象刚刚随着HttpSession对象被活化了…");
-	}
-}
-```
-
-**③编写JSP，实现钝化与活化**
-
-**a.实现钝化：将对象增加到`HttpSession`对象中，并随着`HttpSession`对象一起钝化**
-
-**write.jsp**
-
-```
-…
-<body>
-	<%
-		BeanDemo2 beanDemo = new BeanDemo2();
-		beanDemo.setName("张三");
-		beanDemo.setAge(23);
-		session.setAttribute("beanDemo", beanDemo) ;
-	%>
-</body>
-…
-```
-
-启动服务，执行[http://localhost:8888/ListenerProject/write.jsp](http://localhost:8888/ListenerProject/write.jsp)，JSP页面的运行结果：
-
-
-![](http://i.imgur.com/tYvNV5j.png)
-
-*图8-15*
-
-一段时间后（时间长短与会话管理器中`Manager`元素的`maxIdleSwap`属性有关），Console控制台会有如下显示：
-
-![](http://i.imgur.com/z1tmq2L.png)
-
-*图8-16*
-
-因此可以得知，`BeanDemo2`对象会随着`HttpSession`对象被钝化。根据会话管理器中`Store`元素的`directory`属性，可以找到钝化后的文件，如下：
-
-![](http://i.imgur.com/Zg1t5lp.png)
-
-*图8-17*
-
-**b.实现活化：钝化以后，将对象随`HttpSession`对象一起活化**
-
-编写**read.jsp**，从`session`域中读取对象，如下：
-
-
-**read.jsp**
-
-```
-…
-<body>
-	从session域中读取对象 <br/>
-	姓名：${sessionScope.beanDemo.name } <br/>
-	年龄：${sessionScope.beanDemo.age } <br/>
-</body>
-…
-```
-
-重启Tomcat服务，先执行[http://localhost:8888/ListenerProject/write.jsp](http://localhost:8888/ListenerProject/write.jsp)，然后在Console控制台打印“即将钝化之前…”以前，迅速再执行[http://localhost:8888/ListenerProject/read.jsp](http://localhost:8888/ListenerProject/read.jsp)，可得如下结果：
-
-
-![](http://i.imgur.com/jQu5H2D.png)
-
-*图8-18*
-
-可以发现，在钝化之前可以从`session`域中读取对象的数据（内存中的`session`域中读取）。过一会儿，当控制台打印“即将钝化之前…”以后（说明此时`HttpSession`对象已经被钝化，被保存在了硬盘中），再次执行[http://localhost:8888/ListenerProject/read.jsp](http://localhost:8888/ListenerProject/read.jsp)，运行结果：
-
-![](http://i.imgur.com/FQIAooq.png)
-
-*图8-19*
-
-数据不显示的原因是：持久化（钝化）类没有实现Serializable接口。如果一个类没有实现Serializable接口，那么当Servlet容器持久化`HttpSession`对象时，是不会持久化该类的对象的。本例中，BeanDemo2类没有实现Serializable接口，因此BeanDemo2的对象不会随`HttpSession`一起被持久化，就会在`HttpSession`被持久化时丢失。
-
-修改BeanDemo2类，让其实现Serializable接口，如下：
-
-
-**org.lanqiao.listener.BeanDemo2.java**
-
-```
-package org.lanqiao.listener;
-import javax.servlet.http.HttpSessionActivationListener;
-import javax.servlet.http.HttpSessionEvent;
-public class BeanDemo2 implements HttpSessionActivationListener, Serializable
-{
-	…
-}
-```
-
-重启服务，执行[http://localhost:8888/ListenerProject/write.jsp](http://localhost:8888/ListenerProject/write.jsp)，等待Console控制台输出“即将钝化之前…”，如下：
-
-![](http://i.imgur.com/LA7YzVt.png)
-
-*图8-20*
-
-再执行**read.jsp**，得到**read.jsp**的运行结果：
-
-![](http://i.imgur.com/1pQSnTa.png)
-
-*图8-21*
-
-此时Console控制台的运行结果：
-
-![](http://i.imgur.com/ekKPJ1O.png)
-
-*图8-22*
-
-可以得知，BeanDemo2对象在随HttpSession对象被钝化以后，又会在程序访问HttpSession对象时随HttpSession对象一起被活化。再次强调，Java对象所属的类必须先实现Serializable接口，之后才能被持久化到硬盘上。
-
-
-稍等片刻后，控制台会再次显示“即将钝化之前…”，如下：
-
-![](http://i.imgur.com/SAthfNA.png)
-
-*图8-23*
-
-读者应该知道再次显示的原因了吧？
