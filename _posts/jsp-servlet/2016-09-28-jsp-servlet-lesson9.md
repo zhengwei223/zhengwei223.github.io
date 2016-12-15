@@ -2,1030 +2,1715 @@
 
 layout: post
 
-title: EL和JSTL
+
+title: 连接池与DbUtils类库
+
 
 category: JSP-Servlet教程
 
+
 tags: JSP Servlet
 
-description: 本章将系统介绍EL和JSTL。EL表达式和JSTL标签库不仅能替换到JSP中的JAVA代码，而且还能使代码更加简洁。
+
+description: 本章将系统介绍连接池与DbUtils类库。
+
 
 author: 颜群
+
 
 keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
-> **本章简介**
+# 7.1 数据库连接池 #
 
-通过之前学习的三层架构，我们已经可以将表示层、业务逻辑层和数据访问层相互分离，从而实现程序的解耦合，以及提高系统的可维护性和可扩展性等。但在之前的代码中，表示层JSP的代码里仍然嵌套了很多JAVA代码，从而造成了表示层一定程度的混乱。
+## 7.1.1JNDI ##
 
-能否彻底的从表示层中消除JAVA代码呢？可以使用 EL表达式和JSTL标签库。EL表达式和JSTL标签库不仅能替换JSP中的JAVA代码，而且还能使代码更加简洁。
+之前，我们在学JSP时曾提到“JSP四种范围对象的大小依次是`pageContext`<`request`<`session`<`application`”，可见范围最大的是`application`。`application`范围中的数据也只能在当前Web项目中有效；而如果想让数据在tomcat下的所有Web项目中都有效，就需要使用JNDI来实现。
 
-本章演示的项目名为ELAndJSTLDemo，因为本章只是在讲三层中的表示层，因此为了使读者清晰的掌握EL及JSTL，本章项目并没有采用标准的三层架构，而是以一个个简单的JSP示例来诠释。
+JNDI的全称是Java Naming and Directory Interface（JAVA命名与目录接口），是一种将对象和名字绑定的技术。使用JNDI，应用程序可以通过资源名字来获得相应的对象、服务或目录。我们以使用JNDI访问Tomcat为例，来详细介绍一下JNDI的使用。
 
-# 9.1 EL表达式 #
+Servers项目中有一个context.xml文件（即Tomcat目录中的context.xml文件），此文件中的信息就可以被所有Web项目共享。
 
-EL的全称是Expression Language，可以用来替代JSP页面中的JAVA代码，从而能让即使不懂JAVA的开发人员也能写出JSP代码。EL还可以实现自动转换类型，使用起来非常简单。
-
-## 9.1.1 EL表达式语法 ##
-
-**语法：**
-
-**${EL表达式}**
-
-**EL表达式通常由两部分组成：对象和属性。可以使用“点操作符”或“中括号[]操作符”来操作对象的属性。**
-
-讲解之前，我们先通过一个简单例子来回忆一下之前不用EL的使用情景。先创建两个封装数据的JavaBean，如下，
-
-**地址信息类 Address.java**
+我们在**context.xml**中，加入以下代码：
 
 ```
-package org.lanqiao.entity;
-public class Address
-{
-	//家庭地址
-	private String homeAddress ; 
-	//学校地址
-	private String schoolAddress ;
-	//省略setter、getter
-}
+<Context>
+<Environment name="jndiName" value="jndiValue" 
+type="java.lang.String" />
+</Context>
 ```
 
-**学生信息类 Student.java**
+其中`Context`是**context.xml**文件的根标签。`Environment`可以用来设置JNDI的元素：`name`表示当前`Environment`元素的名字，相当于唯一标示符；`value`表示`name`对应的内容值，即`name`与`value`构成了一组键值对；`type`表示`value`中的内容类型。此`Environment`的作用就类似于`String jndiName = “jndiValue”`。之后，在该tomcat中的任意一个Web项目里，均可以获取到此`Environment`的`value`值了。
+
+JNDI的演示项目名是StudentManagerWithJNDIPool，该项目是建立在StudentManagerWithPage项目基础之上：
+
+在**index.jsp**中加入以下代码，用于获取**context.xml**中的`Environment`值：
+
+**index.jsp**
 
 ```
-package org.lanqiao.entity;
-public class Student
-{
-	private int studentNo ;
-	private String studentName;
-    //地址属性
-	private Address address ;
-	//省略setter、getter
-}
+<body>
+	 …
+		<a href="addStudent.jsp">增加</a><br/>
+         <%--测试JNDI的使用 --%>
+		<%
+		    //javax.naming.Context提供了查找JNDI Resource的接口
+		    Context ctx = new InitialContext();	
+		    //java:comp/env/为固定前缀
+		    String testjndi = (String)ctx.lookup("java:comp/env/ jndiName ");
+		    out.println("JNDI: "+testjndi);
+		%>
+	</body>
+</html>
 ```
 
-再创建一个Servlet用于初始化一些数据，并将此Servlet设置为项目的默认访问程序：
+`Context`和`InitialContext`都属于`javax.naming`包。`Context`对象的`lookup()`方法可以根据名字查询到context.xml中`Environment`的`value`值，并且`lookup()`中需要使用`"java:comp/env/"`作为固定前缀。`lookup()`的返回值为Object，需要强转为需要的类型。
 
-**InitServlet.java**
+运行结果：
+
+![](http://i.imgur.com/L0MXu4X.png)
+
+*图7-01*
+
+可以发现，使用JNDI定义的变量（通过**context.xml**中的`Environment`元素定义），可以在任意一个Web项目中使用（同一个Tomcat中）。
+
+## 7.1.2 连接池与数据源 ##
+
+我们之前一直采用传统的JDBC方式访问数据库。而每次使用JDBC访问数据库时，都需要建立连接和关闭连接，但连接的建立和关闭又是非常耗费系统资源的。为了解决这个问题，我们可以使用数据库连接池技术。
+
+#### (1)连接池 ####
+
+数据库连接池可以分配、管理及释放数据库连接，它可以使得应用程序重复的使用一个已有的数据库连接，而不再是重新建立一个。而且，如果某一个数据库连接超过了最大空闲时间，数据库连接池也会自动将该连接释放掉，从而明显提高数据库的性能及安全。
+
+数据库连接池的工作原理是，在初始化时连接池会创建一定数量的数据库连接，并将这些连接放在数据库连接池之中。连接的数量不会小于用户设置的最小值 ；而如果应用程序的连接请求数量大于用户设置的最大值，那么大于最大值的那些请求会被加入在等待队列之中，只有当某些应用程序把正在使用的连接使用完毕并归还给连接池时，在等待队列的请求才会获取到连接。
+
+#### (2)数据源 ####
+
+数据源(javax.sql.DataSource，简称DataSource)中包含了连接池的具体实现，并且可以管理连接池。应用程序可以从直接数据源中获得数据库连接。
+实际开发中，有多种可供使用的数据源： Tomcat内置数据源（Apache dbcp）、DBCP数据源、C3P0数据源、自定义数据源等。
+
+**①Tomcat内置数据源**
+
+Tomcat内置数据源也称为Apache dbcp。我们可以使用JNDI从Tomcat中直接获取该数据源对象。现在就来讲解如何在项目中使用Apache dbcp：
+
+和JNDI一样，首先需要在Servers项目的**context.xml**中增加元素。不同的是，配置数据源需要使用`Resource`元素，而不是`Environment`，如下，
+
+**context.xml**
 
 ```
-package org.lanqiao.servlet;
-//省略import
-public class InitServlet extends HttpServlet
-{
-protected void doGet(…)…
-	{
-		this.doPost(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request,
- HttpServletResponse response) 
-throws ServletException, IOException
-	{
-			Address address = new Address();
-			address.setHomeAddress("北京朝阳区");
-			address.setSchoolAddress("北京大兴区大族企业广域网#6F2");
-			
-			Student student = new Student();
-			student.setStudentNo(27);
-			student.setStudentName("颜群");
-			student.setAddress(address);
-			
-			request.setAttribute("student", student);
-			request.getRequestDispatcher("index.jsp")
-.forward(request, response);
-	}
-}
+<Resource name="student" auth="Container" 
+type="javax.sql.DataSource" maxActive="400" 
+maxIdle="20"  maxWait="5000"  username="system" password="sa" 
+driverClassName="oracle.jdbc.driver.OracleDriver"  url="jdbc:oracle:thin:@127.0.0.1:1521:XE"	/>
 ```
+
+`Resource`元素的属性介绍见下表：
+
+<table>
+   <tr>
+      <td>属性</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>name</td>
+      <td>指定Resource的JNDI名字</td>
+   </tr>
+   <tr>
+      <td>auth</td>
+      <td>指定Resource的管理者，共有两个可选值：Container和Application。 Container：由容器来创建Resource。   Application：由Web应用来创建和管理Resource</td>
+   </tr>
+   <tr>
+      <td>Type</td>
+      <td>指定Resource的类型</td>
+   </tr>
+   <tr>
+      <td>maxActive</td>
+      <td>指定连接池中，处于活动状态的数据库连接的最大数量；如果值为0，表示不受限制</td>
+   </tr>
+   <tr>
+      <td>maxIdle</td>
+      <td>指定连接池中，处于空闲状态的数据库连接的最大数量；如果值为0，表示不受限制</td>
+   </tr>
+   <tr>
+      <td>maxWait</td>
+      <td>指定连接池中，连接处于空闲状态的最长时间(单位是毫秒)，如果超出此最长时间将会抛出异常。如果值为-1，表示允许无限制等待。</td>
+   </tr>
+   <tr>
+      <td>username</td>
+      <td>指定访问数据库的用户名</td>
+   </tr>
+   <tr>
+      <td>password</td>
+      <td>指定访问数据库的密码</td>
+   </tr>
+   <tr>
+      <td>driverClassName</td>
+      <td>指定连接数据库的驱动程序的类名</td>
+   </tr>
+   <tr>
+      <td>url</td>
+      <td>指定连接数据库的URL</td>
+   </tr>
+</table>
+
+与JNDI不同的是，配置数据库连接池，除了在**context.xml**中配置以外，还需要在Web应用的**web.xml**中配置`<resource-ref>`元素：
 
 **web.xml**
 
 ```
-…
- <welcome-file-list>
-    <welcome-file>InitServlet</welcome-file>
-  </welcome-file-list>
-…
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  …
+  <resource-ref>
+       <description>DataSource</description>
+  	   <res-ref-name>student</res-ref-name>
+  	   <res-type>javax.sql.DataSource</res-type>
+  	   <res-auth>Container</res-auth>
+  </resource-ref>
+</web-app>	
 ```
 
-如上，程序会在InitServlet中给`student`对象的各个属性赋值，然后请求转发到**index.jsp**中。我们先用传统的Scriptlet接收对象，并将对象的属性显示到前台，如下，
+`<resource-ref>`元素中的`<description>`可以用来对配置的资源进行描述说明，其他的子元素值只需要和**context.xml**中`<Resource>`的相关值保持一致即可，具体如下：
 
-**index.jsp**
+`<res-ref-name>`值对应于`<Resource>`中的`name`值；
 
-```
-…
-<body>
-	<%
-		Student student = (Student)request.getAttribute("student");
-		int studentNo = student.getStudentNo();
-		String studentName = student.getStudentName();
-		Address address = student.getAddress();
-		String homeAddress = address.getHomeAddress();
-		String schoolAddress = address.getSchoolAddress();
-		
-		out.print("学号："+studentNo +"<br/>");
-		out.print("姓名："+studentName +"<br/>");
-		out.print("家庭地址："+homeAddress +"<br/>");
-		out.print("学校地址："+schoolAddress +"<br/>");
-	%>
-</body>
-…
-```
+`<res-type>`值对应于`<Resource>`中的`type`值；
 
-部署并执行此项目[http://localhost:8888/ELAndJSTLDemo/](http://localhost:8888/ELAndJSTLDemo/)，运行结果如图，
+`<res-auth>`值对应于`<Resource>`中的`auth`值。
 
-![](http://i.imgur.com/7vIAPwW.png)
+此外，还需要注意采用数据源方式访问数据库，数据源是由Tomcat创建并维护的，因此还需要把JDBC的驱动包（ojdbc6.jar）复制到Tomcat的`lib`目录下。
 
-*图9-01*
+最后，我们修改StudentManagerWithJNDIPool项目的**DBUtil.java**文件，将传统的JDBC方式替换为数据源方式来访问数据库，如下，
 
-可以发现，程序的确能够正常的显示。但如果将**index.jsp**中的代码用EL表达式来实现，就会简单许多。如下是使用EL修改后的**index.jsp**，功能与之前的Scriptlet代码相同，
+**org.lanqiao.util.DBUtil.java**
 
 ```
-…
-<body>
-         <%-- 使用EL表达式 --%>
-        学生对象：${requestScope.student}<br/>
-	 	学号：${requestScope.student.studentNo } <br/>
-	 	姓名：${requestScope.student.studentName } <br/>
-	 	家庭地址：${requestScope.student.address.homeAddress } <br/>
-	 	学校地址：${requestScope.student.address.schoolAddress } <br/>
-</body>
-…	
-```
-
-运行[http://localhost:8080/ELAndJSTLDemo/](http://localhost:8080/ELAndJSTLDemo/)，结果如图,
-
-![](http://i.imgur.com/fatK7dR.png)
-
-*图9-02*
-
-综上，使用EL可以将JSP中的JAVA代码彻底消除，并且不用再做强制的类型转换，整体的JSP代码就会简单很多。
-
-## 9.1.2 EL表达式操作符 ##
-
-#### (1)点操作符 ####
-
-`${requestScope.student}`，表示在`request`作用域内查找`student`对象；`${requestScope.student.studentNo }`，表示在`request`作用域内查找`student`对象的`studentNo`属性。点操作符“.”的用法和在JAVA中的用法相同，都是直接用来调用对象的属性。此外，通过`${requestScope.student.address.homeAddress }`可以发现，EL表达式能够级联获取对象的属性，即先在`request`作用域内找到`student`对象后，可以再次使用点操作符“.”来获取`student`内部的`address`对象……
-
-
-#### (2)中括号[]操作符 ####
-
-除了点操作符以外，还可以使用中括号操作符来访问某个对象的属性，例如`${requestScope.student.studentNo }`可以等价写成`${requestScope.student["studentNo"] }`或`${requestScope["student"]["studentNo"]` }。除此之外，中括号[]操作符还有一些其他独有功能：
-
-**<1>**如果属性名称中包含一些特殊字符，如“.”、“?”、“-”等，就必须使用中括号操作符，而不能用点操作符。例如，如果在之前的InitServlet中写了`request.setAttribute("school-name", "LanQiao")`;那么在**index.jsp**中就不能用`${requestScope. school-name }`，而必须改为`${requestScope ["school-name "]` }。
-
-**<2>**如果要动态取值时，也必须使用中括号操作符，而不能用点操作符。例如，`String data=”school”`（即`data`是一个变量），那么就只能用`${ requestScope [data]}`。需要注意中括号里面的值：如果加了双引号则表示一个常量，如`${requestScope ["school-name "] }`，表示获取`"school-name "`的属性值；而如果不加上双引号，则表示一个变量，如`${ requestScope [data]}`，表示获取`data`所表示的`”school”`的属性值，即等价于`${ requestScope [”school”]}`。所以在使用中括号获取属性值时，一定要注意是否加引号。此外，中括号中的值，除了双引号以外，也可以使用单引号，作用是一样的。
-
-**<3>**访问数组。如果要访问`request`作用域内的一个对象名为`names`的数组，就可以通过中括号来表示索引，如`${ requestScope .array[0]}`、`${ requestScope .array[1]}`等。
-
-点操作符和中括号操作符还可以用来获取`Map`中的属性值，如下，
-
-**InitServlet.java**
-
-```
-package org.lanqiao.servlet;
-//省略import
-public class InitServlet extends HttpServlet
+// package、import
+public class DBUtil
 {
-…
-	protected void doPost(HttpServletRequest request, 
-HttpServletResponse response) 
-throws ServletException, IOException
-	{
-		…
-		Map<String,String> countries = new HashMap<String,String>();
-		countries.put("cn", "中国");
-		countries.put("us", "美国");
-		request.setAttribute("countries", countries);
-		request.getRequestDispatcher("index.jsp")
-.forward(request, response);
+	private static Connection con = null;
+	private static Statement stmt = null;
+	private static Context ctx = null; 
+	private static DataSource ds = null ; 
+	// 通用的，获取数据源DataSource对象的方法
+	public static DataSource getDataSource() {
+		try{
+		 ctx = new InitialContext();
+		 ds=(DataSource)ctx.lookup("java:comp/env/student");
+		}catch(NamingException e){
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		 return ds ; 
 	}
-}
-```
 
-**index.jsp**
-
-```
-<body>
-      …
-	------------------Map------------------<br/>
-	cn:${requestScope.countries.cn }<br/>
-	us:${requestScope.countries["us"] }<br/>
-</body>
-```
-
-打开浏览器执行[http://localhost:8080/ELAndJSTLDemo/](http://localhost:8080/ELAndJSTLDemo/)，运行结果如图，
-
-![](http://i.imgur.com/t7CPyCa.jpg)
-
-*图9-03*
-
-
-#### (3)关系运算符 ####
-
-EL表达式还能够进行一些简单的运算。
-
-<table>
-   <tr>
-      <td> </td>
-      <td>关系运算符</td>
-      <td>示例</td>
-      <td>结果</td>
-   </tr>
-   <tr>
-      <td>大于</td>
-      <td>>(或gt)</td>
-      <td>${2>1}或${2 gt 1}</td>
-      <td>true</td>
-   </tr>
-   <tr>
-      <td>大于或等于</td>
-      <td>>=(或ge)</td>
-      <td>${2>=1}或${2 ge 1}</td>
-      <td>true</td>
-   </tr>
-   <tr>
-      <td>等于</td>
-      <td>==(或eq)</td>
-      <td>${2==1}或${2 eq 1}</td>
-      <td>false</td>
-   </tr>
-   <tr>
-      <td>小于或等于</td>
-      <td><=(或le)</td>
-      <td>${2<=1}或${2 le 1}</td>
-      <td>false</td>
-   </tr>
-   <tr>
-      <td>小于</td>
-      <td><(或lt)</td>
-      <td>${2<1}或${2 lt 1}</td>
-      <td>false</td>
-   </tr>
-   <tr>
-      <td>不等于</td>
-      <td>!=(或ne)</td>
-      <td>${2!=1}或${2 ne 1}</td>
-      <td>true</td>
-   </tr>
-</table>
-
-
-#### (4)逻辑运算符 ####
-
-<table>
-   <tr>
-      <td> </td>
-      <td>关系运算符</td>
-      <td>示例</td>
-      <td>结果</td>
-   </tr>
-   <tr>
-      <td>逻辑或</td>
-      <td>||(或or)</td>
-      <td>true||false(或 true or false)</td>
-      <td>true</td>
-   </tr>
-   <tr>
-      <td>逻辑与</td>
-      <td>&&(或and)</td>
-      <td>true&&false(或 true and false)</td>
-      <td>false</td>
-   </tr>
-   <tr>
-      <td>逻辑非</td>
-      <td>!(或not)</td>
-      <td>!true (或 not true)</td>
-      <td>false</td>
-   </tr>
-</table>
-
-
-#### (5)Empty操作符 ####
-
-Empty操作符用来判断一个值是否为`null`或不存在。我们在InitServlet中给`request`的作用域内增加两个变量，如下，
-
-**InitServlet.java**
-
-```
-package org.lanqiao.servlet;
-//省略import
-public class InitServlet extends HttpServlet
-{
-	…
-	protected void doPost(HttpServletRequest request,
-                               HttpServletResponse response) 
-throws ServletException, IOException
-	{
-			…
-			request.setAttribute("test","test");
-			request.setAttribute("nullVar",null);
-			request.getRequestDispatcher("index.jsp")
-.forward(request, response);
+	// 通用的，根据数据源获取Statement对象的方法
+	public static Statement createStatement(){
+		try{
+		con=getDataSource().getConnection();		
+		stmt = con.createStatement();
+		}catch(SQLException e){
+			e.printStackTrace();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return stmt;
 	}
-}
-```
-
-在`request`作用域内增加了`“test”`和`“nullVar”`两个变量，并且`“nullVar”`的值是`null`。然后再在**index.jsp**中获取，如下，
-
-
-**index.jsp**
-
-```
-<body>
-    …
-	 <%-- Empty操作符 --%>
-	 		之前不存在temp变量：${empty temp }<br/>
-	 		变量nullVar的值为null：${empty nullVar }<br/>
-	 		变量test已被赋值：${empty test }<br/>
-	 		
-</body>
-```
-
-运行结果：
-
-![](http://i.imgur.com/ZVuNlTy.png)
-
-*图9-04*
-
-可以发现，之前不存在的变量`“temp”`和值为`null`的变量`“nullVar”`，用`empty`操作符运算出的结果为true，而之前存在值的变量`“test”`用`empty`运算的结果为false。
-
-## 9.1.3 EL表达式隐式对象 ##
-
-“隐式对象”又称“内置对象”。我们之前在JSP里曾提到过，像`request`、`session`、`application`等都是JSP的隐式对象，这些“隐式对象”可以不用实例化就直接使用。同样的，在EL表达式中也存在一些隐式对象。按照使用的途径不同，EL隐式对象分为了作用域访问对象、参数访问对象和JSP隐式对象，如图，
-
-![](http://i.imgur.com/yih07uS.png)
-
-*图9-05*
-
-
-#### (1)四个作用域访问对象 ####
-
-`${requestScope.student.studentNo }`中的`requestScope`表示`request`作用域。即在使用EL表达式来获取一个变量的同时，可以指定该变量的作用域。EL表达式为我们提供了四个可选的作用域对象，如下表，
-
-<table>
-   <tr>
-      <td>对象名</td>
-      <td>作用域</td>
-   </tr>
-   <tr>
-      <td>pageScope</td>
-      <td>把pageContext作用域中的数据映射为一个Map类的对象</td>
-   </tr>
-   <tr>
-      <td>requestScope</td>
-      <td>把request作用域中的数据映射为一个Map类的对象  </td>
-   </tr>
-   <tr>
-      <td>sessionScope</td>
-      <td>把session作用域中的数据映射为一个Map类的对象</td>
-   </tr>
-   <tr>
-      <td>applicationScope</td>
-      <td>把application作用域中的数据映射为一个Map类的对象</td>
-   </tr>
-</table>
-
-pageScope, requestScope, sessionScope和appliationScope都可以看作是Map型变量，要获取其中的数据就可以使用点操作符或中括号操作符。如${requestScope.student}可以获取request作用域中的student属性值，${sessionScope["user"]}可以获取session作用域中的user属性值。另外，如果不指定作用域，EL表达式就会依次从pageContextrequestsessionapplication的范围内寻找。例如，EL表达式在解析${student}时，就会先在pageContext作用域中查找是否有student属性，如果有则直接获取，如果没有则再会去request作用域中查找是否有student属性……
-
-#### (2)参数访问对象 ####
-
-在JSP中，可以使用`request.getParameter()`和`request.getParameterValues()`来获取表单中的值（或地址栏、超链接中附带的值）。对应的，EL表达式可以通过`param`、`paramValues`来获取这些值。
-
-<table>
-   <tr>
-      <td>对象名</td>
-      <td>示例</td>
-      <td>作用</td>
-   </tr>
-   <tr>
-      <td>param</td>
-      <td>${param.usename}</td>
-      <td>等价于request.getParameter("username")</td>
-   </tr>
-   <tr>
-      <td>paramValues</td>
-      <td>${param.hobbies}</td>
-      <td>等价于request. getParameterValues ("hobbies")</td>
-   </tr>
-</table>
-
-#### (3)JSP隐式对象 ####
-
-`pageContext`是JSP的一个隐式对象，同时也是EL表达式的隐式对象。因此，`pageContext`是EL表达式与JSP之间的一个桥梁。
-
-在EL表达式中，可以通过`pageContext`来获取JSP的内置对象和`ServletContext`对象，如下表：
-
-<table>
-   <tr>
-      <td>El表达式</td>
-      <td>获取的对象</td>
-   </tr>
-   <tr>
-      <td>${pageContext.page}</td>
-      <td>获取page对象</td>
-   </tr>
-   <tr>
-      <td>${pageContext.request}</td>
-      <td>获取request对象</td>
-   </tr>
-   <tr>
-      <td>${pageContext.response}</td>
-      <td>获取response对象</td>
-   </tr>
-   <tr>
-      <td>${pageContext.session}</td>
-      <td>获取session对象</td>
-   </tr>
-   <tr>
-      <td>${pageContext.out}</td>
-      <td>获取out对象</td>
-   </tr>
-   <tr>
-      <td>${pageContext.exception}</td>
-      <td>获取exception对象</td>
-   </tr>
-   <tr>
-      <td>${pageContext.servletContext}</td>
-      <td>获取servletContext对象</td>
-   </tr>
-</table>
-
-还可以获取这些对象的`getXxx()`方法：例如，`${pageContext.request.serverPort}`就表示访问`request`对象的`getServerPort()`方法。可以发现，在使用时EL去掉了方法中的get和“()”，并将首字母改为了小写。
-
-**小结：**
-
-语法： ${EL表达式}
-
-其中${ }中的“EL表达式”可以是四个作用域访问对象、参数访问对象或JSP隐式对象`pageContext`三者之一。并且EL表达式可以像HTML一样直接写在JSP页面中，而不用被“<%... %>”括起来。
-
-
-
-# 9.2 JSTL标签及核心标签库 #
-
-JSTL（JSP Standard Tag Library，JSP标准标签库），是一个不断完善的开源JSP标签库，包含了开发JSP时经常用到的一组标准标签。使用JSTL，可以像EL表达式那样不用编写JAVA代码就能开发出复杂的JSP页面。JSTL一般要结合EL表达式一起使用。
-
-## 9.2.1 JSTL使用前准备 ##
-
-使用JSTL标签库以前，必须先在Web项目的lib目录中加入两个jar包：jstl.jar和standard.jar，然后再在需要使用JSTL的JSP页面，加入支持JSTL的taglib指令，如下，
-
-`<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>`
-
-其中prefix="c"表示在当前页面中，JSTL标签库是通过标签<c: >使用的。
-
-## 9.2.2 JSTL核心标签库 ##
-
-JSTL核心标签库主要包含三类：通用标签库、条件标签库和迭代标签库，如图，
-
-
-
-![](http://i.imgur.com/z8n12pM.jpg)
-
-*图9-06*
-
-
-#### (1)通用标签库 ####
-
-通用标签库包含了3个标签：赋值标签`<c:set>`、显示标签`<c:out>`、删除标签`<c:remove>`
-
-**①赋值标签&lt;c:set&gt;**
-
-`<c:set>`标签的作用，是给变量在某个作用域内赋值，有两个版本：`“var”`版和`“target”`版。
-
-**<1>var版**
-
-用于给`page`、`request`、`session`或`application`作用域内的变量赋值
-
-**语法：**
-
-`<c:set var="elementVar" value=" elementValue"  scope="scope" />`
-
-`var`：需要赋值的变量名
-
-`value`：被赋予的变量值
-
-`scope`：此变量的作用域，有4个可填项，即`page`，`request`，`session`和`application`。
-
-示例：
-
-`<c:set var="addError" value="error" scope="request"/>`
-
-表示在`request`作用域内，设置一个addError变量，并将变量值赋值为`“error”`，等价于
-
-`request.setAttribute("addError", "error");`
-
-
-**<2> target版**
-
-用于给`JavaBean`对象的属性或`Map`对象赋值。
-
-**a.给`JavaBean`对象的属性赋值**
-
-**语法：**
-
-```
-<c:set target="objectName"  property="propertyName" 
-value="propertyValue"  scope="scope"/>
-```
-
-**`target`**：需要操作的`JavaBean`对象，通常使用EL表达式来表示。
-
-**`property`**：对象的属性名。
-
-**`value`**：对象的属性值。
-
-**`scope`**：此属性值的作用域，有4个可填项，即`page`，`request`，`session`和`application`。
-
-示例：
-先通过Servlet给`JavaBean`对象的属性赋值，
-
-**InitJSTLDataServlet.java**
-
-```
-package org.lanqiao.servlet;
-//省略import
-public class InitJSTLDataServlet extends HttpServlet
-{
-	…
-	protected void doPost(HttpServletRequest request,
-                               HttpServletResponse response) 
-throws ServletException, IOException
-	{
-//将一个Address对象赋值后，加入request作用域，并请求转发到Jsp
-		Address address = new Address();
-		address.setHomeAddress("北京朝阳区");
-		address.setSchoolAddress("北京大兴区大族企业广域网#6F2");
-		request.setAttribute("address", address);
-		request.getRequestDispatcher("JSTLDemo.jsp")
-.forward(request, response);
-	}
-}
-```
-
-**JSTLDemo.jsp**
-
-```
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-…
-<body>
-		使用JSTL赋值之前：${requestScope.address.schoolAddress }
-		<br/>
-		<c:set target="${requestScope.address }" 
-property="schoolAddress" value="广东东莞蓝桥基地" />
-		<br/>
-		使用JSTL赋值之后：${requestScope.address.schoolAddress }
-</body>	
-```
-
-运行InitJSTLDataServlet，结果如图，
-
-![](http://i.imgur.com/6snhwmv.png)
-
-*图9-07*
-
-**b.给`Map`对象赋值**
-
-**语法：**
-
-```
-<c:set target="mapName"  property="mapKey" 
-value="mapValue"  scope="scope"/>
-```
-
-**`target`**：需要操作的`Map`对象，通常使用EL表达式来表示。
-
-**`property`**：表示`Map`对象的`key`。
-
-**`value`**：表示`Map`对象的`value`。
-
-**`scope`**：此`Map`对象的作用域，有4个可填项，即`page`，`request`，`session`和`application`。
-
-示例：
-先通过Servlet给`Map`对象的属性赋值，如下
-
-
-**InitJSTLDataServlet.java**
-
-
-```
-package org.lanqiao.servlet;
-//省略import
-public class InitJSTLDataServlet extends HttpServlet
-{
-…
-	protected void doPost(HttpServletRequest request, 
-HttpServletResponse response) 
-throws ServletException, IOException
-	{
-		…
-		//将一个Map对象赋值后，加入request作用域，并请求转发到JSTLDemo.jsp
-		Map<String,String> countries = new HashMap<String,String>();
-		countries.put("cn", "中国");
-		countries.put("us", "美国");
-		request.setAttribute("countries", countries);
-		request.getRequestDispatcher("JSTLDemo.jsp")
-.forward(request, response);
-	}
-}
-```
-
-再使用`<c:set…/>`对`Map`对象的属性赋值，如下，
-
-**JSTLDemo.jsp**
-
-```
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-…
-<body>
-		使用JSTL赋值之前：${requestScope.countries.cn }、
-${requestScope.countries.us }
-		<br/>
-		<c:set target="${requestScope.countries }" property="cn" 
-value="中国人民共和国" />
-		<br/>
-		使用JSTL赋值之后：${requestScope.countries.cn }、
-${requestScope.countries.us }<br/>
-		<br/>
-</body>
-```
-
-运行InitJSTLDataServlet，结果如图，
-
-![](http://i.imgur.com/gPA0w4L.png)
-
-*图9-08*
-
-需要注意的是，`<c:set>`标签不仅能对已有变量赋值；如果需要赋值的变量并不存在， `<c:set>`也会自动产生该对象，如下，
-
-**index.jsp**
-
-```
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<body>
-        	在request作用域内，并不存在temp变量：${requestScope.temp } <br/>
-		使用c:set直接给temp赋值为LanQiao
-		<c:set var="temp" value="LanQiao" scope="request"/> <br/>
-		再次观察temp变量：${requestScope.temp } <br/>
-</body>
-```
-
-运行结果：
-
-![](http://i.imgur.com/2aLJabw.jpg)
-
-*图9-09*
-
-**②输出标签&lt;c:out&gt;**
-
-输出标签`<c:out>`类似于JSP中的`<%= %>`，但功能更加强大。
-
-**语法：**
-
-`<c:out value="value" default="defaultValue" escapeXml="isEscape"/>`
-
-**`value`**：输出显示结果，可以使用EL表达式。
-
-**`default`**：可选项。当`value`表示的对象不存在或为空时，默认的输出值。
-
-**`escapeXml`**：可选项，值为true或false。为true时（默认情况），将`value`中的值以字符串的形式原封不动的显示出来；为false时，会将内容以HTML渲染后的结果显示。
-
-**示例：**
-
-
-先在`InitJSTLDataServlet`中创建`address`对象，然后给`address`中的schoolAddress属性赋值，再把`address`对象放入`request`作用域，之后请求转发到index.jsp，如下，
-
-
-**InitJSTLDataServlet.java**
-
-```
-…
-protected void doPost(HttpServletRequest request, 
-HttpServletResponse response) 
-throws ServletException, IOException
-	{
-		Address address = new Address();
-		address.setSchoolAddress("北京大兴区大族企业广域网#6F2");
-		request.setAttribute("address", address);
-		request.getRequestDispatcher("JSTLDemo.jsp")
-.forward(request, response);
-	}
-…
-```
-
-**index.jsp**
-
-```
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-…
-<body>
-    request作用域中，存放了address对象及schoolAddress属性值：
-<c:out value="${requestScope.address.schoolAddress}" /> 
-<br/>
-	request作用域中，不存在student对象：
-<c:out value="${requestScope.student}"  
-default="student对象为空"/>
- <br/>
-	当escapeXml="true"时：
-<c:out value="<a href='https://www.baidu.com/'>百度主页</a>"  
-escapeXml="true"/><br/>
-	 当escapeXml="false"时：
-<c:out value="<a href='https://www.baidu.com/'>百度主页</a>"  
-escapeXml="false"/>
-</body>
-```
-
-执行`InitJSTLDataServlet`，运行结果：
-
-![](http://i.imgur.com/mPXuOLn.png)
-
-*图9-10*
-
-从结果可以发现，当`value`中输出的对象不存在或为空，会输出`default`指定的默认值；当`escapeXml`为false时，会将`value`中的内容先渲染成HTML样式再输出显示。
-
-**③移除标签&lt;c:remove&gt;**
-
-`<c:set>`标签的作用，是给变量在某个作用域内赋值。与之相反，`<c:remove>`标签的作用，是移除某个作用域内的变量。
-
-**语法：**
-
-`<c:remove var="variableName" scope="scope"/>`
-
-**`var`**：等待被移除的变量名
-
-**`scope`**：变量被移除的作用域，有4个可填项：`page`，`request`，`session`和`application`。
-
-示例：
-
-**index.jsp**
-
-```
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-…
-<body>	
-         …		
-		并不存在的一个变量varDemo: 
-<c:out value="${varDemo }"  default="不存在"/><br/>
-		在request作用域内，给varDemo赋值 为LanQiao
-<c:set var="varDemo" value="LanQiao" scope="request"/><br/>
-		再次观察varDemo:
- <c:out value="${varDemo }"  default="不存在"/><br/>
-		在request作用域内，将varDemo移除：
-<c:remove var="varDemo" scope="request"/> <br/>
-		再次观察varDemo:
- <c:out value="${varDemo }"  default="不存在"/><br/></body>
-```
-
-运行结果：
-
-![](http://i.imgur.com/UdAkb4F.png)
-
-*图9-11*
-
-
-#### (2)条件标签库 ####
-
-JSTL的条件标签库，包含单重选择标签`<c:if>`和多重选择标签`<c:choose>`、`<c:when>`、 `<c:otherwise>`。
-
-**①单重选择标签&lt;c:if&gt;**
-
-类似于Java中的`if`选择语句。
-
-
-**语法：**
-
-```
-	<c:if test="condition"  var="variableName" scope="scope">
-		代码块
-	</c:if>
-```
-
-`test`：判断条件，值为`true`或`false`，通常用EL表达式表示。当值为`true`时才会执行代码块中的内容。
-
-`var`：可选项。保存`test`的判断结果（true或false）。
-
-`scope`：可选项。设置此变量的作用域，有4个可填项：`page`，`request`，`session`和`application`。
-
-示例：
-
-**JSTLDemo02.jsp**
-
-```
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-…
-<body>
+	//其他代码不变 
      …
-	<c:if test="${3>2 }"  var="result" scope="request">
-		 3>2结果是：${result }
-	</c:if>
-</body>
+}
 ```
 
-运行结果：
+运行此项目，运行结果与之前的完全相同。不同的是，使用连接池的方式来访问数据库，可以提高项目的性能。
 
-![](http://i.imgur.com/IuZWwWC.png)
+我们总结一下，使用Apache dbcp实现数据库连接的步骤：
 
-*图9-12*
 
-**②多重选择标签**`<c:choose>`
+**1.**配置**context.xml**文件：在Tomcat的**context.xml**中加入`<Resource>`元素及相关属性；
 
-&lt;c:choose&gt;的功能类似于Java中的多重if。
 
-**语法：**
+**2.**配置**web.xml**文件：在项目的**web.xml**中`< resource-ref>`元素及相关属性；
+
+
+**3.**给Tomcat的`lib`目录加入相应的数据库驱动；
+
+
+**4.**编码查找数据源(使用`lookup()`方法)，实现连接数据库。
+
+
+**②DBCP数据源**
+
+DBCP(DataBase connection pool,数据库连接池)，是Apache组织提供的一个开源连接池。以下是使用DBCP的具体方法：
+
+使用DBCP前，需要先在项目中导入以下JAR包：
+
+<table>
+   <tr>
+      <td>commons-dbcp.jar</td>
+      <td>commons-pool.jar</td>
+      <td>ojdbc6.jar（oracle驱动包）</td>
+   </tr>
+</table>
+
+其中，**commons-dbcp.jar**中包含了DBCP的2个核心类：`BasicDataSource`和`BasicDataSourceFactory`。我们可以根据这两个类，设计出两种不同的DBCP实现方式：基于`BasicDataSource`的手动编码方式，以及基于`BasicDataSourceFactory`的配置文件方式。
+
+**a. 基于`BasicDataSource`的手动编码方式**
+
+`BasicDataSource`是`DataSource`（数据源）接口的实现类，包含了设置数据源对象的具体方法，如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>… void setDriverClassName(String driverClassName)</td>
+      <td>设置连接数据库的驱动名</td>
+   </tr>
+   <tr>
+      <td>… void void setUrl(String url)</td>
+      <td>设置连接数据库的URL</td>
+   </tr>
+   <tr>
+      <td>… void setUsername(String username)</td>
+      <td>设置数据库的用户名</td>
+   </tr>
+   <tr>
+      <td>… void setPassword(String password)</td>
+      <td>设置数据库的密码</td>
+   </tr>
+   <tr>
+      <td>… void setInitialSize(int initialSize)</td>
+      <td>设置初始化时，连接池中的连接数量</td>
+   </tr>
+   <tr>
+      <td>… void setMaxActive(int maxActive)</td>
+      <td>设置连接池中，处于活动状态的数据库连接的最大数量</td>
+   </tr>
+   <tr>
+      <td>… void setMinIdle(int minIdle)</td>
+      <td>设置连接池中，处于空闲状态的数据库连接的最小数量</td>
+   </tr>
+   <tr>
+      <td>… Collection getConnection ()throws SQLException</td>
+      <td>从连接池中获取一个数据库连接</td>
+   </tr>
+</table>
+
+可以先通过`BasicDataSource`构造方法产生一个数据源对象，再手动给数据源对象设置属性值，最后返回该数据源对象，如下：
+
+
+**org.lanqiao.dbutil.DBCPDemo.java**
 
 ```
-	<c:choose>
-		<c:when test="">
-				代码块1
-		</c:when>
-		<c:when test="">
-				代码块2
-		</c:when>
-		...
-		<c:otherwise>
-				代码块n
-		</c:otherwise>
-	</c:choose>
-```
-
-其中，`<c:when test="">`类似于Java中的判断语句：`if()`和`else if()`；`<c:otherwise>`类似于多重if中最后的else。具体的流程是：当`<c:when>`中的test为true时，执行当前`<c:when>`标签中的代码块；如果所有when中的test都为false，则才会执行`<c:otherwise>`中的代码块。
-
-示例：
-
-
-**JSTLDemo02.jsp**
-
-```
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+// package、import
+public class DBCPDemo {
+    //获取DBCP数据源对象
+public static DataSource getDataSourceWithDBCP(){
+		BasicDataSource basicDataSource = new BasicDataSource() ;
+		//配置数据源中的数据库信息
+		    basicDataSource
+.setDriverClassName("oracle.jdbc.OracleDriver");
+		basicDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
+		basicDataSource.setUsername("system");
+		basicDataSource.setPassword("sa");
+		//设置数据源中的连接池参数
+		basicDataSource.setInitialSize(10);
+		basicDataSource.setMaxActive(8);
+		basicDataSource.setMinIdle(2);
+		return basicDataSource ;
+	 }
+    //测试DBCP数据源
+public static void main(String[] args) throws SQLException {
+    //通过getDataSourceWithDBCP()方法，获取DBCP数据源对象
+		DataSource ds = getDataSourceWithDBCP () ;
+         //通过DBCP数据源对象，获取Connection对象
+		Connection connection = ds.getConnection();
+	     …
+	}
 …
-<body>
-    …
-	<c:set var="role" value="学生" />
-	<c:choose>
-		<c:when test="${role eq '老师' }">
-				老师相关代码
-		</c:when>
-		
-		<c:when test="${role eq '学生' }">
-				学生相关代码
-		</c:when>
-		<c:otherwise>
-				管理员相关代码
-		</c:otherwise>
-	</c:choose>
-</body>
 ```
 
-运行结果：
+以上，就是使用DBCP数据源获取连接对象（`connection`）的方法。有了连接对象`connection`以后，就可以通过`createStatement()`方法产生`Statement`对象（或者通过`prepareStatement()`方法产生`PreparedStatement`等），进而执行数据库访问。
 
-![](http://i.imgur.com/Ao2uIyj.png)
+**b. 基于`BasicDataSourceFactory`的配置文件方式**
 
-*图9-13*
-
-#### (3)迭代`<c:forEach>`标签库 ####
-
-在Java之中有两种`for`循环，一种是传统的`for`循环，形式如`for(int i=0;i<10;i++)`；另一种是增强的`for`循环，形式如`for(String name : names)` ，此处的`names`是字符串数组。类似的，在JSTL中也提供了两种`<c:forEach>`标签与之相对应，一种用于遍历集合对象的成员，另一种用于让代码重复的循环执行。
-
-**①遍历集合对象的成员**
-
-**语法：**
+BasicDataSourceFactory可以通过createDataSource()方法，从配置文件（Properties文件）中读取数据库配置信息，并获取数据库连接对象。createDataSource()方法的完整定义如下： 
 
 ```
-<c:forEach var="variableName" items="collectionName" 
-varStatus="variableStatusInfo" begin="beginIndex" 
-end="endIndex" step="step">
-			迭代集合对象的相关代码
-</c:forEach>
+public static DataSource createDataSource(Properties properties) 
+throws Exception 
+{
+   …
+}
 ```
 
-**`var`**：当前对象的引用，即表示循环正在遍历的那个对象。例如，当循环遍历到第一个成员时，`var` 就代表第一个成员；当循环遍历到第二个成员时，`var` 就代表第二个成员……
+**以下，是通过`BasicDataSourceFactory`方式获取DBCP数据源对象的具体代码：**
 
-**`items`**：当前循环的集合名。
+**<1>创建并编写配置文件**
 
-**`varStatus`**：可选项。存放`var`所引用成员的相关信息，如索引号(index)等。
+**创建配置文件：**
 
-**`begin`**：可选项。遍历集合的开始位置，从0开始。
 
-**`end`**：可选项。遍历集合的结束位置。
+在`src`上点击鼠标右键→ New→ File→ 输入dbcpconfig.properties→ Finish，如图：
 
-**`step`**：可选项，默认为1。遍历集合的步长，比如当`step`为1时，会依次遍历第0个、第1个、第2个……；当`step`为2时，会依次遍历第0个、第2个、第4个……。
+![](http://i.imgur.com/J4lBIBg.png)
 
-示例：
-先通过Servlet给集合中加入数据，再用`<c:forEach>`遍历输出。
+*图7-02*
 
-**InitJSTLForeachDataServlet.java**
+![](http://i.imgur.com/5cE9LSq.png)
+
+*图7-03*
+
+**编写配置文件：dbcpconfig.properties**
 
 ```
-package org.lanqiao.servlet;
-//省略import
-public class InitJSTLForeachDataServlet extends HttpServlet {
-	…
-	protected void doPost(HttpServletRequest request, 
-HttpServletResponse response) 
-throws ServletException, IOException {
-		//Address类包含家庭地址和学校地址两个属性
-		Address add1 =new Address("北京朝阳区","北京大兴区");
-		Address add2 =new Address("陕西西安","广州东莞");
-		List<Address> addresses = new ArrayList<Address>();
-		addresses.add(add1);
-		addresses.add(add2);
-		//强addresses集合放入request作用域内
-		request.setAttribute("addresses", addresses);
-		request.getRequestDispatcher("JSTLDemo02.jsp")
-.forward(request, response);
+driverClassName=oracle.jdbc.OracleDriver
+url=jdbc:oracle:thin:@localhost:1521:XE
+username=system
+password=sa
+initSize=10
+maxActive=8
+maxIdle=2
+```
+
+**<2>获取数据源对象**
+
+```
+// package、import
+public class DBCPDemo {
+	//获取DBCP数据源对象
+	public  static DataSource getDataSourceWithDBCPByProperties () {
+		DataSource basicDataSource = null ; 
+		//创建一个配置文件对象props
+		Properties props = new Properties();
+		try{
+		//将配置文件中的信息读取到输入流中
+		InputStream input =new DBCPDemo().getClass().getClassLoader()
+.getResourceAsStream("dbcpconfig.properties") ;
+		//将配置文件中的信息，从输入流加载到props中
+		props.load(input);
+		//根据props中的配置信息，创建数据源对象
+		 basicDataSource = BasicDataSourceFactory
+.createDataSource(props) ;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return basicDataSource;
+	}
+	
+	public static void main(String[] args) throws SQLException {
+		DataSource ds1 = getDataSourceWithDBCPByProperties () ;
+		Connection connection1 = ds1.getConnection();
+		…
 	}
 }
 ```
 
-**JSTLDemo02.jsp**
+**③C3P0数据源**
+
+C3P0性能优越并易于扩展，是目前最流行、使用最广的数据源之一。著名的Hibernate、Spring等开源框架，使用的都是该数据源。C3P0实现了`DataSource`数据源接口，并提供了一个重要的实现类：`ComboPooledDataSource`，该类的常见方法如下表：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简称</td>
+   </tr>
+   <tr>
+      <td>public ComboPooledDataSource()    public ComboPooledDataSource(String configName)</td>
+      <td>构造方法，用于创建ComboPooledDataSource对象。</td>
+   </tr>
+   <tr>
+      <td>public void setDriverClass(String driverClass )     throws PropertyVetoException
+     throws PropertyVetoException</td>
+      <td>设置连接数据库的驱动名</td>
+   </tr>
+   <tr>
+      <td>public void setJdbcUrl( String jdbcUrl )</td>
+      <td>设置连接数据库的URL</td>
+   </tr>
+   <tr>
+      <td>public void setUser( String user )</td>
+      <td>设置数据库的用户名</td>
+   </tr>
+   <tr>
+      <td>public void setPassword( String password )</td>
+      <td>设置数据库的密码</td>
+   </tr>
+   <tr>
+      <td>public void setMaxPoolSize( int maxPoolSize )</td>
+      <td>设置连接池的最大连接数目</td>
+   </tr>
+   <tr>
+      <td>public void setMinPoolSize( int minPoolSize )</td>
+      <td>设置连接池的最小连接数目</td>
+   </tr>
+   <tr>
+      <td>public void setInitialPoolSize( int initialPoolSize )</td>
+      <td>设置初始化时，连接池中的连接数量</td>
+   </tr>
+   <tr>
+      <td>public Connection getConnection()    throws SQLException</td>
+      <td>从连接池中获取一个数据库连接。该方法是由ComboPooledDataSource的父类AbstractPoolBackedDataSource提供。</td>
+   </tr>
+</table>
+
+**可以发现，DBCP和C3P0的实现类都提供了3类方法：**
+
+**(1)**设置数据库信息的方法；
+
+**(2)**初始化连接池的方法()；
+
+**(3)**获取连接对象的`getConnection()`方法。
+
+
+与DBCP类似，在使用C3P0前，需要先导入以下JAR包：
+
+<table>
+   <tr>
+      <td>c3p0-版本号.jar</td>
+      <td>ojdbc版本号.jar</td>
+   </tr>
+   <tr>
+      <td colspan="2">c3p0-oracle-thin-extras-版本号.jar  (如果不是oracle驱动，则无需此JAR)</td>
+   </tr>
+</table>
+
+此外，C3P0也提供了手动编码及配置文件两种方式来获取数据源对象，具体如下:
+
+**a.基于无参构造方法`ComboPooledDataSource()`的手动编码方式**
+
+通过手动编码方式获取c3p0对象，依赖于无参构造方法`ComboPooledDataSource()`，如下：
+
+**org.lanqiao.dbutil.C3P0Demo.java**
 
 ```
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<body>
-	…
-		<c:forEach var="add" items="${addresses }" varStatus="status" >
-				${status.index}：
-家庭地址：${add.homeAddress } – 
-学校地址：${add.schoolAddress }<br/>
-		</c:forEach>
-</body>
+//package、import
+public class C3P0Demo {
+    //获取C3P0数据源对象
+	public static DataSource getDataSourceWithC3p0 (){
+		ComboPooledDataSource cpds = new ComboPooledDataSource();
+		try{
+			//设置数据库信息
+			cpds.setDriverClass("oracle.jdbc.OracleDriver");
+			cpds.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:XE");
+			cpds.setUser("system");
+			cpds.setPassword("sa");
+			//设置连接池信息
+			cpds.setInitialPoolSize(10);
+			cpds.setMaxPoolSize(20);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return cpds;
+	}
+	
+	public static void main(String[] args) throws SQLException {
+		Connection connection = getDataSourceWithC3p0 ()
+.getConnection();
+		…
+	}
+}
 ```
 
-执行http://localhost:8888/ELAndJSTLDemo/InitJSTLForeachDataServlet，运行结果：
+**b.基于有参构造方法ComboPooledDataSource(String configName)的配置文件方式**
 
-![](http://i.imgur.com/FRiASwM.png)
+通过配置文件方式获取c3p0对象，依赖于有参构造方法`ComboPooledDataSource(String configName)`，如下：
 
-*图9-14*
+**<1>创建并编写配置文件**
 
-**②迭代指定的次数**
+与DBCP不同，c3p0使用的是XML格式的配置文件，并且配置文件必须满足：
 
-**语法：**
+**①**存放于`src`根目录下；
 
-```
-<c:forEach var="variableName" varStatus="variableStatusInfo" 
-begin="beginIndex" end="endIndex" step="step">  
-		循环体  
-</c:forEach>	
-```
+**②**文件名是**c3p0-config.xml**。
 
-其中`var`、`varStatus`、`begin`、`end`、`step`属性的含义，与“遍历集合对象的成员”中对应的属性含义相同，并且能发现此种方式的`<c:forEach>`缺少了`“items”`属性。此种方式的`<c:forEach>`主要用来让循环体执行固定的次数。
+在`src`下创建并编写一个**c3p0-config.xml**文件，如下：
 
-**示例：**
-
-**JSTLDemo02.jsp**
+**c3p0-config.xml**
 
 ```
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<body>
-	…
-		<c:forEach  begin="0" end="2"  step="1">
-		          LanQiao<br>
-		</c:forEach>
-</body>
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+      <!-- 默认配置 -->
+	 <default-config>
+	 	<property name="user">system</property>
+		<property name="password">sa</property>
+		<property name="driverClass">
+oracle.jdbc.OracleDriver
+</property>
+		<property name="jdbcUrl">
+jdbc:oracle:thin:@localhost:1521:XE
+</property>
+	 	<property name="checkoutTimeout">20000</property>
+	 	<property name="initialPoolSize">10</property>
+	 	<property name="maxIdleTime">15</property>
+	 	<property name="maxPoolSize">20</property>
+	 	<property name="minPoolSize">5</property>
+	 </default-config>
+ 
+     <!-- name为”lanqiao”的配置 -->
+	 <named-config name="lanqiao">
+	 	<property name="initialPoolSize">10</property>
+	 	<property name="maxPoolSize">15</property>
+	 	<property name="driverClass">
+oracle.jdbc.OracleDriver</property>
+	 	<property name="jdbcUrl">
+jdbc:oracle:thin:@localhost:1521:XE
+</property>
+<!--此named-config中，没有配置user、password等信息，C3P0会自动寻找 default-config中的相应信息-->
+	 </named-config>
+ </c3p0-config>
 ```
 
-以上代码中的`<c:forEach>`类似于Java中的`for(int i=0;i<2;i++)`，运行结果：
+可以发现，`<c3p0-config>`中包含了两套配置数据源信息： `<default-config>`和 `<named-config name="…">`。其中,`<default-config>`配置的是默认信息，而`<named-config name="…">`是自定义配置。一个`<c3p0-config>`中可以包含任意数量的`<named-config name="…">`，当包含一个或多个时，用户可以通过有参构造方法ComboPooledDataSource(String configName)中的参数configName来指定实际使用哪一个。此外，如果某些信息在`<named-config name="…">`中没有配置，那么c3p0就会自动使用`<default-config>`中的相应信息，例如user、password等。
 
-![](http://i.imgur.com/mjERMhX.png)
+**<2>获取数据源对象**
 
-*图9-15*
+有参构造方法ComboPooledDataSource(String configName)会在**c3p0-config.xml**文件中的所有`<named-config name="…">`里，寻找name= configName的配置信息。
 
-至此我们就学完了EL表达式和JSTL标签库的相关内容，读者可以使用它们来替换以前JSP页面中的Scriptlet。
+以下代码，通过ComboPooledDataSource("lanqiao")，指定使用**c3p0-config.xml**中`<named-config name="lanqiao">`的配置信息，再根据配置信息创建数据源对象。
 
-# 9.3 练习题 #
+**org.lanqiao.dbutil.C3P0Demo.java**
+
+```
+//package、import
+public class C3P0Demo {
+	//获取C3P0数据源对象
+	public static DataSource getDataSourceWithC3p0ByXML (){
+		ComboPooledDataSource cpds = 
+new ComboPooledDataSource("lanqiao");
+		return cpds ; 
+	}
+		
+	public static void main(String[] args) throws SQLException {
+		Connection connection = getDataSourceWithC3p0ByXML ()
+.getConnection();
+		…
+	}
+}
+```
+
+在实际开发中，经常会遇到DBCP或C3P0，因此可以将二者封装到一个工具类中，如下：
+
+
+**org.lanqiao.dbutil. DataSourceUtil.java**
+
+```
+package org.lanqiao.dbutil;
+import javax.sql.DataSource;
+public class DataSourceUtil {
+	//通过DBC手动编码方式，获取数据源对象
+	public static DataSource getDataSourceWithDBCP() 
+{   …   }
+	//通过DBCP配置文件方式，获取数据源对象
+	public static DataSource getDataSourceWithDBCPByProperties()
+{   …   }
+	//通过C3P0手动编码方式，获取数据源对象
+	public static DataSource getDataSourceWithC3p0()
+{   …   }
+	//通过C3P0配置文件方式，获取数据源对象
+	public static DataSource getDataSourceWithC3p0ByXML() 
+{   …   }
+}
+```
+
+
+
+# 7.2 commons-dbutils工具类库 #
+
+在“三层架构”一章中，我们曾自己封装了`executeAddOrUpdateOrDelete()`和`executeQuery ()`等方法，并讨论过：对于“增删改”的通用方法`executeAddOrUpdateOrDelete(String sql ,Object[] os)`来说，只要传入sql参数和置换参数os，就能实现相应的增删改功能；但对于查询方法`executeQuery(String sql, Object[] os)`，为了能够“通用”，我们只能封装到结果集`ResultSet`，而不能继续封装成对象或集合等类型。在本小节，我们换一种方式，通过使用commons-dbutils类库可以实现：无论是“增删改”还是“查”都可以得到彻底的封装。
+
+
+commons-dbutils 是 Apache 组织提供的一个JDBC工具类库，极大的简化了JDBC的代码量，并且不会影响程序的性能。
+
+	读者可以通过Apache官网下载commons-dbutils类库：
+	[http://commons.apache.org/proper/commons-dbutils/download_dbutils.cgi](http://commons.apache.org/proper/commons-dbutils/download_dbutils.cgi)
+
+与下载其他类库一样，Binaries提供了可供使用类库及说明文件，Source提供了类库的源代码；并且Binaries和Source都提供了**.tar.gz**（Linux系统）和**.zip**（Windows系统）两种格式的压缩包供读者下载。
+
+![](http://i.imgur.com/H5WvZ0c.png)
+
+*图7-04*
+
+本节使用的是最新版commons-dbutils-1.6进行讲解。
+
+**commons-dbutils**类库主要包含了两个类和一个接口，如下：
+
+<table>
+   <tr>
+      <td>全名</td>
+      <td>类或接口</td>
+   </tr>
+   <tr>
+      <td>org.apache.commons.dbutils.DbUtils</td>
+      <td>类</td>
+   </tr>
+   <tr>
+      <td>org.apache.commons.dbutils.QueryRunner</td>
+      <td>类</td>
+   </tr>
+   <tr>
+      <td>org.apache.commons.dbutils.ResultSetHandler</td>
+      <td>接口</td>
+   </tr>
+</table>
+
+以下，是详细的说明。
+
+
+## 7.2.1 `DbUtils`类 ##
+
+DbUtils是一个工具类，提供了关闭连接、事务提交/回滚、注册JDBC驱动程序等常用方法。DbUtils类中的方法都是public static修饰的（除了构造方法），常用方法如下表：
+
+<table>
+   <tr>
+      <td>方法(省略了public static)</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>①…void close(Connection conn)
+          throws SQLException
+          ②…void close(ResultSet rs)
+          throws SQLException
+          ③…void close(Statement stmt)
+          throws SQLException</td>
+      <td>关闭入参类型的连接（Connection、ResultSet或Statement），并在关闭时做相应的非空判断（如rs != null等）；此外，还会抛出方法执行期间所发生的异常。</td>
+   </tr>
+   <tr>
+      <td>①…void closeQuietly(Connection  conn)
+          ②…void closeQuietly(Connection conn,Statement stmt,ResultSet rs) 
+          ③…void closeQuietly(ResultSet rs)
+          ④…void closeQuietly(Statement stmt)</td>
+      <td>关闭入参类型的连接，并在关闭时做相应的非空判断；此外，还会将异常信息隐藏起来，如左③的完整源码如下：
+     public static void closeQuietly(ResultSet rs)
+     {
+     try 
+    {
+     // 调用上面的close()方法
+     close(rs);   
+    } catch (SQLException e) 
+    { 
+      // 隐藏异常信息，不做任何处理
+     }
+  }</td>
+   </tr>
+   <tr>
+      <td>①…void commitAndClose(Connection conn) throws SQLException    ②…void commitAndCloseQuietly(Connection conn)</td>
+      <td>提交并关闭连接，并在关闭时做相应的非空判断；左①：会抛出方法执行期间所发生的异常。左②：会将异常信息隐藏起来。</td>
+   </tr>
+   <tr>
+      <td>…boolean loadDriver(String driverClassName)</td>
+      <td>根据传入的驱动名，加载并注册JDBC驱动程序。</td>
+   </tr>
+</table>
+
+## 7.2.2 `QueryRunner`类 ##
+
+`QueryRunner`类主要用于执行增删改差等SQL语句。特别的，如果执行的是查询SQL，还需要结合`ResultSetHandler`接口来处理结果集。`QueryRunner`类的常用方法如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>①public QueryRunner()  ②public QueryRunner(javax.sql.DataSource ds)</td>
+      <td>构造方法，用于生成QueryRunner的实例对象。构造方法是否需要参数，取决于事务的管理方式：①当需要手动管理事务时，使用无参的构造方法；②当需要自动管理事务（每执行完一条SQL语句，都会自动执行一次commit()方法）时，使用DataSource作为参数的构造方法。</td>
+   </tr>
+   <tr>
+      <td>public int update(参数列表)throws SQLException</td>
+      <td>update()方法根据参数列表的不通，形成了很多重载的方法，常见的参数列表有以下两种：①Connection conn, String sql, Object… params ②Connection conn, String sql 各种重载的update()方法都是用于执行增加、修改或删除操作。其中，①中的可变参数params用来作为SQL语句的置换参数（替换SQL中的占位符？）；参数列表②中没有可变参数params，因此适用于没有占位符的SQL语句；</td>
+   </tr>
+   <tr>
+      <td>public  &lt;T&gt; T query(参数列表)throws SQLException</td>
+      <td>query()方法的参数列表有四种常见形式：
+     ①Connection conn, String sql, ResultSetHandler&lt;T&gt; rsh, Object… params    ②Connection conn, String sql, ResultSetHandler&lt;T&gt; rsh
+       ③String sql, ResultSetHandler&lt;T&gt; rsh,Object… params    ④String sql, ResultSetHandler&lt;T&gt; rsh    各种重载的query()方法都是用于执行查询操作。其中，③和④中没有Connection连接对象，此种情况下，可以从QueryRunner构造方法的DataSource参数中获得连接。query()方法需要结合ResultSetHandler接口来使用。</td>
+   </tr>
+</table>
+
+## 7.2.3 `ResultSetHandler`接口及其实现类 ##
+
+`ResultSetHandler`接口用于处理`ResultSet`结果集，它可以将结果集中的数据封装成单个对象、数组、List、Map等不同形式。 
+
+**`ResultSetHandler`接口有很多不同的实现类，如下：**
+
+![](http://i.imgur.com/r2lD68B.png)
+
+*图7-05*
+
+本小节会对其中常用的10个实现类做详细讲解。
+
+讲解前，需要先导入DbUtils包（**commons-dbutils-1.6.jar**），并使用我们之前编写过的两个类和一张表，如下：
+
+**①数据源工具类DataSourceUtil**
+
+**org.lanqiao.dbutil. DataSourceUtil.java**
+
+```
+package org.lanqiao.dbutil;
+import javax.sql.DataSource;public class DataSourceUtil {
+	//通过C3P0配置文件方式，获取数据源对象
+	public static DataSource getDataSourceWithC3p0ByXML() 
+{   …   }
+…
+}
+```
+
+**②实体类Student(JavaBean)**
+
+**org.lanqiao.entity.Student.java**
+
+```
+package org.lanqiao.entity;
+public class Student {
+	private int stuNo;
+	private String stuName;
+	private int stuAge
+    	//省略setter、getter
+public Student() {
+	}
+    //构造方法
+	public Student(int stuNo, String stuName, int stuAge) {
+		this.stuNo = stuNo;
+		this.stuName = stuName;
+		this.stuAge = stuAge;
+	}
+	//重写toString()
+	@Override
+	public String toString() {
+		return "学号:"+stuNo+",姓名:"+stuName+",年龄:"+stuAge;
+	}
+}
+```
+
+**③数据库中的student表**
+
+表中的数据如下：
+
+![](http://i.imgur.com/c05i0s8.png)
+
+*图7-06*
+
+**接下来，结合`QueryRunner`类的`query()`方法，进行具体演示。**
+
+#### (1) `ArrayHandler`和`ArrayListHandler` ####
+
+**①**`ArrayHandler`类可以把结果集中的第一行数据封装成`Object[]`。例如，可以将student表中的第一行数据，封装成一个`Object[]`类型的`stu`对象，封装后的效果类似于`Object[] stu = new Object[]{15,”王五”,23}`，如下：
+
+**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+
+```
+//package、import
+public class ResultSetHandlerDemo {
+	public static void arrayHandlerTest(){
+		//创建QueryRunner对象
+QueryRunner runner = 	new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		try {
+             //使用query(String sql,ResultSetHandler<T> rsh)方法执行查询操作，并且传入ArrayHandler对象作为第二个参数
+			Object[] studentObj = runner.query("select * from student",
+ new ArrayHandler()) ;
+			//将数组转为字符串，并输出
+			System.out.println(Arrays.toString(studentObj));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+         catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//测试
+	public static void main(String[] args) {
+		arrayHandlerTest();
+	}
+}
+```
+
+运行结果：
+
+![](http://i.imgur.com/6HuJZZc.png)
+
+*图7-07*
+
+可以发现，`ArrayHandler`只能封装结果集中的第一行数据，如果想封装结果集中的全部数据，就需要使用`ArrayListHandler`。
+
+**②**`ArrayHandler`类可以把结果集中每一行数据都封装成一个`Object[]`对象，然后再将所有的`Object[]`组装成一个`List`对象，如下：
+
+**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+
+```
+//package、import
+public class ResultSetHandlerDemo {
+    …
+	public static void arrayListHandlerTest(){
+		//创建QueryRunner对象
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		try {
+			//使用query(String sql,ResultSetHandler<T> rsh)方法执行查询
+操作，并且传入ArrayHandler对象作为第二个参数
+			List<Object[]> studentObjList = runner.query("select * 
+from student", new ArrayListHandler()) ;
+			//将数组转为字符串，并输出
+			for(Object[] studentObj:studentObjList){
+				System.out.println(Arrays.toString(studentObj));
+			}
+		} catch (…) {…}
+	}
+	//测试
+	public static void main(String[] args) {
+		arrayListHandlerTest();
+	}
+}
+```
+
+运行结果：
+
+![](http://i.imgur.com/ItzjKRo.png)
+
+*图7-08*
+
+#### (2) BeanHandler&lt;T&gt; 、BeanListHandler&lt;T&gt;和BeanMapHandler&lt;K,V&gt; ####
+
+
+`ArrayHandler`和`ArrayListHandler`是将结果集中的数据封装成`Object[]`对象，而`BeanHandler<T>`、`BeanListHandler<T>`和`BeanMapHandler<K,V>`可以将结果集中的数据封装成JavaBean对象，并且通过泛型指定具体的JavaBean类型。
+
+**①BeanHandler&lt;T&gt;**
+
+`BeanHandler<T>`类可以把结果集中的第一行数据封装成JavaBean。例如，可以将student表中的第一行数据，封装成一个Student类型的`stu`对象，封装后的效果类似于`Student stu = new Student(15,”王五”,23)`，如下：
+
+
+**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+
+```
+//package、import
+public class ResultSetHandlerDemo {
+    …
+	public static void beanHandlerTest(){
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		try {
+			//使用query(String sql,ResultSetHandler<T> rsh)方法执行查询
+操作，传入BeanHandler对象作为第二个参数，并通过泛型指定封装
+的JavaBean类型是Student
+			Student stu = runner.query("select * from student", 
+new BeanHandler<Student>(Student.class)) ;
+			//默认调用Student的toString()方法进行输出
+			System.out.println(stu);
+		} catch (…) {…}
+	}
+	//测试
+	public static void main(String[] args) {
+         …
+		beanHandlerTest();
+	}
+}
+```
+
+运行结果：
+
+![](http://i.imgur.com/YhEgBIm.png)
+
+*图7-09*
+
+可以发现，`BeanHandler<T>`只能封装结果集中的第一行数据，如果想封装结果集中的全部数据，就需要使用`BeanListHandler<T>`。
+
+
+**②BeanListHandler&lt;T&gt;**
+
+`BeanListHandler<T>`类可以把结果集中每一行数据都封装成一个JavaBean对象，然后再将所有的JavaBean对象组装成一个`List`对象，如下：
+
+**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+
+```
+//package、import
+public class ResultSetHandlerDemo {
+    …
+    	public static void beanListHandlerTest(){
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		try {
+			List<Student> stus = runner.query("select * from student", 
+new BeanListHandler<Student>(Student.class)) ;
+			System.out.println(stus);
+		} catch (…) {…}
+	}
+	//测试
+	public static void main(String[] args) {
+         …
+		beanListHandlerTest();
+	}
+}
+```
+
+运行结果（只显示了部分结果）：
+
+![](http://i.imgur.com/86lvOSZ.png)
+
+*图7-10*
+
+**③BeanMapHandler&lt;T&gt;**
+
+与`BeanListHandler<T>`类似，`BeanMapHandler<T>`也会把结果集中每一行数据都封装成一个JavaBean对象，但不同的是：`BeanMapHandler<T>`会将所有的JavaBean对象组装成一个`Map`对象，如下：
+
+
+**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+
+```
+//package、import
+public class ResultSetHandlerDemo {
+    …
+    	public static void beanMapHandlerTest(){
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		try {
+             //通过泛型指定Map的key类型是：BigDecimal;valuel类型是：Student。
+再通过构造方法的第二个参数，指定用表中的“stuNo”列作为Map的key。
+			Map<BigDecimal,Student> stusMap 
+= runner.query("select * from student", 
+new BeanMapHandler<BigDecimal,Student>
+(Student.class,"stuNo")) ;
+             //获取map中key值为15的学生
+			Student stu = stusMap.get(new BigDecimal(15));
+			System.out.println(stu);
+		} catch (…) {…}
+	}
+	
+	//测试
+	public static void main(String[] args) {
+         …
+		beanMapHandlerTest();
+	}
+}
+```
+
+运行结果：
+
+![](http://i.imgur.com/hUGyx5C.png)
+
+*图7-11*
+
+**说明：**
+
+**问**：此程序中，`Map`的`key`值为什么是`BigDecimal`类型，而不是`Integer`?
+
+**答**：本程序采用的是Oracle数据库，stuNo列在表中的类型是：NUMBER(3)。Oracle在处理NUMBER类型时比较特殊：如果发现存储的是整数（如果数字15），则会默认映射为`BigDecimal`类型，而不是Integer。
+
+
+#### (3) MapHandler、 MapListHandler和KeyedHandler ####
+
+**①MapHandler**
+
+MapHandler可以将结果集中的第一条数据封装到`Map`对象中，并且`key`是字段名，`value`是字段值，如下：
+
+**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+
+```
+//package、import
+public class ResultSetHandlerDemo {
+    …
+    	public static void mapHandlerTest(){
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		try {
+			//将结果集中的第一条数据封装到Map对象中
+			Map<String,Object> stuMap = runner.query(
+"select * from student", new MapHandler()) ;
+			System.out.println(stuMap);
+		} catch (…) {…}
+	}
+	
+	//测试
+	public static void main(String[] args) {
+…
+		mapHandlerTest();
+	}
+}
+```
+
+运行结果：
+
+![](http://i.imgur.com/xgSjr2W.png)
+
+*图7-12*
+
+**②MapListHandler**
+
+MapListHandler可以将结果集中的每一条数据都封装到`Map`对象中，并且`key`是字段名，`value`是字段值；然后再将所有的`Map`对象组装成一个`List`对象，如下：
+
+**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+
+```
+//package、import
+public class ResultSetHandlerDemo {
+    …
+    public static void mapListHandlerTest(){
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		try {
+			//将结果集中的每一条数据都封装到Map对象中
+			List<Map<String,Object>> stusMap = runner.query(
+"select * from student", new MapListHandler()) ;
+			System.out.println(stusMap);
+		} catch (…) {…}
+	}
+	
+	//测试
+	public static void main(String[] args) {
+…
+		mapListHandlerTest();
+	}
+}
+```
+
+运行结果（只显示了部分结果）：
+
+![](http://i.imgur.com/0iFMvDH.png)
+
+*图7-13*
+
+**③KeyedHandler**
+
+KeyedHandler可以将结果集中的每一条数据都封装到`Map`对象中，并且`key`是字段名，`value`是字段值；然后再将所有的`Map`对象组装成一个范围更大的`Map`对象，并通过KeyedHandler的构造方法指定某一字段值为key，如下：
+
+**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+
+```
+//package、import
+public class ResultSetHandlerDemo {
+    …
+    	public static void keyedHandlerTest(){
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		try {
+			//将结果集中的每一条数据都封装到Map对象中
+			Map<String,Map<String,Object>> stusMap = runner.query(
+"select * from student", 
+new KeyedHandler<String>("stuName")) ;
+			System.out.println(stusMap);
+		} catch (…) {…}
+	}
+	
+	//测试
+	public static void main(String[] args) {
+…
+		keyedHandlerTest();
+	}
+}
+```
+
+运行结果（只显示了部分结果）：
+
+![](http://i.imgur.com/sOzOr4C.png)
+
+*图7-14*
+
+#### (4)ColumnListHandler&lt;T&gt; ####
+
+`ColumnListHandler <T>`可以把结果集中某一列的值封装到`List`集合中，如下：
+
+
+**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+
+```
+//package、import
+public class ResultSetHandlerDemo {
+…
+public static void columnListHandlerTest(){
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		try {
+			//将结果集中“stuName”一列的值封装到了List集合对象中：
+			List<String> names = runner.query("select * from student", 
+new ColumnListHandler<String>("stuName")) ;
+			//默认调用Student的toString()方法进行输出
+			System.out.println(names);
+		} catch (…) {…}
+	}
+	
+	//测试
+	public static void main(String[] args) {
+        …
+	   columnListHandlerTest();
+	}
+}
+```
+
+运行结果：
+
+![](http://i.imgur.com/q8BSDtD.png)
+
+*图7-15*
+
+#### (5) ScalarHandler&lt;T&gt; ####
+
+如果执行的是单值查询，如`select count(*) from student`或`select name from student where id = 15`等结果为单值得查询，就需要使用`ScalarHandler<T>`类，如下：
+
+**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+
+```
+//package、import
+public class ResultSetHandlerDemo {
+…
+    public static void scalarHandlerTest(){
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		try {
+			//单值查询：查询学生总人数
+			BigDecimal count = runner.query("select count(*) 
+from student", new ScalarHandler<BigDecimal>()) ;
+			System.out.println(count);
+			//单值查询：查询学号为15的学生姓名
+			String stuName = runner.query("select stuName from student
+ where stuNo = 15", new ScalarHandler<String>()) ;
+			System.out.println(stuName);		
+} catch (…) {…}
+	}
+	
+	//测试
+	public static void main(String[] args) {
+  …
+		scalarHandlerTest();
+	}
+}
+```
+
+运行结果：
+
+![](http://i.imgur.com/S0E5WTp.png)
+
+*图7-16*
+
+**以上就是ResultSetHandler接口的10个实现类的具体用法。为了方便读者对比记忆，现做以下总结：**
+
+
+<table>
+   <tr>
+      <td>ResultSetHandler接口的实现类</td>
+      <td>简介</td>
+      <td>共同点</td>
+   </tr>
+   <tr>
+      <td>ArrayHandler</td>
+      <td>将第一行数据封装成Object[]</td>
+      <td rowspan="3">封装结果集中的第一行数据，适用于只有一条查询结果的SQL，如：select * from student where id = 15</td>
+   </tr>
+   <tr>
+      <td>BeanHandler&lt;T&gt;</td>
+      <td>将第一行数据封装成JavaBean</td>
+   </tr>
+   <tr>
+      <td>BeanMapHandler</td>
+      <td>将第一条数据封装成Map&lt;列名类型,列值类型&gt;</td>
+   </tr>
+   <tr>
+      <td>ArrayListHandler</td>
+      <td>将所有数据封装成List&lt;Object[]&gt;</td>
+      <td rowspan="6">封装结果集中的全部数据，适用于有多条查询结果的SQL，如：select * from student</td>
+   </tr>
+   <tr>
+      <td>ColumnListHandler&lt;T&gt;</td>
+      <td>将某一列的所有数据，封装成List&lt;某一列的类型&gt;</td>
+   </tr>
+   <tr>
+      <td>MapListHandler</td>
+      <td>将所有数据封装成List&lt;Map&lt;列名类型,列值类型&gt;&gt;</td>
+   </tr>
+   <tr>
+      <td>KeyedHandler&lt;K&gt;</td>
+      <td>将所有数据封装成Map&lt;某一列的Java类型,Map&lt;列名类型,列值类型&gt;&gt;</td>
+   </tr>
+   <tr>
+      <td>BeanListHandler&lt;T&gt;</td>
+      <td>将所有数据封装成List&lt;JavaBean&gt;</td>
+   </tr>
+   <tr>
+      <td>BeanMapHandler&lt;K, V&gt;</td>
+      <td>将所有数据封装成Map&lt;某一列的Java类型,JavaBean&gt;</td>
+   </tr>
+   <tr>
+      <td>ScalarHandler&lt;T&gt;</td>
+      <td>获取单值</td>
+      <td>单值查询</td>
+   </tr>
+</table>
+
+## 7.2.4 增删改操作 ##
+
+
+现在，我们再对`QueryRunner`类中，用于增删改的`update()`方法做以演示，如下：
+
+**org.lanqiao.dbutil.UpdateDemo.java**
+
+```
+package org.lanqiao.dbutil;
+import java.sql.SQLException;
+import org.apache.commons.dbutils.QueryRunner;
+public class UpdateDemo {
+	//增加
+	public static void insertTest() {
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+        //增加的SQL语句
+		String insertSql = "insert into student(stuNo,stuName,stuAge)
+ values(?,?,?)";
+         //SQL语句中的置换参数
+		Object[] params = {35,"赵六",66};
+		try {
+             //增删改的通用方法update()
+			int count = runner.update(insertSql,params) ;
+			System.out.println("成功增加"+count+"条数据");
+		} catch (…) {…}
+	}
+	
+	//删除
+	public static void deleteTest() {
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		String deleteSql = "delete from student where stuNo = 35";
+		try {
+			int count = runner.update(deleteSql) ;
+			System.out.println("成功删除"+count+"条数据");
+		} catch (…) {…}
+	}
+	
+	//修改
+	public static void updateTest() {
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		String updateSql = "update student set stuName = ?  ,stuAge = ?
+ where stuNo = ?";
+		Object[] params = {"孙琪",27,35};
+		try {
+			int count = runner.update(updateSql,params) ;
+			System.out.println("成功修改"+count+"条数据");
+		} catch (…) {…}
+	}
+
+	// 测试   
+	public static void main(String[] args) {
+		insertTest();
+		updateTest();
+		deleteTest();
+	}
+}
+```
+
+运行结果：
+
+![](http://i.imgur.com/16U5Tcz.png)
+
+*图7-17*
+
+## 7.2.5 手动处理事务 ##
+
+#### (1) ThreadLocal&lt;T&gt; ####
+
+在学习事务处理之前，我们有必要先了解一下`ThreadLocal<T>`类。
+	
+ThreadLocal可以为变量在每个线程中都创建一个副本，每个线程可以访问自己内部的副本变量。因此，ThreadLocal被称为线程本地变量（或线程本地存储）。
+	
+先看下面一个例子：
+
+```
+public class ConnectionManager {
+	  private static Connection conn = null;
+	     public static Connection getConnection() throws …{
+	        if(conn == null){
+	            conn = DriverManager.getConnection(...);
+	        }
+	        return conn;
+	    }
+	     
+	    public static void closeConnection() throws …{
+	        if(conn!=null)
+	            conn.close();
+	    }
+}
+```
+
+这段代码在单线程中使用没有任何问题；但如果是在多线程中使用，就存在线程安全问题，例如：
+
+**①**因为conn是静态全局变量（用于共享），那么就有可能在一个线程使用conn操作数据库时，另外一个线程也同时在调用`closeConnection()`关闭链接；
+
+**②**如果多个线程同时进入if语句，那么在`getConnection()`方法中就会多次创建`conn`对象。对于这样的线程问题，读者可能会想到用“线程同步”来解决：将conn变量、`getConnection()`和`closeConnection()`进行同步处理。对于本例，“线程同步”虽然可以解决问题，但却会造成极大的性能影响：当一个线程在使用conn访问数据库时，其他线程只能等待。
+
+我们仔细来分析这个问题：本例的线程安全问题，实质是因为conn变量、`getConnection()`和`closeConnection()`都是共享的static变量（或方法）而造成的，那么此三者如果不是共享的static呢？实际上，一个线程只需要维护自己的conn变量，而不需要关心其他线程是否对各自的conn进行了修改。因此，不是staitc也可以，如下：
+
+```
+public class ConnectionManager {
+	// 没有static修饰
+	private Connection conn = null;
+	// 没有static修饰
+	public Connection getConnection() throws SQLException {
+		if (conn == null) {
+			conn = DriverManager.getConnection("...");
+		}
+		return conn;
+	}
+	// 没有static修饰
+	public void closeConnection() throws SQLException {
+		if (conn != null)
+			conn.close();
+	}
+}
+class Dao{
+    public void insert() throws SQLException {
+      	//将connectionManager和conn定义为局部变量
+        ConnectionManager connectionManager = new ConnectionManager();
+        Connection conn = connectionManager.getConnection();
+        //使用conn访问数据库...
+        connectionManager.closeConnection();
+    }
+}
+```
+
+以上，将conn及相关方法的static修饰符去掉，然后在每个使用conn的方法中（如`insert()`）都创建局部变量。这样一来，因为每次都是在方法内部创建的连接，那么线程之间自然不存在线程安全问题。但是，由于在方法中需要频繁地开启和关闭数据库连接，就会导致服务器压力非常大，并且严重影响程序执行性能。
+
+如何既不影响性能，也能避免线程安全问题？使用`ThreadLocal<T>`！`ThreadLocal<T>`在每个线程中对该变量会创建一个副本；即每个线程内部都会有一个该变量的副本，该副本在线程内部任何地方都可以共享使用，但不同线程的副本之间互不影响。
+
+**`ThreadLocal<T>`类中有以下几个方法：**
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public T get()</td>
+      <td>获取ThreadLocal在当前线程中保存的变量副本</td>
+   </tr>
+   <tr>
+      <td>public void set(T value)</td>
+      <td>设置当前线程中变量的副本</td>
+   </tr>
+   <tr>
+      <td>public void remove()</td>
+      <td>移除当前线程中变量的副本</td>
+   </tr>
+   <tr>
+      <td>protected T initialValue()</td>
+      <td>延迟加载的方法，一般在使用时重写该方法。</td>
+   </tr>
+</table>
+
+
+`ThreadLocal<T>`类的具体使用，我们会在“手动处理事务”中进行演示。
+
+#### (2)手动处理事务 ####
+
+前面讲过，**如果使用`QueryRunner`类的无参构造，我们就需要手动管理事务；如果使用有参构造`QueryRunner(DataSource ds)`，DbUtils就会替我们自动管理事务。**之前演示的增删改查，使用的都是有参构造，即自动管理事务；以下，就来讲解如何使用无参构造来实现手动的事务管理。
+
+通过模拟一个“银行转账”的事务，演示具体的步骤：
+
+**①创建银行账户表**
+
+创建银行账户表account，并增加两条数据，如下：
+
+![](http://i.imgur.com/vuItZpg.png)
+
+*图7-18*
+
+**②创建实体类**
+
+创建与account表对应的实体类**Account.java**，如下：
+
+
+**org.lanqiao.entity.Account.java**
+
+```
+package org.lanqiao.entity;
+public class Account {
+	private int id ;
+	private String name; 
+	private double balance ;
+//setter、getter
+}
+```
+
+**③创建JDBC工具类**
+
+创建JDBCUtil类，用于提供创建连接、开启事务、提交事务、关闭连接等方法。我们知道，一个事务对应一个Connection，但一个事务可能涉及多个DAO操作。如果DAO操作中的Connection是从连接池获取，那么多个DAO操作就会用到多个Connection，这样是无法完成一个事务的（一个事务用到了多个Connection）。因此，需要使用`ThreadLocal<T>`类。
+
+我们可以生成一个`Connection`对象，然后放在ThreadLocal中，那么这个线程中的任何对象都可以共享这个`Connection`对象，最后在线程结束后删除这个连接。这样就保证了一个事务一个连接。如下：
+
+**org.lanqiao.dbutil.JDBCUtil.java**
+
+```
+//package、import
+public class JDBCUtil {
+	// 定义ThreadLocal对象，用于存放Connection对象
+	private static ThreadLocal<Connection> threadLocal 
+= new ThreadLocal<Connection>();
+	// 定义数据源对象
+	private static DataSource ds = new ComboPooledDataSource();
+
+	// 获取c3p0数据源对象(从c3p0-config.xml中读取默认的数据库配置)
+	public static DataSource getDataSource() {
+		return ds;
+	}
+
+	// 从c3p0连接池中，获取Connection连接对象
+	public static Connection getConnection() {
+		Connection conn = threadLocal.get();
+		try {
+			if (conn == null) {
+				conn = ds.getConnection();
+			}
+			threadLocal.set(conn);
+		} catch (…) {…}
+		return conn;
+	}
+
+	// 开启事务
+	public static void beginTransaction() {
+		Connection conn = getConnection();
+		try {
+			// 手动开始事务
+			conn.setAutoCommit(false);
+		} catch (…) {…}
+	}
+
+	// 提交事务
+	public static void commitTransaction() {
+		Connection conn = threadLocal.get();
+		try {
+			if (conn != null) {
+				// 提交事务
+				conn.commit();
+			}
+		} catch (…) {…}
+	}
+
+	// 回滚事务
+	public static void rollbackTransaction() {
+		Connection conn = threadLocal.get();
+		try {
+			if (conn != null) {
+				// 回滚事务
+				conn.rollback();
+			}
+		} catch (…) {…}
+	}
+     // 关闭连接
+	public static void close() {
+		Connection conn = threadLocal.get();
+		try {
+			if (conn != null) {
+				conn.close();
+			}
+
+		} catch (…) {…}
+finally {
+			// 从集合中移除当前绑定的连接
+			threadLocal.remove();
+			conn = null;
+		}
+	}
+}
+```
+
+**④创建DAO层**
+
+创建用于模拟用户查询、转入、转出等数据库操作的DAO层，如下：
+
+**接口：**
+
+**org.lanqiao.dao.IAccountDao.java**
+
+```
+import org.lanqiao.entity.Account;
+public interface IAccountDao {
+    //根据姓名，查询账户
+	public abstract Account queryAccountByName(String name)
+ throws SQLException;
+    //修改账户（增加余额、减少余额）
+public abstract void updateAccount(Account account) 
+throws SQLException;
+}
+```
+
+**实现类：**
+
+**org.lanqiao.dao.impl.AccountDaoImpl.java**
+
+```
+//package、import
+public class AccountDaoImpl implements IAccountDao{
+	@Override
+	public Account queryAccountByName(String name)throws SQLException {
+		QueryRunner runner = new QueryRunner();
+		Connection conn = JDBCUtil.getConnection();
+		String querySql = "select * from account where name = ?" ;
+		Object[] params = {name} ;
+		Account account = null ; 
+		account = runner.query(conn, querySql,
+new BeanHandler<Account>(Account.class),params);
+		return account;
+	}
+
+	@Override
+	public void updateAccount(Account account) throws SQLException {
+		QueryRunner runner = new QueryRunner(
+DataSourceUtil.getDataSourceWithC3p0ByXML());
+		Connection conn = JDBCUtil.getConnection() ;
+		String updateSql = "update account set balance = ? where name = ?" ;
+		Object[] params = { account.getBalance(), account.getName() };
+		runner.update(conn, updateSql, params);
+	}
+}
+```
+
+**⑤创建Service层**
+
+模拟转账业务操作，如下：
+
+**接口：org.lanqiao.service.IAccountService.java**
+
+```
+public interface IAccountService {
+	public abstract void transfer(String fromAccountName,
+String toAccountName,double transferMoney);
+}
+```
+
+**实现类：org.lanqiao.service.impl.AccountServiceImpl.java**
+
+```
+//package、import
+public class AccountServiceImpl implements IAccountService {
+	public void transfer(String fromAccountName, String toAccountName,
+ double transferMoney) {
+		try {
+			// 开启事务
+			JDBCUtil.beginTransaction();
+			IAccountDao accountDao = new AccountDaoImpl();
+			// 付款方
+			Account fromAccount = accountDao
+.queryAccountByName(fromAccountName);
+			// 收款方
+			Account toAccount = accountDao
+.queryAccountByName(toAccountName);
+			// 转账
+			if (transferMoney < fromAccount.getBalance()) {
+				// 付款方的余额减少
+				double fromBalance = fromAccount.getBalance() 
+- transferMoney;
+				fromAccount.setBalance(fromBalance);
+				// 收款方的余额增加
+				double toBalance = toAccount.getBalance() + transferMoney;
+				toAccount.setBalance(toBalance);
+				// 更新账户
+				accountDao.updateAccount(fromAccount);
+				accountDao.updateAccount(toAccount);
+				System.out.println("转账成功");
+				// 提交事务
+				JDBCUtil.commitTransaction();
+				System.out.println("提交成功");
+			} else {
+				System.out.println("余额不足，转账失败！");
+			}
+		} catch (SQLException e) {
+			System.out.println("提交失败！回滚...");
+			// 回滚事务
+			JDBCUtil.rollbackTransaction();
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// 关闭事务
+			JDBCUtil.close();
+		}
+	}
+}
+```
+
+**⑥测试**
+
+编写`main()`方法，测试转账业务，如下
+
+**org.lanqiao.test.TestAccountTransfer.java**
+
+```
+//package、import
+public class TestAccountTransfer {
+	public static void main(String[] args) {
+		IAccountService accountService = new AccountServiceImpl();
+         //张三给李四转账1000.0元
+		accountService.transfer("张三", "李四", 1000.0);
+	}
+}
+```
+
+测试之前，accout表的数据如下：
+
+![](http://i.imgur.com/gmjTGxO.png)
+
+*图7-19*
+
+执行`main()`方法进行测试，运行结果：
+
+![](http://i.imgur.com/ORkwuHA.png)
+
+*图7-20*
+
+此时，account表的数据如下：
+
+![](http://i.imgur.com/NpnfhOV.png)
+
+*图7-21*
+
+可以看出，转账功能已经成功实现了。
+
+# 7.3 练习题 #
 
 **一、选择题**
 
-1.下面（    ）不是与范围有关的EL隐式对象。（选择一项）（难度★）
+1.在Tomcat中配置JNDI资源时，需要在（    ）文件里配置。（选择一项）（难度★）
 
-A．`cookieScope`		
-		
-B．`pageScope`
+A．web.xml						
 
-C．`sessionScope	`	
+B．server.xml
+
+C．context.xml			
 			
-D．`applicationScope`
+D．tomcat-users.xml
 
+2.当应用程序使用完数据库连接池中的连接之后，下面的说法中最准确的是（    ）。（选择一项）（难度★★）
 
-2.如果`session`中已经有属性名为`user`的对象，则EL表达式`${not empty sessionScope.user}`的值为（    ）。（选择一项）（难度★）
+A．立即关闭连接
 
-A．true							
+B．将连接一直置于空闲状态
 
-B．false
+C．将连接置于空闲状态，直到超过最大空闲时间时关闭连接
 
-C．null							
+D．将连接置于空闲状态，直到超过最大空闲时间时关闭连接（且连接数不低于最小连接数）
 
-D．user
 
 **二、简答题**
 
-1.在使用EL表达式时，如果不显式指定对象的作用域范围，则系统会按照什么顺序依次查找？（难度★）
+1.分页类包含类哪些属性？（难度★★）
 
-2.使用JSTL标签`<c: ... >`之前，需要进行哪些准备工作？（难度★）
+2.页面大小与总页数之间，有什么关系？若已知页面大小，如何设置总页数？（难度★★）
 
-3.请问`<c:set>`标签有哪几种？各如何使用？（难度★★）
+3.写出基于oracle的分页SQL语句。（难度★★★）
 
-4.请介绍JSTL中的for Each迭代标签有哪些属性，并简要描述各属性的含义。（难度★★★）
+4.通过JSP及Servlet实现上传照片的功能。（难度★★★）
 
-5.使用EL和JSTL继续优化第七章练习题中的“部门管理系统”。（难度★★★）
+5.在Tomcat中，如何配置和使用数据库连接池？（难度★★★）
+
+6.请描述什么是数据库连接池和使用数据库连接池的好处。（难度★★）
+
+7.什么是数据源？请介绍使用数据源的好处。（难度★★）
+
+8.什么是JNDI？请简要描述JNDI的作用。（难度★★）
+
+9.使用连接池继续优化第六章练习题中的“部门管理系统”。（难度★★★★）
+
+10.使用分页继续优化第六章练习题中的“部门管理系统”。（难度★★★★）
+
+11.使用过滤器，将第六章练习题中的“部门管理系统”进行POST方式的统一编码。（难度★★★）

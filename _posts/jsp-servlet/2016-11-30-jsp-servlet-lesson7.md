@@ -2,1378 +2,1872 @@
 
 layout: post
 
-
-title: 连接池与DbUtils类库
-
+title: jQuery
 
 category: JSP-Servlet教程
 
-
 tags: JSP Servlet
 
-
-description: 本章将系统介绍连接池与DbUtils类库。
-
+description: 本章将系统介绍jQuery。使用jQuery既能减少代码量，又能大幅提高开发效率。
 
 author: 颜群
-
 
 keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
-# 7.1 数据库连接池 #
+# 12.1 jQuery简介及环境搭建 #
 
-## 7.1.1JNDI ##
+## 12.1.1 jQuery简介 ##
 
-之前，我们在学JSP时曾提到“JSP四种范围对象的大小依次是`pageContext`<`request`<`session`<`application`”，可见范围最大的是`application`。`application`范围中的数据也只能在当前Web项目中有效；而如果想让数据在tomcat下的所有Web项目中都有效，就需要使用JNDI来实现。
+jQuery是目前最流行的JavaScript程序库，它是对JavaScript对象及函数的封装。jQuery凭借其简洁的语法和跨平台的兼容性，极大的简化了JavaScript开发人员遍历HTML、操作DOM、控制页面样式、处理事件、执行动画、扩展新的jQuery插件和开发Ajax等操作。
 
-JNDI的全称是Java Naming and Directory Interface（JAVA命名与目录接口），是一种将对象和名字绑定的技术。使用JNDI，应用程序可以通过资源名字来获得相应的对象、服务或目录。我们以使用JNDI访问Tomcat为例，来详细介绍一下JNDI的使用。
+jQuery的设计思想是write less do more（写的少，做的多）。一般情况下，jQuery能做的JavaScript也都能做，但使用jQuery既能减少代码量，又能大幅提高开发效率。
 
-Servers项目中有一个context.xml文件（即Tomcat目录中的context.xml文件），此文件中的信息就可以被所有Web项目共享。
+## 12.1.2 jQuery环境搭建 ##
 
-我们在**context.xml**中，加入以下代码：
+**(1)获取jQuery库**
 
-```
-<Context>
-<Environment name="jndiName" value="jndiValue" 
-type="java.lang.String" />
-</Context>
-```
+进入jQuery官网[http://jquery.com/](http://jquery.com/)，点击Download jQuery，如图，
 
-其中`Context`是**context.xml**文件的根标签。`Environment`可以用来设置JNDI的元素：`name`表示当前`Environment`元素的名字，相当于唯一标示符；`value`表示`name`对应的内容值，即`name`与`value`构成了一组键值对；`type`表示`value`中的内容类型。此`Environment`的作用就类似于`String jndiName = “jndiValue”`。之后，在该tomcat中的任意一个Web项目里，均可以获取到此`Environment`的`value`值了。
+![](http://i.imgur.com/LIQB5fJ.png)
 
-JNDI的演示项目名是StudentManagerWithJNDIPool，该项目是建立在StudentManagerWithPage项目基础之上：
+*图12-01*
 
-在**index.jsp**中加入以下代码，用于获取**context.xml**中的`Environment`值：
+下载开发版或发布版的jQuery库，如下
+
+![](http://i.imgur.com/bBfvRGe.png)
+
+*图12-02*
+
+**开发版和发布版的区别如下：**
+
+<table>
+   <tr>
+      <td>版本型号</td>
+      <td>文件名</td>
+      <td>大小</td>
+      <td>说明</td>
+   </tr>
+   <tr>
+      <td>开发版</td>
+      <td>jquery-版本号.js</td>
+      <td>287KB</td>
+      <td>完整无压缩版本，便于开发人员查看jQuery源码。主要用于调试、学习和开发。</td>
+   </tr>
+   <tr>
+      <td>发布版</td>
+      <td>jquery-版本号.min.js</td>
+      <td>95KB</td>
+      <td>经过工具进行了压缩，主要应用于发布的产品和项目。</td>
+   </tr>
+</table>
+
+一般建议：在开发时使用开发版；开发完毕后，进行项目发布时，再将开发版替换成发布版。
+
+本书使用的jQuery库是jquery-1.12.3.js。
+
+**(2)引入jQuery库**
+
+引入jQuery库实际就是引入外部js文件，具体步骤如下（将jQuery库引入到**index.jsp**中）：
+
+**①**在Web项目的WebContent目录中新建js目录，将jquery-1.12.3.js放入js目录，如图，
+
+![](http://i.imgur.com/8W00OLf.png)
+
+*图12-03*
+
+**②**在**index.jsp**中引入js库，如下，
 
 **index.jsp**
 
 ```
-<body>
-	 …
-		<a href="addStudent.jsp">增加</a><br/>
-         <%--测试JNDI的使用 --%>
-		<%
-		    //javax.naming.Context提供了查找JNDI Resource的接口
-		    Context ctx = new InitialContext();	
-		    //java:comp/env/为固定前缀
-		    String testjndi = (String)ctx.lookup("java:comp/env/ jndiName ");
-		    out.println("JNDI: "+testjndi);
-		%>
+…
+<html>
+	<head>
+        <!-- 引入jQuery库 -->
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		…
+	</head>
+	<body>
+	    …
 	</body>
 </html>
 ```
 
-`Context`和`InitialContext`都属于`javax.naming`包。`Context`对象的`lookup()`方法可以根据名字查询到context.xml中`Environment`的`value`值，并且`lookup()`中需要使用`"java:comp/env/"`作为固定前缀。`lookup()`的返回值为Object，需要强转为需要的类型。
+## 12.1.3 开发第一个jQuery程序 ##
+
+**index.jsp**
+
+```
+…
+<html>
+	<head>
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		    $(document).ready(function() {
+		        alert("hello jQuery");
+		    });
+		</script>
+	</head>
+	<body>
+	   
+	</body>
+</html>
+```
 
 运行结果：
 
-![](http://i.imgur.com/L0MXu4X.png)
+![](http://i.imgur.com/g0ceFle.png)
 
-*图7-01*
+*图12-04*
 
-可以发现，使用JNDI定义的变量（通过**context.xml**中的`Environment`元素定义），可以在任意一个Web项目中使用（同一个Tomcat中）。
-
-## 7.1.2 连接池与数据源 ##
-
-我们之前一直采用传统的JDBC方式访问数据库。而每次使用JDBC访问数据库时，都需要建立连接和关闭连接，但连接的建立和关闭又是非常耗费系统资源的。为了解决这个问题，我们可以使用数据库连接池技术。
-
-#### (1)连接池 ####
-
-数据库连接池可以分配、管理及释放数据库连接，它可以使得应用程序重复的使用一个已有的数据库连接，而不再是重新建立一个。而且，如果某一个数据库连接超过了最大空闲时间，数据库连接池也会自动将该连接释放掉，从而明显提高数据库的性能及安全。
-
-数据库连接池的工作原理是，在初始化时连接池会创建一定数量的数据库连接，并将这些连接放在数据库连接池之中。连接的数量不会小于用户设置的最小值 ；而如果应用程序的连接请求数量大于用户设置的最大值，那么大于最大值的那些请求会被加入在等待队列之中，只有当某些应用程序把正在使用的连接使用完毕并归还给连接池时，在等待队列的请求才会获取到连接。
-
-#### (2)数据源 ####
-
-数据源(javax.sql.DataSource，简称DataSource)中包含了连接池的具体实现，并且可以管理连接池。应用程序可以从直接数据源中获得数据库连接。
-实际开发中，有多种可供使用的数据源： Tomcat内置数据源（Apache dbcp）、DBCP数据源、C3P0数据源、自定义数据源等。
-
-**①Tomcat内置数据源**
-
-Tomcat内置数据源也称为Apache dbcp。我们可以使用JNDI从Tomcat中直接获取该数据源对象。现在就来讲解如何在项目中使用Apache dbcp：
-
-和JNDI一样，首先需要在Servers项目的**context.xml**中增加元素。不同的是，配置数据源需要使用`Resource`元素，而不是`Environment`，如下，
-
-**context.xml**
+其中
 
 ```
-<Resource name="student" auth="Container" 
-type="javax.sql.DataSource" maxActive="400" 
-maxIdle="20"  maxWait="5000"  username="system" password="sa" 
-driverClassName="oracle.jdbc.driver.OracleDriver"  url="jdbc:oracle:thin:@127.0.0.1:1521:XE"	/>
+$(document).ready(function() {
+   …
+});
 ```
 
-`Resource`元素的属性介绍见下表：
+作用类似于传统JavaScript中的`window.onload`事件，但仍然与`window.onload`有一些区别，如下
 
 <table>
    <tr>
-      <td>属性</td>
+      <td></td>
+      <td>window.onload</td>
+      <td>$(document).ready()</td>
+   </tr>
+   <tr>
+      <td>执行时机</td>
+      <td>必须等待网页中所有的内容加载完毕后（图片、flash、视频等）才能执行</td>
+      <td>网页中所有DOM文档结构绘制完毕后即刻执行，可能与DOM元素关联的内容（图片、flash、视频等）并没有加载完</td>
+   </tr>
+   <tr>
+      <td>编写个数 </td>
+      <td>同一页面不能同时编写多个</td>
+      <td>同一页面能同时编写多个</td>
+   </tr>
+   <tr>
+      <td>简化写法 </td>
+      <td>无</td>
+      <td>$(function(){}</td>
+   </tr>
+</table>
+
+在编写jQuery程序时，美元符号“$”和关键字`“jQuery”`是等价的，例如以上代码也可以写成以下形式：
+
+```
+jQuery(document).ready(function() {
+   …
+});
+```
+
+## 12.1.4 DOM对象和jQuery对象 ##
+
+#### (1)DOM模型 ####
+
+在学习DOM对象之前，我们有必要先学习一下DOM模型。
+
+DOM是Document Object Model（文档对象模型）的简称，只有(X)HTML、XML等文档结构的语言才具有DOM。
+
+以HTML页面为例：每一个HTML页面，都具有一个DOM，每一个DOM都可以表示成一棵树。如下，是一个基本的HTML程序：
+
+**domDemo.html**
+
+```
+<html>
+	<head>
+		<meta http-equiv="Content-Type" 
+content="text/html; charset=UTF-8">
+		<title></title>
+	</head>
+	<body>
+	    <p title="选择你喜欢的颜色">你最喜欢的颜色是？</p>
+	    <ul>
+	        <li>紫色</li>
+	        <li>绿色</li>
+	        <li>蓝色</li>
+	    </ul>
+	    <img src="img.png" alt="颜色知识" /><br/>
+	    <strong>颜色知识：<br/>
+		        你知道上述颜色是暖色还是冷色吗？
+		</strong>
+	</body>
+</html>
+```
+
+运行结果：
+
+![](http://i.imgur.com/NSkNuQS.png)
+
+*图12-05*
+
+可以把上面的HTML结构描述成一颗DOM树，如下图，
+
+![](http://i.imgur.com/WmEdz0n.png)
+
+*图12-06*
+
+**`DOM`中的节点通常分为三种类型：元素节点、属性节点和文本节点。**
+
+**①元素节点**
+
+像**domDemo.html**中的`<html>`、`<body>`、`<p>`、`<li>`等标签形式的节点，就称之为元素节点。正是这些元素节点的堆积，才形成了一个HTML文档的结构。元素节点之中还可以嵌套一些子元素节点，例如本例中的`<li>`就是`<ul>`元素的子元素节点，而`<ul>`又是`<body>`元素的子元素节点，`<html>`元素是根元素节点等。
+
+**②属性节点**
+
+属性节点的作用是对元素节点进行更具体的描述。例如，`<img>`元素中的`src`和`alt`就是属性节点，可以用来对图片做进一步的描述。
+
+不难发现，属性节点总是被放在元素节点的标签内，因此属性节点也算作是元素节点的子节点。但并不是所有元素节点都包含属性节点，例如，本例中`<ul>`元素就没有包含任何属性节点。
+
+**③文本节点**
+
+HTML文档的内容都是由文本节点提供的，文本节点就是指HTML中的文字内容。本例中的“你最喜欢的颜色是？”、“紫色”等都是文本节点。
+
+文本节点总包含在元素节点的内部，例如`<li>`紫色`</li>`。但并不是所有元素节点都一定包含文本节点，例如`<img>`元素节点就没有包含文本节点。
+
+#### (2)`DOM`对象 ####
+
+在JavaScript中，可以使用`getElementById()`或`getElementsByName()`等方法获取DOM元素节点。通过该方式得到的`DOM`元素就称之为`DOM`对象，`DOM`对象可以使用JavaScript定义的方法或属性，如下：
+
+```
+var dom = document.getElementById("myId") ;//获取DOM对象
+var html = dom.innerHTML ;//DOM对象使用JavaScript中的属性
+```
+
+#### (3)`jQuery`对象 ####
+	
+通过jQuery选择器选中的HTML元素，就是jQuery对象，例如：
+
+
+```
+//使用jQuery对象的html()方法，等价于document.getElementById("#myId ").innerHTML;
+var myHtml = $("#myId").html();
+```
+	
+以上代码，通过选择器$(“#myId”)选择了id=”myId”的HTML元素，返回的myHtml就是jQuery对象。jQuery选择器会在后文详细介绍。
+
+
+值得注意的是，`DOM`对象的方法/属性和`jQuery`对象的方法/属性是彼此独立的，即`DOM`对象只能使用`DOM`对象的方法/属性，而`jQuery`对象只能使用`jQuery`对象的方法/属性。例如`DOM`对象可以使用`DOM`对象拥有的`innerHTML`属性，但不能使用`jQuery`对象拥有的`html()`方法。
+
+
+#### (4)`DOM`和`jQuery`对象之间的相互转换 ####
+
+刚才提到，`DOM`对象的方法/属性和`jQuery`对象的方法/属性是彼此独立的，但是在某些情况下，如果一定需要用`DOM`对象来调用`jQuery`对象的属性/方法；或者要用`jQuery`对象来调用`DOM`对象的属性/方法，就必须进行`DOM`对象与`jQuery`对象之间的类型转换。
+
+**①将`DOM`对象转为`jQuery`对象**
+
+将一个`DOM`对象用`$()`包裹起来，就可以转换成一个`jQuery`对象，即$(DOM对象)就是一个`jQuery`对象，如下：
+
+```
+var domObject = document.getElementById("myId");//获取一个DOM对象
+var $jQueryObject = $(domObject); //通过$()将DOM对象转为jQuery对象
+```
+	
+其中$()称为jQuery工厂。
+
+**②将`jQuery`对象转为`DOM`对象**
+
+`jQuery`对象的本质是一个类似数组或集合的对象，而`DOM`对象的本质是一个普通的对象。因此`jQuery`对象转`DOM`对象的本质，就是将一个数组或集合转为一个普通对象。
+
+**a.方式一**
+
+将`jQuery`对象看作一个数组，通过使用数组下标的方式转为`DOM`对象，例如:
+
+```
+var $jqueryObject = $("#myId") ; //获取jQuery对象
+var jsObject = jqueryObject[0] ; //通过数组下标的方式，将jQuery对象转为DOM对象
+```
+
+**b.方式二**
+
+将`jQuery`对象看作一个集合，通过使用`get(index)`的方式转为`DOM`对象，例如:
+
+```
+var $jqueryObject = $("#myId") ; //获取jQuery对象
+var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对象转为DOM对象
+```
+
+**说明：**
+
+在Dom对象和jQuery对象的变量命名上，一般习惯给jQuery对象的变量名前加上$，表示区分。例如，`var $variable = jQuery对象`; `var variable=DOM对象`。
+
+# 12.2 jQuery选择器 #
+
+选择器是jQuery的根基，jQuery的大部分功能都依赖于选择器。jQuery选择器的语法规则类似于CSS选择器，可以用来选取网页中的元素，并且有着良好的浏览器兼容性。jQuery选择器的种类有很多，大体上可以分为类CSS选择器和过滤选择器。
+
+## 12.2.1 类CSS选择器 ##
+
+顾名思义，类CSS选择器的构成规则与CSS选择器完全相同，常用的类CSS选择器有jQuery基本选择器、层次选择器、属性选择器。
+
+#### (1) 基本选择器 ####
+
+常见的基本选择器及简介如下表：
+
+<table>
+   <tr>
+      <td>名称</td>
+      <td>语法</td>
+      <td>简介</td>
+      <td>示例</td>
+   </tr>
+   <tr>
+      <td>标签选择器</td>
+      <td>$("HTML标签名")</td>
+      <td>根据给定的标签名匹配元素</td>
+      <td>$("h1")选取所有h1元素</td>
+   </tr>
+   <tr>
+      <td>类选择器</td>
+      <td>$(" .class名")</td>
+      <td>根据给定的class匹配元素</td>
+      <td>$(" .content")选取所有class= "content"的元素</td>
+   </tr>
+   <tr>
+      <td>ID选择器</td>
+      <td>$(" #id值")</td>
+      <td>根据给定的id匹配元素</td>
+      <td>$(" #myTitile")选取id="myTitile"的元素</td>
+   </tr>
+   <tr>
+      <td>并集选择器</td>
+      <td>$("选择器1, 选择器2" )</td>
+      <td>将多个选择器用逗号隔开，取并集</td>
+      <td>$("div,.title" )选取所有div和拥有class="title"的元素</td>
+   </tr>
+   <tr>
+      <td>交集选择器</td>
+      <td>$("选择器1选择器2")</td>
+      <td>将多个选择器连续书写，取交集</td>
+      <td>$("div.title")选取所有拥有class="title"的div元素</td>
+   </tr>
+   <tr>
+      <td>全局选择器</td>
+      <td>$("*")</td>
+      <td>匹配所有元素</td>
+      <td>$("*" )选取所有元素</td>
+   </tr>
+</table>
+
+其中，在使用交集选择器时，除了“选择器1”以外的其他选择器不能是标签选择器（为了防止歧义），例如：无法用`$(".titlediv")`表示`class="title"`并且是`div`的元素，因为`.title`和`div`连在一起会造成歧义，会被程序理解成是`class= "titlediv"`的元素。
+
+
+**示例：index.jsp**
+
+```
+<html>
+	<head>
+		…
+		<script type="text/javascript">
+		    $(document).ready(function() {
+		          //选择h3标签元素和class="content"元素的并集，将其背景色设置为yellow
+		        $("h3,.content").css("background","yellow");
+		    });
+		</script>
+	</head>
+	<body>
+		<h2 class="content">class为content的h2...</h2>
+	 	<h3 >h3...</h3>
+	 	其他
+	</body>
+</html>
+```
+
+运行结果：
+
+![](http://i.imgur.com/EqVPiOX.png)
+
+*图12-07*
+
+#### (2) 层次选择器 ####
+
+层次选择器通过`DOM`元素之间的层次关系来获取元素，如获取相邻关系、同辈关系、后代关系、父子关系的元素等，如下。
+
+<table>
+   <tr>
+      <td>名称</td>
+      <td>语法</td>
+      <td>简介</td>
+      <td>示例</td>
+   </tr>
+   <tr>
+      <td>相邻元素选择器</td>
+      <td>$("选择器1+选择器2" )</td>
+      <td>选取紧邻选择器1所选元素之后的选择器2所选的元素（最多只选中1个元素）</td>
+      <td>$(" h1+div " )选取紧邻&lt;h1&gt;元素之后的同辈元素&lt;div&gt;</td>
+   </tr>
+   <tr>
+      <td>同辈元素选择器</td>
+      <td>$("选择器1~选择器2" )</td>
+      <td>选取选择器1所选元素之后的选择器2所选的所有元素（可能选中多个元素）</td>
+      <td>$(" h1~div " )选取&lt;h1&gt;元素之后所有的同辈元素&lt;div&gt;</td>
+   </tr>
+   <tr>
+      <td>后代选择器</td>
+      <td>$("选择器1 选择器2" )</td>
+      <td>选取选择器1所选元素内的选择器2（后代）所选的所有元素</td>
+      <td>$("#titleId span" )选取# titleId中的所有&lt;span&gt;元素</td>
+   </tr>
+   <tr>
+      <td>子选择器</td>
+      <td>$("选择器1&gt;选择器2" )</td>
+      <td>选取选择器1所选元素内的（子代）选择器2所选的元素</td>
+      <td>$(" # titleId&gt;span" )选取# titleId的子元素&lt;span&gt;</td>
+   </tr>
+</table>
+
+
+**示例：index.jsp**
+
+```
+<html>
+	<head>
+		…
+		<script type="text/javascript">
+		    $(document).ready(function() {
+		         //后代选择器，获取并设置#menu内的所有<span>元素的背景颜色
+		        $("#menu span").css("background-color","yellow");		    });
+		</script>
+	</head>
+	<body>
+		<div id="menu">
+			<h2>水果分类</h2>
+			<dl>
+				<dt>新疆西瓜<span>特价</span></dt>
+				<dd>西疆西瓜拥有...</dd>
+			</dl>
+			<dl>
+				<dt>海南椰子<span>促销</span></dt>
+				<dd>海南椰子拥有...</dd>
+			</dl>
+			<span>更多...</span>
+		</div>
+	 	其他	</body>
+</html>
+```
+
+运行结果：
+
+![](http://i.imgur.com/heN3NZX.png)
+
+*图12-08*
+
+#### (3) 属性选择器 ####
+
+属性选择器是通过HTML元素的属性来选择元素。
+
+<table>
+   <tr>
+      <td>语法</td>
+      <td>简介</td>
+      <td>示例</td>
+   </tr>
+   <tr>
+      <td>$([属性名])</td>
+      <td>选取包含特定属性的元素</td>
+      <td>$(" [name]" )选取含有name属性的元素</td>
+   </tr>
+   <tr>
+      <td>$( [属性名=属性值] )</td>
+      <td>选取属性值是某个特定值的元素</td>
+      <td>$(" [name ='stuName']" )选取name属性值为“stuName”的元素</td>
+   </tr>
+   <tr>
+      <td>$( [属性名!=属性值] )</td>
+      <td>选取属性值不等于某个特定值的元素</td>
+      <td>$(" [name!=' stuName ']" )选取name属性值不等于“stuName”的元素</td>
+   </tr>
+   <tr>
+      <td>$( [属性名^=属性值] )</td>
+      <td>选取属性值是以某个特定值开头的元素</td>
+      <td>$(" [name ^='stu']" )选取name属性值以stu开头的元素</td>
+   </tr>
+   <tr>
+      <td>$( [属性名$=属性值] )</td>
+      <td>选取属性值是以某些特定值结尾的元素</td>
+      <td>$(" [name $='me']" )选取name属性值以me结尾的元素</td>
+   </tr>
+   <tr>
+      <td>$( [属性名*=属性值] )</td>
+      <td>选取属性值是包含某些值的元素</td>
+      <td>$(" [name * ='na']" )选取name属性值中含有na的元素</td>
+   </tr>
+</table>
+
+**示例：index.jsp**
+
+```
+<html>
+	<head>
+		…
+		<script type="text/javascript">
+		    $(document).ready(function() {
+		       //将name属性值是以stu开头的元素的背景色设置为yellow
+	          $("[name^=stu]").css("background-color","yellow");
+		    });
+		</script>
+	</head>
+	<body>
+		<form action="">
+			学号：<input type="text" name="stuNo" /><br/>
+			姓名：<input type="text" name="stuName" /><br/>
+			年级：<input type="text" name="gradName" /><br/>
+		</form>
+	 	其他
+	</body>
+</html>
+```
+
+运行结果：
+
+![](http://i.imgur.com/CHyUXYq.png)
+
+*图12-09*
+
+## 12.2.2 过滤选择器 ##
+
+过滤选择器是通过一些过滤规则来筛选元素，语法特点是使用“:”作为过滤选择器的标识符，如使用`$(“li:first”)`来过滤出第一个`li`元素。常见的过滤选择器有基本过滤选择器、可见性过滤选择器、表单对象过滤选择器、内容过滤选择器等。
+
+#### (1)基本过滤选择器 ####
+
+基本过滤选择器可以选取第一个元素、最后一个元素、索引为偶数或奇数的元素、或根据索引选取元素，如下：
+
+<table>
+   <tr>
+      <td>语法</td>
+      <td>简介</td>
+      <td>示例</td>
+   </tr>
+   <tr>
+      <td>:first</td>
+      <td>选取第一个元素</td>
+      <td>$("li:first")选取所有&lt;li&gt;元素中的第一个&lt;li&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:last</td>
+      <td>选取最后一个元素</td>
+      <td>$("li:last")选取所有&lt;li&gt;元素中的最后一个&lt;li&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:even</td>
+      <td>选取索引是偶数的所有元素（从0开始）</td>
+      <td>$("li:even")选取索引是偶数的所有&lt;li&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:odd</td>
+      <td>选取索引是奇数的所有元素（从0开始）</td>
+      <td>$("li:odd")选取索引是奇数的所有&lt;li&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:eq(index)</td>
+      <td>选取索引等于index的元素（从0开始）</td>
+      <td>$("li:eq(1)")选取索引等于1的&lt;li&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:gt(index)</td>
+      <td>选取索引大于index的元素（index从0开始）</td>
+      <td>$("li:gt(1)")选取索引大于1的&lt;li&gt;元素（不包括1）</td>
+   </tr>
+   <tr>
+      <td>:lt(index)</td>
+      <td>选取索引小于index的元素（index从0开始）</td>
+      <td>$("li:lt(1) ")选取索引小于1的&lt;li&gt;元素（不包括1）</td>
+   </tr>
+   <tr>
+      <td>:not(选择器)</td>
+      <td>选取除指定选择器选中以外的元素</td>
+      <td>$("li:not(#myTile)")选取id值不是myTile的li元素</td>
+   </tr>
+   <tr>
+      <td>:header</td>
+      <td>选取所有标题元素，如h1、h2、h3…</td>
+      <td>$(":header" )选取网页中所有标题元素</td>
+   </tr>
+   <tr>
+      <td>:focus</td>
+      <td>选取当前获取焦点（光标）的元素</td>
+      <td>$(":focus" )选取当前获取焦点的元素</td>
+   </tr>
+</table>
+
+**示例：index.jsp**
+
+```
+<html>
+	<head>
+		…
+		<script type="text/javascript">
+		    $(document).ready(function() {
+		       …
+		       //改变索引值大于1的&lt;li&gt;元素的背景颜色
+		       $("li:gt(1)").css("background-color","yellow");
+		    });
+		</script>
+	</head>
+	<body>
+		…
+		 <ul>
+	        <li>紫色</li>
+	        <li>绿色</li>
+	        <li>蓝色</li>
+	    </ul>
+	</body>
+</html>
+```
+
+运行结果：
+
+![](http://i.imgur.com/TlG0g5m.png)
+
+*图12-10*
+
+#### (2)可见性过滤选择器 ####
+
+可见性过滤选择器可以根据元素显示状态来选取元素，如下：
+
+<table>
+   <tr>
+      <td>语法</td>
+      <td>简介</td>
+      <td>示例</td>
+   </tr>
+   <tr>
+      <td>:visible</td>
+      <td>选取所有可见的元素</td>
+      <td>$(":visible" )选取所有可见的元素</td>
+   </tr>
+   <tr>
+      <td>:hidden</td>
+      <td>选取所有隐藏的元素</td>
+      <td>$(":hidden" ) 选取所有隐藏的元素</td>
+   </tr>
+</table>
+
+例如`$("p:hidden").show()`表示将所有隐藏的`<p>`元素的状态变为显示; `$("p:visible").hide()`表示将所有显示的`<p>`元素的状态变为隐藏。`show()`的功能是显示，`hide()`的功能是隐藏，会在后续章节详解。
+
+# 12.3 事件 #
+
+事件是指可以被控件识别的操作。例如按下确定按钮，选择某个单选按钮或者复选框。每一种控件都有自己可以识别的事件，如窗体能识别加载、单击、双击等事件，文本框能识别文本改变等事件……
+
+**jQuery事件是对JavaScript事件的封装，大体上可以分为基础事件和复合事件。**
+
+
+**事件方法的语法格式如下：**
+
+```
+		jQuery对象.事件方法 (function(){
+…
+});**
+```
+
+例如：文档就绪事件
+
+```
+$(document).ready(function() {
+	…
+});
+```
+
+## 12.3.1 基础事件 ##
+
+基础事件可以分为window事件、鼠标事件、键盘事件、表单事件等。
+
+#### (1) window事件 ####
+
+所谓window事件，就是指当用户执行某些会影响浏览器的操作时而产生的事件。例如，第一次打开网页时的加载页面、关闭窗口、移动窗口、调节窗口大小等操作引发的事件。在jQuery中，最常用的window事件是文档就绪事件，即当页面中的`DOM`元素全部加载完毕时所触发的事件，该事件对应的方法是`ready()`。
+
+#### (2)鼠标事件 ####
+
+鼠标事件是指当用户在文档中移动或单击鼠标时而产生的事件，常用鼠标事件的方法有：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>click( )</td>
+      <td>单击鼠标时，触发的事件方法</td>
+   </tr>
+   <tr>
+      <td>mouseover( )</td>
+      <td>鼠标悬浮在某个元素上时，触发的事件方法</td>
+   </tr>
+   <tr>
+      <td>mouseout( )</td>
+      <td>鼠标移出某个元素时，触发的事件方法</td>
+   </tr>
+</table>
+
+**示例：event.jsp**
+
+```
+<html>
+<head>
+    …
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		    $(document).ready(function() {
+		    	//当鼠标悬浮在div元素上时
+	    	   $("div").mouseover(function() {    
+	    	       alert("鼠标悬浮...");      
+	    	   });
+	    	  //当鼠标移出div元素时
+	    	   $("div").mouseout(function() {     
+	    		   alert("鼠标移除...");   
+	    	   });
+		    });
+		</script>
+</head>
+<body>
+	<div style="border:1px solid red;">
+		some text...
+	</div>
+</body>
+</html>
+```
+
+运行结果：
+当鼠标悬浮在边框以内时：
+
+![](http://i.imgur.com/FGwyIMf.png)
+
+*图12-11*
+
+当鼠标移出边框时：
+
+![](http://i.imgur.com/4jibxV5.png)
+
+*图12-12*
+
+#### (3)键盘事件 ####
+
+键盘事件是指每次按下或者释放键盘上的按键时所产生的事件，常用键盘事件的方法有：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>keydown( )</td>
+      <td>按下键盘时，触发的事件方法</td>
+   </tr>
+   <tr>
+      <td>keyup( )</td>
+      <td>释放按键时，触发的事件方法</td>
+   </tr>
+   <tr>
+      <td>keypress( )</td>
+      <td>产生可打印的字符时，触发的事件方法</td>
+   </tr>
+</table>
+
+使用键盘事件时，通常会使用`event`参数的`keyCode`属性来判断具体的按键，如下：
+
+**示例：event.jsp**
+
+```
+<html>
+<head>
+…
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+	<script type="text/javascript">
+		$(document).keydown(function (event) {
+			//按回车键时触发（keyCode为13时，表示回车键）
+	   		 if (event.keyCode == "13") {
+	            alert("您按下了回车键");
+	        }
+		});
+</head>
+<body>
+</body>
+</html>
+```
+
+通过`$(document).keydown(function (event) { … })`;给整个文档注册了`keydown`事件，当按下键盘时，就会触发`keydown`中的`function()`。并且通过event.keyCode判断当按下回车键时，执行`alert()`方法。常见按键与keyCode的对照表如下：
+
+**字母和数字键的键码值`(keyCode)`**
+
+<table>
+   <tr>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+   </tr>
+   <tr>
+      <td>BackSpace</td>
+      <td>8</td>
+      <td>Esc</td>
+      <td>27</td>
+      <td>Right Arrow</td>
+      <td>39</td>
+      <td>-_</td>
+      <td>189</td>
+   </tr>
+   <tr>
+      <td>Tab</td>
+      <td>9</td>
+      <td>Spacebar</td>
+      <td>32</td>
+      <td>Dw Arrow</td>
+      <td>40</td>
+      <td>.&gt;</td>
+      <td>190</td>
+   </tr>
+   <tr>
+      <td>Clear</td>
+      <td>12</td>
+      <td>Page Up</td>
+      <td>33</td>
+      <td>Insert</td>
+      <td>45</td>
+      <td>/?</td>
+      <td>191</td>
+   </tr>
+   <tr>
+      <td>Enter</td>
+      <td>13</td>
+      <td>Page Down</td>
+      <td>34</td>
+      <td>Delete</td>
+      <td>46</td>
+      <td>`~</td>
+      <td>192</td>
+   </tr>
+   <tr>
+      <td>Shift</td>
+      <td>16</td>
+      <td>End</td>
+      <td>35</td>
+      <td>Num Lock</td>
+      <td>144</td>
+      <td>[{</td>
+      <td>219</td>
+   </tr>
+   <tr>
+      <td>Control</td>
+      <td>17</td>
+      <td>Home</td>
+      <td>36</td>
+      <td>;:</td>
+      <td>186</td>
+      <td>\|</td>
+      <td>220</td>
+   </tr>
+   <tr>
+      <td>Alt</td>
+      <td>18</td>
+      <td>Left Arrow</td>
+      <td>37</td>
+      <td>=+</td>
+      <td>187</td>
+      <td>]}</td>
+      <td>221</td>
+   </tr>
+   <tr>
+      <td>Cape Lock</td>
+      <td>20</td>
+      <td>Up Arrow</td>
+      <td>38</td>
+      <td>,&lt;</td>
+      <td>188</td>
+      <td>'"</td>
+      <td>222</td>
+   </tr>
+</table>
+
+**字母和数字键的键码值`(keyCode)`**
+
+<table>
+   <tr>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+   </tr>
+   <tr>
+      <td>A</td>
+      <td>65</td>
+      <td>J</td>
+      <td>74</td>
+      <td>S</td>
+      <td>83</td>
+      <td>主键盘区1</td>
+      <td>49</td>
+   </tr>
+   <tr>
+      <td>B</td>
+      <td>66</td>
+      <td>K</td>
+      <td>75</td>
+      <td>T</td>
+      <td>84</td>
+      <td>主键盘区2</td>
+      <td>50</td>
+   </tr>
+   <tr>
+      <td>C</td>
+      <td>67</td>
+      <td>L</td>
+      <td>76</td>
+      <td>U</td>
+      <td>85</td>
+      <td>主键盘区3</td>
+      <td>51</td>
+   </tr>
+   <tr>
+      <td>D</td>
+      <td>68</td>
+      <td>M</td>
+      <td>77</td>
+      <td>V</td>
+      <td>86</td>
+      <td>主键盘区4</td>
+      <td>52</td>
+   </tr>
+   <tr>
+      <td>E</td>
+      <td>69</td>
+      <td>N</td>
+      <td>78</td>
+      <td>W</td>
+      <td>87</td>
+      <td>主键盘区5</td>
+      <td>53</td>
+   </tr>
+   <tr>
+      <td>F</td>
+      <td>70</td>
+      <td>O</td>
+      <td>79</td>
+      <td>X</td>
+      <td>88</td>
+      <td>主键盘区6</td>
+      <td>54</td>
+   </tr>
+   <tr>
+      <td>G</td>
+      <td>71</td>
+      <td>P</td>
+      <td>80</td>
+      <td>Y</td>
+      <td>89</td>
+      <td>主键盘区7</td>
+      <td>55</td>
+   </tr>
+   <tr>
+      <td>H</td>
+      <td>72</td>
+      <td>Q</td>
+      <td>81</td>
+      <td>Z</td>
+      <td>90</td>
+      <td>主键盘区8</td>
+      <td>56</td>
+   </tr>
+   <tr>
+      <td>I</td>
+      <td>73</td>
+      <td>R</td>
+      <td>82</td>
+      <td>主键盘区0</td>
+      <td>48</td>
+      <td>主键盘区9</td>
+      <td>57</td>
+   </tr>
+</table>
+
+
+<table>
+   <tr>
+      <td colspan="4">数字键盘上的键的键码值(keyCode)</td>
+      <td colspan="4">功能键键码值(keyCode)</td>
+   </tr>
+   <tr>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+   </tr>
+   <tr>
+      <td>数字区0</td>
+      <td>96</td>
+      <td>数字区8</td>
+      <td>104</td>
+      <td>F1</td>
+      <td>112</td>
+      <td>F7</td>
+      <td>118</td>
+   </tr>
+   <tr>
+      <td>数字区1</td>
+      <td>97</td>
+      <td>数字区9</td>
+      <td>105</td>
+      <td>F2</td>
+      <td>113</td>
+      <td>F8</td>
+      <td>119</td>
+   </tr>
+   <tr>
+      <td>数字区2</td>
+      <td>98</td>
+      <td>数字区*</td>
+      <td>106</td>
+      <td>F3</td>
+      <td>114</td>
+      <td>F9</td>
+      <td>120</td>
+   </tr>
+   <tr>
+      <td>数字区3</td>
+      <td>99</td>
+      <td>数字区+</td>
+      <td>107</td>
+      <td>F4</td>
+      <td>115</td>
+      <td>F10</td>
+      <td>121</td>
+   </tr>
+   <tr>
+      <td>数字区4</td>
+      <td>100</td>
+      <td>数字区Enter</td>
+      <td>108</td>
+      <td>F5</td>
+      <td>116</td>
+      <td>F11</td>
+      <td>122</td>
+   </tr>
+   <tr>
+      <td>数字区5</td>
+      <td>101</td>
+      <td>数字区-</td>
+      <td>109</td>
+      <td>F6</td>
+      <td>117</td>
+      <td>F12</td>
+      <td>123</td>
+   </tr>
+   <tr>
+      <td>数字区6</td>
+      <td>102</td>
+      <td>数字区.</td>
+      <td>110</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>数字区7</td>
+      <td>103</td>
+      <td>数字区/</td>
+      <td>111</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+   </tr>
+</table>
+
+**多媒体键码值(keyCode)**
+
+<table>
+   <tr>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+      <td>按键</td>
+      <td>键盘</td>
+   </tr>
+   <tr>
+      <td>搜索</td>
+      <td>170</td>
+      <td>浏览器</td>
+      <td>172</td>
+      <td>音量减</td>
+      <td>174</td>
+      <td>停止</td>
+      <td>179</td>
+   </tr>
+   <tr>
+      <td>收藏</td>
+      <td>171</td>
+      <td>静音</td>
+      <td>173</td>
+      <td>音量加</td>
+      <td>175</td>
+      <td>邮件</td>
+      <td>180</td>
+   </tr>
+</table>
+
+#### (4)表单事件 ####
+
+表单事件是指在HTML表单内的动作所触发的事件，常用表单事件的方法如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>focus()</td>
+      <td>获取焦点时，触发的事件方法</td>
+   </tr>
+   <tr>
+      <td>blur()</td>
+      <td>失去焦点时，触发的事件方法</td>
+   </tr>
+</table>
+
+**示例：event.jsp**
+
+```
+<html>
+<head>
+…
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+	<script type="text/javascript">
+		    $(document).ready(function() {
+		    	$("#username").focus(function(){
+                   //改变当前元素的背景色
+		        	$(this).css("background-color","yellow") ;
+		        });
+		        $("#username").blur(function(){
+		        	$(this).css("background-color","white") ;
+		        });
+		    	…
+		    });
+		</script>
+</head>
+<body>
+	…
+	<form action="">
+		  用户名：<input type="text"  id="username"/><br/>
+		 密码： <input type="password"  id="password"/><br/>
+		  <input type="submit" value="显示">
+	</form>
+</body>
+</html>
+```
+
+运行结果：
+
+当鼠标光标在用户名的输入框时，背景色是黄色，如图：
+
+![](http://i.imgur.com/HOe6ab1.png)
+
+*图12-13*
+
+当鼠标光标离开用户名的输入框时，背景色恢复为白色，如图：
+
+![](http://i.imgur.com/o7kECEl.png)
+
+*图12-14*
+
+## 12.3.2绑定事件与移除事件 ##
+
+如果需要为匹配的元素绑定或移除一个或多个事件，可以使用绑定事件方法`bind()`或移除事件方法`unbind()`。
+
+#### (1)绑定事件 ####
+
+**语法：**
+
+**绑定一个事件：**
+**jQuery对象.bind(type,[data],fn);**
+
+**绑定多个事件：**
+**jQuery对象.bind({type:fn, type:fn, …,type:fn});**
+
+其中参数的含义如下：
+
+<table>
+   <tr>
+      <td>参数</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>type</td>
+      <td>事件类型，如click、focus、mouseover等，还可以是自定义事件。</td>
+   </tr>
+   <tr>
+      <td>data</td>
+      <td>可选参数。可以作为event.data的属性值，传递给事件对象额外的数据。</td>
+   </tr>
+   <tr>
+      <td>fn</td>
+      <td>处理函数，用来绑定该事件的处理函数。</td>
+   </tr>
+</table>
+
+**①绑定单个事件**
+
+以绑定`click`事件为例。当单击`div`内容时，改变`div`的背景色，如下：
+
+**示例：event.jsp**
+
+```
+<html>
+<head>
+    …
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+	<script type="text/javascript">
+            …
+		    $(document).ready(function() {
+		    	 $("#textId").bind("click",function() {
+		    		   $(this).css("background-color","yellow");
+		    	 });
+                …
+		</script>
+</head>
+<body>
+	<div style="border:1px solid red;" id="textId">
+		some text...
+	</div>
+	 …
+</body>
+</html>
+```
+
+单击div后的运行结果：
+
+![](http://i.imgur.com/NINgWsd.png)
+
+*图12-15*
+
+**②同时绑定多个事件**
+
+还可以使用`bind()`方法，一次性绑定多个事件，如下：
+
+**示例：event.jsp**
+
+```
+<html>
+<head>
+     …
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $("#textId").bind({
+		    	mouseover:function () {
+		    		$(this).css("background-color","yellow");
+		        },
+		    	mouseout:function () {
+		    			$(this).css("background-color","white");
+		    	}
+		    });
+		    	…
+		</script>
+</head>
+<body>
+	<div style="border:1px solid red;" id="textId">
+		some text...
+	</div>
+	…
+</body>
+</html>
+```
+
+当鼠标悬浮在div上面时，div背景色变为黄色，如图：
+
+![](http://i.imgur.com/UuTNOKQ.png)
+
+*图12-16*
+
+当鼠标离开div后，div背景色恢复为白色，如图：
+
+![](http://i.imgur.com/EA1JW8c.png)
+
+*图12-17*
+
+#### (2)移除事件 ####
+
+在jQuery中，可以使用`unbind()`方法为元素移除一个或多个事件。
+
+**语法:**
+
+**jQuery对象.unbind([type],[fn]);**
+
+参数的简介如下：
+
+<table>
+   <tr>
+      <td>参数</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>type</td>
+      <td>事件类型，如click、focus、mouseover等，还可以是自定义事件。</td>
+   </tr>
+   <tr>
+      <td>fn</td>
+      <td>处理函数，用于解除绑定的事件函数。</td>
+   </tr>
+</table>
+
+当`unbind()`不带参数时，表示移除绑定的全部事件。
+
+## 12.3.3复合事件 ##
+
+jQuery提供了两个复合事件方法：`hover()`和`toggle()`方法。
+
+#### (1)hover() ####
+
+`hover()`方法相当于`mouseover()`和`mouseout()`方法的组合
+
+**语法：**
+
+**jQuery对象. hover (fn1,fn2);**
+
+其中，fn1相当于`mouseover()`，fn2相当于`mouseout ()`。
+
+示例：
+
+```
+$("#textId").hover(
+		function(){
+$(this).css("background-color","yellow");
+		},
+		function(){
+$(this).css("background-color","white");
+		}		 
+);
+```
+
+当鼠标悬浮到`id=” textId”`的`div`时，背景色变为黄色；鼠标移出时，背景色变为白色。
+
+#### (2)toggle() ####
+
+**语法**（适用于jQuery1.9以前版本）：
+
+`jQuery对象. toggle(fn1,fn2,…,fnN);`
+
+在jQuery1.9版本以前，可以用`toggle()`方法模拟鼠标连续的`click`事件：第一次单击元素时，触发第一个事件方法fn1；第二次单击元素时，触发第二个事件方法fn2；…；当最后一个事件方法fnN被触发完后，若再次单击，就又会触发第一个事件方法fn1，如此轮番循环调用。
+
+**示例：event.jsp**
+
+```
+$("body").toggle(
+		function () {
+		    $(this).css("background-color", "red");
+		},
+		function () {
+		    $(this).css("background-color", "yellow"); 
+		},
+		function () {
+		    $(this).css("background-color", "blue"); 
+		}
+);
+```
+
+当在body中连续单击鼠标时，背景色会在红、黄、蓝之间切换。但从jQuery1.9版本开始，jQuery去掉了`toggle()`方法的此功能。`toggle`方法还可以用来切换元素的显示与隐藏，会在后续讲解。
+
+# 12.4 显示效果 #
+
+**还可以使用jQuery来控制网页元素的显示、隐藏、改变透明度等显示效果。**
+
+## 12.4.1 控制元素的隐藏与显示 ##
+
+jQuery中，控制元素隐藏与显示的方法如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>hide([speed],[callback])</td>
+      <td>隐藏元素。</td>
+   </tr>
+   <tr>
+      <td>show([speed],[callback])</td>
+      <td>显示元素。</td>
+   </tr>
+   <tr>
+      <td>toggle(([speed],[callback]))</td>
+      <td>切换元素的隐藏或显示状态。</td>
+   </tr>
+</table>
+
+其中`speed`和`callback`都是可选参数。
+
+
+`speed`：元素显示或隐藏的时间（单位是毫秒；默认值是0，表示会立刻显示或隐藏）。如`hide(1000)`，表示在1秒中内隐藏某元素；此外还可以使用`show`、`normal`、`fast`来控制隐藏或显示的时间，如`hide(“fast”)`。需要注意，如果`speed`使用数字来表示，是不需要引号的；但如果使用的是`show`等关键字，则需要加上引号。
+
+`callback`：隐藏或显示后，会执行的方法（回调方法）。
+
+**示例：event.jsp**
+
+```
+$(document).ready(function() {
+		$("body").click(function(){
+					$("#textId").toggle(1000);		    		 
+		});
+});
+```
+
+当在body中单击鼠标时，`id=”textId”`的`div`会在1秒中内切换显示或隐藏状态。
+
+
+## 12.4.2 控制元素的透明度 ##
+
+`fadeIn()`和`fadeOut()`可以改变元素的透明度，从而实现淡入淡出效果。
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>fadeIn([speed],[callback])</td>
+      <td>控制元素淡入，用法同show()</td>
+   </tr>
+   <tr>
+      <td>fadeOut([speed],[callback])</td>
+      <td>控制元素淡出，用法同hide()</td>
+   </tr>
+</table>
+
+## 12.4.3 控制元素的高度 ##
+
+可以使用`slideUp()`和`slideDown()`方法来控制元素的高度。
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>slideDown()</td>
+      <td>元素从上向下拉伸，直至全部显示，用法同show()</td>
+   </tr>
+   <tr>
+      <td>slideUp()</td>
+      <td>元素从下向上缩短，直至隐藏，用法同hide()</td>
+   </tr>
+</table>
+
+
+从效果上看，`hide()`、`fadeOut()`、`slideUp()`都可以将显示的元素隐藏；`show()`、`slideDown()`、`fadeIn()`都可以将隐藏的元素显示。
+
+# 12.5 操作DOM #
+
+jQuery对JavaScript操作`DOM`的方法进行了封装，使用起来也更加简便。
+
+## 12.5.1 样式操作 ##
+
+在jQuery中，可以通过以下几种方式来设置元素的样式：直接设置样式、追加样式、移除样式、切换样式。
+
+#### (1) 直接设置样式 ####
+
+jQuery使用`css()`方法为指定的元素直接设置样式值。
+
+**语法：**
+
+设置单个样式属性：	    `jQuery对象.css(name,value);`
+
+同时设置多个样式属性：	`jQuery对象.css({name:value , name:value ,…, name:value });`
+
+其中的参数简介如下：
+
+<table>
+   <tr>
+      <td>参数</td>
       <td>简介</td>
    </tr>
    <tr>
       <td>name</td>
-      <td>指定Resource的JNDI名字</td>
+      <td>CSS属性的名称，如color、font-size、background等。</td>
    </tr>
    <tr>
-      <td>auth</td>
-      <td>指定Resource的管理者，共有两个可选值：Container和Application。 Container：由容器来创建Resource。   Application：由Web应用来创建和管理Resource</td>
-   </tr>
-   <tr>
-      <td>Type</td>
-      <td>指定Resource的类型</td>
-   </tr>
-   <tr>
-      <td>maxActive</td>
-      <td>指定连接池中，处于活动状态的数据库连接的最大数量；如果值为0，表示不受限制</td>
-   </tr>
-   <tr>
-      <td>maxIdle</td>
-      <td>指定连接池中，处于空闲状态的数据库连接的最大数量；如果值为0，表示不受限制</td>
-   </tr>
-   <tr>
-      <td>maxWait</td>
-      <td>指定连接池中，连接处于空闲状态的最长时间(单位是毫秒)，如果超出此最长时间将会抛出异常。如果值为-1，表示允许无限制等待。</td>
-   </tr>
-   <tr>
-      <td>username</td>
-      <td>指定访问数据库的用户名</td>
-   </tr>
-   <tr>
-      <td>password</td>
-      <td>指定访问数据库的密码</td>
-   </tr>
-   <tr>
-      <td>driverClassName</td>
-      <td>指定连接数据库的驱动程序的类名</td>
-   </tr>
-   <tr>
-      <td>url</td>
-      <td>指定连接数据库的URL</td>
+      <td>value</td>
+      <td>CSS属性的值，如red、12px、#FFFFFF等</td>
    </tr>
 </table>
 
-与JNDI不同的是，配置数据库连接池，除了在**context.xml**中配置以外，还需要在Web应用的**web.xml**中配置`<resource-ref>`元素：
-
-**web.xml**
+**示例：jQueryDemo.jsp**
 
 ```
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  …
-  <resource-ref>
-       <description>DataSource</description>
-  	   <res-ref-name>student</res-ref-name>
-  	   <res-type>javax.sql.DataSource</res-type>
-  	   <res-auth>Container</res-auth>
-  </resource-ref>
-</web-app>	
+<html>
+<head>
+	<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("img").hover(
+                //鼠标悬浮在图片上面时：加上边框，并改变透明度
+				function(){
+					$(this).css({"border":"5px solid red",
+"opacity":"0.5"});
+					},
+                //鼠标移出图片时：去掉边框，并消除透明度
+				function(){
+					$(this).css({"border":"0","opacity":"1"});
+				}
+);
+		 });
+		</script>
+</head>
+<body>
+		<img src="imgs/pic.png" width="150" height="120" />
+</body>	
+</html>
 ```
 
-`<resource-ref>`元素中的`<description>`可以用来对配置的资源进行描述说明，其他的子元素值只需要和**context.xml**中`<Resource>`的相关值保持一致即可，具体如下：
+运行结果：
 
-`<res-ref-name>`值对应于`<Resource>`中的`name`值；
+当鼠标悬浮在图片上面时：
 
-`<res-type>`值对应于`<Resource>`中的`type`值；
+![](http://i.imgur.com/EK6EQcX.png)
 
-`<res-auth>`值对应于`<Resource>`中的`auth`值。
+*图12-18*
 
-此外，还需要注意采用数据源方式访问数据库，数据源是由Tomcat创建并维护的，因此还需要把JDBC的驱动包（ojdbc6.jar）复制到Tomcat的`lib`目录下。
+当鼠标离开图片时：
 
-最后，我们修改StudentManagerWithJNDIPool项目的**DBUtil.java**文件，将传统的JDBC方式替换为数据源方式来访问数据库，如下，
+![](http://i.imgur.com/TssTtCS.png)
 
-**org.lanqiao.util.DBUtil.java**
+*图12-19*
 
-```
-// package、import
-public class DBUtil
-{
-	private static Connection con = null;
-	private static Statement stmt = null;
-	private static Context ctx = null; 
-	private static DataSource ds = null ; 
-	// 通用的，获取数据源DataSource对象的方法
-	public static DataSource getDataSource() {
-		try{
-		 ctx = new InitialContext();
-		 ds=(DataSource)ctx.lookup("java:comp/env/student");
-		}catch(NamingException e){
-			e.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		 return ds ; 
-	}
+#### (2)追加或移除类样式 ####
 
-	// 通用的，根据数据源获取Statement对象的方法
-	public static Statement createStatement(){
-		try{
-		con=getDataSource().getConnection();		
-		stmt = con.createStatement();
-		}catch(SQLException e){
-			e.printStackTrace();
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-		return stmt;
-	}
-	//其他代码不变 
-     …
-}
-```
+**①追加类样式**
 
-运行此项目，运行结果与之前的完全相同。不同的是，使用连接池的方式来访问数据库，可以提高项目的性能。
+除了使用`CSS()`直接设置样式外，还可以使用`addClass()`为元素追加类样式。
 
-我们总结一下，使用Apache dbcp实现数据库连接的步骤：
+**语法：**
 
+追加一个类样式：	`jQuery对象.addClass(class)`
 
-**1.**配置**context.xml**文件：在Tomcat的**context.xml**中加入`<Resource>`元素及相关属性；
+同时追加多个类样式（用空格隔开）：`jQuery对象.addClass(class1 class2 …classN)`
 
-
-**2.**配置**web.xml**文件：在项目的**web.xml**中`< resource-ref>`元素及相关属性；
-
-
-**3.**给Tomcat的`lib`目录加入相应的数据库驱动；
-
-
-**4.**编码查找数据源(使用`lookup()`方法)，实现连接数据库。
-
-
-**②DBCP数据源**
-
-DBCP(DataBase connection pool,数据库连接池)，是Apache组织提供的一个开源连接池。以下是使用DBCP的具体方法：
-
-使用DBCP前，需要先在项目中导入以下JAR包：
-
-<table>
-   <tr>
-      <td>commons-dbcp.jar</td>
-      <td>commons-pool.jar</td>
-      <td>ojdbc6.jar（oracle驱动包）</td>
-   </tr>
-</table>
-
-其中，**commons-dbcp.jar**中包含了DBCP的2个核心类：`BasicDataSource`和`BasicDataSourceFactory`。我们可以根据这两个类，设计出两种不同的DBCP实现方式：基于`BasicDataSource`的手动编码方式，以及基于`BasicDataSourceFactory`的配置文件方式。
-
-**a. 基于`BasicDataSource`的手动编码方式**
-
-`BasicDataSource`是`DataSource`（数据源）接口的实现类，包含了设置数据源对象的具体方法，如下：
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>… void setDriverClassName(String driverClassName)</td>
-      <td>设置连接数据库的驱动名</td>
-   </tr>
-   <tr>
-      <td>… void void setUrl(String url)</td>
-      <td>设置连接数据库的URL</td>
-   </tr>
-   <tr>
-      <td>… void setUsername(String username)</td>
-      <td>设置数据库的用户名</td>
-   </tr>
-   <tr>
-      <td>… void setPassword(String password)</td>
-      <td>设置数据库的密码</td>
-   </tr>
-   <tr>
-      <td>… void setInitialSize(int initialSize)</td>
-      <td>设置初始化时，连接池中的连接数量</td>
-   </tr>
-   <tr>
-      <td>… void setMaxActive(int maxActive)</td>
-      <td>设置连接池中，处于活动状态的数据库连接的最大数量</td>
-   </tr>
-   <tr>
-      <td>… void setMinIdle(int minIdle)</td>
-      <td>设置连接池中，处于空闲状态的数据库连接的最小数量</td>
-   </tr>
-   <tr>
-      <td>… Collection getConnection ()throws SQLException</td>
-      <td>从连接池中获取一个数据库连接</td>
-   </tr>
-</table>
-
-可以先通过`BasicDataSource`构造方法产生一个数据源对象，再手动给数据源对象设置属性值，最后返回该数据源对象，如下：
-
-
-**org.lanqiao.dbutil.DBCPDemo.java**
+**示例：jQueryDemo.jsp**
 
 ```
-// package、import
-public class DBCPDemo {
-    //获取DBCP数据源对象
-public static DataSource getDataSourceWithDBCP(){
-		BasicDataSource basicDataSource = new BasicDataSource() ;
-		//配置数据源中的数据库信息
-		    basicDataSource
-.setDriverClassName("oracle.jdbc.OracleDriver");
-		basicDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
-		basicDataSource.setUsername("system");
-		basicDataSource.setPassword("sa");
-		//设置数据源中的连接池参数
-		basicDataSource.setInitialSize(10);
-		basicDataSource.setMaxActive(8);
-		basicDataSource.setMinIdle(2);
-		return basicDataSource ;
-	 }
-    //测试DBCP数据源
-public static void main(String[] args) throws SQLException {
-    //通过getDataSourceWithDBCP()方法，获取DBCP数据源对象
-		DataSource ds = getDataSourceWithDBCP () ;
-         //通过DBCP数据源对象，获取Connection对象
-		Connection connection = ds.getConnection();
-	     …
-	}
-…
-```
+<html>
+<head>
+		<style type="text/css" >
+			.myStyle1 {font-size:14px; color:red; }
+			.myStyle2 {background-color:yellow;}
+		</style>
 
-以上，就是使用DBCP数据源获取连接对象（`connection`）的方法。有了连接对象`connection`以后，就可以通过`createStatement()`方法产生`Statement`对象（或者通过`prepareStatement()`方法产生`PreparedStatement`等），进而执行数据库访问。
-
-**b. 基于`BasicDataSourceFactory`的配置文件方式**
-
-BasicDataSourceFactory可以通过createDataSource()方法，从配置文件（Properties文件）中读取数据库配置信息，并获取数据库连接对象。createDataSource()方法的完整定义如下： 
-
-```
-public static DataSource createDataSource(Properties properties) 
-throws Exception 
-{
-   …
-}
-```
-
-**以下，是通过`BasicDataSourceFactory`方式获取DBCP数据源对象的具体代码：**
-
-**<1>创建并编写配置文件**
-
-**创建配置文件：**
-
-
-在`src`上点击鼠标右键→ New→ File→ 输入dbcpconfig.properties→ Finish，如图：
-
-![](http://i.imgur.com/J4lBIBg.png)
-
-*图7-02*
-
-![](http://i.imgur.com/5cE9LSq.png)
-
-*图7-03*
-
-**编写配置文件：dbcpconfig.properties**
-
-```
-driverClassName=oracle.jdbc.OracleDriver
-url=jdbc:oracle:thin:@localhost:1521:XE
-username=system
-password=sa
-initSize=10
-maxActive=8
-maxIdle=2
-```
-
-**<2>获取数据源对象**
-
-```
-// package、import
-public class DBCPDemo {
-	//获取DBCP数据源对象
-	public  static DataSource getDataSourceWithDBCPByProperties () {
-		DataSource basicDataSource = null ; 
-		//创建一个配置文件对象props
-		Properties props = new Properties();
-		try{
-		//将配置文件中的信息读取到输入流中
-		InputStream input =new DBCPDemo().getClass().getClassLoader()
-.getResourceAsStream("dbcpconfig.properties") ;
-		//将配置文件中的信息，从输入流加载到props中
-		props.load(input);
-		//根据props中的配置信息，创建数据源对象
-		 basicDataSource = BasicDataSourceFactory
-.createDataSource(props) ;
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return basicDataSource;
-	}
-	
-	public static void main(String[] args) throws SQLException {
-		DataSource ds1 = getDataSourceWithDBCPByProperties () ;
-		Connection connection1 = ds1.getConnection();
-		…
-	}
-}
-```
-
-**③C3P0数据源**
-
-C3P0性能优越并易于扩展，是目前最流行、使用最广的数据源之一。著名的Hibernate、Spring等开源框架，使用的都是该数据源。C3P0实现了`DataSource`数据源接口，并提供了一个重要的实现类：`ComboPooledDataSource`，该类的常见方法如下表：
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简称</td>
-   </tr>
-   <tr>
-      <td>public ComboPooledDataSource()    public ComboPooledDataSource(String configName)</td>
-      <td>构造方法，用于创建ComboPooledDataSource对象。</td>
-   </tr>
-   <tr>
-      <td>public void setDriverClass(String driverClass )     throws PropertyVetoException
-     throws PropertyVetoException</td>
-      <td>设置连接数据库的驱动名</td>
-   </tr>
-   <tr>
-      <td>public void setJdbcUrl( String jdbcUrl )</td>
-      <td>设置连接数据库的URL</td>
-   </tr>
-   <tr>
-      <td>public void setUser( String user )</td>
-      <td>设置数据库的用户名</td>
-   </tr>
-   <tr>
-      <td>public void setPassword( String password )</td>
-      <td>设置数据库的密码</td>
-   </tr>
-   <tr>
-      <td>public void setMaxPoolSize( int maxPoolSize )</td>
-      <td>设置连接池的最大连接数目</td>
-   </tr>
-   <tr>
-      <td>public void setMinPoolSize( int minPoolSize )</td>
-      <td>设置连接池的最小连接数目</td>
-   </tr>
-   <tr>
-      <td>public void setInitialPoolSize( int initialPoolSize )</td>
-      <td>设置初始化时，连接池中的连接数量</td>
-   </tr>
-   <tr>
-      <td>public Connection getConnection()    throws SQLException</td>
-      <td>从连接池中获取一个数据库连接。该方法是由ComboPooledDataSource的父类AbstractPoolBackedDataSource提供。</td>
-   </tr>
-</table>
-
-**可以发现，DBCP和C3P0的实现类都提供了3类方法：**
-
-**(1)**设置数据库信息的方法；
-
-**(2)**初始化连接池的方法()；
-
-**(3)**获取连接对象的`getConnection()`方法。
-
-
-与DBCP类似，在使用C3P0前，需要先导入以下JAR包：
-
-<table>
-   <tr>
-      <td>c3p0-版本号.jar</td>
-      <td>ojdbc版本号.jar</td>
-   </tr>
-   <tr>
-      <td colspan="2">c3p0-oracle-thin-extras-版本号.jar  (如果不是oracle驱动，则无需此JAR)</td>
-   </tr>
-</table>
-
-此外，C3P0也提供了手动编码及配置文件两种方式来获取数据源对象，具体如下:
-
-**a.基于无参构造方法`ComboPooledDataSource()`的手动编码方式**
-
-通过手动编码方式获取c3p0对象，依赖于无参构造方法`ComboPooledDataSource()`，如下：
-
-**org.lanqiao.dbutil.C3P0Demo.java**
-
-```
-//package、import
-public class C3P0Demo {
-    //获取C3P0数据源对象
-	public static DataSource getDataSourceWithC3p0 (){
-		ComboPooledDataSource cpds = new ComboPooledDataSource();
-		try{
-			//设置数据库信息
-			cpds.setDriverClass("oracle.jdbc.OracleDriver");
-			cpds.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:XE");
-			cpds.setUser("system");
-			cpds.setPassword("sa");
-			//设置连接池信息
-			cpds.setInitialPoolSize(10);
-			cpds.setMaxPoolSize(20);
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return cpds;
-	}
-	
-	public static void main(String[] args) throws SQLException {
-		Connection connection = getDataSourceWithC3p0 ()
-.getConnection();
-		…
-	}
-}
-```
-
-**b.基于有参构造方法ComboPooledDataSource(String configName)的配置文件方式**
-
-通过配置文件方式获取c3p0对象，依赖于有参构造方法`ComboPooledDataSource(String configName)`，如下：
-
-**<1>创建并编写配置文件**
-
-与DBCP不同，c3p0使用的是XML格式的配置文件，并且配置文件必须满足：
-
-**①**存放于`src`根目录下；
-
-**②**文件名是**c3p0-config.xml**。
-
-在`src`下创建并编写一个**c3p0-config.xml**文件，如下：
-
-**c3p0-config.xml**
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<c3p0-config>
-      <!-- 默认配置 -->
-	 <default-config>
-	 	<property name="user">system</property>
-		<property name="password">sa</property>
-		<property name="driverClass">
-oracle.jdbc.OracleDriver
-</property>
-		<property name="jdbcUrl">
-jdbc:oracle:thin:@localhost:1521:XE
-</property>
-	 	<property name="checkoutTimeout">20000</property>
-	 	<property name="initialPoolSize">10</property>
-	 	<property name="maxIdleTime">15</property>
-	 	<property name="maxPoolSize">20</property>
-	 	<property name="minPoolSize">5</property>
-	 </default-config>
- 
-     <!-- name为”lanqiao”的配置 -->
-	 <named-config name="lanqiao">
-	 	<property name="initialPoolSize">10</property>
-	 	<property name="maxPoolSize">15</property>
-	 	<property name="driverClass">
-oracle.jdbc.OracleDriver</property>
-	 	<property name="jdbcUrl">
-jdbc:oracle:thin:@localhost:1521:XE
-</property>
-<!--此named-config中，没有配置user、password等信息，C3P0会自动寻找 default-config中的相应信息-->
-	 </named-config>
- </c3p0-config>
-```
-
-可以发现，`<c3p0-config>`中包含了两套配置数据源信息： `<default-config>`和 `<named-config name="…">`。其中,`<default-config>`配置的是默认信息，而`<named-config name="…">`是自定义配置。一个`<c3p0-config>`中可以包含任意数量的`<named-config name="…">`，当包含一个或多个时，用户可以通过有参构造方法ComboPooledDataSource(String configName)中的参数configName来指定实际使用哪一个。此外，如果某些信息在`<named-config name="…">`中没有配置，那么c3p0就会自动使用`<default-config>`中的相应信息，例如user、password等。
-
-**<2>获取数据源对象**
-
-有参构造方法ComboPooledDataSource(String configName)会在**c3p0-config.xml**文件中的所有`<named-config name="…">`里，寻找name= configName的配置信息。
-
-以下代码，通过ComboPooledDataSource("lanqiao")，指定使用**c3p0-config.xml**中`<named-config name="lanqiao">`的配置信息，再根据配置信息创建数据源对象。
-
-**org.lanqiao.dbutil.C3P0Demo.java**
-
-```
-//package、import
-public class C3P0Demo {
-	//获取C3P0数据源对象
-	public static DataSource getDataSourceWithC3p0ByXML (){
-		ComboPooledDataSource cpds = 
-new ComboPooledDataSource("lanqiao");
-		return cpds ; 
-	}
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
 		
-	public static void main(String[] args) throws SQLException {
-		Connection connection = getDataSourceWithC3p0ByXML ()
-.getConnection();
+		   	 $(document).ready(function() {
+		   		 $("p").click(function() {
+					   $(this).addClass("myStyle1 myStyle2");
+				   });
+		     }); 
+		</script>
+</head>
+<body>
+		<p>追加多个类样式示例...</p>
 		…
-	}
-}
-```
-
-在实际开发中，经常会遇到DBCP或C3P0，因此可以将二者封装到一个工具类中，如下：
-
-
-**org.lanqiao.dbutil. DataSourceUtil.java**
-
-```
-package org.lanqiao.dbutil;
-import javax.sql.DataSource;
-public class DataSourceUtil {
-	//通过DBC手动编码方式，获取数据源对象
-	public static DataSource getDataSourceWithDBCP() 
-{   …   }
-	//通过DBCP配置文件方式，获取数据源对象
-	public static DataSource getDataSourceWithDBCPByProperties()
-{   …   }
-	//通过C3P0手动编码方式，获取数据源对象
-	public static DataSource getDataSourceWithC3p0()
-{   …   }
-	//通过C3P0配置文件方式，获取数据源对象
-	public static DataSource getDataSourceWithC3p0ByXML() 
-{   …   }
-}
-```
-
-
-
-# 7.2 commons-dbutils工具类库 #
-
-在“三层架构”一章中，我们曾自己封装了`executeAddOrUpdateOrDelete()`和`executeQuery ()`等方法，并讨论过：对于“增删改”的通用方法`executeAddOrUpdateOrDelete(String sql ,Object[] os)`来说，只要传入sql参数和置换参数os，就能实现相应的增删改功能；但对于查询方法`executeQuery(String sql, Object[] os)`，为了能够“通用”，我们只能封装到结果集`ResultSet`，而不能继续封装成对象或集合等类型。在本小节，我们换一种方式，通过使用commons-dbutils类库可以实现：无论是“增删改”还是“查”都可以得到彻底的封装。
-
-
-commons-dbutils 是 Apache 组织提供的一个JDBC工具类库，极大的简化了JDBC的代码量，并且不会影响程序的性能。
-
-	读者可以通过Apache官网下载commons-dbutils类库：
-	[http://commons.apache.org/proper/commons-dbutils/download_dbutils.cgi](http://commons.apache.org/proper/commons-dbutils/download_dbutils.cgi)
-
-与下载其他类库一样，Binaries提供了可供使用类库及说明文件，Source提供了类库的源代码；并且Binaries和Source都提供了**.tar.gz**（Linux系统）和**.zip**（Windows系统）两种格式的压缩包供读者下载。
-
-![](http://i.imgur.com/H5WvZ0c.png)
-
-*图7-04*
-
-本节使用的是最新版commons-dbutils-1.6进行讲解。
-
-**commons-dbutils**类库主要包含了两个类和一个接口，如下：
-
-<table>
-   <tr>
-      <td>全名</td>
-      <td>类或接口</td>
-   </tr>
-   <tr>
-      <td>org.apache.commons.dbutils.DbUtils</td>
-      <td>类</td>
-   </tr>
-   <tr>
-      <td>org.apache.commons.dbutils.QueryRunner</td>
-      <td>类</td>
-   </tr>
-   <tr>
-      <td>org.apache.commons.dbutils.ResultSetHandler</td>
-      <td>接口</td>
-   </tr>
-</table>
-
-以下，是详细的说明。
-
-
-## 7.2.1 `DbUtils`类 ##
-
-DbUtils是一个工具类，提供了关闭连接、事务提交/回滚、注册JDBC驱动程序等常用方法。DbUtils类中的方法都是public static修饰的（除了构造方法），常用方法如下表：
-
-<table>
-   <tr>
-      <td>方法(省略了public static)</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>①…void close(Connection conn)
-          throws SQLException
-          ②…void close(ResultSet rs)
-          throws SQLException
-          ③…void close(Statement stmt)
-          throws SQLException</td>
-      <td>关闭入参类型的连接（Connection、ResultSet或Statement），并在关闭时做相应的非空判断（如rs != null等）；此外，还会抛出方法执行期间所发生的异常。</td>
-   </tr>
-   <tr>
-      <td>①…void closeQuietly(Connection  conn)
-          ②…void closeQuietly(Connection conn,Statement stmt,ResultSet rs) 
-          ③…void closeQuietly(ResultSet rs)
-          ④…void closeQuietly(Statement stmt)</td>
-      <td>关闭入参类型的连接，并在关闭时做相应的非空判断；此外，还会将异常信息隐藏起来，如左③的完整源码如下：
-     public static void closeQuietly(ResultSet rs)
-     {
-     try 
-    {
-     // 调用上面的close()方法
-     close(rs);   
-    } catch (SQLException e) 
-    { 
-      // 隐藏异常信息，不做任何处理
-     }
-  }</td>
-   </tr>
-   <tr>
-      <td>①…void commitAndClose(Connection conn) throws SQLException    ②…void commitAndCloseQuietly(Connection conn)</td>
-      <td>提交并关闭连接，并在关闭时做相应的非空判断；左①：会抛出方法执行期间所发生的异常。左②：会将异常信息隐藏起来。</td>
-   </tr>
-   <tr>
-      <td>…boolean loadDriver(String driverClassName)</td>
-      <td>根据传入的驱动名，加载并注册JDBC驱动程序。</td>
-   </tr>
-</table>
-
-## 7.2.2 `QueryRunner`类 ##
-
-`QueryRunner`类主要用于执行增删改差等SQL语句。特别的，如果执行的是查询SQL，还需要结合`ResultSetHandler`接口来处理结果集。`QueryRunner`类的常用方法如下：
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>①public QueryRunner()  ②public QueryRunner(javax.sql.DataSource ds)</td>
-      <td>构造方法，用于生成QueryRunner的实例对象。构造方法是否需要参数，取决于事务的管理方式：①当需要手动管理事务时，使用无参的构造方法；②当需要自动管理事务（每执行完一条SQL语句，都会自动执行一次commit()方法）时，使用DataSource作为参数的构造方法。</td>
-   </tr>
-   <tr>
-      <td>public int update(参数列表)throws SQLException</td>
-      <td>update()方法根据参数列表的不通，形成了很多重载的方法，常见的参数列表有以下两种：①Connection conn, String sql, Object… params ②Connection conn, String sql 各种重载的update()方法都是用于执行增加、修改或删除操作。其中，①中的可变参数params用来作为SQL语句的置换参数（替换SQL中的占位符？）；参数列表②中没有可变参数params，因此适用于没有占位符的SQL语句；</td>
-   </tr>
-   <tr>
-      <td>public  &lt;T&gt; T query(参数列表)throws SQLException</td>
-      <td>query()方法的参数列表有四种常见形式：
-     ①Connection conn, String sql, ResultSetHandler&lt;T&gt; rsh, Object… params    ②Connection conn, String sql, ResultSetHandler&lt;T&gt; rsh
-       ③String sql, ResultSetHandler&lt;T&gt; rsh,Object… params    ④String sql, ResultSetHandler&lt;T&gt; rsh    各种重载的query()方法都是用于执行查询操作。其中，③和④中没有Connection连接对象，此种情况下，可以从QueryRunner构造方法的DataSource参数中获得连接。query()方法需要结合ResultSetHandler接口来使用。</td>
-   </tr>
-</table>
-
-## 7.2.3 `ResultSetHandler`接口及其实现类 ##
-
-`ResultSetHandler`接口用于处理`ResultSet`结果集，它可以将结果集中的数据封装成单个对象、数组、List、Map等不同形式。 
-
-**`ResultSetHandler`接口有很多不同的实现类，如下：**
-
-![](http://i.imgur.com/r2lD68B.png)
-
-*图7-05*
-
-本小节会对其中常用的10个实现类做详细讲解。
-
-讲解前，需要先导入DbUtils包（**commons-dbutils-1.6.jar**），并使用我们之前编写过的两个类和一张表，如下：
-
-**①数据源工具类DataSourceUtil**
-
-**org.lanqiao.dbutil. DataSourceUtil.java**
-
-```
-package org.lanqiao.dbutil;
-import javax.sql.DataSource;public class DataSourceUtil {
-	//通过C3P0配置文件方式，获取数据源对象
-	public static DataSource getDataSourceWithC3p0ByXML() 
-{   …   }
-…
-}
-```
-
-**②实体类Student(JavaBean)**
-
-**org.lanqiao.entity.Student.java**
-
-```
-package org.lanqiao.entity;
-public class Student {
-	private int stuNo;
-	private String stuName;
-	private int stuAge
-    	//省略setter、getter
-public Student() {
-	}
-    //构造方法
-	public Student(int stuNo, String stuName, int stuAge) {
-		this.stuNo = stuNo;
-		this.stuName = stuName;
-		this.stuAge = stuAge;
-	}
-	//重写toString()
-	@Override
-	public String toString() {
-		return "学号:"+stuNo+",姓名:"+stuName+",年龄:"+stuAge;
-	}
-}
-```
-
-**③数据库中的student表**
-
-表中的数据如下：
-
-![](http://i.imgur.com/c05i0s8.png)
-
-*图7-06*
-
-**接下来，结合`QueryRunner`类的`query()`方法，进行具体演示。**
-
-#### (1) `ArrayHandler`和`ArrayListHandler` ####
-
-**①**`ArrayHandler`类可以把结果集中的第一行数据封装成`Object[]`。例如，可以将student表中的第一行数据，封装成一个`Object[]`类型的`stu`对象，封装后的效果类似于`Object[] stu = new Object[]{15,”王五”,23}`，如下：
-
-**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
-
-```
-//package、import
-public class ResultSetHandlerDemo {
-	public static void arrayHandlerTest(){
-		//创建QueryRunner对象
-QueryRunner runner = 	new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		try {
-             //使用query(String sql,ResultSetHandler<T> rsh)方法执行查询操作，并且传入ArrayHandler对象作为第二个参数
-			Object[] studentObj = runner.query("select * from student",
- new ArrayHandler()) ;
-			//将数组转为字符串，并输出
-			System.out.println(Arrays.toString(studentObj));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-         catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	//测试
-	public static void main(String[] args) {
-		arrayHandlerTest();
-	}
-}
+</body>	
+</html>
 ```
 
 运行结果：
-
-![](http://i.imgur.com/6HuJZZc.png)
-
-*图7-07*
-
-可以发现，`ArrayHandler`只能封装结果集中的第一行数据，如果想封装结果集中的全部数据，就需要使用`ArrayListHandler`。
-
-**②**`ArrayHandler`类可以把结果集中每一行数据都封装成一个`Object[]`对象，然后再将所有的`Object[]`组装成一个`List`对象，如下：
-
-**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
-
-```
-//package、import
-public class ResultSetHandlerDemo {
-    …
-	public static void arrayListHandlerTest(){
-		//创建QueryRunner对象
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		try {
-			//使用query(String sql,ResultSetHandler<T> rsh)方法执行查询
-操作，并且传入ArrayHandler对象作为第二个参数
-			List<Object[]> studentObjList = runner.query("select * 
-from student", new ArrayListHandler()) ;
-			//将数组转为字符串，并输出
-			for(Object[] studentObj:studentObjList){
-				System.out.println(Arrays.toString(studentObj));
-			}
-		} catch (…) {…}
-	}
-	//测试
-	public static void main(String[] args) {
-		arrayListHandlerTest();
-	}
-}
-```
-
-运行结果：
-
-![](http://i.imgur.com/ItzjKRo.png)
-
-*图7-08*
-
-#### (2) BeanHandler&lt;T&gt; 、BeanListHandler&lt;T&gt;和BeanMapHandler&lt;K,V&gt; ####
-
-
-`ArrayHandler`和`ArrayListHandler`是将结果集中的数据封装成`Object[]`对象，而`BeanHandler<T>`、`BeanListHandler<T>`和`BeanMapHandler<K,V>`可以将结果集中的数据封装成JavaBean对象，并且通过泛型指定具体的JavaBean类型。
-
-**①BeanHandler&lt;T&gt;**
-
-`BeanHandler<T>`类可以把结果集中的第一行数据封装成JavaBean。例如，可以将student表中的第一行数据，封装成一个Student类型的`stu`对象，封装后的效果类似于`Student stu = new Student(15,”王五”,23)`，如下：
-
-
-**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
-
-```
-//package、import
-public class ResultSetHandlerDemo {
-    …
-	public static void beanHandlerTest(){
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		try {
-			//使用query(String sql,ResultSetHandler<T> rsh)方法执行查询
-操作，传入BeanHandler对象作为第二个参数，并通过泛型指定封装
-的JavaBean类型是Student
-			Student stu = runner.query("select * from student", 
-new BeanHandler<Student>(Student.class)) ;
-			//默认调用Student的toString()方法进行输出
-			System.out.println(stu);
-		} catch (…) {…}
-	}
-	//测试
-	public static void main(String[] args) {
-         …
-		beanHandlerTest();
-	}
-}
-```
-
-运行结果：
-
-![](http://i.imgur.com/YhEgBIm.png)
-
-*图7-09*
-
-可以发现，`BeanHandler<T>`只能封装结果集中的第一行数据，如果想封装结果集中的全部数据，就需要使用`BeanListHandler<T>`。
-
-
-**②BeanListHandler&lt;T&gt;**
-
-`BeanListHandler<T>`类可以把结果集中每一行数据都封装成一个JavaBean对象，然后再将所有的JavaBean对象组装成一个`List`对象，如下：
-
-**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
-
-```
-//package、import
-public class ResultSetHandlerDemo {
-    …
-    	public static void beanListHandlerTest(){
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		try {
-			List<Student> stus = runner.query("select * from student", 
-new BeanListHandler<Student>(Student.class)) ;
-			System.out.println(stus);
-		} catch (…) {…}
-	}
-	//测试
-	public static void main(String[] args) {
-         …
-		beanListHandlerTest();
-	}
-}
-```
-
-运行结果（只显示了部分结果）：
-
-![](http://i.imgur.com/86lvOSZ.png)
-
-*图7-10*
-
-**③BeanMapHandler&lt;T&gt;**
-
-与`BeanListHandler<T>`类似，`BeanMapHandler<T>`也会把结果集中每一行数据都封装成一个JavaBean对象，但不同的是：`BeanMapHandler<T>`会将所有的JavaBean对象组装成一个`Map`对象，如下：
-
-
-**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
-
-```
-//package、import
-public class ResultSetHandlerDemo {
-    …
-    	public static void beanMapHandlerTest(){
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		try {
-             //通过泛型指定Map的key类型是：BigDecimal;valuel类型是：Student。
-再通过构造方法的第二个参数，指定用表中的“stuNo”列作为Map的key。
-			Map<BigDecimal,Student> stusMap 
-= runner.query("select * from student", 
-new BeanMapHandler<BigDecimal,Student>
-(Student.class,"stuNo")) ;
-             //获取map中key值为15的学生
-			Student stu = stusMap.get(new BigDecimal(15));
-			System.out.println(stu);
-		} catch (…) {…}
-	}
 	
-	//测试
-	public static void main(String[] args) {
-         …
-		beanMapHandlerTest();
-	}
-}
-```
+当单击`<p>`元素时，会给`<p>`元素追加`.myStyle1`和`.myStyle2`两个样式，如图
 
-运行结果：
+![](http://i.imgur.com/9ef7UnA.png)
 
-![](http://i.imgur.com/hUGyx5C.png)
+*图12-20*
 
-*图7-11*
+**②移除类样式**
 
-**说明：**
+`addClass()`可以为元素追加类样式；与之相反，`removeClass()`可以为元素删除类样式。
 
-**问**：此程序中，`Map`的`key`值为什么是`BigDecimal`类型，而不是`Integer`?
+**语法：**
 
-**答**：本程序采用的是Oracle数据库，stuNo列在表中的类型是：NUMBER(3)。Oracle在处理NUMBER类型时比较特殊：如果发现存储的是整数（如果数字15），则会默认映射为`BigDecimal`类型，而不是Integer。
+移除一个类样式：	`jQuery对象.removeClass(class)`
 
+移除多个类样式：	`jQuery对象.removeClass(class1 class2 … classN)`
 
-#### (3) MapHandler、 MapListHandler和KeyedHandler ####
+移除全部类样式：	`jQuery对象.removeClass()`
 
-**①MapHandler**
+#### (3)切换类样式 ####
 
-MapHandler可以将结果集中的第一条数据封装到`Map`对象中，并且`key`是字段名，`value`是字段值，如下：
+`toggle()`方法可以切换元素的显示与隐藏状态；类似的，`toggleClass()`方法可以切换（增加或删除）元素的类样式。
 
-**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+**语法：**	
 
-```
-//package、import
-public class ResultSetHandlerDemo {
-    …
-    	public static void mapHandlerTest(){
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		try {
-			//将结果集中的第一条数据封装到Map对象中
-			Map<String,Object> stuMap = runner.query(
-"select * from student", new MapHandler()) ;
-			System.out.println(stuMap);
-		} catch (…) {…}
-	}
-	
-	//测试
-	public static void main(String[] args) {
-…
-		mapHandlerTest();
-	}
-}
-```
+切换（增加或删除）一个类样式：	jQuery对象`.toggleClass(class)`
 
-运行结果：
+切换（增加或删除）多个类样式：	jQuery对象`.toggleClass(class1 class2 … classN)`
 
-![](http://i.imgur.com/xgSjr2W.png)
+例如，当执行`“jQuery对象.toggleClass(class) ”`时：如果元素中含有名为`class`的类样式时，就删除该样式；如果元素中不存在名为`class`的类样式时，就为元素加入该样式，即`toggleClass()`就相当于`addClass()`和`removeClass()`的轮番切换使用。
 
-*图7-12*
-
-**②MapListHandler**
-
-MapListHandler可以将结果集中的每一条数据都封装到`Map`对象中，并且`key`是字段名，`value`是字段值；然后再将所有的`Map`对象组装成一个`List`对象，如下：
-
-**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+**示例：jQueryDemo.jsp**
 
 ```
-//package、import
-public class ResultSetHandlerDemo {
-    …
-    public static void mapListHandlerTest(){
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		try {
-			//将结果集中的每一条数据都封装到Map对象中
-			List<Map<String,Object>> stusMap = runner.query(
-"select * from student", new MapListHandler()) ;
-			System.out.println(stusMap);
-		} catch (…) {…}
-	}
-	
-	//测试
-	public static void main(String[] args) {
-…
-		mapListHandlerTest();
-	}
-}
+<html>
+<head>
+		<style type="text/css" >
+			.myStyle1 {font-size:14px; color:red; }
+			.myStyle2 {background-color:yellow;}
+		</style>
+
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   	 $(document).ready(function() { 
+		   		 $("p").click(function() {
+					   $(this).toggleClass("myStyle1 myStyle2");
+				   });
+		   	 });
+		</script>
+</head>
+<body>
+		<p>追加多个类样式示例...</p>
+		…
+</body>	
+</html>
 ```
 
-运行结果（只显示了部分结果）：
+当连续点击`<p>`元素的内容时，`<p>`元素就会不断的追加或移除`.myStyle1`和`.myStyle2`两个类样式。
 
-![](http://i.imgur.com/0iFMvDH.png)
+## 12.5.2 内容操作 ##
 
-*图7-13*
+jQuery还提供了对元素内容（HTML代码、文本内容、属性值）的操作方法。
 
-**③KeyedHandler**
+#### (1)对HTML代码的操作 ####
 
-KeyedHandler可以将结果集中的每一条数据都封装到`Map`对象中，并且`key`是字段名，`value`是字段值；然后再将所有的`Map`对象组装成一个范围更大的`Map`对象，并通过KeyedHandler的构造方法指定某一字段值为key，如下：
+jQuery可以使用`html()`方法对元素的HTML代码进行操作，该方法类似于JavaScript中的innerHTML。
 
-**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+**语法：** `jQuery对象.html([content])`
 
-```
-//package、import
-public class ResultSetHandlerDemo {
-    …
-    	public static void keyedHandlerTest(){
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		try {
-			//将结果集中的每一条数据都封装到Map对象中
-			Map<String,Map<String,Object>> stusMap = runner.query(
-"select * from student", 
-new KeyedHandler<String>("stuName")) ;
-			System.out.println(stusMap);
-		} catch (…) {…}
-	}
-	
-	//测试
-	public static void main(String[] args) {
-…
-		keyedHandlerTest();
-	}
-}
-```
+如果存在参数`content`，表示给选中的元素赋上新的内容`content`；如果不存在参数`content`，表示获取被选中的元素内容。
 
-运行结果（只显示了部分结果）：
-
-![](http://i.imgur.com/sOzOr4C.png)
-
-*图7-14*
-
-#### (4)ColumnListHandler&lt;T&gt; ####
-
-`ColumnListHandler <T>`可以把结果集中某一列的值封装到`List`集合中，如下：
-
-
-**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+**示例：htmlDemo.jsp**
 
 ```
-//package、import
-public class ResultSetHandlerDemo {
-…
-public static void columnListHandlerTest(){
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		try {
-			//将结果集中“stuName”一列的值封装到了List集合对象中：
-			List<String> names = runner.query("select * from student", 
-new ColumnListHandler<String>("stuName")) ;
-			//默认调用Student的toString()方法进行输出
-			System.out.println(names);
-		} catch (…) {…}
-	}
-	
-	//测试
-	public static void main(String[] args) {
+<html>
+<head>
         …
-	   columnListHandlerTest();
-	}
-}
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+			   //给div赋上内容
+			   $("div").html("<h1 style='background: yellow'>
+hello</h1>");
+			 //获取div内容
+			   var $html = $("div").html();
+			   alert($html);
+		   });
+		</script>
+</head>
+<body>
+		<div></div>
+</body>
+</html>
 ```
 
-运行结果：
+先通过`html([content])`给`<div>`赋值，再通过`html()`获取`<div>`的值，运行结果如图
 
-![](http://i.imgur.com/q8BSDtD.png)
+![](http://i.imgur.com/SIAjkmE.png)
 
-*图7-15*
+*图12-21*
 
-#### (5) ScalarHandler&lt;T&gt; ####
+#### (2)对文本内容的操作 ####
 
-如果执行的是单值查询，如`select count(*) from student`或`select name from student where id = 15`等结果为单值得查询，就需要使用`ScalarHandler<T>`类，如下：
+jQuery还可以使用`text()`方法获取或设置元素的文本内容。
 
-**org.lanqiao.dbutil.ResultSetHandlerDemo.java**
+语法：
+`jQuery对象.text([content]);`
+
+如果存在参数`content`，表示给选中的元素赋上新的文本内容`content`；如果不存在参数`content`，表示获取被选中元素的文本内容。
+
+**示例：textDemo.jsp**
 
 ```
-//package、import
-public class ResultSetHandlerDemo {
+<html>
+<head>
+        …
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+			   //给div赋上文本内容
+			   $("div").text("<h1 style='background:
+ yellow'>hello</h1>");
+			 //获取div文本内容
+			   var $text = $("span").text();
+			   alert($text);
+		   });
+		</script>
 …
-    public static void scalarHandlerTest(){
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		try {
-			//单值查询：查询学生总人数
-			BigDecimal count = runner.query("select count(*) 
-from student", new ScalarHandler<BigDecimal>()) ;
-			System.out.println(count);
-			//单值查询：查询学号为15的学生姓名
-			String stuName = runner.query("select stuName from student
- where stuNo = 15", new ScalarHandler<String>()) ;
-			System.out.println(stuName);		
-} catch (…) {…}
-	}
-	
-	//测试
-	public static void main(String[] args) {
-  …
-		scalarHandlerTest();
-	}
-}
+</head>
+<body>
+		<div></div>
+		<span style="background: yellow">world</span>
+</body>
+</html>
 ```
 
 运行结果：
 
-![](http://i.imgur.com/S0E5WTp.png)
+![](http://i.imgur.com/nCph7Tq.png)
 
-*图7-16*
+*图12-22*
 
-**以上就是ResultSetHandler接口的10个实现类的具体用法。为了方便读者对比记忆，现做以下总结：**
+可以发现`html(content)`会将内容先渲染成html/css样式，然后再赋值给元素；而`text(content)`只是简单的将内容以文本形式赋值给元素。`html()`会将渲染样式和文本内容一起返回，而`text()`只返回文本内容。
 
+#### (3)对属性值的操作 ####
 
-<table>
-   <tr>
-      <td>ResultSetHandler接口的实现类</td>
-      <td>简介</td>
-      <td>共同点</td>
-   </tr>
-   <tr>
-      <td>ArrayHandler</td>
-      <td>将第一行数据封装成Object[]</td>
-      <td rowspan="3">封装结果集中的第一行数据，适用于只有一条查询结果的SQL，如：select * from student where id = 15</td>
-   </tr>
-   <tr>
-      <td>BeanHandler&lt;T&gt;</td>
-      <td>将第一行数据封装成JavaBean</td>
-   </tr>
-   <tr>
-      <td>BeanMapHandler</td>
-      <td>将第一条数据封装成Map&lt;列名类型,列值类型&gt;</td>
-   </tr>
-   <tr>
-      <td>ArrayListHandler</td>
-      <td>将所有数据封装成List&lt;Object[]&gt;</td>
-      <td rowspan="6">封装结果集中的全部数据，适用于有多条查询结果的SQL，如：select * from student</td>
-   </tr>
-   <tr>
-      <td>ColumnListHandler&lt;T&gt;</td>
-      <td>将某一列的所有数据，封装成List&lt;某一列的类型&gt;</td>
-   </tr>
-   <tr>
-      <td>MapListHandler</td>
-      <td>将所有数据封装成List&lt;Map&lt;列名类型,列值类型&gt;&gt;</td>
-   </tr>
-   <tr>
-      <td>KeyedHandler&lt;K&gt;</td>
-      <td>将所有数据封装成Map&lt;某一列的Java类型,Map&lt;列名类型,列值类型&gt;&gt;</td>
-   </tr>
-   <tr>
-      <td>BeanListHandler&lt;T&gt;</td>
-      <td>将所有数据封装成List&lt;JavaBean&gt;</td>
-   </tr>
-   <tr>
-      <td>BeanMapHandler&lt;K, V&gt;</td>
-      <td>将所有数据封装成Map&lt;某一列的Java类型,JavaBean&gt;</td>
-   </tr>
-   <tr>
-      <td>ScalarHandler&lt;T&gt;</td>
-      <td>获取单值</td>
-      <td>单值查询</td>
-   </tr>
-</table>
+jQuery还可以通过`val()`方法来获取或设置元素的`value`属性值。
 
-## 7.2.4 增删改操作 ##
+语法：
+`jQuery对象.val([v])`
 
+如果存在参数v，表示将选中元素的`value`值设置为v；如果不存在参数v，表示获取被选中元素的`value`值。
 
-现在，我们再对`QueryRunner`类中，用于增删改的`update()`方法做以演示，如下：
-
-**org.lanqiao.dbutil.UpdateDemo.java**
+**示例：valDemo.jsp**
 
 ```
-package org.lanqiao.dbutil;
-import java.sql.SQLException;
-import org.apache.commons.dbutils.QueryRunner;
-public class UpdateDemo {
-	//增加
-	public static void insertTest() {
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-        //增加的SQL语句
-		String insertSql = "insert into student(stuNo,stuName,stuAge)
- values(?,?,?)";
-         //SQL语句中的置换参数
-		Object[] params = {35,"赵六",66};
-		try {
-             //增删改的通用方法update()
-			int count = runner.update(insertSql,params) ;
-			System.out.println("成功增加"+count+"条数据");
-		} catch (…) {…}
-	}
-	
-	//删除
-	public static void deleteTest() {
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		String deleteSql = "delete from student where stuNo = 35";
-		try {
-			int count = runner.update(deleteSql) ;
-			System.out.println("成功删除"+count+"条数据");
-		} catch (…) {…}
-	}
-	
-	//修改
-	public static void updateTest() {
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		String updateSql = "update student set stuName = ?  ,stuAge = ?
- where stuNo = ?";
-		Object[] params = {"孙琪",27,35};
-		try {
-			int count = runner.update(updateSql,params) ;
-			System.out.println("成功修改"+count+"条数据");
-		} catch (…) {…}
-	}
-
-	// 测试   
-	public static void main(String[] args) {
-		insertTest();
-		updateTest();
-		deleteTest();
-	}
-}
+<html>
+<head>
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+			   $("#searchId").focus(function(){
+                   // 获取当前文本框的值       
+					var txt_value =  $(this).val();
+                   // 如果当前value是默认值“搜索”，则清空文本框内容
+   					if(txt_value=="搜索"){  
+			             $(this).val("");              					                } 
+				  });
+				$("#searchId").blur(function(){	
+                      // 获取当前文本框的值
+				  	    var txt_value =  $(this).val();  
+                      // 如果当前value值是空，则设置为默认值“搜索”
+ 					    if(txt_value==""){
+			                 $(this).val("搜索");					   
+} 
+				});
+			   
+		   });
+		</script>
+</head>
+<body>
+	 <input  type="text"  value="搜索" id="searchId" />
+</body>
+</html>
 ```
 
 运行结果：
 
-![](http://i.imgur.com/16U5Tcz.png)
+当鼠标光标停留搜索框中时，`value`值为空，如图
 
-*图7-17*
+![](http://i.imgur.com/mjViqGl.png)
 
-## 7.2.5 手动处理事务 ##
+*图12-23*
 
-#### (1) ThreadLocal&lt;T&gt; ####
+当鼠标光标离开搜索框中时，`value`值为“搜索”，如图
 
-在学习事务处理之前，我们有必要先了解一下`ThreadLocal<T>`类。
-	
-ThreadLocal可以为变量在每个线程中都创建一个副本，每个线程可以访问自己内部的副本变量。因此，ThreadLocal被称为线程本地变量（或线程本地存储）。
-	
-先看下面一个例子：
+![](http://i.imgur.com/OjvPw5d.png)
+
+*图12-24*
+
+## 12.5.3 节点与属性操作 ##
+
+jQuery对节点的操作主要有两种：对节点本身的操作，以及对节点中属性的操作。
+
+#### (1)节点操作 ####
+
+节点操作主要包括查找节点、创建节点、插入节点、删除节点、替换节点和复制节点等六种操作。
+
+**①查找节点**
+
+查找节点是通过jQuery选择器实现，详见“12.2jQuery选择器”一节。
+
+**②创建节点**
+
+**$()**称之为工厂函数，可以用于获取节点、转化节点或创建节点：
+
+**$(选择器)**：通过选择器获取节点
+
+**$(DOM节点)**：把DOM节点转化成jQuery节点
+
+**$(HTML字符串)**：使用HTML字符串创建jQuery节点
+
+因此，**创建jQuery节点主要是通过$(HTML字符串)实现。**
+
+**示例：node.jsp**
+
+`var $node = $("<li>橘子</li>");`
+
+以上就创建了一个新的jQuery节点。
+
+**③插入节点**
+
+`$node`节点创建完毕后，就可以插入到DOM文档之中。jQuery提供了多种方法实现节点的插入。
+
+假设网页中存在如下节点：
+
+**node.jsp**
 
 ```
-public class ConnectionManager {
-	  private static Connection conn = null;
-	     public static Connection getConnection() throws …{
-	        if(conn == null){
-	            conn = DriverManager.getConnection(...);
-	        }
-	        return conn;
-	    }
-	     
-	    public static void closeConnection() throws …{
-	        if(conn!=null)
-	            conn.close();
-	    }
-}
+<ul>
+	<li>香蕉</li>
+	<li>苹果</li>
+</ul>
 ```
 
-这段代码在单线程中使用没有任何问题；但如果是在多线程中使用，就存在线程安全问题，例如：
+运行结果：
 
-**①**因为conn是静态全局变量（用于共享），那么就有可能在一个线程使用conn操作数据库时，另外一个线程也同时在调用`closeConnection()`关闭链接；
+![](http://i.imgur.com/ZYaeS5i.png)
 
-**②**如果多个线程同时进入if语句，那么在`getConnection()`方法中就会多次创建`conn`对象。对于这样的线程问题，读者可能会想到用“线程同步”来解决：将conn变量、`getConnection()`和`closeConnection()`进行同步处理。对于本例，“线程同步”虽然可以解决问题，但却会造成极大的性能影响：当一个线程在使用conn访问数据库时，其他线程只能等待。
+*图12-25*
 
-我们仔细来分析这个问题：本例的线程安全问题，实质是因为conn变量、`getConnection()`和`closeConnection()`都是共享的static变量（或方法）而造成的，那么此三者如果不是共享的static呢？实际上，一个线程只需要维护自己的conn变量，而不需要关心其他线程是否对各自的conn进行了修改。因此，不是staitc也可以，如下：
+以插入`$node`节点为例，插入节点的方法如下：
 
-```
-public class ConnectionManager {
-	// 没有static修饰
-	private Connection conn = null;
-	// 没有static修饰
-	public Connection getConnection() throws SQLException {
-		if (conn == null) {
-			conn = DriverManager.getConnection("...");
-		}
-		return conn;
-	}
-	// 没有static修饰
-	public void closeConnection() throws SQLException {
-		if (conn != null)
-			conn.close();
-	}
-}
-class Dao{
-    public void insert() throws SQLException {
-      	//将connectionManager和conn定义为局部变量
-        ConnectionManager connectionManager = new ConnectionManager();
-        Connection conn = connectionManager.getConnection();
-        //使用conn访问数据库...
-        connectionManager.closeConnection();
-    }
-}
-```
+![](http://i.imgur.com/PNcBdFY.png)
 
-以上，将conn及相关方法的static修饰符去掉，然后在每个使用conn的方法中（如`insert()`）都创建局部变量。这样一来，因为每次都是在方法内部创建的连接，那么线程之间自然不存在线程安全问题。但是，由于在方法中需要频繁地开启和关闭数据库连接，就会导致服务器压力非常大，并且严重影响程序执行性能。
+*图12-26*
 
-如何既不影响性能，也能避免线程安全问题？使用`ThreadLocal<T>`！`ThreadLocal<T>`在每个线程中对该变量会创建一个副本；即每个线程内部都会有一个该变量的副本，该副本在线程内部任何地方都可以共享使用，但不同线程的副本之间互不影响。
+**④替换节点**
 
-**`ThreadLocal<T>`类中有以下几个方法：**
+在jQuery中，可以使用`replaceWith()`和`replaceAll()`方法来替换节点。
+
+![](http://i.imgur.com/WbgFKRc.png)
+
+*图12-27*
+
+**⑤删除节点**
+
+jQuery提供了3种删除节点的方法：`remove()`、`detach()`、`empty()`。
 
 <table>
    <tr>
@@ -1381,336 +1875,816 @@ class Dao{
       <td>简介</td>
    </tr>
    <tr>
-      <td>public T get()</td>
-      <td>获取ThreadLocal在当前线程中保存的变量副本</td>
+      <td>$(A)remove()</td>
+      <td>彻底删除A节点，包括所有子节点及文本内容。</td>
    </tr>
    <tr>
-      <td>public void set(T value)</td>
-      <td>设置当前线程中变量的副本</td>
+      <td>$(A)detach()</td>
+      <td>将A节点从页面中删除，但仍然保留着A节点附加的数据、绑定的事件。此方法不建议使用，了解即可。</td>
    </tr>
    <tr>
-      <td>public void remove()</td>
-      <td>移除当前线程中变量的副本</td>
-   </tr>
-   <tr>
-      <td>protected T initialValue()</td>
-      <td>延迟加载的方法，一般在使用时重写该方法。</td>
+      <td>$(A)empty()</td>
+      <td>清空A节点，包括所有子节点。只清除节点的内容，而并不真正的删除节点。</td>
    </tr>
 </table>
 
+**⑥复制节点**
 
-`ThreadLocal<T>`类的具体使用，我们会在“手动处理事务”中进行演示。
+jQuery提供的`clone()`方法，可以对节点进行复制操作（包含复制子节点、文本和属性）。
 
-#### (2)手动处理事务 ####
+**语法：**
 
-前面讲过，**如果使用`QueryRunner`类的无参构造，我们就需要手动管理事务；如果使用有参构造`QueryRunner(DataSource ds)`，DbUtils就会替我们自动管理事务。**之前演示的增删改查，使用的都是有参构造，即自动管理事务；以下，就来讲解如何使用无参构造来实现手动的事务管理。
+`$(A).clone([flag])`
 
-通过模拟一个“银行转账”的事务，演示具体的步骤：
+可选参数`flag`为布尔值`true`或`false`，为`true`时表示会复制节点的所有事件处理方法，`false`时反之。默认为`false`。
 
-**①创建银行账户表**
+例如：可以使用以下代码，在`<p>`中输出A节点自身的HTML代码
 
-创建银行账户表account，并增加两条数据，如下：
+`$("<p></p>").append($(A).clone()).html();`
 
-![](http://i.imgur.com/vuItZpg.png)
+#### (2)属性操作 ####
 
-*图7-18*
+jQuery主要是通过`attr()`和`removeAttr()`方法来对节点的属性进行操作。
 
-**②创建实体类**
+**①获取或设置属性值**
 
-创建与account表对应的实体类**Account.java**，如下：
+可以使用`attr()`来获取或设置属性值，如下：
 
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>attr(”name”)</td>
+      <td>获取单个属性值。如$(A).attr(“name”)，表示获取A节点的name属性值</td>
+   </tr>
+   <tr>
+      <td>attr(”name”, ”value”)</td>
+      <td>设置单个属性值。如$(A).attr(name,”张三”)，表示将A节点的name属性值设置为value。</td>
+   </tr>
+   <tr>
+      <td>attr({name1:”value1”, {name2:”value2”,…, {nameN:”valueN”})</td>
+      <td>同时设置多个属性值。如$(A).attr({width:"50",height:"100"})，表示将A节点的width属性值设置为50，将height属性值设置为100。</td>
+   </tr>
+</table>
 
-**org.lanqiao.entity.Account.java**
+**②删除属性值**
 
-```
-package org.lanqiao.entity;
-public class Account {
-	private int id ;
-	private String name; 
-	private double balance ;
-//setter、getter
-}
-```
+使用`removeAttr()`删除属性值，如下：
 
-**③创建JDBC工具类**
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>removeAttr (”name”)</td>
+      <td>删除属性值。如$(A).removeAttr (“alt”)，表示删除A节点的alt属性值</td>
+   </tr>
+</table>
 
-创建JDBCUtil类，用于提供创建连接、开启事务、提交事务、关闭连接等方法。我们知道，一个事务对应一个Connection，但一个事务可能涉及多个DAO操作。如果DAO操作中的Connection是从连接池获取，那么多个DAO操作就会用到多个Connection，这样是无法完成一个事务的（一个事务用到了多个Connection）。因此，需要使用`ThreadLocal<T>`类。
-
-我们可以生成一个`Connection`对象，然后放在ThreadLocal中，那么这个线程中的任何对象都可以共享这个`Connection`对象，最后在线程结束后删除这个连接。这样就保证了一个事务一个连接。如下：
-
-**org.lanqiao.dbutil.JDBCUtil.java**
-
-```
-//package、import
-public class JDBCUtil {
-	// 定义ThreadLocal对象，用于存放Connection对象
-	private static ThreadLocal<Connection> threadLocal 
-= new ThreadLocal<Connection>();
-	// 定义数据源对象
-	private static DataSource ds = new ComboPooledDataSource();
-
-	// 获取c3p0数据源对象(从c3p0-config.xml中读取默认的数据库配置)
-	public static DataSource getDataSource() {
-		return ds;
-	}
-
-	// 从c3p0连接池中，获取Connection连接对象
-	public static Connection getConnection() {
-		Connection conn = threadLocal.get();
-		try {
-			if (conn == null) {
-				conn = ds.getConnection();
-			}
-			threadLocal.set(conn);
-		} catch (…) {…}
-		return conn;
-	}
-
-	// 开启事务
-	public static void beginTransaction() {
-		Connection conn = getConnection();
-		try {
-			// 手动开始事务
-			conn.setAutoCommit(false);
-		} catch (…) {…}
-	}
-
-	// 提交事务
-	public static void commitTransaction() {
-		Connection conn = threadLocal.get();
-		try {
-			if (conn != null) {
-				// 提交事务
-				conn.commit();
-			}
-		} catch (…) {…}
-	}
-
-	// 回滚事务
-	public static void rollbackTransaction() {
-		Connection conn = threadLocal.get();
-		try {
-			if (conn != null) {
-				// 回滚事务
-				conn.rollback();
-			}
-		} catch (…) {…}
-	}
-     // 关闭连接
-	public static void close() {
-		Connection conn = threadLocal.get();
-		try {
-			if (conn != null) {
-				conn.close();
-			}
-
-		} catch (…) {…}
-finally {
-			// 从集合中移除当前绑定的连接
-			threadLocal.remove();
-			conn = null;
-		}
-	}
-}
-```
-
-**④创建DAO层**
-
-创建用于模拟用户查询、转入、转出等数据库操作的DAO层，如下：
-
-**接口：**
-
-**org.lanqiao.dao.IAccountDao.java**
+**示例：node.jsp**
 
 ```
-import org.lanqiao.entity.Account;
-public interface IAccountDao {
-    //根据姓名，查询账户
-	public abstract Account queryAccountByName(String name)
- throws SQLException;
-    //修改账户（增加余额、减少余额）
-public abstract void updateAccount(Account account) 
-throws SQLException;
-}
+<html>
+<head>
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+               //设置图片的宽和高
+			   $("img").attr({width:"60px",height:"40px"});
+               //获取图片的宽
+			    alert("width:"+ $("img").attr("width") );
+                //删除图片的宽
+			   $("img").removeAttr("width");
+			   alert( "删除width之后："+$("img").attr("width") );		   });
+		</script>
+</head>
+<body>
+    …
+	<img src="imgs/pic.png" />
+</body>
+</html>
 ```
 
-**实现类：**
+运行结果：
 
-**org.lanqiao.dao.impl.AccountDaoImpl.java**
+![](http://i.imgur.com/Gf1nb2u.png)
 
-```
-//package、import
-public class AccountDaoImpl implements IAccountDao{
-	@Override
-	public Account queryAccountByName(String name)throws SQLException {
-		QueryRunner runner = new QueryRunner();
-		Connection conn = JDBCUtil.getConnection();
-		String querySql = "select * from account where name = ?" ;
-		Object[] params = {name} ;
-		Account account = null ; 
-		account = runner.query(conn, querySql,
-new BeanHandler<Account>(Account.class),params);
-		return account;
-	}
+*图12-28*
 
-	@Override
-	public void updateAccount(Account account) throws SQLException {
-		QueryRunner runner = new QueryRunner(
-DataSourceUtil.getDataSourceWithC3p0ByXML());
-		Connection conn = JDBCUtil.getConnection() ;
-		String updateSql = "update account set balance = ? where name = ?" ;
-		Object[] params = { account.getBalance(), account.getName() };
-		runner.update(conn, updateSql, params);
-	}
-}
-```
+![](http://i.imgur.com/djoeNFQ.png)
 
-**⑤创建Service层**
+*图12-29*
 
-模拟转账业务操作，如下：
+## 12.5.4 获取节点集合与遍历节点集合 ##
 
-**接口：org.lanqiao.service.IAccountService.java**
+jQuery还提供了获取子节点集合、同辈节点集合、父节点集合，以及遍历节点集合的方法。
+
+为了便于讲解，首先设计一个HTML页面，如下
+
+**nodeList.jsp**
 
 ```
-public interface IAccountService {
-	public abstract void transfer(String fromAccountName,
-String toAccountName,double transferMoney);
-}
+…
+<body>
+	<img src="imgs/pic.png" />
+	<ul>
+		<li>香蕉</li>
+		<li>苹果</li>	
+		<li>橘子</li>	
+	</ul>
+</body>
+…
 ```
 
-**实现类：org.lanqiao.service.impl.AccountServiceImpl.java**
+可知，`<li>`是`<ul>`的子节点。
+
+#### (1)获取子节点集合 ####
+
+在jQuery中，使用`children()`来获取子节点集合，如下
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>$(选择器A).children(选择器B)</td>
+      <td>获取子节点集合。如， $("ul").children()会获取&lt;ul&gt;的所有子节点</td>
+   </tr>
+   <tr>
+      <td>$(选择器A).find(选择器B)</td>
+      <td>获取后代节点集合（包含子节点、子节点的子节点、…）。如， $("body").find("li")会获取所有的&lt;li&gt;节点。</td>
+   </tr>
+</table>
+
+#### (2)获取同辈节点集合 ####
+
+在jQuery中，使用`next()`、`prev()`、`siblings()`来获取同辈节点集合，如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>$(选择器A).next(选择器B)</td>
+      <td>获取紧邻匹配节点之后的那一个节点。如，$("ul li:first").next()会获取&lt;li&gt;苹果&lt;/li&gt;节点</td>
+   </tr>
+   <tr>
+      <td>$(选择器A).prev(选择器B)</td>
+      <td>获取紧邻匹配节点之前的那一个节点。如，$("ul li:last").prev()会获取&lt;li&gt;苹果&lt;/li&gt;节点</td>
+   </tr>
+   <tr>
+      <td>$(选择器A). siblings (选择器B)</td>
+      <td>获取位于匹配节点前面和后面的所有同辈节点。如，$("ul li:last").siblings()会获取除了&lt;li&gt;橘子&lt;/li&gt;以外的所有&lt;li&gt;节点</td>
+   </tr>
+</table>
+
+#### (3)获取前辈节点集合 ####
+
+在jQuery中，使用`parent()`、`parents()`来获取前辈节点集合，如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>$(选择器A).parent(选择器B)</td>
+      <td>获取当前匹配节点的父亲节点。如，$("ul li:last").parent()会获取最后一个&lt;li&gt;的父亲节点，即&lt;ul&gt;节点</td>
+   </tr>
+   <tr>
+      <td>$(选择器A). parents(选择器B)</td>
+      <td>获取当前匹配节点的祖先节点（包括父亲节点、父亲的父亲节点、…）。如，$("ul li:last").parents()会获取最后一个&lt;li&gt;的祖先节点，即&lt;ul&gt;、&lt;body&gt;和&lt;html&gt;节点</td>
+   </tr>
+</table>
+
+#### (4)过滤与遍历节点集合 ####
+
+**①过滤节点集合**
+
+如果已经获取了一组节点集合，还可以使用filter(选择器)对其进行过滤。如，`$('li').filter(':even')`表示过滤出所有索引为偶数的`<li>`节点。
+
+**②遍历节点集合**
+
+如果已经获取了一组节点集合，还可以使用`each()`方法对该集合进行遍历，如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>jQuery集合对象.each(function(index,element))</td>
+      <td>遍历jQuery集合对象。参数：index:当前节点在集合中的索引 element:当前的节点（也可以使用this）</td>
+   </tr>
+</table>
+
+**示例：nodeList.jsp**
 
 ```
-//package、import
-public class AccountServiceImpl implements IAccountService {
-	public void transfer(String fromAccountName, String toAccountName,
- double transferMoney) {
-		try {
-			// 开启事务
-			JDBCUtil.beginTransaction();
-			IAccountDao accountDao = new AccountDaoImpl();
-			// 付款方
-			Account fromAccount = accountDao
-.queryAccountByName(fromAccountName);
-			// 收款方
-			Account toAccount = accountDao
-.queryAccountByName(toAccountName);
-			// 转账
-			if (transferMoney < fromAccount.getBalance()) {
-				// 付款方的余额减少
-				double fromBalance = fromAccount.getBalance() 
-- transferMoney;
-				fromAccount.setBalance(fromBalance);
-				// 收款方的余额增加
-				double toBalance = toAccount.getBalance() + transferMoney;
-				toAccount.setBalance(toBalance);
-				// 更新账户
-				accountDao.updateAccount(fromAccount);
-				accountDao.updateAccount(toAccount);
-				System.out.println("转账成功");
-				// 提交事务
-				JDBCUtil.commitTransaction();
-				System.out.println("提交成功");
-			} else {
-				System.out.println("余额不足，转账失败！");
-			}
-		} catch (SQLException e) {
-			System.out.println("提交失败！回滚...");
-			// 回滚事务
-			JDBCUtil.rollbackTransaction();
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// 关闭事务
-			JDBCUtil.close();
-		}
-	}
-}
+<html>
+<head>
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+			  …
+			  var $lis =  $("ul").children();
+			 $lis.each(function(index,element){
+				 alert(index+":"+$(element).text());
+			 });
+	   });
+		</script>
+       …
+</head>
+<body>
+	…
+    <ul>
+		<li>香蕉</li>
+		<li>苹果</li>	
+		<li>橘子</li>	
+	</ul>
+</body>
+</html>
 ```
 
-**⑥测试**
+运行结果：
 
-编写`main()`方法，测试转账业务，如下
+![](http://i.imgur.com/i7tgLkH.png)
 
-**org.lanqiao.test.TestAccountTransfer.java**
+*图12-30*
+
+![](http://i.imgur.com/SdN7uG5.png)
+
+*图12-31*
+
+![](http://i.imgur.com/6FQh54Y.png)
+
+*图12-32*
+
+## 12.5.5 CSS-DOM操作 ##
+
+除了使用之前讲过的`css()`方法获取或设置CSS样式以外，还可以使用jQuery提供的CSS-DOM操作方法，如下：
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>height([value])</td>
+      <td>height()：获取元素的高度；height(value)：设置元素的高度。 </td>
+   </tr>
+   <tr>
+      <td>width([value])</td>
+      <td>width ()：获取元素的宽度；width (value)：设置元素的宽度。</td>
+   </tr>
+   <tr>
+      <td>offset([function(index,oldoffset)])</td>
+      <td>offset ()：获取元素的top和left坐标；function(index,oldoffset)：设置元素的top和left坐标，其中参数index为元素的索引，oldoffset为当前坐标，该方法返回被选元素的新坐标。 </td>
+   </tr>
+   <tr>
+      <td>offsetParent()</td>
+      <td>返回最近的祖先定位元素。定位元素指的是元素的 CSS position 属性被设置为 relative、absolute 或 fixed 的元素。</td>
+   </tr>
+   <tr>
+      <td>scrollLeft([position])</td>
+      <td>scrollLeft ()：获取滚动条的left偏移量；scrollLeft (position)：设置滚动条的left偏移量；</td>
+   </tr>
+   <tr>
+      <td>scrollTop([position])</td>
+      <td>scrollTop ()：获取滚动条的top偏移量；scrollTop (position)：设置滚动条的top偏移量；</td>
+   </tr>
+</table>
+
+**offset()示例：cssDom.jsp**
 
 ```
-//package、import
-public class TestAccountTransfer {
-	public static void main(String[] args) {
-		IAccountService accountService = new AccountServiceImpl();
-         //张三给李四转账1000.0元
-		accountService.transfer("张三", "李四", 1000.0);
-	}
-}
+<html>
+<head>
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+			   $("button").click(function(){
+				    //获取坐标
+				      var $lastLi = $("ul li:last");
+					  var leftAndTop =  $lastLi.offset();
+					  alert("left:"+leftAndTop.left 
++",top:"+leftAndTop.top);
+					//设置坐标
+				    $lastLi.offset(function(n,c){
+				    	var newPos=new Object();
+				    	//将left和top各增加100
+				        newPos.left=c.left+100;
+				        newPos.top=c.top+100;
+				        return newPos;
+				    });
+				  });
+		   });
+		</script>
+        …
+</head>
+<body>
+	…
+	<ul>
+		<li>香蕉</li>
+		<li>苹果</li>	
+		<li>橘子</li>	
+	</ul>
+	<button>获取并设置“橘子”的坐标</button>
+</body>
+</html>
 ```
 
-测试之前，accout表的数据如下：
+以上通过`offset()`获取橘子所在节点的坐标，并通过`offset([function(index,oldoffset)])`设置新坐标。
 
-![](http://i.imgur.com/gmjTGxO.png)
+运行结果：
 
-*图7-19*
+单击`<button>`按钮后，弹出“橘子”所在节点的位置：
 
-执行`main()`方法进行测试，运行结果：
+![](http://i.imgur.com/7ZF33ep.png)
 
-![](http://i.imgur.com/ORkwuHA.png)
+*图12-33*
 
-*图7-20*
+再单击确定后，“橘子”向右下角偏移（向右、向下各偏移100px）：
 
-此时，account表的数据如下：
+![](http://i.imgur.com/KbSxYQx.png)
 
-![](http://i.imgur.com/NpnfhOV.png)
+*图12-34*
 
-*图7-21*
+**offsetParent()示例：cssDom.jsp**
 
-可以看出，转账功能已经成功实现了。
+```
+<html>
+<head>
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+			   $("button").click(function(){
+                   //将当前button元素的父元素（即<div>）的背景色设置为red
+					$(this).offsetParent()
+.css("background-color","red");
+				});
+	            …
+		   });
+		</script>
+…
+</head>
+<body>
+    …
+	<div style="border:1px solid #000;width:100px;height:100px ;
+position:absolute;left:10px;top:200px；">
+		<button>父元素背景</button>
+	</div>
+</body>
+</html>
+```
 
-# 7.3 练习题 #
+运行结果：
 
-**一、选择题**
+![](http://i.imgur.com/Y6LVMcz.png)
 
-1.在Tomcat中配置JNDI资源时，需要在（    ）文件里配置。（选择一项）（难度★）
+*图12-35*
 
-A．web.xml						
+单击`<button>`后，父元素`<div>`的背景变色：
 
-B．server.xml
+![](http://i.imgur.com/Q1Y0ABC.png)
 
-C．context.xml			
-			
-D．tomcat-users.xml
+*图12-36*
 
-2.当应用程序使用完数据库连接池中的连接之后，下面的说法中最准确的是（    ）。（选择一项）（难度★★）
+# 12.6 表单校验 #
 
-A．立即关闭连接
+如果所有的数据校验都留给后台服务器完成，那么服务器的压力会非常大。一个解决方案，就是把表单数据的校验放到前台完成，也就是我们即将学习的表单校验。
 
-B．将连接一直置于空闲状态
+**使用jQuery或Javascript实现前台表单校验的总体步骤如下：**
 
-C．将连接置于空闲状态，直到超过最大空闲时间时关闭连接
+**①**获取需要校验的表单元素的值，一般都是字符串类型的值
 
-D．将连接置于空闲状态，直到超过最大空闲时间时关闭连接（且连接数不低于最小连接数）
+**②**使用JQuery或JavaScript的相关字符串处理方法，对获取的表单元素值进行校验
+
+**③**当提交`form`表单时，触发`onsubmit`事件，对获取的数据进行验证
+
+## 12.6.1 使用字符串处理方法，对表单元素值校验 ##
+
+下面的`check()`方法，是一种常见校验方法的形式：
+
+**input.jsp**
+
+```
+<script type="text/javascript">
+		//校验函数
+	    function check() {
+	         var name = $("#username").val();
+	         if(name.length < 6){
+	             alert("用户名不能小于6位");
+		         return false;
+	          }
+	         var email = $("#email").val();
+	         if (email == "") {
+	             alert("邮箱不能为空");
+	             return false;
+	          }
+	          if (email.indexOf("@") == -1  
+|| email.indexOf(".") == -1 
+|| email.indexOf("@")>email.indexOf(".")) {
+	             alert("邮箱格式不正确(username@domain.com)");
+	             return false;
+	          }   
+	          return true;
+	     }
+</script>
+```
+
+通过jQuery或JavaScript的字符串处理方法，对表单元素进行校验。校验时，如果不合法则返回`false`，如果合法则返回`true`。返回的布尔值，是为了以后使用`onsubmit`事件做准备。
+
+经验：做表单校验时，只需要校验消极、负面、失败的情况，并返回`false`；最后在校验方法的最后一行返回`true`。
+
+## 12.6.2 校验事件和方法 ##
+
+`check()`写完以后，就需要被校验事件或校验方法调用，如下：
+
+<table>
+   <tr>
+      <td>类别</td>
+      <td>名称</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td rowspan="3">校验事件</td>
+      <td>onsubmit</td>
+      <td>当提交表单时（单击submit按钮时）触发</td>
+   </tr>
+   <tr>
+      <td>onfocus</td>
+      <td>获得焦点，当光标进入某个文本框时触发</td>
+   </tr>
+   <tr>
+      <td>onblur</td>
+      <td>失去焦点，当光标离开某个文本框时触发</td>
+   </tr>
+   <tr>
+      <td rowspan="3">校验方法</td>
+      <td>submit()</td>
+      <td>提交表单、单击submit按钮</td>
+   </tr>
+   <tr>
+      <td>onfocus()</td>
+      <td>获得焦点，光标进入某个文本框</td>
+   </tr>
+   <tr>
+      <td>blur()</td>
+      <td>失去焦点，光标离开某个文本框</td>
+   </tr>
+</table>
+
+**onsubmit事件示例：input.jsp**
+
+```
+<html>
+<head>
+		<script type="text/javascript" src="js/jquery-1.12.3.js">
+</script>
+		<script type="text/javascript">
+			 //校验函数
+	        function check() {
+	           …
+	            if (…) {
+	                alert(…);
+	                return false;
+	            }
+	            return true;
+	        }
+		</script>
+</head>
+<body>
+	<form action="" onsubmit="return check()">
+		用户名：<input type="text" id="username"/><br/>
+		邮箱：<input type="text" id="email"/><br/>
+		    <input type="submit" id="注册"/>
+	</form>
+</body>
+</html>
+```
+
+`onsubmit`事件会在单击`submit`按钮时被触发，如果`onsubmit="return true"`则会正常跳转到`action`指向的地址；如果`onsubmit="return false"`，则会终止`action`跳转。
+
+例如，如果输入的表单内容不合法，就会弹出错误提示，并停留在当前页面而不进行`action`跳转，如图
+
+![](http://i.imgur.com/gNhAT7T.png)
+
+*图12-37*
+
+而如果输入的表单数据全部合法，才会执行`action`跳转。
+以上使用`onsubmit`实现的表单校验，等价于以下使用`submit()`方法：
+
+**`submit()`方法示例：input.jsp**
+
+```
+<html>
+<head>
+		…
+		<script type="text/javascript">
+			 //校验函数
+	        function check() {
+	           …
+	            if (…) {
+	                alert(…);
+	                return false;
+	            }
+	            return true;
+	        }
+		
+		   $(document).ready(function() {
+			   $("#myForm").submit(function(){
+					return check();				   
+			   });
+		   });
+		</script>
+</head>
+<body>
+	 <form action="" id="myForm">
+	 	…
+		<input type="submit" id="注册"/>
+	</form>
+</body>
+</html>
+```
+
+## 12.6.3 正则表达式 ##
+
+之前，我们是使用字符串处理方法或属性（如`length`、`indexOf()`）对表单元素进行校验。除此以外，对于一些复杂的校验，我们可以使用正则表达式来完成。
+
+正则表达式所定义的校验规则，是写在`/^…$/`之中，其中具体的校验规则是通过以下符号来指定：
+
+<table>
+   <tr>
+      <td>符号</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>/…/</td>
+      <td>一个规则的开始和结束</td>
+   </tr>
+   <tr>
+      <td>^</td>
+      <td>匹配字符串的开始</td>
+   </tr>
+   <tr>
+      <td>$</td>
+      <td>匹配字符串的结束</td>
+   </tr>
+   <tr>
+      <td>[]</td>
+      <td>定义一个匹配的字符范围，如[0-9a-z]表示该字符取值的范围是数字或小写字母</td>
+   </tr>
+   <tr>
+      <td>\s</td>
+      <td>任何空白字符</td>
+   </tr>
+   <tr>
+      <td>\S</td>
+      <td>任何非空白字符</td>
+   </tr>
+   <tr>
+      <td>\d</td>
+      <td>匹配一个数字字符，等价于[0-9]</td>
+   </tr>
+   <tr>
+      <td>\D</td>
+      <td>除了数字之外的任何字符，等价于[^0-9]</td>
+   </tr>
+   <tr>
+      <td>\w</td>
+      <td>匹配一个数字、下划线或字母字符，等价于[A-Za-z0-9_]</td>
+   </tr>
+   <tr>
+      <td>\W</td>
+      <td>任何非单字字符，等价于[^a-zA-z0-9_]</td>
+   </tr>
+   <tr>
+      <td>.</td>
+      <td>除了换行符之外的任意字符</td>
+   </tr>
+   <tr>
+      <td>{n}</td>
+      <td>匹配前一项n次</td>
+   </tr>
+   <tr>
+      <td>{n,}</td>
+      <td>匹配前一项n次或n次以上</td>
+   </tr>
+   <tr>
+      <td>{n,m}</td>
+      <td>匹配前一项至少n次，至多m次</td>
+   </tr>
+   <tr>
+      <td>*</td>
+      <td>匹配前一项0次或多次，等价于{0,}</td>
+   </tr>
+   <tr>
+      <td>+</td>
+      <td>匹配前一项1次或多次，等价于{1,}</td>
+   </tr>
+   <tr>
+      <td>？</td>
+      <td>匹配前一项0次或1次，也就是说前一项是可选的，等价于{0,1}</td>
+   </tr>
+</table>
+
+例如，11位手机号码（第一位必须是1）的正则表达式校验规则就是`var regMobile=/^1\d{10}$/;`
+
+有了正则校验规则后，就可以使用`test()`方法来执行校验。如果校验的内容和规则一致，则返回`true`；不一致，则返回`false`。
+
+**示例：reg.jsp**
+
+```
+<html>
+<head>
+		…
+		<script type="text/javascript">
+		   $(document).ready(function() {
+			   $("#mobile").blur(function(){
+				   var mobile  = $(this).val();
+					  //正则表达式
+					  var regMobile = /^1\d{10}$/;
+					  if(!regMobile.test(mobile)){
+						  $("#tip").css("display","inline");
+					  }else{
+						  $("#tip").css("display","none");
+					  }
+			   });
+				  
+		   });
+		</script>
+        …
+</head>
+<body>
+	电话号码：<input type="text" id="mobile" />
+	<font color="red" id="tip" style="display: none">
+电话号码格式不正确
+</font>
+</body>
+</html>
+```
+
+运行结果：
+
+如果输入的电话号码不符合正则表达式规则：
+
+![](http://i.imgur.com/4aZdI1H.png)
+
+*图12-38*
+
+如果符合规则：
+
+![](http://i.imgur.com/Q7yDjE9.png)
+
+*图12-39*
+
+## 12.6.4 表单选择器 ##
+
+jQuery专门提供了表单选择器，便于我们快速的获取`form`表单的元素值。表单选择器是过滤选择器的一种，具体如下：
+
+<table>
+   <tr>
+      <td>表单选择器</td>
+      <td>简介</td>
+      <td>示例</td>
+   </tr>
+   <tr>
+      <td>:input</td>
+      <td>匹配所有input、textarea、select和button 元素</td>
+      <td>$("#myform:input")选取所有的input、select、button元素</td>
+   </tr>
+   <tr>
+      <td>:text</td>
+      <td>匹配所有单行文本框</td>
+      <td>$("#myform :text")选取所有的&lt;input type="text" /&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:password</td>
+      <td>匹配所有密码框</td>
+      <td>$("#myform:password" )选取所有&lt;input type="password" /&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:radio</td>
+      <td>匹配所有单项按钮</td>
+      <td>$("#myform  :radio")选取所有&lt;input type="radio" /&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:checkbox</td>
+      <td>匹配所有复选框</td>
+      <td>$(" #myform  :checkbox " )选取&lt;input type="checkbox " /&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:submit</td>
+      <td>匹配所有提交按钮</td>
+      <td>$("#myform  :submit " )选取&lt;input type="submit " /&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:image</td>
+      <td>匹配所有图像</td>
+      <td>$("#myform  :image" )选取&lt;input type=" image" /&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:reset</td>
+      <td>匹配所有重置按钮</td>
+      <td>$(" #myform  :reset " )选取&lt;input type=" reset " /&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:button</td>
+      <td>匹配所有按钮</td>
+      <td>$("#myform  :button" )选取button 元素</td>
+   </tr>
+   <tr>
+      <td>:file</td>
+      <td>匹配所有文件域</td>
+      <td>$(" #myform  :file" )选取&lt;input type=" file " /&gt;元素</td>
+   </tr>
+   <tr>
+      <td>:hidden</td>
+      <td>匹配所有不可见元素</td>
+      <td>$("#myform  :hidden" )选取&lt;input type="hidden " /&gt;、style="display: none"等元素</td>
+   </tr>
+</table>
+
+# 12.7 练习题 #
+
+1.在JQuery中，`“$("tr:even").css("background-color", "red");”`代码的含义是（    ）。（选择一项）（难度★）
+
+A．设置表格每一行的背景色
+
+B．设置表格所有偶数行的背景色
+
+C．设置表格所有奇数行的背景色
+
+D．设置表格所有偶数列的背景色
+
+2.在JQuery中，（    ）是代表在淡入和淡出间切换的语法。（选择一项）（难度★）
+
+A．$(selector).showToggle(speed,callback);
+
+B．$(selector).fadeToggle(speed,callback);
+
+C．$(selector).toggle(speed,callback);
+
+D．$(selector).slideToggle(speed,callback);
 
 
-**二、简答题**
+3.下面哪一个是用来追加到指定元素的末尾的？（难度★★）
 
-1.分页类包含类哪些属性？（难度★★）
+A、`insertAfter()`
 
-2.页面大小与总页数之间，有什么关系？若已知页面大小，如何设置总页数？（难度★★）
+B、`append()`
 
-3.写出基于oracle的分页SQL语句。（难度★★★）
+C、`appendTo()`
 
-4.通过JSP及Servlet实现上传照片的功能。（难度★★★）
+D、`after()`
 
-5.在Tomcat中，如何配置和使用数据库连接池？（难度★★★）
 
-6.请描述什么是数据库连接池和使用数据库连接池的好处。（难度★★）
+4.如果需要匹配包含文本的元素，用下面哪种来实现？（难度★）
 
-7.什么是数据源？请介绍使用数据源的好处。（难度★★）
+A、`text()`
 
-8.什么是JNDI？请简要描述JNDI的作用。（难度★★）
+B、`contains()`
 
-9.使用连接池继续优化第六章练习题中的“部门管理系统”。（难度★★★★）
+C、`input()`
 
-10.使用分页继续优化第六章练习题中的“部门管理系统”。（难度★★★★）
+D、`attr(name)`
 
-11.使用过滤器，将第六章练习题中的“部门管理系统”进行POST方式的统一编码。（难度★★★）
+5.为每一个指定元素的指定事件（像click）绑定一个事件处理器函数，下面哪个是用来实现该功能的？（难度★）
+
+A、`trigger (type)`
+
+B、`bind(type)`
+
+C、`one(type)`
+
+D、`bind`
+
+6.在一个表单中，如果想要给输入框添加一个输入验证，可以用下面的哪个事件实现？（难度★）
+
+A、`hover(over ,out)`
+
+B、`keypress（fn）`
+
+C、`change()`
+
+D、`change(fn)`
+ 
+7.在jquery中指定一个类，如果存在就执行删除功能，如果不存在就执行添加功能，下面哪一个是可以直接完成该功能的？（难度★）
+
+A、`removeClass()`
+
+B、`deleteClass()`
+
+C、`toggleClass(class)`
+
+D、`addClass()`

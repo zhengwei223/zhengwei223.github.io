@@ -2,1400 +2,617 @@
 
 layout: post
 
-title: jQuery
+
+title: 过滤器与监听器
+
 
 category: JSP-Servlet教程
 
+
 tags: JSP Servlet
 
-description: 本章将系统介绍jQuery。使用jQuery既能减少代码量，又能大幅提高开发效率。
+
+description: 本章将系统介绍过滤器与监听器。
+
 
 author: 颜群
+
 
 keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
-# 12.1 jQuery简介及环境搭建 #
+# 8.1 过滤器 #
 
-## 12.1.1 jQuery简介 ##
+## 8.1.1 过滤器原理 ##
 
-jQuery是目前最流行的JavaScript程序库，它是对JavaScript对象及函数的封装。jQuery凭借其简洁的语法和跨平台的兼容性，极大的简化了JavaScript开发人员遍历HTML、操作DOM、控制页面样式、处理事件、执行动画、扩展新的jQuery插件和开发Ajax等操作。
+过滤器（Filter）的基本功能是对Servlet的调用过程进行拦截，从而在Servlet处理请求及响应的过程中增加一些特定的功能。
 
-jQuery的设计思想是write less do more（写的少，做的多）。一般情况下，jQuery能做的JavaScript也都能做，但使用jQuery既能减少代码量，又能大幅提高开发效率。
+常见用Filter实现的功能有：URL级别的权限访问控制、过滤敏感词汇、压缩响应信息、设置POST方式的统一编码等。
 
-## 12.1.2 jQuery环境搭建 ##
+程序中的过滤器就好比生活中的自来水过滤器，可以将水中的杂质、有害物质等进行过滤，从而使水变得更加有利于我们使用。
 
-**(1)获取jQuery库**
+![](http://i.imgur.com/wTRPGUq.gif)
 
-进入jQuery官网[http://jquery.com/](http://jquery.com/)，点击Download jQuery，如图，
+*图8-01*
 
-![](http://i.imgur.com/LIQB5fJ.png)
+如上图，当客户端向服务器中的资源发出请求时，会先被过滤器Filter进行拦截处理，之后再将处理后的请求转发给真正的服务器资源。此外，当服务器接收到请求并对其做出响应后，响应结果也会先被过滤器拦截处理，之后再将处理后的响应转发给客户端。即在请求、响应的过程前，都会先被过滤器进行拦截处理。
 
-*图12-01*
-
-下载开发版或发布版的jQuery库，如下
-
-![](http://i.imgur.com/bBfvRGe.png)
-
-*图12-02*
-
-**开发版和发布版的区别如下：**
+程序中的过滤器，实际就是一个实现了`javax.servlet.Filter`接口的类，`javax.servlet.Filter`接口中定义了以下3个方法：
 
 <table>
    <tr>
-      <td>版本型号</td>
-      <td>文件名</td>
-      <td>大小</td>
-      <td>说明</td>
+      <td>方法</td>
+      <td>简介</td>
    </tr>
    <tr>
-      <td>开发版</td>
-      <td>jquery-版本号.js</td>
-      <td>287KB</td>
-      <td>完整无压缩版本，便于开发人员查看jQuery源码。主要用于调试、学习和开发。</td>
+      <td>void init(FilterConfig conf)</td>
+      <td>用于执行过滤器的初始化工作。Web容器会在Web项目启动前，自动调用该方法。该方法类似于Servlet中的init()。</td>
    </tr>
    <tr>
-      <td>发布版</td>
-      <td>jquery-版本号.min.js</td>
-      <td>95KB</td>
-      <td>经过工具进行了压缩，主要应用于发布的产品和项目。</td>
+      <td>void doFilter(ServletRequest request,  ServletResponse response,  FilterChain chain)</td>
+      <td>当请求和响应被过滤器拦截后，就通过doFilter()方法来处理：request参数就是拦截的请求对象，response参数就是拦截的响应对象，可以使用FilterChain参数的doFilter()方法来将拦截的请求和释放。类似于Servlet中的doGet()、doPost()。</td>
+   </tr>
+   <tr>
+      <td>void destroy()</td>
+      <td>用于释放或关闭被Filter对象打开的资源，例如关闭数据库、关闭IO流等操作。在Web项目关闭时，由Web容器自动调用该方法。类似于Servlet中的destroy()。</td>
    </tr>
 </table>
 
-一般建议：在开发时使用开发版；开发完毕后，进行项目发布时，再将开发版替换成发布版。
+与Servlet类似，Filter的`init()`和`destroy()`方法各自只会被调用一次，而`doFilter()`方法会在每次客户端发出请求时被调用。
 
-本书使用的jQuery库是jquery-1.12.3.js。
+其中`init()`方法里的FilterConfig参数，主要为过滤器提供初始化参数。
 
-**(2)引入jQuery库**
+**FilterConfig是一个接口，常用的方法如下：**
 
-引入jQuery库实际就是引入外部js文件，具体步骤如下（将jQuery库引入到**index.jsp**中）：
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>String getFilterName()</td>
+      <td>获取web.xml中的过滤器的名称</td>
+   </tr>
+   <tr>
+      <td>String getInitParameter(String param)</td>
+      <td>获取web.xml中参数名对应的参数值</td>
+   </tr>
+   <tr>
+      <td>ServletContext getServletContext()</td>
+      <td>获取web应用程序的ServletContext</td>
+   </tr>
+</table>
 
-**①**在Web项目的WebContent目录中新建js目录，将jquery-1.12.3.js放入js目录，如图，
+## 8.1.2开发第一个Filter程序 ##
 
-![](http://i.imgur.com/8W00OLf.png)
+本示例采用Servlet2.5版本。
 
-*图12-03*
+**步骤：**
 
-**②**在**index.jsp**中引入js库，如下，
+**(1)**新建Web项目（项目名是FilterProject）；再在WebContext下新建`jsp`，在`src`下新建Servlet。如下：
 
-**index.jsp**
+
+
+发送请求的客户端JSP：**index.jsp**
+
+```…
+<a href="MyServlet">访问MyServlet...</a>
+…
+```
+
+处理请求的控制器**Servlet：MyServlet.java**
 
 ```
 …
-<html>
-	<head>
-        <!-- 引入jQuery库 -->
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		…
-	</head>
-	<body>
-	    …
-	</body>
-</html>
-```
-
-## 12.1.3 开发第一个jQuery程序 ##
-
-**index.jsp**
-
-```
-…
-<html>
-	<head>
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-		    $(document).ready(function() {
-		        alert("hello jQuery");
-		    });
-		</script>
-	</head>
-	<body>
-	   
-	</body>
-</html>
-```
-
-运行结果：
-
-![](http://i.imgur.com/g0ceFle.png)
-
-*图12-04*
-
-其中
-
-```
-$(document).ready(function() {
-   …
-});
-```
-
-作用类似于传统JavaScript中的`window.onload`事件，但仍然与`window.onload`有一些区别，如下
-
-<table>
-   <tr>
-      <td></td>
-      <td>window.onload</td>
-      <td>$(document).ready()</td>
-   </tr>
-   <tr>
-      <td>执行时机</td>
-      <td>必须等待网页中所有的内容加载完毕后（图片、flash、视频等）才能执行</td>
-      <td>网页中所有DOM文档结构绘制完毕后即刻执行，可能与DOM元素关联的内容（图片、flash、视频等）并没有加载完</td>
-   </tr>
-   <tr>
-      <td>编写个数 </td>
-      <td>同一页面不能同时编写多个</td>
-      <td>同一页面能同时编写多个</td>
-   </tr>
-   <tr>
-      <td>简化写法 </td>
-      <td>无</td>
-      <td>$(function(){}</td>
-   </tr>
-</table>
-
-在编写jQuery程序时，美元符号“$”和关键字`“jQuery”`是等价的，例如以上代码也可以写成以下形式：
-
-```
-jQuery(document).ready(function() {
-   …
-});
-```
-
-## 12.1.4 DOM对象和jQuery对象 ##
-
-#### (1)DOM模型 ####
-
-在学习DOM对象之前，我们有必要先学习一下DOM模型。
-
-DOM是Document Object Model（文档对象模型）的简称，只有(X)HTML、XML等文档结构的语言才具有DOM。
-
-以HTML页面为例：每一个HTML页面，都具有一个DOM，每一个DOM都可以表示成一棵树。如下，是一个基本的HTML程序：
-
-**domDemo.html**
-
-```
-<html>
-	<head>
-		<meta http-equiv="Content-Type" 
-content="text/html; charset=UTF-8">
-		<title></title>
-	</head>
-	<body>
-	    <p title="选择你喜欢的颜色">你最喜欢的颜色是？</p>
-	    <ul>
-	        <li>紫色</li>
-	        <li>绿色</li>
-	        <li>蓝色</li>
-	    </ul>
-	    <img src="img.png" alt="颜色知识" /><br/>
-	    <strong>颜色知识：<br/>
-		        你知道上述颜色是暖色还是冷色吗？
-		</strong>
-	</body>
-</html>
-```
-
-运行结果：
-
-![](http://i.imgur.com/NSkNuQS.png)
-
-*图12-05*
-
-可以把上面的HTML结构描述成一颗DOM树，如下图，
-
-![](http://i.imgur.com/WmEdz0n.png)
-
-*图12-06*
-
-**`DOM`中的节点通常分为三种类型：元素节点、属性节点和文本节点。**
-
-**①元素节点**
-
-像**domDemo.html**中的`<html>`、`<body>`、`<p>`、`<li>`等标签形式的节点，就称之为元素节点。正是这些元素节点的堆积，才形成了一个HTML文档的结构。元素节点之中还可以嵌套一些子元素节点，例如本例中的`<li>`就是`<ul>`元素的子元素节点，而`<ul>`又是`<body>`元素的子元素节点，`<html>`元素是根元素节点等。
-
-**②属性节点**
-
-属性节点的作用是对元素节点进行更具体的描述。例如，`<img>`元素中的`src`和`alt`就是属性节点，可以用来对图片做进一步的描述。
-
-不难发现，属性节点总是被放在元素节点的标签内，因此属性节点也算作是元素节点的子节点。但并不是所有元素节点都包含属性节点，例如，本例中`<ul>`元素就没有包含任何属性节点。
-
-**③文本节点**
-
-HTML文档的内容都是由文本节点提供的，文本节点就是指HTML中的文字内容。本例中的“你最喜欢的颜色是？”、“紫色”等都是文本节点。
-
-文本节点总包含在元素节点的内部，例如`<li>`紫色`</li>`。但并不是所有元素节点都一定包含文本节点，例如`<img>`元素节点就没有包含文本节点。
-
-#### (2)`DOM`对象 ####
-
-在JavaScript中，可以使用`getElementById()`或`getElementsByName()`等方法获取DOM元素节点。通过该方式得到的`DOM`元素就称之为`DOM`对象，`DOM`对象可以使用JavaScript定义的方法或属性，如下：
-
-```
-var dom = document.getElementById("myId") ;//获取DOM对象
-var html = dom.innerHTML ;//DOM对象使用JavaScript中的属性
-```
-
-#### (3)`jQuery`对象 ####
-	
-通过jQuery选择器选中的HTML元素，就是jQuery对象，例如：
-
-
-```
-//使用jQuery对象的html()方法，等价于document.getElementById("#myId ").innerHTML;
-var myHtml = $("#myId").html();
-```
-	
-以上代码，通过选择器$(“#myId”)选择了id=”myId”的HTML元素，返回的myHtml就是jQuery对象。jQuery选择器会在后文详细介绍。
-
-
-值得注意的是，`DOM`对象的方法/属性和`jQuery`对象的方法/属性是彼此独立的，即`DOM`对象只能使用`DOM`对象的方法/属性，而`jQuery`对象只能使用`jQuery`对象的方法/属性。例如`DOM`对象可以使用`DOM`对象拥有的`innerHTML`属性，但不能使用`jQuery`对象拥有的`html()`方法。
-
-
-#### (4)`DOM`和`jQuery`对象之间的相互转换 ####
-
-刚才提到，`DOM`对象的方法/属性和`jQuery`对象的方法/属性是彼此独立的，但是在某些情况下，如果一定需要用`DOM`对象来调用`jQuery`对象的属性/方法；或者要用`jQuery`对象来调用`DOM`对象的属性/方法，就必须进行`DOM`对象与`jQuery`对象之间的类型转换。
-
-**①将`DOM`对象转为`jQuery`对象**
-
-将一个`DOM`对象用`$()`包裹起来，就可以转换成一个`jQuery`对象，即$(DOM对象)就是一个`jQuery`对象，如下：
-
-```
-var domObject = document.getElementById("myId");//获取一个DOM对象
-var $jQueryObject = $(domObject); //通过$()将DOM对象转为jQuery对象
-```
-	
-其中$()称为jQuery工厂。
-
-**②将`jQuery`对象转为`DOM`对象**
-
-`jQuery`对象的本质是一个类似数组或集合的对象，而`DOM`对象的本质是一个普通的对象。因此`jQuery`对象转`DOM`对象的本质，就是将一个数组或集合转为一个普通对象。
-
-**a.方式一**
-
-将`jQuery`对象看作一个数组，通过使用数组下标的方式转为`DOM`对象，例如:
-
-```
-var $jqueryObject = $("#myId") ; //获取jQuery对象
-var jsObject = jqueryObject[0] ; //通过数组下标的方式，将jQuery对象转为DOM对象
-```
-
-**b.方式二**
-
-将`jQuery`对象看作一个集合，通过使用`get(index)`的方式转为`DOM`对象，例如:
-
-```
-var $jqueryObject = $("#myId") ; //获取jQuery对象
-var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对象转为DOM对象
-```
-
-**说明：**
-
-在Dom对象和jQuery对象的变量命名上，一般习惯给jQuery对象的变量名前加上$，表示区分。例如，`var $variable = jQuery对象`; `var variable=DOM对象`。
-
-# 12.2 jQuery选择器 #
-
-选择器是jQuery的根基，jQuery的大部分功能都依赖于选择器。jQuery选择器的语法规则类似于CSS选择器，可以用来选取网页中的元素，并且有着良好的浏览器兼容性。jQuery选择器的种类有很多，大体上可以分为类CSS选择器和过滤选择器。
-
-## 12.2.1 类CSS选择器 ##
-
-顾名思义，类CSS选择器的构成规则与CSS选择器完全相同，常用的类CSS选择器有jQuery基本选择器、层次选择器、属性选择器。
-
-#### (1) 基本选择器 ####
-
-常见的基本选择器及简介如下表：
-
-<table>
-   <tr>
-      <td>名称</td>
-      <td>语法</td>
-      <td>简介</td>
-      <td>示例</td>
-   </tr>
-   <tr>
-      <td>标签选择器</td>
-      <td>$("HTML标签名")</td>
-      <td>根据给定的标签名匹配元素</td>
-      <td>$("h1")选取所有h1元素</td>
-   </tr>
-   <tr>
-      <td>类选择器</td>
-      <td>$(" .class名")</td>
-      <td>根据给定的class匹配元素</td>
-      <td>$(" .content")选取所有class= "content"的元素</td>
-   </tr>
-   <tr>
-      <td>ID选择器</td>
-      <td>$(" #id值")</td>
-      <td>根据给定的id匹配元素</td>
-      <td>$(" #myTitile")选取id="myTitile"的元素</td>
-   </tr>
-   <tr>
-      <td>并集选择器</td>
-      <td>$("选择器1, 选择器2" )</td>
-      <td>将多个选择器用逗号隔开，取并集</td>
-      <td>$("div,.title" )选取所有div和拥有class="title"的元素</td>
-   </tr>
-   <tr>
-      <td>交集选择器</td>
-      <td>$("选择器1选择器2")</td>
-      <td>将多个选择器连续书写，取交集</td>
-      <td>$("div.title")选取所有拥有class="title"的div元素</td>
-   </tr>
-   <tr>
-      <td>全局选择器</td>
-      <td>$("*")</td>
-      <td>匹配所有元素</td>
-      <td>$("*" )选取所有元素</td>
-   </tr>
-</table>
-
-其中，在使用交集选择器时，除了“选择器1”以外的其他选择器不能是标签选择器（为了防止歧义），例如：无法用`$(".titlediv")`表示`class="title"`并且是`div`的元素，因为`.title`和`div`连在一起会造成歧义，会被程序理解成是`class= "titlediv"`的元素。
-
-
-**示例：index.jsp**
-
-```
-<html>
-	<head>
-		…
-		<script type="text/javascript">
-		    $(document).ready(function() {
-		          //选择h3标签元素和class="content"元素的并集，将其背景色设置为yellow
-		        $("h3,.content").css("background","yellow");
-		    });
-		</script>
-	</head>
-	<body>
-		<h2 class="content">class为content的h2...</h2>
-	 	<h3 >h3...</h3>
-	 	其他
-	</body>
-</html>
-```
-
-运行结果：
-
-![](http://i.imgur.com/EqVPiOX.png)
-
-*图12-07*
-
-#### (2) 层次选择器 ####
-
-层次选择器通过`DOM`元素之间的层次关系来获取元素，如获取相邻关系、同辈关系、后代关系、父子关系的元素等，如下。
-
-<table>
-   <tr>
-      <td>名称</td>
-      <td>语法</td>
-      <td>简介</td>
-      <td>示例</td>
-   </tr>
-   <tr>
-      <td>相邻元素选择器</td>
-      <td>$("选择器1+选择器2" )</td>
-      <td>选取紧邻选择器1所选元素之后的选择器2所选的元素（最多只选中1个元素）</td>
-      <td>$(" h1+div " )选取紧邻&lt;h1&gt;元素之后的同辈元素&lt;div&gt;</td>
-   </tr>
-   <tr>
-      <td>同辈元素选择器</td>
-      <td>$("选择器1~选择器2" )</td>
-      <td>选取选择器1所选元素之后的选择器2所选的所有元素（可能选中多个元素）</td>
-      <td>$(" h1~div " )选取&lt;h1&gt;元素之后所有的同辈元素&lt;div&gt;</td>
-   </tr>
-   <tr>
-      <td>后代选择器</td>
-      <td>$("选择器1 选择器2" )</td>
-      <td>选取选择器1所选元素内的选择器2（后代）所选的所有元素</td>
-      <td>$("#titleId span" )选取# titleId中的所有&lt;span&gt;元素</td>
-   </tr>
-   <tr>
-      <td>子选择器</td>
-      <td>$("选择器1&gt;选择器2" )</td>
-      <td>选取选择器1所选元素内的（子代）选择器2所选的元素</td>
-      <td>$(" # titleId&gt;span" )选取# titleId的子元素&lt;span&gt;</td>
-   </tr>
-</table>
-
-
-**示例：index.jsp**
-
-```
-<html>
-	<head>
-		…
-		<script type="text/javascript">
-		    $(document).ready(function() {
-		         //后代选择器，获取并设置#menu内的所有<span>元素的背景颜色
-		        $("#menu span").css("background-color","yellow");		    });
-		</script>
-	</head>
-	<body>
-		<div id="menu">
-			<h2>水果分类</h2>
-			<dl>
-				<dt>新疆西瓜<span>特价</span></dt>
-				<dd>西疆西瓜拥有...</dd>
-			</dl>
-			<dl>
-				<dt>海南椰子<span>促销</span></dt>
-				<dd>海南椰子拥有...</dd>
-			</dl>
-			<span>更多...</span>
-		</div>
-	 	其他	</body>
-</html>
-```
-
-运行结果：
-
-![](http://i.imgur.com/heN3NZX.png)
-
-*图12-08*
-
-#### (3) 属性选择器 ####
-
-属性选择器是通过HTML元素的属性来选择元素。
-
-<table>
-   <tr>
-      <td>语法</td>
-      <td>简介</td>
-      <td>示例</td>
-   </tr>
-   <tr>
-      <td>$([属性名])</td>
-      <td>选取包含特定属性的元素</td>
-      <td>$(" [name]" )选取含有name属性的元素</td>
-   </tr>
-   <tr>
-      <td>$( [属性名=属性值] )</td>
-      <td>选取属性值是某个特定值的元素</td>
-      <td>$(" [name ='stuName']" )选取name属性值为“stuName”的元素</td>
-   </tr>
-   <tr>
-      <td>$( [属性名!=属性值] )</td>
-      <td>选取属性值不等于某个特定值的元素</td>
-      <td>$(" [name!=' stuName ']" )选取name属性值不等于“stuName”的元素</td>
-   </tr>
-   <tr>
-      <td>$( [属性名^=属性值] )</td>
-      <td>选取属性值是以某个特定值开头的元素</td>
-      <td>$(" [name ^='stu']" )选取name属性值以stu开头的元素</td>
-   </tr>
-   <tr>
-      <td>$( [属性名$=属性值] )</td>
-      <td>选取属性值是以某些特定值结尾的元素</td>
-      <td>$(" [name $='me']" )选取name属性值以me结尾的元素</td>
-   </tr>
-   <tr>
-      <td>$( [属性名*=属性值] )</td>
-      <td>选取属性值是包含某些值的元素</td>
-      <td>$(" [name * ='na']" )选取name属性值中含有na的元素</td>
-   </tr>
-</table>
-
-**示例：index.jsp**
-
-```
-<html>
-	<head>
-		…
-		<script type="text/javascript">
-		    $(document).ready(function() {
-		       //将name属性值是以stu开头的元素的背景色设置为yellow
-	          $("[name^=stu]").css("background-color","yellow");
-		    });
-		</script>
-	</head>
-	<body>
-		<form action="">
-			学号：<input type="text" name="stuNo" /><br/>
-			姓名：<input type="text" name="stuName" /><br/>
-			年级：<input type="text" name="gradName" /><br/>
-		</form>
-	 	其他
-	</body>
-</html>
-```
-
-运行结果：
-
-![](http://i.imgur.com/CHyUXYq.png)
-
-*图12-09*
-
-## 12.2.2 过滤选择器 ##
-
-过滤选择器是通过一些过滤规则来筛选元素，语法特点是使用“:”作为过滤选择器的标识符，如使用`$(“li:first”)`来过滤出第一个`li`元素。常见的过滤选择器有基本过滤选择器、可见性过滤选择器、表单对象过滤选择器、内容过滤选择器等。
-
-#### (1)基本过滤选择器 ####
-
-基本过滤选择器可以选取第一个元素、最后一个元素、索引为偶数或奇数的元素、或根据索引选取元素，如下：
-
-<table>
-   <tr>
-      <td>语法</td>
-      <td>简介</td>
-      <td>示例</td>
-   </tr>
-   <tr>
-      <td>:first</td>
-      <td>选取第一个元素</td>
-      <td>$("li:first")选取所有&lt;li&gt;元素中的第一个&lt;li&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:last</td>
-      <td>选取最后一个元素</td>
-      <td>$("li:last")选取所有&lt;li&gt;元素中的最后一个&lt;li&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:even</td>
-      <td>选取索引是偶数的所有元素（从0开始）</td>
-      <td>$("li:even")选取索引是偶数的所有&lt;li&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:odd</td>
-      <td>选取索引是奇数的所有元素（从0开始）</td>
-      <td>$("li:odd")选取索引是奇数的所有&lt;li&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:eq(index)</td>
-      <td>选取索引等于index的元素（从0开始）</td>
-      <td>$("li:eq(1)")选取索引等于1的&lt;li&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:gt(index)</td>
-      <td>选取索引大于index的元素（index从0开始）</td>
-      <td>$("li:gt(1)")选取索引大于1的&lt;li&gt;元素（不包括1）</td>
-   </tr>
-   <tr>
-      <td>:lt(index)</td>
-      <td>选取索引小于index的元素（index从0开始）</td>
-      <td>$("li:lt(1) ")选取索引小于1的&lt;li&gt;元素（不包括1）</td>
-   </tr>
-   <tr>
-      <td>:not(选择器)</td>
-      <td>选取除指定选择器选中以外的元素</td>
-      <td>$("li:not(#myTile)")选取id值不是myTile的li元素</td>
-   </tr>
-   <tr>
-      <td>:header</td>
-      <td>选取所有标题元素，如h1、h2、h3…</td>
-      <td>$(":header" )选取网页中所有标题元素</td>
-   </tr>
-   <tr>
-      <td>:focus</td>
-      <td>选取当前获取焦点（光标）的元素</td>
-      <td>$(":focus" )选取当前获取焦点的元素</td>
-   </tr>
-</table>
-
-**示例：index.jsp**
-
-```
-<html>
-	<head>
-		…
-		<script type="text/javascript">
-		    $(document).ready(function() {
-		       …
-		       //改变索引值大于1的&lt;li&gt;元素的背景颜色
-		       $("li:gt(1)").css("background-color","yellow");
-		    });
-		</script>
-	</head>
-	<body>
-		…
-		 <ul>
-	        <li>紫色</li>
-	        <li>绿色</li>
-	        <li>蓝色</li>
-	    </ul>
-	</body>
-</html>
-```
-
-运行结果：
-
-![](http://i.imgur.com/TlG0g5m.png)
-
-*图12-10*
-
-#### (2)可见性过滤选择器 ####
-
-可见性过滤选择器可以根据元素显示状态来选取元素，如下：
-
-<table>
-   <tr>
-      <td>语法</td>
-      <td>简介</td>
-      <td>示例</td>
-   </tr>
-   <tr>
-      <td>:visible</td>
-      <td>选取所有可见的元素</td>
-      <td>$(":visible" )选取所有可见的元素</td>
-   </tr>
-   <tr>
-      <td>:hidden</td>
-      <td>选取所有隐藏的元素</td>
-      <td>$(":hidden" ) 选取所有隐藏的元素</td>
-   </tr>
-</table>
-
-例如`$("p:hidden").show()`表示将所有隐藏的`<p>`元素的状态变为显示; `$("p:visible").hide()`表示将所有显示的`<p>`元素的状态变为隐藏。`show()`的功能是显示，`hide()`的功能是隐藏，会在后续章节详解。
-
-# 12.3 事件 #
-
-事件是指可以被控件识别的操作。例如按下确定按钮，选择某个单选按钮或者复选框。每一种控件都有自己可以识别的事件，如窗体能识别加载、单击、双击等事件，文本框能识别文本改变等事件……
-
-**jQuery事件是对JavaScript事件的封装，大体上可以分为基础事件和复合事件。**
-
-
-**事件方法的语法格式如下：**
-
-```
-		jQuery对象.事件方法 (function(){
-…
-});**
-```
-
-例如：文档就绪事件
-
-```
-$(document).ready(function() {
+public class MyServlet extends HttpServlet {
+	protected void doGet(HttpServletRequest request,
+ HttpServletResponse response) 
+throws ServletException, IOException {
+		System.out.println("doGet…");
+	}
 	…
-});
+}
 ```
 
-## 12.3.1 基础事件 ##
-
-基础事件可以分为window事件、鼠标事件、键盘事件、表单事件等。
-
-#### (1) window事件 ####
-
-所谓window事件，就是指当用户执行某些会影响浏览器的操作时而产生的事件。例如，第一次打开网页时的加载页面、关闭窗口、移动窗口、调节窗口大小等操作引发的事件。在jQuery中，最常用的window事件是文档就绪事件，即当页面中的`DOM`元素全部加载完毕时所触发的事件，该事件对应的方法是`ready()`。
-
-#### (2)鼠标事件 ####
-
-鼠标事件是指当用户在文档中移动或单击鼠标时而产生的事件，常用鼠标事件的方法有：
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>click( )</td>
-      <td>单击鼠标时，触发的事件方法</td>
-   </tr>
-   <tr>
-      <td>mouseover( )</td>
-      <td>鼠标悬浮在某个元素上时，触发的事件方法</td>
-   </tr>
-   <tr>
-      <td>mouseout( )</td>
-      <td>鼠标移出某个元素时，触发的事件方法</td>
-   </tr>
-</table>
-
-**示例：event.jsp**
+在**web.xml**中配置此Servlet:
 
 ```
-<html>
-<head>
-    …
-	<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-		    $(document).ready(function() {
-		    	//当鼠标悬浮在div元素上时
-	    	   $("div").mouseover(function() {    
-	    	       alert("鼠标悬浮...");      
-	    	   });
-	    	  //当鼠标移出div元素时
-	    	   $("div").mouseout(function() {     
-	    		   alert("鼠标移除...");   
-	    	   });
-		    });
-		</script>
-</head>
-<body>
-	<div style="border:1px solid red;">
-		some text...
-	</div>
-</body>
-</html>
+<servlet>
+    <servlet-name>MyServlet</servlet-name>
+    <servlet-class>
+org.lanqiao.servlet.MyServlet
+</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>MyServlet</servlet-name>
+    <url-pattern>/MyServlet</url-pattern>
+</servlet-mapping>
 ```
 
-运行结果：
-当鼠标悬浮在边框以内时：
+**(2)**开发过滤器，拦截Servlet程序。
 
-![](http://i.imgur.com/FGwyIMf.png)
+新建一个过滤器（即实现了`javax.servlet.Filter`接口的类）。
 
-*图12-11*
-
-当鼠标移出边框时：
-
-![](http://i.imgur.com/4jibxV5.png)
-
-*图12-12*
-
-#### (3)键盘事件 ####
-
-键盘事件是指每次按下或者释放键盘上的按键时所产生的事件，常用键盘事件的方法有：
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>keydown( )</td>
-      <td>按下键盘时，触发的事件方法</td>
-   </tr>
-   <tr>
-      <td>keyup( )</td>
-      <td>释放按键时，触发的事件方法</td>
-   </tr>
-   <tr>
-      <td>keypress( )</td>
-      <td>产生可打印的字符时，触发的事件方法</td>
-   </tr>
-</table>
-
-使用键盘事件时，通常会使用`event`参数的`keyCode`属性来判断具体的按键，如下：
-
-**示例：event.jsp**
+**MyFirstFilter.java**
 
 ```
-<html>
-<head>
+package org.lanqiao.servlet;
+
+import java.io.IOException;
+import javax.servlet.*;
+
+public class MyFirstFilter implements Filter
+{
+	@Override
+	public void init(FilterConfig arg0) throws ServletException
+	{
+		System.out.println("过滤器01的初始化init()方法...");
+	}
+	
+	@Override
+	public void doFilter(ServletRequest request, 
+ServletResponse response, FilterChain chain)
+			throws IOException, ServletException
+	{
+		System.out.println("过滤器01的执行方法:doFilter()方法...");
+	}
+	
+	@Override
+	public void destroy()
+	{
+		System.out.println("过滤器01的销毁destory()方法...");
+	}
+}
+```
+
+在**web.xml** 中配置此Filter：
+
+```
+<filter>
+  	<filter-name>MyFirstFilter</filter-name>
+  	<filter-class>
+org.lanqiao.filter. MyFirstFilter
+</filter-class>
+ </filter>
+ <filter-mapping>
+  	<filter-name>MyFirstFilter</filter-name>
+  	<url-pattern>/MyServlet</url-pattern>
+</filter-mapping>
+```
+
+Filter的配置方法和Servlet的配置方法相类似：先通过`<url-pattern>`匹配需要拦截的请求，再根据`<filter-name>`找到对应的过滤器处理类`<filter-class>`,最后执行过滤器处理类中的`init()`、`doFilter()`、`destroy()`等方法。
+
+**(4)**部署并启动项目，访问**index.jsp**中的超链接，可以在控制台看到以下输出：
+
+![](http://i.imgur.com/6DrHIo6.png)
+
+*图8-02*
+
+可以发现，**index.jsp**通过超链接向Servlet发出的请求确实被Filter拦截了，甚至只执行了Filter中的`doFilter()`方法，而没有执行Servlet中的`doGet()`方法。如果想让请求被Filter拦截之后，仍然能正常访问到当初所请求的Servlet，则需要在Filter的`doFilter()`方法里加上`chain.doFilter()`方法，表示拦截完毕、释放请求及响应，如下：
+
+**MyFirstFilter.java**
+
+```
 …
-	<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-	<script type="text/javascript">
-		$(document).keydown(function (event) {
-			//按回车键时触发（keyCode为13时，表示回车键）
-	   		 if (event.keyCode == "13") {
-	            alert("您按下了回车键");
-	        }
-		});
-</head>
-<body>
-</body>
-</html>
+public class MyFirstFilterimplements Filter
+{
+    
+	@Override
+	public void doFilter(ServletRequest request, 
+ServletResponse response, FilterChain chain)
+		        	throws IOException, ServletException
+	{
+		System.out.println("过滤器01的执行方法:doFilter()方法...");
+		chain.doFilter(request, response);
+	}
+}
 ```
 
-通过`$(document).keydown(function (event) { … })`;给整个文档注册了`keydown`事件，当按下键盘时，就会触发`keydown`中的`function()`。并且通过event.keyCode判断当按下回车键时，执行`alert()`方法。常见按键与keyCode的对照表如下：
+ 修改**MyFirstFilter.java**以后，重启服务，再次运行并访问**index.jsp**中的超链接，可在控制台看到以下输出：
 
-**字母和数字键的键码值`(keyCode)`**
+![](http://i.imgur.com/PKdBcOe.png)
 
-<table>
-   <tr>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-   </tr>
-   <tr>
-      <td>BackSpace</td>
-      <td>8</td>
-      <td>Esc</td>
-      <td>27</td>
-      <td>Right Arrow</td>
-      <td>39</td>
-      <td>-_</td>
-      <td>189</td>
-   </tr>
-   <tr>
-      <td>Tab</td>
-      <td>9</td>
-      <td>Spacebar</td>
-      <td>32</td>
-      <td>Dw Arrow</td>
-      <td>40</td>
-      <td>.&gt;</td>
-      <td>190</td>
-   </tr>
-   <tr>
-      <td>Clear</td>
-      <td>12</td>
-      <td>Page Up</td>
-      <td>33</td>
-      <td>Insert</td>
-      <td>45</td>
-      <td>/?</td>
-      <td>191</td>
-   </tr>
-   <tr>
-      <td>Enter</td>
-      <td>13</td>
-      <td>Page Down</td>
-      <td>34</td>
-      <td>Delete</td>
-      <td>46</td>
-      <td>`~</td>
-      <td>192</td>
-   </tr>
-   <tr>
-      <td>Shift</td>
-      <td>16</td>
-      <td>End</td>
-      <td>35</td>
-      <td>Num Lock</td>
-      <td>144</td>
-      <td>[{</td>
-      <td>219</td>
-   </tr>
-   <tr>
-      <td>Control</td>
-      <td>17</td>
-      <td>Home</td>
-      <td>36</td>
-      <td>;:</td>
-      <td>186</td>
-      <td>\|</td>
-      <td>220</td>
-   </tr>
-   <tr>
-      <td>Alt</td>
-      <td>18</td>
-      <td>Left Arrow</td>
-      <td>37</td>
-      <td>=+</td>
-      <td>187</td>
-      <td>]}</td>
-      <td>221</td>
-   </tr>
-   <tr>
-      <td>Cape Lock</td>
-      <td>20</td>
-      <td>Up Arrow</td>
-      <td>38</td>
-      <td>,&lt;</td>
-      <td>188</td>
-      <td>'"</td>
-      <td>222</td>
-   </tr>
-</table>
+*图8-03*
 
-**字母和数字键的键码值`(keyCode)`**
+从输出结果可以得知，**index.jsp**发出的请求确实先被Filter进行了拦截处理，然后再执行了Servlet中的`doGet()`方法。
 
-<table>
-   <tr>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-   </tr>
-   <tr>
-      <td>A</td>
-      <td>65</td>
-      <td>J</td>
-      <td>74</td>
-      <td>S</td>
-      <td>83</td>
-      <td>主键盘区1</td>
-      <td>49</td>
-   </tr>
-   <tr>
-      <td>B</td>
-      <td>66</td>
-      <td>K</td>
-      <td>75</td>
-      <td>T</td>
-      <td>84</td>
-      <td>主键盘区2</td>
-      <td>50</td>
-   </tr>
-   <tr>
-      <td>C</td>
-      <td>67</td>
-      <td>L</td>
-      <td>76</td>
-      <td>U</td>
-      <td>85</td>
-      <td>主键盘区3</td>
-      <td>51</td>
-   </tr>
-   <tr>
-      <td>D</td>
-      <td>68</td>
-      <td>M</td>
-      <td>77</td>
-      <td>V</td>
-      <td>86</td>
-      <td>主键盘区4</td>
-      <td>52</td>
-   </tr>
-   <tr>
-      <td>E</td>
-      <td>69</td>
-      <td>N</td>
-      <td>78</td>
-      <td>W</td>
-      <td>87</td>
-      <td>主键盘区5</td>
-      <td>53</td>
-   </tr>
-   <tr>
-      <td>F</td>
-      <td>70</td>
-      <td>O</td>
-      <td>79</td>
-      <td>X</td>
-      <td>88</td>
-      <td>主键盘区6</td>
-      <td>54</td>
-   </tr>
-   <tr>
-      <td>G</td>
-      <td>71</td>
-      <td>P</td>
-      <td>80</td>
-      <td>Y</td>
-      <td>89</td>
-      <td>主键盘区7</td>
-      <td>55</td>
-   </tr>
-   <tr>
-      <td>H</td>
-      <td>72</td>
-      <td>Q</td>
-      <td>81</td>
-      <td>Z</td>
-      <td>90</td>
-      <td>主键盘区8</td>
-      <td>56</td>
-   </tr>
-   <tr>
-      <td>I</td>
-      <td>73</td>
-      <td>R</td>
-      <td>82</td>
-      <td>主键盘区0</td>
-      <td>48</td>
-      <td>主键盘区9</td>
-      <td>57</td>
-   </tr>
-</table>
+之前讲过，Filter能对请求和响应都进行拦截。实际上在Filter中，`chain.doFilter()`之前的代码就是拦截请求时所执行得代码，`chain.doFilter()`之后的代码就是拦截响应时所执行得代码，将过滤器修改如下：
 
-
-<table>
-   <tr>
-      <td colspan="4">数字键盘上的键的键码值(keyCode)</td>
-      <td colspan="4">功能键键码值(keyCode)</td>
-   </tr>
-   <tr>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-   </tr>
-   <tr>
-      <td>数字区0</td>
-      <td>96</td>
-      <td>数字区8</td>
-      <td>104</td>
-      <td>F1</td>
-      <td>112</td>
-      <td>F7</td>
-      <td>118</td>
-   </tr>
-   <tr>
-      <td>数字区1</td>
-      <td>97</td>
-      <td>数字区9</td>
-      <td>105</td>
-      <td>F2</td>
-      <td>113</td>
-      <td>F8</td>
-      <td>119</td>
-   </tr>
-   <tr>
-      <td>数字区2</td>
-      <td>98</td>
-      <td>数字区*</td>
-      <td>106</td>
-      <td>F3</td>
-      <td>114</td>
-      <td>F9</td>
-      <td>120</td>
-   </tr>
-   <tr>
-      <td>数字区3</td>
-      <td>99</td>
-      <td>数字区+</td>
-      <td>107</td>
-      <td>F4</td>
-      <td>115</td>
-      <td>F10</td>
-      <td>121</td>
-   </tr>
-   <tr>
-      <td>数字区4</td>
-      <td>100</td>
-      <td>数字区Enter</td>
-      <td>108</td>
-      <td>F5</td>
-      <td>116</td>
-      <td>F11</td>
-      <td>122</td>
-   </tr>
-   <tr>
-      <td>数字区5</td>
-      <td>101</td>
-      <td>数字区-</td>
-      <td>109</td>
-      <td>F6</td>
-      <td>117</td>
-      <td>F12</td>
-      <td>123</td>
-   </tr>
-   <tr>
-      <td>数字区6</td>
-      <td>102</td>
-      <td>数字区.</td>
-      <td>110</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>数字区7</td>
-      <td>103</td>
-      <td>数字区/</td>
-      <td>111</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-   </tr>
-</table>
-
-**多媒体键码值(keyCode)**
-
-<table>
-   <tr>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-      <td>按键</td>
-      <td>键盘</td>
-   </tr>
-   <tr>
-      <td>搜索</td>
-      <td>170</td>
-      <td>浏览器</td>
-      <td>172</td>
-      <td>音量减</td>
-      <td>174</td>
-      <td>停止</td>
-      <td>179</td>
-   </tr>
-   <tr>
-      <td>收藏</td>
-      <td>171</td>
-      <td>静音</td>
-      <td>173</td>
-      <td>音量加</td>
-      <td>175</td>
-      <td>邮件</td>
-      <td>180</td>
-   </tr>
-</table>
-
-#### (4)表单事件 ####
-
-表单事件是指在HTML表单内的动作所触发的事件，常用表单事件的方法如下：
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>focus()</td>
-      <td>获取焦点时，触发的事件方法</td>
-   </tr>
-   <tr>
-      <td>blur()</td>
-      <td>失去焦点时，触发的事件方法</td>
-   </tr>
-</table>
-
-**示例：event.jsp**
+**MyFirstFilter.java**
 
 ```
-<html>
-<head>
 …
-	<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-	<script type="text/javascript">
-		    $(document).ready(function() {
-		    	$("#username").focus(function(){
-                   //改变当前元素的背景色
-		        	$(this).css("background-color","yellow") ;
-		        });
-		        $("#username").blur(function(){
-		        	$(this).css("background-color","white") ;
-		        });
-		    	…
-		    });
-		</script>
-</head>
-<body>
+public class MyFirstFilter implements Filter
+{
 	…
-	<form action="">
-		  用户名：<input type="text"  id="username"/><br/>
-		 密码： <input type="password"  id="password"/><br/>
-		  <input type="submit" value="显示">
-	</form>
-</body>
-</html>
+	@Override
+	public void doFilter(ServletRequest request, 
+ServletResponse response, FilterChain chain)
+			throws IOException, ServletException
+	{
+		System.out.println("拦截请求01...");
+		chain.doFilter(request, response);
+		System.out.println("拦截响应01...");
+	}
+}
 ```
 
-运行结果：
+再次重启服务并执行**index.jsp**中的超链接，得到以下输出：
 
-当鼠标光标在用户名的输入框时，背景色是黄色，如图：
+![](http://i.imgur.com/Nss3RWj.png)
 
-![](http://i.imgur.com/HOe6ab1.png)
+*图8-04*
 
-*图12-13*
+即Filter会先拦截请求（即执行`chain.doFilter()`之前的代码），然后通过`chain.doFilter()`释放请求（去执行Servlet中的`doGet()`/`doPost()`），最后再拦截响应（即执行`chain.doFilter()`之后的代码）。
 
-当鼠标光标离开用户名的输入框时，背景色恢复为白色，如图：
+## 8.1.3 Filter映射 ##
 
-![](http://i.imgur.com/o7kECEl.png)
+Filter通过**web.xml**中的`<url-pattern>`元素来配置需要拦截的请求。例如，之前编写的
 
-*图12-14*
+`<url-pattern>/MyServlet</url-pattern>`
 
-## 12.3.2绑定事件与移除事件 ##
+表示拦截请求路径为“`/MyServlet`”的请求。如果想拦截项目中的所有请求，可以使用通配符“*”，如下：
 
-如果需要为匹配的元素绑定或移除一个或多个事件，可以使用绑定事件方法`bind()`或移除事件方法`unbind()`。
+`<url-pattern>/*</url-pattern>`
 
-#### (1)绑定事件 ####
+其中“/”表示当前项目的根路径，相当于[http://localhost:8888/FilterProject/](http://localhost:8888/FilterProject/)。
 
-**语法：**
+还可以给通配符加上自定义后缀，如下，
 
-**绑定一个事件：**
-**jQuery对象.bind(type,[data],fn);**
+`<url-pattern>/*.do</url-pattern>`
 
-**绑定多个事件：**
-**jQuery对象.bind({type:fn, type:fn, …,type:fn});**
+表示拦截所有以“`.do`”结尾的请求，如http://localhost:8888/ProjectName/ServletName.do。
 
-其中参数的含义如下：
-
-<table>
-   <tr>
-      <td>参数</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>type</td>
-      <td>事件类型，如click、focus、mouseover等，还可以是自定义事件。</td>
-   </tr>
-   <tr>
-      <td>data</td>
-      <td>可选参数。可以作为event.data的属性值，传递给事件对象额外的数据。</td>
-   </tr>
-   <tr>
-      <td>fn</td>
-      <td>处理函数，用来绑定该事件的处理函数。</td>
-   </tr>
-</table>
-
-**①绑定单个事件**
-
-以绑定`click`事件为例。当单击`div`内容时，改变`div`的背景色，如下：
-
-**示例：event.jsp**
+此外，还可以通过`<filter-mapping>`的子元素`<dispatcher>`来指定拦截特定方式的请求，如下：
 
 ```
-<html>
-<head>
-    …
-	<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-	<script type="text/javascript">
-            …
-		    $(document).ready(function() {
-		    	 $("#textId").bind("click",function() {
-		    		   $(this).css("background-color","yellow");
-		    	 });
-                …
-		</script>
-</head>
-<body>
-	<div style="border:1px solid red;" id="textId">
-		some text...
-	</div>
-	 …
-</body>
-</html>
-```
-
-单击div后的运行结果：
-
-![](http://i.imgur.com/NINgWsd.png)
-
-*图12-15*
-
-**②同时绑定多个事件**
-
-还可以使用`bind()`方法，一次性绑定多个事件，如下：
-
-**示例：event.jsp**
-
-```
-<html>
-<head>
+<filter-mapping>
      …
-	<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-		    $("#textId").bind({
-		    	mouseover:function () {
-		    		$(this).css("background-color","yellow");
-		        },
-		    	mouseout:function () {
-		    			$(this).css("background-color","white");
-		    	}
-		    });
-		    	…
-		</script>
-</head>
+  	<dispatcher>拦截方式1</dispatcher>
+<dispatcher>拦截方式2</dispatcher>
+<dispatcher>…</dispatcher>
+</filter-mapping>
+```
+
+**常见拦截方式的值有以下四个：**
+
+<table>
+   <tr>
+      <td>拦截方式的值</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>REQUEST</td>
+      <td>只会拦截通过地址栏直接访问方式发出的请求。</td>
+   </tr>
+   <tr>
+      <td>INCLUDE</td>
+      <td>只会拦截通过RequestDispatcher的include()方式发出的请求。</td>
+   </tr>
+   <tr>
+      <td>FORWARD</td>
+      <td>只会拦截通过RequestDispatcher的forward()方式发出的请求（即请求转发方式）。</td>
+   </tr>
+   <tr>
+      <td>ERROR</td>
+      <td>只会拦截通过&lt;error-page&gt;方式发出的请求，此方式使用较少。</td>
+   </tr>
+</table>
+
+
+如下，表示此过滤器会拦截所有：
+
+**①**通过地址栏访问方式的请求，
+
+**②**通过请求转发方式的请求：
+
+```
+<filter-mapping>
+     …
+  	<dispatcher> REQUEST</dispatcher>
+<dispatcher> FORWARD</dispatcher>
+</filter-mapping>
+```
+
+## 8.1.4 Filter链 ##
+
+**(1)原理**
+
+我们还可以为Web应用程序注册多个Filter，对某一请求/响应进行多次拦截。拦截的过程如下图：
+
+![](http://i.imgur.com/WnqQVHf.gif)
+
+*图8-05*
+
+如果对某一个请求配置了多个Filter，则每个Fiter都会对该请求及响应进行拦截。拦截的顺序是按照过滤器的`<filter-mapping>`在web.xml中的配置顺序。像这样，多个Filter拦截同一个请求时，这些Filter就会组成一个Filter链，并且每一个Filter都是通过FilterChain的`doFilter()`方法，将当前Filter拦截的请求放行，使请求进入下一个Filter。
+
+上图中，客户端发出的请求会先被过滤器1所拦截，过滤器1处理完请求后可以通过调用`doFilter()`方法将请求放行；随后请求会被过滤器2拦截，过滤器2处理完请求后同样可以调用`doFilter()`方法将请求放行，最终请求到达服务器资源。同理，当服务器向客户端发出响应时，也会依次被过滤器所拦截，只是拦截响应的顺序与拦截请求的顺序完全相反。
+
+**(2)示例**
+
+我们在之前的FilterProject项目基础上，开发一个使用Filter链的程序。
+
+之前的过滤器MyFirstFilter拦截的是MyServlet资源，我们再建一个过滤器MySecondFilter同样来拦截MyServlet资源，如下：
+
+**MySecondFilter.java**
+
+```
+…
+public class MySecondFilter implements Filter
+{
+	@Override
+	public void init(FilterConfig arg0) throws ServletException
+	{
+		System.out.println("过滤器02的初始化init()方法...");
+	}
+
+	@Override
+	public void doFilter(ServletRequest request, 
+ServletResponse response, FilterChain chain)
+			throws IOException, ServletException
+	{
+		System.out.println("拦截请求02...");
+ 		chain.doFilter(request, response);
+		System.out.println("拦截响应02...");
+	}
+
+	@Override
+	public void destroy()
+	{	System.out.println("过滤器02的销毁destory()方法...");
+	}
+}
+```
+
+对过滤器MySecondFilter进行配置，使其和MyFirstFilter一样都拦截MyServlet资源，如下：
+
+**web.xml**
+
+```
+<filter>
+  	<filter-name>MyFirstFilter</filter-name>
+  	<filter-class>
+org.lanqiao.filter.MyFirstFilter
+</filter-class>
+ </filter>
+ <filter-mapping>
+  	<filter-name>MyFirstFilter</filter-name>
+  	<url-pattern>/MyServlet</url-pattern>
+ </filter-mapping>
+
+ <filter>
+  	<filter-name>MySecondFilter</filter-name>
+  	<filter-class>
+org.lanqiao.filter.MySecondFilter
+</filter-class>
+ </filter>
+ <filter-mapping>
+  	<filter-name>MySecondFilter</filter-name>
+  	<url-pattern>/MyServlet</url-pattern>
+ </filter-mapping>
+```
+
+MyFirstFilter 的`< filter-mapping >`写在MySecondFilter的`< filter-mapping >`前面，因此拦截的顺序是:
+
+**拦截请求：**请求先被MyFirstFilter拦截，再被MySecondFilter拦截；
+
+**拦截响应：**与拦截请求的顺序正好相反：即响应先被MySecondFilter拦截，再被MyFirstFilter拦截。
+
+重启服务，再次通过**index.jsp**中的超链接，向服务器的MyServlet资源发出请求，运行结果如下：
+
+![](http://i.imgur.com/PrEF5XR.png)
+
+
+*图8-06*
+
+
+# 8.2 监听器 #
+
+在Web应用程序的运行期间，Web容器会创建和销毁四个对象：`ServletContext`、`HttpSession`、`ServletRequest`、`PageContext`，这些对象被称为“域对象”（即在JSP中提到的“范围对象”）。除了`PageContext`以外，Servlet API为其他三个域对象都提供了各自的监听器，用来监听它们的行为。
+
+## 8.2.1监听域对象的生命周期 ##
+
+**(1)原理**
+
+Servlet API提供了`ServletContextListener`、`HttpSessionListener`、`ServletRequestListener`三个监听器接口，用来分别监听`ServletContext`、`HttpSession`、`ServletRequest`三个域对象。当这三个域对象创建或销毁时，就会自动触发相应的监听器接口。
+
+例如，`ServletContextListener`接口可以用来监听`ServletContext`域对象的创建、销毁过程。当在Web应用程序中注册了一个或多个实现了`ServletContextListener`接口的事件监听器时，Web容器就会在创建、销毁每个`ServletContext`对象时都产生一个相应的事件对象，然后依次调用每个`ServletContext`事件监听器中的处理方法，并将产生的事件对象传递给这些方法来完成事件的处理工作。
+
+**`ServletContextListener`接口定义了以下两个事件处理方法：**
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void contextInitialized(ServletContextEvent sce)</td>
+      <td>当ServletContext对象被创建时， Web容器会自动触发此方法。并且可以通过参数ServletContextEvent来获取创建的ServletContext对象</td>
+   </tr>
+   <tr>
+      <td>public void contextDestroyed(ServletContextEvent sce)</td>
+      <td>当ServletContext对象被销毁时， Web容器会自动触发此方法。并且会将之前的ServletContextEvent对象传递到此方法的参数中。</td>
+   </tr>
+</table>
+
+类似的，`HttpSessionListener`和`ServletRequestListener`接口也都提供了各自的事件处理方法，如下：
+
+**`HttpSessionListener`接口定义的事件处理方法：**
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void sessionCreated(HttpSessionEvent se)</td>
+      <td>当HttpSession对象被创建时， Web容器会自动触发此方法。并且可以通过参数HttpSessionEvent来获取创建的HttpSession对象</td>
+   </tr>
+   <tr>
+      <td>public void sessionDestroyed(HttpSessionEvent se)</td>
+      <td>当HttpSession对象被销毁时， Web容器会自动触发此方法。并且会将之前的HttpSessionEvent对象传递到此方法的参数中。</td>
+   </tr>
+</table>
+
+**`ServletRequestListener`接口定义的事件处理方法：**
+
+<table>
+   <tr>
+      <td>方法</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>public void requestInitialized(ServletRequestEvent sre)</td>
+      <td>当ServletRequest对象被创建时， Web容器会自动触发此方法。并且可以通过参数ServletRequestEvent来获取创建的ServletRequest对象</td>
+   </tr>
+   <tr>
+      <td>public void requestDestroyed(ServletRequestEvent sre)</td>
+      <td>当ServletRequest对象被销毁时， Web容器会自动触发此方法。并且会将之前的ServletRequestEvent对象传递到此方法的参数中。</td>
+   </tr>
+</table>
+
+**(2)案例**
+
+我们用一个类来同时实现`ServletContextListener`、`HttpSessionListener`、`ServletRequestListener`三个接口，即同时具有三个监听器的功能。
+
+**ContextSessionRequestListener.java**
+
+```
+package org.lanqiao.listener;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class ContextSessionRequestListener 
+implements ServletContextListener,
+HttpSessionListener,ServletRequestListener
+{
+	@Override
+	public void requestInitialized(ServletRequestEvent sre)
+	{
+		System.out.println("监听ServletRequest：
+[ServletRequest]对象[创建]完成");
+	}
+	@Override
+	public void requestDestroyed(ServletRequestEvent sre)
+	{
+		System.out.println("监听ServletRequest：
+[ServletRequest]对象[销毁]完成");
+	}
+	@Override
+	public void sessionCreated(HttpSessionEvent se)
+	{
+		System.out.println("监听HttpSession：
+[HttpSession]对象[创建]完成");		
+	}
+	@Override
+	public void sessionDestroyed(HttpSessionEvent se)
+	{
+		System.out.println("监听HttpSession：
+[HttpSession]对象[销毁]完成");		
+	}
+	@Override
+	public void contextInitialized(ServletContextEvent sce)
+	{
+		System.out.println("监听ServletContext：
+[ServletContext]对象[创建]完成");	
+	}
+	@Override
+	public void contextDestroyed(ServletContextEvent sce)
+	{
+		System.out.println("监听ServletContext：
+[ServletContext]对象[销毁]建完成");	
+	}
+}
+```
+
+再在**web.xml**中部署ContextSessionRequestListener监听器，如下：
+
+**web.xml**
+
+```
+…
+<listener>
+  	<listener-class>
+  		org.lanqiao.listener.ContextSessionRequestListener
+  	</listener-class>
+</listener>
+…
+```
+
+一个完整的监听器需要编写`Listener`类和配置`<Listener>`。如果Web应用程序有多个监听器，则会按照`<listener>`在web.xml中的配置顺序依次触发。
+
+最后新建**index.jsp**和**sessionInvalidate.jsp**用来测试监听器：
+
+**index.jsp**
+
+```
+…
 <body>
-	<div style="border:1px solid red;" id="textId">
-		some text...
-	</div>
-	…
+	index.jsp页面<br/>
+	<a href="sessionInvalidate.jsp">销毁session</a>
 </body>
-</html>
+…
 ```
 
-当鼠标悬浮在div上面时，div背景色变为黄色，如图：
-
-![](http://i.imgur.com/UuTNOKQ.png)
-
-*图12-16*
-
-当鼠标离开div后，div背景色恢复为白色，如图：
-
-![](http://i.imgur.com/EA1JW8c.png)
-
-*图12-17*
-
-#### (2)移除事件 ####
-
-在jQuery中，可以使用`unbind()`方法为元素移除一个或多个事件。
-
-**语法:**
-
-**jQuery对象.unbind([type],[fn]);**
-
-参数的简介如下：
-
-<table>
-   <tr>
-      <td>参数</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>type</td>
-      <td>事件类型，如click、focus、mouseover等，还可以是自定义事件。</td>
-   </tr>
-   <tr>
-      <td>fn</td>
-      <td>处理函数，用于解除绑定的事件函数。</td>
-   </tr>
-</table>
-
-当`unbind()`不带参数时，表示移除绑定的全部事件。
-
-## 12.3.3复合事件 ##
-
-jQuery提供了两个复合事件方法：`hover()`和`toggle()`方法。
-
-#### (1)hover() ####
-
-`hover()`方法相当于`mouseover()`和`mouseout()`方法的组合
-
-**语法：**
-
-**jQuery对象. hover (fn1,fn2);**
-
-其中，fn1相当于`mouseover()`，fn2相当于`mouseout ()`。
-
-示例：
+**sessionInvalidate.jsp**
 
 ```
-$("#textId").hover(
-		function(){
-$(this).css("background-color","yellow");
-		},
-		function(){
-$(this).css("background-color","white");
-		}		 
-);
+<%@ page language="java" contentType="text/html; 
+charset=UTF-8"    pageEncoding="UTF-8"%>
+<%
+	System.out
+.println("========sessionInvalidate.jsp页面=========");
+	session.invalidate();
+%>
 ```
 
-当鼠标悬浮到`id=” textId”`的`div`时，背景色变为黄色；鼠标移出时，背景色变为白色。
+部署并启动项目，在启动时可以发现执行了`contextInitialized()`方法：
 
-#### (2)toggle() ####
+![](http://i.imgur.com/Lkae0p0.jpg)
 
-**语法**（适用于jQuery1.9以前版本）：
+*图8-07*
 
-`jQuery对象. toggle(fn1,fn2,…,fnN);`
+这是因为Web容器在启动时会自动加载部署过的项目，并为该项目创建对应的`ServletContext`对象，而web.xml中配置了用于监听`ServletContext`对象创建、销毁的监听器ContextSessionRequestListener，所以会调用监听器中的`contextInitialized()`方法，从而输出相应的语句。
 
-在jQuery1.9版本以前，可以用`toggle()`方法模拟鼠标连续的`click`事件：第一次单击元素时，触发第一个事件方法fn1；第二次单击元素时，触发第二个事件方法fn2；…；当最后一个事件方法fnN被触发完后，若再次单击，就又会触发第一个事件方法fn1，如此轮番循环调用。
+再访问**index.jsp**，又会得到以下结果：
 
-**示例：event.jsp**
+![](http://i.imgur.com/XM06gXH.jpg)
 
-```
-$("body").toggle(
-		function () {
-		    $(this).css("background-color", "red");
-		},
-		function () {
-		    $(this).css("background-color", "yellow"); 
-		},
-		function () {
-		    $(this).css("background-color", "blue"); 
-		}
-);
-```
+*图8-08*
 
-当在body中连续单击鼠标时，背景色会在红、黄、蓝之间切换。但从jQuery1.9版本开始，jQuery去掉了`toggle()`方法的此功能。`toggle`方法还可以用来切换元素的显示与隐藏，会在后续讲解。
+这是因为访问**index.jsp**时，就会向Web容器发送一次请求（创建了一个请求），所以执行了用于监听ServletRequest 被创建的`requestInitialized()`方法，即输出“监听`ServletRequest`：`[ServletRequest]`对象[创建]完成”;
 
-# 12.4 显示效果 #
+同时，第一次访问index.jsp时，Web容器还为浏览器创建了对应的`HttpSession`对象，所以还会执行用于监听`HttpSession`被创建的`sessionCreated()`方法，即输出“监听`HttpSession`：`[HttpSession]`对象[创建]完成”.
 
-**还可以使用jQuery来控制网页元素的显示、隐藏、改变透明度等显示效果。**
+当请求发送完毕后，`ServletRequest`对象随之被销毁，所以又会执行用于监听`ServletRequest`被销毁的`requestDestroyed()`方法，即输出“监听`ServletRequest`：`[ServletRequest]`对象[销毁]完成”。
 
-## 12.4.1 控制元素的隐藏与显示 ##
+点击**index.jsp**中的超链接“销毁`session`”，如图
 
-jQuery中，控制元素隐藏与显示的方法如下：
+![](http://i.imgur.com/fOn6IG2.jpg)
+
+*图8-09*
+
+控制台又会再输出以下黑色方框中的内容：
+
+![](http://i.imgur.com/aForTJK.png)
+
+*图8-10*
+
+这是因为点击超链接后，会跳转到一个新的页面，即发送了一个新的请求，所以会再次触发用于监听`ServletRequest` 被创建的`requestInitialized()`方法；随后，进入sessionInvalidate.jsp页面,执行该JSP里面的输出语句，并执行`session.invalidate()`销毁`session`，所以会触发用于监听`HttpSession`被销毁的`sessionDestroyed()`方法，即输出“监听`HttpSession`：`[HttpSession]`对象[销毁]完成”。之后，请求执行完毕从而被销毁，再次触发用于监听`ServletRequest`被销毁的`requestDestroyed()`方法。
+
+最后，手动停止Web服务，又会触发用于监听`ServletContext`对象被销毁的`contextDestroyed()`方法，即输出“监听`ServletContext`：`[ServletContext]`对象[销毁]建完成”，如图：
+
+![](http://i.imgur.com/TPulMuT.png)
+
+*图8-11*
+
+## 8.2.2监听域对象中属性的变更 ##
+
+**(1)原理**
+
+`ServletContext`、`HttpSession`、`ServletRequest`三个域对象都可以通过`setAttribute()`和`removeAtribute()`等方法进行属性的增加、替换（修改）、删除。Servlet API也提供了ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口，用来监测这三个域对象中属性的变更。
+
+例如，当向`ServletRequest`对象中增加、替换（修改）、删除某个属性时，Web容器就会自动调用**ServletRequestAttributeListener监听器接口中的相应方法**，如下：
 
 <table>
    <tr>
@@ -1403,42 +620,22 @@ jQuery中，控制元素隐藏与显示的方法如下：
       <td>简介</td>
    </tr>
    <tr>
-      <td>hide([speed],[callback])</td>
-      <td>隐藏元素。</td>
+      <td>public void attributeAdded (ServletRequestAttributeEvent srae)</td>
+      <td>当向ServletRequest对象中增加一个属性时，Web容器就会自动调用该方法。</td>
    </tr>
    <tr>
-      <td>show([speed],[callback])</td>
-      <td>显示元素。</td>
+      <td>public void attributeRemoved (ServletRequestAttributeEvent srae)</td>
+      <td>当ServletRequest对象中的某个属被替换（修改）时，Web容器就会自动调用该方法。</td>
    </tr>
    <tr>
-      <td>toggle(([speed],[callback]))</td>
-      <td>切换元素的隐藏或显示状态。</td>
+      <td>public void attributeReplaced (ServletRequestAttributeEvent srae)</td>
+      <td>当从ServletRequest对象中删除一个属性时，Web容器就会自动调用该方法。</td>
    </tr>
 </table>
 
-其中`speed`和`callback`都是可选参数。
+其中方法的参数是一个`ServletRequestAttributeEvent`对象，监听器可以通过这个参数来获取正在增加、替换（修改）、删除属性的域对象。
 
-
-`speed`：元素显示或隐藏的时间（单位是毫秒；默认值是0，表示会立刻显示或隐藏）。如`hide(1000)`，表示在1秒中内隐藏某元素；此外还可以使用`show`、`normal`、`fast`来控制隐藏或显示的时间，如`hide(“fast”)`。需要注意，如果`speed`使用数字来表示，是不需要引号的；但如果使用的是`show`等关键字，则需要加上引号。
-
-`callback`：隐藏或显示后，会执行的方法（回调方法）。
-
-**示例：event.jsp**
-
-```
-$(document).ready(function() {
-		$("body").click(function(){
-					$("#textId").toggle(1000);		    		 
-		});
-});
-```
-
-当在body中单击鼠标时，`id=”textId”`的`div`会在1秒中内切换显示或隐藏状态。
-
-
-## 12.4.2 控制元素的透明度 ##
-
-`fadeIn()`和`fadeOut()`可以改变元素的透明度，从而实现淡入淡出效果。
+类似的，**ServletContextAttributeListener接口中的方法如下：**
 
 <table>
    <tr>
@@ -1446,18 +643,20 @@ $(document).ready(function() {
       <td>简介</td>
    </tr>
    <tr>
-      <td>fadeIn([speed],[callback])</td>
-      <td>控制元素淡入，用法同show()</td>
+      <td>public void attributeAdded (ServletContextAttributeEvent srae)</td>
+      <td>当向ServletContext对象中增加一个属性时，Web容器就会自动调用该方法。</td>
    </tr>
    <tr>
-      <td>fadeOut([speed],[callback])</td>
-      <td>控制元素淡出，用法同hide()</td>
+      <td>public void attributeRemoved (ServletContextAttributeEvent srae)</td>
+      <td>当ServletContext对象中的某个属被替换（修改）时，Web容器就会自动调用该方法。</td>
+   </tr>
+   <tr>
+      <td>public void attributeReplaced (ServletContextAttributeEvent srae)</td>
+      <td>当从ServletContext对象中删除一个属性时，Web容器就会自动调用该方法。</td>
    </tr>
 </table>
 
-## 12.4.3 控制元素的高度 ##
-
-可以使用`slideUp()`和`slideDown()`方法来控制元素的高度。
+**HttpSessionAttributeListener接口中的方法如下：**
 
 <table>
    <tr>
@@ -1465,1226 +664,465 @@ $(document).ready(function() {
       <td>简介</td>
    </tr>
    <tr>
-      <td>slideDown()</td>
-      <td>元素从上向下拉伸，直至全部显示，用法同show()</td>
+      <td>public void attributeAdded (HttpSessionBindingEvent srae)</td>
+      <td>当向HttpSession对象中增加一个属性时，Web容器就会自动调用该方法。</td>
    </tr>
    <tr>
-      <td>slideUp()</td>
-      <td>元素从下向上缩短，直至隐藏，用法同hide()</td>
+      <td>public void attributeRemoved (HttpSessionBindingEvent srae)</td>
+      <td>当HttpSession对象中的某个属被替换（修改）时，Web容器就会自动调用该方法。</td>
+   </tr>
+   <tr>
+      <td>public void attributeReplaced (HttpSessionBindingEvent srae)</td>
+      <td>当从HttpSession对象中删除一个属性时，Web容器就会自动调用该方法。</td>
    </tr>
 </table>
 
+可以发现，ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口中的方法名完全一致，只是方法的参数类型不相同。
 
-从效果上看，`hide()`、`fadeOut()`、`slideUp()`都可以将显示的元素隐藏；`show()`、`slideDown()`、`fadeIn()`都可以将隐藏的元素显示。
+**(2)案例**
 
-# 12.5 操作DOM #
+**①**新建**attributeListener.jsp**，用于增加、替换、删除属性，从而触发域对象的属性监听器
 
-jQuery对JavaScript操作`DOM`的方法进行了封装，使用起来也更加简便。
-
-## 12.5.1 样式操作 ##
-
-在jQuery中，可以通过以下几种方式来设置元素的样式：直接设置样式、追加样式、移除样式、切换样式。
-
-#### (1) 直接设置样式 ####
-
-jQuery使用`css()`方法为指定的元素直接设置样式值。
-
-**语法：**
-
-设置单个样式属性：	    `jQuery对象.css(name,value);`
-
-同时设置多个样式属性：	`jQuery对象.css({name:value , name:value ,…, name:value });`
-
-其中的参数简介如下：
-
-<table>
-   <tr>
-      <td>参数</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>name</td>
-      <td>CSS属性的名称，如color、font-size、background等。</td>
-   </tr>
-   <tr>
-      <td>value</td>
-      <td>CSS属性的值，如red、12px、#FFFFFF等</td>
-   </tr>
-</table>
-
-**示例：jQueryDemo.jsp**
+**attributeListener.jsp**
 
 ```
-<html>
-<head>
-	<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("img").hover(
-                //鼠标悬浮在图片上面时：加上边框，并改变透明度
-				function(){
-					$(this).css({"border":"5px solid red",
-"opacity":"0.5"});
-					},
-                //鼠标移出图片时：去掉边框，并消除透明度
-				function(){
-					$(this).css({"border":"0","opacity":"1"});
-				}
-);
-		 });
-		</script>
-</head>
+…
 <body>
-		<img src="imgs/pic.png" width="150" height="120" />
-</body>	
-</html>
-```
-
-运行结果：
-
-当鼠标悬浮在图片上面时：
-
-![](http://i.imgur.com/EK6EQcX.png)
-
-*图12-18*
-
-当鼠标离开图片时：
-
-![](http://i.imgur.com/TssTtCS.png)
-
-*图12-19*
-
-#### (2)追加或移除类样式 ####
-
-**①追加类样式**
-
-除了使用`CSS()`直接设置样式外，还可以使用`addClass()`为元素追加类样式。
-
-**语法：**
-
-追加一个类样式：	`jQuery对象.addClass(class)`
-
-同时追加多个类样式（用空格隔开）：`jQuery对象.addClass(class1 class2 …classN)`
-
-**示例：jQueryDemo.jsp**
-
-```
-<html>
-<head>
-		<style type="text/css" >
-			.myStyle1 {font-size:14px; color:red; }
-			.myStyle2 {background-color:yellow;}
-		</style>
-
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
+	<%
+		getServletContext().setAttribute("school","北京蓝桥");
+		getServletContext().setAttribute("school","东莞蓝桥");
+		getServletContext().removeAttribute("school");
 		
-		   	 $(document).ready(function() {
-		   		 $("p").click(function() {
-					   $(this).addClass("myStyle1 myStyle2");
-				   });
-		     }); 
-		</script>
-</head>
-<body>
-		<p>追加多个类样式示例...</p>
-		…
-</body>	
-</html>
+		session.setAttribute("school","北京蓝桥");
+		session.setAttribute("school","东莞蓝桥");
+		session.removeAttribute("school");
+		
+		request.setAttribute("school","北京蓝桥");
+		request.setAttribute("school","东莞蓝桥");
+		request.removeAttribute("school");
+	%>
+</body>
+…
 ```
 
-运行结果：
+**②**创建用于监听域对象属性变更的监听器，即创建一个类并实现ServletContextAttributeListener、HttpSessionAttributeListener、ServletRequestAttributeListener三个监听器接口
+
+**AttributeListener.java**
+
+```
+package org.lanqiao.listener;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+public class AttributeListener implements ServletContextAttributeListener,HttpSessionAttributeListener,ServletRequestAttributeListener
+{
+
+	@Override
+	public void attributeAdded(ServletRequestAttributeEvent srae)
+	{
+		String attributeName  = srae.getName();
+		Object attrubiteValue = srae.getServletRequest()
+.getAttribute(attributeName);
+		System.out.println("[ServletRequest][增加]属性,"
++attributeName+":"+attrubiteValue);
+	}
+	@Override
+	public void attributeRemoved(ServletRequestAttributeEvent srae)
+	{
+		String attributeName  = srae.getName();
+		System.out.println("[ServletRequest][删除]属性,"
++attributeName);				
+	}
+
+	@Override
+	public void attributeReplaced(ServletRequestAttributeEvent srae)
+	{
+		String attributeName  = srae.getName();
+		Object attrubiteValue = srae.getServletRequest()
+.getAttribute(attributeName);
+		System.out.println("[ServletRequest][替换]属性,"
++attributeName+":"+attrubiteValue);
+	}
+	@Override
+	public void attributeAdded(HttpSessionBindingEvent sbe)
+	{
+		String attributeName  = sbe.getName();
+		Object attrubiteValue =  sbe.getSession()
+.getAttribute(attributeName);
+		System.out.println("[HttpSession][增加]属性,"
++attributeName+":"+attrubiteValue);	
+	}
+	@Override
+	public void attributeRemoved(HttpSessionBindingEvent sbe)
+	{
+		String attributeName  = sbe.getName();
+		System.out.println("[HttpSession][删除]属性,"
++attributeName);	 		
+	}
+	@Override
+	public void attributeReplaced(HttpSessionBindingEvent sbe)
+	{
+		String attributeName  = sbe.getName();
+		Object attrubiteValue =  sbe.getSession()
+.getAttribute(attributeName) ;
+		System.out.println("[HttpSession][替换]属性,"
++attributeName+":"+attrubiteValue);	
+	}
+	@Override
+	public void attributeAdded(ServletContextAttributeEvent scae)
+	{
+		String attributeName  = scae.getName();
+		Object attrubiteValue =  scae.getServletContext()
+.getAttribute(attributeName);
+		System.out.println( "[ServletContext][增加]属性,"
++attributeName+":"+attrubiteValue);	
+	}
+	@Override
+	public void attributeRemoved(ServletContextAttributeEvent scae)
+	{
+		String attributeName  = scae.getName();
+		System.out.println("[ServletContext][删除]属性,"
++attributeName);
+	}
+	@Override
+	public void attributeReplaced(ServletContextAttributeEvent scae)
+	{
+		String attributeName  = scae.getName();
+		Object attrubiteValue =  scae.getServletContext()
+.getAttribute(attributeName);
+		System.out.println("[ServletContext][替换]属性,"
++attributeName+":"+attrubiteValue);	
+	}
+}
+```
+
+**③**配置监听器
+
+**web.xml**
+
+```
+…
+  <listener>
+  	<listener-class>
+  		org.lanqiao.listener.AttributeListener
+  	</listener-class>
+  </listener>
+…
+```
+
+部署并启动项目，通过浏览器地址栏访问[http://localhost:8888/ListenerProject/attributeListener.jsp](http://localhost:8888/ListenerProject/attributeListener.jsp)，在控制台可以看到以下输出：
+
+![](http://i.imgur.com/5Y7vVxY.jpg)
+
+*图8-12*
+
+当三个域对象进行增加、替换、删除属性时，都会触发相应的监听方法。
+
+
+
+## 8.2.3 感知被HttpSession绑定的事件监听器 ##
+
+
+**在`session`域中保存的对象，可能会经历四种状态：**
+
+**①**将对象保存（绑定）到`session`域中；
+
+**②**从`session`域中删除（解除绑定）该对象；
+
+**③**对象随着`session`持久化到硬盘等存储设备中，即将对象和`session`一起从内存写入硬盘等存储设备（钝化）；
+
+**④**对象随着`session`从存储设备中恢复到内存中（活化）。
 	
-当单击`<p>`元素时，会给`<p>`元素追加`.myStyle1`和`.myStyle2`两个样式，如图
+Servlet API提供了`HttpSessionBindingListener和HttpSessionActivationListener这两个监听器（接口），专门用于监听`session`域中对象的这四种状态。
 
-![](http://i.imgur.com/9ef7UnA.png)
 
-*图12-20*
+**(1) HttpSessionBindingListener接口**
 
-**②移除类样式**
+HttpSessionBindingListener接口提供了`valueBound()`和`valueUnbound()`两个方法，分别用于监听`Java`对象绑定到`HttpSession`对象中，以及从`HttpSession`对象中解绑`Java`对象的两个事件。
 
-`addClass()`可以为元素追加类样式；与之相反，`removeClass()`可以为元素删除类样式。
 
-**语法：**
-
-移除一个类样式：	`jQuery对象.removeClass(class)`
-
-移除多个类样式：	`jQuery对象.removeClass(class1 class2 … classN)`
-
-移除全部类样式：	`jQuery对象.removeClass()`
-
-#### (3)切换类样式 ####
-
-`toggle()`方法可以切换元素的显示与隐藏状态；类似的，`toggleClass()`方法可以切换（增加或删除）元素的类样式。
-
-**语法：**	
-
-切换（增加或删除）一个类样式：	jQuery对象`.toggleClass(class)`
-
-切换（增加或删除）多个类样式：	jQuery对象`.toggleClass(class1 class2 … classN)`
-
-例如，当执行`“jQuery对象.toggleClass(class) ”`时：如果元素中含有名为`class`的类样式时，就删除该样式；如果元素中不存在名为`class`的类样式时，就为元素加入该样式，即`toggleClass()`就相当于`addClass()`和`removeClass()`的轮番切换使用。
-
-**示例：jQueryDemo.jsp**
+**HttpSessionBindingListener接口的完整定义如下：**
 
 ```
-<html>
-<head>
-		<style type="text/css" >
-			.myStyle1 {font-size:14px; color:red; }
-			.myStyle2 {background-color:yellow;}
-		</style>
-
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-		   	 $(document).ready(function() { 
-		   		 $("p").click(function() {
-					   $(this).toggleClass("myStyle1 myStyle2");
-				   });
-		   	 });
-		</script>
-</head>
-<body>
-		<p>追加多个类样式示例...</p>
-		…
-</body>	
-</html>
+package javax.servlet.http;
+import java.util.EventListener;
+public interface HttpSessionBindingListener extends EventListener 
+{
+public void valueBound(HttpSessionBindingEvent event);
+public void valueUnbound(HttpSessionBindingEvent event);
+}
 ```
 
-当连续点击`<p>`元素的内容时，`<p>`元素就会不断的追加或移除`.myStyle1`和`.myStyle2`两个类样式。
+如果一个类实现了HttpSessionBindingListener接口，那么
 
-## 12.5.2 内容操作 ##
+**①**当该类产生的对象被绑定到`HttpSession`对象中时，Web容器就会自动调用该对象的`valueBound()`方法；
 
-jQuery还提供了对元素内容（HTML代码、文本内容、属性值）的操作方法。
+**②**当该类产生的对象从`HttpSession`对象中解绑时，Web容器就会自动调用该对象的`valueUnbound()`方法。
 
-#### (1)对HTML代码的操作 ####
+此外，这两个方法都有一个共同的参数：`HttpSessionBindingEvent`类型的事件对象，我们可以通过这个参数来获取当前的`HttpSession`对象。
 
-jQuery可以使用`html()`方法对元素的HTML代码进行操作，该方法类似于JavaScript中的innerHTML。
 
-**语法：** `jQuery对象.html([content])`
+下面通过一个示例来演示**HttpSessionBindingListener**接口的使用：
 
-如果存在参数`content`，表示给选中的元素赋上新的内容`content`；如果不存在参数`content`，表示获取被选中的元素内容。
-
-**示例：htmlDemo.jsp**
+**org.lanqiao.listener.BeanDemo.java**
 
 ```
-<html>
-<head>
-        …
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-		   $(document).ready(function() {
-			   //给div赋上内容
-			   $("div").html("<h1 style='background: yellow'>
-hello</h1>");
-			 //获取div内容
-			   var $html = $("div").html();
-			   alert($html);
-		   });
-		</script>
-</head>
-<body>
-		<div></div>
-</body>
-</html>
+package org.lanqiao.listener;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+public class BeanDemo implements HttpSessionBindingListener
+{
+	//BeanDemo对象被绑定到HttpSession对象中时，Web容器会自动调用此方法
+	@Override
+	public void valueBound(HttpSessionBindingEvent event)
+	{
+		System.out.println("绑定：\nBeanDemo对象被增加
+到了session域中\n当前的BeanDemo对象："
++this+"\n"+event.getSession().getId());
+	}
+	//BeanDemo对象从HttpSession对象中解绑时，调用此方法
+	@Override
+	public void valueUnbound(HttpSessionBindingEvent event)
+	{
+		System.out.println("移除：\nBeanDemo对象从session域
+中被移除\n当前的BeanDemo对象："
++this+"\n"+event.getSession().getId());
+	}
+}
 ```
 
-先通过`html([content])`给`<div>`赋值，再通过`html()`获取`<div>`的值，运行结果如图
-
-![](http://i.imgur.com/SIAjkmE.png)
-
-*图12-21*
-
-#### (2)对文本内容的操作 ####
-
-jQuery还可以使用`text()`方法获取或设置元素的文本内容。
-
-语法：
-`jQuery对象.text([content]);`
-
-如果存在参数`content`，表示给选中的元素赋上新的文本内容`content`；如果不存在参数`content`，表示获取被选中元素的文本内容。
-
-**示例：textDemo.jsp**
-
-```
-<html>
-<head>
-        …
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-		   $(document).ready(function() {
-			   //给div赋上文本内容
-			   $("div").text("<h1 style='background:
- yellow'>hello</h1>");
-			 //获取div文本内容
-			   var $text = $("span").text();
-			   alert($text);
-		   });
-		</script>
-…
-</head>
-<body>
-		<div></div>
-		<span style="background: yellow">world</span>
-</body>
-</html>
-```
-
-运行结果：
-
-![](http://i.imgur.com/nCph7Tq.png)
-
-*图12-22*
-
-可以发现`html(content)`会将内容先渲染成html/css样式，然后再赋值给元素；而`text(content)`只是简单的将内容以文本形式赋值给元素。`html()`会将渲染样式和文本内容一起返回，而`text()`只返回文本内容。
-
-#### (3)对属性值的操作 ####
-
-jQuery还可以通过`val()`方法来获取或设置元素的`value`属性值。
-
-语法：
-`jQuery对象.val([v])`
-
-如果存在参数v，表示将选中元素的`value`值设置为v；如果不存在参数v，表示获取被选中元素的`value`值。
-
-**示例：valDemo.jsp**
-
-```
-<html>
-<head>
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-		   $(document).ready(function() {
-			   $("#searchId").focus(function(){
-                   // 获取当前文本框的值       
-					var txt_value =  $(this).val();
-                   // 如果当前value是默认值“搜索”，则清空文本框内容
-   					if(txt_value=="搜索"){  
-			             $(this).val("");              					                } 
-				  });
-				$("#searchId").blur(function(){	
-                      // 获取当前文本框的值
-				  	    var txt_value =  $(this).val();  
-                      // 如果当前value值是空，则设置为默认值“搜索”
- 					    if(txt_value==""){
-			                 $(this).val("搜索");					   
-} 
-				});
-			   
-		   });
-		</script>
-</head>
-<body>
-	 <input  type="text"  value="搜索" id="searchId" />
-</body>
-</html>
-```
-
-运行结果：
-
-当鼠标光标停留搜索框中时，`value`值为空，如图
-
-![](http://i.imgur.com/mjViqGl.png)
-
-*图12-23*
-
-当鼠标光标离开搜索框中时，`value`值为“搜索”，如图
-
-![](http://i.imgur.com/OjvPw5d.png)
-
-*图12-24*
-
-## 12.5.3 节点与属性操作 ##
-
-jQuery对节点的操作主要有两种：对节点本身的操作，以及对节点中属性的操作。
-
-#### (1)节点操作 ####
-
-节点操作主要包括查找节点、创建节点、插入节点、删除节点、替换节点和复制节点等六种操作。
-
-**①查找节点**
-
-查找节点是通过jQuery选择器实现，详见“12.2jQuery选择器”一节。
-
-**②创建节点**
-
-**$()**称之为工厂函数，可以用于获取节点、转化节点或创建节点：
-
-**$(选择器)**：通过选择器获取节点
-
-**$(DOM节点)**：把DOM节点转化成jQuery节点
-
-**$(HTML字符串)**：使用HTML字符串创建jQuery节点
-
-因此，**创建jQuery节点主要是通过$(HTML字符串)实现。**
-
-**示例：node.jsp**
-
-`var $node = $("<li>橘子</li>");`
-
-以上就创建了一个新的jQuery节点。
-
-**③插入节点**
-
-`$node`节点创建完毕后，就可以插入到DOM文档之中。jQuery提供了多种方法实现节点的插入。
-
-假设网页中存在如下节点：
-
-**node.jsp**
-
-```
-<ul>
-	<li>香蕉</li>
-	<li>苹果</li>
-</ul>
-```
-
-运行结果：
-
-![](http://i.imgur.com/ZYaeS5i.png)
-
-*图12-25*
-
-以插入`$node`节点为例，插入节点的方法如下：
-
-![](http://i.imgur.com/PNcBdFY.png)
-
-*图12-26*
-
-**④替换节点**
-
-在jQuery中，可以使用`replaceWith()`和`replaceAll()`方法来替换节点。
-
-![](http://i.imgur.com/WbgFKRc.png)
-
-*图12-27*
-
-**⑤删除节点**
-
-jQuery提供了3种删除节点的方法：`remove()`、`detach()`、`empty()`。
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>$(A)remove()</td>
-      <td>彻底删除A节点，包括所有子节点及文本内容。</td>
-   </tr>
-   <tr>
-      <td>$(A)detach()</td>
-      <td>将A节点从页面中删除，但仍然保留着A节点附加的数据、绑定的事件。此方法不建议使用，了解即可。</td>
-   </tr>
-   <tr>
-      <td>$(A)empty()</td>
-      <td>清空A节点，包括所有子节点。只清除节点的内容，而并不真正的删除节点。</td>
-   </tr>
-</table>
-
-**⑥复制节点**
-
-jQuery提供的`clone()`方法，可以对节点进行复制操作（包含复制子节点、文本和属性）。
-
-**语法：**
-
-`$(A).clone([flag])`
-
-可选参数`flag`为布尔值`true`或`false`，为`true`时表示会复制节点的所有事件处理方法，`false`时反之。默认为`false`。
-
-例如：可以使用以下代码，在`<p>`中输出A节点自身的HTML代码
-
-`$("<p></p>").append($(A).clone()).html();`
-
-#### (2)属性操作 ####
-
-jQuery主要是通过`attr()`和`removeAttr()`方法来对节点的属性进行操作。
-
-**①获取或设置属性值**
-
-可以使用`attr()`来获取或设置属性值，如下：
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>attr(”name”)</td>
-      <td>获取单个属性值。如$(A).attr(“name”)，表示获取A节点的name属性值</td>
-   </tr>
-   <tr>
-      <td>attr(”name”, ”value”)</td>
-      <td>设置单个属性值。如$(A).attr(name,”张三”)，表示将A节点的name属性值设置为value。</td>
-   </tr>
-   <tr>
-      <td>attr({name1:”value1”, {name2:”value2”,…, {nameN:”valueN”})</td>
-      <td>同时设置多个属性值。如$(A).attr({width:"50",height:"100"})，表示将A节点的width属性值设置为50，将height属性值设置为100。</td>
-   </tr>
-</table>
-
-**②删除属性值**
-
-使用`removeAttr()`删除属性值，如下：
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>removeAttr (”name”)</td>
-      <td>删除属性值。如$(A).removeAttr (“alt”)，表示删除A节点的alt属性值</td>
-   </tr>
-</table>
-
-**示例：node.jsp**
-
-```
-<html>
-<head>
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-		   $(document).ready(function() {
-               //设置图片的宽和高
-			   $("img").attr({width:"60px",height:"40px"});
-               //获取图片的宽
-			    alert("width:"+ $("img").attr("width") );
-                //删除图片的宽
-			   $("img").removeAttr("width");
-			   alert( "删除width之后："+$("img").attr("width") );		   });
-		</script>
-</head>
-<body>
-    …
-	<img src="imgs/pic.png" />
-</body>
-</html>
-```
-
-运行结果：
-
-![](http://i.imgur.com/Gf1nb2u.png)
-
-*图12-28*
-
-![](http://i.imgur.com/djoeNFQ.png)
-
-*图12-29*
-
-## 12.5.4 获取节点集合与遍历节点集合 ##
-
-jQuery还提供了获取子节点集合、同辈节点集合、父节点集合，以及遍历节点集合的方法。
-
-为了便于讲解，首先设计一个HTML页面，如下
-
-**nodeList.jsp**
+**httpSessionBindingListner.jsp**
 
 ```
 …
 <body>
-	<img src="imgs/pic.png" />
-	<ul>
-		<li>香蕉</li>
-		<li>苹果</li>	
-		<li>橘子</li>	
-	</ul>
+	<%
+		BeanDemo beanDemo = new BeanDemo();
+		session.setAttribute("beanDemo", beanDemo);
+	%>
 </body>
 …
 ```
 
-可知，`<li>`是`<ul>`的子节点。
+执行[http://localhost:8888/ListenerProject/httpSessionBindingListner.jsp](http://localhost:8888/ListenerProject/httpSessionBindingListner.jsp)，运行结果：
 
-#### (1)获取子节点集合 ####
+![](http://i.imgur.com/dkA71Fj.png)
 
-在jQuery中，使用`children()`来获取子节点集合，如下
+*图8-13*
 
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>$(选择器A).children(选择器B)</td>
-      <td>获取子节点集合。如， $("ul").children()会获取&lt;ul&gt;的所有子节点</td>
-   </tr>
-   <tr>
-      <td>$(选择器A).find(选择器B)</td>
-      <td>获取后代节点集合（包含子节点、子节点的子节点、…）。如， $("body").find("li")会获取所有的&lt;li&gt;节点。</td>
-   </tr>
-</table>
+刷新页面，运行结果：
 
-#### (2)获取同辈节点集合 ####
+![](http://i.imgur.com/SevzdFS.png)
 
-在jQuery中，使用`next()`、`prev()`、`siblings()`来获取同辈节点集合，如下：
+*图8-14*
 
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>$(选择器A).next(选择器B)</td>
-      <td>获取紧邻匹配节点之后的那一个节点。如，$("ul li:first").next()会获取&lt;li&gt;苹果&lt;/li&gt;节点</td>
-   </tr>
-   <tr>
-      <td>$(选择器A).prev(选择器B)</td>
-      <td>获取紧邻匹配节点之前的那一个节点。如，$("ul li:last").prev()会获取&lt;li&gt;苹果&lt;/li&gt;节点</td>
-   </tr>
-   <tr>
-      <td>$(选择器A). siblings (选择器B)</td>
-      <td>获取位于匹配节点前面和后面的所有同辈节点。如，$("ul li:last").siblings()会获取除了&lt;li&gt;橘子&lt;/li&gt;以外的所有&lt;li&gt;节点</td>
-   </tr>
-</table>
+从运行结果可以发现：第一次访问**httpSessionBindingListner.jsp**时，`BeanDemo`对象会被增加到`session`域中；刷新浏览器，另一个`BeanDemo`对象被增加到了`session`域中，与此同时，第一个`BeanDemo`对象从`session`域中被移除了，也就是说，第二个`BeanDemo`对象覆盖了第一个对象。此外，因为是同一次会话，因此sessionId都是相同的。
 
-#### (3)获取前辈节点集合 ####
 
-在jQuery中，使用`parent()`、`parents()`来获取前辈节点集合，如下：
+**(2) HttpSessionActivationListener接口**
 
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>$(选择器A).parent(选择器B)</td>
-      <td>获取当前匹配节点的父亲节点。如，$("ul li:last").parent()会获取最后一个&lt;li&gt;的父亲节点，即&lt;ul&gt;节点</td>
-   </tr>
-   <tr>
-      <td>$(选择器A). parents(选择器B)</td>
-      <td>获取当前匹配节点的祖先节点（包括父亲节点、父亲的父亲节点、…）。如，$("ul li:last").parents()会获取最后一个&lt;li&gt;的祖先节点，即&lt;ul&gt;、&lt;body&gt;和&lt;html&gt;节点</td>
-   </tr>
-</table>
 
-#### (4)过滤与遍历节点集合 ####
+如果要把`HttpSession`对象从内存转移到硬盘等存储设备（钝化），或者相反，从存储设备中恢复到内存中（活化），就需要使用HttpSessionActivationListener接口的`sessionWillPassivate()`和`sessionDidActivate()`方法。
 
-**①过滤节点集合**
+需要注意，HttpSession对象的钝化（也称为持久化）过程是由Servlet容器完成的。在此过程中，为了确保session域内的所有共享数据不会丢失，Servlet容器不仅会持久化HttpSession对象，还会对该对象的所有可序列化的属性进行持久化。其中，可序列化的属性是指：属性所在的类实现了Serializable接口；例如String继承了Serializable接口，因此String类型的属性也会被持久化）。
 
-如果已经获取了一组节点集合，还可以使用filter(选择器)对其进行过滤。如，`$('li').filter(':even')`表示过滤出所有索引为偶数的`<li>`节点。
 
-**②遍历节点集合**
+至于HttpSession对象的活化过程，通常是指：在客户端向Web服务发出Http请求时，相应在硬盘中的HttpSession对象会被激活。
 
-如果已经获取了一组节点集合，还可以使用`each()`方法对该集合进行遍历，如下：
-
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>jQuery集合对象.each(function(index,element))</td>
-      <td>遍历jQuery集合对象。参数：index:当前节点在集合中的索引 element:当前的节点（也可以使用this）</td>
-   </tr>
-</table>
-
-**示例：nodeList.jsp**
+**HttpSessionActivationListener接口的完整定义如下：**
 
 ```
-<html>
-<head>
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-		   $(document).ready(function() {
-			  …
-			  var $lis =  $("ul").children();
-			 $lis.each(function(index,element){
-				 alert(index+":"+$(element).text());
-			 });
-	   });
-		</script>
-       …
-</head>
+package javax.servlet.http;
+import java.util.EventListener;
+public interface HttpSessionActivationListener extends EventListener 
+{
+    //钝化之前
+public void sessionWillPassivate(HttpSessionEvent se);
+//活化之后
+    public void sessionDidActivate(HttpSessionEvent se);
+}
+```
+
+当绑定到`HttpSession`对象中的对象即将随`HttpSession`对象被钝化之前，Web容器会调用`sessionWillPassivate()`方法，并传递一个HttpSessionEvent类型的事件对象作为参数；当绑定到`HttpSession`对象中的对象刚刚随`HttpSession`对象被活化之后，Web容器会调用`sessionDidActivate ()`方法，并传递一个HttpSessionEvent类型的事件对象作为参数。
+	
+
+**下面通过一个示例来演示HttpSessionActivationListener接口的使用：**
+
+**①配置会话管理器**
+
+在执行session的持久化（钝化）时，需要使用到PersistentManager（会话管理器），PersistentManager的作用是当某个Web应用被终止（或整个Web服务器被终止）时，会对被终止的Web应用的HttpSession对象进行持久化。PersistentManager需要在Tomcat的context.xml文件中配置<Manager>元素，如下：
+
+
+**&lt;Tomcat安装目录&gt;/conf/context.xml**
+
+```
+<Context>
+	<Manager className="org.apache.catalina.session.PersistentManager"
+ maxIdleSwap="1" > 
+		<Store className="org.apache.catalina.session.FileStore" 
+directory="lanqiao" />
+	</Manager>	
+     <!-- 其他配置 … -->
+</Context>
+```
+
+**Manager及其子元素的简介如下：**
+
+<table>
+   <tr>
+      <td>元素/属性</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>Manager元素</td>
+      <td>用于配置会话管理器.     className属性：指定负责创建、销毁、持久化Session对象的类。     maxIdleSwap属性：指定Session对象被钝化前的最大空闲时间（单位是秒）。如果超过这个时间，管理Session对象的类就会把Session对象持久化到存储设备中（硬盘等）。</td>
+   </tr>
+   <tr>
+      <td>Store元素</td>
+      <td>用于指定负责完成具体持久化任务的类。    directory属性：指定保存持久化文件的目录，可以使用相对目录或绝对目录。如果使用相对目录（如lanqiao），它是相对于以下目录：&lt;Tomcat安装目录&gt;\work\Catalina\localhost\项目名\lanqiao</td>
+   </tr>
+</table>
+
+
+**②编写类，并实现HttpSessionActivationListener接口**
+
+
+**org.lanqiao.listener.BeanDemo2.java**
+
+```
+package org.lanqiao.listener;
+import javax.servlet.http.HttpSessionActivationListener;
+import javax.servlet.http.HttpSessionEvent;
+public class BeanDemo2 implements HttpSessionActivationListener
+{
+	private String name ;
+	private int age ; 
+	//setter、geter
+	//钝化之前
+	@Override
+	public void sessionWillPassivate(HttpSessionEvent se)
+	{
+		System.out.println("即将钝化之前：BeanDemo2对象即将随着HttpSession对象被钝化…");
+	}
+	//活化之后
+	@Override
+	public void sessionDidActivate(HttpSessionEvent se)
+	{
+		System.out.println("活化之后：BeanDemo2对象刚刚随着HttpSession对象被活化了…");
+	}
+}
+```
+
+**③编写JSP，实现钝化与活化**
+
+**a.实现钝化：将对象增加到`HttpSession`对象中，并随着`HttpSession`对象一起钝化**
+
+**write.jsp**
+
+```
+…
 <body>
+	<%
+		BeanDemo2 beanDemo = new BeanDemo2();
+		beanDemo.setName("张三");
+		beanDemo.setAge(23);
+		session.setAttribute("beanDemo", beanDemo) ;
+	%>
+</body>
+…
+```
+
+启动服务，执行[http://localhost:8888/ListenerProject/write.jsp](http://localhost:8888/ListenerProject/write.jsp)，JSP页面的运行结果：
+
+
+![](http://i.imgur.com/tYvNV5j.png)
+
+*图8-15*
+
+一段时间后（时间长短与会话管理器中`Manager`元素的`maxIdleSwap`属性有关），Console控制台会有如下显示：
+
+![](http://i.imgur.com/z1tmq2L.png)
+
+*图8-16*
+
+因此可以得知，`BeanDemo2`对象会随着`HttpSession`对象被钝化。根据会话管理器中`Store`元素的`directory`属性，可以找到钝化后的文件，如下：
+
+![](http://i.imgur.com/Zg1t5lp.png)
+
+*图8-17*
+
+**b.实现活化：钝化以后，将对象随`HttpSession`对象一起活化**
+
+编写**read.jsp**，从`session`域中读取对象，如下：
+
+
+**read.jsp**
+
+```
+…
+<body>
+	从session域中读取对象 <br/>
+	姓名：${sessionScope.beanDemo.name } <br/>
+	年龄：${sessionScope.beanDemo.age } <br/>
+</body>
+…
+```
+
+重启Tomcat服务，先执行[http://localhost:8888/ListenerProject/write.jsp](http://localhost:8888/ListenerProject/write.jsp)，然后在Console控制台打印“即将钝化之前…”以前，迅速再执行[http://localhost:8888/ListenerProject/read.jsp](http://localhost:8888/ListenerProject/read.jsp)，可得如下结果：
+
+
+![](http://i.imgur.com/jQu5H2D.png)
+
+*图8-18*
+
+可以发现，在钝化之前可以从`session`域中读取对象的数据（内存中的`session`域中读取）。过一会儿，当控制台打印“即将钝化之前…”以后（说明此时`HttpSession`对象已经被钝化，被保存在了硬盘中），再次执行[http://localhost:8888/ListenerProject/read.jsp](http://localhost:8888/ListenerProject/read.jsp)，运行结果：
+
+![](http://i.imgur.com/FQIAooq.png)
+
+*图8-19*
+
+数据不显示的原因是：持久化（钝化）类没有实现Serializable接口。如果一个类没有实现Serializable接口，那么当Servlet容器持久化`HttpSession`对象时，是不会持久化该类的对象的。本例中，BeanDemo2类没有实现Serializable接口，因此BeanDemo2的对象不会随`HttpSession`一起被持久化，就会在`HttpSession`被持久化时丢失。
+
+修改BeanDemo2类，让其实现Serializable接口，如下：
+
+
+**org.lanqiao.listener.BeanDemo2.java**
+
+```
+package org.lanqiao.listener;
+import javax.servlet.http.HttpSessionActivationListener;
+import javax.servlet.http.HttpSessionEvent;
+public class BeanDemo2 implements HttpSessionActivationListener, Serializable
+{
 	…
-    <ul>
-		<li>香蕉</li>
-		<li>苹果</li>	
-		<li>橘子</li>	
-	</ul>
-</body>
-</html>
+}
 ```
 
-运行结果：
+重启服务，执行[http://localhost:8888/ListenerProject/write.jsp](http://localhost:8888/ListenerProject/write.jsp)，等待Console控制台输出“即将钝化之前…”，如下：
 
-![](http://i.imgur.com/i7tgLkH.png)
+![](http://i.imgur.com/LA7YzVt.png)
 
-*图12-30*
+*图8-20*
 
-![](http://i.imgur.com/SdN7uG5.png)
+再执行**read.jsp**，得到**read.jsp**的运行结果：
 
-*图12-31*
+![](http://i.imgur.com/1pQSnTa.png)
 
-![](http://i.imgur.com/6FQh54Y.png)
+*图8-21*
 
-*图12-32*
+此时Console控制台的运行结果：
 
-## 12.5.5 CSS-DOM操作 ##
+![](http://i.imgur.com/ekKPJ1O.png)
 
-除了使用之前讲过的`css()`方法获取或设置CSS样式以外，还可以使用jQuery提供的CSS-DOM操作方法，如下：
+*图8-22*
 
-<table>
-   <tr>
-      <td>方法</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>height([value])</td>
-      <td>height()：获取元素的高度；height(value)：设置元素的高度。 </td>
-   </tr>
-   <tr>
-      <td>width([value])</td>
-      <td>width ()：获取元素的宽度；width (value)：设置元素的宽度。</td>
-   </tr>
-   <tr>
-      <td>offset([function(index,oldoffset)])</td>
-      <td>offset ()：获取元素的top和left坐标；function(index,oldoffset)：设置元素的top和left坐标，其中参数index为元素的索引，oldoffset为当前坐标，该方法返回被选元素的新坐标。 </td>
-   </tr>
-   <tr>
-      <td>offsetParent()</td>
-      <td>返回最近的祖先定位元素。定位元素指的是元素的 CSS position 属性被设置为 relative、absolute 或 fixed 的元素。</td>
-   </tr>
-   <tr>
-      <td>scrollLeft([position])</td>
-      <td>scrollLeft ()：获取滚动条的left偏移量；scrollLeft (position)：设置滚动条的left偏移量；</td>
-   </tr>
-   <tr>
-      <td>scrollTop([position])</td>
-      <td>scrollTop ()：获取滚动条的top偏移量；scrollTop (position)：设置滚动条的top偏移量；</td>
-   </tr>
-</table>
+可以得知，BeanDemo2对象在随HttpSession对象被钝化以后，又会在程序访问HttpSession对象时随HttpSession对象一起被活化。再次强调，Java对象所属的类必须先实现Serializable接口，之后才能被持久化到硬盘上。
 
-**offset()示例：cssDom.jsp**
 
-```
-<html>
-<head>
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-		   $(document).ready(function() {
-			   $("button").click(function(){
-				    //获取坐标
-				      var $lastLi = $("ul li:last");
-					  var leftAndTop =  $lastLi.offset();
-					  alert("left:"+leftAndTop.left 
-+",top:"+leftAndTop.top);
-					//设置坐标
-				    $lastLi.offset(function(n,c){
-				    	var newPos=new Object();
-				    	//将left和top各增加100
-				        newPos.left=c.left+100;
-				        newPos.top=c.top+100;
-				        return newPos;
-				    });
-				  });
-		   });
-		</script>
-        …
-</head>
-<body>
-	…
-	<ul>
-		<li>香蕉</li>
-		<li>苹果</li>	
-		<li>橘子</li>	
-	</ul>
-	<button>获取并设置“橘子”的坐标</button>
-</body>
-</html>
-```
+稍等片刻后，控制台会再次显示“即将钝化之前…”，如下：
 
-以上通过`offset()`获取橘子所在节点的坐标，并通过`offset([function(index,oldoffset)])`设置新坐标。
+![](http://i.imgur.com/SAthfNA.png)
 
-运行结果：
+*图8-23*
 
-单击`<button>`按钮后，弹出“橘子”所在节点的位置：
-
-![](http://i.imgur.com/7ZF33ep.png)
-
-*图12-33*
-
-再单击确定后，“橘子”向右下角偏移（向右、向下各偏移100px）：
-
-![](http://i.imgur.com/KbSxYQx.png)
-
-*图12-34*
-
-**offsetParent()示例：cssDom.jsp**
-
-```
-<html>
-<head>
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-		   $(document).ready(function() {
-			   $("button").click(function(){
-                   //将当前button元素的父元素（即<div>）的背景色设置为red
-					$(this).offsetParent()
-.css("background-color","red");
-				});
-	            …
-		   });
-		</script>
-…
-</head>
-<body>
-    …
-	<div style="border:1px solid #000;width:100px;height:100px ;
-position:absolute;left:10px;top:200px；">
-		<button>父元素背景</button>
-	</div>
-</body>
-</html>
-```
-
-运行结果：
-
-![](http://i.imgur.com/Y6LVMcz.png)
-
-*图12-35*
-
-单击`<button>`后，父元素`<div>`的背景变色：
-
-![](http://i.imgur.com/Q1Y0ABC.png)
-
-*图12-36*
-
-# 12.6 表单校验 #
-
-如果所有的数据校验都留给后台服务器完成，那么服务器的压力会非常大。一个解决方案，就是把表单数据的校验放到前台完成，也就是我们即将学习的表单校验。
-
-**使用jQuery或Javascript实现前台表单校验的总体步骤如下：**
-
-**①**获取需要校验的表单元素的值，一般都是字符串类型的值
-
-**②**使用JQuery或JavaScript的相关字符串处理方法，对获取的表单元素值进行校验
-
-**③**当提交`form`表单时，触发`onsubmit`事件，对获取的数据进行验证
-
-## 12.6.1 使用字符串处理方法，对表单元素值校验 ##
-
-下面的`check()`方法，是一种常见校验方法的形式：
-
-**input.jsp**
-
-```
-<script type="text/javascript">
-		//校验函数
-	    function check() {
-	         var name = $("#username").val();
-	         if(name.length < 6){
-	             alert("用户名不能小于6位");
-		         return false;
-	          }
-	         var email = $("#email").val();
-	         if (email == "") {
-	             alert("邮箱不能为空");
-	             return false;
-	          }
-	          if (email.indexOf("@") == -1  
-|| email.indexOf(".") == -1 
-|| email.indexOf("@")>email.indexOf(".")) {
-	             alert("邮箱格式不正确(username@domain.com)");
-	             return false;
-	          }   
-	          return true;
-	     }
-</script>
-```
-
-通过jQuery或JavaScript的字符串处理方法，对表单元素进行校验。校验时，如果不合法则返回`false`，如果合法则返回`true`。返回的布尔值，是为了以后使用`onsubmit`事件做准备。
-
-经验：做表单校验时，只需要校验消极、负面、失败的情况，并返回`false`；最后在校验方法的最后一行返回`true`。
-
-## 12.6.2 校验事件和方法 ##
-
-`check()`写完以后，就需要被校验事件或校验方法调用，如下：
-
-<table>
-   <tr>
-      <td>类别</td>
-      <td>名称</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td rowspan="3">校验事件</td>
-      <td>onsubmit</td>
-      <td>当提交表单时（单击submit按钮时）触发</td>
-   </tr>
-   <tr>
-      <td>onfocus</td>
-      <td>获得焦点，当光标进入某个文本框时触发</td>
-   </tr>
-   <tr>
-      <td>onblur</td>
-      <td>失去焦点，当光标离开某个文本框时触发</td>
-   </tr>
-   <tr>
-      <td rowspan="3">校验方法</td>
-      <td>submit()</td>
-      <td>提交表单、单击submit按钮</td>
-   </tr>
-   <tr>
-      <td>onfocus()</td>
-      <td>获得焦点，光标进入某个文本框</td>
-   </tr>
-   <tr>
-      <td>blur()</td>
-      <td>失去焦点，光标离开某个文本框</td>
-   </tr>
-</table>
-
-**onsubmit事件示例：input.jsp**
-
-```
-<html>
-<head>
-		<script type="text/javascript" src="js/jquery-1.12.3.js">
-</script>
-		<script type="text/javascript">
-			 //校验函数
-	        function check() {
-	           …
-	            if (…) {
-	                alert(…);
-	                return false;
-	            }
-	            return true;
-	        }
-		</script>
-</head>
-<body>
-	<form action="" onsubmit="return check()">
-		用户名：<input type="text" id="username"/><br/>
-		邮箱：<input type="text" id="email"/><br/>
-		    <input type="submit" id="注册"/>
-	</form>
-</body>
-</html>
-```
-
-`onsubmit`事件会在单击`submit`按钮时被触发，如果`onsubmit="return true"`则会正常跳转到`action`指向的地址；如果`onsubmit="return false"`，则会终止`action`跳转。
-
-例如，如果输入的表单内容不合法，就会弹出错误提示，并停留在当前页面而不进行`action`跳转，如图
-
-![](http://i.imgur.com/gNhAT7T.png)
-
-*图12-37*
-
-而如果输入的表单数据全部合法，才会执行`action`跳转。
-以上使用`onsubmit`实现的表单校验，等价于以下使用`submit()`方法：
-
-**`submit()`方法示例：input.jsp**
-
-```
-<html>
-<head>
-		…
-		<script type="text/javascript">
-			 //校验函数
-	        function check() {
-	           …
-	            if (…) {
-	                alert(…);
-	                return false;
-	            }
-	            return true;
-	        }
-		
-		   $(document).ready(function() {
-			   $("#myForm").submit(function(){
-					return check();				   
-			   });
-		   });
-		</script>
-</head>
-<body>
-	 <form action="" id="myForm">
-	 	…
-		<input type="submit" id="注册"/>
-	</form>
-</body>
-</html>
-```
-
-## 12.6.3 正则表达式 ##
-
-之前，我们是使用字符串处理方法或属性（如`length`、`indexOf()`）对表单元素进行校验。除此以外，对于一些复杂的校验，我们可以使用正则表达式来完成。
-
-正则表达式所定义的校验规则，是写在`/^…$/`之中，其中具体的校验规则是通过以下符号来指定：
-
-<table>
-   <tr>
-      <td>符号</td>
-      <td>简介</td>
-   </tr>
-   <tr>
-      <td>/…/</td>
-      <td>一个规则的开始和结束</td>
-   </tr>
-   <tr>
-      <td>^</td>
-      <td>匹配字符串的开始</td>
-   </tr>
-   <tr>
-      <td>$</td>
-      <td>匹配字符串的结束</td>
-   </tr>
-   <tr>
-      <td>[]</td>
-      <td>定义一个匹配的字符范围，如[0-9a-z]表示该字符取值的范围是数字或小写字母</td>
-   </tr>
-   <tr>
-      <td>\s</td>
-      <td>任何空白字符</td>
-   </tr>
-   <tr>
-      <td>\S</td>
-      <td>任何非空白字符</td>
-   </tr>
-   <tr>
-      <td>\d</td>
-      <td>匹配一个数字字符，等价于[0-9]</td>
-   </tr>
-   <tr>
-      <td>\D</td>
-      <td>除了数字之外的任何字符，等价于[^0-9]</td>
-   </tr>
-   <tr>
-      <td>\w</td>
-      <td>匹配一个数字、下划线或字母字符，等价于[A-Za-z0-9_]</td>
-   </tr>
-   <tr>
-      <td>\W</td>
-      <td>任何非单字字符，等价于[^a-zA-z0-9_]</td>
-   </tr>
-   <tr>
-      <td>.</td>
-      <td>除了换行符之外的任意字符</td>
-   </tr>
-   <tr>
-      <td>{n}</td>
-      <td>匹配前一项n次</td>
-   </tr>
-   <tr>
-      <td>{n,}</td>
-      <td>匹配前一项n次或n次以上</td>
-   </tr>
-   <tr>
-      <td>{n,m}</td>
-      <td>匹配前一项至少n次，至多m次</td>
-   </tr>
-   <tr>
-      <td>*</td>
-      <td>匹配前一项0次或多次，等价于{0,}</td>
-   </tr>
-   <tr>
-      <td>+</td>
-      <td>匹配前一项1次或多次，等价于{1,}</td>
-   </tr>
-   <tr>
-      <td>？</td>
-      <td>匹配前一项0次或1次，也就是说前一项是可选的，等价于{0,1}</td>
-   </tr>
-</table>
-
-例如，11位手机号码（第一位必须是1）的正则表达式校验规则就是`var regMobile=/^1\d{10}$/;`
-
-有了正则校验规则后，就可以使用`test()`方法来执行校验。如果校验的内容和规则一致，则返回`true`；不一致，则返回`false`。
-
-**示例：reg.jsp**
-
-```
-<html>
-<head>
-		…
-		<script type="text/javascript">
-		   $(document).ready(function() {
-			   $("#mobile").blur(function(){
-				   var mobile  = $(this).val();
-					  //正则表达式
-					  var regMobile = /^1\d{10}$/;
-					  if(!regMobile.test(mobile)){
-						  $("#tip").css("display","inline");
-					  }else{
-						  $("#tip").css("display","none");
-					  }
-			   });
-				  
-		   });
-		</script>
-        …
-</head>
-<body>
-	电话号码：<input type="text" id="mobile" />
-	<font color="red" id="tip" style="display: none">
-电话号码格式不正确
-</font>
-</body>
-</html>
-```
-
-运行结果：
-
-如果输入的电话号码不符合正则表达式规则：
-
-![](http://i.imgur.com/4aZdI1H.png)
-
-*图12-38*
-
-如果符合规则：
-
-![](http://i.imgur.com/Q7yDjE9.png)
-
-*图12-39*
-
-## 12.6.4 表单选择器 ##
-
-jQuery专门提供了表单选择器，便于我们快速的获取`form`表单的元素值。表单选择器是过滤选择器的一种，具体如下：
-
-<table>
-   <tr>
-      <td>表单选择器</td>
-      <td>简介</td>
-      <td>示例</td>
-   </tr>
-   <tr>
-      <td>:input</td>
-      <td>匹配所有input、textarea、select和button 元素</td>
-      <td>$("#myform:input")选取所有的input、select、button元素</td>
-   </tr>
-   <tr>
-      <td>:text</td>
-      <td>匹配所有单行文本框</td>
-      <td>$("#myform :text")选取所有的&lt;input type="text" /&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:password</td>
-      <td>匹配所有密码框</td>
-      <td>$("#myform:password" )选取所有&lt;input type="password" /&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:radio</td>
-      <td>匹配所有单项按钮</td>
-      <td>$("#myform  :radio")选取所有&lt;input type="radio" /&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:checkbox</td>
-      <td>匹配所有复选框</td>
-      <td>$(" #myform  :checkbox " )选取&lt;input type="checkbox " /&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:submit</td>
-      <td>匹配所有提交按钮</td>
-      <td>$("#myform  :submit " )选取&lt;input type="submit " /&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:image</td>
-      <td>匹配所有图像</td>
-      <td>$("#myform  :image" )选取&lt;input type=" image" /&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:reset</td>
-      <td>匹配所有重置按钮</td>
-      <td>$(" #myform  :reset " )选取&lt;input type=" reset " /&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:button</td>
-      <td>匹配所有按钮</td>
-      <td>$("#myform  :button" )选取button 元素</td>
-   </tr>
-   <tr>
-      <td>:file</td>
-      <td>匹配所有文件域</td>
-      <td>$(" #myform  :file" )选取&lt;input type=" file " /&gt;元素</td>
-   </tr>
-   <tr>
-      <td>:hidden</td>
-      <td>匹配所有不可见元素</td>
-      <td>$("#myform  :hidden" )选取&lt;input type="hidden " /&gt;、style="display: none"等元素</td>
-   </tr>
-</table>
-
-# 12.7 练习题 #
-
-1.在JQuery中，`“$("tr:even").css("background-color", "red");”`代码的含义是（    ）。（选择一项）（难度★）
-
-A．设置表格每一行的背景色
-
-B．设置表格所有偶数行的背景色
-
-C．设置表格所有奇数行的背景色
-
-D．设置表格所有偶数列的背景色
-
-2.在JQuery中，（    ）是代表在淡入和淡出间切换的语法。（选择一项）（难度★）
-
-A．$(selector).showToggle(speed,callback);
-
-B．$(selector).fadeToggle(speed,callback);
-
-C．$(selector).toggle(speed,callback);
-
-D．$(selector).slideToggle(speed,callback);
-
-
-3.下面哪一个是用来追加到指定元素的末尾的？（难度★★）
-
-A、`insertAfter()`
-
-B、`append()`
-
-C、`appendTo()`
-
-D、`after()`
-
-
-4.如果需要匹配包含文本的元素，用下面哪种来实现？（难度★）
-
-A、`text()`
-
-B、`contains()`
-
-C、`input()`
-
-D、`attr(name)`
-
-5.为每一个指定元素的指定事件（像click）绑定一个事件处理器函数，下面哪个是用来实现该功能的？（难度★）
-
-A、`trigger (type)`
-
-B、`bind(type)`
-
-C、`one(type)`
-
-D、`bind`
-
-6.在一个表单中，如果想要给输入框添加一个输入验证，可以用下面的哪个事件实现？（难度★）
-
-A、`hover(over ,out)`
-
-B、`keypress（fn）`
-
-C、`change()`
-
-D、`change(fn)`
- 
-7.在jquery中指定一个类，如果存在就执行删除功能，如果不存在就执行添加功能，下面哪一个是可以直接完成该功能的？（难度★）
-
-A、`removeClass()`
-
-B、`deleteClass()`
-
-C、`toggleClass(class)`
-
-D、`addClass()`
+读者应该知道再次显示的原因了吧？

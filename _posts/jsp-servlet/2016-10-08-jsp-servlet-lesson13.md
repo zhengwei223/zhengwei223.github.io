@@ -2,13 +2,13 @@
 
 layout: post
 
-title: 调试
+title: AJAX
 
 category: JSP-Servlet教程
 
 tags: JSP Servlet
 
-description: 使用Eclipse的调试功能，可以帮助开发人员更好的了解程序的运行情况、快速的发现bug、及时的处理错误。
+description: 本章将系统介绍AJAX。Ajax是一种用于创建快速动态网页的技术，而且整合了JavaScript和XML等现有技术。
 
 author: 颜群
 
@@ -16,448 +16,838 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 ---
 
-# 13.1 使用Eclipse调试 #
+>**本章简介**
 
-使用Eclipse的调试功能，可以帮助开发人员更好的了解程序的运行情况、快速的发现bug、及时的处理错误。
+AJAX（Asynchronous Javascript And XML，异步JavaScript和XML），是一种用于创建快速动态网页的技术。从名字可以发现，Ajax并不是一种全新的技术，而是整合了JavaScript和XML等现有技术。
 
-## 13.1.1 使用Eclipse调试JAVA程序 ##
+# 10.1 Ajax的作用 #
 
-**调试JAVA程序的步骤如下：**
+Ajax 通过在后台与服务器之间交换少量数据的方式，实现网页的异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的局部内容进行更新，例如：我们在网页中观看电影时，如果点击了左下角的“赞”图标，那么“赞”的数量会从5353增加到5354（即局部内容进行了更新），而当前网页并不会被刷新，如图，
 
-#### ① 打断点 ####
+![](http://i.imgur.com/MIV2Y5t.png)
 
-用鼠标双击需要观察的代码左侧（双击后，会出现一个小圆点），如图：
+*图10-01*
 
-![](http://i.imgur.com/F67Rft4.png)
+而传统的网页（不使用 AJAX）如果需要更新内容，就必须重新加载整个网页，试想如果点击一下“赞”网页就刷新、视频就得从头开始看，肯定是非常不方便的。
 
-*图13-01*
+AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，搜索框会自动查询并显示列表，但搜索框以外的网页不会发生变化，如图，
 
-以上，需要观察第21行中num1的值，所以就在第21行左边打了一个断点。
+![](http://i.imgur.com/ULah79t.png)
 
-#### ② 进入调试状态 ####
+*图10-02*
 
-打了断点以后，就可以启动调试：鼠标右击代码编辑界面→Debug As→Java Application，如图
+还有百度地图、微博等，都大量使用到了AJAX技术。
 
-![](http://i.imgur.com/fdZs3I7.png)
+## 10.2 使用JavaScript实现Ajax ##
 
-*图13-02*
+使用JavaScript来实现Ajax，主要是借助`XMLHttpRequest`对象向服务器发送请求，并获取返回结果。
 
-之后，会弹出调试界面，如图：
+## 10.2.1 `XMLHttpRequest`对象的常用方法 ##
 
-![](http://i.imgur.com/Zzlazd9.png)
+**(1) open(methodName,URL,isAsync)**
 
-*图13-03*
+与服务器连接建立。`methodName`指定请求的方法名；URL指定请求地址；`isAsync`是一个`boolean`值，代表是否采用异步方式（默认true；若无特殊需求，此值一般都填true）。
 
-调试界面的右上角有Variables和BreakPoints两个功能面板，BreakPoints面板中会显示之前所打断点的位置，如图，
+**(2) send(content)**
 
-![](http://i.imgur.com/CKc7aIW.png)
+发送HTTP请求。`content`是可选项，用来指定请求参数，将请求参数作为请求体的一部分一起发送给服务器。通常只在POST方式下才使用`content`参数（`GET`请求方式不携带请求体）。
 
-*图13-04*
+**(3) setRequestHeader(header,value)**
 
-而Variables面板中存放了当前行的变量值，如图，
+在HTTP请求头中设置key/value对：
 
-![](http://i.imgur.com/oHzlBhI.png)
+**①**若为`GET`请求方式：则不用设置；
 
-*图13-05*
+**②**若为`POST`方式，
 
-此外，我们还可以新增加一个`Expressions`功能面板：依次点击Window→Show View→Expressions，如图，
+**a.**当请求中包含文件上传元素时，设置为：
 
-![](http://i.imgur.com/ITrCIpV.png)
+**XMLHttpRequest.setRequestHeader("Content-Type", "mulipart/form-data");**
 
-*图13-06*
+**b.**当请求中不包含文件上传元素时，设置为：
 
-再观察调试界面，会发现多了一个`Expressions`功能面板，如图，
+**XMLHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");**
 
-![](http://i.imgur.com/kiI4fFN.png)
+## 10.2.2 `XMLHttpRequest`对象的常用属性 ##
 
-*图13-07*
+#### (1)`readystate` ####
 
-我们可以将变量或自定义表达式（如num1*num2）输入到`Expressions`面板中观察，如图，
+`readystate`表示`XMLHttpRequest` 对象发送的HTTP请求状态，共有以下五种状态：
 
-![](http://i.imgur.com/7Mjb92h.png)
+<table>
+   <tr>
+      <td>状态值</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>0</td>
+      <td>表示XMLHttpRequest 对象没有初始化</td>
+   </tr>
+   <tr>
+      <td>1</td>
+      <td>表示XMLHttpRequest 对象开始发送请求：已经执行了open()方法并完成了相关资源的准备。</td>
+   </tr>
+   <tr>
+      <td>2</td>
+      <td>表示XMLHttpRequest 对象已将请求发送完毕：已经执行了send()方法来发送请求，但是还没有收到响应。</td>
+   </tr>
+   <tr>
+      <td>3</td>
+      <td>表示XMLHttpRequest 对象开始读取响应信息：已经接收到HTTP响应的头部信息，但是还没有将响应体接收完毕。</td>
+   </tr>
+   <tr>
+      <td>4</td>
+      <td>表示XMLHttpRequest 对象将响应信息全部读取完毕</td>
+   </tr>
+</table>
 
-*图13-08*
+#### (2) `status` ####
 
-#### ③ 执行调试 ####
+`status`表示HTTP响应中的状态码，各状态码的含义如下：
 
-**a.单行调试（单步调试）**
+<table>
+   <tr>
+      <td>状态码</td>
+      <td>含义</td>
+   </tr>
+   <tr>
+      <td>200</td>
+      <td>服务器正常响应。</td>
+   </tr>
+   <tr>
+      <td>400</td>
+      <td>无法找到请求的资源。</td>
+   </tr>
+   <tr>
+      <td>403</td>
+      <td>没有访问权限。</td>
+   </tr>
+   <tr>
+      <td>404</td>
+      <td>访问的资源不存在。</td>
+   </tr>
+   <tr>
+      <td>500</td>
+      <td>服务器内部错误，很可能是服务器代码有错。</td>
+   </tr>
+</table>
 
-之后就可以开始调试：单击F6进行单行调试，即可以让程序一行一行的执行。例如，目前程序停留在第21行，单击F6后就会执行到第22行，如图，
+可以发现，只有当状态码为200时才表示响应成功；否则，说明HTTP响应不正常。
 
-![](http://i.imgur.com/7MAxsQH.png)
+#### (3) `onreadystatechange` ####
 
-*图13-09*
+指定`XMLHttpRequest`对象的回调函数。每当`readyState`的属性值改变时，此回调函数就会被调用一次。
 
-并且可以随时在Expressions面板中观察自定义表达式或变量在此时的值。
+#### (4) `responseText` ####
 
-值得注意的是：在单击F6执行单行调试时，绿色背景条所在那一行表示的是“即将”执行的那一行，而不是已经执行过的那一行。
+从服务器端返回的`string`格式的响应内容。
 
-**b.进入方法**
+#### (5) `responseXML` ####
 
-如果即将执行那一行是一个方法，可以单击F6直接跳到下一行（即将该方法执行完毕，跳到第23行），也可以单击F5进入到该方法的内部，如图是在第22行单击F5之后的效果，
+从服务器端返回的XML格式的数据，可以直接被当作`DOM`对象使用。
 
-![](http://i.imgur.com/7wMHWUI.png)
+## 10.2.3 使用Ajax实现异步请求 ##
 
-*图13-10*
+**使用JavaScript实现Ajax，分为`POST`或`GET`两种方式，但大体的步骤都相同，如下：**
 
-进入方法后，可以单击F6执行单行调试，也可以单击F7跳出该方法，恢复到该方法调用处的下一行（即第23行），如图（在第7行单击F7之后）：
+**①**创建`XMLHttpRequest`对象，即创建一个异步调用对象
 
-![](http://i.imgur.com/hNYdpCN.png)
+**②**设置并编写回调函数
 
-*图13-11*
+**③**初始化`XMLHttpRequest`对象的参数值（若是`POST`方式，还需要设置“请求头”）
 
-**c.释放断点和停止调试**
+**④**发送HTTP请求
 
-如果通过调试，成功的找到了bug或已将问题分析完毕，就可以点击ctrl+F2终止调试。如果程序中打了多个断点，也可以单击F8将程序释放到下一个断点所在处。
+再在回调函数中编写：
 
-除了使用F5、F6、F7、F8、ctrl+F2等快捷键外，还可以使用Eclipse提供的调试按钮，如图：
+**⑤**获取异步调用返回的数据
 
-![](http://i.imgur.com/4wiLedH.png)
+**⑥**使用JavaScript或Jquery等实现局部刷新
 
-*图13-12*
+**示例：**
 
-如果在调试模式下，想暂时忽略所有断点、像正常执行程序一样，可以单击Skip All BreakPoints按钮，如图：
+很多手机软件、网站都会要求我们绑定手机号码，并且一个手机号码只能绑定一个账号。因此，我们在绑定手机号码之前，程序会先检验此号码是否已经被绑定：若已经被绑定，则提示“此号码已经被绑定，请尝试其他号码”；否则提示“绑定成功”。 现在我们就用Ajax作为前端技术，来实现此功能。
 
-![](http://i.imgur.com/0ROrrJ6.png)
+**(1)采用POST方式**
 
-*图13-13*
-
-如果想恢复被忽略的断点，只需要再次单击Skip All BreakPoints按钮。
-
-**d.恢复编辑视图**
-
-调试完毕后，点击右上角的“Java EE”就可以恢复到普通的JAVA编辑视图，如图：
-
-![](http://i.imgur.com/vkdD9Hg.png)
-
-*图13-14*
-
-## 13.1.2 使用Eclipse调试本地JAVA Web程序 ##
-
-调试Java Web程序与调试JAVA程序的方法基本相同，唯一区别就在于如何进入调试模式。
-
-在打了断点以后，JAVA程序是通过单击Debug As→Java Application进入调试模式；而Web程序进入调试模式的步骤是：
-
-**① 先以Debug模式启动Web服务**
-
-如图：
-
-![](http://i.imgur.com/ozel75G.png)
-
-*图13-15*
-
-**② 在运行Web应用时，如果执行的代码中存在断点，则Eclipse会自动进入调试模式，并将程序停留在该断点处**
-
-例如，有一个前端页面，如下
-
-**index.jsp**
+**服务器端MobileServlet.java**
 
 ```
-…
-<a href="DebugServlet">测试Java Web调试</a>
-…
-```
-
-该页面中超链接所访问的Servlet中存在断点，如图：
-
-![](http://i.imgur.com/Y1DSrD9.png)
-
-*图13-16*
-
-如果执行**index.jsp**中的超链接，则程序会自动停留在Servlet中的断点处，如图：
-
-![](http://i.imgur.com/W9wFgwI.png)
-
-*图13-17*
-
-其他调试Java Web程序的步骤，与调试Java程序的步骤完全一致。
-
-## 13.1.3 使用Eclipse远程调试JAVA Web程序 ##
-
-在实际的项目开发中，开发人员需要先在本机完成项目开发，然后将最终的项目放到测试人员的服务器上以供测试。在此过程中，经常会遇到这样一个问题：项目代码在开发人员的电脑上能够成功运行，但在测试人员的服务器上运行时却有异常出现。此时，开发人员就可以在自己的电脑上，远程调试测试服务器上的Java Web程序。
-
-远程调试的具体步骤如下：
-
-#### (1) 调试准备 ####
-
-**①** 远程的Tomcat服务器上部署了Java Web程序，并且本机的Eclipse中有该Java Web的源代码。
-
-**②** 在本机的环境变量中，配置CATALINA_HOME和JRE_HOME
-
-其中CATALINA_HOME是Tomcat的根目录；JRE_HOME是JRE的根目录。
-
-#### (2)在远程服务器配置Tomcat ####
-
-**a. 如果远程服务器是Windows环境**
-
-在`%CATALINE_HOME%\bin`下建立**debug.bat**文件，并编写以下内容：
-
-**debug.bat**
-
-```
-set JPDA_ADDRESS=9090 
-set JPDA_TRANSPORT=dt_socket 
-set CATALINA_OPTS=-server -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9090 
-startup
-```
-
-其中的9090表示将要开启的远程端口号（任何未被使用的端口都可以）。
-
-JPDA_TRANSPORT表示连接方式，可以设置为`dt_shmem`或`dt_socket`，分别表示本机调试和远程调试。
-
-**b. 如果远程服务器是Linux/Unix环境**
-
-打开`%CATALINE_HOME%/bin/startup.sh`，找到其中最后一行，将
-`exec "$PRGDIR"/"$EXECUTABLE" start "$@" `
-改为
-`exec "$PRGDIR"/"$EXECUTABLE" jpda start "$@"`
-
-默认的远程调试端口是8000，如果8000被占用，可以打开`%CATALINE_HOME%/bin/catalina.sh`文件，将
-`JPDA_ADDRESS="8000"`
-改为
-`JPDA_ADDRESS="9090"`
-
-配置完成后，在Windows下运行`debug.bat`（或 在Linux下运行 `startup.sh`）来启动Tomcat。如果在启动日志中出现**Listening for transport dt_socket at address: 9090**，则说明远程调试端口监听成功。
-
-#### (3)在本地Eclipse中关联源代码 ####
-
-在远程调试模式中，关联项目源代码，方法如下：
-
-**①** 在Eclipse的Package Explorer视图中，右键点击项目，选中Debug As…中的Debug Configurations…，如下：
-
-![](http://i.imgur.com/a9l2Z0S.png)
-
-*图13-18*
-
-**②** 在弹出的对话框中，右键点击Remote Java Application左键单击New，如图
-
-![](http://i.imgur.com/cUjUSme.png)
-
-*图13-19*
-
-在右侧Connect面板中，输入项目名、远程调试的端口号等，如图，
-
-![](http://i.imgur.com/v2RakUd.png)
-
-*图13-20*
-
-在右侧Source面板中，Add项目代码，便于Eclipse在远程调试阶段查找代码，如图，
-
-![](http://i.imgur.com/kKaiyaC.png)
-
-*图13-21*
-
-增加之后的界面，如图，
-
-![](http://i.imgur.com/fFN8l1H.png)
-
-*图13-22*
-
-最后点击Debug按钮，即开启远程调试，如图
-
-![](http://i.imgur.com/zZTyj09.png)
-
-*图13-23*
-
-#### (4) 执行远程调试 ####
-
-在本地的项目中打上断点，再通过浏览器远程访问服务器部署的项目，如[http://192.168.1.123:9090/DebugDemo](http://192.168.1.123:9090/DebugDemo)。此时，就会在本地的Eclipse中进入调试模式，而调试的就是远程服务器中的项目代码。调试的方法和本地调试完全相同。
-
-# 13.2 使用firebug调试 #
-
-Firebug是Firefox浏览器下的一款扩展插件，可以用来调试HTML、CSS、JavaScript和Ajax等脚本或语言。Firebug可以从各个不同的角度剖析Web页面内部的细节，是Web开发人员的必备利器。
-
-## 13.2.1 安装Firebug ##
-
-**①** 打开firefox浏览器，并打开工具中的附加组件，如图：
-
-![](http://i.imgur.com/xkfn7wd.png)
-
-*图13-24*
-
-**②** 在弹出的页面中，搜索firebug，再点击安装，如图
-
-![](http://i.imgur.com/WfQGluF.png)
-
-*图13-25*
-
-**③** 重新打开浏览器，点击功能键F12，就可以在浏览器下方看到firebug，如图
-
-![](http://i.imgur.com/jj0Nz2A.png)
-
-*图13-26*
-
-## 13.2.2 使用Firebug调试web前端 ##
-
-可以使用firebug调试前端中的HTML、CSS、JavaScript、网络、Cookies等。现在以调试CSS和JavaScript为例，进行讲解。
-
-#### (1) 调试CSS ####
-
-先编写以下源码文件：
-**ul.css**
-
-```
-ul li:first-child
+//省略import
+public class MobileServlet extends HttpServlet 
 {
-	background-color:yellow;
-	font-size:20px;
+	protected void doGet(…)…
+{
+		this.doPost(request, response);
+	}
+	protected void doPost(HttpServletRequest request,
+                               HttpServletResponse response) 
+throws ServletException, IOException 
+{
+	//设置发送到客户端响应的内容类型
+response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String mobile = request.getParameter("mobile");
+		//假设已经存在号码为18888888888的电话
+		if("18888888888".equals(mobile))
+{
+			out.print("true");
+		}else{
+			out.print("false");
+		}
+		out.close();
+	}
 }
 ```
 
-**firebugCss.jsp**
+**客户端index.jsp**
 
 ```
-<html>
+…
 <head>
-	<link rel="stylesheet" type="text/css" href="ul.css" /> 
+<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+<script type="text/javascript">
+	function isExist() 
+	{
+		var $mobile = $("#mobile").val();
+		if ($mobile == null || $mobile.length != 11) 
+		{
+			$("#tip").html("请输入正确的手机号码！");
+		} else 
+		{
+			//1.创建XMLHttpRequest对象
+(注意：xmlHttpRequest前没有var，所以是一个全局变量)
+			xmlHttpRequest = new XMLHttpRequest();
+			//2.设置回调函数(注意:回调函数的名字后面没有小括号"()")
+			xmlHttpRequest.onreadystatechange = callBack;
+			//3.初始化XMLHttpRequest对象的参数值及请求头
+			var url = "MobileServlet";
+			xmlHttpRequest.open("post", url, true);
+            //POST方式需要设置“请求头”
+			xmlHttpRequest.setRequestHeader("Content-Type",
+"application/x-www-form-urlencoded");
+			//4.发送HTTP请求
+			var data = "mobile=" + $mobile;
+			xmlHttpRequest.send(data);
+		}
+	}
+	//Ajax回调函数
+	function callBack() 
+	{
+		if (xmlHttpRequest.readyState == 4 && 
+xmlHttpRequest.status == 200) 
+		{
+			 //获取异步调用返回的数据
+			var data = xmlHttpRequest.responseText;
+			 //使用JavaScript或Jquery等实现局部刷新
+			if ($.trim(data) == "true") 
+			{
+				$("#tip").html("此号码已经被绑定，请尝试其他号码!");
+			} else {
+				$("#tip").html("绑定成功!");
+			}
+		}
+	}</script>
+</head>
+<body>
+	<form action="">
+		<input type="text" id="mobile" />
+ <font color="red" id="tip"></font>
+		<br /> 
+<input type="button" value="绑定" onclick="isExist()" />
+	</form>
+</body>
+…	
+```
+
+可以发现，服务器端是通过`PrintWriter`对象`out`，将结果以字符串的形式，传递给客户端；而客户端通过`XMLHttpRequest`对象的`responseText`属性，来获取该结果；此外，客户端中`responseText`属性的返回值是`string`类型，所以在服务器端也应该传递`String`类型的结果。
+
+**运行结果：**
+
+①输入已存在的号码18888888888：
+
+![](http://i.imgur.com/xVAN3eo.png)
+
+*图10-03*
+
+②输入暂不存在的号码：
+
+![](http://i.imgur.com/RfGUktR.png)
+
+*图10-04*
+
+③输入错误格式的电话：
+
+![](http://i.imgur.com/GyEXEsd.png)
+
+*图10-05*
+
+**(2)采用GET方式**
+
+如果将上例改为`GET`方式的Ajax，则只需要做四处更改，具体如下：
+
+**①**将`XMLHttpRequest`对象的`open()`方法中的`method`参数值改为`”get”`；
+
+**②**给`XMLHttpRequest`对象的`send()`方法中的`url`参数，加上需要传递的参数值（即把`url`的值，从"请求地址"改为"请求地址?参数名1=参数值1&参数名2=参数值2&..."）
+
+**③**删除设置`XMLHttpRequest`对象头信息的代码
+
+**④**将`XMLHttpRequest`对象的`send(data)`方法中的`data`，改为`null`（即将`data`的值，转移到了`send()`方法的`url`参数中）。
+
+可以发现，将`POST`方式改为`GET`方式后，把需要发送的参数从`send()`方法转移到`open`方法中的`url`参数中，并且不需要再设置头信息。
+
+具体如代码下：
+
+**服务器端MobileServlet.java**与`POST`方式完全相同
+
+**客户端index_get.jsp**与`POST`方式的不同之处如下：
+
+```
+…
+<head>
+…
+	function isExist() 
+	{
+          	var url = "MobileServlet";
+			var data = "mobile=" + $mobile;
+			xmlHttpRequest.open("get", url+"?"+data, true);
+			//xmlHttpRequest.setRequestHeader("Content-Type",
+"application/x-www-form-urlencoded");
+			xmlHttpRequest.send(null);		
+	}
+	…
+	</script>
+</head>
+…	
+```
+
+读者可以结合`POST`方式`（index.jsp）`和`GET`方式`（index_get.jsp）`中的源代码，仔细对比。
+
+# 10.3 使用JQuery实现Ajax #
+
+除了使用JavaScript以外，我们还可以使用JQuery来实现Ajax，而且更加简洁、方便。JQuery方式的Ajax，主要是通过JQuery提供的`$.ajax()`、`$.get()`、`$.post()`、`load()`等方法来实现的。
+
+## 10.3.1 `$.ajax()`方法 ##
+
+**语法：**
+
+```
+	$.ajax({
+		url:请求路径 ,
+		type:请求方式 ,
+		data:请求数据,
+         … ,
+		success:function(result, textStatus){ 
+			请求成功后执行的函数体
+		},
+		error:function(xhr,errorMessage,e){
+			请求失败后执行的函数体
+		},
+         dataType:预期服务器返回的数据类型
+	});
+```
+
+基本格式是：所有参数写在`$.ajax({…})`中，不同参数之间用逗号隔开，每个参数以“参数名：参数值”的方式书写。
+
+本质就是将JavaScript中`XMLHttpRequest`的属性和方法，以参数化的形式集中管理，详见下表：
+
+<table>
+   <tr>
+      <td>参数</td>
+      <td>简介</td>
+   </tr>
+   <tr>
+      <td>String url</td>
+      <td>发送请求的地址，默认是当前页地址）</td>
+   </tr>
+   <tr>
+      <td>String type</td>
+      <td>请求方式（即POST或GET），默认为GET</td>
+   </tr>
+   <tr>
+      <td>number timeout</td>
+      <td>设置请求超时的时间（单位是毫秒）</td>
+   </tr>
+   <tr>
+      <td>String data或Object data</td>
+      <td>发送到服务器的数据。若是GET方式的请求，data值将以地址重写的方式附加在url后；若是POST方式，data值将作为请求体的一部分。</td>
+   </tr>
+   <tr>
+      <td>String dataType</td>
+      <td>预期服务器返回的数据类型，可用类型有XML、HTML、JSON、Text等。如果不指定，JQuery会自动根据HTTP中的MIME信息返回responseXML或responseText。</td>
+   </tr>
+   <tr>
+      <td>function success(Object result,String textStatus)</td>
+      <td>请求成功后调用的函数 result：可选项，由服务器返回的数据  textStatus：可选项，描述请求类型</td>
+   </tr>
+   <tr>
+      <td>function error(XMLHttpRequest xhr,String errorMessage, Exception e)</td>
+      <td>请求失败后调用的函数 xhr：可选项，XMLHttpRequest对象 errorMessage：可选项，错误信息 e：可选项，引发的异常对象</td>
+   </tr>
+</table>
+
+除了表中介绍的以外，还有`cache`、`async`、`beforeSend`、`complete`、`contentType`等其他参数，读者可以访问[http://www.w3school.com.cn/jquery/ajax_ajax.asp](http://www.w3school.com.cn/jquery/ajax_ajax.asp)进行学习 。
+
+现在用jQuery提供的`$.ajax()`方法，来实现“检测手机号码是否已绑定”的客户端函数（服务器端及客户端其他代码，与之前的完全一致）：
+
+
+**客户端jQuery_ajax.jsp**
+
+```
+	<script type="text/javascript">
+	function isExist() 
+	{
+		var $mobile = $("#mobile").val();
+		if ($mobile == null || $mobile.length != 11) 
+		{
+			$("#tip").html("请输入正确的手机号码！");
+		} else 
+		{
+			$.ajax({
+				url:"MobileServlet",
+				type:"get" ,
+				data:"mobile=" + $mobile,
+				success:function(result)
+{ 
+					if ($.trim(result) == "true") 
+					{
+						$("#tip").html("此号码已经被绑定，请尝试其他号码!");
+					} else {
+						$("#tip").html("绑定成功!");
+					}
+				 },
+				 error:function(){
+					$("#tip").html("检测失败!");
+				 }
+			});
+		}
+	}
+</script>
+```
+
+运行结果与之前的完全相同。
+
+## 10.3.2 `$.get()`方法 ##
+
+`$.get(…)`方法指定以GET方式发送请求，与`$.ajax({…})`方法在语法上的区别是：①参数值必须按照一定的顺序书写；②省略了参数名、`type`参数、以及`error()`函数；③`$.ajax({…})`的各个参数是用大括号{}括起来的，而`$.get(…)`没有大括号。
+
+**语法（各参数顺序不可变）：**
+
+```
+	$.get(
+请求路径 ,
+		请求数据,
+        	function(result, textStatus,xhr)
+{ 
+			请求成功后执行的函数体
+		},
+        预期服务器返回的数据类型
+	);
+```
+
+即，等价于:
+
+```
+	$.ajax({
+		url:请求路径 ,
+		data:请求数据,
+        	type: "GET" ,
+		success:function(result, textStatus)
+{ 
+			请求成功后执行的函数体
+		},
+		error:function(xhr,errorMessage,e)
+{
+			请求失败后执行的函数体
+		},
+        dataType:预期服务器返回的数据类型
+	});
+```
+
+## 10.3.3 `$.post()`方法 ##
+
+`$.get()`方法指定以`POST`方式发送请求，也是将参数值按照一定的顺序书写。
+
+**语法（各参数顺序不可变）：**
+
+```
+	$.post(
+请求路径 ,
+		请求数据,
+        	function(result, textStatus,xhr)
+{ 
+			请求成功后执行的函数体
+		},
+        预期服务器返回的数据类型
+	);
+```
+
+即语法上，只是将方法名`$.get()`变为了`$.post()`，其他语法完全一致。
+
+## 10.3.4 `$(selector).load ()`方法 ##
+
+`$(selector).load ()`方法是在`$.get()`（或`$.post()`）方法的基础上进一步优化，不但会发送请求，还会将响应的数据放入指定的元素。其中`$(selector)`是指jQuery选择器指定的元素。
+
+
+**语法：**
+
+```
+	$(selector).load(
+请求路径 ,
+		请求数据,
+        	function(result, textStatus,xhr)
+{ 
+			请求成功后执行的函数体
+		},
+        预期服务器返回的数据类型
+	);
+```
+
+因为`load()`方法会直接将响应结果放入指定元素，所以通常可以省略`load()`中的`function()`函数。
+
+我们再用`load()`方法，实现一下“检测手机号码是否已绑定”：
+
+**服务器端jQuery_load.jsp**
+
+**MobileLoadServlet.java**
+
+```
+//省略import
+public class MobileLoadServlet extends HttpServlet 
+{
+	protected void doGet(…)…
+{
+		this.doPost(request, response);
+	}
+	protected void doPost(HttpServletRequest request, 
+HttpServletResponse response) 
+throws ServletException, IOException 
+{
+		//设置发送到客户端的响应的内容类型
+		response.setContentType("text/html;charset=UTF-8"); 
+		PrintWriter out = response.getWriter();
+		String mobile = request.getParameter("mobile");
+		//假设已经存在号码为18888888888的电话
+		if("18888888888".equals(mobile))
+{
+			out.print("此号码已经被绑定，请尝试其他号码!");
+		}else
+{
+			out.print("绑定成功!");
+		}
+		out.close();
+	}
+}
+```
+
+仔细观察，客户端用`load()`方法时，服务器端直接将结果字符串返回。
+
+**客户端jQuery_load.jsp**
+
+```
+…
+<script type="text/javascript">
+	function isExist() 
+	{
+		var $mobile = $("#mobile").val();
+		if ($mobile == null || $mobile.length != 11) 
+		{
+			$("#tip").html("请输入正确的手机号码！");
+		} else 
+		{
+			$("#tip").load(
+				"MobileLoadServlet",
+				"mobile=" + $mobile
+			);
+		}
+	}
+</script>
+…
+<body>
+	<body>
+		<form action="">
+			<input type="text" id="mobile" /> 
+<font color="red" id="tip"></font>
+			<br />
+ <input type="button" value="绑定" onclick="isExist()" />
+		</form>
+</body>
+```
+
+运行结果仍然与之前的完全一样。
+
+# 10. 4  JSON #
+
+JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。在使用Ajax时，我们经常会使用JSON来传递数据。本小节，将重点学习JSON对象、JSON数组以及如何在Ajax中传递JSON数据。
+
+## 10.4.1 JSON简介 ##
+
+#### ① JSON对象 ####
+
+**a.定义JSON对象**
+
+**语法：**
+
+`var JSON对象名 = {key:value ,  key:value , … , key:value};`
+
+在JavaScript中，JSON对象是用大括号括起来，包含了多组属性。每个属性名和属性值之间用冒号隔开，多个属性之间用逗号隔开，并且属性名必须是字符串，如下：
+
+```
+var student = {"name":"张三","age":23};
+var stu = {"name":"张三"};
+```
+
+**b.使用JSON对象**
+
+可以通过“JSON对象名.key”获取对应的`value`值，如下：
+
+**json.jsp**
+
+```
+…
+var student = {"name":"张三","age":23};
+var name = student.name;
+var age = student.age ;
+alert("姓名："+name+",年龄："+age	);
+…
+```
+
+运行结果：
+
+![](http://i.imgur.com/skl4u5s.png)
+
+*图10-06*
+
+#### ② JSON数组 ####
+
+**a.定义JSON数组**
+
+**语法：**
+
+ var JSON数组名 = [JSON对象, JSON对象,…, JSON对象] ;
+
+在JavaScript中，JSON数组是用中括号括起来，包含了多个JSON对象，多个对象之间用逗号隔开，如下：
+
+```
+var students = [{"name":"张三","age":23},
+{"name":"李四","age":24}];
+```
+
+**b.使用JSON数组**
+
+可以通过“JSON对象名[索引].key”获取对应的`value`值，如下：
+
+```
+…
+		var students = [{"name":"张三","age":23},
+		                   {"name":"李四","age":24}];
+		alert(students[1].name+","+students[1].age);
+…
+```
+
+运行结果：
+
+![](http://i.imgur.com/vRyDtCU.png)
+
+*图10-07*
+
+## 10.4.2 AJAX使用JSON传递数据 ##
+
+使用jQuery实现AJAX时，客户端可以使用`$.getJSON()`向服务器端发送JSON格式的数据，服务器端也可以向客户端返回JSON格式的数据。
+
+**语法：**
+
+```
+	$.getJSON (
+请求路径 ,
+		 JSON格式的请求数据,
+        	function(result, textStatus,xhr)
+{ 
+			请求成功后执行的函数体
+		}
+	);
+```
+
+示例：**客户端：json.jsp**
+
+```
+…
+<script type="text/javascript">
+	function isExist() 
+	{
+		var $mobile = $("#mobile").val();
+		if ($mobile == null || $mobile.length != 11) 
+		{
+			$("#tip").html("请输入正确的手机号码！");
+		} else 
+		{
+		    $.getJSON('MobileJSONServlet',
+{mobileNum: $mobile},
+function(result)
+{
+				           	$("#tip").html(result.msg);
+			              });
+			}
+		}
     …
 </head>
 <body>
-	<ul> 
-		<li>橘子...</li>
-		<li>苹果...</li>
-		<li>香蕉...</li>
-	</ul>
+	<form action="">
+		<input type="text" id="mobile" /> 
+<font color="red" id="tip"></font><br />
+		<input type="button" value="绑定" onclick="isExist()" />
+	</form>
 </body>
-</html>
-```
-
-通过firebug就可以直接在浏览器中查看JSP页面的各种CSS样式，步骤如下：
-
-**① 单击firebug中的选择按钮，如图**
-
-![](http://i.imgur.com/gfkS3wc.png)
-
-*图13-27*
-
-**② 单击需要观察的网页元素**
-
-	
-例如，现在想要观察网页中“橘子”的相关样式，就要用鼠标点击“橘子”，如图
-
-![](http://i.imgur.com/GMGzJjx.png)
-
-*图13-28*
-
-单击以后，“橘子”的相关样式就会显示在firebug右下角的“样式”标签中：“橘子”的样式在`ul.css`的第1行，具体是`ul li:first-child{ background-color:yellow;…}` 。
-
-**③ 调试CSS样式**
-
-还可以直接在firebug中对网页的样式进行修改、新增、删除等调试操作。
-
-**a.在firebug中修改样式**
-
-直接单击CSS样式的属性值，修改即可，如图
-
-![](http://i.imgur.com/e2OAgkk.png)
-
-*图13-29*
-
-**b.在firebug中新增样式**
-
-选中样式的最后一个属性值（即选中`font-size`的属性值20px），然后按下回车键，之后依次输入属性名和属性值，如图
-
-![](http://i.imgur.com/SBDtPSu.png)
-
-*图13-30*
-
-**c.在firebug中删除样式**
-
-如果要删除某个样式，只需要点击样式前面的禁止符号，如图
-
-![](http://i.imgur.com/82BfbK1.png)
-
-*图13-31*
-
-值得注意的是：在firebug中修改的样式，会立刻反映到当前的网页中，但这些修改只是“临时”的，一旦刷新页面就会恢复原来的样式。因此，如果在firebug中修改完了样式，一定要将修改后的代码复制到真实的源代码文件中。
-
-#### (2) 调试JavaScript ####
-
-使用firebug调试JavaScript的步骤如下：
-
-**① 点击“脚本”标签，并选择JavaScript所在文件**
-
-![](http://i.imgur.com/bGEZQnC.png)
-
-*图13-32*
-
-**② 在JavaScript代码中打断点**
-
-找到需要观察的JavaScript代码，并打断点，如图
-
-![](http://i.imgur.com/nPMjRLa.png)
-
-*图13-33*
-
-**③ 监控变量或表达式**
-
-点击右侧的“新建监控表达式”，并输入需要观察的变量或表达式，如图
-
-![](http://i.imgur.com/INsH2WB.png)
-
-*图13-34*
-
-**④ 调试**
-
-	之后的调试方法，就和使用Eclipse调试时基本相同，调试的相关按键如下：
-
-![](http://i.imgur.com/VmALlD0.png)
-
-*图13-35*
-
-#### (3) JavaScript错误提示 ####
-
-如果JavaScript代码有误，Firebug也会给出错误提示。例如，以下代码存在三处错误：未引入jQuery库（或jQuery库地址错误）、缺少右括号“)”、单击button按钮时触发了一个不存在的函数`showInfo()`。
-
-**firebugJsp.jsp**
-
-```
-<html>
-<head>
-	<!-- 未引入jQuery库 -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-			var num1 = 10,num2 = 20;
-			var temp = num1 ;
-			num1 = num2 ; 
-			num2 = temp ;
-          }	<!-- 缺少右括号) -->
-	</script>
 …
+```
+
+**服务器端：MobileJSONServlet.java**
+
+```
+//import…
+public class MobileJSONServlet extends HttpServlet
+{
+	protected void doGet(…) throws ServletException, IOException
+	{
+		this.doPost(request, response);
+	}
+
+	protected void doPost(…) throws ServletException, IOException
+	{
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String mobile = request.getParameter("mobileNum");
+		// 假设已经存在号码为18888888888的电话
+		if ("18888888888".equals(mobile))
+		{
+		//返回JSON格式的数据： {"msg":"此号码已经被绑定，请尝试其他号码!"}
+			out.print("{\"msg\":\"此号码已经被绑定，
+请尝试其他号码!\"}");
+		}
+		else
+		{
+			//返回JSON格式的数据：  {"msg":"绑定成功！"}
+			out.print("{\"msg\":\"绑定成功！\"}");
+		}
+		out.close();
+	}
+
+}
+```
+
+	客户端使用$.getJSON向服务器端MobileJSONServlet发送JSON数据{mobileNum: $mobile}，服务器端接收到mobileNum的值后再以JSON对象的格式返回给客户端，如{"msg":"绑定成功！"}。最后，客户端再解析服务器端返回的JSON值，如result.msg。
+
+上述的服务器端代码MobileJSONServlet中，是通过字符串拼接的形式向客户端返回了JSON形式的结果，如{"msg":"绑定成功！"}。除此之外，我们还可以在服务器端中使用`JSONObject`类来产生JSON对象，并返回给客户端，如下：
+
+**客户端：json.jsp**
+
+```
+…
+<script type="text/javascript">
+	function jsonObjectTest() 
+	{
+		var stuName = $("#stuName").val();
+		var stuAge = $("#stuAge").val();
+		$.getJSON('JSONObjectServlet',
+{name:stuName,age:stuAge},
+function(result)
+{
+				       var student =  eval(result.stu);  
+				       alert(student.name+","+student.age);
+			         }
+);
+	}
+	</script>
 </head>
 <body>
-	<!—并不存在showInfo()函数 -->
-	<button onclick="showInfo();">测试</button>
+	<form action="">
+	姓名：<input type="text" name="stuName" id="stuName"><br/>
+	年龄：<input type="text" name="stuAge" id="stuAge"><br/>
+<input type="button" value="绑定" 
+onclick="jsonObjectTest()" />
+	</form>
 </body>
-</html>
+…
 ```
 
-运行**firebugJsp.jsp**后，因为错误的提示存在优先级，所以会先提示找不到右括号“)”：如图
+**服务器端**：在使用JSONObject之前，需要给项目导入以下JAR文件：
 
-![](http://i.imgur.com/7Bko7m3.png)
+<table>
+   <tr>
+      <td>commons-beanutils.jar</td>
+      <td>commons-collections-3.2.1.jar</td>
+      <td>commons-lang-2.6.jar</td>
+   </tr>
+   <tr>
+      <td>commons-logging-1.1.1.jar</td>
+      <td>ezmorph-1.0.6.jar</td>
+      <td>json-lib-2.3-jdk15.jar</td>
+   </tr>
+</table>
 
-*图13-36*
+**JSONObjectServlet.java**
 
-此外，当发现错误时，firebug还会在图标旁显示此时刻发生的错误数量，以及错误的具体行号，如图：
+```
+…
+import net.sf.json.JSONObject;
+public class JSONObjectServlet extends HttpServlet {
+	protected void doGet(…) throws ServletException, IOException
+  {
+		this.doPost(request, response);
+}
+	protected void doPost(…) throws ServletException, IOException
+ {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 
-![](http://i.imgur.com/xb6ZFt3.png)
+		String name =  request.getParameter("name");
+		int age =Integer.parseInt( request.getParameter("age"));
+		Student student = new Student();
+		student.setName(name);
+		student.setAge(age);
+		
+		JSONObject json = new JSONObject();
+		//将student对象放入json对象中
+		json.put("stu", student); //类似于{"stu":student}
+		out.print(json);
+	}
+}
+```
 
-*图13-37*
+客户端通过`$.getJSON()`向服务器端JSONObjectServlet发送请求，并传递JSON格式的数据`{name:stuName,age:stuAge}`。服务器端将客户端的数据接收后封装到`Student`对象之中，之后再将`Student`对象加入到`JSONObject`对象之中，并把`JSONObject`对象返回给客户端。最后，客户端通过回调函数的参数`result`接收到`JSONObject`对象，并通过`eval(result.stu)`将`JSONObject`对象之中的`stu`转义成JSON字符串格式，再用`student.name`等拿到需要使用的值。
 
-修复此错误，即在源码第13行中加入“)”后，再次运行**firebugJsp.jsp**时，又会提示“$未定义”，如图，
+# 10. 5 练习题 #
 
-![](http://i.imgur.com/RptieXH.png)
+**一、选择题**
 
-*图13-38*
+1.（    ）是操作AJAX的核心对象。（选择一项）（难度★）
 
-分析可知，$是jQuery的标识，提示“$未定义”可能的原因就是jQuery库引入有误，因此检查后可以发现是没有引入jQuery库。
+A．`XMLHttpRequest`
 
-将jQuery库引入后，再次运行**firebugJsp.jsp**并单击button，又能发现firebug提示“`showInfo()`为定义”，如图，
+B．`status`
 
-![](http://i.imgur.com/1nLGbD9.png)
+C．`statusText`
 
-*图13-39*
+D．`responseText`
 
-根据提示可以发现：在JSP页面中没有编写`showInfo()`方法，或者方法名字有误。
+2.`XMLHttpRequest`对象的`onreadystatechange`属性的含义是（    ）。（选择一项）（难度★）
 
+A．表示`XMLHttpRequest`对象的状态
 
+B．服务器返回的HTTP协议状态码
+
+C．指定当`XMLHttpRequest`对象状态改变时会调用哪个JavaScript函数进行处理
+
+D．服务器响应的文本内容
+
+**二、简答题**
+
+1.什么是AJAX？请描述AJAX的技术原理和好处。（难度★★）
+
+2.哪些情况需要使用到AJAX? （难度★★）
+
+3.用JS实现AJAX，需要使用到了哪个对象？该对象有哪些常用属性和方法？（难度★★★）
+
+4.请描述JQuery中`load()`方法的三个回调函数参数分别代表什么含义。（难度★★）
+
+5.使用JQuery方式的AJAX继续优化第八章练习题中的“部门管理系统”。（难度★★★★）
