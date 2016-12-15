@@ -27,7 +27,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 **所谓“三层”，是指表示层(USL，User Show Layer)、业务逻辑层(BLL，Business Logic Layer)、数据访问层(DAL，Data Access Layer)**，各层的位置如下图，
 
-![](http://i.imgur.com/EPOZGsr.png)
+![](/public/img/jsp-servlet-zq/5.1.png)
 
 *图5-01*
 
@@ -55,13 +55,13 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 **以下，是一个最基本三层架构的示例图**：
 
-![](http://i.imgur.com/Koc0Nwe.png)
+![](/public/img/jsp-servlet-zq/5.2.png)
 
 *图5-02*
 
 不难发现，**MVC模式与三层架构的关系如下图**，
 
-![](http://i.imgur.com/9rrKq9j.png)
+![](/public/img/jsp-servlet-zq/5.3.png)
 
 *图5-03*
 
@@ -691,7 +691,7 @@ AddStudentServlet.java中的代码 --%>
 
 运行结果：
 
-![](http://i.imgur.com/kQCEvrd.png)
+![](/public/img/jsp-servlet-zq/5.4.png)
 
 *图5-04*
 
@@ -829,7 +829,7 @@ value="<%=stu.getGradeName() %>" /><br/>
 
 通过`QueryAllStudentsServlet`执行请求转发到**index.jsp**的运行结果：
 
-![](http://i.imgur.com/luwDFkA.jpg)
+![](/public/img/jsp-servlet-zq/5.5.png)
 
 *图5-05*
 
@@ -851,7 +851,7 @@ value="<%=stu.getGradeName() %>" /><br/>
 
 通过本案例可以发现，使用三层搭建的项目，是通过表示层前台代码和用户交互，然后通过表示层后台代码调用业务逻辑层，再通过业务逻辑层调用数据访问层，最后通过数据访问层和数据库交互；并且当数据访问层获取到数据以后，再将数据传递给业务逻辑层，而业务逻辑层则将最终的数据传递给表示层，如下图。
 
-![](http://i.imgur.com/M5JZvc7.png)
+![](/public/img/jsp-servlet-zq/5.6.png)
 
 *图5-06*
 
@@ -879,7 +879,7 @@ value="<%=stu.getGradeName() %>" /><br/>
 
 本案例的结构图，如下，
 
-![](http://i.imgur.com/qqAZZWa.jpg)
+![](/public/img/jsp-servlet-zq/5.7.png)
 
 *图5-07*
 
@@ -889,7 +889,7 @@ value="<%=stu.getGradeName() %>" /><br/>
 
 给业务逻辑层和数据访问层加上接口。接口所在的包名，与之前该层的包名相同，如业务逻辑层中接口所在的包名，仍然是`org.lanqiao.service`；接口的文件名，一般在前面加上字母I（Interface的简称），如`IStudentService.java`。而实现类所在的包名，需在后面加上impl（implements的缩写），如`org.lanqiao.service.impl`；实现类的文件名，一般在后面加上Impl，如`StudentServiceImpl.java`。如图，
 
-![](http://i.imgur.com/nI5lQka.png)
+![](/public/img/jsp-servlet-zq/5.8.png)
 
 *图5-08*
 
@@ -1259,7 +1259,7 @@ stu.getStudentNo() };
 
 优化后的三层架构的结构图，如下，
 
-![](http://i.imgur.com/HLrVZeH.jpg)
+![](/public/img/jsp-servlet-zq/5.9.png)
 
 *图5-09*
 

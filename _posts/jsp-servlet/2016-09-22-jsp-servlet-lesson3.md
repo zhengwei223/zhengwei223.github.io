@@ -22,7 +22,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 JDBC（Java DataBase Connectivity），由一组使用Java语言编写的类和接口组成，可以为多种关系数据库提供统一的访问方式，从而实现用JAVA代码来操作数据库。
 
-![](http://i.imgur.com/OFXzU95.jpg)
+![](/public/img/jsp-servlet-zq/3.1.png)
 
 *图3-01*
 
@@ -44,7 +44,7 @@ JDBC驱动由各个数据库厂商或第三方厂商提供，负责连接各种�
 
 JDBC API主要可以完成三件事：**①与数据库建立连接**、**②发送SQL语句**、**③返回处理结果**，如图：
 
-![](http://i.imgur.com/XCLAIhe.png)
+![](/public/img/jsp-servlet-zq/3.2.png)
 
 *图3-02*
 
@@ -398,7 +398,9 @@ int count=stmt.executeUpdate(updateSql);
 
 此时，数据库中`student`表的中数据如下：
 
-![](http://i.imgur.com/4AKbgxH.png)
+![](/public/img/jsp-servlet-zq/3.3.png)
+
+*图3-03*
 
 现在通过JDBC来执行查询表的操作：
 
@@ -473,9 +475,9 @@ String querySql = "select stuNo,stuName,stuAge from student";
 
 执行`executeQuery()`方法，即可查询出`student`表中所有的`stuNo`、`stuName`和`stuAge`字段值，如图
 
-![](http://i.imgur.com/foA0Pcy.png)
+![](/public/img/jsp-servlet-zq/3.4.png)
 
-*图3-03*
+*图3-04*
 
 如果是根据`String`类型的`name`变量进行模糊查询，则查询的SQL语句可写为：
 
@@ -835,9 +837,9 @@ public class TestJDBCOperateByCallableStatement
 
 运行结果：
 
-![](http://i.imgur.com/M2C5nh1.png)
+![](/public/img/jsp-servlet-zq/3.5.png)
 
-*图3-04*
+*图3-05*
 
 **②调用存储函数（有返回值）**
 
@@ -912,9 +914,9 @@ public class TestJDBCOperateByCallableStatement
 
 运行结果：
 
-![](http://i.imgur.com/iVTyxVA.png)
+![](/public/img/jsp-servlet-zq/3.6.png)
 
-*图3-05*
+*图3-06*
 
 #### (5)处理CLOB/BLOB数据 ####
 
@@ -985,15 +987,15 @@ new FileInputStream(file),"GBK");
 
 执行程序，运行结果：
 
-![](http://i.imgur.com/PZYy3hM.png)
+![](/public/img/jsp-servlet-zq/3.7.png)
 
-*图3-06*
+*图3-07*
 
 此时的myNovel表（CLOB类型的数据，无法直接观察）：
 
-![](http://i.imgur.com/UM1bT7U.png)
+![](/public/img/jsp-servlet-zq/3.8.png)
 
-*图3-07*
+*图3-08*
 
 
 **<3>读取数据库中的小说**
@@ -1049,15 +1051,15 @@ URL, USERNAME, PASSWORD);
 
 执行程序，运行结果：
 
-![](http://i.imgur.com/ii8kdm8.png)
+![](/public/img/jsp-servlet-zq/3.9.png)
 
-*图3-08*
+*图3-09*
 
 刷新项目，可以在`src`下看到读取出的小说，如图:
 
-![](http://i.imgur.com/QjYFVct.png)
+![](/public/img/jsp-servlet-zq/3.10.png)
 
-*图3-09*
+*图3-10*
 
 
 **说明：**
@@ -1130,15 +1132,15 @@ URL, USERNAME, PASSWORD);
 
 执行程序，运行结果：
 
-![](http://i.imgur.com/Peq2Gto.png)
+![](/public/img/jsp-servlet-zq/3.11.png)
 
-*图3-10*
+*图3-11*
 
 此时的myPicture表（BLOB类型的数据，无法直接观察）：
 
-![](http://i.imgur.com/w9Hk19m.png)
+![](/public/img/jsp-servlet-zq/3.12.png)
 
-*图3-11*
+*图3-12*
 
 
 **<3>读取数据库中的图片**
@@ -1199,15 +1201,15 @@ public class WriteAndReadImg
 
 执行程序，运行结果：
 
-![](http://i.imgur.com/wQqiGQa.png)
+![](/public/img/jsp-servlet-zq/3.13.png)
 
-*图3-12*
+*图3-13*
 
 刷新项目，可以在`src`下看到读取出的图片，如图:
 
-![](http://i.imgur.com/3icU1T2.png)
+![](/public/img/jsp-servlet-zq/3.14.png)
 
-*图3-13*
+*图3-14*
 
 # 3.2 元数据 #
 
@@ -1314,9 +1316,9 @@ dbMetaData.getUserName(), "student") ;
 
 运行结果：
 
-![](http://i.imgur.com/eIX0MIV.png)
+![](/public/img/jsp-servlet-zq/3.15.png)
 
-*图3-14*
+*图3-15*
 
 ## 3.2.2 参数元数据 ##
 
@@ -1402,9 +1404,9 @@ URL, USERNAME, PASSWORD);
 
 运行结果：
 
-![](http://i.imgur.com/sJE4EnT.png)
+![](/public/img/jsp-servlet-zq/3.16.png)
 
-*图3-15*
+*图3-16*
 
 ## 3.2.3 结果集元数据 ##
 
@@ -1487,15 +1489,15 @@ USERNAME, PASSWORD);
 
 运行结果：
 
-![](http://i.imgur.com/HQzFNaD.png)
+![](/public/img/jsp-servlet-zq/3.17.png)
 
-*图3-16*
+*图3-17*
 
 运行时，数据库中stuent表的数据如下：
 
-![](http://i.imgur.com/46eCb7D.png)
+![](/public/img/jsp-servlet-zq/3.18.png)
 
-*图3-17*
+*图3-18*
 
 
 # 3.3 JSP访问数据库 #
@@ -1554,9 +1556,9 @@ USERNAME, PASSWORD);
 
 需要注意，必须在`page`指令里导入`Connection`、`PreparedStatement`等的包名，如`%@page import="java.sql.Connection"%`；并将数据库的驱动包加入Web工程，导入方法如下：将数据库驱动包（ojdbc6.jar）直接复制在WEB-INF下的lib文件夹中即可，如图：
 
-![](http://i.imgur.com/I5XmQLL.png)
+![](/public/img/jsp-servlet-zq/3.19.png)
 
-*图3-18*
+*图3-19*
 
 不难发现，上面registerJDBC.jsp中的代码既包含了业务逻辑、数据库操作，还负责了显示功能，导致JSP文件非常混乱、复杂，给后期的维护和修改上，带来了非常大的困难。因此，我们需要将JSP中的JAVA代码按功能进行划分，将每个功能分别封装成一个类；最后直接将需要的JAVA类导入到JSP中，组装成最终的JAVA代码即可。这里所提到的“类”，就是指我们即将要学习的JavaBean。
 
@@ -1598,9 +1600,9 @@ public boolean getSex()
 
 在项目的`src`下新建一个`LoginInfo`类，如图，
 
-![](http://i.imgur.com/7O3Y3jm.png)
+![](/public/img/jsp-servlet-zq/3.20.png)
 
-*图3-19*
+*图3-20*
 
 代码如下：
 
