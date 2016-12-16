@@ -476,7 +476,7 @@ public static void queryStudentOutByHashMap() throws IOException
 
 运行结果：
 
-![](http://i.imgur.com/lOIwlBv.png)
+![](/public/img/mybatis-zq/16.1.png)
 
 *图16-01*
 
