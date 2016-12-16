@@ -95,13 +95,13 @@ public class FormDemo
 
 部署项目、启动服务，执行[http://localhost:8888/SpringMVCDemo/FormDemo/testForm](http://localhost:8888/SpringMVCDemo/FormDemo/testForm)访问控制器，运行结果：
 
-![](http://i.imgur.com/1utnzdV.png)
+![](/public/img/springmvc-zq/30.1.png)
 
 *图30-01*
 
 通过浏览器，查看此时**springForm.jsp**的源代码，如图，
 
-![](http://i.imgur.com/1pCUcw1.png)
+![](/public/img/springmvc-zq/30.2.png)
 
 *图30-02*
 
@@ -184,7 +184,7 @@ public class FormDemo
 
 执行[http://localhost:8888/SpringMVCDemo/FormDemo/testForm](http://localhost:8888/SpringMVCDemo/FormDemo/testForm)，运行结果：
 
-![](http://i.imgur.com/NSie6d3.png)
+![](/public/img/springmvc-zq/30.3.png)
 
 *图30-03*
 
@@ -380,7 +380,7 @@ public class FormDemo
 
 执行[http://localhost:8888/SpringMVCDemo/FormDemo/testCheckbox](http://localhost:8888/SpringMVCDemo/FormDemo/testCheckbox)，运行结果：
 
-![](http://i.imgur.com/8nxJyhG.png)
+![](/public/img/springmvc-zq/30.4.png)
 
 *图30-04*
 
