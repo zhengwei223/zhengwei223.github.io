@@ -160,7 +160,7 @@ public class SecondSpringDemo
 
 **拦截器的执行流程如下：**
 
-![](http://i.imgur.com/XaHMmok.png)
+![](/public/img/springmvc-zq/32.1.png)
 
 *图32-01*
 
@@ -248,7 +248,7 @@ public class SecondSpringDemo
 
 执行**index.jsp**中的超链接，控制台的运行结果：
 
-![](http://i.imgur.com/v9NaBPF.png)
+![](/public/img/springmvc-zq/32.2.png)
 
 *图32-02*
 
