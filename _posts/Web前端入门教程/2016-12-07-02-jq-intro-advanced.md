@@ -642,21 +642,148 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 	<h1></h1>
 	<h1></h1>
 
-&emsp;&emsp;在控制台查看jQuery方法选中的对象的“\__proto__”属性。
+&emsp;&emsp;在控制台查看jQuery方法选中的对象的“\__proto__”属性，然后把它用“===”运算符和“$.fn”做对比。
 
  ![jq_adv_jq_source_nav_08](/public/img/js/jq_adv_jq_source_nav_08.gif)
 
-&emsp;&emsp;所有jQuery方法选中的对象有一个共同的“__proto__”属性。
+&emsp;&emsp;最后发现：“$.fn”跟所有jQuery对象的“\__proto__”属性是一回事。
 
-&emsp;&emsp;由于“$”符号是jQuery的别名，在“$.fn”上定义新方法，就相当于在“jQuery.fn”上定义新方法，也就是相当于在以后所jQuery对象上定义新方法。
+&emsp;&emsp;由于所有jQuery对象都有一个共同的“__proto__”属性，因而在“$.fn”上定义新方法，就相当于在过去、现在、未来的所有jQuery对象上定义新方法。
 
-&emsp;&emsp;在“./js/jQuerySourceNav.js”文件里面加入以下代码：
+&emsp;&emsp;又由于“$”符号是jQuery的别名，因而，这么做就相当于在“jQuery.fn”上定义新方法。
 
+&emsp;&emsp;接下来，打开“./js/jQuerySourceNav.js”，在其中加入下面的代码：
+
+	//立即执行一个匿名函数
     (function($){
-    $.fn.helloWorld = function(){
-       console.log('Hello jQuery Plugin World!');
-    }
-    })(jQuery);
+    	$.fn.helloWorld = function(){
+       		console.log('Hello jQuery Plugin World!');
+    	}
+    })(jQuery);//在执行的时候传入jQuery
+
+&emsp;&emsp;刷新界面以后，在控制台测试这个新插件是否正常连接：
+
+ ![jq_adv_jq_source_nav_09](/public/img/js/jq_adv_jq_source_nav_09.gif)
+
+&emsp;&emsp;断点停留的地方，请大家把鼠标移动到关键词“this”上方，留意debug工具给你提示的内容是什么。
+
+### 用each函数遍历jQuery对象
+
+&emsp;&emsp;在上一章节我们已经了解到，jQuery对象有一个类似数组的内部结构。
+
+&emsp;&emsp;由于把一个标签名传给jQuery就可能选中页面上所有的同类元素，那么，在自定义的jQuery插件内部不可避免地就要遍历这个类似数组的jQuery对象。
+
+	//立即执行一个匿名函数
+    (function($){
+    $.fn.helloWorld = function(objOption){
+    
+    	this.each(function(){
+			//把当前dom对象传入jQuery方法
+    		var $el = $(this);
+    		//修改颜色
+    	   	$el.css('color', 'gold');
+    		//输入内部文本
+    		$el.html( 'Hello jQuery  Plugin World');
+    		//让元素淡出一次、并且再次淡入
+    		$el.fadeOut(3000,function(){
+    			$el.fadeIn(3000);
+    		})
+    
+    	});
+    };
+    })(jQuery);//在执行的时候传入jQuery
+
+&emsp;&emsp;刷新界面以后，在控制台测试这个新插件能否按照预期修改页面上的5个div：
+
+ ![jq_adv_jq_source_nav_10](/public/img/js/jq_adv_jq_source_nav_10.gif)
+
+&emsp;&emsp;请留意你的浏览器是否出现同样效果。
+
+### 传入配置参数
+
+&emsp;&emsp;我们需要借助于从外界传入一个js对象来修改helloWorld插件的行为。
+
+&emsp;&emsp;代码如下：
+
+	//立即执行一个匿名函数
+    (function($){
+		//传入一个包含自定义配置的js对象
+		$.fn.helloWorld = function(objOption){
+    
+    	this.each(function(){
+			//把当前dom对象传入jQuery函数
+    		var $el = $(this);
+			//用$.extend全局方法合并默认配置和自定义配置
+			//相同名字的默认的配置属性会被从外部传入的自定义配置属性覆盖
+			var options = $.extend({
+				//默认颜色
+				'color':'gold' , 
+				//默认文字
+				'text':'Hello jQuery  Plugin World!',
+				//默认点击效果：先淡出、后淡入 
+				'click' :  function(e){
+					$el.fadeOut(3000,function(){
+					$el.fadeIn(3000);
+					})
+				}
+			} ,objOption);
+			
+			//从最新配置的js对象里面获取内容
+			//修改字体颜色
+			$el.css('color', options.color);
+			//修改文本内容
+			if(options.text){
+				$el.html(options.text);
+			}
+			//调用点击事件函数
+			if(options.click){
+				if($.isFunction(options.click)){
+					//绑定点击事件
+					$el.click(function(e){
+					options.click.call(this,e);
+				});
+			}
+		}
+			//返回jQuery对象自身
+			//方便链式调用
+			return this;
+    	});
+    };
+    })(jQuery);//在执行的时候传入jQuery
+
+&emsp;&emsp;刷页面面之后，你就可以测试从外部传入配置属性了。
+
+&emsp;&emsp;请在控制台输入下面的代码,测试效果：
+
+	//不自定义任何属性
+	$('div').helloWorld();
+	//自定义文字内容
+	$('div').helloWorld({
+		'text' :'测试我的以第一jQuery插件'
+	});
+	//自定义字体颜色
+	$('div').helloWorld({
+		'text' :'测试我的以第一jQuery插件' , 
+		'color' : 'blue'
+	});
+	//自定义点击事件
+	$('div').helloWorld({
+		'text' :'测试我的以第一jQuery插件' , 
+		'color' : 'blue',
+ 		'click' : function(){ console.log('onclick is invoked...'); }
+	});
+
+&emsp;&emsp;请用其他方法选中页面元素，测试插件能否按照预期工作。
+
+### 提取文件
+
+&emsp;&emsp;最后一步就是把我们的这个插件提取到单独一个js文件里面。
+
+&emsp;&emsp;需要使用插件的时候，你只要在页面里面引入这个js文件就可以了。
+
+ ![jq_adv_jq_source_nav_11](/public/img/js/jq_adv_jq_source_nav_11.gif)
+
+&emsp;&emsp;至此，一个jQuery插件制作完成。大家可以去喝点什么，庆祝一下这个重要时刻了！
 
 &emsp;&emsp;
 
