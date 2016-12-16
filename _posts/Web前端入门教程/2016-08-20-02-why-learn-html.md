@@ -48,9 +48,11 @@ description: 主要向大家介绍Web前端入门课程的学习内容和需要�
 
  ![ecma_logo](http://lemon.lanqiao.org:8082/teaching/img/html/ecma_logo.gif) 
 
-## W3学院(英文名W3School)
+## W3School
 
-&emsp;&emsp;[W3C学院](http://www.w3school.com.cn/)，是因特网上最大的WEB开发者资源，其中包括全面的教程、完善的参考手册以及庞大的代码库。我们可以通过它学习到最新版本的Web前端（网站技术）标准知识。
+&emsp;&emsp;W3School，又名[W3学院](http://www.w3school.com.cn/)，由世界万维网联盟提供支持。它是万维网上面向Web开发者最权威的学习网站，里面包含了HTML技术标准教程、CSS技术标准教程，以及完善的参考手册和代码案例。
+
+&emsp;&emsp;大家可以在这里习最新的Web技术标准。
 
 # 3.工具和环境
 
