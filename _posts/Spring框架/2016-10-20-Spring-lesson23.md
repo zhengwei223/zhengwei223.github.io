@@ -87,7 +87,7 @@ public class Student
 
 **数据表：student**
 
-![](http://i.imgur.com/Vrgbp2j.png)
+![](/public/img/spring-zq/25.1.png)
 
 *图25-01*
 
@@ -324,7 +324,7 @@ public class Test
 
 执行测试类，运行结果：
 
-![](http://i.imgur.com/Rru9zCQ.png)
+![](/public/img/spring-zq/25.2.png)
 
 
 *图25-02*
@@ -456,9 +456,9 @@ public class Test
 
 执行测试类，运行结果：
 
-![](http://i.imgur.com/CD6Tw37.jpg)
+![](/public/img/spring-zq/25.3.png)
 
-*图23-03*
+*图25-03*
 
 可见，在使用mapper扫描器的方式进行Spring与MyBatis的整合时，就不用再使用`<bean id="studentDao"…>`这样显示的方式在SpringIOC中显示的配置`DAO`层了。
 

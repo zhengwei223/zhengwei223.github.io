@@ -34,7 +34,7 @@ value="jdbc:oracle:thin:@127.0.0.1:1521:XE" />
 
 为了方便的查阅和维护数据库信息，我们可以把数据库信息单独写在一个属性文件中，以后需要使用时再直接引用即可。例如，先在`src`下新建一个**properties**文件，如图，
 
-![](http://i.imgur.com/H0GVrOe.png)
+![](/public/img/mybatis-zq/15.1.png)
 
 
 *图15-01*
@@ -616,7 +616,7 @@ javaType="java.lang.Boolean" jdbcType="INTEGER"/>
 
 程序运行之前，数据库中`student`表的数据如下：
 
-![](http://i.imgur.com/vU0Xq1j.png)
+![](/public/img/mybatis-zq/15.2.png)
 
 *图15-02*
 
@@ -686,7 +686,7 @@ public static void testQueryStudentByStuNoWithConverter() throws IOException
 
 执行测试方法，运行结果：
 
-![](http://i.imgur.com/Mwyd8sy.png)
+![](/public/img/mybatis-zq/15.3.png)
 
 *图15-03*
 
@@ -702,7 +702,7 @@ parameterType="org.lanqiao.entity.Student" >
 </insert>
 ```
 
-	通过#{stuSex, javaType=java.lang.Boolean, jdbcType=INTEGER}指定：当执行增加操作时，MyBatis就会把JAVA中Boolean类型的stuSex值转为JDBC中INTEGER类型的值并存储到数据库中。
+通过`#{stuSex, javaType=java.lang.Boolean, jdbcType=INTEGER}`指定：当执行增加操作时，MyBatis就会把JAVA中Boolean类型的stuSex值转为JDBC中INTEGER类型的值并存储到数据库中。
 
 **动态代理接口：IStudentMapper.java**
 
@@ -734,7 +734,7 @@ public static void testAddStudentWithConverter() throws IOException
 
 执行测试方法，就会在数据库中新增一条“王二小”的记录，如下：
 
-![](http://i.imgur.com/8dER5wj.png)
+![](/public/img/mybatis-zq/15.4.png)
 
 *图15-04*
 
