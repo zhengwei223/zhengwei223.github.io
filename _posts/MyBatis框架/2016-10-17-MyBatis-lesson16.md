@@ -26,7 +26,7 @@ MyBatis中常用的查询缓存分为一级缓存和二级缓存。
 
 一级缓存的范围是一个SqlSession对象：在同一个SqlSession对象中多次执行相同的查询SQL语句时，第一次执行完毕会就将数据库的查询结果写到内存（缓存）中，以后如果再次执行该查询时就会直接从内存中读取查询结果。但是，如果执行了增删改所需的`commit()`方法，那么SqlSession对象的一级缓存就会被清理（清理是指“将缓存中的数据全部写入数据库，从而使缓存变空”），下次再次查询时，都会重新从数据库中查询，并将查询后的结果写入SqlSession对象，如图，
 
-![](http://i.imgur.com/GXJblMj.gif)
+![](/public/img/mybatis-zq/18.1.png)
 
 *图18-01*
 
@@ -54,7 +54,7 @@ public static void queryStudentByNoTwice() throws IOException
 
 执行时的日志：
 
-![](http://i.imgur.com/7ng1QXT.png)
+![](/public/img/mybatis-zq/18.2.png)
 
 *图18-02*
 
@@ -89,9 +89,9 @@ public static void queryStudentByNoTwiceWithUpdate() throws IOException
 
 虽然两次查询仍然都是查询学号为32的学生，但因为两次查询中间增加了修改需要的`commit()`方法，导致一级缓存被清理了，所以两次查询操作各自都发送了查询SQL，执行时的日志如下：
 
-![](http://i.imgur.com/PSEz3Yw.jpg)
+![](/public/img/mybatis-zq/18.3.png)
 
-*图8-03*
+*图18-03*
 
 # 18.2 二级缓存 #
 
@@ -99,7 +99,7 @@ Mybatis一级缓存的范围是同一个`SqlSession`对象内；而二级缓存�
 
 值得注意的是，如果两个不同的SQL映射文件有相同的`namespace`值，那么这两个`namespace`的SQL映射文件共用同一个`mapper`对象，如图，
 
-![](http://i.imgur.com/h2uaLOI.gif)
+![](/public/img/mybatis-zq/18.4.png)
 
 *图18-04*
 
@@ -207,7 +207,7 @@ public static void queryStudentByNoWithSecondCache() throws IOException
 
 运行时的日志：
 
-![](http://i.imgur.com/z2MYGeR.png)
+![](/public/img/mybatis-zq/18.5.png)
 
 *图18-05*
 
@@ -233,7 +233,7 @@ where stuNo=#{stuNo}
 
 再次执行测试方法`queryStudentByNoWithSecondCache()`时，日志如下：
 
-![](http://i.imgur.com/hYXyuLk.png)
+![](/public/img/mybatis-zq/18.6.png)
 
 *图18-06*
 
@@ -277,9 +277,9 @@ public static void queryStudentByNoWithSecondCacheAndUpdate() throws IOException
 
 执行测试方法时的日志：
 
-![](http://i.imgur.com/Uwsh2oI.png)
+![](/public/img/mybatis-zq/18.7.png)
 
-*图16-07*
+*图18-07*
 
 从日志可以得知，因为在两次查询中间执行了`commit()`方法，二级缓存被清理，因此向数据库发送了两条查询SQL。
 
@@ -301,7 +301,7 @@ graName=#{graName}  where stuNo=#{stuNo}
 
 设置`flushCache="false"`后，再次执行之前的测试方法`queryStudentByNoWithSecondCacheAndUpdate()`，得到日志如下：
 
-![](http://i.imgur.com/OfzESdz.png)
+![](/public/img/mybatis-zq/18.8.png)
 
 *图18-08*
 
@@ -313,7 +313,7 @@ MyBatis还可以整合Ehcache、OSCache、MEMcache等由第三方厂商提供的
 
 MyBatis提供了用于整合二级缓存的接口Cache以及默认的实现类`PerpetualCache.`，如图：
 
-![](http://i.imgur.com/KDVDEQj.png)
+![](/public/img/mybatis-zq/18.9.png)
 
 *图18-09*
 
@@ -402,7 +402,7 @@ Ehcache配置文件中的各元素/属性介绍如下：
 
 前面提到过，在MyBatis中整合第三方的二级缓存，需要实现MyBatis提供的`Cache`接口。而Ehcache的JAR文件中，就有该接口的实现类，如图：
 
-![](http://i.imgur.com/KlvgmSm.png)
+![](/public/img/mybatis-zq/18.10.png)
 
 *图18-10*
 
@@ -435,7 +435,7 @@ Ehcache配置文件中的各元素/属性介绍如下：
 
 再次执行重复查询同一对象的方法`queryStudentByNoWithSecondCache()`，得到如下日志：
 
-![](http://i.imgur.com/caiNymj.png)
+![](/public/img/mybatis-zq/18.11.png)
 
 *图18-11*
 

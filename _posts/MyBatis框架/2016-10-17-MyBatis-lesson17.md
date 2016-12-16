@@ -26,17 +26,17 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 准备数据表：学生表(student)、学生证表(studentCard)、班级表(studentClass)，如图
 
-![](http://i.imgur.com/kY4IvVF.png)
+![](/public/img/mybatis-zq/19.1.png)
 
 *图19-01*
 学生表(student)
 
-![](http://i.imgur.com/himo2Ud.png)
+![](/public/img/mybatis-zq/19.2.png)
 
 *图19-02*
 学生证表(studentCard)
 
-![](http://i.imgur.com/weSYl00.jpg)
+![](/public/img/mybatis-zq/19.3.png)
 
 *图19-03*
 班级表(studentClass)
@@ -48,14 +48,14 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 要想根据数据表生成实体类、接口及SQL映射文件，必须先下载MyBatis官方提供的工具：mybatis-generator-core-1.3.2-bundle.zip。下载解压后，可以得到以下目录：
 
-![](http://i.imgur.com/DMBaKBL.png)
+![](/public/img/mybatis-zq/19.4.png)
 
 *图19-04*
 
 
 将`lib`目录中的**mybatis-generator-core-1.3.2.jar**，以及数据库驱动**ojdbc.jar**和MyBatis所依赖的**mybatis-3.3.1.jar**加入项目的构建目录(Build Path)，如图，
 
-![](http://i.imgur.com/ef2SFan.png)
+![](/public/img/mybatis-zq/19.5.png)
 
 *图19-05*
 
@@ -166,13 +166,13 @@ public class MyBatis_Generator
 
 执行**MyBatis_Generator.java**之前的项目截图:
 
-![](http://i.imgur.com/p7DQx0k.png)
+![](/public/img/mybatis-zq/19.6.png)
 
 *图19-06*
 
 执行**MyBatis_Generator.java**并刷新项目，可得到以下项目截图:
 
-![](http://i.imgur.com/qMxZEnx.png)
+![](/public/img/mybatis-zq/19.7.png)
 
 *图19-07*
 
