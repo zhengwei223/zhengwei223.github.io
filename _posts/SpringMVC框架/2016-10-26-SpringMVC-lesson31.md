@@ -20,7 +20,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 SpringMVC提供了HandlerExceptionResolver接口来处理异常，并且会在Web容器初始化时被DispatcherServlet自动加载，该接口的实现类如下图：
 
-![](http://i.imgur.com/SdbCRMI.png)
+![](/public/img/springmvc-zq/33.1.png)
 
 *图33-01*
 
@@ -68,11 +68,11 @@ testExceptionHandlerExceptionResolver
 执行**index.jsp**中的超链接，可以发现控制台输出了`handleArithmeticException()`方法中的异常提示，并且页面跳转到了**error.jsp**，如图。
 
 
-![](http://i.imgur.com/xW8xXPG.png)
+![](/public/img/springmvc-zq/33.2.png)
 
 *图33-02*
 
-![](http://i.imgur.com/ixWQZwR.png)
+![](/public/img/springmvc-zq/33.3.png)
 
 *图33-03*
 
@@ -139,7 +139,7 @@ public class MyExceptionHandler
 
 在开发过程中，我们经常能看到类似以下的异常页面：
 
-![](http://i.imgur.com/QojIdBW.png)
+![](/public/img/springmvc-zq/33.4.png)
 
 *图33-04*
 
@@ -191,7 +191,7 @@ testResponseStatus
 
 执行**index.jsp**中的超链接，运行结果：
 
-![](http://i.imgur.com/Kh7P9da.png)
+![](/public/img/springmvc-zq/33.5.png)
 
 *图33-05*
 
@@ -227,7 +227,7 @@ testResponseStatusWithMethod
 
 执行**index.jsp**中的超链接，去访问被`@ResponseStatus`注解标识的方法，就能直接得到异常页面：
 
-![](http://i.imgur.com/swZeRjc.png)
+![](/public/img/springmvc-zq/33.6.png)
 
 *图33-06*
 
@@ -265,7 +265,7 @@ testNoSuchRequestHandlingMethodException
 
 执行**index.jsp**中的超链接，所产生的`NoSuchRequestHandlingMethodException`异常就会被`DefaultHandlerExceptionResolver`所捕获并处理，处理后就会显示如下界面：
 
-![](http://i.imgur.com/anR9YuA.png)
+![](/public/img/springmvc-zq/33.7.png)
 
 *图33-07*
 
@@ -345,7 +345,7 @@ error.jsp页面<br/>
 执行上述**index.jsp**中的超链接，页面就会跳转到**error.jsp**页面，并打印出异常信息，如下，
 
 
-![](http://i.imgur.com/Nz72N4J.png)
+![](/public/img/springmvc-zq/33.8.png)
 
 *图33-08*
 

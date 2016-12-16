@@ -115,7 +115,7 @@ public class FirstSpringDemo
 
 如果再点击上面超链接，运行结果如下，
 
-![](http://i.imgur.com/sR9MPgK.png)
+![](/public/img/springmvc-zq/27.1.png)
 
 *图27-01*
 
@@ -203,7 +203,7 @@ public class FirstSpringDemo
 
 SpringMVC用`headers`来约束“参数”，用`headers`来约束“请求头”。我们可以在火狐浏览器里打开“firebug”查看每一次请求的“请求头”，如下，
 
-![](http://i.imgur.com/wFr29ka.png)
+![](/public/img/springmvc-zq/27.2.png)
 
 *图27-02*
 
@@ -473,13 +473,13 @@ method=RequestMethod.GET)
 
 运行**index.jsp**页面，如图，
 
-![](http://i.imgur.com/lzU1XLY.png)
+![](/public/img/springmvc-zq/27.3.png)
 
 *图27-03*
 
 依次点击删除、修改、增加、查看按钮，可在控制台得到以下结果：
 
-![](http://i.imgur.com/wMzKCkq.png)
+![](/public/img/springmvc-zq/27.4.png)
 
 *图27-04*
 
@@ -551,7 +551,7 @@ TestRequestParam
 
 再次执行以上超链接，则会发生异常，如下：
 
-![](http://i.imgur.com/sYNDjC0.png)
+![](/public/img/springmvc-zq/27.5.png)
 
 
 *图27-05*
@@ -594,7 +594,7 @@ required=false,defaultValue="23") Integer age)
 
 在HTTP协议中，每一次请求都会携带相关的“头信息”，例如可以在fireBug中观察到以下头信息：
 
-![](http://i.imgur.com/1iAtbJk.png)
+![](/public/img/springmvc-zq/27.6.png)
 
 
 *图27-06*
@@ -629,7 +629,7 @@ String al){
 
 执行**index.jsp**中的`requestHeader`超链接，可在控制台得到以下结果：
 
-![](http://i.imgur.com/VYXZOKf.png)
+![](/public/img/springmvc-zq/27.7.png)
 
 
 *图27-07*
@@ -663,7 +663,7 @@ String sessionid){
 
 运行结果：
 
-![](http://i.imgur.com/MA2T5NY.png)
+![](/public/img/springmvc-zq/27.8.png)
 
 *图27-08*
 
@@ -737,13 +737,13 @@ public class FirstSpringDemo
 
 执行**index.jsp**，如下
 
-![](http://i.imgur.com/yubbPg5.png)
+![](/public/img/springmvc-zq/27.9.png)
 
 *图27-09*
 
 点击提交后，控制台的输出结果：
 
-![](http://i.imgur.com/pLT7hQR.png)
+![](/public/img/springmvc-zq/27.10.png)
 
 *图27-10*
 
@@ -819,7 +819,7 @@ ${requestScope.student.stuName }
 
 执行**index.jsp**中的超链接，运行结果：
 
-![](http://i.imgur.com/15adCzf.png)
+![](/public/img/springmvc-zq/27.11.png)
 
 *图27-11*
 
@@ -925,7 +925,7 @@ public class FirstSpringDemo
 
 **执行index.jsp中的超链接，运行结果：**
 
-![](http://i.imgur.com/tNI0TpU.png)
+![](/public/img/springmvc-zq/27.12.png)
 
 
 *图27-12*
@@ -963,7 +963,7 @@ public class FirstSpringDemo
 假设数据库中存在一条学生信息，如下：
 
 
-![](http://i.imgur.com/sCEUpp1.png)
+![](/public/img/springmvc-zq/27.13.png)
 
 *图27-13*
 
@@ -1003,13 +1003,13 @@ public class FirstSpringDemo
 
 **执行index.jsp，并将年龄修改为66岁，如图：**
 
-![](http://i.imgur.com/BwYANTB.png)
+![](/public/img/springmvc-zq/27.14.png)
 
 *图27-14*
 
 点击修改，控制台的输出结果如下：
 
-![](http://i.imgur.com/ZtDiQy7.png)
+![](/public/img/springmvc-zq/27.15.png)
 
 *图27-15*
 
@@ -1054,7 +1054,7 @@ public class FirstSpringDemo
 
 重新提交之前的`form`表单，控制台输出结果如下：
 
-![](http://i.imgur.com/s3A5X88.png)
+![](/public/img/springmvc-zq/27.16.png)
 
 *图27-16*
 
