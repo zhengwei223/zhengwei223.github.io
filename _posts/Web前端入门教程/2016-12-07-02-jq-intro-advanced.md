@@ -453,7 +453,9 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 # 实验一的解读
 
-## jQuery支持动态效果
+## 给网页增加特效
+
+### jQuery支持动态效果的方法
 
 &emsp;&emsp;jQuery类库提供了几种给页面增加动画效果的技术。
 
@@ -463,7 +465,21 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
  ![jq_adv_letter_game_11](/public/img/js/jq_adv_letter_game_11.gif)
 
-## 面向对象的编程风格
+### 封装你的代码
+
+&emsp;&emsp;我们在实验一里首先定义了名字是“Game”的函数，然后定义了“Game”函数的prototype对象，最后在初始化页面时把“Game”函数作为构造函数创建了一个对象。
+
+&emsp;&emsp;按照功能的划分，我们为“Game”对象封装了几个不同的方法，每个方法都包含与某一个特定功能有关的页面元素、CSS以及JS交互效果。
+
+&emsp;&emsp;这样做有什么好处？：
+
+1. 是不是语义更清晰？
+2. 是不是结构更良好？
+3. 是不是看起来更牛逼？
+
+&emsp;&emsp;这还远非真正在用JavaScript语言面向对象编程。在Web前端应用这种面向对象的编程思想是资深Web前端开发人员的必备技能！
+
+&emsp;&emsp;就这个话题，大家可以参考[MDN JavaScript面向对象简介](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript)。
 
 &emsp;&emsp;
 
@@ -787,13 +803,15 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;请用其他方法选中页面元素，测试插件能否按照预期工作。
 
+ ![jq_adv_jq_source_nav_11](/public/img/js/jq_adv_jq_source_nav_11.gif)
+
 ### 提取文件
 
 &emsp;&emsp;最后一步就是把我们的这个插件提取到单独一个js文件里面。
 
 &emsp;&emsp;需要使用插件的时候，你只要在页面里面引入这个js文件就可以了。
 
- ![jq_adv_jq_source_nav_11](/public/img/js/jq_adv_jq_source_nav_11.gif)
+ ![jq_adv_jq_source_nav_12](/public/img/js/jq_adv_jq_source_nav_12.gif)
 
 &emsp;&emsp;至此，一个jQuery插件制作完成。大家可以去喝点什么，庆祝一下这个重要时刻了！
 
@@ -803,13 +821,32 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 # 实验二的解读
 
-## IIFE
+## JS字符串特殊符号
 
-## jQuery类库内情
+&emsp;&emsp;在测试全局函数“trim”的时候，我们提到了JS字符串的特殊符号。
 
-&emsp;&emsp;要知道，在JavaScript还接里面，“$”符号很受追捧
+&emsp;&emsp;关于JS语言字符串的换行符、制表符还有其他更多特殊符号的详细情况,大家可以参考[w3School JavaScript 特殊字符](http://www.w3school.com.cn/js/js_special_characters.asp)
 
-关于JS语言字符串的换行符、制表符还有其他,大家可以参考[w3School JavaScript 特殊字符](http://www.w3school.com.cn/js/js_special_characters.asp)
+## 立即执行的匿名函数
+
+&emsp;&emsp;我们在实验二用到了这样的语法：
+
+    (function($){
+      //此处是定义jQuery全局函数和自定义插件的代码
+    
+    })(jQuery)
+
+&emsp;&emsp;在JavaScript语言庞大的类库世界中，“$”符号很受追捧，不只是jQuery可能会把它当成别名，其他人定义的什么类库也极有可能用它做别名。实话告诉各位，这种情况已经常见到了防不胜防的底部！
+
+&emsp;&emsp;如果我们在引入jQuery类库之后，一不小心引入了个这样的js类库，那么用“$”就不能再代表jQuery了。由此可见，采用这种写法来扩展jQuery的最大好处就是可以绝对避免这种意外情况。
+
+## 更多jQuery插件
+
+&emsp;&emsp;jQuery插件已经有一个很大的现成仓库，[https://plugins.jquery.com/](https://plugins.jquery.com/)。 大家可以在那里找到很多已经写好，并且经过反复测试，可靠性强、功能强大的jQuery插件。
+
+![jq_adv_jq_source_nav_13](/public/img/js/jq_adv_jq_source_nav_13.gif)
+
+&emsp;&emsp;这样的好处是什么？当然是你不用费劲自己来写插件啦！
 
 &emsp;&emsp;
 
