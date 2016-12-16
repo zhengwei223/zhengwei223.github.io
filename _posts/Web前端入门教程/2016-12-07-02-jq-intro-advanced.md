@@ -453,6 +453,18 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 # 实验一的解读
 
+## jQuery支持动态效果
+
+&emsp;&emsp;jQuery类库提供了几种给页面增加动画效果的技术。
+
+&emsp;&emsp;我们在实验一里面只是提到了几个制作动画的简单方法。
+
+&emsp;&emsp;有关这些方法的高级用法，请参考[jQuery中文网的API文档](http://www.jquery123.com/)。
+
+ ![jq_adv_letter_game_11](/public/img/js/jq_adv_letter_game_11.gif)
+
+## 面向对象的编程风格
+
 &emsp;&emsp;
 
 &emsp;&emsp;
@@ -790,6 +802,10 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 &emsp;&emsp;
 
 # 实验二的解读
+
+## IIFE
+
+## jQuery类库内情
 
 &emsp;&emsp;要知道，在JavaScript还接里面，“$”符号很受追捧
 
