@@ -211,11 +211,11 @@ throws SchedulerException, InterruptedException
 
 运行结果：
 
-![](http://i.imgur.com/35qBhOy.png)
+![](/public/img/spring-zq/24.1.png)
 
 *图24-01*
 
-首先通过JobBuilder来创建Job对象，并指定任务是“PlanJob”类中的execute()方法、任务名称为“PlanJob”、任务组名为“group1”，再通过TriggerBuilder对象设置触发器对象的名字、所在组、以及触发器的开始执行时间。之后再使用SimpleScheduleBuilder对象设置调度的配置信息：重复执行的时间间隔、额外重复执行的次数。之后，再根据触发器Builder和调度Builder来创建一个简单触发器SimpleTrigger对象。最后通过调度器工厂获取一个调度器sched，用调度器sched的scheduleJob()方法将任务job和触发器simpleTrigger注册绑定在一起，最后使用调度器sched的start()方法执行调度（即“计划任务”），再通过shutdown()方法关闭调度。
+首先通过JobBuilder来创建Job对象，并指定任务是“PlanJob”类中的`execute()`方法、任务名称为“PlanJob”、任务组名为“group1”，再通过TriggerBuilder对象设置触发器对象的名字、所在组、以及触发器的开始执行时间。之后再使用SimpleScheduleBuilder对象设置调度的配置信息：重复执行的时间间隔、额外重复执行的次数。之后，再根据触发器Builder和调度Builder来创建一个简单触发器SimpleTrigger对象。最后通过调度器工厂获取一个调度器sched，用调度器sched的`scheduleJob()`方法将任务job和触发器simpleTrigger注册绑定在一起，最后使用调度器sched的`start()`方法执行调度（即“计划任务”），再通过`shutdown()`方法关闭调度。
 
 
 `shutdown`方法具有两个重载的方法，具体如下：
@@ -301,7 +301,7 @@ throws JobExecutionException
 
 通过`JobExecutionContext`对象获取触发器的名字、所在组名，以及任务的名字、所在组名。运行结果如图，
 
-![](http://i.imgur.com/87hNn8N.png)
+![](/public/img/spring-zq/24.2.png)
 
 
 *图24-02*
@@ -791,7 +791,7 @@ public class TestJobWithSpring
 
 运行结果：
 
-![](http://i.imgur.com/XPf8snK.png)
+![](/public/img/spring-zq/24.3.png)
 
 *图24-03*
 
