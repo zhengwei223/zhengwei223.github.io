@@ -5,7 +5,7 @@ category: Web前端入门教程
 tags: Web前端
 author: 曹小虎
 keywords: lanqiao 蓝桥 全栈 教程 Web前端
-description: 主要向大家介绍Web前端入门课程的学习内容和需要准备的工具
+description: 主要向大家介绍Web前端入门课程的学习内容以及学习这么课程需要做哪些准备工作。
 ---
  
 > 内容提要
@@ -29,11 +29,13 @@ description: 主要向大家介绍Web前端入门课程的学习内容和需要�
 
 &emsp;&emsp;Web前端入门这个课程，主要目的就是告诉大家，如何新建、调试Web浏览器可以展示的网页（Web page）文件。
 
-&emsp;&emsp;HTML、CSS和JavaScript，这三种是最重要的Web前端技术。
+# 2.Web前端学什么
+
+&emsp;&emsp;HTML、CSS和JavaScript（也可以简称JS），这三种是最重要的Web前端技术。
 
  ![web-frontend-content](http://lemon.lanqiao.org:8082/teaching/img/html/html_css_js.jpg) 
 
-# 2.Web前端技术标准
+&emsp;&emsp;就像红、黄、蓝三原色一样，它们都是在万维网上创建网页一定要用到的、最基本的Web前端技术。
 
 ## W3C
 
