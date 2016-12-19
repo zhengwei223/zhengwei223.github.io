@@ -59,7 +59,7 @@ MyBatis是一个支持普通SQL查询、存储过程和高级映射的优秀持�
 
 **②** 创建一个普通的Java项目（项目名MyBatisDemo），并在该项目的`src`目录下，创建一个`libs`目录(new → Folder)并存放**mybatis-3.x.x.jar**和**ojdbc6.jar**（`oracle`驱动包），再将这两个`jar`包设置为构建目录（Build Path），如图，
 
-![](/public/img/mybatis-zq/14.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/mybatis-zq/14.1.png)
 
 *图14-01*
 
@@ -88,7 +88,7 @@ MyBatis是一个支持普通SQL查询、存储过程和高级映射的优秀持�
 
 创建完毕后，加入一些数据，如图，
 
-![](/public/img/mybatis-zq/14.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/mybatis-zq/14.2.png)
 
 *图14-02*
 
@@ -211,7 +211,7 @@ public class TestMyBatis
 
 执行测试类**TesMyBatis.java**，运行结果：
 
-![](/public/img/mybatis-zq/14.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/mybatis-zq/14.3.png)
 
 *图14-03*
 
@@ -706,7 +706,7 @@ public class TestMyBatis
 
 执行测试类`TestMyBatis.java`，运行结果：
 
-![](/public/img/mybatis-zq/14.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/mybatis-zq/14.4.png)
 
 *图14-04*
 

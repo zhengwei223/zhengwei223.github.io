@@ -136,7 +136,7 @@ throws ServletException, IOException
 
 部署并执行此项目[http://localhost:8888/ELAndJSTLDemo/](http://localhost:8888/ELAndJSTLDemo/)，运行结果如图，
 
-![](/public/img/jsp-servlet-zq/9.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.1.png)
 
 *图9-01*
 
@@ -157,7 +157,7 @@ throws ServletException, IOException
 
 运行[http://localhost:8080/ELAndJSTLDemo/](http://localhost:8080/ELAndJSTLDemo/)，结果如图,
 
-![](/public/img/jsp-servlet-zq/9.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.2.png)
 
 *图9-02*
 
@@ -218,7 +218,7 @@ throws ServletException, IOException
 
 打开浏览器执行[http://localhost:8080/ELAndJSTLDemo/](http://localhost:8080/ELAndJSTLDemo/)，运行结果如图，
 
-![](/public/img/jsp-servlet-zq/9.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.3.png)
 
 *图9-03*
 
@@ -346,7 +346,7 @@ throws ServletException, IOException
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/9.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.4.png)
 
 *图9-04*
 
@@ -356,7 +356,7 @@ throws ServletException, IOException
 
 “隐式对象”又称“内置对象”。我们之前在JSP里曾提到过，像`request`、`session`、`application`等都是JSP的隐式对象，这些“隐式对象”可以不用实例化就直接使用。同样的，在EL表达式中也存在一些隐式对象。按照使用的途径不同，EL隐式对象分为了作用域访问对象、参数访问对象和JSP隐式对象，如图，
 
-![](/public/img/jsp-servlet-zq/9.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.5.png)
 
 *图9-05*
 
@@ -481,7 +481,7 @@ JSTL核心标签库主要包含三类：通用标签库、条件标签库和迭�
 
 
 
-![](/public/img/jsp-servlet-zq/9.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.6.png)
 
 *图9-06*
 
@@ -581,7 +581,7 @@ property="schoolAddress" value="广东东莞蓝桥基地" />
 
 运行InitJSTLDataServlet，结果如图，
 
-![](/public/img/jsp-servlet-zq/9.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.7.png)
 
 *图9-07*
 
@@ -653,7 +653,7 @@ ${requestScope.countries.us }<br/>
 
 运行InitJSTLDataServlet，结果如图，
 
-![](/public/img/jsp-servlet-zq/9.8.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.8.png)
 
 *图9-08*
 
@@ -673,7 +673,7 @@ ${requestScope.countries.us }<br/>
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/9.9.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.9.png)
 
 *图9-09*
 
@@ -738,7 +738,7 @@ escapeXml="false"/>
 
 执行`InitJSTLDataServlet`，运行结果：
 
-![](/public/img/jsp-servlet-zq/9.10.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.10.png)
 
 *图9-10*
 
@@ -779,7 +779,7 @@ escapeXml="false"/>
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/9.11.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.11.png)
 
 *图9-11*
 
@@ -824,7 +824,7 @@ JSTL的条件标签库，包含单重选择标签`<c:if>`和多重选择标签`<
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/9.12.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.12.png)
 
 *图9-12*
 
@@ -879,7 +879,7 @@ JSTL的条件标签库，包含单重选择标签`<c:if>`和多重选择标签`<
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/9.13.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.13.png)
 
 *图9-13*
 
@@ -954,7 +954,7 @@ throws ServletException, IOException {
 
 执行http://localhost:8888/ELAndJSTLDemo/InitJSTLForeachDataServlet，运行结果：
 
-![](/public/img/jsp-servlet-zq/9.14.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.14.png)
 
 *图9-14*
 
@@ -987,7 +987,7 @@ begin="beginIndex" end="endIndex" step="step">
 
 以上代码中的`<c:forEach>`类似于Java中的`for(int i=0;i<2;i++)`，运行结果：
 
-![](/public/img/jsp-servlet-zq/9.15.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/9.15.png)
 
 *图9-15*
 

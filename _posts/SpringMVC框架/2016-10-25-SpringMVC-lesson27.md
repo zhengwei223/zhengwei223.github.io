@@ -140,13 +140,13 @@ public String testConversionServiceConverer
 
 输入学生信息“1-张三-23”，如图，
 
-![](/public/img/springmvc-zq/29.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/29.1.png)
 
 *图29-01*
 
 点击“增加”后，可在控制台得到以下结果：
 
-![](/public/img/springmvc-zq/29.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/29.2.png)
 
 *图29-02*
 
@@ -242,20 +242,20 @@ public class FirstSpringDemo
 
 如果表单中输入的日期格式符合“yyyy-MM-dd”，如“2015-05-16”，如图，
 
-![](/public/img/springmvc-zq/29.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/29.3.png)
 
 *图29-03*
 
 就会将日期赋值给`birthday`属性，并可以在控制台得到输出结果：
 
-![](/public/img/springmvc-zq/29.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/29.4.png)
 
 *图29-04*
 
 而如果输入的日期格式不符合“yyyy-MM-dd”格式，如输入“2015年05月16日”，点击“提交”后JSP页面就会显示HTTP Status 400，如图，
 
 
-![](/public/img/springmvc-zq/29.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/29.5.png)
 
 *图29-05*
 
@@ -501,13 +501,13 @@ BindingResult result)
 
 如果输入的数据不符合要求，如下：
 
-![](/public/img/springmvc-zq/29.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/29.6.png)
 
 *图29-06*
 
 点击提交后，就会在控制台得到校验失败的信息（错误信息是JSR303/Hibernate Validator框架提供的，无需开发人员编写）：
 
-![](/public/img/springmvc-zq/29.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/29.7.png)
 
 *图29-07*
 
@@ -547,7 +547,7 @@ BindingResult result, Map<String, Object> map)
 
 再次在**index.jsp**中输入错误的信息（生日2021-11-11，邮箱yanqun），点击“提交”后得到以下**error.jsp**页面：
 
-![](/public/img/springmvc-zq/29.8.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/29.8.png)
 
 *图29-08*
 

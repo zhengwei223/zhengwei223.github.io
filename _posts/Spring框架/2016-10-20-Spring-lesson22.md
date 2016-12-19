@@ -211,7 +211,7 @@ throws SchedulerException, InterruptedException
 
 运行结果：
 
-![](/public/img/spring-zq/24.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/24.1.png)
 
 *图24-01*
 
@@ -301,7 +301,7 @@ throws JobExecutionException
 
 通过`JobExecutionContext`对象获取触发器的名字、所在组名，以及任务的名字、所在组名。运行结果如图，
 
-![](/public/img/spring-zq/24.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/24.2.png)
 
 
 *图24-02*
@@ -791,7 +791,7 @@ public class TestJobWithSpring
 
 运行结果：
 
-![](/public/img/spring-zq/24.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/24.3.png)
 
 *图24-03*
 

@@ -88,7 +88,7 @@ Spring MVC属于Spring FrameWork的后续产品。我们可以找到开发Spring
 
 **(2)**在`src`目录下创建SpringMVC的配置文件：**springmvc.xml**。（在使用安装了Spring Tool Suite的Eclipse中，具体的创建步骤：鼠标右键`src` →`new` →Spring Bean Configuration File →输入配置文件名“**springmvc.xml**” →finish，然后再在`Namespaces`中选择“beans”、“context”及“mvc”，如图）
 
-![](/public/img/springmvc-zq/26.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/26.1.png)
 
 *图26-01*
 
@@ -272,13 +272,13 @@ view.InternalResourceViewResolver">
 
 部署项目并执行**index.jsp**，结果如下，
 
-![](/public/img/springmvc-zq/26.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/26.2.png)
 
 *图26-02*
 
 点击超链接<a href="firstSpringMVC">My First SpringMVC Demo</a>，结果如下，
 
-![](/public/img/springmvc-zq/26.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/26.3.png)
 
 *图26-03*
 
