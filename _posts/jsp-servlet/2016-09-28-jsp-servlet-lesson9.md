@@ -69,7 +69,7 @@ JNDI的演示项目名是StudentManagerWithJNDIPool，该项目是建立在Stude
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/7.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.1.png)
 
 *图7-01*
 
@@ -355,11 +355,11 @@ throws Exception
 
 在`src`上点击鼠标右键→ New→ File→ 输入dbcpconfig.properties→ Finish，如图：
 
-![](/public/img/jsp-servlet-zq/7.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.2.png)
 
 *图7-02*
 
-![](/public/img/jsp-servlet-zq/7.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.3.png)
 
 *图7-03*
 
@@ -631,7 +631,7 @@ commons-dbutils 是 Apache 组织提供的一个JDBC工具类库，极大的简�
 
 与下载其他类库一样，Binaries提供了可供使用类库及说明文件，Source提供了类库的源代码；并且Binaries和Source都提供了**.tar.gz**（Linux系统）和**.zip**（Windows系统）两种格式的压缩包供读者下载。
 
-![](/public/img/jsp-servlet-zq/7.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.4.png)
 
 *图7-04*
 
@@ -738,7 +738,7 @@ DbUtils是一个工具类，提供了关闭连接、事务提交/回滚、注册
 
 **`ResultSetHandler`接口有很多不同的实现类，如下：**
 
-![](/public/img/jsp-servlet-zq/7.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.5.png)
 
 *图7-05*
 
@@ -791,7 +791,7 @@ public Student() {
 
 表中的数据如下：
 
-![](/public/img/jsp-servlet-zq/7.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.6.png)
 
 *图7-06*
 
@@ -832,7 +832,7 @@ DataSourceUtil.getDataSourceWithC3p0ByXML());
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/7.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.7.png)
 
 *图7-07*
 
@@ -870,7 +870,7 @@ from student", new ArrayListHandler()) ;
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/7.8.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.8.png)
 
 *图7-08*
 
@@ -913,7 +913,7 @@ new BeanHandler<Student>(Student.class)) ;
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/7.9.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.9.png)
 
 *图7-09*
 
@@ -949,7 +949,7 @@ new BeanListHandler<Student>(Student.class)) ;
 
 运行结果（只显示了部分结果）：
 
-![](/public/img/jsp-servlet-zq/7.10.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.10.png)
 
 *图7-10*
 
@@ -990,7 +990,7 @@ new BeanMapHandler<BigDecimal,Student>
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/7.11.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.11.png)
 
 *图7-11*
 
@@ -1034,7 +1034,7 @@ DataSourceUtil.getDataSourceWithC3p0ByXML());
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/7.12.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.12.png)
 
 *图7-12*
 
@@ -1069,7 +1069,7 @@ DataSourceUtil.getDataSourceWithC3p0ByXML());
 
 运行结果（只显示了部分结果）：
 
-![](/public/img/jsp-servlet-zq/7.13.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.13.png)
 
 *图7-13*
 
@@ -1105,7 +1105,7 @@ new KeyedHandler<String>("stuName")) ;
 
 运行结果（只显示了部分结果）：
 
-![](/public/img/jsp-servlet-zq/7.14.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.14.png)
 
 *图7-14*
 
@@ -1142,7 +1142,7 @@ new ColumnListHandler<String>("stuName")) ;
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/7.15.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.15.png)
 
 *图7-15*
 
@@ -1181,7 +1181,7 @@ from student", new ScalarHandler<BigDecimal>()) ;
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/7.16.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.16.png)
 
 *图7-16*
 
@@ -1302,7 +1302,7 @@ DataSourceUtil.getDataSourceWithC3p0ByXML());
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/7.17.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.17.png)
 
 *图7-17*
 
@@ -1411,7 +1411,7 @@ class Dao{
 
 创建银行账户表account，并增加两条数据，如下：
 
-![](/public/img/jsp-servlet-zq/7.18.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.18.png)
 
 *图7-18*
 
@@ -1648,19 +1648,19 @@ public class TestAccountTransfer {
 
 测试之前，accout表的数据如下：
 
-![](/public/img/jsp-servlet-zq/7.19.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.19.png)
 
 *图7-19*
 
 执行`main()`方法进行测试，运行结果：
 
-![](/public/img/jsp-servlet-zq/7.20.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.20.png)
 
 *图7-20*
 
 此时，account表的数据如下：
 
-![](/public/img/jsp-servlet-zq/7.21.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/7.21.png)
 
 *图7-21*
 

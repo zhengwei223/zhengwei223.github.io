@@ -276,6 +276,6 @@ ${student.stuAge}、${student.graName}
 
 单击**index.jsp**中的超链接，运行结果：
 
-![](/public/img/springmvc-zq/34.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/34.1.png)
 
 *图34-01*
