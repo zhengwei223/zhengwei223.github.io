@@ -30,7 +30,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;至此，你将会得到下面样子的一个文件夹：
 
- ![jq_adv_letter_game_01](/public/img/js/jq_adv_letter_game_01.gif) 
+ ![jq_adv_letter_game_01](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_letter_game_01.gif) 
 
 ### show和hide
 
@@ -147,7 +147,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面以后，可以看到：
 
- ![jq_adv_letter_game_02](/public/img/js/jq_adv_letter_game_02.gif) 
+ ![jq_adv_letter_game_02](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_letter_game_02.gif) 
 
 ### fadeIn和fadeOut
 
@@ -206,7 +206,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面以后，你将会看到：
 
- ![jq_adv_letter_game_03](/public/img/js/jq_adv_letter_game_03.gif) 
+ ![jq_adv_letter_game_03](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_letter_game_03.gif) 
 
 ### slideUp和slideDown
 
@@ -267,7 +267,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面以后，你将会看到：
 
- ![jq_adv_letter_game_04](/public/img/js/jq_adv_letter_game_04.gif) 
+ ![jq_adv_letter_game_04](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_letter_game_04.gif) 
 
 ### animate
 
@@ -342,7 +342,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面以后，你将会看到：
 
- ![jq_adv_letter_game_06](/public/img/js/jq_adv_letter_game_06.gif)
+ ![jq_adv_letter_game_06](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_letter_game_06.gif)
 
 &emsp;&emsp;大家可以自行打开Chrome浏览器的DevTools，检查在动画图片的在页面上的移动变化。
 
@@ -365,7 +365,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;至此，你将会得到下面样子的一个文件夹：
 
- ![jq_adv_letter_game_07](/public/img/js/jq_adv_letter_game_07.gif)
+ ![jq_adv_letter_game_07](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_letter_game_07.gif)
 
 ### 自定义进度条
 
@@ -416,7 +416,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新页面，你将会看到：
 
- ![jq_adv_letter_game_08](/public/img/js/jq_adv_letter_game_08.gif)
+ ![jq_adv_letter_game_08](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_letter_game_08.gif)
 
 ### 在进度条上显示百分比
 
@@ -435,7 +435,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;然后刷新页面，你将会看到：
 
- ![jq_adv_letter_game_09](/public/img/js/jq_adv_letter_game_09.gif)
+ ![jq_adv_letter_game_09](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_letter_game_09.gif)
 
 ### 使用开源的jQuery UI进度条插件
 
@@ -443,7 +443,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;下图仅仅演示了这个进度条组件的最简单用法：
 
- ![jq_adv_letter_game_10](/public/img/js/jq_adv_letter_game_10.gif)
+ ![jq_adv_letter_game_10](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_letter_game_10.gif)
 
 &emsp;&emsp;想要了解有关这款进度条插件的更多信息，请直接查询[jQuery UI 中文网 ProgressBar](http://www.css88.com/jquery-ui-api/progressbar/)页面。
 
@@ -463,7 +463,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;有关这些方法的高级用法，请参考[jQuery中文网的API文档](http://www.jquery123.com/)。
 
- ![jq_adv_letter_game_11](/public/img/js/jq_adv_letter_game_11.gif)
+ ![jq_adv_letter_game_11](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_letter_game_11.gif)
 
 ### 封装你的代码
 
@@ -501,13 +501,13 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;至此，你将会得到下面样子的一个文件夹：
 
- ![jq_adv_jq_source_nav_01](/public/img/js/jq_adv_jq_source_nav_01.gif) 
+ ![jq_adv_jq_source_nav_01](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_01.gif) 
 
 ### 全局方法$.each
 
 &emsp;&emsp;打开jQuery中文网，在搜索框里输入each，可以得到“jQuery.each”的搜索结果：
 
- ![jq_adv_jq_source_nav_01](/public/img/js/jq_adv_jq_source_nav_03.gif) 
+ ![jq_adv_jq_source_nav_01](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_03.gif) 
 
 &emsp;&emsp;这是一个既可以循环遍历数组，也可以循环遍历对象内部属性的jQuery全局函数。
 
@@ -551,13 +551,13 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;控制台显示结果是这样的：
 
- ![jq_adv_jq_source_nav_04](/public/img/js/jq_adv_jq_source_nav_04.gif) 
+ ![jq_adv_jq_source_nav_04](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_04.gif) 
 
 ### 全局函数$.trim
 
 &emsp;&emsp;打开jQuery中文网，在搜索框里输入each，可以得到“jQuery.trim”的搜索结果：
 
- ![jq_adv_jq_source_nav_05](/public/img/js/jq_adv_jq_source_nav_05.gif) 
+ ![jq_adv_jq_source_nav_05](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_05.gif) 
 
 &emsp;&emsp;根据文档，$.trim会把字符串开头和结尾的连续空格、换行符、制表符统统去除。
 
@@ -582,7 +582,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;在控制台执行上述代码。有图有真相：
 
- ![jq_adv_jq_source_nav_06](/public/img/js/jq_adv_jq_source_nav_06.gif) 
+ ![jq_adv_jq_source_nav_06](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_06.gif) 
 	
 
 ### 自定义全局方法$.sum
@@ -620,7 +620,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;在控制台上完成操作：
 
- ![jq_adv_jq_source_nav_02](/public/img/js/jq_adv_jq_source_nav_02.gif) 
+ ![jq_adv_jq_source_nav_02](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_02.gif) 
 
 ### 自定义命名空间
 
@@ -649,7 +649,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;下面是控制台操作的全部过程以及输出结果：
 
- ![jq_adv_jq_source_nav_07](/public/img/js/jq_adv_jq_source_nav_07.gif) 
+ ![jq_adv_jq_source_nav_07](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_07.gif) 
 
 ## 2.2 自定jq义插件
 
@@ -661,7 +661,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;这样做顺带的一个好处是，插件内外可以使用相同的变量名。换就话说就是，组件内部的变量名和方法名不会对全局作用域造成干扰。
 
- ![jquey_plugin_logo](/public/img/js/jquey_plugin_logo.png) 
+ ![jquey_plugin_logo](http://lemon.lanqiao.org:8082/teaching/img/js/jquey_plugin_logo.png) 
 
 ### 在$.fn新增方法
 
@@ -672,7 +672,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;在控制台查看jQuery方法选中的对象的“\__proto__”属性，然后把它用“===”运算符和“$.fn”做对比。
 
- ![jq_adv_jq_source_nav_08](/public/img/js/jq_adv_jq_source_nav_08.gif)
+ ![jq_adv_jq_source_nav_08](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_08.gif)
 
 &emsp;&emsp;最后发现：“$.fn”跟所有jQuery对象的“\__proto__”属性是一回事。
 
@@ -691,7 +691,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新界面以后，在控制台测试这个新插件是否正常连接：
 
- ![jq_adv_jq_source_nav_09](/public/img/js/jq_adv_jq_source_nav_09.gif)
+ ![jq_adv_jq_source_nav_09](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_09.gif)
 
 &emsp;&emsp;断点停留的地方，请大家把鼠标移动到关键词“this”上方，留意debug工具给你提示的内容是什么。
 
@@ -723,7 +723,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;刷新界面以后，在控制台测试这个新插件能否按照预期修改页面上的5个div：
 
- ![jq_adv_jq_source_nav_10](/public/img/js/jq_adv_jq_source_nav_10.gif)
+ ![jq_adv_jq_source_nav_10](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_10.gif)
 
 &emsp;&emsp;请留意你的浏览器是否出现同样效果。
 
@@ -803,7 +803,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;请用其他方法选中页面元素，测试插件能否按照预期工作。
 
- ![jq_adv_jq_source_nav_11](/public/img/js/jq_adv_jq_source_nav_11.gif)
+ ![jq_adv_jq_source_nav_11](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_11.gif)
 
 ### 提取文件
 
@@ -811,7 +811,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;需要使用插件的时候，你只要在页面里面引入这个js文件就可以了。
 
- ![jq_adv_jq_source_nav_12](/public/img/js/jq_adv_jq_source_nav_12.gif)
+ ![jq_adv_jq_source_nav_12](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_12.gif)
 
 &emsp;&emsp;至此，一个jQuery插件制作完成。大家可以去喝点什么，庆祝一下这个重要时刻了！
 
@@ -844,7 +844,7 @@ keywords: lanqiao 蓝桥 全栈 教程 Web前端
 
 &emsp;&emsp;jQuery插件已经有一个很大的现成仓库，[https://plugins.jquery.com/](https://plugins.jquery.com/)。 大家可以在那里找到很多已经写好，并且经过反复测试，可靠性强、功能强大的jQuery插件。
 
-![jq_adv_jq_source_nav_13](/public/img/js/jq_adv_jq_source_nav_13.gif)
+![jq_adv_jq_source_nav_13](http://lemon.lanqiao.org:8082/teaching/img/js/jq_adv_jq_source_nav_13.gif)
 
 &emsp;&emsp;这样的好处是什么？当然是你不用费劲自己来写插件啦！
 

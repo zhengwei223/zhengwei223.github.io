@@ -32,7 +32,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 程序中的过滤器就好比生活中的自来水过滤器，可以将水中的杂质、有害物质等进行过滤，从而使水变得更加有利于我们使用。
 
-![](/public/img/jsp-servlet-zq/8.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.1.png)
 
 *图8-01*
 
@@ -185,7 +185,7 @@ Filter的配置方法和Servlet的配置方法相类似：先通过`<url-pattern
 
 **(4)**部署并启动项目，访问**index.jsp**中的超链接，可以在控制台看到以下输出：
 
-![](/public/img/jsp-servlet-zq/8.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.2.png)
 
 *图8-02*
 
@@ -211,7 +211,7 @@ ServletResponse response, FilterChain chain)
 
  修改**MyFirstFilter.java**以后，重启服务，再次运行并访问**index.jsp**中的超链接，可在控制台看到以下输出：
 
-![](/public/img/jsp-servlet-zq/8.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.3.png)
 
 *图8-03*
 
@@ -240,7 +240,7 @@ ServletResponse response, FilterChain chain)
 
 再次重启服务并执行**index.jsp**中的超链接，得到以下输出：
 
-![](/public/img/jsp-servlet-zq/8.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.4.png)
 
 *图8-04*
 
@@ -321,7 +321,7 @@ Filter通过**web.xml**中的`<url-pattern>`元素来配置需要拦截的请求
 
 我们还可以为Web应用程序注册多个Filter，对某一请求/响应进行多次拦截。拦截的过程如下图：
 
-![](/public/img/jsp-servlet-zq/8.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.5.png)
 
 *图8-05*
 
@@ -400,7 +400,7 @@ MyFirstFilter 的`< filter-mapping >`写在MySecondFilter的`< filter-mapping >`
 
 重启服务，再次通过**index.jsp**中的超链接，向服务器的MyServlet资源发出请求，运行结果如下：
 
-![](/public/img/jsp-servlet-zq/8.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.6.png)
 
 
 *图8-06*
@@ -568,7 +568,7 @@ charset=UTF-8"    pageEncoding="UTF-8"%>
 
 部署并启动项目，在启动时可以发现执行了`contextInitialized()`方法：
 
-![](/public/img/jsp-servlet-zq/8.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.7.png)
 
 *图8-07*
 
@@ -576,7 +576,7 @@ charset=UTF-8"    pageEncoding="UTF-8"%>
 
 再访问**index.jsp**，又会得到以下结果：
 
-![](/public/img/jsp-servlet-zq/8.8.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.8.png)
 
 *图8-08*
 
@@ -588,13 +588,13 @@ charset=UTF-8"    pageEncoding="UTF-8"%>
 
 点击**index.jsp**中的超链接“销毁`session`”，如图
 
-![](/public/img/jsp-servlet-zq/8.9.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.9.png)
 
 *图8-09*
 
 控制台又会再输出以下黑色方框中的内容：
 
-![](/public/img/jsp-servlet-zq/8.10.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.10.png)
 
 *图8-10*
 
@@ -602,7 +602,7 @@ charset=UTF-8"    pageEncoding="UTF-8"%>
 
 最后，手动停止Web服务，又会触发用于监听`ServletContext`对象被销毁的`contextDestroyed()`方法，即输出“监听`ServletContext`：`[ServletContext]`对象[销毁]建完成”，如图：
 
-![](/public/img/jsp-servlet-zq/8.11.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.11.png)
 
 *图8-11*
 
@@ -812,7 +812,7 @@ public class AttributeListener implements ServletContextAttributeListener,HttpSe
 
 部署并启动项目，通过浏览器地址栏访问[http://localhost:8888/ListenerProject/attributeListener.jsp](http://localhost:8888/ListenerProject/attributeListener.jsp)，在控制台可以看到以下输出：
 
-![](/public/img/jsp-servlet-zq/8.12.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.12.png)
 
 *图8-12*
 
@@ -906,13 +906,13 @@ public class BeanDemo implements HttpSessionBindingListener
 
 执行[http://localhost:8888/ListenerProject/httpSessionBindingListner.jsp](http://localhost:8888/ListenerProject/httpSessionBindingListner.jsp)，运行结果：
 
-![](/public/img/jsp-servlet-zq/8.13.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.13.png)
 
 *图8-13*
 
 刷新页面，运行结果：
 
-![](/public/img/jsp-servlet-zq/8.14.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.14.png)
 
 *图8-14*
 
@@ -1035,19 +1035,19 @@ public class BeanDemo2 implements HttpSessionActivationListener
 启动服务，执行[http://localhost:8888/ListenerProject/write.jsp](http://localhost:8888/ListenerProject/write.jsp)，JSP页面的运行结果：
 
 
-![](/public/img/jsp-servlet-zq/8.15.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.15.png)
 
 *图8-15*
 
 一段时间后（时间长短与会话管理器中`Manager`元素的`maxIdleSwap`属性有关），Console控制台会有如下显示：
 
-![](/public/img/jsp-servlet-zq/8.16.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.16.png)
 
 *图8-16*
 
 因此可以得知，`BeanDemo2`对象会随着`HttpSession`对象被钝化。根据会话管理器中`Store`元素的`directory`属性，可以找到钝化后的文件，如下：
 
-![](/public/img/jsp-servlet-zq/8.17.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.17.png)
 
 *图8-17*
 
@@ -1071,13 +1071,13 @@ public class BeanDemo2 implements HttpSessionActivationListener
 重启Tomcat服务，先执行[http://localhost:8888/ListenerProject/write.jsp](http://localhost:8888/ListenerProject/write.jsp)，然后在Console控制台打印“即将钝化之前…”以前，迅速再执行[http://localhost:8888/ListenerProject/read.jsp](http://localhost:8888/ListenerProject/read.jsp)，可得如下结果：
 
 
-![](/public/img/jsp-servlet-zq/8.18.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.18.png)
 
 *图8-18*
 
 可以发现，在钝化之前可以从`session`域中读取对象的数据（内存中的`session`域中读取）。过一会儿，当控制台打印“即将钝化之前…”以后（说明此时`HttpSession`对象已经被钝化，被保存在了硬盘中），再次执行[http://localhost:8888/ListenerProject/read.jsp](http://localhost:8888/ListenerProject/read.jsp)，运行结果：
 
-![](/public/img/jsp-servlet-zq/8.19.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.19.png)
 
 *图8-19*
 
@@ -1100,19 +1100,19 @@ public class BeanDemo2 implements HttpSessionActivationListener, Serializable
 
 重启服务，执行[http://localhost:8888/ListenerProject/write.jsp](http://localhost:8888/ListenerProject/write.jsp)，等待Console控制台输出“即将钝化之前…”，如下：
 
-![](/public/img/jsp-servlet-zq/8.20.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.20.png)
 
 *图8-20*
 
 再执行**read.jsp**，得到**read.jsp**的运行结果：
 
-![](/public/img/jsp-servlet-zq/8.21.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.21.png)
 
 *图8-21*
 
 此时Console控制台的运行结果：
 
-![](/public/img/jsp-servlet-zq/8.22.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.22.png)
 
 *图8-22*
 
@@ -1121,7 +1121,7 @@ public class BeanDemo2 implements HttpSessionActivationListener, Serializable
 
 稍等片刻后，控制台会再次显示“即将钝化之前…”，如下：
 
-![](/public/img/jsp-servlet-zq/8.23.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/8.23.png)
 
 *图8-23*
 

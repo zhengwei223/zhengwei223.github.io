@@ -30,13 +30,13 @@ jQuery的设计思想是write less do more（写的少，做的多）。一般�
 
 进入jQuery官网[http://jquery.com/](http://jquery.com/)，点击Download jQuery，如图，
 
-![](/public/img/jsp-servlet-zq/12.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.1.png)
 
 *图12-01*
 
 下载开发版或发布版的jQuery库，如下
 
-![](/public/img/jsp-servlet-zq/12.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.2.png)
 
 *图12-02*
 
@@ -73,7 +73,7 @@ jQuery的设计思想是write less do more（写的少，做的多）。一般�
 
 **①**在Web项目的WebContent目录中新建js目录，将jquery-1.12.3.js放入js目录，如图，
 
-![](/public/img/jsp-servlet-zq/12.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.3.png)
 
 *图12-03*
 
@@ -120,7 +120,7 @@ jQuery的设计思想是write less do more（写的少，做的多）。一般�
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.4.png)
 
 *图12-04*
 
@@ -201,13 +201,13 @@ content="text/html; charset=UTF-8">
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.5.png)
 
 *图12-05*
 
 可以把上面的HTML结构描述成一颗DOM树，如下图，
 
-![](/public/img/jsp-servlet-zq/12.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.6.png)
 
 *图12-06*
 
@@ -378,7 +378,7 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.7.png)
 
 *图12-07*
 
@@ -451,7 +451,7 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.8.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.8.png)
 
 *图12-08*
 
@@ -523,7 +523,7 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.9.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.9.png)
 
 *图12-09*
 
@@ -620,7 +620,7 @@ var jsObject = jqueryObject.get(0) ; //通过get(index)的方式，将jQuery对�
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.10.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.10.png)
 
 *图12-10*
 
@@ -735,13 +735,13 @@ $(document).ready(function() {
 
 当鼠标悬浮在边框以内时：
 
-![](/public/img/jsp-servlet-zq/12.11.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.11.png)
 
 *图12-11*
 
 当鼠标移出边框时：
 
-![](/public/img/jsp-servlet-zq/12.12.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.12.png)
 
 *图12-12*
 
@@ -1181,13 +1181,13 @@ $(document).ready(function() {
 
 当鼠标光标在用户名的输入框时，背景色是黄色，如图：
 
-![](/public/img/jsp-servlet-zq/12.13.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.13.png)
 
 *图12-13*
 
 当鼠标光标离开用户名的输入框时，背景色恢复为白色，如图：
 
-![](/public/img/jsp-servlet-zq/12.14.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.14.png)
 
 *图12-14*
 
@@ -1258,7 +1258,7 @@ $(document).ready(function() {
 
 单击div后的运行结果：
 
-![](/public/img/jsp-servlet-zq/12.15.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.15.png)
 
 *图12-15*
 
@@ -1298,13 +1298,13 @@ $(document).ready(function() {
 
 当鼠标悬浮在div上面时，div背景色变为黄色，如图：
 
-![](/public/img/jsp-servlet-zq/12.16.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.16.png)
 
 *图12-16*
 
 当鼠标离开div后，div背景色恢复为白色，如图：
 
-![](/public/img/jsp-servlet-zq/12.17.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.17.png)
 
 *图12-17*
 
@@ -1546,13 +1546,13 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
 
 当鼠标悬浮在图片上面时：
 
-![](/public/img/jsp-servlet-zq/12.18.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.18.png)
 
 *图12-18*
 
 当鼠标离开图片时：
 
-![](/public/img/jsp-servlet-zq/12.19.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.19.png)
 
 *图12-19*
 
@@ -1600,7 +1600,7 @@ jQuery使用`css()`方法为指定的元素直接设置样式值。
 	
 当单击`<p>`元素时，会给`<p>`元素追加`.myStyle1`和`.myStyle2`两个样式，如图
 
-![](/public/img/jsp-servlet-zq/12.20.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.20.png)
 
 *图12-20*
 
@@ -1696,7 +1696,7 @@ hello</h1>");
 
 先通过`html([content])`给`<div>`赋值，再通过`html()`获取`<div>`的值，运行结果如图
 
-![](/public/img/jsp-servlet-zq/12.21.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.21.png)
 
 *图12-21*
 
@@ -1738,7 +1738,7 @@ jQuery还可以使用`text()`方法获取或设置元素的文本内容。
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.22.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.22.png)
 
 *图12-22*
 
@@ -1791,13 +1791,13 @@ jQuery还可以通过`val()`方法来获取或设置元素的`value`属性值。
 
 当鼠标光标停留搜索框中时，`value`值为空，如图
 
-![](/public/img/jsp-servlet-zq/12.23.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.23.png)
 
 *图12-23*
 
 当鼠标光标离开搜索框中时，`value`值为“搜索”，如图
 
-![](/public/img/jsp-servlet-zq/12.24.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.24.png)
 
 *图12-24*
 
@@ -1848,13 +1848,13 @@ jQuery对节点的操作主要有两种：对节点本身的操作，以及对�
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.25.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.25.png)
 
 *图12-25*
 
 以插入`$node`节点为例，插入节点的方法如下：
 
-![](/public/img/jsp-servlet-zq/12.26.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.26.png)
 
 *图12-26*
 
@@ -1862,7 +1862,7 @@ jQuery对节点的操作主要有两种：对节点本身的操作，以及对�
 
 在jQuery中，可以使用`replaceWith()`和`replaceAll()`方法来替换节点。
 
-![](/public/img/jsp-servlet-zq/12.27.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.27.png)
 
 *图12-27*
 
@@ -1972,11 +1972,11 @@ jQuery主要是通过`attr()`和`removeAttr()`方法来对节点的属性进行�
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.28.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.28.png)
 
 *图12-28*
 
-![](/public/img/jsp-servlet-zq/12.29.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.29.png)
 
 *图12-29*
 
@@ -2116,15 +2116,15 @@ jQuery还提供了获取子节点集合、同辈节点集合、父节点集合�
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.30.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.30.png)
 
 *图12-30*
 
-![](/public/img/jsp-servlet-zq/12.31.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.31.png)
 
 *图12-31*
 
-![](/public/img/jsp-servlet-zq/12.32.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.32.png)
 
 *图12-32*
 
@@ -2209,13 +2209,13 @@ jQuery还提供了获取子节点集合、同辈节点集合、父节点集合�
 
 单击`<button>`按钮后，弹出“橘子”所在节点的位置：
 
-![](/public/img/jsp-servlet-zq/12.33.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.33.png)
 
 *图12-33*
 
 再单击确定后，“橘子”向右下角偏移（向右、向下各偏移100px）：
 
-![](/public/img/jsp-servlet-zq/12.34.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.34.png)
 
 *图12-34*
 
@@ -2250,13 +2250,13 @@ position:absolute;left:10px;top:200px；">
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/12.35.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.35.png)
 
 *图12-35*
 
 单击`<button>`后，父元素`<div>`的背景变色：
 
-![](/public/img/jsp-servlet-zq/12.36.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.36.png)
 
 *图12-36*
 
@@ -2378,7 +2378,7 @@ position:absolute;left:10px;top:200px；">
 
 例如，如果输入的表单内容不合法，就会弹出错误提示，并停留在当前页面而不进行`action`跳转，如图
 
-![](/public/img/jsp-servlet-zq/12.37.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.37.png)
 
 *图12-37*
 
@@ -2539,13 +2539,13 @@ position:absolute;left:10px;top:200px；">
 
 如果输入的电话号码不符合正则表达式规则：
 
-![](/public/img/jsp-servlet-zq/12.38.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.38.png)
 
 *图12-38*
 
 如果符合规则：
 
-![](/public/img/jsp-servlet-zq/12.39.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/12.39.png)
 
 *图12-39*
 
