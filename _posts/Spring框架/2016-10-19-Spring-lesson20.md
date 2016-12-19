@@ -125,7 +125,7 @@ public class Student
 
 如图，`Student`类中的方法，通过`new`的方式分别创建`JavaCourse`和`OracleCourse`两个对象，并负责这两个对象的整个生命周期。
 
-![](/public/img/spring-zq/22.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/22.1.png)
 
 *图22-01*
 
@@ -169,7 +169,7 @@ public class Student
 
 即不论学生需要JavaCourse或OracleCourse对象，都可以从课程工厂CourseFactory这个中间仓库中获取。例如，上面代码中`course`代表一个JavaCourse对象；如果想把`course`变为Oracle对象，只需要将`getCourse (String courseName)`方法的参数值改为“oracle”即可。工厂模式的原理如图，
 
-![](/public/img/spring-zq/22.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/22.2.png)
 
 
 *图22-02*
@@ -337,7 +337,7 @@ public class Test
 
 执行Test.java，运行结果：
 
-![](/public/img/spring-zq/22.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/22.3.png)
 
 
 *图22-03*
@@ -585,7 +585,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 如果使用的Eclipse安装了Spring Tool Suite，就可以直接在Namespaces标签中选中“p命名空间”，如图，
 
-![](/public/img/spring-zq/22.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/22.4.png)
 
 
 *图22-04*
@@ -893,7 +893,7 @@ connType.showInfo();
 
 执行测试类，运行结果：
 
-![](/public/img/spring-zq/22.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/22.5.png)
 
 *图22-05*
 
@@ -1207,7 +1207,7 @@ org.lanqiao.service">
 
 通过`base-package`属性指定需要扫描的基准包是`org.lanqiao.dao`和`org.lanqiao.service`，之后Spring就会扫描这两个包中的所有类（含子包中的类），将其中用`@Service`等标识的类加入到SpringIoC容器之中。此处在定义扫描包时用到了`context`，所以在使用前需要导入`context`命名空间，如下：
 
-![](/public/img/spring-zq/22.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/22.6.png)
 
 
 *图22-06*

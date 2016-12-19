@@ -46,7 +46,7 @@ MVC模式（Model-View-Controller）是软件工程中常见的一种软件架�
 
 浏览器通过视图向控制器发出请求，控制器接收到请求之后通过选择模型进行处理，处理完请求以后再转发到视图，进行视图界面的渲染并做出最终响应，如图，
 
-![](/public/img/jsp-servlet-zq/4.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.1.png)
 
 *图4-01*
 
@@ -81,7 +81,7 @@ Servlet是基于Java技术的Web组件，运行在服务器端，由Servlet容�
 
 接下来新建一个Web项目，用来开发第一个Servlet程序。先建一个名为ServletProject25的Web Project，并将Dynamic web module version选择为2.5，如图，
 
-![](/public/img/jsp-servlet-zq/4.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.2.png)
 
 *图4-02*
 
@@ -175,7 +175,7 @@ HttpServletResponse resp) throws ServletException, IOException
 
 **运行index.jsp，并点击“提交”按钮，得到结果：**
 
-![](/public/img/jsp-servlet-zq/4.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.3.png)
 
 *图4-03*
 
@@ -198,7 +198,7 @@ HttpServletResponse resp) throws ServletException, IOException
 **②再在`src`下，直接创建一个servlet（不再是创建class）：**鼠标右键src→new→Servlet→
 填入任意的Class name和固定的Super Class，如图，
 
-![](/public/img/jsp-servlet-zq/4.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.4.png)
 
 *图4-04*
 
@@ -245,7 +245,7 @@ throws ServletException, IOException {
 
 接下来再重新创建一个Web项目，此次将Dynamic web module version选为3.0，如图，
 
-![](/public/img/jsp-servlet-zq/4.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.5.png)
 
 *图4-05*
 
@@ -304,7 +304,7 @@ throws ServletException, IOException
 
 然后启动服务，直接运行**index.jsp**，点击提交后，也能得到正确的结果，如图：
 
-![](/public/img/jsp-servlet-zq/4.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.6.png)
 
 *图4-06*
 
@@ -314,7 +314,7 @@ throws ServletException, IOException
 
 Servlet是运行在服务器端的一段程序，所以Servlet的生命周期会受Servlet容器的控制。Servlet生命周期包括加载、初始化、服务、销毁、卸载等5个部分，如图，
 
-![](/public/img/jsp-servlet-zq/4.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.7.png)
 
 *图4-07*
 
@@ -397,19 +397,19 @@ throws ServletException, IOException
 
 前面讲过，通过浏览器的地址栏访问服务器，属于`GET`方式的请求。现在直接访问[http://localhost:8888/ServletProject30/LifeCycleServlet](http://localhost:8888/ServletProject30/LifeCycleServlet)，第一次访问时，运行结果：
 
-![](/public/img/jsp-servlet-zq/4.8.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.8.png)
 
 *图4-08*
 
 重复执行多次后，运行结果：
 
-![](/public/img/jsp-servlet-zq/4.9.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.9.png)
 
 *图4-09*
 
 关闭服务器（注意是在Servers面板中点击红色的关闭按钮，而不是在Console控制台中），可以发现Servlet容器确实执行了`destroy()`方法，运行结果：
 
-![](/public/img/jsp-servlet-zq/4.10.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.10.png)
 
 *图4-10*
 
@@ -447,7 +447,7 @@ public class LifeCycleServlet extends HttpServlet
 
 配置完毕后，再次启动Tomcat服务，可以看到`init()`方法会在tomcat启动时自动执行，如图，
 
-![](/public/img/jsp-servlet-zq/4.11.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.11.png)
 
 *图4-11*
 
@@ -459,7 +459,7 @@ Servlet API由两个软件包组成：一个是对应HTTP的软件包，另一�
 
 我们本书使用的`javax.servlet.http`包中的类和接口，都是基于HTTP协议的。
 
-![](/public/img/jsp-servlet-zq/4.12.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.12.png)
 
 *图4-12*
 
@@ -577,7 +577,7 @@ public class WelcomeServletWithEclipse extends HttpServlet
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/4.13.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.13.png)
 
 *图4-13*
 
@@ -953,25 +953,25 @@ throws ServletException, IOException
 
 访问[http://localhost:8888/MVCProject/register.jsp](http://localhost:8888/MVCProject/register.jsp)，如图，
 
-![](/public/img/jsp-servlet-zq/4.14.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.14.png)
 
 *图4-14*
 
 点击注册后，运行结果：
 
-![](/public/img/jsp-servlet-zq/4.15.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.15.png)
 
 *图44-15*
 
 查看数据表：
 
-![](/public/img/jsp-servlet-zq/4.16.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.16.png)
 
 *图4-16*
 
 执行的流程，大致如下图，
 
-![](/public/img/jsp-servlet-zq/4.17.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/4.17.png)
 
 *图4-17*
 

@@ -23,7 +23,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 当请求处理方法处理完请求之后，会返回String、ModelAndView或View对象，如return “success”；但返回值最终都会被SpringMVC统一转为ModelAndView对象并返回；随后Spring就会用ViewResolver，把返回的ModelAndView对象中的View渲染给用户看（即返回给浏览器），如图,
 
-![](/public/img/springmvc-zq/28.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/28.1.png)
 
 *图28-01*
 
@@ -38,7 +38,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE SpringMVC
 
 **视图View接口的实现类及部分简介如下**
 
-![](/public/img/springmvc-zq/28.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/28.2.png)
 
 *图28-02*
 
@@ -94,7 +94,7 @@ SpringMVC提供了一个视图解析器的上级接口ViewResolver，所有具�
 **常用的视图解析器实现类及简介如下**
 
 
-![](/public/img/springmvc-zq/28.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/28.3.png)
 
 *图28-03*
 
@@ -311,7 +311,7 @@ public class FirstSpringDemo
 
 执行**index.jsp**中的超链接，运行结果：
 
-![](/public/img/springmvc-zq/28.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/28.4.png)
 
 
 *图28-04*
@@ -319,14 +319,14 @@ public class FirstSpringDemo
 
 如果将火狐浏览器的语言切换为英文，如下：
 
-![](/public/img/springmvc-zq/28.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/28.5.png)
 
 *图28-05*
 
 
 再次执行**index.jsp**中的超链接，运行结果：
 
-![](/public/img/springmvc-zq/28.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/28.6.png)
 
 
 *图28-06*
@@ -416,7 +416,7 @@ view-name="success"/>
 
 如果我们在项目的WebContent目录下新建`imgs`目录，并存放一张图片logo.png，如图，
 
-![](/public/img/springmvc-zq/28.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/28.7.png)
 
 *图28-07*
 
