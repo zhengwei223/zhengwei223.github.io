@@ -184,9 +184,13 @@ $(function() {
 
 效果如下：
 
-![image](http://i.imgur.com/FbgSoi8.png)
+![](/public/img/easyui-zq/5.1.png)
 
-![image](http://i.imgur.com/e3gk1e9.png)
+*图5-01*
+
+![](/public/img/easyui-zq/5.2.png)
+
+*图5-02*
 
 **参考代码:[05/school_timetable.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/05/school_timetable.html)**
 
