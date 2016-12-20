@@ -19,9 +19,13 @@ description:
 
 jQuery EasyUI 是一个基于 jQuery 的框架，集成了各种用户界面插件。  
 
-![image](http://i.imgur.com/w4DOMiL.png) 
+![](/public/img/easyui-zq/1.1.png)
 
-![image](http://i.imgur.com/4tmvcjN.png)
+*图1-01*
+
+![](/public/img/easyui-zq/1.2.png)
+
+*图1-02*
 
 easyUI是一种基于jQuery的用户界面插件集合。
 
@@ -42,15 +46,21 @@ easyUI框架提供了创建网页所需的一切，帮助您轻松建立站点�
 
 访问[EasyUI官网](http://www.jeasyui.com/)下载最新的easyUI源文件   
  
-![image](http://i.imgur.com/oFHGavp.png) 
+![](/public/img/easyui-zq/1.3.png)
+
+*图1-03*
 
 也可以参考[EasyUI中文网](http://www.jeasyui.net/)  
 
-![image](http://i.imgur.com/WMB3LAN.png)
+![](/public/img/easyui-zq/1.4.png)
+
+*图1-04*
 
 解压后能看到这些目录和文件：  
 
-![image](http://i.imgur.com/OKUnaaP.png)
+![](/public/img/easyui-zq/1.5.png)
+
+*图1-05*
 
 - demo:easyui演示页面代码库（可以从中参考很多组件的用法，是个非常好用的demo库。）
 - demo-mobile:该目录下存放的是EasyUI移动版各插件的示例示例
@@ -69,7 +79,9 @@ jQuery EasyUI提供易于使用的组件它使Web开发人员快速地在流行�
 
 ##### 第一步： 新建一个web应用，并引入easyUI的所有包，目录结构如图所示： 
 
-![image](http://i.imgur.com/ypgJVTg.png)
+![](/public/img/easyui-zq/1.6.png)
+
+*图1-06*
 
 ##### 第二步： 新建一个01目录，并在该目录下新建一个construction01.html页面，并引入需要的css样式和js包:
 
@@ -98,9 +110,9 @@ jQuery EasyUI提供易于使用的组件它使Web开发人员快速地在流行�
 
 效果如图：  
 
-![image](http://i.imgur.com/3IBcY9c.png)
+![](/public/img/easyui-zq/1.7.png)
 
-
+*图1-07*
 
 ###### 另一种形式：   
 

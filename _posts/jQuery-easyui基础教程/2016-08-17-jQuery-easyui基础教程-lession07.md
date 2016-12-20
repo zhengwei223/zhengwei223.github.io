@@ -21,7 +21,9 @@ description:
   
 进度条用来反馈一个长时间运行的操作进展。可以更新的进展条，让用户知道当前正在执行操作。效果如图：
 
-![image](http://i.imgur.com/8y3nRho.png) 
+![](/public/img/easyui-zq/7.1.png)
+
+*图7-01*
 
 ## 开发Progressbar程序
 
@@ -32,7 +34,9 @@ description:
 
 只需要简单的给```<div>```标签添加一个指定的class样式即可创建一个进度条。效果如下图：
 
-![image](http://i.imgur.com/Vd8fctY.png)
+![](/public/img/easyui-zq/7.2.png)
+
+*图7-02*
 
 ## Progressbar常用属性
 

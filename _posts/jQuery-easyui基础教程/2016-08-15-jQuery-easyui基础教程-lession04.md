@@ -175,11 +175,18 @@ function setTotal() {
 
 效果如下：
  
-![image](http://i.imgur.com/UQMPBrs.png)
+![](/public/img/easyui-zq/4.1.png)
 
-![image](http://i.imgur.com/1OYyl82.png)
+*图4-01*
 
-![image](http://i.imgur.com/ZjevSBg.png)
+![](/public/img/easyui-zq/4.2.png)
+
+*图4-02*
+
+
+![](/public/img/easyui-zq/4.3.png)
+
+*图4-03*
 
 **参考代码:[04/cart.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/04/cart.html)**
 
