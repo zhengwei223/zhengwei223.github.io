@@ -22,7 +22,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 JDBC（Java DataBase Connectivity），由一组使用Java语言编写的类和接口组成，可以为多种关系数据库提供统一的访问方式，从而实现用JAVA代码来操作数据库。
 
-![](/public/img/jsp-servlet-zq/3.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.1.png)
 
 *图3-01*
 
@@ -44,7 +44,7 @@ JDBC驱动由各个数据库厂商或第三方厂商提供，负责连接各种�
 
 JDBC API主要可以完成三件事：**①与数据库建立连接**、**②发送SQL语句**、**③返回处理结果**，如图：
 
-![](/public/img/jsp-servlet-zq/3.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.2.png)
 
 *图3-02*
 
@@ -398,7 +398,7 @@ int count=stmt.executeUpdate(updateSql);
 
 此时，数据库中`student`表的中数据如下：
 
-![](/public/img/jsp-servlet-zq/3.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.3.png)
 
 *图3-03*
 
@@ -475,7 +475,7 @@ String querySql = "select stuNo,stuName,stuAge from student";
 
 执行`executeQuery()`方法，即可查询出`student`表中所有的`stuNo`、`stuName`和`stuAge`字段值，如图
 
-![](/public/img/jsp-servlet-zq/3.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.4.png)
 
 *图3-04*
 
@@ -837,7 +837,7 @@ public class TestJDBCOperateByCallableStatement
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/3.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.5.png)
 
 *图3-05*
 
@@ -914,7 +914,7 @@ public class TestJDBCOperateByCallableStatement
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/3.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.6.png)
 
 *图3-06*
 
@@ -987,13 +987,13 @@ new FileInputStream(file),"GBK");
 
 执行程序，运行结果：
 
-![](/public/img/jsp-servlet-zq/3.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.7.png)
 
 *图3-07*
 
 此时的myNovel表（CLOB类型的数据，无法直接观察）：
 
-![](/public/img/jsp-servlet-zq/3.8.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.8.png)
 
 *图3-08*
 
@@ -1051,13 +1051,13 @@ URL, USERNAME, PASSWORD);
 
 执行程序，运行结果：
 
-![](/public/img/jsp-servlet-zq/3.9.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.9.png)
 
 *图3-09*
 
 刷新项目，可以在`src`下看到读取出的小说，如图:
 
-![](/public/img/jsp-servlet-zq/3.10.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.10.png)
 
 *图3-10*
 
@@ -1132,13 +1132,13 @@ URL, USERNAME, PASSWORD);
 
 执行程序，运行结果：
 
-![](/public/img/jsp-servlet-zq/3.11.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.11.png)
 
 *图3-11*
 
 此时的myPicture表（BLOB类型的数据，无法直接观察）：
 
-![](/public/img/jsp-servlet-zq/3.12.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.12.png)
 
 *图3-12*
 
@@ -1201,13 +1201,13 @@ public class WriteAndReadImg
 
 执行程序，运行结果：
 
-![](/public/img/jsp-servlet-zq/3.13.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.13.png)
 
 *图3-13*
 
 刷新项目，可以在`src`下看到读取出的图片，如图:
 
-![](/public/img/jsp-servlet-zq/3.14.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.14.png)
 
 *图3-14*
 
@@ -1316,7 +1316,7 @@ dbMetaData.getUserName(), "student") ;
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/3.15.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.15.png)
 
 *图3-15*
 
@@ -1404,7 +1404,7 @@ URL, USERNAME, PASSWORD);
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/3.16.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.16.png)
 
 *图3-16*
 
@@ -1489,13 +1489,13 @@ USERNAME, PASSWORD);
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/3.17.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.17.png)
 
 *图3-17*
 
 运行时，数据库中stuent表的数据如下：
 
-![](/public/img/jsp-servlet-zq/3.18.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.18.png)
 
 *图3-18*
 
@@ -1556,7 +1556,7 @@ USERNAME, PASSWORD);
 
 需要注意，必须在`page`指令里导入`Connection`、`PreparedStatement`等的包名，如`%@page import="java.sql.Connection"%`；并将数据库的驱动包加入Web工程，导入方法如下：将数据库驱动包（ojdbc6.jar）直接复制在WEB-INF下的lib文件夹中即可，如图：
 
-![](/public/img/jsp-servlet-zq/3.19.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.19.png)
 
 *图3-19*
 
@@ -1600,7 +1600,7 @@ public boolean getSex()
 
 在项目的`src`下新建一个`LoginInfo`类，如图，
 
-![](/public/img/jsp-servlet-zq/3.20.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/3.20.png)
 
 *图3-20*
 

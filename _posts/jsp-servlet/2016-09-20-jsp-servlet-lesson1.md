@@ -33,13 +33,13 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 
 
-![](/public/img/jsp-servlet-zq/1.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.1.png)
 
 *图1-01*
 
 
 
-![](/public/img/jsp-servlet-zq/1.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.2.png)
 
 *图1-02*
 
@@ -49,7 +49,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 　　C/S 架构：Client/Server，客户端/服务端模式。将软件系统分为客服端和服务端两层，用户在本机安装客户端，通过网络连接服务端。比如微信、QQ、魔兽世界等。
 
-![](/public/img/jsp-servlet-zq/1.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.3.png)
 
 
 *图1-03*
@@ -71,7 +71,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 　　需要注意，B/S架构是C/S架构的升级和改善，而不是C/S架构的替代品。C/S架构也有很多自己独有的优势，比如采用C/S架构的软件系统有着本地响应快、界面更美观友好、能减轻服务器负荷等优势。
 
-![](/public/img/jsp-servlet-zq/1.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.4.png)
 
 *图1-04*
 
@@ -85,19 +85,19 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 　　访问Apache官网[http://www.apache.org/](http://www.apache.org/)，点击Tomcat，如图1-05
 
-![](/public/img/jsp-servlet-zq/1.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.5.png)
 
 *图1-05*
 
 　　在Download下选择Tomcat8，如图1-06
 
-![](/public/img/jsp-servlet-zq/1.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.6.png)
 
 *图1-06*
 
 　　最后选择下载zip版，如图1-07
 
-![](/public/img/jsp-servlet-zq/1.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.7.png)
 
 *图1-07*
 
@@ -144,7 +144,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 **答：**Tomcat版本需要与其他相关软件的版本相对应，比如与Tomcat8.0对应的java开发环境是jdk7或以上版本，如图1-08：
 
-![](/public/img/jsp-servlet-zq/1.8.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.8.png)
 
 *图1-08*
 
@@ -160,7 +160,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 **b.** Tomcat可以选择性的配置CATALINA_HOME。配置方法：在环境变量里，新建系统变量，变量名设置为CATALINA_HOME，变量值设置为tomcat的安装目录D:\apache-tomcat-8.0.32，如图1-09
 
-![](/public/img/jsp-servlet-zq/1.9.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.9.png)
 
 *图1-09*
 
@@ -172,13 +172,13 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 　　启动Tomcat服务器：双击打开Tomcat安装目录里，bin目录中的启动命令startup.bat，如图1-10，
 
-![](/public/img/jsp-servlet-zq/1.10.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.10.png)
 
 *图1-10*
 
 　　然后打开浏览器输入[http://localhost:8080/](http://localhost:8080/)，即可访问Tomcat服务器的主页面，如图1-11，
 
-![](/public/img/jsp-servlet-zq/1.11.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.11.png)
 
 *图1-11*
 
@@ -205,13 +205,13 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 　　前面讲过，在tomcat的webapps目录中，保存着可以运行的Web项目。在Tomcat下载后，webapps里就自带了几个可以直接运行的示例项目，如图1-12 
 
-![](/public/img/jsp-servlet-zq/1.12.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.12.png)
 
 *图1-12*
 
 　　我们先执行tomcat的启动命令startup.bat，然后在浏览器输入[http://localhost:8888/examples/](http://localhost:8888/examples/)，即可访问webapps中的examples项目，如图1-13
 
-![](/public/img/jsp-servlet-zq/1.13.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.13.png)
 
 *图1-13*
 
@@ -219,7 +219,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 　　访问[http://localhost:8888/examples/](http://localhost:8888/examples/)时，实际访问的是examples文件夹中的**index.html**文件。如果将**index.html**文件删除，再次访问[http://localhost:8888/examples](http://localhost:8888/examples/)，页面就会提示错误信息，如图1-14
 
-![](/public/img/jsp-servlet-zq/1.14.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.14.png)
 
 *图1-14*
 
@@ -240,7 +240,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 　　将其中的false改为true即可。改完之后，重新启动tomcat服务器（先执行shutdown.bat关闭，再执行startup.bat启动），再次访问[http://localhost:8888/examples/](http://localhost:8888/examples/)，则就可以得到examples中的文件目录结构，如图1-15
 
-![](/public/img/jsp-servlet-zq/1.15.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.15.png)
 
 *图1-15*
 
@@ -282,7 +282,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 　　先在tomcat安装路径的`webapps`目录中，新建一个项目文件夹（如JspProject），再在JspProject中新建WEB-INF文件夹，再在WEB-INF中新建classes、lib两个文件夹和**web.xml**文件，如图1-16
 
-![](/public/img/jsp-servlet-zq/1.16.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.16.png)
 
 *图1-16*
 
@@ -350,7 +350,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 　　然后运行startup.bat启动tomcat服务器，并在浏览器输入[http://localhost:8888/JspProject/](http://localhost:8888/JspProject/)，就可以成功运行此项目，如图1-17
 
-![](/public/img/jsp-servlet-zq/1.17.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.17.png)
 
 *图1-17*
 
@@ -362,7 +362,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 **2.**代码`<% out.print("Hello World"); %>`就是JSP的输出语句。如果JSP代码出错，例如忘了写最后的分号“；”，则会出现HTTP状态码为500的错误提示，如图1-18
 
-![](/public/img/jsp-servlet-zq/1.18.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.18.png)
 
 *图1-18*
 
@@ -392,7 +392,7 @@ Tomcat默认会将Web项目放在webapps目录下，但是，如果将所有的W
 
 重启Tomcat服务器，再次访问[http://localhost:8888/JspProject/](http://localhost:8888/JspProject/)，运行结果：
 
-![](/public/img/jsp-servlet-zq/1.19.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.19.png)
 
 *图1-19*
 
@@ -413,13 +413,13 @@ Tomcat默认会将Web项目放在webapps目录下，但是，如果将所有的W
 
 直接访问[http://localhost:8888/JspProject/](http://localhost:8888/JspProject/)，运行结果：
 
-![](/public/img/jsp-servlet-zq/1.20.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.20.png)
 
 *图1-20*
 
 此外，还能用此方法配置默认的Web项目：将**JspProject.xml**重命名为**ROOT.xml**即可。之后，直接访问[http://localhost:8888/index.jsp](http://localhost:8888/index.jsp)，运行结果：
 
-![](/public/img/jsp-servlet-zq/1.21.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.21.png)
 
 *图1-21*
 
@@ -503,7 +503,7 @@ unpackWARs="true">
 
 Web站点默认使用的端口号是80。也就是说，如果我们将Tomcat的端口号改为80，那么就可以直接访问**www.test.com**，而不需要手工加上端口号。为此，在**server.xml**中将端口号改为80（详见“使用Tomcat开发Web项目”一节）。之后，重启Tomat，访问**www.test.com**，运行结果：
 
-![](/public/img/jsp-servlet-zq/1.22.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.22.png)
 
 *图1-22*
 
@@ -526,7 +526,7 @@ Web站点默认使用的端口号是80。也就是说，如果我们将Tomcat的
 
 　　例如tomcat服务器会将请求的**index.jsp**文件，翻译并编译成对应的java和class文件，如图1-23
 
-![](/public/img/jsp-servlet-zq/1.23.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.23.png)
 
 *图1-23*
 
@@ -568,7 +568,7 @@ extends org.apache.jasper.runtime.HttpJspBase
 
  以上流程，如图1-24：
 
-![](/public/img/jsp-servlet-zq/1.24.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.24.png)
 
 *图1-24*
 
@@ -578,7 +578,7 @@ extends org.apache.jasper.runtime.HttpJspBase
 
 **b.**第二次请求jsp的流程，如图1-25
 
-![](/public/img/jsp-servlet-zq/1.25.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.25.png)
 
 *图1-25*
 
@@ -588,19 +588,19 @@ extends org.apache.jasper.runtime.HttpJspBase
 
 　　可以登录Eclipse官网[http://www.eclipse.org/](http://www.eclipse.org/)，并单击Download按钮，如图1-26
 
-![](/public/img/jsp-servlet-zq/1.26.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.26.png)
 
 *图1-26*
 
 　　然后根据自己的操作系统位数，选择32位或64位的版本进行下载(本书采用64位)，如图1-27
 
-![](/public/img/jsp-servlet-zq/1.27.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.27.png)
 
 *图1-27*
 
 　　最后再按照提示下载(例如，可选择MD5(DOWNLOAD)，如图1-28
 
-![](/public/img/jsp-servlet-zq/1.28.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.28.png)
 
 *图1-28*
 
@@ -612,7 +612,7 @@ extends org.apache.jasper.runtime.HttpJspBase
 
 　　第一次进入eclipse，会显示欢迎页面，直接关闭即可，如图1-29
 
-![](/public/img/jsp-servlet-zq/1.29.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.29.png)
 
 *图1-29*
 
@@ -620,19 +620,19 @@ extends org.apache.jasper.runtime.HttpJspBase
 
 **1.**依次点击Windows→Preferences→Server→Runtime Environment→Add…→Apache Tomcat v8.0→next，如图1-30，
 
-![](/public/img/jsp-servlet-zq/1.30.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.30.png)
 
 *图1-30*
 
 **2.**选择Tomcat的安装目录：依次点击Browse…→ 选择tomcat8的安装目录→ 确定，如图1-31，
 
-![](/public/img/jsp-servlet-zq/1.31.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.31.png)
 
 *图1-31*
 
 **3.**选择tomcat所依赖的JRE，如图1-32，
 
-![](/public/img/jsp-servlet-zq/1.32.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.32.png)
 
 *图1-32*
 
@@ -645,18 +645,18 @@ extends org.apache.jasper.runtime.HttpJspBase
 **①**Java Build Path→ Libraries→ Add Libraries→ Server Runtime→ Next→ 选中刚才配置的Apache Tomcat v8.0→ Finish→ Apply，如图1-33和图1-34	
 
 
-![](/public/img/jsp-servlet-zq/1.33.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.33.png)
 
 *图1-33*
 
 
-![](/public/img/jsp-servlet-zq/1.34.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.34.png)
 
 *图1-34*
 
 **②**Targeted Runtimes→ Apache Tomcat v8.0→ OK，如图1-35
 
-![](/public/img/jsp-servlet-zq/1.35.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.35.png)
 
 *图1-35*
 
@@ -665,13 +665,13 @@ extends org.apache.jasper.runtime.HttpJspBase
 **1.**依次点击File→ New→ Dynamic Web Project，如图1.36
 
 
-![](/public/img/jsp-servlet-zq/1.36.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.36.png)
 
 *图1-36*
 
 **2.**在Project name后面输入项目名（如JspProject），再将Target runtime选为tomcat8，如图1-37，
 
-![](/public/img/jsp-servlet-zq/1.37.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.37.png)
 
 *图1-37*
 
@@ -680,13 +680,13 @@ extends org.apache.jasper.runtime.HttpJspBase
 
 **3.**点击Servers面板，进行配置指定Tomcat(即新建一个server实例)，如图1-38
 
-![](/public/img/jsp-servlet-zq/1.38.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.38.png)
 
 *图1-38*
 
 **4.**将之前创建的JspProject项目加入到Tomcat中：鼠标右键点击Servers中的Tomcat→ Add and Remove…→ 选择JspProject→ Add→ Finish，如图1-39
 
-![](/public/img/jsp-servlet-zq/1.39.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.39.png)
 
 *图1-39*
 
@@ -697,7 +697,7 @@ extends org.apache.jasper.runtime.HttpJspBase
 
 **①设置JSP文件的默认编码：**在创建JSP文件之前，为了防止乱码的产生，我们可以将JSP文件的默认编码统一设置为UTF-8格式，依次点击Windows→ Preferences→ Web→ JSP Files→ 将Encoding选为UTF-8，如图1-40
 
-![](/public/img/jsp-servlet-zq/1.40.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.40.png)
 
 *图1-40*
 
@@ -709,7 +709,7 @@ extends org.apache.jasper.runtime.HttpJspBase
 	
 依次点击Windows→ Preferences→ General→ Workspace，将Text file encoding选为UTF-8，如图1-41
 
-![](/public/img/jsp-servlet-zq/1.41.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.41.png)
 
 *图1-41*
 	
@@ -717,7 +717,7 @@ extends org.apache.jasper.runtime.HttpJspBase
 
 鼠标右键单击项目→ Properties→ Resource，将Text file encoding选为UTF-8，如图1-42
 
-![](/public/img/jsp-servlet-zq/1.42.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.42.png)
 
 *图1-42*
 	
@@ -725,7 +725,7 @@ extends org.apache.jasper.runtime.HttpJspBase
 
 鼠标右键单击某一个具体文件(如.java文件、.xml文件、.html文件或即将学习的.jsp文件等)→ Properties→ Resource，将Text file encoding选为UTF-8，如图1-43
 
-![](/public/img/jsp-servlet-zq/1.43.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.43.png)
 
 *图1-43*
 		
@@ -752,19 +752,19 @@ extends org.apache.jasper.runtime.HttpJspBase
 
 **8.**启动Tomcat服务：右键Servers中的Tomcat→ start，如图1-44
 
-![](/public/img/jsp-servlet-zq/1.44.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.44.png)
 
 *图1-44*
 
 **9.**访问[http://localhost:8080/JspProject/](http://localhost:8080/JspProject/)，如图1-45,
 
-![](/public/img/jsp-servlet-zq/1.45.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.45.png)
 
 *图1-45*
 
 **10.**若要关闭Tomcat服务，在Servers面板选中Server实例，点击关闭按钮即可，如图1-46,
 
-![](/public/img/jsp-servlet-zq/1.46.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/1.46.png)
 
 *图1-46*
 

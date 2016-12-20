@@ -28,7 +28,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 用鼠标双击需要观察的代码左侧（双击后，会出现一个小圆点），如图：
 
-![](/public/img/jsp-servlet-zq/13.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.1.png)
 
 *图13-01*
 
@@ -38,43 +38,43 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 打了断点以后，就可以启动调试：鼠标右击代码编辑界面→Debug As→Java Application，如图
 
-![](/public/img/jsp-servlet-zq/13.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.2.png)
 
 *图13-02*
 
 之后，会弹出调试界面，如图：
 
-![](/public/img/jsp-servlet-zq/13.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.3.png)
 
 *图13-03*
 
 调试界面的右上角有Variables和BreakPoints两个功能面板，BreakPoints面板中会显示之前所打断点的位置，如图，
 
-![](/public/img/jsp-servlet-zq/13.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.4.png)
 
 *图13-04*
 
 而Variables面板中存放了当前行的变量值，如图，
 
-![](/public/img/jsp-servlet-zq/13.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.5.png)
 
 *图13-05*
 
 此外，我们还可以新增加一个`Expressions`功能面板：依次点击Window→Show View→Expressions，如图，
 
-![](/public/img/jsp-servlet-zq/13.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.6.png)
 
 *图13-06*
 
 再观察调试界面，会发现多了一个`Expressions`功能面板，如图，
 
-![](/public/img/jsp-servlet-zq/13.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.7.png)
 
 *图13-07*
 
 我们可以将变量或自定义表达式（如num1*num2）输入到`Expressions`面板中观察，如图，
 
-![](/public/img/jsp-servlet-zq/13.8.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.8.png)
 
 *图13-08*
 
@@ -84,7 +84,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 之后就可以开始调试：单击F6进行单行调试，即可以让程序一行一行的执行。例如，目前程序停留在第21行，单击F6后就会执行到第22行，如图，
 
-![](/public/img/jsp-servlet-zq/13.9.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.9.png)
 
 *图13-09*
 
@@ -96,13 +96,13 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 如果即将执行那一行是一个方法，可以单击F6直接跳到下一行（即将该方法执行完毕，跳到第23行），也可以单击F5进入到该方法的内部，如图是在第22行单击F5之后的效果，
 
-![](/public/img/jsp-servlet-zq/13.10.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.10.png)
 
 *图13-10*
 
 进入方法后，可以单击F6执行单行调试，也可以单击F7跳出该方法，恢复到该方法调用处的下一行（即第23行），如图（在第7行单击F7之后）：
 
-![](/public/img/jsp-servlet-zq/13.11.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.11.png)
 
 *图13-11*
 
@@ -112,13 +112,13 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 除了使用F5、F6、F7、F8、ctrl+F2等快捷键外，还可以使用Eclipse提供的调试按钮，如图：
 
-![](/public/img/jsp-servlet-zq/13.12.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.12.png)
 
 *图13-12*
 
 如果在调试模式下，想暂时忽略所有断点、像正常执行程序一样，可以单击Skip All BreakPoints按钮，如图：
 
-![](/public/img/jsp-servlet-zq/13.13.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.13.png)
 
 *图13-13*
 
@@ -128,7 +128,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 调试完毕后，点击右上角的“Java EE”就可以恢复到普通的JAVA编辑视图，如图：
 
-![](/public/img/jsp-servlet-zq/13.14.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.14.png)
 
 *图13-14*
 
@@ -142,7 +142,7 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 如图：
 
-![](/public/img/jsp-servlet-zq/13.15.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.15.png)
 
 *图13-15*
 
@@ -160,13 +160,13 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 该页面中超链接所访问的Servlet中存在断点，如图：
 
-![](/public/img/jsp-servlet-zq/13.16.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.16.png)
 
 *图13-16*
 
 如果执行**index.jsp**中的超链接，则程序会自动停留在Servlet中的断点处，如图：
 
-![](/public/img/jsp-servlet-zq/13.17.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.17.png)
 
 *图13-17*
 
@@ -225,37 +225,37 @@ JPDA_TRANSPORT表示连接方式，可以设置为`dt_shmem`或`dt_socket`，分
 
 **①** 在Eclipse的Package Explorer视图中，右键点击项目，选中Debug As…中的Debug Configurations…，如下：
 
-![](/public/img/jsp-servlet-zq/13.18.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.18.png)
 
 *图13-18*
 
 **②** 在弹出的对话框中，右键点击Remote Java Application左键单击New，如图
 
-![](/public/img/jsp-servlet-zq/13.19.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.19.png)
 
 *图13-19*
 
 在右侧Connect面板中，输入项目名、远程调试的端口号等，如图，
 
-![](/public/img/jsp-servlet-zq/13.20.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.20.png)
 
 *图13-20*
 
 在右侧Source面板中，Add项目代码，便于Eclipse在远程调试阶段查找代码，如图，
 
-![](/public/img/jsp-servlet-zq/13.21.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.21.png)
 
 *图13-21*
 
 增加之后的界面，如图，
 
-![](/public/img/jsp-servlet-zq/13.22.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.22.png)
 
 *图13-22*
 
 最后点击Debug按钮，即开启远程调试，如图
 
-![](/public/img/jsp-servlet-zq/13.23.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.23.png)
 
 *图13-23*
 
@@ -271,19 +271,19 @@ Firebug是Firefox浏览器下的一款扩展插件，可以用来调试HTML、CS
 
 **①** 打开firefox浏览器，并打开工具中的附加组件，如图：
 
-![](/public/img/jsp-servlet-zq/13.24.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.24.png)
 
 *图13-24*
 
 **②** 在弹出的页面中，搜索firebug，再点击安装，如图
 
-![](/public/img/jsp-servlet-zq/13.25.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.25.png)
 
 *图13-25*
 
 **③** 重新打开浏览器，点击功能键F12，就可以在浏览器下方看到firebug，如图
 
-![](/public/img/jsp-servlet-zq/13.26.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.26.png)
 
 *图13-26*
 
@@ -326,7 +326,7 @@ ul li:first-child
 
 **① 单击firebug中的选择按钮，如图**
 
-![](/public/img/jsp-servlet-zq/13.27.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.27.png)
 
 *图13-27*
 
@@ -335,7 +335,7 @@ ul li:first-child
 	
 例如，现在想要观察网页中“橘子”的相关样式，就要用鼠标点击“橘子”，如图
 
-![](/public/img/jsp-servlet-zq/13.28.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.28.png)
 
 *图13-28*
 
@@ -349,7 +349,7 @@ ul li:first-child
 
 直接单击CSS样式的属性值，修改即可，如图
 
-![](/public/img/jsp-servlet-zq/13.29.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.29.png)
 
 *图13-29*
 
@@ -357,7 +357,7 @@ ul li:first-child
 
 选中样式的最后一个属性值（即选中`font-size`的属性值20px），然后按下回车键，之后依次输入属性名和属性值，如图
 
-![](/public/img/jsp-servlet-zq/13.30.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.30.png)
 
 *图13-30*
 
@@ -365,7 +365,7 @@ ul li:first-child
 
 如果要删除某个样式，只需要点击样式前面的禁止符号，如图
 
-![](/public/img/jsp-servlet-zq/13.31.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.31.png)
 
 *图13-31*
 
@@ -377,7 +377,7 @@ ul li:first-child
 
 **① 点击“脚本”标签，并选择JavaScript所在文件**
 
-![](/public/img/jsp-servlet-zq/13.32.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.32.png)
 
 *图13-32*
 
@@ -385,7 +385,7 @@ ul li:first-child
 
 找到需要观察的JavaScript代码，并打断点，如图
 
-![](/public/img/jsp-servlet-zq/13.33.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.33.png)
 
 *图13-33*
 
@@ -393,7 +393,7 @@ ul li:first-child
 
 点击右侧的“新建监控表达式”，并输入需要观察的变量或表达式，如图
 
-![](/public/img/jsp-servlet-zq/13.34.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.34.png)
 
 *图13-34*
 
@@ -401,7 +401,7 @@ ul li:first-child
 
 之后的调试方法，就和使用Eclipse调试时基本相同，调试的相关按键如下：
 
-![](/public/img/jsp-servlet-zq/13.35.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.35.png)
 
 *图13-35*
 
@@ -434,19 +434,19 @@ ul li:first-child
 
 运行**firebugJsp.jsp**后，因为错误的提示存在优先级，所以会先提示找不到右括号“)”：如图
 
-![](/public/img/jsp-servlet-zq/13.36.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.36.png)
 
 *图13-36*
 
 此外，当发现错误时，firebug还会在图标旁显示此时刻发生的错误数量，以及错误的具体行号，如图：
 
-![](/public/img/jsp-servlet-zq/13.37.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.37.png)
 
 *图13-37*
 
 修复此错误，即在源码第13行中加入“)”后，再次运行**firebugJsp.jsp**时，又会提示“$未定义”，如图，
 
-![](/public/img/jsp-servlet-zq/13.38.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.38.png)
 
 *图13-38*
 
@@ -454,7 +454,7 @@ ul li:first-child
 
 将jQuery库引入后，再次运行**firebugJsp.jsp**并单击button，又能发现firebug提示“`showInfo()`为定义”，如图，
 
-![](/public/img/jsp-servlet-zq/13.39.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/13.39.png)
 
 *图13-39*
 

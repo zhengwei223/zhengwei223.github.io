@@ -28,7 +28,7 @@ AOP（Aspect-OrientedProgramming，面向方面编程）是一种不同于OOP(Ob
 
 假设项目中有多个业务都包含了一些相同的代码，我们可以使用OOP的思想，将这些“相同的代码”封装到一个方法`aMethod()`之中，然后在不同的业务中调用该方法即可，如下图，
 
-![](/public/img/spring-zq/21.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/21.1.png)
 
 *图21-01*
 
@@ -36,13 +36,13 @@ AOP（Aspect-OrientedProgramming，面向方面编程）是一种不同于OOP(Ob
 
 而从AOP的角度来看，我们可以把`aMethod()`看作是一种“横切逻辑”，称为“切面”，即指贯穿在各个业务之中、渗透到系统各处的代码。使用AOP就可以不用再在各个业务之中显示的调用`xx.aMethod()`，而是通过配置给各个业务标识一些“切入点（Pointcut）”，例如可以将`add()`方法标识为一个切入点。当以后某个业务执行到该“切入点”时，就会根据“通知（Advice）类型”自动去执行`aMethod()`这个“切面”，如下图，
 
-![](/public/img/spring-zq/21.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/21.2.png)
 
 *图21-02*
 
 如果“通知类型”是“前置通知”，就会在每次执行`add()`方法前先执行`aMethod()`方法。这就好比将`add()`方法给增强了，如下，
 
-![](/public/img/spring-zq/21.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/21.3.png)
 
 *图21-03*
 
@@ -244,7 +244,7 @@ public class LoggerAfterReturning implements AfterReturningAdvice
 
 在applicationContext.xml的`Namespaces`标签中增加“aop”命名空间，如图，
 
-![](/public/img/spring-zq/21.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/21.4.png)
 
 *图21-04*
 
@@ -390,7 +390,7 @@ ClassPathXmlApplicationContext("applicationContext.xml");
 
 运行结果：
 
-![](/public/img/spring-zq/21.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/21.5.png)
 
 *图21-05*
 
@@ -699,7 +699,7 @@ returning="returningValue")
 
 执行符合`execution` 表达式的`addStudent()`方法，运行结果：
 
-![](/public/img/spring-zq/21.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/21.6.png)
 
 
 *图21-06*
@@ -773,7 +773,7 @@ public class StudentServiceImpl implements IStudentService
 
 再执行`addStudent()`，运行结果：
 
-![](/public/img/spring-zq/21.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/21.7.png)
 
 *图21-07*
 

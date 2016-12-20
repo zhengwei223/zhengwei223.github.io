@@ -24,7 +24,7 @@ AJAX（Asynchronous Javascript And XML，异步JavaScript和XML），是一种�
 
 Ajax 通过在后台与服务器之间交换少量数据的方式，实现网页的异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的局部内容进行更新，例如：我们在网页中观看电影时，如果点击了左下角的“赞”图标，那么“赞”的数量会从5353增加到5354（即局部内容进行了更新），而当前网页并不会被刷新，如图，
 
-![](/public/img/jsp-servlet-zq/10.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/10.1.png)
 
 *图10-01*
 
@@ -32,7 +32,7 @@ Ajax 通过在后台与服务器之间交换少量数据的方式，实现网页
 
 AJAX的应用非常广泛，再如当我们在百度搜索框输入内容时，搜索框会自动查询并显示列表，但搜索框以外的网页不会发生变化，如图，
 
-![](/public/img/jsp-servlet-zq/10.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/10.2.png)
 
 *图10-02*
 
@@ -266,19 +266,19 @@ xmlHttpRequest.status == 200)
 
 ①输入已存在的号码18888888888：
 
-![](/public/img/jsp-servlet-zq/10.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/10.3.png)
 
 *图10-03*
 
 ②输入暂不存在的号码：
 
-![](/public/img/jsp-servlet-zq/10.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/10.4.png)
 
 *图10-04*
 
 ③输入错误格式的电话：
 
-![](/public/img/jsp-servlet-zq/10.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/10.5.png)
 
 *图10-05*
 
@@ -614,7 +614,7 @@ alert("姓名："+name+",年龄："+age	);
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/10.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/10.6.png)
 
 *图10-06*
 
@@ -647,7 +647,7 @@ var students = [{"name":"张三","age":23},
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/10.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/10.7.png)
 
 *图10-07*
 
