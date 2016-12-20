@@ -87,7 +87,7 @@ public class Student
 
 **数据表：student**
 
-![](/public/img/spring-zq/25.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/25.1.png)
 
 *图25-01*
 
@@ -324,7 +324,7 @@ public class Test
 
 执行测试类，运行结果：
 
-![](/public/img/spring-zq/25.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/25.2.png)
 
 
 *图25-02*
@@ -456,7 +456,7 @@ public class Test
 
 执行测试类，运行结果：
 
-![](/public/img/spring-zq/25.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/25.3.png)
 
 *图25-03*
 

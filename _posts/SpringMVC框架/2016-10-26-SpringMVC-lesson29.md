@@ -96,21 +96,21 @@ public class SecondSpringDemo
 
 执行**index.jsp**中的testJson按钮，运行结果如下：
 
-![](/public/img/springmvc-zq/31.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/31.1.png)
 
 *图31-01*
 
-![](/public/img/springmvc-zq/31.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/31.2.png)
 
 *图31-02*
 
-![](/public/img/springmvc-zq/31.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/31.3.png)
 
 *图31-03*
 
 也可以在`firebug`中看到AJAX的响应结果确实是JSON格式的数据，如图：
 
-![](/public/img/springmvc-zq/31.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/springmvc-zq/31.4.png)
 
 *图31-04*
 

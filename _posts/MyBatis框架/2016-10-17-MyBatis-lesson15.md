@@ -24,13 +24,13 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE MyBatis
 
 **学生证表studentCard**
 
-![](/public/img/mybatis-zq/17.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/mybatis-zq/17.1.png)
 
 *图17-01*
 
 并且在学生表中增加一个表示学生证的外键，用于将学生表和学生证表关联起来，如下：
 
-![](/public/img/mybatis-zq/17.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/mybatis-zq/17.2.png)
 
 *图17-02*
 
@@ -220,7 +220,7 @@ public class StudentClass
 
 **班级表studentClass：**
 
-![](/public/img/mybatis-zq/17.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/mybatis-zq/17.3.png)
 
 *图17-03*
 
@@ -240,7 +240,7 @@ private List<Student> students ;
 
 为了在“表”中体现班级与学生之间的“一对多”关系，需要在学生表中增加表示班级的外键(ClassId)，如下：
 
-![](/public/img/mybatis-zq/17.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/mybatis-zq/17.4.png)
 
 *图17-04*
 
@@ -368,7 +368,7 @@ log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
 
 至此，我们就给MyBatis加入了日志功能，以后再执行MyBatis时，就可以在控制台看到MyBatis执行时的SQL语句。例如，运行之前编写的`queryClassAndStudnetsByClassId ()`，可以在控制台看到：
 
-![](/public/img/mybatis-zq/17.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/mybatis-zq/17.5.png)
 
 *图17-05*
 
@@ -501,7 +501,7 @@ public static void queryStudentLazyLoadCard() throws IOException
 
 执行测试方法，观察控制台的日志：
 
-![](/public/img/mybatis-zq/17.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/mybatis-zq/17.6.png)
 
 *图17-06*
 

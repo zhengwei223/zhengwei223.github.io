@@ -73,7 +73,7 @@ Spring是于2003 年兴起的一个轻量级的Java开源框架，是由Rod John
 
 **②**创建一个JAVA项目（项目名“SpringDemo”）；在项目中，新建一个`libs`目录并放入以上6个`jar`包，再将`jar`包设置为构建路径，如图，
 
-![](/public/img/spring-zq/20.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/20.1.png)
 
 *图20-01*
 
@@ -178,7 +178,7 @@ Student stu =(Student)context.getBean("student");
 
 运行结果：
 
-![](/public/img/spring-zq/20.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/spring-zq/20.2.png)
 
 *图20-02*
 

@@ -86,7 +86,7 @@ Eclipse生成的JSP文件中，除了典型的html元素外，还有很多其他
 
 **运行结果：**
 
-![](/public/img/jsp-servlet-zq/2.1.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.1.png)
 
 *图2.1*
 
@@ -192,7 +192,7 @@ JSP指令写在`<%@ …%>`中，如下代码所示：
 
 **运行结果：**
 
-![](/public/img/jsp-servlet-zq/2.2.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.2.png)
 
 *图2.2*
 
@@ -244,19 +244,19 @@ JSP指令写在`<%@ …%>`中，如下代码所示：
 
 **运行结果：**
 
-![](/public/img/jsp-servlet-zq/2.3.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.3.png)
 
 *图2.3*
 
 鼠标右键网页空白处，查看源代码，如图2.4
 
-![](/public/img/jsp-servlet-zq/2.4.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.4.png)
 
 *图2.4*
 
 显示内容如图2.5
 
-![](/public/img/jsp-servlet-zq/2.5.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.5.png)
 
 *图2.5*
 
@@ -345,7 +345,7 @@ out.print("Hello World");
 
 **运行结果：**
 
-![](/public/img/jsp-servlet-zq/2.6.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.6.png)
 
 *图2.6*
 
@@ -362,7 +362,7 @@ out.print("Hello World");
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/2.7.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.7.png)
 
 *图2.7*
 
@@ -372,7 +372,7 @@ out.print("Hello World");
 
 `request`对象主要用于存储“客户端发送给服务端的请求信息”，如图2.8，
 
-![](/public/img/jsp-servlet-zq/2.8.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.8.png)
 
 *图2.8*
 
@@ -435,7 +435,7 @@ out.print("Hello World");
 
 执行程序并输入信息，运行结果：
 
-![](/public/img/jsp-servlet-zq/2.9.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.9.png)
 
 *图2.9*
 
@@ -476,7 +476,7 @@ out.print("Hello World");
 
 **运行结果：**
 
-![](/public/img/jsp-servlet-zq/2.10.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.10.png)
 
 *图2.10*
 
@@ -490,7 +490,7 @@ out.print("Hello World");
 
 也能正常运行程序，并得到结果，如图2.11，
 
-![](/public/img/jsp-servlet-zq/2.11.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.11.png)
 
 *图2.11*
 
@@ -515,7 +515,7 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 
 如图2.12
 
-![](/public/img/jsp-servlet-zq/2.12.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.12.png)
 
 *图2.12*
 
@@ -581,13 +581,13 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 
 我们使用Eclipse配置完Tomcat后，会在左侧项目导航栏多出一个Servers项目，该项目中就有Tomcat的一些配置文件，如**context.xml**，**server.xml**等。为了使Servers项目中的配置文件，与我们本地安装的Tomcat目录中的配置文件保持一致，我们可以双击控制台Servers下的Tomcat V8.0…，如图2.13
 
-![](/public/img/jsp-servlet-zq/2.13.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.13.png)
 
 *图2.13*
 
 在双击后打开的页面里，将Server Locations指定为第二项，如图2.14，
 
-![](/public/img/jsp-servlet-zq/2.14.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.14.png)
 
 *图2.14*
 
@@ -603,7 +603,7 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 
 我们已经知道，客户端可以通过request向服务端发送请求数据，那反过来呢? 当服务器端接收到请求的数据后，如何向客户端响应呢？答案就是`response`，即服务端可以通过`response`向客户端做出响应，如图2.15，
 
-![](/public/img/jsp-servlet-zq/2.15.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.15.png)
 
 *图2.15*
 
@@ -650,7 +650,7 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 
 运行结果(输入用户名“张三”，密码“abc”)：
 
-![](/public/img/jsp-servlet-zq/2.16.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.16.png)
 
 *图2.16*
 
@@ -697,7 +697,7 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/2.17.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.17.png)
 
 *图2.17*
 
@@ -716,7 +716,7 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 
 我们将check.jsp中的`response.sendRedirect("success.jsp")`改为`request.getRequestDispatcher("success.jsp").forward(request, response)`,其他代码均不变，再次运行程序，可以看到success.jsp的结果如图2.18：
 
-![](/public/img/jsp-servlet-zq/2.18.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.18.png)
 
 *图2.18*
 
@@ -756,13 +756,13 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 
 请求转发：客户端（浏览器）向服务器的资源A发起一次请求①，服务器的资源A接收到该请求后，将该请求转发到内部的其他资源B②，资源B处理完请求后，最终给客户端做出响应③。如图2.19，
 
-![](/public/img/jsp-servlet-zq/2.19.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.19.png)
 
 *图2.19*
 
 重定向：客户端（浏览器）向服务器的资源A发起一次请求①，服务器的资源A接收到该请求后，给客户端做出响应，告诉客户端去重新访问资源B的地址 ②，客户端收到资源B的地址后再次向服务器的资源B发出第二次请求③，服务器资源B处理完该请求并做出响应④。如图2.20，
 
-![](/public/img/jsp-servlet-zq/2.20.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.20.png)
 
 *图2.20*
 
@@ -852,13 +852,13 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 
 先执行`response_addCookie.jsp`，并在跳转后的页面temp.jsp里点击超链接，运行结果：
 
-![](/public/img/jsp-servlet-zq/2.21.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.21.png)
 
 *图2.21*
 
 可以发现，temp.jsp中的超链接并没有携带任何参数，但跳转后的客户端`response_addCookie.jsp`页面却依然能获取到`Cookie`对象。这是因为，在客户端发送的请求中（超链接请求、表单请求等）包含着非常丰富的内容，除了可以携带URL参数、表单数据意外，还会传递丰富的请求头信息，如图2.22：
 
-![](/public/img/jsp-servlet-zq/2.22.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.22.png)
 
 *图2.22*
 
@@ -868,13 +868,13 @@ http://localhost:8080/JspProject/show.jsp?uname=张三&upwd=123&hobby=足球&hob
 
 前面说过，`cookie`是由服务器端产生，并最终保存在客户端中。以客户端Firefox浏览器为例，`Cookie`对象就保存在Firefox安装目录中的cookies.sqlite文件里，如图2.23，
 
-![](/public/img/jsp-servlet-zq/2.23.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.23.png)
 
 *图2.23*
 
 `Cookie`的值也可以在Firefox中查看到，如图2.24，
 
-![](/public/img/jsp-servlet-zq/2.24.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.24.png)
 
 *图2.24*
 
@@ -931,14 +931,14 @@ value="<%=username==null ? "":username%>"/>
 
 第一次访问登录页**login_cookie.jsp**：
 
-![](/public/img/jsp-servlet-zq/2.25.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.25.png)
 
 *图2.25*
 
 	
 输入用户名“zhangsan”及密码并点击登录，之后如果再次访问登录页login_cookie.jsp，就会看到页面已经保存了用户名，如图2.25：
 
-![](/public/img/jsp-servlet-zq/2.26.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.26.png)
 
 *图2.26*
 
@@ -987,13 +987,13 @@ value="<%=username==null ? "":username%>"/>
 
 先执行**cookieExpiry.jsp**来设置`Cookie`对象。之后，如果在60秒以内运行**cookieExpiryResult.jsp**，则运行结果：
 
-![](/public/img/jsp-servlet-zq/2.27.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.27.png)
 
 *图2.27*
 
 如果超过60秒以后，再次运行cookieExpiryResult.jsp，运行结果如图2.28：
 
-![](/public/img/jsp-servlet-zq/2.28.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.28.png)
 
 *图2.28*
 
@@ -1016,7 +1016,7 @@ value="<%=username==null ? "":username%>"/>
 
 当Web应用接收到用户的请求时，首先会检查服务器是否已经为这个用户（浏览器）创建过了`session`对象，具体是判断用户的请求中是否包含了一个sessionId，如果包含sessionId，则服务器就会通过这个sessionId找到对应的`session`，以确定是这个用户在访问服务器。而如果用户的请求中没有sessionId，服务器会为该用户创建一个新的`session`，并生成一个与此`session`对应的sessionId，然后将sessionId随着本次响应返回给用户（浏览器的`Cookie`对象中）。如图2.29，
 
-![](/public/img/jsp-servlet-zq/2.29.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.29.png)
 
 *图2.29*
 
@@ -1105,7 +1105,7 @@ out.print(cookies[0].getName()+
 
 执行**createSession.jsp**，运行结果：
 
-![](/public/img/jsp-servlet-zq/2.30.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.30.png)
 
 *图2.30*
 
@@ -1115,7 +1115,7 @@ out.print(cookies[0].getName()+
 
 实现思路：用户首先进行登录操作，如果登录成功，则将用户的登录信息保存在一个`session`范围的属性里。当用户再访问其他页面时，先在`session`范围内寻找是否存在用户的登录信息；若存在，则表示是已经合法登录过的用户；若不存在，则表示该用户尚未登录，直接跳转到登录页面，要求用户重新登录。若用户登录成功，还可以进行注销操作。流程图如图2.31：
 
-![](/public/img/jsp-servlet-zq/2.31.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.31.png)
 
 *图2.31*
 
@@ -1198,7 +1198,7 @@ getAttribute("loginName");
 
 可以发现，如果输入正确的用户名和密码，则直接跳转到欢迎页，如图2.32，
 
-![](/public/img/jsp-servlet-zq/2.32.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.32.png)
 
 *图2.32*
 
@@ -1263,7 +1263,7 @@ getAttribute("loginName");
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/2.33.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.33.png)
 
 *图2.33*
 
@@ -1344,7 +1344,7 @@ getAttribute("loginName");
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/2.34.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.34.png)
 
 *图2.34*
 
@@ -1379,7 +1379,7 @@ getAttribute("loginName");
 
 再次执行**page_scope_one.jsp**，运行结果：
 
-![](/public/img/jsp-servlet-zq/2.35.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.35.png)
 
 *图2.35*
 
@@ -1417,7 +1417,7 @@ getAttribute("loginName");
 
 执行**request_scope_one.jsp**，运行结果：
 
-![](/public/img/jsp-servlet-zq/2.36.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.36.png)
 
 *图2.36*
 
@@ -1454,7 +1454,7 @@ getAttribute("loginName");
 
 执行**request_scope_redirect_one.jsp**，运行结果：
 
-![](/public/img/jsp-servlet-zq/2.37.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.37.png)
 
 *图2.37*
 
@@ -1495,7 +1495,7 @@ getAttribute("loginName");
 
 执行**session_scope_redirect_one.jsp**，运行结果：
 
-![](/public/img/jsp-servlet-zq/2.38.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.38.png)
 
 *图2.38*
 
@@ -1503,7 +1503,7 @@ getAttribute("loginName");
 
 此外，如果我们重新打开一个浏览器标签（相同浏览器），如图2.39
 
-![](/public/img/jsp-servlet-zq/2.39.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.39.png)
 
 *图2.39*
 
@@ -1511,7 +1511,7 @@ getAttribute("loginName");
 
 但是，如果我们换一个其他浏览器（比如从火狐换成IE），再次直接输入**request_scope_redirect_two.jsp**，就无法再获取到数据了，如图是IE浏览器直接运行[http://localhost:8888/JspProject/session_scope_redirect_two.jsp](http://localhost:8888/JspProject/session_scope_redirect_two.jsp)的结果：
 
-![](/public/img/jsp-servlet-zq/2.40.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.40.png)
 
 *图2.40*
 
@@ -1552,13 +1552,13 @@ getAttribute("loginName");
 
 执行**application_scope_redirect_one.jsp**，运行结果：
 
-![](/public/img/jsp-servlet-zq/2.41.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.41.png)
 
 *图2.41*
 
 此外，读者可以发现，只要运行过一次**application_scope_redirect_one.jsp**以后，无论是新开一个浏览器标签，或者是更换新的浏览器，直接再运行**application_scope_redirect_two.jsp**，也都能获取到数据。如图是火狐上执行了**application_scope_redirect_one.jsp**以后，在IE浏览器直接运行**application_scope_redirect_two.jsp**的运行结果：
 
-![](/public/img/jsp-servlet-zq/2.42.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.42.png)
 
 *图2.42*
 
@@ -1590,7 +1590,7 @@ getAttribute("loginName");
 
 运行结果：
 
-![](/public/img/jsp-servlet-zq/2.43.png)
+![](http://lemon.lanqiao.org:8082/teaching/img/jsp-servlet-zq/2.43.png)
 
 *图2.43*
 
