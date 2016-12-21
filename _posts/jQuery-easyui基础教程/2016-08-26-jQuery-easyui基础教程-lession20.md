@@ -41,13 +41,17 @@ HTML中非常重要的一个标签是Form标签，登录、注册、查找等很
   
 效果如下图：
 
-![image](http://i.imgur.com/CEM6GHA.png)
+![](/public/img/easyui-zq/20.1.png)
+
+*图20-01*
 
 **系统默认的日期和文本输入框提示均为英文，locale目录下存放的是各种语言包。想要换成中文只需要引入locale目录下的easyui-lang-zh_CN.js文件。**
 
 效果如下图：
 
-![image](http://i.imgur.com/66dA5KT.png)
+![](/public/img/easyui-zq/20.2.png)
+
+*图20-02*
 
 **重要提示：必须先导入easyUI的jquery.easyui.min.js包，后导入easyui-lang-zh_CN.js包。**
 
@@ -244,8 +248,9 @@ function regist(){
 
 结合数据库和服务器端代码，实现注册和登录功能。效果如下图：
 
-![image](http://i.imgur.com/DO4nQ0b.png)
+![](/public/img/easyui-zq/20.3.png)
 
+*图20-03*
 
 ## 提交form表单的时候再校验格式：
 

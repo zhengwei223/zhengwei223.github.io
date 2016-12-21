@@ -21,13 +21,17 @@ description:
   
 菜单组件通常用于快捷菜单,可以大大简化人们的操作，是我们日常使用中比较多的控件之一。此外，它也是构建其他菜单组件的必备基础组件。比如：menubutton和splitbutton。它还可以用于导航和执行命令。效果如图：
 
-![image](http://i.imgur.com/nROZGRV.png)
+![](/public/img/easyui-zq/15.1.png)
+
+*图15-01*
 
 ## Menu程序
 
 实现如下效果：
 
-![image](http://i.imgur.com/ftEM7Sb.png)
+![](/public/img/easyui-zq/15.2.png)
+
+*图15-02*
 
 当点击body标签的时候显示上图所示的右键菜单。实现该效果需要具备一下知识：
 

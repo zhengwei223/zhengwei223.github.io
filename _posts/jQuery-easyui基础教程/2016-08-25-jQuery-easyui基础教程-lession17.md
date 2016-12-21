@@ -21,7 +21,9 @@ description:
   
 树控件在web页面中一个将分层数据以树形结构进行显示。它提供用户展开、折叠、拖拽、编辑和异步加载等功能。这种控件在web应用中会经常使用到，如菜单，部门的组织结构等。效果如图：
 
-![image](http://i.imgur.com/MVPBRgK.png)
+![](/public/img/easyui-zq/17.1.png)
+
+*图17-01*
 
 ## 开发Tree程序
 
@@ -52,8 +54,9 @@ description:
 
 效果如下图：  
 
-![image](http://i.imgur.com/bWiZmrt.png)
+![](/public/img/easyui-zq/17.2.png)
 
+*图17-02*
 
 **树控件也可以定义在一个空```<ul>```元素中并使用data属性加载数据。**
 
@@ -86,8 +89,9 @@ description:
 
 效果如下图：  
 
-![image](http://i.imgur.com/EydlRIW.png)
+![](/public/img/easyui-zq/17.3.png)
 
+*图17-03*
 
 **树控件也可以定义在一个空```<ul>```元素中并使用Javascript加载数据。**
 
@@ -147,8 +151,9 @@ json文件内容：
 
 效果如下图：  
 
-![imag](http://i.imgur.com/z4k1OEx.png)
+![](/public/img/easyui-zq/17.4.png)
 
+*图17-04*
 
 ##  树控件数据格式化
 
@@ -693,8 +698,9 @@ JS代码：
 
 效果如下图：
 
-![image](http://i.imgur.com/A1krHJD.png)
+![](/public/img/easyui-zq/17.5.png)
 
+*图17-05*
 
 ## 树形菜单拖放控制
 
@@ -728,7 +734,9 @@ onDrop: function(targetNode, source, point){
 
 Layout常用于布局，Tree常用于菜单，Tabs常用于具体内容的放置。如下图：
 
-![image](http://i.imgur.com/suXgjaZ.png)
+![](/public/img/easyui-zq/17.6.png)
+
+*图17-06*
 
 代码如下：
 
