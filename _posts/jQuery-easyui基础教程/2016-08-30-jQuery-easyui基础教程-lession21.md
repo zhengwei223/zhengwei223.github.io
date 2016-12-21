@@ -32,7 +32,9 @@ Email:<input id="vv" class="easyui-validatebox" data-options="required:true,vali
   
 效果如下图：
 
-![image](http://i.imgur.com/S8cOYnR.png)
+![](/public/img/easyui-zq/21.1.png)
+
+*图21-01*
 
 **系统默认的日期和文本输入框提示均为英文，locale目录下存放的是各种语言包。想要换成中文只需要引入locale目录下的easyui-lang-zh_CN.js文件。**
 
@@ -185,7 +187,9 @@ $.extend($.fn.validatebox.defaults.rules, {
 
 效果如下图：  
 
-![image](http://i.imgur.com/nbbYi7N.png)
+![](/public/img/easyui-zq/21.2.png)
+
+*图21-02*
 
 **当刷新页面时，不再校验minLength规则（自定义的规则）。**
 
@@ -228,7 +232,9 @@ $.extend($.fn.validatebox.defaults.rules, {
 
 效果如下图：  
 
-![image](http://i.imgur.com/G3pAZ5f.png)
+![](/public/img/easyui-zq/21.3.png)
+
+*图21-03*
 
 **当刷新页面时text不会清空内容，password会清空内容，所以案例二不需要在页面加载完毕之后触发change事件。**
 

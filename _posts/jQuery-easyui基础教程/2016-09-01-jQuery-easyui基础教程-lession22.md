@@ -22,8 +22,9 @@ description:
   
 TextBox(文本框)是一个增强的输入字段组件， 它允许用户非常简单的创建一组表单。它是一个用于构建其他组合控件的基础组件，如：combo，databox、spinner等。效果如下图：
 
-![image](http://i.imgur.com/YhqXlGR.png)
+![](/public/img/easyui-zq/22.1.png)
 
+*图22-01*
 
 ## 开发TextBox程序
 
@@ -155,7 +156,9 @@ TextBox(文本框)是一个增强的输入字段组件， 它允许用户非常�
 
 效果如下图：
 
-![image](http://i.imgur.com/D6S65kO.png)	
+![](/public/img/easyui-zq/22.2.png)
+
+*图22-02*
 
 案例二： 
 
@@ -194,8 +197,9 @@ TextBox(文本框)是一个增强的输入字段组件， 它允许用户非常�
 
 效果如下图：
 
-![image](http://i.imgur.com/R1YkXK7.png)	
+![](/public/img/easyui-zq/22.3.png)
 
+*图22-03*
 
 案例三：
 
@@ -226,7 +230,9 @@ TextBox(文本框)是一个增强的输入字段组件， 它允许用户非常�
 
 效果如下图：
 
-![image](http://i.imgur.com/tAnFLax.png)	
+![](/public/img/easyui-zq/22.4.png)	
+
+*图22-04*
 
 ## TextBox常用方法  
 
@@ -367,8 +373,9 @@ $("input").textbox({
 
 效果如下图：
 
-![image](http://i.imgur.com/hVeA88g.png)
+![](/public/img/easyui-zq/22.5.png)
 
+*图22-05*
 
 # FileBox
 
@@ -377,8 +384,9 @@ $("input").textbox({
   
 FileBox(文件框)组件在表单当中表示一个文件上传的字段。**它扩展自 textbox (文本框)，大部分的属性、事件和方法都继承自文本框。但是由于浏览器的安全问题，其中的某些方法（如："setValue"）则不能用于 filebox 组件。**效果如下图：
 
-![image](http://i.imgur.com/IKFzeZl.png)
+![](/public/img/easyui-zq/22.6.png)
 
+*图22-06*
 
 ## 开发FileBox程序
 
@@ -432,8 +440,9 @@ FileBox(文件框)组件在表单当中表示一个文件上传的字段。**它
 
 效果如下图：
 
-![image](http://i.imgur.com/VNzWjYp.png)	
+![](/public/img/easyui-zq/22.7.png)
 
+*图22-07*
 
 # PasswordBox
 
@@ -442,8 +451,9 @@ FileBox(文件框)组件在表单当中表示一个文件上传的字段。**它
   
 FileBox(文件框)组件在表单当中表示一个文件上传的字段。**它扩展自 textbox (文本框)，大部分的属性、事件和方法都继承自文本框。但是由于浏览器的安全问题，其中的某些方法（如："setValue"）则不能用于 filebox 组件。**效果如下图：
 
-![image](http://i.imgur.com/IKFzeZl.png)
+![](/public/img/easyui-zq/22.8.png)
 
+*图22-08*
 
 ## 开发PasswordBox程序
 
