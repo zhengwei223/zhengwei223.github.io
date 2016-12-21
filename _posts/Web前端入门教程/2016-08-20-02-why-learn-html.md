@@ -5,14 +5,14 @@ category: Web前端入门教程
 tags: Web前端
 author: 曹小虎
 keywords: lanqiao 蓝桥 全栈 教程 Web前端
-description: 主要向大家介绍Web前端入门课程的学习内容以及学习这么课程需要做哪些准备工作。
+description: 主要向大家介绍Web前端入门课程的学习内容以及学习这门课程需要做哪些准备工作。
 ---
  
 > 内容提要
 
 - 了解课程的内容
 - 认识W3C组织和W3CSchool
-- 工具和环境
+- 准备需要的工具并且配置开发环境
 
 
 # 1.什么是Web
