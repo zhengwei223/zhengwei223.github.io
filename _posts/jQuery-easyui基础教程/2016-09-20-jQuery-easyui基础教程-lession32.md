@@ -22,8 +22,9 @@ description:
 
 访问[EasyUI官网](http://www.jeasyui.com/extension/downloads/jquery-easyui-datagridview.zip)下载。效果如下图：
 
-![image](http://i.imgur.com/Bz4ufMV.png)
+![](/public/img/easyui-zq/32.1.png)
 
+*图32-01*
 
 # DataGrid DetailView（数据表格详细展示）
 
@@ -160,7 +161,9 @@ $('#tt').datagrid({
 
 效果如下图：
 
-![image](http://i.imgur.com/G1uPbkj.png)
+![](/public/img/easyui-zq/32.2.png)
+
+*图32-02*
 
 **参考代码:[32/datagrid06.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/32/datagrid06.html)**
 
@@ -260,7 +263,9 @@ $('#tt').datagrid({
 
 效果如下图：
 
-![image](http://i.imgur.com/gKYSNed.png)
+![](/public/img/easyui-zq/32.3.png)
+
+*图32-03*
 
 **参考代码:[32/datagrid07.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/32/datagrid07.html)**
 
@@ -576,7 +581,9 @@ function cancelItem(){
 
 效果如下：
 
-![image](http://i.imgur.com/oDVzK7l.png)
+![](/public/img/easyui-zq/32.4.png)
+
+*图32-04*
 
 **参考代码:[32/datagrid11.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/32/datagrid11.html)**
 

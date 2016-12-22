@@ -187,9 +187,13 @@ function formatDate(val,row){
 
 效果如下：
 
-![image](http://i.imgur.com/OCb7W6T.png)
+![](/public/img/easyui-zq/30.1.png)
 
-![image](http://i.imgur.com/wJKNRzw.png)
+*图30-01*
+
+![](/public/img/easyui-zq/30.2.png)
+
+*图30-02*
 
 **参考代码:[30/datagrid04.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/30/datagrid04.html)**
 
