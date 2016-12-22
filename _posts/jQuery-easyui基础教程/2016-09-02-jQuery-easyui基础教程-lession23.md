@@ -22,7 +22,9 @@ description:
   
 自定义下拉框显示一个可编辑的文本框和下拉面板在html页面。这是构建其他复杂的组合部件（如：combobox,combotree,combogrid等）之前需要构建的最基本的组件。Combo扩展自ValidateBox。**Combo并不是学习的重点，只是为后续的ComboBox、ComboTree及ComboGrid打基础。大家简单了解即可。**效果如下图：
 
-![image](http://i.imgur.com/tDpioWp.png)
+![](/public/img/easyui-zq/23.1.png)
+
+*图23-01*
 
 
 ## 开发Combo程序
@@ -212,8 +214,9 @@ $('#cc').combo({
 
 效果如下图：
 
-![image](http://i.imgur.com/VF3wqyD.png)
+![](/public/img/easyui-zq/23.2.png)
 
+*图23-02*
 
 ## Combo常用方法  
 
@@ -350,8 +353,9 @@ $('#cc').combo({
 
 下拉列表框显示一个可编辑文本框和下拉式列表，用户可以选择一个值或多个值。用户可以直接输入文本到列表顶部或选择一个或多个当前列表中的值。效果如下图：
 
-![image](http://i.imgur.com/6b0gEli.png)
+![](/public/img/easyui-zq/23.3.png)
 
+*图23-03*
 
 ## 开发Combobox程序  
 
@@ -483,8 +487,9 @@ $('#cc').combobox({
 
 效果如下图：
 
-![image](http://i.imgur.com/L7Du7Ff.png)	
+![](/public/img/easyui-zq/23.4.png)	
 
+*图23-04*
 
 ## Combobox常用方法  
 
@@ -616,6 +621,8 @@ $(function(){
 
 效果如下图：
 
-![image](http://i.imgur.com/3avTQpJ.png)
+![](/public/img/easyui-zq/23.5.png)
+
+*图23-05*
 
 以上便是下拉框的基本操作。

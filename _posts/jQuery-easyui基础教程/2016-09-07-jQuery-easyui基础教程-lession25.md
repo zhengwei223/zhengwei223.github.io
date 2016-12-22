@@ -22,8 +22,9 @@ description:
   
 数值输入框是用来限制用户只能输入数值型数据的。可以转换一个输入的元素到其他类型，比如：数字、百分比、货币等。效果如下图：
 
-![image](http://i.imgur.com/Iytq1jw.png)
+![](/public/img/easyui-zq/25.1.png)
 
+*图25-01*
 
 ## 开发NumberBox程序
 
@@ -35,8 +36,9 @@ description:
  
 该数值输入框只允许输入数字，并且数字必须大于0，且保留两位小数。效果如下图：
 
-![image](http://i.imgur.com/Bj7U64N.png)
+![](/public/img/easyui-zq/25.2.png)
 
+*图25-02*
 
 ## NumberBox常用属性  
 
@@ -224,7 +226,8 @@ description:
 
 效果如下图：
 
-![image](http://i.imgur.com/8JfrYy3.png)	
+![](/public/img/easyui-zq/25.3.png)
 
+*图25-03*
 
 以上便是数值输入框的基本操作。

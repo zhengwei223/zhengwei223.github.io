@@ -22,8 +22,9 @@ description:
   
 树形下拉框结合选择控件和下拉树控件。它与combobox(下拉列表框)类似，但是将下拉列表框的列表替换成了树形控件。该控件支持树状态复选框，方便多选操作。 效果如下图：
 
-![image](http://i.imgur.com/bllNspa.png)
+![](/public/img/easyui-zq/24.1.png)
 
+*图24-01*
 
 ## 开发ComboTree程序
 
@@ -120,7 +121,8 @@ $tree.tree({
 
 效果如下图：
 
-![image](http://i.imgur.com/3OwIh87.png)	
+![](/public/img/easyui-zq/24.2.png)	
 
+*图24-02*
 
 以上便是combotree的基本操作。

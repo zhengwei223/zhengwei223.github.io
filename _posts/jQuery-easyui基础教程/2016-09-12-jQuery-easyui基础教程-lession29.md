@@ -21,8 +21,9 @@ description:
   
 DataGrid以表格形式展示数据，并提供了丰富的选择、排序、分组和编辑数据的功能支持。DataGrid的设计用于缩短开发时间，并且使开发人员不需要具备特定的知识。它是轻量级的且功能丰富。单元格合并、多列标题、冻结列和页脚只是其中的一小部分功能。效果如下图：
 
-![image](http://i.imgur.com/EiUfd4H.png)
+![](/public/img/easyui-zq/29.1.png)
 
+*图29-01*
 
 ## 开发DataGrid程序
 
@@ -50,7 +51,9 @@ DataGrid以表格形式展示数据，并提供了丰富的选择、排序、分
  
 效果如下图：
 
-![image](http://i.imgur.com/EQWZTuj.png)
+![](/public/img/easyui-zq/29.2.png)
+
+*图29-02*
 
 ## 最佳实践：
 
@@ -548,8 +551,9 @@ $('#tt').datagrid({
 
 效果如下图：
 
-![image](http://i.imgur.com/tUsb37Z.png)
+![](/public/img/easyui-zq/29.3.png)
 
+*图29-03*
 
 ## DataGrid常用方法  
 
@@ -967,7 +971,9 @@ function getSelections() {
 
 效果如下图：
 
-![image](http://i.imgur.com/6xQ8sGv.png)
+![](/public/img/easyui-zq/29.4.png)
+
+*图29-04*
 
 ## 添加工具栏
 
@@ -1018,8 +1024,9 @@ function doSearch(){
 
 效果如下图：
 
-![image](http://i.imgur.com/GxEY734.png)
+![](/public/img/easyui-zq/29.5.png)
 
+*图29-05*
 
 以上便是数据表格的基本操作。
 
