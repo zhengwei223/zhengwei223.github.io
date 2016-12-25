@@ -21,7 +21,9 @@ description:
   
 窗口控件是一个浮动和可拖拽的面板可以用作应用程序窗口。默认情况下,窗口可以移动,调整大小和关闭。它的内容也可以被定义为静态html或要么通过ajax动态加载。效果如图：
 
-![image](http://i.imgur.com/UI6EBW9.png)
+![](/public/img/easyui-zq/18.1.png)
+
+*图18-01*
 
 ## 开发Window程序
 
@@ -35,8 +37,9 @@ description:
 
 效果如下图：  
 
-![image](http://i.imgur.com/vpZHh5o.png)
+![](/public/img/easyui-zq/18.2.png)
 
+*图18-02*
 
 ## Window常用属性
 
@@ -181,8 +184,9 @@ description:
 
 效果如下图：
 
-![image](http://i.imgur.com/ZqkNuG3.png)
+![](/public/img/easyui-zq/18.3.png)
 
+*图18-03*
 
 案例二：  
 
@@ -255,14 +259,17 @@ JS代码：
 
 效果如下图：
 
-![image](http://i.imgur.com/pRwqTro.png)
+![](/public/img/easyui-zq/18.4.png)
 
+*图18-04*
 
 案例三：  
 
 Tree的最后一个案例结合window,实现如下效果：  
 
-![image](http://i.imgur.com/PGXFgQD.png)
+![](/public/img/easyui-zq/18.5.png)
+
+*图18-05*
 
 代码如下：
 

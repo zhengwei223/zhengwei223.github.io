@@ -23,7 +23,9 @@ description:
   
 EasyUI的Draggable控件可以帮助我们快速的开发可以拖拽的页面，用户使用起来会更加的方便快捷。效果如图：
 
-![image](http://i.imgur.com/6pW99ob.png)  
+![](/public/img/easyui-zq/3.1.png)
+
+*图3-01*
 
 ## 开发Draggable程序
 
@@ -35,7 +37,9 @@ EasyUI的Draggable控件可以帮助我们快速的开发可以拖拽的页面�
 
 只需要简单的给HTML标签添加一个指定的class样式即可创建一个可拖拽的控件。效果如下图：
 
-![image](http://i.imgur.com/z9rBhuz.png)
+![](/public/img/easyui-zq/3.2.png)
+
+*图3-02*
 
 **这是一种最简单的实现方式，拖动图片时原位置则不再有图片 。**   
 
@@ -70,7 +74,9 @@ $('#image2').draggable({
 
 效果如下：
 
-![image](http://i.imgur.com/E9E82EE.png)
+![](/public/img/easyui-zq/3.3.png)
+
+*图3-03*
 
 ##### 方式三：拖动图片时显示自定义内容。
 
@@ -90,7 +96,9 @@ $('#image3').draggable({
 
 效果如下：
 
-![image](http://i.imgur.com/o7eBN5r.png)
+![](/public/img/easyui-zq/3.4.png)
+
+*图3-04*
 
 ## Drappable常用属性
 
@@ -183,7 +191,9 @@ $('#image3').draggable({
 
 效果如下：
 
-![image](http://i.imgur.com/ZjfZekc.png)
+![](/public/img/easyui-zq/3.5.png)
+
+*图3-05*
 
 ## Draggable常用方法  
 
@@ -260,9 +270,13 @@ EasyUI的Droppable控件用于定义可以接受哪些拖动的控件。
 
 效果如下：
 
-![image](http://i.imgur.com/nzwysgt.png)
+![](/public/img/easyui-zq/3.6.png)
 
-![image](http://i.imgur.com/wyg0V6l.png)
+*图3-06*
+
+![](/public/img/easyui-zq/3.7.png)
+
+*图3-07*
  
 Tip：只有当d1,d3拖动到dd中时才会触发onDrop事件，即dd中文字的颜色才会变成红色。
 
@@ -347,9 +361,13 @@ $( "#dd" ).droppable({
 
 效果如下：
 
-![image](http://i.imgur.com/RnaKXnM.png)
+![](/public/img/easyui-zq/3.8.png)
 
-![image](http://i.imgur.com/r3RGJAo.png)
+*图3-08*
+
+![](/public/img/easyui-zq/3.9.png)
+
+*图3-09*
 
 案例二：  
 
@@ -399,7 +417,9 @@ $( "#dd" ).droppable({
 
 效果如下：
 
-![image](http://i.imgur.com/c2i4hWD.png)
+![](/public/img/easyui-zq/3.10.png)
+
+*图3-10*
 
 以上便是Draggable和Droppable的基本用法。
 

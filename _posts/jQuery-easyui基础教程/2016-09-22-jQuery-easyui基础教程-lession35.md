@@ -20,8 +20,9 @@ description:
 
 树形网格（TreeGrid）组件从数据网格（DataGrid）继承，但是允许在行之间存在父/子节点关系。许多属性继承至数据网格（DataGrid），可以用在树形网格（TreeGrid）中。为了使用树形网格（TreeGrid），用户必须定义 'treeField' 属性，指明哪个字段作为树节点。效果如下图：
 
-![image](http://i.imgur.com/kXRPG3l.png)
+![](/public/img/easyui-zq/35.1.png)
 
+*图35-01*
 
 ## 开发TreeGrid程序
 
@@ -420,8 +421,9 @@ description:
 
 效果如下图：
 
-![image](http://i.imgur.com/YLtV5cW.png)
+![](/public/img/easyui-zq/35.2.png)
 
+*图35-02*
 
 以上便是树型网络的基本用法。
 

@@ -21,7 +21,9 @@ description:
   
 使用Layout控件可以简单、快速的为后台管理系统的页面布局。布局容器有5个区域：北、南、东、西和中间。中间区域面板是必须的，边缘的面板都是可选的。每个边缘区域面板都可以通过拖拽其边框改变大小，也可以点击折叠按钮将面板折叠起来。布局可以进行嵌套，用户可以通过组合布局构建复杂的布局结构。效果如图：
 
-![image](http://i.imgur.com/u1z2j0y.png) 
+![](/public/img/easyui-zq/9.1.png)
+
+*图9-01*
 
 ## 开发Layout程序
 
@@ -188,7 +190,9 @@ able-striped table-condensed">
 
 效果如下图：
 
-![image](http://i.imgur.com/X1k5360.png)
+![](/public/img/easyui-zq/9.2.png)
+
+*图9-02*
 
 **JS代码这样编写：**
 
@@ -206,9 +210,13 @@ $southPanel.panel({
 
 效果如下图：
 
-![image](http://i.imgur.com/GTSlSGg.png)
+![](/public/img/easyui-zq/9.3.png)
 
-![image](http://i.imgur.com/VgwkoQa.png)
+*图9-03*
+
+![](/public/img/easyui-zq/9.4.png)
+
+*图9-04*
 
 ## Layout常用方法  
 
@@ -273,7 +281,9 @@ $('body').layout('add',{
 
 效果如下图：
 
-![image](http://i.imgur.com/IJVG0JD.png)
+![](/public/img/easyui-zq/9.5.png)
+
+*图9-05*
 
 以上便是Layout的基本用法。
 

@@ -21,8 +21,9 @@ description:
   
 滑动条允许用户从一个有限的范围内选择一个数值。当滑块控件沿着轨道移动的时候，将会显示一个提示来表示当前值。用户可以通过设置其属性自定义滑块。效果如下图：
 
-![image](http://i.imgur.com/PMcsd38.png)
+![](/public/img/easyui-zq/28.1.png)
 
+*图28-01*
 
 ## 开发Slider程序
 
@@ -34,8 +35,9 @@ description:
  
 效果如下图：
 
-![image](http://i.imgur.com/TpTAOD4.png)
+![](/public/img/easyui-zq/28.2.png)
 
+*图28-02*
 
 ## Slider常用属性  
 
@@ -152,8 +154,9 @@ $("#input1").slider({
 
 效果如下图：
 
-![image](http://i.imgur.com/lgqoJM3.png)
+![](/public/img/easyui-zq/28.3.png)
 
+*图28-03*
 
 ## Slider常用方法  
 

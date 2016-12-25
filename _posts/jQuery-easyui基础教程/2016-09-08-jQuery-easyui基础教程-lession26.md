@@ -22,8 +22,9 @@ description:
   
 日期输入框结合了一个可编辑的文本框控件和允许用户选择日期的下拉日历面板控件。选择的日期会自动转变为一个有效的日期然后填充到文本框中。选定的日期也可以被格式化为预定格式。效果如下图：
 
-![image](http://i.imgur.com/yzya3CE.png)
+![](/public/img/easyui-zq/26.1.png)
 
+*图26-01*
 
 ## 开发DateBox程序
 
@@ -165,8 +166,9 @@ description:
 
 效果如下图：
 
-![image](http://i.imgur.com/aBa9n3J.png)
+![](/public/img/easyui-zq/26.2.png)
 
+*图26-02*
 
 ## 案例二：设置日期范围
 
@@ -193,7 +195,9 @@ description:
 
 效果如下图：
 
-![image](http://i.imgur.com/6YIjF7l.png)
+![](/public/img/easyui-zq/26.3.png)
+
+*图26-03*
 
 ## 案例三： 修改日期样式
 
@@ -252,8 +256,9 @@ description:
 
 下拉列表框显示一个可编辑文本框和下拉式列表，用户可以选择一个值或多个值。用户可以直接输入文本到列表顶部或选择一个或多个当前列表中的值。效果如下图：
 
-![image](http://i.imgur.com/fhRhbjK.png)
+![](/public/img/easyui-zq/26.4.png)
 
+*图26-04*
 
 ## 开发DateTimeBox程序  
 
@@ -402,8 +407,9 @@ description:
   
 日历控件显示一个月的日历，允许用户选择日期和移动到下一个或上一个月。默认情况下，一周的第一天是周日。它可以通过设置'firstDay'属性的值来更改设置。效果如下图：
 
-![image](http://i.imgur.com/q01fJVh.png)
+![](/public/img/easyui-zq/26.5.png)
 
+*图26-05*
 
 ## 开发Calendar程序
 
@@ -577,8 +583,9 @@ $("#cc").calendar({
 
 效果如下图：
 
-![image](http://i.imgur.com/xnOv6Da.png)
+![](/public/img/easyui-zq/26.6.png)
 
+*图26-06*
 
 ## 最佳实践
 

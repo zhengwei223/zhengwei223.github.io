@@ -21,7 +21,9 @@ description:
   
 当用户将鼠标移动到元素上的时候，将会显示一个消息提示框。提示框的内容可以是页面中任何一个HTML元素或者通过Ajax发送后台请求以获取提示框内容。效果如图：
 
-![image](http://i.imgur.com/XaCmQCt.png) 
+![](/public/img/easyui-zq/8.1.png)
+
+*图8-01*
 
 ## 开发Tooltip程序
 
@@ -33,7 +35,9 @@ description:
 
 只需要简单的给```<a>```标签添加一个指定的class样式即有提示框的效果。效果如下图：
 
-![image](http://i.imgur.com/R9lOTPe.png)
+![](/public/img/easyui-zq/8.2.png)
+
+*图8-02*
 
 ## Tooltip常用属性
 
@@ -218,8 +222,9 @@ $('#dd').tooltip({
 
 效果如下图：
 
-![image](http://i.imgur.com/SVhKKlP.png)
+![](/public/img/easyui-zq/8.3.png)
 
+*图8-03*
 
 以上便是Tooltip的基本用法。
 

@@ -21,8 +21,9 @@ description:
   
 微调控件结合了一个可编辑文本框和2个小按钮让用户选择一个值的范围。和下拉列表框类似，微调控件允许用户输入值，但是没有下拉列表。微调控件是创建其他高级微调控件的基础控件，比如：numberspinner, timespinner等。**Spinner并不是学习的重点，只是为后续的NumberSpinner、TimeSpinner及DateTimeSpinner打基础。大家简单了解即可。**效果如下图：
 
-![image](http://i.imgur.com/unQX9RK.png)
+![](/public/img/easyui-zq/27.1.png)
 
+*图27-01*
 
 ## 开发Spinner程序
 
@@ -196,8 +197,9 @@ description:
   
 数字微调控件的创建是基于微调控件和数值输入框控件的，允许用户使用上/下微调按钮调整到用户的期望值。效果如下图：
 
-![image](http://i.imgur.com/JCPKJtq.png)
+![](/public/img/easyui-zq/27.2.png)
 
+*图27-02*
 
 ## 开发NumberSpinner程序
 
@@ -209,8 +211,9 @@ description:
  
 该数值输入框不允许输入，只能通过上/下微调按钮调整数值。效果如下图：
 
-![image](http://i.imgur.com/kxLsBaI.png)
+![](/public/img/easyui-zq/27.3.png)
 
+*图27-03*
 
 ## NumberSpinner常用属性  
 
@@ -274,8 +277,9 @@ $("#input1").numberspinner({
 
 时间微调组件的创建基于微调组件。它和数字微调类似，但是显示的时间值。时间微调组件允许用户点击组件右侧的小按钮来增加或减少时间。效果如下图：
 
-![image](http://i.imgur.com/n46TMyQ.png)
+![](/public/img/easyui-zq/27.4.png)
 
+*图27-04*
 
 ## 开发TimeSpinner程序  
 
@@ -402,8 +406,9 @@ $("#input1").timespinner({
 
 时间微调组件的创建基于微调组件。它和数字微调类似，但是显示的时间值。时间微调组件允许用户点击组件右侧的小按钮来增加或减少时间。效果如下图：
 
-![image](http://i.imgur.com/yYdSTvY.png)
+![](/public/img/easyui-zq/27.5.png)
 
+*图27-05*
 
 ## 开发DateTimeSpinner程序  
 
