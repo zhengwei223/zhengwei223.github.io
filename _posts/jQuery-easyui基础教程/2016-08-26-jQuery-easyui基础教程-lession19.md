@@ -21,7 +21,9 @@ description:
   
 消息窗口提供了不同的消息框风格，包含alert(警告框), confirm(确认框), prompt(提示框), progress(进度框)等。所有的消息框都是异步的。用户可以在交互消息之后使用回调函数去处理结果或做一些自己需要处理的事情。效果如图：
 
-![image](http://i.imgur.com/V8nVwA6.png)
+![](/public/img/easyui-zq/19.1.png)
+
+*图19-01*
 
 ### 开发Messager程序
 
@@ -33,8 +35,9 @@ $.messager.alert('警告','警告消息');
 
 效果如图：
 
-![image](http://i.imgur.com/85pXH3y.png)
+![](/public/img/easyui-zq/19.2.png)
 
+*图19-02*
 
 ### Messager常用属性
 
@@ -123,7 +126,9 @@ $.messager.show({
 
 效果如下图：
 
-![image](http://i.imgur.com/Rp3UaUu.png)
+![](/public/img/easyui-zq/19.3.png)
+
+*图19-03*
 
 Tip:在屏幕右下角显示一条消息窗口。该选项参数是一个可配置的对象：  
 showType：定义将如何显示该消息。可用值有：null,slide,fade,show。默认：slide。  
@@ -147,7 +152,9 @@ $.messager.alert('我的消息','这是一个提示信息！','info');
 
 效果如下图：
 
-![image](http://i.imgur.com/9PVl1ZZ.png)
+![](/public/img/easyui-zq/19.4.png)
+
+*图19-04*
 
 Tip:显示警告窗口。参数：  
 title：在头部面板显示的标题文本。  
@@ -171,7 +178,9 @@ $.messager.confirm('确认','您确认想要删除记录吗？',function(r){
 
 效果如下图：
 
-![image](http://i.imgur.com/DMqox3k.png)
+![](/public/img/easyui-zq/19.5.png)
+
+*图19-05*
 
 Tip:显示一个包含“确定”和“取消”按钮的确认消息窗口。参数：  
 title：在头部面板显示的标题文本。  
@@ -194,7 +203,9 @@ $.messager.prompt('提示信息', '请输入你的姓名：', function(r){
 
 效果如下图：
 
-![image](http://i.imgur.com/UEn7Hoc.png)
+![](/public/img/easyui-zq/19.6.png)
+
+*图19-06*
 
 Tip:显示一个用户可以输入文本的并且带“确定”和“取消”按钮的消息窗体。参数：  
 title：在头部面板显示的标题文本。  
@@ -213,7 +224,9 @@ $.messager.progress();
 
 效果如下图：
 
-![image](http://i.imgur.com/YuyFP87.png)
+![](/public/img/easyui-zq/19.7.png)
+
+*图19-07*
 
 Tip:显示一个进度消息窗体。  
 属性定义为：   

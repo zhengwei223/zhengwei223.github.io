@@ -81,7 +81,9 @@ $(function() {
 
 效果如下：
 
-![image](http://i.imgur.com/aYz4dj6.png)
+![](/public/img/easyui-zq/34.1.png)
+
+*图34-01*
 
 **参考代码:[34/datagrid13.html](https://coding.net/u/lanqiao/p/easyuiDemo/git/blob/master/34/datagrid13.html)**
 

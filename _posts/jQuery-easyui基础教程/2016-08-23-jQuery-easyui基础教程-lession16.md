@@ -21,7 +21,9 @@ description:
   
 按钮组件使用超链接按钮创建。它使用一个普通的```<a>```标签进行展示。它可以同时显示一个图标和文本,或只有图标或文字。按钮的宽度可以动态和折叠/展开以适应它的文本标签。效果如图：
 
-![image](http://i.imgur.com/Sdd0Tr4.png)
+![](/public/img/easyui-zq/16.1.png)
+
+*图16-01*
 
 ## LinkButton程序
 
@@ -41,8 +43,9 @@ $(function(){
 
 效果如下图：
 
-![image](http://i.imgur.com/lHJQCaW.png)
+![](/public/img/easyui-zq/16.2.png)
 
+*图16-02*
 
 ## LinkButton常用属性
 
@@ -206,7 +209,9 @@ function myBtn(){
   
 菜单按钮是下拉菜单的一部分。它伴随着linkbutton和menu组件。在用户点击linkbutton之前菜单是隐藏的，当用户用鼠标点击或移动到linkbutton上面的时候菜单才会显示。 效果如图：
 
-![image](http://i.imgur.com/QJbJvWO.png)
+![](/public/img/easyui-zq/16.3.png)
+
+*图16-03*
 
 ## MenuButton程序
 
@@ -315,7 +320,9 @@ function myBtn(){
   
 类似菜单按钮，分割按钮也与linkbutton和菜单有关系。menubutton和splitbutton之间的区别是,splitbutton分为两部分。它只会在鼠标移动到splitbutton按钮右边的时候才会显示出“分割线”。效果如图：
 
-![image](http://i.imgur.com/Y91qCju.png)
+![](/public/img/easyui-zq/16.4.png)
+
+*图16-04*
 
 ## SplitButton程序
 
@@ -449,8 +456,9 @@ function myBtn(){
 
 效果如下图：
 
-![image](http://i.imgur.com/bRyvtZ3.png)
+![](/public/img/easyui-zq/16.5.png)
 
+*图16-05*
 
 # SwitchButton
 
@@ -459,7 +467,9 @@ function myBtn(){
   
 用在"form"表单中的开关按钮。按钮有2个状态：“开”和“关”，用户可以点击或轻敲来切换，标签状态是可定制的。效果如图：
 
-![image](http://i.imgur.com/xsvhn61.png)
+![](/public/img/easyui-zq/16.6.png)
+
+*图16-06*
 
 ## SwitchButton程序
 

@@ -21,7 +21,9 @@ description:
   
 分类空间允许用户使用多面板，但在同一时间只会显示一个。每个面板都内建支持展开和折叠功能。点击一个面板的标题将会展开或折叠面板主体。面板内容可以通过指定的```href```属性使用ajax方式读取面板内容。用户可以定义一个被默认选中的面板，如果未指定，那么第一个面板就是默认的。效果如图：
 
-![image](http://i.imgur.com/cJZEgtY.png) 
+![](/public/img/easyui-zq/11.1.png)
+
+*图11-01*
 
 ## 开发Accordion程序
 
@@ -246,7 +248,9 @@ function add(){
 
 效果如下图所示:
 
-![image](http://i.imgur.com/kQpccQh.png)
+![](/public/img/easyui-zq/11.2.png)
+
+*图11-02*
 
 代码如下：
 

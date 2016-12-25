@@ -21,7 +21,9 @@ description:
   
 选项卡显示一批面板。但在同一个时间只会显示一个面板。每个选项卡面板都有头标题和一些小的按钮工具菜单，包括关闭按钮和其他自定义按钮。效果如图：
 
-![image](http://i.imgur.com/0jaIL77.png)
+![](/public/img/easyui-zq/12.1.png)
+
+*图12-01*
 
 ## 开发Tabs程序
 
@@ -41,8 +43,9 @@ description:
 
 效果如下图所示：
 
-![image](http://i.imgur.com/L7A7WvS.png)
+![](/public/img/easyui-zq/12.2.png)
 
+*图12-02*
 
 ## Tabs常用属性
 
@@ -277,14 +280,17 @@ $('#tt').tabs({
 
 当选中某一个选项卡时，会弹出对应的标题。效果如图：
 
-![image](http://i.imgur.com/f0Zjg61.png)
+![](/public/img/easyui-zq/12.3.png)
 
+*图12-03*
 
 ##### 案例二：
 
 模拟蓝桥邮箱系统,当点击‘已发送’时，如果选项卡中已经存在‘已发送’，则显示该选项卡中的内容，否则新建‘已发送’选项卡，并显示对应的内容。实现如下效果：
 
-![image](http://i.imgur.com/16es7rv.png)
+![](/public/img/easyui-zq/12.4.png)
+
+*图12-04*
 
 HTML代码：
 

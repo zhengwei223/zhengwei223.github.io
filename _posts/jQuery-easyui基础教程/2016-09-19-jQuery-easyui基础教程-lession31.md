@@ -22,7 +22,9 @@ description:
 
 访问[EasyUI官网](http://www.jeasyui.com/extension/downloads/jquery-easyui-edatagrid.zip)下载。效果如下图：
 
-![image](http://i.imgur.com/ImRKhZ2.png)
+![](/public/img/easyui-zq/31.1.png)
+
+*图31-01*
 
 ## Editable DataGrid常用属性  
 
@@ -313,11 +315,17 @@ function formatDate(val,row){
 
 效果如下：
 
-![image](http://i.imgur.com/eLGpRA2.png)
+![](/public/img/easyui-zq/31.2.png)
 
-![image](http://i.imgur.com/JnVkcPh.png)
+*图31-02*
 
-![image](http://i.imgur.com/srXzaDU.png)
+![](/public/img/easyui-zq/31.3.png)
+
+*图31-03*
+
+![](/public/img/easyui-zq/31.4.png)
+
+*图31-04*
 
 Tip:**语境菜单**如上图所示。右键单击某一列的标题，会出现如下菜单，可以动态控制显示哪些列。
 

@@ -21,8 +21,9 @@ description:
 
 面板作为承载其它内容的容器。这是构建其他组件的基础（比如：layout,tabs,accordion等）。它还提供了折叠、关闭、最大化、最小化和自定义行为。面板可以很容易地嵌入到web页面的任何位置。效果如图：
 
-![image](http://i.imgur.com/RAlN8eS.png)
+![](/public/img/easyui-zq/13.1.png)
 
+*图13-01*
 
 ## 开发Panel程序
 
@@ -229,8 +230,9 @@ description:
 
 效果如图：
 
-![image](http://i.imgur.com/jUfKO37.png)
+![](/public/img/easyui-zq/13.2.png)
 
+*图13-02*
 
 ## Panel常用方法  
 
@@ -465,8 +467,9 @@ $('#p').panel({
 
 效果如图：
 
-![image](http://i.imgur.com/4vtqina.png)
+![](/public/img/easyui-zq/13.3.png)
 
+*图13-03*
 
 以上便是Panel的基本用法。
 

@@ -21,7 +21,9 @@ description:
   
 实现如下效果：
 
-![image](http://i.imgur.com/KKMNcWN.png) 
+![](/public/img/easyui-zq/10.1.png)
+
+*图10-01*
 
 代码如下：
 
@@ -47,14 +49,17 @@ description:
 
 实现效果如下：
 
-![image](http://i.imgur.com/hIPdYD0.png) 
+![](/public/img/easyui-zq/10.2.png)
 
+*图10-02*
 
 ## 案例二：
 
 实现如下效果：
 
-![image](http://i.imgur.com/cGsM8ub.png) 
+![](/public/img/easyui-zq/10.3.png)
+
+*图10-03*
 
 CSS代码如下：
 

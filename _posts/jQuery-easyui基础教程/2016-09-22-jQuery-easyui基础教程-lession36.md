@@ -21,7 +21,9 @@ description:
   
 下拉数据网格（Combogrid）组件和下拉框（Combobox）组件的共同点是，除了都具有下拉面板以外，它们都是基于数据网格（Datagrid）的。 下拉数据网格（Combogrid）组件可以过滤、分页，并具有其他一些数据网格（Datagrid）的功能。 效果如下图：
 
-![image](http://i.imgur.com/5eodkJI.png)
+![](/public/img/easyui-zq/36.1.png)
+
+*图36-01*
 
 ## 开发ComboGrid程序
 

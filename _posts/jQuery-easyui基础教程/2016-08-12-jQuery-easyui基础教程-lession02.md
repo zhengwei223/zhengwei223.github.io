@@ -21,7 +21,9 @@ description:
 
 对话框是一种特殊类型的窗口，在现在的系统中使用越来越多。如，添加，修改，删除的提示等功能，使用对话框更加贴近用户的要求，开发人员开发程序也更加简单。它在顶部有一个工具栏，在底部有一个按钮栏。对话框窗口右上角只有一个关闭按钮，用户可以配置对话框的行为来显示其他工具，如collapsible,minimizable,maximizable工具等。默认情况下，对话框（Dialog）不能改变大小，但是用户可以设置resizable属性为true，使其可以改变大小。 效果如下图：
 
-![image](http://i.imgur.com/XmddMrE.png)
+![](/public/img/easyui-zq/2.1.png)
+
+*图2-01*
 
 ## 开发Dialog程序
 
@@ -240,8 +242,9 @@ Tip: Dialog所需的属性可以类似于以上代码放到data-options属性中
 
 效果如下：  
 
-![image](http://i.imgur.com/XB52TZF.png)  
+![](/public/img/easyui-zq/2.2.png)
 
+*图2-02*
 
 ## Dialog常用方法  
 
