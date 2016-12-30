@@ -1600,88 +1600,152 @@ getAttribute("loginName");
 
 # 2.3本章练习
 
+
+
 **一、选择题**
 
-1  下列选项中，（    ）不是HTTP协议的特点。（选择一项）
+1.	下列关于HTTP响应中状态码的描述，错误的是（    ）。（选择一项）
+A．3xx表示重定向，表示需要客户端采取进一步的操作才能完成请求
+B．2xx表示成功，表示请求已被成功接收、理解、接受
+C．4xx表示客户端错误，请求有语法错误或请求无法实现
+D．5xx表示数据库端错误，服务器未能实现合法的请求
 
-A．简单快速
+2.	下列（    ）方法可以获取请求的字符编码方式。（选择一项）
+A．request.getCharacterEncoding()
+B．request.getProtocol()
+C．request.getRequestURI()
+D．request.getQueryString()
 
-B．支持C/S模式
+3.	请求转发的forward(request,response)方法是（    ）的方法。（选择一项）
+A．request对象
+B．response对象
+C．RequestDispatcher对象
+D．session对象
 
-C．持久连接
+4.	下列（    ）不是JSP九大内置对象之一。（选择一项）
+A．out对象
+B．exception对象
+C．cookie对象
+D．session对象
 
-D．无状态
+5.	<%page language="java" import="java.util.ArrayList;java.sql.*" contentType="text/html; charset=UTF-8" %>
+以上指令共存在（）处错误。
+A:1
+B:2
+C:3
+D:4
 
-2  一个HTTP请求的请求行包括（    ）。（选择三项）
+以下page指令的描述中，正确的是（）。
+A:可以通过<%@page include="java.util.*"%>导入java.util下所有的类
+B:可以通过<%@page include="java.util.Date;java.util"%>导入java.util下所有的类
+C:可以通过<%@page contentType="text/html;charset=UTF-8"%>设置页面编码为UTF-8
+D:可以通过<%@page version="1.6"%>指定采用什么版本的jdk编译页面
 
-A．方法字段
+以下JSP代码的运行结果是（）。
+A:i8
+B:88
+C:16
+D:编译错误
 
-B．URL字段
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%
+	out.println("hello lanqiao");
+%>
+对于以上代码，描述正确的是（）。
+A:此段代码没有错误，能够正确向页面打印出“hello，lanqiao！”
+B:此段代码没有错误，但是不向页面输出任何语句
+C:此段代码缺少引用，应该在page指令中添加import="java.util.*"
+D:此段代码存在错误，应改为：response.out.println("hello，lanqiao！");
 
-C．HTTP版本字段
+<%@ page ___="text/html; ___=UTF-8"%>
+使用page指令设置页面的字符集，横线处应填写（）。
+A:content_Type、charsetEncoding
+B:contentType、charset
+C:type、charset
+D:contentType、pageEncoding
 
-D．参数名和参数值
+<%
+	for(int i=0;i<5;i++)
+	{
+	    out.println("*");
+	}
+%>
+以上JSP代码的运行结果是：
+A:
+* * * * *
+B:
+*
+*
+*
+*
+*
+C:编译错误
+D:
+*
+ *
+  *
+   *
+    *
 
-3  下列关于HTTP响应中状态码的描述，错误的是（    ）。（选择一项）
+<% ing num = 10 ;%>这段代码在JSP中称为（）。
+A:小脚本
+B:表达式
+C:JSP注释
+D:JSP指令
 
-A．3**表示重定向，表示需要客户端采取进一步的操作才能完成请求
+<%
+	int[] scores = new int[2]{89,87};
+%>
+最高分：<% Math.max(scores[0],scores[1]) %><br/>
+最低分：<% out.print(Math.min(scores[0],scores[1])) %><br/>
+以上代码共有（）处错误。
+A:1
+B:2
+C:3
+D:4
 
-B．2**表示成功，表示请求已被成功接收、理解、接受
 
-C．4**表示客户端错误，请求有语法错误或请求无法实现
-
-D．5**表示数据库端错误，服务器未能实现合法的请求
-
-
-4  下列（    ）方法可以获取请求的字符编码方式。（选择一项）
-
-A．`request.getCharacterEncoding()`
-
-B．`request.getProtocol()`
-
-C．`request.getRequestURI()`
-
-D．`request.getQueryString()`
-
-5  请求转发的`forward(request,response)`方法是（    ）的方法。（选择一项）
-
-A．`request`对象
-
-B．`response`对象
-
-C．`RequestDispatcher`对象
-
-D．`session`对象
-
-6  下列（    ）不是JSP九大内置对象之一。（选择一项）
-
-A．`out`对象
-
-B．`exception`对象
-
-C．`cookie`对象
-
-D．`session`对象
+以下（）不是JSP页面的page指令。
+A:language="java"
+B:import="java.util.*"
+C:http-equiv="keywords"
+D:contentType="text/html; charset=UTF-8"
 
 **二、简答题**
 
-1.JSP中有几种Scriptlet，各自的作用是什么？（难度★）
+1.	JSP中有几种Scriptlet，各自的作用是什么？ 
+2.	JSP中有几种注释，各有什么特点？ 
+3.	对于GET请求和POST请求，各如何设置编码？ 
+4.	简述pageContext、request、session、application等四个内置对象的作用域范围。
+5.	简述请求转发与重定向的区别。
+6.	如何更改Tomcat端口号。
+7.	简述Session和Cookie的区别。
+8.	什么情况下会造成“表单重复提交”？如何解决？
+三、编程题
+1.	在一个JSP中提供一组复选框，可以让用户选择自己喜爱的水果，提交后，在另一个JSP页面输出用户的所有选择项。
+2.	在index.jsp中编写两个输入框，用于接收用户输入的两个数，然后通过表单提交跳转到result.jsp。再在result.jsp中比较判断出较大的数字，并显示。
+3.	实现以下表单，并在用户单击“注册”后，在另一个JSP中获取各个表单元素的值： 
+4.	<a href="showStudents.jsp?page=2&size=10">学生信息</a>，获取超链接中的page、size参数值。
+5.	demo01.jsp的部分内容如下：
+<body>
+	<%
+		Student stu = new Student("张三",23);
+		...
+	%>
+</body>
+将demo01.jsp中的stu对象传递到demo02.jsp。
+6.	实现登陆功能，要求：在客户端保存用户名，在服务端保存登录信息。
+7.	禁止从外部网站提交数据（即服务端只接受本项目中传来的数据）。
+8.	（1）实现以下功能的网页记录器：
+ 
+9.	（2）实现IP计数器，如下：
+ 
 
-2.JSP中有几种注释，各有什么特点？（难度★）
+10.	统计用户在站点的停留时间，如下：
+ 
 
-3.对于`GET`请求和`POST`请求，各如何设置编码？（难度★★）
 
-4.简述`pageContext`、`request`、`session`、`application`等四个内置对象的作用域范围（难度★★）。
 
-5.在**index.jsp**中编写两个输入框，用于接收用户输入的两个数，然后通过表单提交跳转到**result.jsp**。再在**result.jsp**中比较判断出较大的数字，并显示（难度★★）。
-
-6.简述请求转发与重定向的区别（难度★★★）。
-
-7.在一个JSP中提供一组复选框，可以让用户选择自己喜爱的水果，提交后，在另一个JSP页面输出用户的所有选择项（难度★★★）。
-
-8.请描述如何更改Tomcat端口号（难度★）。
-
-9.请描述`Session`和`Cookie`的区别（难度★★★）。
 
 
 

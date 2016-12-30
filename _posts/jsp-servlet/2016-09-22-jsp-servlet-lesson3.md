@@ -1743,54 +1743,196 @@ getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE"
 # 3.5 练习题 #
 
 **一、选择题**
-
-1  在Eclipse的项目中，存放Web文件的默认目录名是（    ）。（选择一项）
-
-A．WebContent
-		
-B．WebRoot	
-		
-C．src		
-
-D．webapps
-
-2  在JDBC工作原理图中，下列（    ）层是数据库厂商提供的资源。（选择一项）
-
-A．Java应用程序		
-					
+1.	在Eclipse的项目中，存放Web文件的默认目录名是（    ）。（选择一项）
+A．WebContent		B．WebRoot			C．src			D．webapps
+2.	在JDBC工作原理图中，下列（    ）层是数据库厂商提供的资源。（选择一项）
+A．Java应用程序							
 B．JDBC API
-
-C．JDBC Driver Manager	
-				
+C．JDBC Driver Manager					
 D．JDBC驱动
+3.	下列（    ）方法是Statement对象获取查询结果集的方法。（选择一项）
+A．execute(String sql)						
+B．executeUpdate(String sql)
+C．executeQuery(String sql)					
+D．executeResultSet(String sql)
 
-3  下列（    ）方法是`Statement`对象获取查询结果集的方法。（选择一项）
+4.	关于PreparedStatement操作数据库的说法，错误的是（）。
+A:可以调用PreparedStatement接口提供的executeQuery()方法执行插入、删除、更新等操作
+B:需要通过Connection接口的prepareStatement(String sql)方法来创建PreparedStatement对象
+C:使用PreparedStatement提高了SQL语句的执行性能
+D:使用PreparedStatement可以避免SQL注入，提高了安全性
 
-A．`execute(String sql)`		
-				
-B．`executeUpdate(String sql)`
+5.	关于JDBC API说法错误的是（）。
+A:DriverManager类依据数据库的不同，管理相应的JDBC驱动
+B:Connection接口负责连接数据库并担任传送数据的任务
+C:PreparedStatement接口由Connection产生，负责执行SQL语句
+D:ResultSet负责保存和处理产生的增删改查结果
 
-C．`executeQuery(String sql)	`
-				
-D．`executeResultSet(String sql)`
+6.	在使用JDBC API实现查询数据时，执行过程中以下接口或类的使用顺序正确的是（）。
+（1）Connection
+（2）DriverManager
+（3）ResultSet
+（4）Statement
+A:（1）（2）（3）（4）
+B:（2）（1）（3）（4）
+C:（2）（1）（4）（3）
+D:（3）（2）（1）（4）
+
+7.	下列关于JavaBean的描述，正确的是（    ）。
+A．类可以是公有的，也可以是私有的
+B．具有公有的有参构造方法
+C．具有公有的访问属性的getter和setter方法
+D．属性名的前两个字母要么全部大写，要么全部小写
+
+
+8.	在Java中，Statement接口中包含很多基本的数据库操作方法，以下说法错误的是（）。
+A:ResultSet executeQuery(String sql):可以执行SQL语句并获取ResultSet对象
+B:boolean executeUpdate(String sql):可以执行插入、删除、更新等操作
+C:boolean execute(String sql):可以执行任意SQL语句，表示SQL语句是否执行成功
+D:int executeUpdate(String sql):可以执行插入、删除、更新等操作
+
+9.	在Java中，（）类的主要职责是依据不同数据库厂商提供的数据库来管理JDBC驱动程序。
+A:Statement
+B:Connection
+C:DriverManager
+D:ResultSet
+
+10.	以下关于JDBC说法正确的是（）。
+A:使用class.forName()方法将给定的JDBC驱动类先加载到Java虚拟机中
+B:DriverManager类调用getConn()方法，创建连接对象并返回引用
+C:PreparedStatement使用预编译语句，传入的任何数据都不会和已经预编译的SQL语句进行拼接，避免了SQL注入攻击
+D:释放资源时，要按先Connection，后Statement，最后ResultSet结果集的顺序关闭资源
+
+11.	JDBC中，查询结果保存在哪个对象中（）。
+A:ResultSet
+B:int
+C:Boolean
+D:Float
+
+12.	以下代码实现了查询班级学生中最高分的功能，横线处应填写（）。
+int maxScore = 0;
+...
+_____("oracle.jdbc.OracleDriver");
+Connection connection = DriverManager.getConnection(DRIVER, USERNAME, PASSWORD);
+String sql = "select max(score) from score" ;
+PreparedStatement pstmt = _____;
+ResultSet rs = pstmt.executeQuery();
+if(rs.ne)
+{
+    maxScore = _____ ;
+}
+...
+A:Class.forName、conn.prepareStatement()、rs.getInt(1)
+B:Class.forName、conn.prepareStatement(sql)、rs.getInt(1)
+C:Class.forName、conn.prepareStatement(sql)、rs.getInt(0)
+D:Class.forName、conn.prepareStatement()、rs.getString(0)
+
+13.	对于JavaBean的描述，错误的是（）。
+A:JavaBean对应于类的成员变量名xxx，获取及设置xxx的值的两个方法应为getXxx()和setXxx()
+B:JavaBean对于boolean类型的成员变量，允许使用is代替上面的get和set
+C:JavaBean中可以不声明任何构造函
+D:JavaBean必须实现Serializable接口
+
+14.	在JSP文件中，有如下代码：<jsp:userBean id=”user” scope=”____” type=”org.lanqiao.bean” />
+要使user对象一直存在于对话中，直至其终止或被删除位置，下划线处应填入（）。
+A:page
+B:request
+C:session
+D:application
+
+15.	下列哪个jsp标签用于得到一个javabean的属性（）。
+A:jsp:useBean
+B:jsp:useBean.property
+C:jsp:useBean.getProperty
+D:jsp: getProperty
+
+16.	有如下语句：<jsp:useBean id=”user” class=”org.lanqiao.entity.User” scope=”page” />要取出该javaBean的loginName属性值，以下语句正确的是（）。
+A:<jsp:getProperty name=”user” property=”loginName“/>
+B:<jsp:getProperty id=”user” property=”loginName”/>
+C:<%=user.getLoginName()%>
+D:<%=user.getProperty(“loginName”)%>
+
+17.	以下关于JavaBeand的描述，错误的是（）。
+A:JavaBean是公有的Java类，它可以重用
+B:JavaBean按功能可分为两类：封装数据和封装业务
+C:一个应用程序中只能有两个JavaBean
+D:JavaBean的属性私有，但具有公有的访问属性的getter和setter方法
+
+18.	以下关于JavaBeand的描述，正确的是（）。
+A:JavaBean的具体类可以不是public的
+B:JavaBean可以只提供一个带参数的构造器
+C:jsp:userBean可以向HTML标记一样不关闭
+D:JavaBean可以保存状态
+
+19.	在JavaBean中，使用<jsp:userBean>动作可以将JavaBean嵌入JSP页面，JavaBean的访问范围不能是（）。
+A:page
+B:request
+C:response
+D:application
+
+在JavaWeb中，JavaBean可以分为（）种。
+A:两
+B:三
+C:四
+D:一
+
+有以下JSP代码：
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<html>
+	<head>
+		<title>商品信息</title>
+	</head>
+	<body>
+		<jsp:useBean id="goodsBean" class="GoodsBean" scope="reqeust"></jsp:useBean>
+		品牌：____<br/>
+	</body>
+</html>
+20.	已知在GoodsBean中定义了一个brand属性及相应的setter和getter访问器，用于表示商品的品牌，下划线处应该填写（）。
+A:goodsBean.brand
+B:${goodsBean.brand}
+C:&{goodsBean.brand}
+D:{goodsBean ["brand"]}
+
+21.	在程序中使用JavaBean可以极大地方便我们进行代码编写。下面对JavaBean的描述中正确的是（）。
+A:javaBean可以是一个共有的类，也可以是一个私有的类
+B:一个javaBean中的方法全部是私有方法
+C:使用javaBean封装数据时，应当将属性设置为私有 
+D: 通过设置共有的get()方法来获取属性
+
 
 **二、简答题**
+1.	简述JDBC的基本步骤。
+2.	JavaBean有几种类型，各有什么作用？
+3.	简述Statement和PreparedStatement两种方式的区别。
+4.	描述什么是SQL注入，请用一个例子加以说明。
+5.	请描述如何在Eclipse中更改新建的JSP页面默认的字符集编码。
+6.	请描述JDBC连接数据库的步骤，并写出JDBC连接Oracle的示例代码。
+三、编程题
+1.	使用PreparedStatement的方式，实现一个“部门管理系统”：包括增加部门、修改部门、删除部门、根据部门编号查询一个部门、根据部门名称模糊查询相关部门、查询全部部门等功能。
+2.	将上题“部门管理系统”用JavaBean进行优化。
+3.	实现注册功能，并将“头像”以二进制形式写入数据库中，如图：
+ 
+4.	将上题中的所有注册信息，从数据库中读取，并以表格形式显示，如图 
+5.	实现上题中的“删除”和“修改”操作。其中“修改”操作具体为：单击用户名后，可以进入用户的详情页，并在该详情页修改信息（规定用户名不能修改），如图
+ 
+使用JavaBean实现以下功能，并将结果显示在JSP上：
+6.	小写金额转换成大写金额：在页面输入数字格式的金额，点击转换后显示对应的大写汉字，如图：
+ 
+7.	空格和回车的转换：用户在<textarea>元素中输入文本，点击提交后，将输入内容中的空格和回车转为JSP可以识别的&nbsp;和<br/>。
+8.	获取字符串的实际长度：英文、数字及英文符号占1位长度，中文及中文符号占2位长度。用户在<input>中输入文本内容，点击提交后，求文本的实际长度。
+9.	标题的截取：若文章的标题过长，则在文章列表中只显示标题的前60个字符，其余字符用“...”代替。
+10.	格式化数字为指定长度：输入整数值和长度值，点击“格式化”后，将该整数值格式化为指定长度的位数，如图：
+       
+11.	格式化数字为分位显示：输入整数值和分位数，点击“格式化”后，将该整数值分位显示，如图：
+    
+12.	获取汉字的拼音简码：输入汉字，点击提交后，显示各个汉字的首字母。
+13.	判断是否为数字：输入内容，点击提交后，判断输入的内容是否为数字。
+14.	计算两天之差：输入两个日期（字符串类型，如“2016-12-30”）， 点击提交后，显示两个日期相差的天数。
 
-1.简述JDBC的基本步骤。（难度★）
 
-2.JavaBean有几种类型，各有什么作用？（难度★★）
 
-3.简述Statement和PreparedStatement两种方式的区别。（难度★★）
 
-4.描述什么是SQL注入，请用一个例子加以说明。（难度★）
-
-5.请描述如何在Eclipse中更改新建的JSP页面默认的字符集编码。（难度★）
-
-6.请描述JDBC连接数据库的步骤，并写出JDBC连接Oracle的示例代码。（难度★★★）
-
-7.使用PreparedStatement的方式，实现一个“部门管理系统”：包括增加部门、修改部门、删除部门、根据部门编号查询一个部门、根据部门名称模糊查询相关部门、查询全部部门等功能。（难度★★★★）
-
-8.将上题“部门管理系统”用JavaBean进行优化。（难度★★★）
 
 
 
