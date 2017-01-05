@@ -2040,39 +2040,39 @@ D: 通过设置共有的get()方法来获取属性
 
 3.实现注册功能，并将“头像”以二进制形式写入数据库中，如图：
 
- ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.21.png)
+ ![](/public/img/jsp-yq/exercises/3/3.21.png)
 
 4.将上题中的所有注册信息，从数据库中读取，并以表格形式显示，如图 
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.22.png)
+![](/public/img/jsp-yq/exercises/3/3.22.png)
 
 5.实现上题中的“删除”和“修改”操作。要求：①在“删除”时防止“表单重复提交”；②“修改”操作具体为：单击用户名后，进入用户的详情页，并且可以在该详情页修改信息（规定用户名不能修改），如图
 
- ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.23.png)
+ ![](/public/img/jsp-yq/exercises/3/3.23.png)
 
 6.将选中的图片，以二进制形式保存在数据库中，如图。
 
- ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.24.png)
+ ![](/public/img/jsp-yq/exercises/3/3.24.png)
 
 7.通过调用存储过程，实现登录验证操作。
 
 8.通过调用存储过程，实现注册功能，如图。
 
- ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.25.png)
+ ![](/public/img/jsp-yq/exercises/3/3.25.png)
 
 9.将选中的邮件，批量移动至垃圾箱或彻底删除，如图。
  
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.26.png)
+![](/public/img/jsp-yq/exercises/3/3.26.png)
 
 10.开发能够“创建视图”的Web页面，如图。
  
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.27.png)
+![](/public/img/jsp-yq/exercises/3/3.27.png)
 
 使用JavaBean实现以下功能，并将结果显示在JSP上：
 
 11.小写金额转换成大写金额：在页面输入数字格式的金额，点击转换后显示对应的大写汉字，如图：
 
- ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.28.png)
+ ![](/public/img/jsp-yq/exercises/3/3.28.png)
 
 12.空格和回车的转换：用户在<textarea>元素中输入文本，点击提交后，将输入内容中的空格和回车转为JSP可以识别的&nbsp;和<br/>。
 
@@ -2082,13 +2082,13 @@ D: 通过设置共有的get()方法来获取属性
 
 15.格式化数字为指定长度：输入整数值和长度值，点击“格式化”后，将该整数值格式化为指定长度的位数，如图：
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.29.png)
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.30.png)
+![](/public/img/jsp-yq/exercises/3/3.29.png)
+![](/public/img/jsp-yq/exercises/3/3.30.png)
 
 16.格式化数字为分位显示：输入整数值和分位数，点击“格式化”后，将该整数值分位显示，如图：
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.31.png)   
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/3/3.32.png)   
+![](/public/img/jsp-yq/exercises/3/3.31.png)   
+![](/public/img/jsp-yq/exercises/3/3.32.png)   
 17.获取汉字的拼音简码：输入汉字，点击提交后，显示各个汉字的首字母。
 
 18.判断是否为数字：输入内容，点击提交后，判断输入的内容是否为数字。
