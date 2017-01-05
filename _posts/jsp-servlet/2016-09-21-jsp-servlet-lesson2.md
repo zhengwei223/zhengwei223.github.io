@@ -101,16 +101,27 @@ Eclipse生成的JSP文件中，除了典型的html元素外，还有很多其他
 ```
 <%!
      	public String bookName ;
+
          public String author ;
+
          public void initInfo()
+
          {
+
           	bookName ="蓝桥软件学院 JAVA EE核心技术实践";
+
 			author = "颜群" ;
+
          }
+
      %>
+
 	  <%
+
 	  		initInfo();
+
 			out.print("书名:"+bookName+"&lt;br/&gt;作者:"+author);
+
 	  %>
 ```
 
@@ -1728,7 +1739,7 @@ D:contentType、pageEncoding
 
 A:
 
-* * * * *
+\*&nbsp;\*&nbsp;\*&nbsp;\*&nbsp;\*&nbsp;
 
 B:
 
@@ -1748,13 +1759,13 @@ D:
 
 *
 
- *
+&nbsp;*
 
-  *
+&nbsp;&nbsp;*
 
-   *
+&nbsp;&nbsp;&nbsp;*
 
-    *
+&nbsp;&nbsp;&nbsp;&nbsp;*
 
 11
 
@@ -1841,20 +1852,18 @@ D.  response .sendRedirect();
 3.实现以下表单，并在用户单击“注册”后，在另一个JSP中获取各个表单元素的值： 
 
 ![](/public/img/jsp-yq/exercises/2/2.44.png)
-4.<a href="showStudents.jsp?page=2&size=10">学生信息</a>，获取超链接中的page、size参数值。
+
+4.&lt;a href="showStudents.jsp?page=2&size=10"&gt;学生信息&lt;/a&gt;，获取超链接中的page、size参数值。
 
 5.demo01.jsp的部分内容如下：
+```
 <body>
-
 	<%
-
 		Student stu = new Student("张三",23);
-
 		...
-
 	%>
-
 </body>
+```
 将demo01.jsp中的stu对象传递到demo02.jsp。
 
 6.实现登陆功能，要求：在客户端保存用户名，在服务端保存登录信息。
