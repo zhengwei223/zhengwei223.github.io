@@ -1840,7 +1840,7 @@ D.  response .sendRedirect();
 
 3.实现以下表单，并在用户单击“注册”后，在另一个JSP中获取各个表单元素的值： 
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/2/2.44.png)
+![](/public/img/jsp-yq/exercises/2/2.44.png)
 4.<a href="showStudents.jsp?page=2&size=10">学生信息</a>，获取超链接中的page、size参数值。
 
 5.demo01.jsp的部分内容如下：
@@ -1863,16 +1863,16 @@ D.  response .sendRedirect();
 
 8.（1）实现以下功能的网页记录器：
 
-![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/2/2.45.png)
+![](/public/img/jsp-yq/exercises/2/2.45.png)
  
 
 9.（2）实现IP计数器，如下：
 
- ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/2/2.46.png)
+ ![](/public/img/jsp-yq/exercises/2/2.46.png)
 
 统计用户在站点的停留时间，如下：
 
- ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/2/2.47.png)
+ ![](/public/img/jsp-yq/exercises/2/2.47.png)
 
 
 
