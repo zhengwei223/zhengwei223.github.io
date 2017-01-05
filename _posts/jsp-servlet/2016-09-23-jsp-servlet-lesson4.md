@@ -979,21 +979,21 @@ throws ServletException, IOException
 
 # 4.4练习题 #
 
-**一、选择题**
+一.选择题
 
 1  下列关于Servlet生命周期的描述，正确的是（    ）。（选择一项）
 
-A．Servlet生命周期依次包括：初始化、加载和实例化、处理请求和销毁
+A．Servlet生命周期依次包括：初始化.加载和实例化.处理请求和销毁
 
 B．默认情况下，在Servlet容器中配置好的Servlet会在Servlet容器启动的时候加载
-并实例化
+
 并实例化
 
 C．用户访问完一个Servlet，为了节省内存空间，该Servlet实例会立即销毁
 
-D．在Servlet初始化阶段，会调用`init()`方法进行初始化相关工作
+D．在Servlet初始化阶段，会调用init()方法进行初始化相关工作
 
-2  `GenericServlet`抽象类实现了（    ）。（选择两项）
+2  GenericServlet抽象类实现了（    ）。（选择两项）
 
 A．Servlet接口
 
@@ -1003,42 +1003,433 @@ C．ServletContext接口
 
 D．ServletRequest接口
 
-3  在JSP内置对象中，（    ）对象是实现了`ServletContext`接口的实例。（选择一项）
+3  在JSP内置对象中，（    ）对象是实现了ServletContext接口的实例。（选择一项）
 
-A．`page`
+A．page
 
-B．`request`
+B．request
 
-C．`session`
+C．session
 
-D．`application`
+D．application
 
-**二、简答题**
+4.下列是Servlet映射路径中的一些通配符，其中错误的是（  ）。
 
-1.简述Servlet2.5和Servlet3.0在实际使用中的不同之处。（难度★★）
+A、/abc/*.do    B./abc/*    C.*.do   D./*
+B、
+5.下面关于Servlet接口的说法中，哪些是正确的（  ）。（多选）
 
-2.简述Servlet的生命周期。（难度★★）
+A、	自定义一个Servlet类，它必须直接或间接实现Servlet接口。
+B、	
+C、	Servlet接口中定义了Servelt的生命周期方法。
+D、	
+E、	每访问一次Servlet程序，Servlet中的service()方法会被执行一次。
+F、	
+G、	在servlet的生命周期中，init()和destroy()方法只被调用一次。
+H、	
+6.下列关于ServletConfig对象的说法中，正确的是（  ）。
 
-3.如何使Servlet的`init()`方法在Web容器启动时自动执行？（难度★）
+A、	ServletConfig对象可以用来获取Servlet的配置信息。
+B、	
+C、	ServletConfig对象可以实现Servlet信息的共享。
+D、	
+E、	ServletConfig对象保存的信息是通过service()方法传递给Servlet的。
+F、	
+G、	ServletConfig对象可以读取web.xml文件中所有的信息。
+H、	
+7.下列关于ServletContext的说法中，错误的是（   ）。
 
-4.如何给Web容器和具体的Servlet设置初始化参数并获取？（难度★★）
+A、	ServletContext对象用来保存当前Web应用中的所有信息。
+B、	
+C、	在一个Web应用中可以有多个ServletContext对象。
+D、	
+E、	ServletContext接口封装了获取当前Web应用中资源文件的方法。
+F、	
+G、	ServletContext对象中保存的属性可以被Web应用中的所有Servlet访问。
+H、	
+8.下列方法中，哪个不是Servlet接口中的方法（  ）。
 
-5.简述MVC设计模式以及优势。（难度★★★）
+A、	init()  B.service()   C.getServlet()   D.getServletInfo ()
+B、	
+9.下面方法中，哪个是用于释放Servlet所占资源的方法（  ）。
 
-6.请描述JSP和Servlet的关系。（难度★★）
+A.service()								B.init()		 						C.doPost() 								D.destroy()
 
-7.Servlet的生命周期分哪几个部分？每一部分分别要执行什么方法？一个Servlet在什么情况下被创建和销毁？（难度★★）
+10.在HttpServletRequest对象中，用于获取表单参数值的方法是（  ）。
 
-8.使用Servlet及MVC设计模式优化第四章第2小题“部门管理系统”。（难度★★★★）
+    	A.getQuaryString()		   B.getPathInfo()   		C.getParameter()		   D.getAttribute()
+
+11.以下关于请求方式GET和POST的描述中，哪些是错误的（  ）。（多选）
+
+A.使用GET请求方式传入的参数没有数据大小限制
+
+B.使用POST请求方式传入的参数没有数据大小限制
+
+C.使用GET请求方式提交的数据在地址栏中不会显示
+
+D.使用POST请求方式提交的数据在地址栏中不会显示
+
+12.在login.html中存在如下代码：
+
+```
+<form action =”/LoginServlet” method=”post”>
+				username:<input type=”text” name = “userName” id=”myName” value=”yourName”>
+</form>
+```
+当表单提交时，下列选项中，能够获取到文本框中值的是（  ）。
+
+A.request.getAttribute(“userName”);
+
+B.request.getParameter(“myName”);
+
+C.request.getParameter(“userName”);
+
+D.request.getAttribute(“myName”);
+
+13.当 <load-on-startup>元素中的值为正整数时，下列关于Servlet加载顺序说法中，哪些是错误的（   ）。
+
+A.Servlet容器将在客户端首次请求这个Servlet时加载它；
+
+B.Servlet容器将在Web应用启动时加载并初始化Servlet
+
+C.<load-on-startup>的值越小，它对应的Servlet就越先被加载。
+
+D.<load-on-startup>的值越大，它对应的Servlet就越先被加载。
+
+14.下列选项中，不属于servlet生命周期方法的是（  ）
+
+A.init()   
+
+B.service() 
+
+C.getServletInfo()
+
+D.destroy()
+
+15.下列关于servlet的说法中，正确的是（  ）（多选）
+
+A.多个用户同时访问一个servlet时，也会为这个servlet创建多个实例
+
+B.当servlet对象被销毁时，由servlet容器调用destroy()方法释放资源
+
+C. servlet容器调用destroy()方法之后,它就再也不会调用这个servlet对象的service()方法了
+
+D.在servlet的一个生命周期中，service ()方法只会被调用一次
+
+16.下列关于HttpServlet类的说法中，错误的是（  ）
+
+A.HttpServlet是位于javax.servlet.http包下抽象类
+
+B.通过继承HttpServlet类可以创建和HTTP协议相关的servlet
+
+C.通过继承HttpServlet类的方式创建servlet时，需要重写它的service()方法
+
+D.HttpServlet类通过一个service()方法将HTTP请求和响应分别转为HttpServletRequest和HttpServletResponse类型的对象。
+
+17.下列选项中能正确实现一个servlet的方式有（  ）（多选）
+
+A.继承javax.servlet.http.HttpServlet类
+
+B.实现javax.servlet.Servlet接口
+
+C.继承javax.servlet. GenericServlet 类D.自定义一个类，命名为Servlet
+
+18.下列类和接口中，哪个用于封装servlet的配置信息（  ）
+
+A. Servlet   B. ServletContext   C. ServletConfig   D. GenericServlet
+
+19.下列哪个方法当服务器关闭时被调用，用来释放servlet所占的资源（  ）
+
+A.service()    B.close()    C.doPost()    D.destroy() 
+
+20.HttpServlet类中，用来处理POST请求的方法是（  ）
+
+A.doHead    B.doGet    C.doPost    D.doPut
+
+21.下列方法中，属于ServletConfig接口中定义的有（  ）（多选）
+
+A.getInitParameter(String name)
+
+B.getInitParameterNames()
+
+C.getServletConfig()
+
+D.getServletName()
+
+22.下列关于web.xml文件中<load-on-startup>元素配置相关的说法，错误的是（  ）
+
+A.<load-on-startup>的值必须是一个整数
+
+B.<load-on-startup>的值越小，它对应的Servlet就越先被加载
+
+C.<load-on-startup>的值相同，Servlet按文档顺序从上往下加载
+
+D.<load-on-startup>的值为一个负整数或0时，Servlet容器将在客户端首次请求这个Servlet时加载它
+
+23.下面是一个Servlet部署文件web.xml中的片段
+```
+<servlet>
+		<servlet-name>Hello</servlet-name>
+		<servlet-class>myservlet.example.FirstServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Hello</servlet-name>
+		<url-pattern>/helpHello</url-pattern>
+</servlet-mapping>
+```
+24下列选项中，哪个是该Servlet的类名是（  ）
+
+A.FirstServlet   B.Hello   C.helpHello   D./helpHello 
 
 
 
+二.填空题
 
+1.在Servlet接口中，负责Servlet初始化工作的方法是 _____。
 
+2.在Servlet程序中，当Servlet对象被移除时会被调用的方法是_______。
 
+3.在Servlet开发中，当我们要自定义一个Servlet时，必须继承GenericServlet或者_______类。
 
+4.在web.xml文件中，<url-pattern>/xxxxServlet</url-pattern>中的第一个‘/’表示_______。
 
+5.如果某个Servlet的映射路径仅仅是一个正斜线（/），那么这个Servlet就是当前Web应用的________。
 
+6.当Tomcat初始化一个Servlet时，会将该Servlet的配置信息封装到_______对象中。
+
+7.在Servlet开发中，实现了多个Servlet之间数据共享的对象是______。
+
+8.在Servlet API中，专门用来封装HTTP响应消息的接口是_______。
+
+9.在HttpServletResponse接口中，实现请求重定向的方法是_______。
+
+10.在RequestDispatcher接口中，实现请求转发的方法是_______。
+
+11．Servlet接口中负责处理客户端请求的方法是__________。
+
+12．servlet就是一种实现了___________接口的类，它由web容器负责创建并调用。
+
+13．Servlet接口中的init().service()和_________这三个方法称为Servlet生命周期方法。
+
+14．getServletConfig()方法用于返回__________对象，该对象包含Servlet的初始化信息。
+
+15．在web.xml文件中，一个<servlert-mapping>元素用于映射一个Servlet的对外访问路径，该路径也称为___________。
+
+16．Servlet容器启动时，会为每个Web应用创建一个唯一的_________对象代表当前Web应用。
+
+17．在Servlet开发中，当我们要自定义一个Servlet时，可以继承________或HttpServlet
+
+类。
+
+18．Servlet接口中的______方法载入时执行，且只执行一次，负责对Servlet进行初始化。
+
+19．web.xml文件中<url-pattern>/xxxServlet</url-pattern>中的“/”表示________路径。
+
+20．HttpServlet类中的doGet和doPost方法通常抛出__________和IOException异常。
+
+三.判断题
+
+1.要实现Servlet的多重映射，可以在<servlet-mapping>元素下配置多个<url-pattern>子元素。（）
+
+2.ServletConfig对象可以实现多个Servlet之间的数据共享。（）
+
+3.在Servlet程序中，只有属于同一个请求中的数据才可以通过HttpServletRequest对象传递。（）
+
+4.HttpServletResponse对象的getOutputStream()和getWriter()方法可以同时发送响应消息体。（）
+
+5.使用RequestDispatcher对象的include()方法实现请求包含后，浏览器显示的URL会发生变化的。（）
+
+6.Servlet是在Web服务器上运行的小程序，它是Server Applet的简称。（  ）
+
+7.一个Servlet只能映射一个虚拟路径。（  ）
+
+8.Servlet接口中的三个生命周期方法都是由Servlet容器负责调用的。（  ）
+
+9.一个Servlet只会在第一次被访问时加载到内存并实例化，由此可知Servlet是单例的。（  ）
+
+10./abc/*.do是一个合法的映射路径。（  ）
+
+三.简答题
+
+1.简述Servlet2.5和Servlet3.0在实际使用中的不同之处。
+
+2.简述Servlet的生命周期。
+
+3.如何使Servlet的init()方法在Web容器启动时自动执行？
+
+4.如何给Web容器和具体的Servlet设置初始化参数并获取？
+
+5.简述MVC设计模式以及优势。
+
+6.请描述JSP和Servlet的关系。
+
+7. Servlet的生命周期分哪几个部分？每一部分分别要执行什么方法？一个Servlet在什么情况下被创建和销毁？
+
+8.使用Servlet及MVC设计模式优化第四章第2小题“部门管理系统”。
+
+9.举例说明，Servlet在什么情况下会产生并发问题？如何解决？
+
+10.简单介绍一下request.getAttribute()和request.getParameter()的区别。
+
+11.请列举出三个HttpServletResponse常用的响应状态码，并说出它们的意义。
+
+12.请简要概述什么是Servlet的多重映射，并列出Servlet多重映射的实现方式。
+
+13.请简述什么是缺省Servlet，以及缺省Servlet的作用。
+
+14.请列举Servlet接口中的方法，并分别说明这些方法的特点及其作用。
+
+15.请列举可以获得ServletContext的方法。
+
+四.程序分析题
+
+1.请阅读下面的程序，在空白处填写正确的代码。
+
+```
+public class HelloWorldServlet extends GenericServlet {
+	  public void _______(ServletRequest request, ServletResponse response)
+			    throws ServletException, IOException {
+		    		PrintWriter out = ______.getWriter();
+				    out.println("Hello World"); 
+		 }
+}
+```
+2.阅读下面的程序，并简单分析一下当浏览器访问RedirectServlet时，会产生哪种情况。
+```
+public class RedirectServlet extends HttpServlet {
+	   public void doGet(HttpServletRequest request, HttpServletResponse response)
+   			throws ServletException, IOException {
+         	response.sendRedirect("http://www.lanqiao.org ");
+   		}
+   	public void doPost(HttpServletRequest request, HttpServletResponse response)
+   			throws ServletException, IOException {
+         		doGet(request, response);
+ 		}
+}
+```
+3.请阅读下列程序，在空白处填写正确的代码，使程序能读取该servlet的配置信息，从中获得参数名为encoding对应的参数值，并输出到页面上。
+```
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+public class MyServlet extends HttpServlet {
+	protected void doGet(HttpServletRequest request,
+		HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		ServletConfig config = __________;
+		String param = config.getInitParameter("encoding");
+		out.println("encoding=" + param);
+	}
+	protected void doPost(HttpServletRequest request,
+		HttpServletResponse response) throws ServletException, IOException {
+		this.doGet(request, response);
+	}
+}
+```
+4.请阅读下列程序，分析变量a和b的值的变化情况，并解释发生这种变化的原因。
+```
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+public class LifeCycleServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private int a = 0, b = 0;
+	public void init() throws ServletException {
+		a++;
+	}
+	protected void doGet(HttpServletRequest request,
+		HttpServletResponse response) throws ServletException, IOException {
+		b++;
+		PrintWriter out = response.getWriter();
+		String docType = "<!DOCTYPE HTML PUBLIC /" + "-//W3C//DTD HTML 4.0 "
+				+ "Transitional//EN/>";
+		out.println(docType + "<HTML>" + "<HEAD><TITLE>Hello</TITLE></HEAD>"
+				+ "<BODY BGCOLOR=/'#FDF5E6/'>"
+				+ "<H1>Please refresh the webpage, and compare two values:"
+				+ "<H1>a=" + a + ";    b=" + b + "</BODY></HTML>");
+	}
+}
+```
+五.编程题
+
+1.使用Servlet生成以下表格，并在项目启动时默认访问。
+
+ ![](/public/img/jsp-yq/exercises/4/4.18.png)
+
+2.在login.jsp中输入用户名.密码，提交后跳转到LoginServlet.java；再在LoginServlet.java中进行验证，如果验证成功则跳转到success.jsp并提示“登录成功，欢迎您XX”，否则跳回JSP页面。
+
+3.在login.jsp中输入用户名.密码，提交后跳转到LoginServlet.java；再在LoginServlet.java中将用户名添加到Cookie对象中，然后关闭浏览器，在重新访问login.jsp时，会自动显示上一次输入的用户名信息。
+思考：如果用户名是中文，如何保存在Cookie对象中？
+
+4. 如图，在register.jsp中输入用户信息，提交后跳转到RegisterServlet.java；再在RegisterServlet.java中将用户信息封装到一个JavaBean中，之后再将该JavaBean传递到welcome.jsp中并显示。
+
+ ![](/public/img/jsp-yq/exercises/4/4.19.png)
+
+5.在Servlet中获取Web路径和文件真实路径，如图。
+
+ ![](/public/img/jsp-yq/exercises/4/4.20.png)
+
+6.用Servlet实现网站计数器：浏览者每访问一次网站，计数器累加一次。
+
+7.在Servlet中查询emp表中的全部数据，并支持将数据导出到EXCEL中，如图。
+
+ ![](/public/img/jsp-yq/exercises/4/4.21.png)
+![](/public/img/jsp-yq/exercises/4/4.22.png)
+
+8.用Servlet实现带验证码的登录功能（姓名：张三，密码：abc），如图。
+
+ ![](/public/img/jsp-yq/exercises/4/4.23.png)
+
+9.用Servlet实现自动登录功能：输入用户名.密码，并可以选择登录状态的有效期，如图。
+
+ ![](/public/img/jsp-yq/exercises/4/4.24.png)
+
+10.请按照以下要求设计一个向页面输出中文的类ChineseServlet。
+
+要求如下：
+
+a.创建一个ChineseServlet类，使其继承HttpServlet类并重写该类的doGet()方法。
+
+b.在doGet()方法中，使用HttpServletResponse对象的setContentType()方法将浏览器编码改为utf-8。
+
+c.使用HttpServletResponse对象获取输出流，向浏览器输出“传智播客欢迎您”的中文字样。			       
+
+11.请按照以下要求设计一个表单验证类LoginServlet。
+
+ 	要求如下：
+
+a.已知项目中有一个login.html页面，页面上包含用户名(username).密码(password)的输入框和登录按钮。当点击登录按钮时，表单信息会以Post请求方式提交给LoginServlet。
+
+b.编写一个LoginServlet类，使其继承HttpServlet类并重写该类的doPost()方法。
+
+c.在doPost()方法中，获取login.html中表单中的信息，当username=”lanqiao”，password=”123”时重定向至welcome.html页面，否则重定向至login.html页面。
+
+12. 编写一个servlet，实现统计网站被访问次数的功能。
+
+步骤：
+
+a.新建一个类ShowTimesServlet继承HttpServlet，重写doGet和doPost方法
+
+b.在doPost方法中调用doGet方法，在doGet方法中实现统计网站被访问次数的功能，用户每请求一次servlet，使访问次数times加1
+
+c.获取ServletContext，通过它的功能记住上一次访问后的次数
+
+13.阅读下列web.xml文件中的代码片段，根据它编写一个servlet，实现获取该文件中参数信息的功能。
+
+```
+<servlet>
+    <servlet-name>TestServlet</servlet-name>
+    <servlet-class>cn.chapter04.servlet.TestServlet</servlet-class>
+    <init-param>
+        <param-name>encoding</param-name
+        <param-value>UTF-8</param-value>
+    </init-param>
+ </servlet>
+<servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/TestServlet</url-pattern>
+</servlet-mapping>
+```
 
 
 

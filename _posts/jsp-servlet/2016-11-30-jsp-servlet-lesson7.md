@@ -2618,7 +2618,9 @@ jQuery专门提供了表单选择器，便于我们快速的获取`form`表单�
 
 # 12.7 练习题 #
 
-1.在JQuery中，`“$("tr:even").css("background-color", "red");”`代码的含义是（    ）。（选择一项）（难度★）
+一、选择题
+
+1.在JQuery中，“$("tr:even").css("background-color", "red");”代码的含义是（    ）。
 
 A．设置表格每一行的背景色
 
@@ -2628,7 +2630,209 @@ C．设置表格所有奇数行的背景色
 
 D．设置表格所有偶数列的背景色
 
-2.在JQuery中，（    ）是代表在淡入和淡出间切换的语法。（选择一项）（难度★）
+2.在JQuery中，关于$(document).ready()说法错误的是（）。
+
+A:同一个页面能同时编写多个
+
+B:必须等待网页中所有的内容加载完毕后才能执行
+
+C:可以简写为$(function(){
+
+//执行代码
+
+});
+
+D:网页中所有DOM文档结构绘制完毕后即刻执行
+
+3.在JQuery中，关于工厂函数描述错误的是（）。
+
+A:在jQuery中，$()等价于jQuery()
+
+B:$()的作用是将DOM对象转化为Window对象
+
+C:当DOM对象转化为jQuery对象后，就可以调用jQuery的方法
+
+D:当$()的参数为DOM对象时，则该对象不需使用双引号进行包裹
+
+4.在JQuery中，有以下标签<input id=”txt” class=”txt” type=”text” value=”张三” />，不能正确获取文本框中值的语句是（）。
+
+A:$(‘.txt’).val()
+
+B:$(‘.txt’).attr(“value”)
+
+C:$(‘#txt’).text()
+
+D:$(‘#txt’).attr(“value”)
+
+5.在JavaScript中，XMLHttpRequest的返回状态包括（）。
+
+A:初始化状态
+
+B:open()方法已调用，但是 send() 方法未调用。请求还没有被发送
+
+C:send()方法已调用，HTTP 请求已发送到 Web 服务器。未接收到响应
+
+D:所有响应头部都已经接收到。响应体开始接收但未完成
+
+6.在JQuery中，下列哪种写法不属于选择器（）。
+
+A:$(“#id”)
+
+B:$(“div”)
+
+C:$(“div>div”)
+
+D:$(“div-div”)
+
+7.在JQuery中，可以改变标签属性值的方法是（）。
+
+A:alert()
+
+B:alter()
+
+C:attr()
+
+D:css()
+
+8.以下关于JQuery选择器的描述，正确的是（）。
+
+A:$("p.intro") 选取所有 id="intro" 的 <p> 元素
+
+B:$("p.intro") 选取所有 class="intro" 的 <p> 元素
+
+C:$("p#demo") 选取 id="demo" 的第一个 <p> 元素
+
+D:$("p#demo") 选取 class="demo" 的第一个 <p> 元素
+
+9.以下不属于JQuery方法的是（）。
+
+A:bind()
+
+B:hover()
+
+C:query()
+
+D:toggle()
+
+10.以下不属于JQuery选择器分类的是（）。
+
+A:层次选择器
+
+B:程序选择器
+
+C:内容过滤器选择器
+
+D:基本过滤器选择器
+
+11.在JQuery中，检查<input type=”hidden” id=”id” name=”id” />元素在网页上是否存在，可以使用（）。
+
+    A:if($("#id")) {   ...    } 
+
+    B: if($("#id").length > 0) {   ...    } 
+
+    C:if($("#id").length() > 0) {  ...    }
+
+    D: if($("#id").size > 0) {    ...    } 
+
+12.<input type="checkbox" name="newsletter" value="用户名" />
+
+<input type="checkbox" name="newsletter" value="昵称" />
+
+<input type="checkbox" name="lanqiao" value="邮箱" />
+
+以下哪项，仅能获取value值为“邮箱”的元素（）。
+
+A:$("input[name='newsletter']")
+
+B:$("input[name!='newsletter']")
+
+C:$("input[name=lanqiao]")
+
+D:$("input[type='checkbox']")
+
+13.在JQuery中，$("h3+div")表示的含义是（）。
+
+A:选中在网页中所有h3当中嵌套的div
+
+B:选中网页中与h3同级的div
+
+C:选中网页中h3的子集中的div
+
+D:以上说法都错误
+
+14.下列获取元素范围大小顺序错误的是（）。
+
+A:$(#one).siblings("div")>$("#one +div")
+
+B:$(#one).siblings("div")>$("#one~div")
+
+C:$("#one~div")>$("#one +div")
+
+D:$(#one).next("div")>$(#one).siblings("div")
+
+15.在JQuery中，要获取紧邻#it之后的p元素，下列选择器正确的是（）。
+
+A:$(“#it p”)
+
+B:$(“#it~p”)
+
+C:$(“#it+p”)
+
+D:$(“#it>p”)
+
+16.在JQuery中，以下哪个选择器能获取页面所有的<h2>标签（）。
+
+A:$(h2)
+
+B:$(“h2”)
+
+C:$(“.h2” )
+
+D:$(“#h2”)
+
+17.以下哪一个不属于JQuery选择器（）。
+
+A:$(“.input”)
+
+B:$(“#input”)
+
+C:$(“*input”)
+
+D:$(“input”)
+
+18.HTML代码：
+
+<form>
+
+	<label>Name:</label>
+
+	<input name=”name” />
+
+	<fieldset>
+
+		<label>Newsletter:</label>
+
+		<input name=newsletter” />
+
+	</fieldset>
+
+<form>
+
+<input name=”none” />
+
+JQuery代码：
+
+$(“form>input”)的结果是（）。
+
+A:<input name="name" />
+
+B:<input name="name" />, <input name="newsletter" />
+
+C:<input name="none" />
+
+D:<input name="newsletter" />
+
+19.在JQuery中，（    ）是代表在淡入和淡出间切换的语法。
 
 A．$(selector).showToggle(speed,callback);
 
@@ -2638,54 +2842,299 @@ C．$(selector).toggle(speed,callback);
 
 D．$(selector).slideToggle(speed,callback);
 
+20.有如下HTML代码：
 
-3.下面哪一个是用来追加到指定元素的末尾的？（难度★★）
+<form>
 
-A、`insertAfter()`
+	<input name=”email” disabled=”disabled” value=”1” />
 
-B、`append()`
+	<input name=”id”  disabled=”password” />
 
-C、`appendTo()`
+</form>
 
-D、`after()`
+以下哪项，仅能获取第一个input的value值（）。
+
+A:$("input[name='email']").val()
+
+B:$("input:disabled").val()
+
+C:$("input:email").val()
+
+D:$(":disabled").val()
+
+21.下面哪一个是用来追加到指定元素的末尾的？ 
+
+A.insertAfter() 
+
+B.append() 
+
+C.appendTo()
+
+D.after()
+
+22.如果需要匹配包含文本的元素，用下面哪种来实现？ 
+
+A.text() 
+
+B.contains() 
+
+C.input() 
+
+D.attr(name)
+
+23.为每一个指定元素的指定事件（像click）绑定一个事件处理器函数，下面哪个是用来实现该功能的？
+
+A.trigger (type) 
+
+B.bind(type)
+
+C.one(type) 
+
+D.bind
+
+24.在一个表单中，如果想要给输入框添加一个输入验证，可以用下面的哪个事件实现？
+
+A.hover(over ,out)	 
+
+B.keypress（fn）	
+
+C.change() 			
+
+D.change(fn) 
+
+25.在jquery中指定一个类，如果存在就执行删除功能，如果不存在就执行添加功能，下面哪一个是可以直接完成该功能的？ 
+
+A.removeClass()		 
+
+B.deleteClass()		 
+
+C.toggleClass(class) 	
+
+D.addClass()
+
+26.<input type="radio" name="sex" />男.
+
+<input type="radio" name="sex" />女
+
+将“男”设置为选中状态的操作是（）。
+
+A:$("sex[0]").attr("checked",true)
+
+B:$("#sex[0]").attr("checked",true)
+
+C:$("[name=sex]:radio").attr("checked",true)
+
+D:$(":radio[name=sex]:eq(0)").attr("checked",true)
+
+27.获取紧邻id=”it”之后的p元素，下列选择器正确的是（）。
+
+A:$(“#it p”)
+
+B:$(“#it~p”)
+
+C:$(“#it+p”)
+
+D:$(“#it>p”)
+
+28.网页的<body>元素中包含以下HTML代码：
+
+<div id=”box”>
+
+	<h1 id=”top1” name=”header1”>1</h1>
+
+	<h1 id=”top2” name=”header2”>2</h1>
+
+</div>
+
+能输出“1”的代码是（）。
+
+A:alert($('#top1').html());
+
+B:alert($('[name=header1]').html());
+
+C:alert($('[name='header1']').html());
+
+D:alert($('# header1').html());
+
+29.网页的<body>元素中包含以下HTML代码：
+
+<div id=”box”>
+
+	<h1 id=”top1” name=”header1” style=”display:none”>1</h1>
+
+	<h1 id=”top2” name=”header2”>2</h1>
+
+</div>
+
+能输出“1”的代码是（）。
+
+A:alert($('#box :hidden').html());    //#box和:hidden之间有空格
+
+B:alert($('#box:hidden').html());    //#box和:hidden之间无空格
+
+C:alert($('h1 :hidden').html());      //h1和:hidden之间有空格
+
+D:alert($('h1:hidden').html());      //h1和:hidden之间无空格
+
+30.网页的<body>元素中包含以下HTML代码：
+
+<ul id=”box”>
+
+	<li id=”top1” name=”header1”>1</li>
+
+	<li id=”top2” name=”header2”>2</li>
+
+	<li id=”top3” name=”header3”>3</li>
+
+	<li id=”top4” name=”header4”>4</li>
+
+</ul>
+
+下面选项中，能将li文本颜色全部改为绿色的是（）。
+
+A:$("li").css("color":"green");
+
+B:$("li[name]").css("color","green");
+
+C:$("li[name*='header']").css("color":"green");
+
+D:$("li[name*=header]").css("color","green");
+
+31.下列哪一个不是JQuery选择器（）。
+
+A:$(“.input”)
+
+B:$(“#input”)
+
+C:$(“*input”)
+
+D:$(“input”)
+
+32.下列哪一个不是JQuery基本过滤选择器（）。
+
+A:	:first
+
+B:	.class
+
+C:	:odd
+
+D:	:even
+
+33.下列哪一个不是JQuery过滤选择器（）。
+
+A:	:even
+
+B:	:odd
+
+C:	:animated
+
+D:	$("*")
+
+二、编程题
+
+1.使用正则表达式验证表单中的日期是否合法（数据和格式）；如果不合法，给出错误提示，如图。
+
+![](/public/img/jsp-yq/exercises/7/12.40.png)
+
+2.检查表单中的元素是否存在空值，若存在则给出提示，如图。
+
+![](/public/img/jsp-yq/exercises/7/12.41.png)
+
+3.提交表单时，检查输入的内容是否为数字，如图。
 
 
-4.如果需要匹配包含文本的元素，用下面哪种来实现？（难度★）
+![](/public/img/jsp-yq/exercises/7/12.42.png)
 
-A、`text()`
+4.提交表单时，检查输入的邮箱格式是否合法，如图。
 
-B、`contains()`
 
-C、`input()`
+![](/public/img/jsp-yq/exercises/7/12.43.png)
 
-D、`attr(name)`
+5.提交表单时，检查输入的电话号码（手机或座机）格式是否合法，如图。
 
-5.为每一个指定元素的指定事件（像click）绑定一个事件处理器函数，下面哪个是用来实现该功能的？（难度★）
 
-A、`trigger (type)`
+![](/public/img/jsp-yq/exercises/7/12.44.png)
 
-B、`bind(type)`
+6.提交表单时，检查输入的真实姓名格式（必须为中文，2-5位）是否合法，如图。
 
-C、`one(type)`
 
-D、`bind`
+![](/public/img/jsp-yq/exercises/7/12.45.png)
 
-6.在一个表单中，如果想要给输入框添加一个输入验证，可以用下面的哪个事件实现？（难度★）
+7. 提交表单时，检查输入的身份证号码格式是否合法，如图。
 
-A、`hover(over ,out)`
 
-B、`keypress（fn）`
+![](/public/img/jsp-yq/exercises/7/12.46.png)
 
-C、`change()`
+8. 提交表单时，检查输入的车牌号码格式是否合法，如图。
 
-D、`change(fn)`
- 
-7.在jquery中指定一个类，如果存在就执行删除功能，如果不存在就执行添加功能，下面哪一个是可以直接完成该功能的？（难度★）
 
-A、`removeClass()`
+![](/public/img/jsp-yq/exercises/7/12.47.png)
 
-B、`deleteClass()`
+9. 提交表单时，检查输入的网址格式是否合法，如图。
 
-C、`toggleClass(class)`
 
-D、`addClass()`
+![](/public/img/jsp-yq/exercises/7/12.48.png)
+
+10. 提交表单时，要求输入的网址必须以“http”开头，如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.49.png)
+
+11. 提交表单时，要求输入的用户名必须长度<=10字节（注意1个汉字占2个字节），如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.50.png)
+
+12. 提交表单时，要求输入的用户名不能包含特殊字符（如\、`、’、|等），如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.51.png)
+
+13.将RGB格式的颜色值转为十六进制，如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.52.png)
+
+14.从指定的URL中提取文件名，如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.53.png)
+
+15.计算两天之差，如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.54.png)
+
+16.计算某一天是星期几，如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.55.png)
+
+17.实时显示当前时间（每秒更新），如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.56.png)
+
+18.实现倒计时功能，如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.57.png)
+
+19.选择节点类型，点击“创建”按钮后在网页中创建相应的节点，如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.58.png)
+
+20.给已存在的下拉列表中增加选项，如图。
+
+
+![](/public/img/jsp-yq/exercises/7/12.59.png)
+
+![](/public/img/jsp-yq/exercises/7/12.60.png)
+21.删除下拉列表中的某一选项，如图。
+
+![](/public/img/jsp-yq/exercises/7/12.61.png)
+
+22.开发“可编辑表格”：在网页中增加一个表格，双击表格中的单元格时可以对内容进行编辑，如图是双击“xyz”所在单元格时的编辑状态。
+
+![](/public/img/jsp-yq/exercises/7/12.62.png)

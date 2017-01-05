@@ -819,36 +819,76 @@ public class JSONObjectServlet extends HttpServlet {
 
 # 10. 5 练习题 #
 
-**一、选择题**
+一、选择题
 
-1.（    ）是操作AJAX的核心对象。（选择一项）（难度★）
+1.（    ）是操作AJAX的核心对象。
 
-A．`XMLHttpRequest`
+A．XMLHttpRequest			B．status
 
-B．`status`
+C．statusText					D．responseText
 
-C．`statusText`
+2.XMLHttpRequest对象的onreadystatechange属性的含义是（    ）。
 
-D．`responseText`
-
-2.`XMLHttpRequest`对象的`onreadystatechange`属性的含义是（    ）。（选择一项）（难度★）
-
-A．表示`XMLHttpRequest`对象的状态
+A．表示XMLHttpRequest对象的状态
 
 B．服务器返回的HTTP协议状态码
 
-C．指定当`XMLHttpRequest`对象状态改变时会调用哪个JavaScript函数进行处理
+C．指定当XMLHttpRequest对象状态改变时会调用哪个JavaScript函数进行处理
 
 D．服务器响应的文本内容
 
-**二、简答题**
+二、简答题
 
-1.什么是AJAX？请描述AJAX的技术原理和好处。（难度★★）
+1.什么是AJAX？请描述AJAX的技术原理和好处。
 
-2.哪些情况需要使用到AJAX? （难度★★）
+2.哪些情况需要使用到AJAX? 
 
-3.用JS实现AJAX，需要使用到了哪个对象？该对象有哪些常用属性和方法？（难度★★★）
+3.用JS实现AJAX，需要使用到了哪个对象？该对象有哪些常用属性和方法？
 
-4.请描述JQuery中`load()`方法的三个回调函数参数分别代表什么含义。（难度★★）
+4.请描述JQuery中load()方法的三个回调函数参数分别代表什么含义。
 
-5.使用JQuery方式的AJAX继续优化第八章练习题中的“部门管理系统”。（难度★★★★）
+三、编程题
+
+1. 使用JQuery方式的AJAX继续优化“部门管理系统”。
+
+2.实现“考试计时并自动提交试卷”功能：用户进入考试页面后开始倒计时，时间结束后自动提交试卷，如图。
+
+ ![](/public/img/jsp-yq/exercises/13/10.8.png)
+
+3.实现“自动保存草稿”功能：编辑文本时，每隔3分钟自动保存一次草稿。
+
+4.检测用户名是否已存在：用户输完用户名时，自动检测用户名是否存在，若存在则给出提示。
+
+5.使用JSP+Ajax+Servlet实现登陆功能。
+
+6.实现“带进度条的文件上传”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/13/10.9.png)
+
+7.实现“自动匹配关键词”功能：在搜索框中输入部分文字时，下拉框会自动进行关键词匹配，如图。其中，关键词是在info表中的title和desc字段里进行匹配。
+
+ ![](/public/img/jsp-yq/exercises/13/10.10.png)
+
+8.实现“无刷新分页”功能，要求在翻页时页面无刷新，如图。
+
+ ![](/public/img/jsp-yq/exercises/13/10.11.png)
+
+9.实现“消息气泡”功能：如果有新增未读消息，则在页面右下角自动弹出，如图。
+
+ ![](/public/img/jsp-yq/exercises/13/10.12.png)
+
+10.实现“实时天气预报”功能：每隔10分钟从数据库中查询一次最新的天气情况，并通过JSP显示给用户。
+
+11.实现“发送聊天记录”功能：输入聊天内容，点击“发送”后聊天内容显示在聊天列表中，如图。
+
+ ![](/public/img/jsp-yq/exercises/13/10.13.png)
+ ![](/public/img/jsp-yq/exercises/13/10.14.png)
+
+12.实现“级联下拉列表”功能，即相邻的两个下拉列表是父子关系，当改变父下拉列表的值时，子下拉列表的值会随之改变。要求①实现省份、城市、区县之间的级联列表，②省份等数据存放在XML文件之中，如图。
+
+ ![](/public/img/jsp-yq/exercises/13/10.15.png)
+
+13.从一张区域表中读取数据，通过ajax以树形的形式展现在前台页面里。鼠标点“所有区域”时，显示所有的片区；点击某一片区时，显示该片区下的省市；点击省时，显示该省下的所有市……，如图所示。
+
+ ![](/public/img/jsp-yq/exercises/13/10.16.png)
+ ![](/public/img/jsp-yq/exercises/13/10.17.png)
