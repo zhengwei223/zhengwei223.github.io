@@ -2724,7 +2724,7 @@ C:内容过滤器选择器
 
 D:基本过滤器选择器
 
-11.在JQuery中，检查<input type=”hidden” id=”id” name=”id” />元素在网页上是否存在，可以使用（）。
+11.在JQuery中，检查&lt;input type=”hidden” id=”id” name=”id” /&gt;元素在网页上是否存在，可以使用（）。
 
     A:if($("#id")) {   ...    } 
 
@@ -2734,11 +2734,12 @@ D:基本过滤器选择器
 
     D: if($("#id").size > 0) {    ...    } 
 
-12.<input type="checkbox" name="newsletter" value="用户名" />
+12.
+&lt;input type="checkbox" name="newsletter" value="用户名" /&gt;
 
-<input type="checkbox" name="newsletter" value="昵称" />
+&lt;input type="checkbox" name="newsletter" value="昵称" /&gt;
 
-<input type="checkbox" name="lanqiao" value="邮箱" />
+&lt;input type="checkbox" name="lanqiao" value="邮箱" /&gt;
 
 以下哪项，仅能获取value值为“邮箱”的元素（）。
 
@@ -2780,7 +2781,7 @@ C:$(“#it+p”)
 
 D:$(“#it>p”)
 
-16.在JQuery中，以下哪个选择器能获取页面所有的<h2>标签（）。
+16.在JQuery中，以下哪个选择器能获取页面所有的&lt;h2&gt;标签（）。
 
 A:$(h2)
 
@@ -2801,36 +2802,29 @@ C:$(“*input”)
 D:$(“input”)
 
 18.HTML代码：
-
+```
 <form>
-
 	<label>Name:</label>
-
 	<input name=”name” />
-
 	<fieldset>
-
 		<label>Newsletter:</label>
-
 		<input name=newsletter” />
-
 	</fieldset>
-
 <form>
-
 <input name=”none” />
+```
 
 JQuery代码：
 
 $(“form>input”)的结果是（）。
 
-A:<input name="name" />
+A:&lt;input name="name" /&gt;
 
-B:<input name="name" />, <input name="newsletter" />
+B:&lt;input name="name" /&gt;, &lt;input name="newsletter" /&gt;
 
-C:<input name="none" />
+C:&lt;input name="none" /&gt;
 
-D:<input name="newsletter" />
+D:&lt;input name="newsletter" /&gt;
 
 19.在JQuery中，（    ）是代表在淡入和淡出间切换的语法。
 
@@ -2844,13 +2838,11 @@ D．$(selector).slideToggle(speed,callback);
 
 20.有如下HTML代码：
 
-<form>
-
-	<input name=”email” disabled=”disabled” value=”1” />
-
-	<input name=”id”  disabled=”password” />
-
+```<form>
+<input name=”email” disabled=”disabled” value=”1” />
+<input name=”id”  disabled=”password” />
 </form>
+```
 
 以下哪项，仅能获取第一个input的value值（）。
 
@@ -2912,9 +2904,9 @@ C.toggleClass(class)
 
 D.addClass()
 
-26.<input type="radio" name="sex" />男.
+26.&lt;input type="radio" name="sex" /&gt;男.
 
-<input type="radio" name="sex" />女
+&lt;input type="radio" name="sex" /&gt;女
 
 将“男”设置为选中状态的操作是（）。
 
@@ -2937,15 +2929,11 @@ C:$(“#it+p”)
 D:$(“#it>p”)
 
 28.网页的<body>元素中包含以下HTML代码：
-
-<div id=”box”>
-
+```<div id=”box”>
 	<h1 id=”top1” name=”header1”>1</h1>
-
 	<h1 id=”top2” name=”header2”>2</h1>
-
 </div>
-
+```
 能输出“1”的代码是（）。
 
 A:alert($('#top1').html());
@@ -2958,14 +2946,11 @@ D:alert($('# header1').html());
 
 29.网页的<body>元素中包含以下HTML代码：
 
-<div id=”box”>
-
+```<div id=”box”>
 	<h1 id=”top1” name=”header1” style=”display:none”>1</h1>
-
 	<h1 id=”top2” name=”header2”>2</h1>
-
 </div>
-
+```
 能输出“1”的代码是（）。
 
 A:alert($('#box :hidden').html());    //#box和:hidden之间有空格
@@ -2978,18 +2963,13 @@ D:alert($('h1:hidden').html());      //h1和:hidden之间无空格
 
 30.网页的<body>元素中包含以下HTML代码：
 
-<ul id=”box”>
-
+```<ul id=”box”>
 	<li id=”top1” name=”header1”>1</li>
-
 	<li id=”top2” name=”header2”>2</li>
-
 	<li id=”top3” name=”header3”>3</li>
-
 	<li id=”top4” name=”header4”>4</li>
-
 </ul>
-
+```
 下面选项中，能将li文本颜色全部改为绿色的是（）。
 
 A:$("li").css("color":"green");

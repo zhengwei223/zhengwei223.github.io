@@ -890,5 +890,5 @@ D．服务器响应的文本内容
 
 13.从一张区域表中读取数据，通过ajax以树形的形式展现在前台页面里。鼠标点“所有区域”时，显示所有的片区；点击某一片区时，显示该片区下的省市；点击省时，显示该省下的所有市……，如图所示。
 
- ![](/public/img/jsp-yq/exercises/13/10.16.png)
- ![](/public/img/jsp-yq/exercises/13/10.17.png)
+ ![](/public/img/jsp-yq/exercises/13/10.16.jpg)
+ ![](/public/img/jsp-yq/exercises/13/10.17.jpg)
