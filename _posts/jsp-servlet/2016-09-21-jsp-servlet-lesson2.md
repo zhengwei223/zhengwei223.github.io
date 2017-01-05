@@ -1602,147 +1602,277 @@ getAttribute("loginName");
 
 
 
+
+
 **一、选择题**
 
-1.	下列关于HTTP响应中状态码的描述，错误的是（    ）。（选择一项）
-A．3xx表示重定向，表示需要客户端采取进一步的操作才能完成请求
-B．2xx表示成功，表示请求已被成功接收、理解、接受
-C．4xx表示客户端错误，请求有语法错误或请求无法实现
-D．5xx表示数据库端错误，服务器未能实现合法的请求
+1.下列关于HTTP响应中状态码的描述，错误的是（    ）。（选择一项）
 
-2.	下列（    ）方法可以获取请求的字符编码方式。（选择一项）
+A．3**表示重定向，表示需要客户端采取进一步的操作才能完成请求
+
+B．2**表示成功，表示请求已被成功接收、理解、接受
+
+C．4**表示客户端错误，请求有语法错误或请求无法实现
+
+D．5**表示数据库端错误，服务器未能实现合法的请求
+
+2.下列（    ）方法可以获取请求的字符编码方式。（选择一项）
+
 A．request.getCharacterEncoding()
+
 B．request.getProtocol()
+
 C．request.getRequestURI()
+
 D．request.getQueryString()
 
-3.	请求转发的forward(request,response)方法是（    ）的方法。（选择一项）
+3.请求转发的forward(request,response)方法是（    ）的方法。（选择一项）
+
 A．request对象
+
 B．response对象
+
 C．RequestDispatcher对象
+
 D．session对象
 
-4.	下列（    ）不是JSP九大内置对象之一。（选择一项）
+4.下列（    ）不是JSP九大内置对象之一。（选择一项）
+
 A．out对象
+
 B．exception对象
+
 C．cookie对象
+
 D．session对象
 
-5.	<%page language="java" import="java.util.ArrayList;java.sql.*" contentType="text/html; charset=UTF-8" %>
+5.<%page language="java" import="java.util.ArrayList;java.sql.*" contentType="text/html; charset=UTF-8" %>
+
 以上指令共存在（）处错误。
+
 A:1
+
 B:2
+
 C:3
+
 D:4
 
-以下page指令的描述中，正确的是（）。
+6.以下page指令的描述中，正确的是（）。
+
 A:可以通过<%@page include="java.util.*"%>导入java.util下所有的类
+
 B:可以通过<%@page include="java.util.Date;java.util"%>导入java.util下所有的类
+
 C:可以通过<%@page contentType="text/html;charset=UTF-8"%>设置页面编码为UTF-8
+
 D:可以通过<%@page version="1.6"%>指定采用什么版本的jdk编译页面
 
-以下JSP代码的运行结果是（）。
+7.以下JSP代码的运行结果是（）。
+
 A:i8
+
 B:88
+
 C:16
+
 D:编译错误
 
+8.
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+
 <%
+
 	out.println("hello lanqiao");
+
 %>
+
 对于以上代码，描述正确的是（）。
+
 A:此段代码没有错误，能够正确向页面打印出“hello，lanqiao！”
+
 B:此段代码没有错误，但是不向页面输出任何语句
+
 C:此段代码缺少引用，应该在page指令中添加import="java.util.*"
+
 D:此段代码存在错误，应改为：response.out.println("hello，lanqiao！");
 
-<%@ page ___="text/html; ___=UTF-8"%>
+9.<%@ page ___="text/html; ___=UTF-8"%>
+
 使用page指令设置页面的字符集，横线处应填写（）。
+
 A:content_Type、charsetEncoding
+
 B:contentType、charset
+
 C:type、charset
+
 D:contentType、pageEncoding
 
+10.
+
 <%
+
 	for(int i=0;i<5;i++)
+
 	{
+
 	    out.println("*");
+
 	}
+
 %>
+
 以上JSP代码的运行结果是：
+
 A:
+
 * * * * *
+
 B:
+
 *
+
 *
+
 *
+
 *
+
 *
+
 C:编译错误
+
 D:
+
 *
+
  *
+
   *
+
    *
+
     *
 
+11
+
 <% ing num = 10 ;%>这段代码在JSP中称为（）。
+
 A:小脚本
+
 B:表达式
+
 C:JSP注释
+
 D:JSP指令
 
+12
+
 <%
+
 	int[] scores = new int[2]{89,87};
+
 %>
+
 最高分：<% Math.max(scores[0],scores[1]) %><br/>
+
 最低分：<% out.print(Math.min(scores[0],scores[1])) %><br/>
+
 以上代码共有（）处错误。
+
 A:1
+
 B:2
+
 C:3
+
 D:4
 
+13
 
 以下（）不是JSP页面的page指令。
+
 A:language="java"
+
 B:import="java.util.*"
+
 C:http-equiv="keywords"
+
 D:contentType="text/html; charset=UTF-8"
+
+14.  有关会话跟踪技术描述正确的是（）           
+ A.  Cookie是Web服务器发送给客户端的一小段信息，客户端请求时，可以读取该信息发送到服务器端     
+B.  关闭浏览器意味着会话ID丢失，但所有与原会话关联的会话数据仍保留在服务器上，直至会话过期       
+C.  在禁用Cookie时可以使用URL重写技术跟踪会话       
+D.  隐藏表单域将字段添加到HTML表单并在客户端浏览器中显示 
+
+15. 在J2EE中，重定向到另一个页面，以下（）语句是正确的            
+ A.  request . sendRedirect(“http :// www . lanqiao.org”);    
+ B.  request . sendRedirect();      
+C.  response . sendRedirect(“http: // www . lanqiao.org”);     
+D.  response .sendRedirect();   
 
 **二、简答题**
 
-1.	JSP中有几种Scriptlet，各自的作用是什么？ 
-2.	JSP中有几种注释，各有什么特点？ 
-3.	对于GET请求和POST请求，各如何设置编码？ 
-4.	简述pageContext、request、session、application等四个内置对象的作用域范围。
-5.	简述请求转发与重定向的区别。
-6.	如何更改Tomcat端口号。
-7.	简述Session和Cookie的区别。
-8.	什么情况下会造成“表单重复提交”？如何解决？
-三、编程题
-1.	在一个JSP中提供一组复选框，可以让用户选择自己喜爱的水果，提交后，在另一个JSP页面输出用户的所有选择项。
-2.	在index.jsp中编写两个输入框，用于接收用户输入的两个数，然后通过表单提交跳转到result.jsp。再在result.jsp中比较判断出较大的数字，并显示。
-3.	实现以下表单，并在用户单击“注册”后，在另一个JSP中获取各个表单元素的值： 
-4.	<a href="showStudents.jsp?page=2&size=10">学生信息</a>，获取超链接中的page、size参数值。
-5.	demo01.jsp的部分内容如下：
+1.JSP中有几种Scriptlet，各自的作用是什么？ 
+
+2.JSP中有几种注释，各有什么特点？ 
+
+3.对于GET请求和POST请求，各如何设置编码？ 
+
+4.简述pageContext、request、session、application等四个内置对象的作用域范围。
+
+5.简述请求转发与重定向的区别。
+
+6.如何更改Tomcat端口号。
+
+7.简述Session和Cookie的区别。
+
+8.什么情况下会造成“表单重复提交”？如何解决？
+
+**三、编程题**
+
+1.在一个JSP中提供一组复选框，可以让用户选择自己喜爱的水果，提交后，在另一个JSP页面输出用户的所有选择项。
+
+2.在index.jsp中编写两个输入框，用于接收用户输入的两个数，然后通过表单提交跳转到result.jsp。再在result.jsp中比较判断出较大的数字，并显示。
+
+3.实现以下表单，并在用户单击“注册”后，在另一个JSP中获取各个表单元素的值： 
+
+![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/2/2.44.png)
+4.<a href="showStudents.jsp?page=2&size=10">学生信息</a>，获取超链接中的page、size参数值。
+
+5.demo01.jsp的部分内容如下：
 <body>
+
 	<%
+
 		Student stu = new Student("张三",23);
+
 		...
+
 	%>
+
 </body>
 将demo01.jsp中的stu对象传递到demo02.jsp。
-6.	实现登陆功能，要求：在客户端保存用户名，在服务端保存登录信息。
-7.	禁止从外部网站提交数据（即服务端只接受本项目中传来的数据）。
-8.	（1）实现以下功能的网页记录器：
- 
-9.	（2）实现IP计数器，如下：
+
+6.实现登陆功能，要求：在客户端保存用户名，在服务端保存登录信息。
+
+7.禁止从外部网站提交数据（即服务端只接受本项目中传来的数据）。
+
+8.（1）实现以下功能的网页记录器：
+
+![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/2/2.45.png)
  
 
-10.	统计用户在站点的停留时间，如下：
- 
+9.（2）实现IP计数器，如下：
+
+ ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/2/2.46.png)
+
+统计用户在站点的停留时间，如下：
+
+ ![](https://coding.net/u/lanqiao/p/lanqiao/git/raw/coding-pages/public/img/jsp-yq/exercises/2/2.47.png)
 
 
 
