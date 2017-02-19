@@ -1361,7 +1361,7 @@ public class LifeCycleServlet extends HttpServlet {
 3.在login.jsp中输入用户名.密码，提交后跳转到LoginServlet.java；再在LoginServlet.java中将用户名添加到Cookie对象中，然后关闭浏览器，在重新访问login.jsp时，会自动显示上一次输入的用户名信息。
 思考：如果用户名是中文，如何保存在Cookie对象中？
 
-4. 如图，在register.jsp中输入用户信息，提交后跳转到RegisterServlet.java；再在RegisterServlet.java中将用户信息封装到一个JavaBean中，之后再将该JavaBean传递到welcome.jsp中并显示。
+4.如图，在register.jsp中输入用户信息，提交后跳转到RegisterServlet.java；再在RegisterServlet.java中将用户信息封装到一个JavaBean中，之后再将该JavaBean传递到welcome.jsp中并显示。
 
  ![](/public/img/jsp-yq/exercises/4/4.19.png)
 
@@ -1392,7 +1392,7 @@ a.创建一个ChineseServlet类，使其继承HttpServlet类并重写该类的do
 
 b.在doGet()方法中，使用HttpServletResponse对象的setContentType()方法将浏览器编码改为utf-8。
 
-c.使用HttpServletResponse对象获取输出流，向浏览器输出“传智播客欢迎您”的中文字样。			       
+c.使用HttpServletResponse对象获取输出流，向浏览器输出“蓝桥软件学院欢迎您”的中文字样。			       
 
 11.请按照以下要求设计一个表单验证类LoginServlet。
 

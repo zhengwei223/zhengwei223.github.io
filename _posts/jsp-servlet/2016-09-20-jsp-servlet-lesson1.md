@@ -188,6 +188,10 @@ keywords: lanqiao 蓝桥 培训 教程 javaEE JSP Servlet
 
 　　其中网址http://localhost（或http://127.0.0.1）代表本机地址。若要关闭Tomcat服务器，可双击运行`bin`目录中的shutdown.bat关闭命令。
 
+**说明**
+   	
+    严格来讲，http://localhost实际包含了网络协议和本机地址两部分，详见后文“通讯协议”的讲解。
+
 　　但是，如果Tomcat服务器的默认端口8080被其他服务器的端口占用（例如Oracle也会使用到8080端口），那么就需要我们地手动修改Tomcat的端口号。修改方法如下：
 
 **a.**打开Tomcat安装目录，然后找到`conf`目录，打开里面的**server.xml**文件
@@ -957,13 +961,14 @@ D:路径
 
 12.以下关于localhost:8080/JspProject/index.jsp的描述正确的是（）。
 
-    A:localhost可以省略不写
+A:localhost可以省略不写
 
-    B:开头的四个字母http，可以简写成hp
+B:开头的四个字母http，可以简写成hp
 
-    C:localhost的含义是服务器的地址
+C:localhost的含义是服务器的地址
 
-    D:8080的含义是端口号
+D:8080的含义是端口号
+
 
  13.自定义标签的配置文件放在（）           
 
