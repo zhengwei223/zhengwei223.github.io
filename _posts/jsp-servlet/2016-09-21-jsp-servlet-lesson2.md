@@ -1813,13 +1813,17 @@ C:http-equiv="keywords"
 
 D:contentType="text/html; charset=UTF-8"
 
-14.  有关会话跟踪技术描述正确的是（）           
+14
+
+有关会话跟踪技术描述正确的是（）           
  A.  Cookie是Web服务器发送给客户端的一小段信息，客户端请求时，可以读取该信息发送到服务器端     
 B.  关闭浏览器意味着会话ID丢失，但所有与原会话关联的会话数据仍保留在服务器上，直至会话过期       
 C.  在禁用Cookie时可以使用URL重写技术跟踪会话       
 D.  隐藏表单域将字段添加到HTML表单并在客户端浏览器中显示 
 
-15. 在J2EE中，重定向到另一个页面，以下（）语句是正确的            
+15
+
+在J2EE中，重定向到另一个页面，以下（）语句是正确的            
  A.  request . sendRedirect(“http :// www . lanqiao.org”);    
  B.  request . sendRedirect();      
 C.  response . sendRedirect(“http: // www . lanqiao.org”);     
@@ -1875,7 +1879,7 @@ D.  response .sendRedirect();
 ![](/public/img/jsp-yq/exercises/2/2.45.png)
  
 
-9.（2）实现IP计数器，如下：
+（2）实现IP计数器，如下：
 
  ![](/public/img/jsp-yq/exercises/2/2.46.png)
 
