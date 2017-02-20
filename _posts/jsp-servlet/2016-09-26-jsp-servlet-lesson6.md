@@ -1085,9 +1085,125 @@ throws ServletException, IOException
 **答**：不能。因为文件名是通过“头信息”发给浏览器的，而`response.setContentType()`是处理“消息体”编码的。
 
 
+# 6.4 练习题 #
+1.实现“文件重命名”功能，如图。
 
+ ![](/public/img/jsp-yq/exercises/6/6.10.png)
 
+2.实现“复制目录”功能，如图。
 
+ ![](/public/img/jsp-yq/exercises/6/6.11.png)
+
+3.实现“按类型查找文件”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.12.png)
+
+4.实现“替换文件内容”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.13.png)
+
+5. 实现“创建/删除目录”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.14.png)
+
+6.实现“设置文件属性”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.15.png)
+
+7.实现“网站计数器”功能，要求将访问人数保存在类路径下的txt文件中。
+8.emp.txt文件中保存着员工的信息（一条员工信息保存在一行，每行中的信息用空格隔开），如图。现要求将emp.txt中的员工信息保存在数据库中，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.16.png)
+ ![](/public/img/jsp-yq/exercises/6/6.17.png)
+
+9.实现“备份数据库文件”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.18.png)
+
+10.读取数据库中，以二进制形式存储的图片信息（图片名、图片类型、图片），如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.19.png)
+
+11.将图片路径存储到数据库中，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.20.png)
+
+12.实现“文件加密与解密”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.21.png)
+
+要求加密后的文件必须先解密再读取，否则显示为乱码，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.22.png)
+
+13.实现“XML解析”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.23.png)
+ ![](/public/img/jsp-yq/exercises/6/6.24.png)
+
+14.实现“文件分割”功能，要求分割后的文件格式为“*.part数字”，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.25.png)
+
+15.实现“分割后的文件合并”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.26.png)
+
+16.使用StreamTokenizer统计文件中的数字总数、汉字总数、其他标记数、总字符数等，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.27.png)
+
+17.“将内存中的对象持久化到文件，称为对象的序列化；将文件中的对象恢复到内存中，称之为对象的反序列化”。要求实现文件的序列化与反序列化，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.28.png)
+
+18.实现“上传文件到Web服务器”功能，要求限制上传大小为2M、文件格式必须为图片（png、gif、jepg等）。
+19.实现“上传文件到数据库服务器”功能。
+20.实现“上传文件到数据库服务器”功能。
+21.实现“批量上传文件到Web服务器”功能，其中“-”可以删除当前行元素、“+”可以新增一个上传按钮，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.29.png)
+
+22.不使用任何组件（如fileUpload等）实现文件上传功能。
+23.实现“下载Web服务器中的文件”功能。
+24.实现“下载数据库中的文件”功能。
+25.实现“防盗链下载”功能：只能从当前项目的“下载”功能下载文件，否则（例如，将下载地址复制到了其他项目，并提供了“下载”功能）提示“请登录www.xxx.com进行下载”。
+26.显示下载列表，并隐藏下载文件的真实路径：当鼠标悬浮在下载文件上时，浏览器的状态栏只显示虚拟路径，而非真实路径，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.30.png)
+
+27.实现“批量重命名”功能，#代表文件顺序，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.31.png)
+
+28.实现“批量移动”功能：将一个目录中的所有文件（含子目录），移动到另一个目录中，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.32.png)
+
+29.实现“批量删除指定格式的文件”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.33.png)
+
+30.创建磁盘的索引文件：保存磁盘中所有文件的路径，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.34.png)
+
+31.根据上题创建的索引文件，遍历磁盘中的所有文件（显示所有文件的文件名、文件大小、修改时间）。
+32.实现“分类存储文件”功能：将相同格式的文件存储在同一个目录下，格式名即为文件名，分类后的目录结构如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.35.png)
+
+33.实现“文件搜索”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.36.png)
+
+34.实现“万年历”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.37.png)
+
+35.实现“带阴历的万年历”功能，如图。
+
+ ![](/public/img/jsp-yq/exercises/6/6.38.png)
 
 
 
