@@ -76,7 +76,7 @@ author: 郑未
 由于要求该子数组必须跨越中点（含中点，并连续），这样的限定使问题的求解比较简单：
 
     FindMaxCrossingSubArray(a[0...n-1],left,right,mid)
-      sum = max=a[mid]
+      sum = max = a[mid]
       for i=mid-1 down to left
         sum += a[i]
         if sum >= max

@@ -1,0 +1,28 @@
+---
+layout: page
+title: <img src="/public/img/courses/docker.jpeg"></i>
+titlename: docker
+scrolltop: true
+---
+  <h1>docker系列教程</h1>
+  <p class="bg-warning">
+  Docker是16年最为火爆的开源技术之一，它是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化。
+  </p>
+  <p class="bg-warning">
+  是运维、架构人员和技术爱好者必须了解的技术/工具。
+  </p>
+  
+  <ul class="lesson-list list-unstyled">
+{% for post in site.categories["docker"]  reversed%}
+    <li>
+      <dl>
+        <dt>
+          <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+        </dt>
+        <dd>
+          <a class="pjaxlink" href="{{ post.url }}">{{ post.description }}</a>
+        </dd>
+      </dl>
+    </li>
+{% endfor %}
+  </ul>
