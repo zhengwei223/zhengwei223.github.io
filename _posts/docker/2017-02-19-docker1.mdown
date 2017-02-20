@@ -1,7 +1,7 @@
 ---
 layout: post
 title: docker概念、安装与基本使用
-category: docker
+category: docker虚拟化技术
 tags: docker 虚拟机 运维
 keywords: 蓝桥 lanqiao 教程 docker 虚拟机 运维 
 description: 本章主要介绍docker的基本概念，安装过程及基本命令。
