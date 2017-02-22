@@ -10,3 +10,4 @@ public/less/
 src
 dist
 /.project
+._*.md
