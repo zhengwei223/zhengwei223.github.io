@@ -147,7 +147,6 @@ zhengwei/ubuntu  14.04               ef3ecf68e1e2        6 weeks ago         261
 - docker run - 运行一个容器
 - -t - 分配一个（伪）tty (link is external)
 - -i - 交互模式 (so we can interact with it)
-- -d 指使用Dockerbridge(桥接)方式的网络,如果没有加默认的也是桥接网络. 
 - ubuntu:14.04 - 使用 ubuntu 基础镜像 14.04
 - /bin/bash - 运行命令 bash shell
 
@@ -222,6 +221,9 @@ Dockerfile 基本的语法是
 可以看到 build 进程在执行操作。它要做的第一件事情就是上传这个 Dockerfile 内容，因为所有的操作都要依据 Dockerfile 来进行。 然后，Dockfile 中的指令被一条一条的执行。每一步都创建了一个新的容器，在容器中执行指令并提交修改（就跟之前介绍过的 docker commit 一样）。当所有的指令都执行完毕之后，返回了最终的镜像 id。所有的中间步骤所产生的容器都被删除和清理了。
 
 此外，还可以利用`ADD`命令复制本地文件到镜像；用`EXPOSE`命令来向外部开放端口；用`CMD`命令来描述容器启动后立即运行的程序等。
+
+	CMD ["sh","-c","service ssh start; bash"]
+
 
 **注意一个镜像不能超过 127 层**
 
