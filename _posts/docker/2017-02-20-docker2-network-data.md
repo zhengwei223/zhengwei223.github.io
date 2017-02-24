@@ -8,7 +8,7 @@ description: 本介绍Docker网络原理和设置以及访问主机文件。
 author: 郑未
 ---
 
-# 基础知识
+# 网络基础知识
 
 ## 网络命名空间：
 
@@ -95,3 +95,33 @@ Bridge模式可以解决同主机内容器的通信，同时可以看到几个�
 
 在这种模式下，Docker容器拥有自己的Network Namespace，但是，并不为Docker容器进行任何网络配置。也就是说，这个Docker容器没有网卡、IP、路由等信息。需要我们自己为Docker容器添加网卡、配置IP等。
 
+
+# 文件共享
+
+## Docker容器和主机如何互相拷贝传输文件
+
+1.docker cp命令
+	
+	docker cp --help
+
+2.docker run 创建容器的时候，就需要指定挂载的目录
+
+	docker run --help
+
+这样你在系统中就可以看到然后外挂在里的目录了，直接copy就可以了。 
+
+3.找到容器文件在主机上的路径
+
+A. 获取容器名称或者id :
+
+	$ docker ps
+
+B. 获取整个容器的id，其实键盘tag就可以补全的。 
+
+	$ docker inspect -f  ’两个左大括号.Id两个右大括号’  <步骤A获取的名称或者id>
+
+得到一个更长的id
+
+C. **不推荐** 在主机上拷贝文件到docker里面:
+
+	$ sudo cp path-file-host /var/lib/docker/devicemapper/mnt/<<容器的id>>/rootfs/root
