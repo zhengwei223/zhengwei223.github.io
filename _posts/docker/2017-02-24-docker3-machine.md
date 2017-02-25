@@ -73,6 +73,14 @@ Docker Machine是一个供应和管理Docker化主机的工具。（换句话说
 
 下面你就可以像使用linux那样开始了，因为这个虚拟机上已经有docker 引擎，所以一般来说我们先pull一个镜像下来玩玩。
 
+### 虚拟机的启动和停止
+
+    docker-machine stop vm
+    docker-machine start vm
+    docker-machine ssh vm
+
+更多命令选项可以通过`docker-machine --help`来查看，比较常用的是往虚拟机里面拷贝文件`docker-machine scp...`
+
 ### 多虚拟机
 
 为了完全模拟集群，在资源允许的情况下，你可以创建多几个虚拟机，取不同的名字，它们自动在同一个网络里面。

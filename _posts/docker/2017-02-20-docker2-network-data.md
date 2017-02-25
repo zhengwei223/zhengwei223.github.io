@@ -3,7 +3,7 @@ layout: post
 title: docker容器的网络及数据卷
 category: docker虚拟化技术
 tags: docker 虚拟机 运维
-keywords: 蓝桥 lanqiao 教程 docker 虚拟机 运维 
+keywords: 蓝桥 lanqiao 教程 docker 虚拟机 运维
 description: 本介绍Docker网络原理和设置以及访问主机文件。
 author: 郑未
 ---
@@ -53,7 +53,7 @@ Docker容器处在自己的网络命名空间中，容器之间怎么互通呢�
 
 然后按Ctrl+C，进入交互界面，输入`ifconfig`得到如下主要信息：
 
-	eth0 Link encap:Ethernet  HWaddr 02:42:ac:11:00:02  
+	eth0 Link encap:Ethernet  HWaddr 02:42:ac:11:00:02
     inet addr:172.17.0.2  Bcast:0.0.0.0  Mask:255.255.0.0
 
 master的ip地址为`172.17.0.2`，类似操作可以得到slave1和slave2的ip分别是`172.17.0.3`和`172.17.0.4`
@@ -101,14 +101,16 @@ Bridge模式可以解决同主机内容器的通信，同时可以看到几个�
 ## Docker容器和主机如何互相拷贝传输文件
 
 1.docker cp命令
-	
+
 	docker cp --help
 
 2.docker run 创建容器的时候，就需要指定挂载的目录
 
 	docker run --help
 
-这样你在系统中就可以看到然后外挂在里的目录了，直接copy就可以了。 
+了解-v选项的使用。
+
+这样你在系统中就可以看到然后外挂在里的目录了，直接copy就可以了。
 
 3.找到容器文件在主机上的路径
 
@@ -116,7 +118,7 @@ A. 获取容器名称或者id :
 
 	$ docker ps
 
-B. 获取整个容器的id，其实键盘tag就可以补全的。 
+B. 获取整个容器的id，其实键盘tag就可以补全的。
 
 	$ docker inspect -f  ’两个左大括号.Id两个右大括号’  <步骤A获取的名称或者id>
 
