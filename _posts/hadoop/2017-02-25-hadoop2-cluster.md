@@ -46,6 +46,10 @@ Linux 中查看节点 IP 地址的命令为 ifconfig，即inet 地址（注意�
 
 我们在 /etc/hosts 中将该映射关系填写上去即可。
 
+**一般该文件中只有一个 127.0.0.1，其对应名为 localhost，如果有多余的应删除，特别是不能有 “127.0.0.1 Master” 这样的记录**
+
+出现连接错误，请参考：[hadoop环境报failed on connection exception](http://blog.csdn.net/wqetfg/article/details/50715541)
+
 修改完成后需要重启一下，重启后在终端中才会看到机器名的变化。接下来的教程中请注意区分 Master 节点与 Slave 节点的操作。
 
 > 需要在所有节点上完成网络配置
@@ -72,11 +76,11 @@ Linux 中查看节点 IP 地址的命令为 ifconfig，即inet 地址（注意�
 
 	cat ./id_rsa.pub >> ./authorized_keys
 
-完成后可执行 ssh Master 验证一下（可能需要输入 yes，成功后执行 exit 返回原来的终端）。接着在 Master 节点将上公匙传输到 Slave1 节点：
+完成后可执行 `ssh Master` 验证一下（可能需要输入 yes，成功后执行 exit 返回原来的终端）。接着**在 Master 节点将上公匙传输到 Slave1 节点**：
 
 	scp ~/.ssh/id_rsa.pub hadoop@Slave1:/home/hadoop/
 
-scp 是 secure copy 的简写，用于在 Linux 下进行远程拷贝文件，类似于 cp 命令，不过 cp 只能在本机中拷贝。执行 scp 时会要求输入 Slave1 上 hadoop 用户的密码(hadoop)，输入完成后会提示传输完毕
+scp 是 `secure copy` 的简写，用于在 Linux 下进行远程拷贝文件，类似于 cp 命令，不过 cp 只能在本机中拷贝。执行 scp 时会要求输入 Slave1 上 hadoop 用户的密码(hadoop)，输入完成后会提示传输完毕
 
 接着在 Slave1 节点上，将 ssh 公匙加入授权：
 
@@ -84,13 +88,13 @@ scp 是 secure copy 的简写，用于在 Linux 下进行远程拷贝文件，�
 	cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
 	rm ~/id_rsa.pub    # 用完就可以删掉了
 
-如果有其他 Slave 节点，也要执行将 Master 公匙传输到 Slave 节点、在 Slave 节点上加入授权这两步。
+如果有其他 Slave 节点，也要执行**将 Master 公匙传输到 Slave 节点、在 Slave 节点上加入授权这两步。**
 
 这样，在 Master 节点上就可以无密码 SSH 到各个 Slave 节点了，可在 Master 节点上执行如下命令进行检验
 
 # 配置集群/分布式环境 #
 
-集群/分布式模式需要修改 /usr/local/hadoop/etc/hadoop 中的5个配置文件，更多设置项可点击查看官方说明，这里仅设置了正常启动所必须的设置项： slaves、core-site.xml、hdfs-site.xml、mapred-site.xml、yarn-site.xml 。
+集群/分布式模式需要修改 /usr/local/hadoop/etc/hadoop 中的**5个配置文件**，更多设置项可点击查看官方说明，这里仅设置了正常启动所必须的设置项： `slaves`、`core-site.xml`、`hdfs-site.xml`、`mapred-site.xml`、`yarn-site.xml` 。
 
 1, 文件 slaves，将作为 DataNode 的主机名写入该文件，每行一个，默认为 localhost，所以在伪分布式配置时，节点即作为 NameNode 也作为 DataNode。分布式配置可以保留 localhost，也可以删掉，让 Master 节点仅作为 NameNode 使用。
 
@@ -161,7 +165,7 @@ scp 是 secure copy 的简写，用于在 Linux 下进行远程拷贝文件，�
         </property>
 	</configuration>
 
-配置好后，将 Master 上的 /usr/local/Hadoop 文件夹复制到各个节点上。因为之前有跑过伪分布式模式，建议在切换到集群模式前先删除之前的临时文件。在 Master 节点上执行：
+配置好后，**将 Master 上的 /usr/local/Hadoop 文件夹复制到各个节点上**。因为之前有跑过伪分布式模式，建议在切换到集群模式前先删除之前的临时文件。在 Master 节点上执行：
 
 	cd /usr/local
 	sudo rm -r ./hadoop/tmp     # 删除 Hadoop 临时文件
@@ -176,7 +180,7 @@ scp 是 secure copy 的简写，用于在 Linux 下进行远程拷贝文件，�
 	sudo tar -zxf ~/hadoop.master.tar.gz -C /usr/local
 	sudo chown -R hadoop /usr/local/hadoop
 
-同样，如果有其他 Slave 节点，也要执行将 hadoop.master.tar.gz 传输到 Slave 节点、在 Slave 节点解压文件的操作。
+同样，如果有其他 Slave 节点，**也要执行将 hadoop.master.tar.gz 传输到 Slave 节点、在 Slave 节点解压文件的操作**。
 
 首次启动需要先在 Master 节点执行 NameNode 的格式化：
 
@@ -185,17 +189,17 @@ scp 是 secure copy 的简写，用于在 Linux 下进行远程拷贝文件，�
 
 > CentOS系统需要关闭防火墙
 
-CentOS系统默认开启了防火墙，在开启 Hadoop 集群之前，需要关闭集群中每个节点的防火墙。有防火墙会导致 ping 得通但 telnet 端口不通，从而导致 DataNode 启动了，但 Live datanodes 为 0 的情况。
-
-在 CentOS 6.x 中，可以通过如下命令关闭防火墙：
-
-	sudo service iptables stop   # 关闭防火墙服务
-	sudo chkconfig iptables off  # 禁止防火墙开机自启，就不用手动关闭了
-
-若用是 CentOS 7，需通过如下命令关闭（防火墙服务改成了 firewall）：
-
-	systemctl stop firewalld.service    # 关闭firewall
-	systemctl disable firewalld.service # 禁止firewall开机启动
+> CentOS系统默认开启了防火墙，在开启 Hadoop 集群之前，需要关闭集群中每个节点的防火墙。有防火墙会导致 ping 得通但 telnet 端口不通，从而导致 DataNode 启动了，但 Live datanodes 为 0 的情况。
+> 
+> 在 CentOS 6.x 中，可以通过如下命令关闭防火墙：
+> 
+> 	sudo service iptables stop   # 关闭防火墙服务
+> 	sudo chkconfig iptables off  # 禁止防火墙开机自启，就不用手动关闭了
+> 
+> 若用是 CentOS 7，需通过如下命令关闭（防火墙服务改成了 firewall）：
+> 
+> 	systemctl stop firewalld.service    # 关闭firewall
+> 	systemctl disable firewalld.service # 禁止firewall开机启动
 
 
 接着可以启动 hadoop 了，启动需要在 Master 节点上进行：
@@ -204,10 +208,10 @@ CentOS系统默认开启了防火墙，在开启 Hadoop 集群之前，需要关
 	start-yarn.sh
 	mr-jobhistory-daemon.sh start historyserver
 
-通过命令 jps 可以查看各个节点所启动的进程。正确的话，在 Master 节点上可以看到 NameNode、ResourceManager、SecondrryNameNode、JobHistoryServer 进程;
+通过命令 jps 可以查看各个节点所启动的进程。正确的话，在 Master 节点上可以看到 **NameNode、ResourceManager、SecondrryNameNode、JobHistoryServer** 进程;
 在 Slave 节点可以看到 DataNode 和 NodeManager 进程.
 
-缺少任一进程都表示出错。另外还需要在 Master 节点上通过命令 hdfs dfsadmin -report 查看 DataNode 是否正常启动，Live datanodes  的数量应该等于活跃节点的数量 ，则说明集群启动成功。
+缺少任一进程都表示出错。另外还可以在 Master 节点上通过命令 `hdfs dfsadmin -report` 查看 DataNode 是否正常启动，Live datanodes  的数量应该等于活跃节点的数量 ，则说明集群启动成功。
 
 # 执行分布式实例
 
