@@ -139,7 +139,7 @@ java实现代码：
 
 # 有相同元素值的快速排序——三分法
 
-![Alt text](/public/img/algorithm/partition1.jpg)
+![Alt text](/public/img/algorithm/partition3.jpg)
 
 为了应对相同元素的重复比较，在一遍单向扫描的基础上稍加改进，就变成了三路划分法：
 
@@ -192,3 +192,4 @@ java实现代码：
 
 # partition的别用——寻找第K大的数
 
+思考题，请读者自行解决！
