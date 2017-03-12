@@ -36,7 +36,7 @@ author: 郑未
 
 ![Alt text](/public/img/algorithm/partition1.jpg)
 
-一遍扫描法的思路是，用两个指针将数组划分为三个区间，扫描指针左边是确认小于主元的，扫描指针到某个指针中间为未知的，因此我们将第二个指针成为未知区间末指针，末指针的右边区间为确认大于主元的元素，伪代码如下
+一遍扫描法的思路是，用两个指针将数组划分为三个区间，扫描指针左边是确认小于主元的，扫描指针到某个指针中间为未知的，因此我们将第二个指针称为未知区间末指针，末指针的右边区间为确认大于主元的元素，伪代码如下
 
     partition(A,p,r)
       pivot = A[p]
@@ -162,8 +162,7 @@ java实现代码：
         else
           scan_pos++
 
-      swap(A,next_bigger_pos,p)  //主元定位
-      return next_bigger_pos
+      return {next_less_pos,next_bigger_pos}
 
 实现代码：
 
@@ -190,6 +189,8 @@ java实现代码：
 	}
 
 
-# partition的别用——寻找第K大的数
+# partition的别用——寻找集合中从小到大第K个数（第k小的数）
 
-思考题，请读者自行解决！
+此问题的学名叫做：求第k个顺序统计量——集合中第k小的数。
+
+这是一个专题，请参考[这篇教程](/数据结构与算法/OrderStatistic)。
