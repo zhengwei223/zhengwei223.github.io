@@ -1,6 +1,6 @@
 ---
 layout: post
-title: java实现链表简单示例
+title: 寻找数组中只出现一次的三个数
 category: ref
 tags: 进阶 数据结构与算法
 keywords: 蓝桥 lanqiao 教程 数据结构 算法
