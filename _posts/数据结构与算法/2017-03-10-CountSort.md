@@ -145,7 +145,6 @@ author: 郑未
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public class RadixSort {
-    	// 10个桶，每个桶装的数个数不定，适合用数组加
     	// 10个桶，每个桶装的数个数不定，适合用数组加ArrayList
     	private static ArrayList[] bucket = new ArrayList[10];
     	// 初始化桶

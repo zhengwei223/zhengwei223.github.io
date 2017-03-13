@@ -209,7 +209,7 @@ scp 是 `secure copy` 的简写，用于在 Linux 下进行远程拷贝文件，
 	mr-jobhistory-daemon.sh start historyserver
 
 通过命令 jps 可以查看各个节点所启动的进程。正确的话，在 Master 节点上可以看到 **NameNode、ResourceManager、SecondrryNameNode、JobHistoryServer** 进程;
-在 Slave 节点可以看到 DataNode 和 NodeManager 进程.
+在 Slave 节点可以看到 **DataNode** 和 **NodeManager** 进程.
 
 缺少任一进程都表示出错。另外还可以在 Master 节点上通过命令 `hdfs dfsadmin -report` 查看 DataNode 是否正常启动，Live datanodes  的数量应该等于活跃节点的数量 ，则说明集群启动成功。
 
@@ -217,11 +217,10 @@ scp 是 `secure copy` 的简写，用于在 Linux 下进行远程拷贝文件，
 
 执行分布式实例过程与伪分布式模式一样，首先创建 HDFS 上的用户目录：
 
-	hdfs dfs -mkdir -p /user/hadoop
+	hdfs dfs -mkdir -p input
 
 将 /usr/local/hadoop/etc/hadoop 中的配置文件作为输入文件复制到分布式文件系统中：
 
-	hdfs dfs -mkdir input
 	hdfs dfs -put /usr/local/hadoop/etc/hadoop/*.xml input
 
 通过查看 DataNode 的状态（占用大小有改变），输入文件确实复制到了 DataNode 中
@@ -240,6 +239,6 @@ scp 是 `secure copy` 的简写，用于在 Linux 下进行远程拷贝文件，
 	stop-dfs.sh
 	mr-jobhistory-daemon.sh stop historyserver
 
-此外，同伪分布式一样，也可以不启动 YARN，但要记得改掉 mapred-site.xml 的文件名。
+此外，同伪分布式一样，也可以不启动 YARN，但要记得改掉 mapred-site.xml 的文件名，这样就回到用默认MapReduce框架来执行计算了。
 
 自此，你就掌握了 Hadoop 的集群搭建与基本使用了。
