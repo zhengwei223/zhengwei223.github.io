@@ -149,65 +149,65 @@ RANDOMIZED_SELECT通过对输入数组的递归划分来找出所求元素，该
 SELECT算法通过中位数进行划分，可以保证每次划分是对称的，这样就能保证最坏情况下运行时间为θ(n)。
 
 
-    //	指定主元的情况下，原交换方式要变化一下
-  	public static int partition(int[] arr, int p, int r,int pivot) {
-  		Util.swap(arr, r, Util.indexOf(arr, pivot));
-  		while (p < r) {
-  			while (p < r && arr[p] <= pivot)
-  				p++;
-  			arr[r] = arr[p];
-  
-  			while (p < r && arr[r] >= pivot)
-  				r--;
-  			arr[p] = arr[r];
-  		}
-  		arr[r] = pivot;
-  		return r;
-  	}
-  	/**
-  	 * 最差O(n)
-  	 * 
-  	 * @param arr
-  	 *          数组
-  	 * @param p
-  	 *          开始下标
-  	 * @param r
-  	 *          结束小标
-  	 * @param i
-  	 *          求第i小元素
-  	 * @return
-  	 */
-  	public static int select(int[] arr, int p, int r, int i) {
-  		int pivot = getMedian(arr, p, r);
-  		int q = partition(arr, p, r,pivot);
-  		int k = q - p + 1; // q是下标，k才是其顺序统计位置
-  		if (k == i) {
-  			return arr[q];
-  		} else if (k > i) {
-  			return select(arr, p, q - 1, i);
-  		} else {
-  			return select(arr, q + 1, r, i - k); // 注意最后一个参数为顺序统计位置
-  		}
-  	}
-  	// 获取中位数
-  	public static int getMedian(int[] arr, int p, int r){
-  		int size = r-p+1;// 数组长度
-  		int groupSize = (size % 5 == 0) ? (size / 5) : (size / 5 + 1);
-  		int medians[] = new int[groupSize];
-  		int indexOfMedians = 0;
-  		for (int j = 0; j < groupSize; j++) {
-  			if (j==groupSize-1) {
-  				InsertionSort.sort(arr, p+j*5, r); // 排序最后一组
-  				medians[indexOfMedians++] = arr[(p+j*5+r)/2]; // 最后一组的中间那个
-  			}else {
-  				InsertionSort.sort(arr, p+j*5, p+j*5+4);  // 排序非最后一组的某个组
-  				medians[indexOfMedians++] = arr[p+j*5+2];  // 当前组（排序后）的中间那个
-  			}		
-  		}
-  		// 对medians排序
-  		InsertionSort.sort(medians, 0, medians.length-1);
-  		return medians[medians.length/2];
-  	}
+	//	指定主元的情况下，原交换方式要变化一下
+	public static int partition(int[] arr, int p, int r,int pivot) {
+		Util.swap(arr, r, Util.indexOf(arr, pivot));
+		while (p < r) {
+			while (p < r && arr[p] <= pivot)
+				p++;
+			arr[r] = arr[p];
+
+			while (p < r && arr[r] >= pivot)
+				r--;
+			arr[p] = arr[r];
+		}
+		arr[r] = pivot;
+		return r;
+	}
+	/**
+	 * 最差O(n)
+	 * 
+	 * @param arr
+	 *          数组
+	 * @param p
+	 *          开始下标
+	 * @param r
+	 *          结束小标
+	 * @param i
+	 *          求第i小元素
+	 * @return
+	 */
+	public static int select(int[] arr, int p, int r, int i) {
+		int pivot = getMedian(arr, p, r);
+		int q = partition(arr, p, r,pivot);
+		int k = q - p + 1; // q是下标，k才是其顺序统计位置
+		if (k == i) {
+			return arr[q];
+		} else if (k > i) {
+			return select(arr, p, q - 1, i);
+		} else {
+			return select(arr, q + 1, r, i - k); // 注意最后一个参数为顺序统计位置
+		}
+	}
+	// 获取中位数
+	public static int getMedian(int[] arr, int p, int r){
+		int size = r-p+1;// 数组长度
+		int groupSize = (size % 5 == 0) ? (size / 5) : (size / 5 + 1);
+		int medians[] = new int[groupSize];
+		int indexOfMedians = 0;
+		for (int j = 0; j < groupSize; j++) {
+			if (j==groupSize-1) {
+				InsertionSort.sort(arr, p+j*5, r); // 排序最后一组
+				medians[indexOfMedians++] = arr[(p+j*5+r)/2]; // 最后一组的中间那个
+			}else {
+				InsertionSort.sort(arr, p+j*5, p+j*5+4);  // 排序非最后一组的某个组
+				medians[indexOfMedians++] = arr[p+j*5+2];  // 当前组（排序后）的中间那个
+			}		
+		}
+		// 对medians排序
+		InsertionSort.sort(medians, 0, medians.length-1);
+		return medians[medians.length/2];
+	}
 
 测试用例：
 
