@@ -76,16 +76,19 @@ author: 郑未
 由于要求该子数组必须跨越中点（含中点，并连续），这样的限定使问题的求解比较简单：
 
     FindMaxCrossingSubArray(a[0...n-1],left,right,mid)
-      sum = max = a[mid]
-      for i=mid-1 down to left
+      left_sum = sum = 0
+      for i=mid down to left
         sum += a[i]
-        if sum >= max
-          max = sum
-      for j=mid+1 down to right
+        if sum >= left_sum
+          left_sum = sum
+      right_sum = sum = 0
+      for j=mid+1  to right
         sum += a[j]
-        if sum >= max
-          max = sum
-      return max
+        if sum >= right_sum
+          right_sum = sum
+      return left_sum+right_sum
+
+这个函数是线性的。
 
 5. 性能方面，层数自然是lgn，每层求跨越中点的最大子数组消耗为cn(因为线性地扫描每个元素一次)，而三个数的比对是常量时间消耗，因此算法整体时间复杂度为Θ(nlgn)。
 
