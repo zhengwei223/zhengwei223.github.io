@@ -191,6 +191,82 @@ author: 郑未
 
 链表是最基本的数据结构，凡是学计算机的必须的掌握的，在面试的时候经常被问到。可以到这里看看[我的代码](/ref/LinkedList-impl)
 
+## 队列 ##
+
+有了基于数组和链表的实现，再来实现队列就很简单了：
+
+    public class QueueImpl extends LinkedList implements IQueue {
+    
+    	@Override
+    	public void enqueue(Object e) {
+    		super.add(e);
+    	}
+    
+    	@Override
+    	public Object dequeue() {
+    		Object firstElement = super.get(0);
+    		super.delete(0);
+    		return firstElement;
+    	}
+    
+    }
+
+测试用例：
+
+    import static org.assertj.core.api.Assertions.*;
+    import org.junit.Test;
+    public class QueueImplTest {
+    	@Test
+    	public void testEnqueue() {
+    		IQueue queue = new QueueImpl();
+    		queue.enqueue(1);
+    		queue.enqueue(2);
+    		queue.enqueue(3);
+    		assertThat(queue.dequeue()).isEqualTo(1);
+    		assertThat(queue.dequeue()).isEqualTo(2);
+    		assertThat(queue.dequeue()).isEqualTo(3);
+    	}
+    }
+
+## 栈 ##
+
+同样，栈可以继承`LinkedList`:
+
+    public class StackImpl extends LinkedList implements IStack {
+    
+    	@Override
+    	public void push(Object e) {
+    		super.add(e);
+    	}
+    
+    	@Override
+    	public Object pop() {
+    		int index = super.size()-1;
+    		Object lastElement = get(index);
+    		super.delete(index);
+    		return lastElement;
+    	}
+    
+    }
+
+测试用例：
+
+    import static org.assertj.core.api.Assertions.*;
+    import org.junit.Test;
+    public class StackImplTest {
+    
+    	@Test
+    	public void testPush() {
+    		IStack stack = new StackImpl();
+    		stack.push("e1");
+    		stack.push("e2");
+    		stack.push("e3");
+    		assertThat(stack.pop()).isEqualTo("e3");
+    		assertThat(stack.pop()).isEqualTo("e2");
+    		assertThat(stack.pop()).isEqualTo("e1");
+    		assertThat(stack.size()).isEqualTo(0);
+    	}
+    }
 
 
 
