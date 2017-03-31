@@ -267,7 +267,7 @@ js直接调用collapse插件：
       this.previousTop = currentTop;
     }
 
-`plugin-navbar-slide.js`的完整代码请查看[plugin-navbar-slide.js](https://coding.net/u/lanqiao/p/bootstrapDemo/git/tree/master/blog/plugin-navbar-slide.js)。
+`plugin-navbar-slide.js`的完整代码请查看[plugin-navbar-slide.js](https://coding.net/u/lanqiao/p/bootstrapDemo/git/blob/master/blog/plugin-navbar-slide.js)。
 
 现在我们看看在[post.html](https://coding.net/u/lanqiao/p/bootstrapDemo/git/tree/master/blog/post.html)如何使用这个插件：
 
