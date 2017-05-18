@@ -81,7 +81,7 @@ java实现代码：
 
     Partition(A,p,r)
       pivot = A[p] //设中心点为第一个元素
-      
+
       while(p<r)
         while(p<r && arr[r]>=pivot) r--; // 从右侧寻找更小的
         arr[p] = arr[r]  // r是大元素，往左侧交换
@@ -131,6 +131,8 @@ java实现代码：
 
     i = RANDOM(p,r)
     exchange A[p] with A[i]  // 将随机抽取的主元放到首位
+
+
 
 
 # 对于规模的优化
