@@ -34,7 +34,7 @@ author: 郑未
 
     Partition(A,p,r)
       pivot = A[p] //设中心点为第一个元素
-      
+
       while(p<r)
         while(p<r && arr[r]>=pivot) r--; // 从右侧寻找更小的
         arr[p] = arr[r]  // 小的往左侧已确认部分的边界上调
@@ -69,6 +69,8 @@ author: 郑未
     exchange A[p] with A[i]  // 将随机抽取的主元放到首位
 
 #三数取中划分
+
+
 
 # 对于规模的优化
 
