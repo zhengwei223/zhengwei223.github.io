@@ -11,10 +11,11 @@ author: 郑未
 # ubuntu+java环境
 
 ## 添加hadoop用户
+
 	sudo useradd -m hadoop -s /bin/bash    # 添加系统账号
 	sudo passwd hadoop                     # 设置密码
 	sudo adduser hadoop sudo               # 给hadoop用户授管理权
-	su - hadoop							     # 用 hadoop 用户登录
+	su - hadoop							               # 用 hadoop 用户登录
 	sudo apt-get update                    # 更新apt-get
 	sudo apt-get install vim               # 安装vim
 
@@ -71,6 +72,7 @@ author: 郑未
 在文件最前面添加如下单独一行（注意 = 号前后不能有空格），将“HADOOP安装路径”改为上述路径，并保存：
 
     export HADOOP_HOME=HADOOP安装路径
+    export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 使变量设置生效
 	
@@ -105,7 +107,7 @@ rm -r ./output
 
 # Hadoop伪分布式配置
 
-Hadoop可以在单节点上以伪分布式的方式运行，Hadoop 进程以分离的 Java 进程来运行，节点既作为 NameNode 也作为 DataNode，同时，读取的是 HDFS 中的文件。
+Hadoop可以在单节点上以伪分布式的方式运行，Hadoop进程以分离的Java进程来运行，节点既作为 NameNode也作为DataNode，同时，读取的是 `HDFS` 中的文件。
 
 **无论伪还是不伪，分布式最大特点是：分布式存储和分布式协作，分布式存储我们一定要用到hdfs，因此必须配置相关参数，而且以后程序的数据源和目的地都是hdfs文件系统，我们要上传文件到hdfs，从hdfs下载文件**
 
@@ -136,17 +138,18 @@ Hadoop的配置文件位于 `/usr/local/hadoop/etc/hadoop/` 中，**伪分布式
 
 
 	<configuration>
-        <!-- namenode节点文件存放位置，类型为本地文件:///路径 -->
+      <!-- namenode节点文件存放位置，类型为本地文件:///路径 -->
 	    <property>
 	        <name>dfs.namenode.name.dir</name>
-	        <value>file:///root/hdfs/namenode</value>
+	        <value>file:/usr/local/hadoop/tmp/hdfs/namenode</value>
 	        <description>NameNode directory for namespace and transaction logs storage.</description>
 	    </property>
         <!-- datanode节点文件存放位置，类型为本地文件:///路径 
         这项配置可以仅在datanode上出现-->
 	    <property>
 	        <name>dfs.datanode.data.dir</name>
-	        <value>file:///root/hdfs/datanode</value><!-- datanode文件存放位置 -->
+          <!-- datanode文件存放位置 -->
+          <value>file:/usr/local/hadoop/tmp/hdfs/datanode</value>
 	        <description>DataNode directory</description>
 	    </property>
         <!-- 文件副本数量，伪分布就1 -->
@@ -182,6 +185,19 @@ Hadoop的配置文件位于 `/usr/local/hadoop/etc/hadoop/` 中，**伪分布式
 
 启动完成后，可以通过命令 `jps` 来判断是否成功启动，若成功启动则会列出如下进程: “NameNode”、”DataNode” 和 “SecondaryNameNode”（如果 SecondaryNameNode 没有启动，请运行 `sbin/stop-dfs.sh `关闭进程，然后再次尝试启动尝试）。如果没有 NameNode 或 DataNode ，那就是配置不成功，请仔细检查之前步骤，或通过查看启动日志排查原因。
 
+### 启动 Hadoop 时提示 Could not resolve hostname
+
+如果启动 Hadoop 时遇到输出非常多“ssh: Could not resolve hostname xxx”的异常情况，如下图所示：
+
+
+这个并不是 ssh 的问题，可通过设置 Hadoop 环境变量来解决。
+
+首先按键盘的 ctrl + c 中断启动，然后在 ~/.bashrc 中，增加如下两行内容：
+
+    export HADOOP_HOME=/usr/local/hadoop
+    export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+
+
 ### web界面
 
 成功启动后，可以访问 Web 界面 `http://master地址:50070` 查看 NameNode 和 Datanode 信息，还可以在线查看 HDFS 中的文件。
@@ -190,7 +206,9 @@ Hadoop的配置文件位于 `/usr/local/hadoop/etc/hadoop/` 中，**伪分布式
 
 上面的单机模式，grep 例子读取的是本地数据，**伪分布式读取的则是 HDFS 上的数据**。要使用 HDFS，首先需要在 HDFS 中创建"目录"，hdfs提供了对目录的抽象，但并不是直接在当前系统建立这样一个目录：
 
-	hdfs  dfs -mkdir -p input
+    # 创建hadoop用户目录
+    hdfs dfs -mkdir -p /user/hadoop
+	  hdfs dfs -mkdir  input    # 基于用户目录的相对路径
 
 接着将 `./etc/hadoop` 中的 xml 文件作为输入文件复制到**分布式文件系统中**，即将 `/usr/local/hadoop/etc/hadoop`中的xml复制到分布式文件系统中的 `/input`中。
 
