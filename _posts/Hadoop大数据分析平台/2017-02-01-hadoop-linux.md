@@ -1,24 +1,31 @@
 ---
 layout: post
-title: Hadoop-Linux基础
+title: Linux基础
 category: Hadoop大数据分析平台
 tags: Hadoop 大数据 数据挖掘 机器学习
 keywords: 蓝桥 lanqiao 教程 Hadoop 大数据 数据挖掘 机器学习
-description: 本文简单说明学习hadoop的必备linux基础。
+description: 无论学习大数据还是普通应用的部署,都绕不开linux系统.
 author: 郑未
 ---
 
+无论学习大数据还是普通应用的部署,都绕不开linux系统.
+
 # 主流两大系列
 
-红帽：centos  rpm yum
+红帽系列：centos 其软件(包)管理工具 rpm yum
 
     rpm -qa
     yum install vim
 
-debian：ubuntu dpkg apt-get
+[yum和rpm详解](http://blog.csdn.net/zhaoyue007101/article/details/8485186)
+
+debian系列：ubuntu 其软件(包)管理工具 dpkg apt-get
 
     apt-cache search vim
     apt-get install vim
+
+
+[apt和dpkg 详解](http://blog.csdn.net/baixiaoshi/article/details/43528803)
 
 # shell命令
 
@@ -32,7 +39,7 @@ Linux shell 外壳命令：
 
 Linux文件系统
 
-    cd /
+    /
     etc
     usr
     home
@@ -49,8 +56,11 @@ Linux文件系统
 vi这个编辑器的使用
 
   先活下来，活得好
+
   更好——更熟
+
   更快
+  
   更强
 
   [简明Vim练级攻略](http://kimi.it/487.html)
