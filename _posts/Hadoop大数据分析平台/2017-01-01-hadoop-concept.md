@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Hadoop-大数据-概念手册
-category: Hadoop大数据分析平台
+title: Hadoop概念手册
+category: -Hadoop大数据分析平台
 tags: Hadoop 大数据 数据挖掘 机器学习
 keywords: 蓝桥 lanqiao 教程 Hadoop 大数据 数据挖掘 机器学习
 description: 本教程收集hadoop和大数据的相关概念，汇集成册。
