@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 谷歌PageRank算法简介及Java实现
-category: Hadoop
+category: Hadoop大数据分析平台
 tags: Hadoop 大数据 数据挖掘 机器学习
 keywords: 蓝桥 lanqiao 教程 Hadoop 大数据 数据挖掘 机器学习
 description: PageRank对网页排名的算法，曾是Google发家致富的法宝。以前虽然有实验过，但理解还是不透彻，这几天又看了一下，这里总结一下PageRank算法的基本原理。

@@ -159,7 +159,18 @@
     				</li>
     				{% endif %}
     				{% endfor %}
-    				
+            <li class="dropdown-sub">
+              <a href="javascript:void(0);" >数据科学<i class="fa fa-arrow-circle-right"></i></a>
+              <ul class="dropdown-menu">
+                {% for cate1 in site.cates_data_science %}
+                {% if site.categories[cate1].size > 0 %} 
+                <li>
+                  <a href="/pages/courses/{{ cate1 }}.html">{{ cate1 }} </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </li>    				
     			</ul>
         </li> 
         <li class="dropdown">

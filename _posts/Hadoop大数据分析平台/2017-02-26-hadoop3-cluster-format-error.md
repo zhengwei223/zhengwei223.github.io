@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Hadoop集群多次格式化后datanode启动不了的问题解决
-category: Hadoop
+category: Hadoop大数据分析平台
 tags: Hadoop 大数据 数据挖掘 机器学习
 keywords: 蓝桥 lanqiao 教程 Hadoop 大数据 数据挖掘 机器学习
 description: 多次格式化文件系统后，会出现datanode无法启动，活跃datanode为0的情况，我们来看看怎么解决。

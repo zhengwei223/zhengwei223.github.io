@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Hadoop集群安装
-category: Hadoop
+category: Hadoop大数据分析平台
 tags: Hadoop 大数据 数据挖掘 机器学习
 keywords: 蓝桥 lanqiao 教程 Hadoop 大数据 数据挖掘 机器学习
 description: 本文介绍Hadoop环境搭建和第一个MapReduce程序的运行。
@@ -94,11 +94,11 @@ scp 是 `secure copy` 的简写，用于在 Linux 下进行远程拷贝文件，
 
 # 配置集群/分布式环境 #
 
-集群/分布式模式需要修改 /usr/local/hadoop/etc/hadoop 中的**5个配置文件**，更多设置项可点击查看官方说明，这里仅设置了正常启动所必须的设置项： `slaves`、`core-site.xml`、`hdfs-site.xml`、`mapred-site.xml`、`yarn-site.xml` 。
+集群/分布式模式需要修改 `/usr/local/hadoop/etc/hadoop` 中的**5个配置文件**，更多设置项可点击查看官方说明，这里仅设置了正常启动所必须的设置项： `slaves`、`core-site.xml`、`hdfs-site.xml`、`mapred-site.xml`、`yarn-site.xml` 。
 
 1, 文件 slaves，将作为 DataNode 的主机名写入该文件，每行一个，默认为 localhost，所以在伪分布式配置时，节点即作为 NameNode 也作为 DataNode。分布式配置可以保留 localhost，也可以删掉，让 Master 节点仅作为 NameNode 使用。
 
-本教程让 Master 节点仅作为 NameNode 使用，因此将文件中原来的 localhost 删除，只添加一行内容：Slave1。
+本教程让 Master 节点仅作为 `NameNode` 使用，因此将文件中原来的 `localhost` 删除，只添加一行内容：`Slave1`。
 
 2, 文件 core-site.xml 改为下面的配置：
 
@@ -114,7 +114,7 @@ scp 是 `secure copy` 的简写，用于在 Linux 下进行远程拷贝文件，
         </property>
 	</configuration>
 
-3, 文件 hdfs-site.xml，dfs.replication 一般设为 3，但我们只有一个 Slave 节点，所以 dfs.replication 的值还是设为 1：
+3, 文件 hdfs-site.xml，`dfs.replication` 一般设为 3，但我们只有一个 Slave 节点，所以 dfs.replication 的值还是设为 1：
 
 	<configuration>
         <property>
@@ -165,7 +165,7 @@ scp 是 `secure copy` 的简写，用于在 Linux 下进行远程拷贝文件，
         </property>
 	</configuration>
 
-配置好后，**将 Master 上的 /usr/local/Hadoop 文件夹复制到各个节点上**。因为之前有跑过伪分布式模式，建议在切换到集群模式前先删除之前的临时文件。在 Master 节点上执行：
+配置好后，**将 Master 上的 /usr/local/hadoop 文件夹复制到各个节点上**。因为之前有跑过伪分布式模式，建议在切换到集群模式前先删除之前的临时文件。在 Master 节点上执行：
 
 	cd /usr/local
 	sudo rm -r ./hadoop/tmp     # 删除 Hadoop 临时文件
@@ -211,7 +211,7 @@ scp 是 `secure copy` 的简写，用于在 Linux 下进行远程拷贝文件，
 通过命令 jps 可以查看各个节点所启动的进程。正确的话，在 Master 节点上可以看到 **NameNode、ResourceManager、SecondrryNameNode、JobHistoryServer** 进程;
 在 Slave 节点可以看到 **DataNode** 和 **NodeManager** 进程.
 
-缺少任一进程都表示出错。另外还可以在 Master 节点上通过命令 `hdfs dfsadmin -report` 查看 DataNode 是否正常启动，Live datanodes  的数量应该等于活跃节点的数量 ，则说明集群启动成功。
+缺少任一进程都表示出错。另外还可以在 Master 节点上通过命令 `hdfs dfsadmin -report` 查看 DataNode 是否正常启动，`Live datanodes`  的数量应该等于活跃节点的数量 ，则说明集群启动成功。
 
 # 执行分布式实例
 
@@ -239,6 +239,6 @@ scp 是 `secure copy` 的简写，用于在 Linux 下进行远程拷贝文件，
 	stop-dfs.sh
 	mr-jobhistory-daemon.sh stop historyserver
 
-此外，同伪分布式一样，也可以不启动 YARN，但要记得改掉 mapred-site.xml 的文件名，这样就回到用默认MapReduce框架来执行计算了。
+此外，同伪分布式一样，也可以不启动 YARN，但要记得改掉 `mapred-site.xml` 的**文件名**，这样就回到用默认MapReduce框架来执行计算了。
 
 自此，你就掌握了 Hadoop 的集群搭建与基本使用了。
