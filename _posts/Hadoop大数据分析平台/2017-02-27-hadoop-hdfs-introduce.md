@@ -1,7 +1,7 @@
 ---
 layout: post
 title: HDFS原理解析
-category: Hadoop
+category: Hadoop大数据分析平台
 tags: Hadoop 大数据 数据挖掘 机器学习
 keywords: 蓝桥 lanqiao 教程 Hadoop 大数据 数据挖掘 机器学习
 description: 根据Maneesh Varshney的漫画改编，以简洁易懂的漫画形式讲解HDFS存储机制与运行原理。

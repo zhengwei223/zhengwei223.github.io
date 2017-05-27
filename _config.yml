@@ -96,9 +96,10 @@ cates_project:
 cates_mind:    
     - 设计模式
     - clean code
+cates_data_science:
+    - Hadoop大数据分析平台
 cates_frontiers:
     - docker虚拟化技术
-    - 大数据
     - 物联网
     - 云计算
     - 人工智能
