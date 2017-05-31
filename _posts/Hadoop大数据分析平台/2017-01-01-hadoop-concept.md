@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hadoop概念手册
+title: Hadoop缘起及架构
 category: -Hadoop大数据分析平台
 tags: Hadoop 大数据 数据挖掘 机器学习
 keywords: 蓝桥 lanqiao 教程 Hadoop 大数据 数据挖掘 机器学习
