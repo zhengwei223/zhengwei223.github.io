@@ -11,3 +11,4 @@ src
 dist
 /.project
 ._*.md
+.git-rewrite
