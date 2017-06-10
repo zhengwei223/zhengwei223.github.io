@@ -89,7 +89,7 @@ NameNode在启动时会自动进入安全模式。安全模式是NameNode的一�
 
 ## 4、添加节点
 
-可扩展性是HDFS的一个重要的特性，向HDFS集群中添加节点是很容易实现的。添加一个新的DataNode节点，首先在新加的节点上安装好hadoop，要和NameNode使用相同的配置，修改`HADOOP_HOME/conf/master`文件，加入NameNode主机名。然后在NameNode节点上修改`HADOOP_HOME/conf/slaves`文件，加入新节点主机名。再建立到新节点无密码SSH连接，运行启动命令：
+可扩展性是HDFS的一个重要的特性，向HDFS集群中添加节点是很容易实现的。添加一个新的DataNode节点，首先在新加的节点上安装好hadoop，要和NameNode使用相同的配置，修改`master`文件，加入NameNode主机名。然后在NameNode节点上修改`slaves`文件，加入新节点主机名。再建立到新节点无密码SSH连接（`hosts`文件也要修改），运行启动命令：
 
     $ bin/start-all.sh
 
