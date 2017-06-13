@@ -170,10 +170,10 @@ var app = function($){
   };
   var bindEvents = function(){
     var btmHeight=($('footer').outerHeight(true)
-    +$('.ds-share').outerHeight(true)
-    +$('.ds-thread').outerHeight(true));
+    /*+$('.ds-share').outerHeight(true)
+    +$('.ds-thread').outerHeight(true)*/);
     $('.func-btns-container').css('top',($(window).height()
--btmHeight)+'px');// 定位回到顶部按钮的位置
+-btmHeight-$('.func-btns-container').height())+'px');// 定位回到顶部按钮的位置
     //回到顶部
     $('.scrolltop-btn').on("click", function() {
       //65=h1的上外边距（25）+导航条的高度（40）
