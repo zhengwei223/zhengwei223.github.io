@@ -8,7 +8,7 @@ description: 本文将从实例入手带领大家理解动态规划法。
 author: 郑未
 ---
 
-
+看这个笔记，比价通俗易懂地介绍了动态规划[有道云笔记](http://note.youdao.com/share/?id=08b5648261bf48a77d48ea5e2c0ed89e&type=note#/)
 
 # 经典的01背包问题 #
        
@@ -87,7 +87,7 @@ m(n,v) = max(m(n-1,v-w[n])+p[n] , m(n-1,v))
 
 效率很低，因为我们重复计算了。
 
-![](/public/algorithm/bag.png)
+![](/public/img/algorithm/bag.png)
 
 我们定义前x项分配y重量的xy为一个状态，这个状态对应着一个子问题，这个子问题在递归过程中将会被多次求解。
 
@@ -152,38 +152,40 @@ m(n,v) = max(m(n-1,v-w[n])+p[n] , m(n-1,v))
 
 还有一种递推的写法，供参考：
 
-      /**
-  	 * 递推
-  	 */
-  	private static int dp(int[] w, int[] p, int volumn) {
-  		int length = w.length;
-  		int[][] state = new int[length][volumn + 1]; // state[i][j] = max(i,j)
-  		                                         // 给定容量j，选择范围为第i个到最后一个时的最大价值
-  		for (int i = 1; i <= volumn; i++) {
-  			state[length - 1][i] = i >= w[length - 1] ? p[length - 1] : 0;
-  		}
-  		for (int i = length - 2; i > -1; i--) {
-  			for (int j = 1; j <= volumn; j++) {
-  				if (j < w[i]) {
-  					state[i][j] = state[i + 1][j];
-  				} else {
-  					state[i][j] = Math.max(p[i] + state[i + 1][j - w[i]], state[i + 1][j]);
-  				}
-  			}
-  		}
-  
-  		for (int i = 0; i < state.length; i++) {
-  			for (int j = 1; j < state[i].length; j++) {
-  				System.out.print(state[i][j] + "\t|");
-  			}
-  			System.out.println();
-  		}
-  		return state[0][volumn];
-  	}
+``` java
+ 	/**
+	* 递推
+	*/
+	private static int dp(int[] w, int[] p, int volumn) {
+		int length = w.length;
+		int[][] state = new int[length][volumn + 1]; // state[i][j] = max(i,j)
+		                                         // 给定容量j，选择范围为第i个到最后一个时的最大价值
+		for (int i = 1; i <= volumn; i++) {
+			state[length - 1][i] = i >= w[length - 1] ? p[length - 1] : 0;
+		}
+		for (int i = length - 2; i > -1; i--) {
+			for (int j = 1; j <= volumn; j++) {
+				if (j < w[i]) {
+					state[i][j] = state[i + 1][j];
+				} else {
+					state[i][j] = Math.max(p[i] + state[i + 1][j - w[i]], state[i + 1][j]);
+				}
+			}
+		}
+
+		for (int i = 0; i < state.length; i++) {
+			for (int j = 1; j < state[i].length; j++) {
+				System.out.print(state[i][j] + "\t|");
+			}
+			System.out.println();
+		}
+		return state[0][volumn];
+	}
+```
 
 递推是递归的逆过程，不使用递归，使用迭代。
 
-看不明白的话请参考[http://http://blog.csdn.net/mu399/article/details/7722810](http://http://blog.csdn.net/mu399/article/details/7722810 "动态规划之01背包问题（最易理解的讲解）")
+看不明白的话请参考[http://http://blog.csdn.net/mu399/article/details/7722810](http://blog.csdn.net/mu399/article/details/7722810)
 
 # 总结：
 

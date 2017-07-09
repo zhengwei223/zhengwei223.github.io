@@ -22,6 +22,16 @@ author: 郑未
 
 ![](/public/img/algorithm/binarysearchtree.png)
 
+# 二叉树的重要性质
+
+- 在二叉树的第i层上至多有2^(i-1)个结点（i≥1）
+- 深度为k的二叉树至多有2^k-1个结点（k≥1）
+- 包含n个结点的二叉树的高度至少为log2(n+1)
+- 在完全二叉树中，具有n个节点的完全二叉树的深度为[log2n]+1，其中[log2n]+1是向下取整
+- 对任何一棵二叉树，如果其叶子结点数为n0，度为2的结点数为n2，则n0=n2+1——**叶子节点数=度2节点数+1**
+
+
+
 # 实现
 
     package org.lanqiao.algo.datastructure;

@@ -8,7 +8,7 @@ description: 本文将用Java代码实现算法导论所举的钢条最佳切割
 author: 郑未
 ---
 
-```
+``` java
 package org.lanqiao.algo.dynamic_programming;
 
 import java.time.Instant;

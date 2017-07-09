@@ -53,10 +53,10 @@ private static void xuanze(int x[], int off, int len)
 */
 private static void maopao(int x[], int off, int len)
 {
-   for (int i = off; i < len + off-1; i++){   
-    for (int j = i; j<len+off; j++){
-     if(x[i]>x[j])
-      swap(x, i, j);
+   for (int i = 0; i < len; i++){   
+    for (int j = off; j<off+len-2-i; j++){
+     if(x[j]>x[j+1])
+      swap(x, j, j+1);
     }
    }
 }
@@ -69,6 +69,7 @@ private static void maopao(int x[], int off, int len)
 * 3）一趟完成之后i如果未到最右端，递归右端；j如果未到达最左端，递归左端
 * 此算法可改进，请参详jdk源码。
 */
+
 private static void kuaisu(int x[], int off, int len)
 {
    int m = off + (len >> 1); // 中位下标
