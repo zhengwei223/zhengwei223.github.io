@@ -10,7 +10,7 @@ author: 郑未
 
 # 题目描述
 
-![Alt text](/public/img/algorithm/dpc1-1.png")
+![Alt text](/public/img/algorithm/dpc1-1.png)
 
 在上面的数字三角形中寻找一条从顶部到底边的路径，使得路径上所经过的数字之和最大。路径上的每一步都只能往左下或 右下走。只需要求出这个最大和即可，不必给出具体路径。 
 三角形的行数大于1小于等于100，数字为 0 - 99
@@ -71,7 +71,7 @@ D(r, j)出发，下一步只能走D(r+1,j)或者D(r+1, j+1)
 
 对的，代码运行超时了，为什么会超时呢？答案很简单，因为我们重复计算了，当我们在进行递归时，计算机帮我们计算的过程如下图：
 
-![Alt text](/public/img/algorithm/dpc1-2.png")
+![Alt text](/public/img/algorithm/dpc1-2.png)
 
 # 记忆型递归
 
@@ -89,17 +89,17 @@ D(r, j)出发，下一步只能走D(r+1,j)或者D(r+1, j+1)
 ，让我们一步一步来完成这个过程。
     我们首先需要计算的是最后一行，因此可以把最后一行直接写出，如下图：
 
-![Alt text](/public/img/algorithm/dpc1-3.png")
+![Alt text](/public/img/algorithm/dpc1-3.png)
 
 现在开始分析倒数第二行的每一个数，现分析数字2，2可以和最后一行4相加，也可以和最后一行的5相加，但是很显然和5相加要更大一点，结果为7，我们此时就可以将7保存起来，然后分析数字7，7可以和最后一行的5相加，也可以和最后一行的2相加，很显然和5相加更大，结果为12，因此我们将12保存起来。以此类推。。我们可以得到下面这张图：
 
-![Alt text](/public/img/algorithm/dpc1-4.png")
+![Alt text](/public/img/algorithm/dpc1-4.png)
 
 然后按同样的道理分析倒数第三行和倒数第四行，最后分析第一行，我们可以依次得到如下结果：
 
-![Alt text](/public/img/algorithm/dpc1-5.png")
+![Alt text](/public/img/algorithm/dpc1-5.png)
 
-![Alt text](/public/img/algorithm/dpc1-6.png")
+![Alt text](/public/img/algorithm/dpc1-6.png)
 
 ``` java
   public static int maxSumUsingDp(int[][] triangle, int i, int j) {
@@ -158,7 +158,7 @@ D(r, j)出发，下一步只能走D(r+1,j)或者D(r+1, j+1)
 
 数字三角形的状态转移方程:
 
-![Alt text](/public/img/algorithm/dpc1-7.png")	
+![Alt text](/public/img/algorithm/dpc1-7.png)	
 
 ## 能用动规解决的问题的特点
 
